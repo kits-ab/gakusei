@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gakusei
+    username: gakusei
+    password: gakusei
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+---
+
+# Profile used to override JDBC URL when starting the jar in Dockerfile
+spring:
+  profiles: container
+  datasource:
+    url: jdbc:postgresql://psql:5432/gakusei
