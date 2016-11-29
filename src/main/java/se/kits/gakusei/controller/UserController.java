@@ -15,7 +15,7 @@ import se.kits.gakusei.repository.UserRepository;
  */
 
 @RestController
-@RequestMapping(value = "/api/users")
+@RequestMapping(value = "users")
 public class UserController {
 
     @Autowired
