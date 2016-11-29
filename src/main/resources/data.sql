@@ -1,0 +1,1 @@
+INSERT INTO users (username, password) VALUES ('yoakimu', 'gakusei');
