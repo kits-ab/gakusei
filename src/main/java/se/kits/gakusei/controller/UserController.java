@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import se.kits.gakusei.model.User;
 import se.kits.gakusei.repository.UserRepository;
 
-/**
- * Created by Pär Svedberg on 2016-11-29.
- */
-
 @RestController
 @RequestMapping(value = "users")
 public class UserController {

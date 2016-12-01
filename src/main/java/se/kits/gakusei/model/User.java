@@ -5,10 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 
-/**
- * Created by Pär Svedberg on 2016-11-29.
- */
-
 @Entity
 @Table(name = "users")
 public class User implements Serializable{
