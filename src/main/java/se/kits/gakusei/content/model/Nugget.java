@@ -14,9 +14,6 @@ public class Nugget implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-//    @Column(name = "nuggetid")
-//    private String nuggetid;
-
     @Column(nullable = false)
     private String type;
 
@@ -27,12 +24,6 @@ public class Nugget implements Serializable{
     private List<Fact> facts;
 
     public Nugget(){}
-
-//    public Nugget(String description, String type){
-//        this.description = description;
-//        this.type = type;
-//
-//    }
 
     public String getType() {
         return type;
@@ -65,12 +56,4 @@ public class Nugget implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
-
-//    public String getNuggetid() {
-//        return nuggetid;
-//    }
-//
-//    public void setNuggetid(String nuggetid) {
-//        this.nuggetid = nuggetid;
-//    }
 }

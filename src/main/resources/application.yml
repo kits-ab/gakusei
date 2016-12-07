@@ -12,19 +12,6 @@ spring:
     rest:
       base-path: /api
 
-#gakuseicontent:
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/gakuseicontent
-#    username: gakusei
-#    password: gakusei
-#    driver-class-name: org.postgresql.Driver
-#  jpa:
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: update
-#  data:
-#    rest:
-#      base-path: /api-content
 
 ---
 
