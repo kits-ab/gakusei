@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import se.kits.gakusei.model.User;
-import se.kits.gakusei.repository.UserRepository;
+import se.kits.gakusei.user.model.User;
+import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
 @RequestMapping(value = "users")

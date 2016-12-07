@@ -1,4 +1,4 @@
-package se.kits.gakusei.model;
+package se.kits.gakusei.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,10 +14,14 @@ public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique=true)
     private String username;
 
     @JsonIgnore
     private String password;
+
+    private String role;
 
     public Long getId() {
         return id;
@@ -41,5 +45,13 @@ public class User implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
