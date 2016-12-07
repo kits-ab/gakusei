@@ -12,12 +12,14 @@ public class Nugget implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
 //    @Column(name = "nuggetid")
 //    private String nuggetid;
 
+    @Column(nullable = false)
     private String type;
+
     private String description;
 
     @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
@@ -56,11 +58,11 @@ public class Nugget implements Serializable{
         this.facts = facts;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

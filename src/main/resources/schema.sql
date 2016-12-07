@@ -4,6 +4,9 @@ CREATE TABLE users(id SERIAL PRIMARY KEY, username VARCHAR(32), password VARCHAR
 DROP TABLE IF EXISTS contentschema.facts;
 DROP TABLE IF EXISTS contentschema.nuggets CASCADE;
 
+DROP SCHEMA IF EXISTS contentschema;
+CREATE SCHEMA contentschema;
+
 CREATE TABLE contentschema.nuggets(
 id serial PRIMARY KEY NOT NULL,
 type VARCHAR(32) NOT NULL,
