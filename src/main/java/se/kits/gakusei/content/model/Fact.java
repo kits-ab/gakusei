@@ -26,6 +26,13 @@ public class Fact implements Serializable{
 
     public Fact(){}
 
+    public Fact(String type, String data, String description, Nugget nugget){
+        this.type = type;
+        this.data = data;
+        this.description = description;
+        this.nugget = nugget;
+    }
+
     public String getData() {
         return data;
     }

@@ -25,6 +25,10 @@ public class Nugget implements Serializable{
 
     public Nugget(){}
 
+    public Nugget(String type){
+        this.type = type;
+    }
+
     public String getType() {
         return type;
     }
