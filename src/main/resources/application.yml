@@ -12,6 +12,7 @@ spring:
     rest:
       base-path: /api
 
+
 ---
 
 # Profile used to override JDBC URL when starting the jar in Dockerfile
