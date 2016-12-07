@@ -1,0 +1,359 @@
+[
+  {
+    "english": "grandfather",
+    "katakana": "おじいさん",
+    "kunyomi": "null",
+    "kanji": "null",
+    "type": "noun"
+  },
+  {
+    "english": "grandmother",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "おばあさん",
+    "type": "noun"
+  },
+  {
+    "english": "old man",
+    "katakana": "おじいさん",
+    "kunyomi": "null",
+    "kanji": "null",
+    "type": "noun"
+  },
+  {
+    "english": "father",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "父",
+    "type": "noun"
+  },
+  {
+    "english": "mother",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "母",
+    "type": "noun"
+  },
+  {
+    "english": "older sister",
+    "katakana": "null",
+    "kunyomi": "あね",
+    "kanji": "姉",
+    "type": "noun"
+  },
+  {
+    "english": "older sister 2",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "お姉さん",
+    "type": "noun"
+  },
+  {
+    "english": "younger sister",
+    "katakana": "null",
+    "kunyomi": "いもうと",
+    "kanji": "妹",
+    "type": "noun"
+  },
+  {
+    "english": "older brother",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "お兄さん",
+    "type": "noun"
+  },
+  {
+    "english": "younger brother",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "弟",
+    "type": "noun"
+  },
+  {
+    "english": "man",
+    "katakana": "男の人",
+    "kunyomi": "null",
+    "kanji": "null",
+    "type": "noun"
+  },
+  {
+    "english": "woman",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "女の人",
+    "type": "noun"
+  },
+  {
+    "english": "bright",
+    "katakana": "頭がいい",
+    "kunyomi": "あたまがいい",
+    "kanji": "頭",
+    "type": "adjective"
+  },
+  {
+    "english": "smart",
+    "katakana": "頭がいい",
+    "kunyomi": "あたまがいい",
+    "kanji": "頭",
+    "type": "adjective"
+  },
+  {
+    "english": "clever",
+    "katakana": "頭がいい",
+    "kunyomi": "あたまがいい",
+    "kanji": "頭",
+    "type": "adjective"
+  },
+  {
+    "english": "apartment",
+    "katakana": "アパート",
+    "kunyomi": "null",
+    "kanji": "null",
+    "type": "noun"
+  },
+  {
+    "english": "song",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "歌",
+    "type": "noun"
+  },
+  {
+    "english": "one",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "一",
+    "type": "noun"
+  },
+  {
+    "english": "years old",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "歳",
+    "type": "adjective"
+  },
+  {
+    "english": "to",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "に",
+    "type": "adverb"
+  },
+  {
+    "english": "company",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "会社",
+    "type": "noun"
+  },
+  {
+    "english": "family",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "家族",
+    "type": "noun"
+  },
+  {
+    "english": "hair",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "髪",
+    "type": "noun"
+  },
+  {
+    "english": "siblings",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "兄弟",
+    "type": "noun"
+  },
+  {
+    "english": "mouth",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "口",
+    "type": "noun"
+  },
+  {
+    "english": "country",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "国",
+    "type": "noun"
+  },
+  {
+    "english": "car",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "車",
+    "type": "noun"
+  },
+  {
+    "english": "game",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "ゲーム",
+    "type": "noun"
+  },
+  {
+    "english": "convenience",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "コンビニ",
+    "type": "noun"
+  },
+  {
+    "english": "club activity",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "サ＝クル",
+    "type": "noun"
+  },
+  {
+    "english": "cafeteria",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "食堂",
+    "type": "noun"
+  },
+  {
+    "english": "DVD",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "DVD",
+    "type": "noun"
+  },
+  {
+    "english": "eye",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "目",
+    "type": "noun"
+  },
+  {
+    "english": "glasses",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "眼鏡",
+    "type": "noun"
+  },
+  {
+    "english": "cute",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "かわいい",
+    "type": "adjective"
+  },
+  {
+    "english": "tall",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "背が高い",
+    "type": "adjective"
+  },
+  {
+    "english": "short",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "背が低い",
+    "type": "adjective"
+  },
+  {
+    "english": "short2",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "短い",
+    "type": "adjective"
+  },
+  {
+    "english": "long",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "長い",
+    "type": "adjective"
+  },
+  {
+    "english": "fast",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "速い",
+    "type": "adjective"
+  },
+  {
+    "english": "kind",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "親切",
+    "type": "adjective"
+  },
+  {
+    "english": "convenient",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "便利",
+    "type": "adjective"
+  },
+  {
+    "english": "sing",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "歌う",
+    "type": "verb"
+  },
+  {
+    "english": "put on (hat)",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "かぶる",
+    "type": "verb"
+  },
+  {
+    "english": "put on (below waist)",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "はく",
+    "type": "verb"
+  },
+  {
+    "english": "get to know",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "知る",
+    "type": "verb"
+  },
+  {
+    "english": "i know",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "知っています",
+    "type": "verb"
+  },
+  {
+    "english": "i don't know",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "知りません",
+    "type": "verb"
+  },
+  {
+    "english": "live",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "住む",
+    "type": "verb"
+  },
+  {
+    "english": "gain weight",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "太る",
+    "type": "verb"
+  },
+  {
+    "english": "heavy side",
+    "katakana": "null",
+    "kunyomi": "null",
+    "kanji": "太っています",
+    "type": "verb"
+  }
+]
