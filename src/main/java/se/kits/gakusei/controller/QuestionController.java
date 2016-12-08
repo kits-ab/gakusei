@@ -13,64 +13,55 @@ import se.kits.gakusei.content.model.Question;
 import se.kits.gakusei.content.repository.FactRepository;
 import se.kits.gakusei.content.repository.NuggetRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class QuestionController {
     @Autowired
     private FactRepository factRepo;
 
-    @Autowired
-    private NuggetRepository nuggetRepo;
-
     @RequestMapping(
             value = "/api/question",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    private ResponseEntity<Question> getQuestion(){
+    private ResponseEntity<Question> getQuestion() {
         Question question = new Question();
-        Long id = 3L;
-        Nugget nugget = nuggetRepo.findOne(id);
-        if(nugget != null){
-            question.setNugget(nugget);
-            List<Fact> facts = nugget.getFacts();
-            ArrayList<Fact> alternatives = new ArrayList<>();
-            for(Fact f : facts){
-                if(f.getType().equalsIgnoreCase("english_translation")){
-                    alternatives.add(f);
-                    break;
-                }
-            }
-            alternatives.add(new Fact(
-                "english_translation",
-                    "older sister",
-                    "informal",
-                    new Nugget("noun")
-            ));
-            alternatives.add(new Fact(
-                    "english_translation",
-                    "younger sister",
-                    "informal",
-                    new Nugget("noun")
-            ));
-            alternatives.add(new Fact(
-                    "english_translation",
-                    "grandfather",
-                    "grandfather",
-                    new Nugget("noun")
-            ));
-//            alternatives.add(new Fact(
-//                    "english_translation",
-//                    "clever",
-//                    "Clever",
-//                    new Nugget("noun")
-//            ));
-            question.setAlternatives(alternatives);
-            return new ResponseEntity<Question>(question, HttpStatus.OK);
+        Random random = new Random();
+
+        List<Fact> allFacts = (List) factRepo.findAll();
+        List<Fact> engFacts = allFacts.stream().filter(f -> f.getType()
+                .equalsIgnoreCase("english_translation"))
+                .collect(Collectors.toList());
+
+        //Only get a question which has an english_translation alternative
+        List<Fact> tempQuestion;
+        Fact correctAlternative;
+        do {
+            correctAlternative = engFacts.get(random.nextInt(engFacts.size()));
+            Nugget nugget = correctAlternative.getNugget();
+            tempQuestion = allFacts.stream().filter(f -> f.getType()
+                    .equalsIgnoreCase("kanji") && f.getNugget().equals(nugget))
+                    .collect(Collectors.toList());
+        } while (tempQuestion.isEmpty());
+
+        //Avoid duplicate alternatives
+        List<Fact> alternatives = new ArrayList<>();
+        alternatives.add(correctAlternative);
+        while (alternatives.size() < 5) {
+             Fact tempFact = engFacts.get(random.nextInt(engFacts.size()));
+             if (!alternatives.contains(tempFact)) {
+                 alternatives.add(tempFact);
+             }
         }
 
-        return new ResponseEntity<Question>(question, HttpStatus.NOT_FOUND);
+        question.setQuestion(tempQuestion.get(0).getData());
+        question.setCorrectAlternative(alternatives.get(0).getData());
+        question.setAlternative1(alternatives.get(1).getData());
+        question.setAlternative2(alternatives.get(2).getData());
+        question.setAlternative3(alternatives.get(3).getData());
+
+        return new ResponseEntity<Question>(question, HttpStatus.OK);
     }
 }
