@@ -22,11 +22,7 @@ public class TestDataHolder {
     }
 
     public void setEnglish(String english) {
-        if (english.equalsIgnoreCase("null") || english == null) {
-            this.english = null;
-        } else {
-            this.english = english;
-        }
+        this.english = parseIfStringIsNullValue(english);
     }
 
     public String getKatakana() {
@@ -34,11 +30,7 @@ public class TestDataHolder {
     }
 
     public void setKatakana(String katakana) {
-        if (katakana.equalsIgnoreCase("null") || katakana == null) {
-            this.katakana = null;
-        } else {
-            this.katakana = katakana;
-        }
+        this.katakana = parseIfStringIsNullValue(katakana);
     }
 
     public String getKunyomi() {
@@ -46,11 +38,7 @@ public class TestDataHolder {
     }
 
     public void setKunyomi(String kunyomi) {
-        if (kunyomi.equalsIgnoreCase("null") || kunyomi == null) {
-            this.kunyomi = null;
-        } else {
-            this.kunyomi = kunyomi;
-        }
+        this.kunyomi = parseIfStringIsNullValue(kunyomi);
     }
 
     public String getKanji() {
@@ -58,11 +46,7 @@ public class TestDataHolder {
     }
 
     public void setKanji(String kanji) {
-        if (kanji.equalsIgnoreCase("null") || kanji == null) {
-            this.kanji = null;
-        } else {
-            this.kanji = kanji;
-        }
+        this.kanji = parseIfStringIsNullValue(kanji);
     }
 
     public String getType() {
@@ -70,11 +54,7 @@ public class TestDataHolder {
     }
 
     public void setType(String type) {
-        if (type.equalsIgnoreCase("null") || type == null) {
-            this.type = null;
-        } else {
-            this.type = type;
-        }
+        this.type = parseIfStringIsNullValue(type);
     }
 
     public Nugget createNugget() {
@@ -119,6 +99,14 @@ public class TestDataHolder {
             facts.add(fact);
         }
         return facts;
+    }
+
+    private String parseIfStringIsNullValue(String typeString) {
+        if (typeString.equalsIgnoreCase("null") || typeString == null) {
+            return null;
+        } else {
+            return typeString;
+        }
     }
 
     @Override
