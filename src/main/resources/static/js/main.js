@@ -11,31 +11,37 @@ class AnswerButton extends React.Component {
     render() {
         return <button type="button" onClick={this.onClick.bind(this)}>{this.props.label}</button>
     }
-
 }
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {character: '',
-                      alternatives: []
+        this.state = {question: '',
+                      alternative1: '',
+                      alternative2: '',
+                      alternative3: '',
+                      correctAlternative: ''
                       }
     }
     componentDidMount() {
         fetch('http://localhost:8080/api/question/')
             .then(result => result.json())
-            .then(response => this.setState({character: response.nugget.description,
-                                             alternatives: response.alternatives}));
-
+            .then(response => this.setState({question: response.question,
+                                             alternative1: response.alternative1,
+                                             alternative2: response.alternative2,
+                                             alternative3: response.alternative3,
+                                             correctAlternative: response.correctAlternative
+                                             }));
     }
     render() {
         return (
         <div>
             <h1>Gakusei</h1>
-            <h2>{this.state.character}</h2>
-            {this.state.alternatives.map( alternative =>
-                    <AnswerButton key = {alternative.data} label = {alternative.data}/>
-            )}
+            <h2>{this.state.question}</h2>
+            <AnswerButton label = {this.state.alternative1}/>
+            <AnswerButton label = {this.state.alternative2}/>
+            <AnswerButton label = {this.state.alternative3}/>
+            <AnswerButton label = {this.state.correctAlternative}/>
         </div>
         );
     }
