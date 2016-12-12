@@ -8,14 +8,18 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.FactRepository;
 import se.kits.gakusei.content.repository.NuggetRepository;
+import se.kits.gakusei.user.model.User;
+import se.kits.gakusei.user.repository.UserRepository;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -30,12 +34,18 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private FactRepository factRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
+        createUsers();
         createTestData(readTestDataFromFile());
-//        readTestDataFromFile();
     }
 
     private List<TestDataHolder> readTestDataFromFile() {
@@ -70,5 +80,15 @@ public class DataInit implements ApplicationRunner {
             }
             factRepository.save(facts);
         }
+    }
+
+    private void createUsers() {
+        List<User> users = new ArrayList<>();
+        users.add(new User("pieru", passwordEncoder.encode("gakusei"), "ROLE_USER"));
+        users.add(new User("yoakimu", passwordEncoder.encode("gakusei"), "ROLE_USER"));
+        users.add(new User("pa", passwordEncoder.encode("gakusei"), "ROLE_USER"));
+        users.add(new User("debiddo", passwordEncoder.encode("gakusei"), "ROLE_USER"));
+        users.add(new User("admin", passwordEncoder.encode("gakusei"), "ROLE_ADMIN"));
+        userRepository.save(users);
     }
 }

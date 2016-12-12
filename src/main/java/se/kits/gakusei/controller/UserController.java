@@ -1,9 +1,13 @@
 package se.kits.gakusei.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,18 +15,39 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
-@RequestMapping(value = "users")
 public class UserController {
 
     @Autowired
     private UserRepository ur;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<User> getUser(@PathVariable("id") Long id) {
-        User user = ur.findOne(id);
-        if (user == null) {
-            return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @RequestMapping(
+            value = "/api/users",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        final String userRole = "ROLE_USER";
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(userRole);
+        return new ResponseEntity<User>(ur.save(user), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(
+            value = "/api/users",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<Iterable<User>> getUsers() {
+        Iterable<User> users = ur.findAll();
+        if (users == null) {
+            return new ResponseEntity<Iterable<User>>(HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<User>(ur.findOne(id), HttpStatus.OK);
+        return new ResponseEntity<Iterable<User>>(users, HttpStatus.OK);
     }
 }
