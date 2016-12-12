@@ -17,8 +17,8 @@ import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class DataInit implements ApplicationRunner {
         Resource resource = resourceLoader.getResource("classpath:" + testDataFile);
         logger.info("Loaded resource");
         try {
-            File json = resource.getFile();
+            InputStream json = resource.getInputStream();
             List<TestDataHolder> dataHolders = mapper.readValue(
                     json,
                     mapper.getTypeFactory().constructCollectionType(
