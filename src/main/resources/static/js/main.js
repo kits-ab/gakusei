@@ -22,7 +22,7 @@ class App extends React.Component {
                       }
     }
     componentDidMount() {
-        fetch('http://localhost:8080/api/question/')
+        fetch('http://localhost:8080/api/question/', {credentials: "same-origin"})
             .then(result => result.json())
             .then(response => this.setState({character: response.nugget.description,
                                              alternatives: response.alternatives}));

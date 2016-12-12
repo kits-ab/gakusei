@@ -1,6 +1,6 @@
 package se.kits.gakusei.user.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +11,15 @@ public class User implements Serializable{
 
     private static final long serialVersionUID = 6433155328293181762L;
 
+    public User() {
+    }
+
+    public User(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,9 +27,10 @@ public class User implements Serializable{
     @Column(unique=true)
     private String username;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @Column(name = "userrole")
     private String role;
 
     public Long getId() {

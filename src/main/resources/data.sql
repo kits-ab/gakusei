@@ -1,8 +1,3 @@
-INSERT INTO users (username, password) VALUES ('pieru', 'gakusei'),
-('yoakimu', 'gakusei'),
-('pa', 'gakusei'),
-('debiddo', 'gakusei');
-
 INSERT INTO contentschema.nuggets (type, description) values('noun', '車 (car)'),
 ('adjective', '速い (fast)'),
 ('adjective', '頭がいい (bright, smart, clever)' );
