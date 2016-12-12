@@ -1,0 +1,340 @@
+[
+  {
+    "english": "grandfather",
+    "reading": "おじいさん",
+    "writing": "おじいさん",
+    "type": "noun"
+  },
+  {
+    "english": "grandmother",
+    "reading": "おばあさん",
+    "writing": "おばあさん",
+    "type": "noun"
+  },
+  {
+    "english": "old man",
+    "reading": "おじいさん",
+    "writing": "おじいさん",
+    "type": "noun"
+  },
+  {
+    "english": "father",
+    "reading": "ちち",
+    "writing": "父",
+    "kanji": "父",
+    "type": "noun"
+  },
+  {
+    "english": "mother",
+    "reading": "はは",
+    "writing": "母",
+    "kanji": "母",
+    "type": "noun"
+  },
+  {
+    "english": "older sister",
+    "reading": "あね",
+    "writing": "姉",
+    "kanji": "姉",
+    "type": "noun"
+  },
+  {
+    "english": "older sister",
+    "reading": "あねえさん",
+    "writing": "お姉さん",
+    "kanji": "姉",
+    "type": "noun"
+  },
+  {
+    "english": "younger sister",
+    "reading": "いもうと",
+    "writing": "妹",
+    "kanji": "妹",
+    "type": "noun"
+  },
+  {
+    "english": "older brother",
+    "reading": "おにいさん",
+    "writing": "お兄さん",
+    "kanji": "兄",
+    "type": "noun"
+  },
+  {
+    "english": "younger brother",
+    "reading": "おとうと",
+    "writing": "弟",
+    "kanji": "弟",
+    "type": "noun"
+  },
+  {
+    "english": "man",
+    "reading": "おとこのひと",
+    "writing": "男の人",
+    "kanji": "男人",
+    "type": "noun"
+  },
+  {
+    "english": "woman",
+    "reading": "おんなのひと",
+    "writing": "女の人",
+    "kanji": "女の人",
+    "type": "noun"
+  },
+  {
+    "english": "bright",
+    "reading": "あたまがいい",
+    "writing": "頭がいい",
+    "kanji": "頭",
+    "type": "adjective"
+  },
+  {
+    "english": "smart",
+    "reading": "あたまがいい",
+    "writing": "頭がいい",
+    "kanji": "頭",
+    "type": "adjective"
+  },
+  {
+    "english": "clever",
+    "reading": "あたまがいい",
+    "writing": "頭がいい",
+    "kanji": "頭",
+    "type": "adjective"
+  },
+  {
+    "english": "apartment",
+    "reading": "アパート",
+    "writing": "アパート",
+    "type": "noun"
+  },
+  {
+    "english": "song",
+    "reading": "うた",
+    "writing": "歌",
+    "kanji": "歌",
+    "type": "noun"
+  },
+  {
+    "english": "one",
+    "reading": "いち",
+    "writing": "一",
+    "kanji": "一",
+    "type": "noun"
+  },
+  {
+    "english": "years old",
+    "reading": "さい",
+    "writing": "歳",
+    "kanji": "歳",
+    "type": "adjective"
+  },
+  {
+    "english": "to",
+    "reading": "に",
+    "writing": "に",
+    "type": "adverb"
+  },
+  {
+    "english": "company",
+    "reading": "かいしゃ",
+    "writing": "会社",
+    "kanji": "会社",
+    "type": "noun"
+  },
+  {
+    "english": "family",
+    "reading": "かぞく",
+    "writing": "家族",
+    "kanji": "家族",
+    "type": "noun"
+  },
+  {
+    "english": "hair",
+    "reading": "かみ",
+    "writing": "髪",
+    "kanji": "髪",
+    "type": "noun"
+  },
+  {
+    "english": "mouth",
+    "reading": "くち",
+    "writing": "口",
+    "kanji": "口",
+    "type": "noun"
+  },
+  {
+    "english": "country",
+    "reading": "くに",
+    "writing": "国",
+    "kanji": "国",
+    "type": "noun"
+  },
+  {
+    "english": "car",
+    "reading": "くるま",
+    "writing": "車",
+    "kanji": "車",
+    "type": "noun"
+  },
+  {
+    "english": "game",
+    "reading": "ゲーム",
+    "writing": "ゲーム",
+    "type": "noun"
+  },
+  {
+    "english": "convenience",
+    "reading": "コンビニ",
+    "writing": "コンビニ",
+    "type": "noun"
+  },
+  {
+    "english": "club activity",
+    "reading": "サ＝クル",
+    "writing": "サ＝クル",
+    "type": "noun"
+  },
+  {
+    "english": "cafeteria",
+    "reading": "しょくどう",
+    "writing": "食堂",
+    "kanji": "食堂",
+    "type": "noun"
+  },
+  {
+    "english": "DVD",
+    "reading": "ディーブイディー",
+    "writing": "DVD",
+    "type": "noun"
+  },
+  {
+    "english": "eye",
+    "reading": "め",
+    "writing": "目",
+    "kanji": "目",
+    "type": "noun"
+  },
+  {
+    "english": "glasses",
+    "reading": "めがね",
+    "writing": "眼鏡",
+    "kanji": "眼鏡",
+    "type": "noun"
+  },
+  {
+    "english": "cute",
+    "reading": "かわいい",
+    "writing": "かわいい",
+    "type": "adjective"
+  },
+  {
+    "english": "tall",
+    "reading": "せがたかい",
+    "writing": "背が高い",
+    "kanji": "背高",
+    "type": "adjective"
+  },
+  {
+    "english": "short",
+    "reading": "せがひくい",
+    "writing": "背が低い",
+    "kanji": "背低",
+    "type": "adjective"
+  },
+  {
+    "english": "short",
+    "reading": "みじかい",
+    "writing": "短い",
+    "kanji": "短",
+    "type": "adjective"
+  },
+  {
+    "english": "long",
+    "reading": "ながい",
+    "writing": "長い",
+    "kanji": "長",
+    "type": "adjective"
+  },
+  {
+    "english": "fast",
+    "reading": "はやい",
+    "writing": "速い",
+    "kanji": "速",
+    "type": "adjective"
+  },
+  {
+    "english": "kind",
+    "reading": "しんせつ",
+    "writing": "親切",
+    "kanji": "親切",
+    "type": "adjective"
+  },
+  {
+    "english": "convenient",
+    "reading": "べんり",
+    "writing": "便利",
+    "kanji": "便利",
+    "type": "adjective"
+  },
+  {
+    "english": "sing",
+    "reading": "うたう",
+    "writing": "歌う",
+    "kanji": "歌う",
+    "type": "verb"
+  },
+  {
+    "english": "put on (hat)",
+    "reading": "かぶる",
+    "writing": "かぶる",
+    "type": "verb"
+  },
+  {
+    "english": "put on (below waist)",
+    "reading": "はく",
+    "writing": "はく",
+    "type": "verb"
+  },
+  {
+    "english": "get to know",
+    "reading": "しる",
+    "writing": "知る",
+    "kanji": "知",
+    "type": "verb"
+  },
+  {
+    "english": "i know",
+    "reading": "しっています",
+    "writing": "知っています",
+    "kanji": "知",
+    "type": "verb"
+  },
+  {
+    "english": "i don't know",
+    "reading": "しりません",
+    "writing": "知りません",
+    "kanji": "知",
+    "type": "verb"
+  },
+  {
+    "english": "live",
+    "reading": "すむ",
+    "writing": "住む",
+    "kanji": "住",
+    "type": "verb"
+  },
+  {
+    "english": "gain weight",
+    "reading": "ふとる",
+    "writing": "太る",
+    "kanji": "太",
+    "type": "verb"
+  },
+  {
+    "english": "heavy side",
+    "reading": "ふとっています",
+    "writing": "太っています",
+    "kanji": "太",
+    "type": "verb"
+  }
+]
