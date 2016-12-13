@@ -1,9 +1,7 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/gakusei
-    username: gakusei
-    password: gakusei
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:gakusei:DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;INIT=create schema if not exists CONTENTSCHEMA
+    driver-class-name: org.h2.Driver
   jpa:
     show-sql: true
     hibernate:
@@ -12,6 +10,15 @@ spring:
     rest:
       base-path: /api
 
+---
+
+spring:
+  profiles: postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gakusei
+    username: gakusei
+    password: gakusei
+    driver-class-name: org.postgresql.Driver
 
 ---
 
