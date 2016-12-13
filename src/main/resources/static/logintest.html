@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/auth" method="post">
+    <div>
+        <input type="text" name="username"
+               placeholder="User Name" />
+    </div>
+    <div>
+        <input type="password" name="password"
+               placeholder="Password" />
+    </div>
+    <div>
+        <input type="submit" value="Login" class="button red small" />
+    </div>
+    <input id="csrf" type="hidden" name="_csrf"/>
+</form>
+
+<script>
+   let csrfValue = document.cookie.split('=')[1];
+   document.getElementById("csrf").value = csrfValue;
+</script>
+
+</body>
+</html>
