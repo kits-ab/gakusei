@@ -26,10 +26,10 @@ class AnswerButton extends React.Component {
     render() {
         return (
 
-            <ReactBootstrap.Button bsStyle={this.state.buttonStyle} bsSize="large" onClick={this.onClick.bind(this)}> {this.props.label} </ReactBootstrap.Button>
+            <ReactBootstrap.Button bsStyle={this.state.buttonStyle} bsSize="large" onClick={this.props.onAnswerClick.bind(this, this.props.label)}> {this.props.label} </ReactBootstrap.Button>
 
         )
-    }
+    };
 }
 
 //this.onClick.bind(this)
@@ -95,11 +95,18 @@ class App extends React.Component {
                 alternative3: response.alternative3,
                 correctAlternative: response.correctAlternative
                 }));
+
+            this.setState({
+                answerReturn: "click the answer"
+            });
     }
 
     postAnswer(answer){
         //alert('TAADAH!');
 
+        this.setState({
+            answerReturn: (answer === this.state.correctAlternative) ? "correct" : "incorrect"
+        });
     }
 
     componentDidMount() {
@@ -113,16 +120,17 @@ class App extends React.Component {
             <h2>{this.state.question}</h2>
             <form>
                 <ReactBootstrap.ButtonToolbar>
-                    <AnswerButton label = {this.state.alternative1} correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer(this.state.alternative1)} buttonStyle="default" />
+                    <AnswerButton label = {this.state.alternative1} correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer} buttonStyle="default" />
 
-                    <AnswerButton label = {this.state.alternative2}  correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer(this.state.alternative2)} buttonStyle="default" />
+                    <AnswerButton label = {this.state.alternative2}  correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer} buttonStyle="default" />
 
-                    <AnswerButton label = {this.state.alternative3} correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer(this.state.alternative3)} buttonStyle="default" />
+                    <AnswerButton label = {this.state.alternative3} correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer} buttonStyle="default" />
 
-                    <AnswerButton label = {this.state.correctAlternative} correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer(this.state.correctAlternative)} buttonStyle="default" />
+                    <AnswerButton label = {this.state.correctAlternative} correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer} buttonStyle="default" />
                 </ReactBootstrap.ButtonToolbar>
             </form>
-            <ResultText result={this.state.answerReturn}/>
+
+            <div>{this.state.answerReturn}</div>
             <br/><br/>
             <NextButton onMagicClick={this.fetchQuestion}/>
 
@@ -133,3 +141,4 @@ class App extends React.Component {
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
+// <ResultText result={this.state.answerReturn}/>
