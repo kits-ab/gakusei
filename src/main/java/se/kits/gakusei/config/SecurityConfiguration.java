@@ -54,6 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf()
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                     .and()
+                    //.disable()
                 .logout()
                     // Remove this and add POST to /logout in frontend
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
