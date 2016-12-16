@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/auth" method="post">
+    Login:
+    <div>
+        <input type="text" name="username"
+               placeholder="User Name" />
+    </div>
+    <div>
+        <input type="password" name="password"
+               placeholder="Password" />
+    </div>
+    <div>
+        <input type="submit" value="Login" class="button red small" />
+    </div>
+    <input id="csrf" type="hidden" name="_csrf"/>
+</form>
+
+<form action="/registeruser" method="post">
+    Register user:
+    <div>
+        <input type="text" name="username"
+               placeholder="User Name" />
+    </div>
+    <div>
+        <input type="password" name="password"
+               placeholder="Password" />
+    </div>
+    <div>
+        <input type="submit" value="Register" class="button red small" />
+    </div>
+    <input id="csrf2" type="hidden" name="_csrf"/>
+</form>
+
+<script>
+   let cookies = document.cookie.split('; ');
+   let keys = cookies.map(cookie => cookie.split('=')[0]);
+   let csrfValue = cookies[keys.indexOf("XSRF-TOKEN")].split('=')[1];
+   document.getElementById("csrf").value = csrfValue;
+   document.getElementById("csrf2").value = csrfValue;
+</script>
+
+</body>
+</html>
