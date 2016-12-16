@@ -33,16 +33,10 @@ class GakuseiNav extends React.Component {
 }
 
 class AnswerButton extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {buttonStyle: "default"
-        };
-      }
-      componentDidMount(){
-      }
+
     render() {
         return (
-            <ReactBootstrap.Button bsStyle={this.state.buttonStyle} bsSize="large" block onClick={this.props.onAnswerClick.bind(this, this.props.label)}> {this.props.label} </ReactBootstrap.Button>
+            <ReactBootstrap.Button bsStyle="default" bsSize="large" block onClick={this.props.onAnswerClick.bind(this, this.props.label)}> {this.props.label} </ReactBootstrap.Button>
         )
     };
 }
@@ -85,10 +79,6 @@ class App extends React.Component {
                 response.correctAlternative]),
                 answerReturn: ""
                 }));
-
-            this.setState({
-                answerReturn: ""
-            });
     }
 
     randomizeOrder(array){
@@ -122,10 +112,10 @@ class App extends React.Component {
             <ReactBootstrap.Row>
                 <ReactBootstrap.ButtonToolbar block>
                     <ReactBootstrap.Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                        <AnswerButton label = {this.state.renderOrder[0]} onAnswerClick={this.postAnswer} buttonStyle="default" />
+                        <AnswerButton label = {this.state.renderOrder[0]} onAnswerClick={this.postAnswer}/>
                     </ReactBootstrap.Col>
                     <ReactBootstrap.Col xs={5} sm={4} md={3}>
-                        <AnswerButton label = {this.state.renderOrder[1]} onAnswerClick={this.postAnswer} buttonStyle="default" />
+                        <AnswerButton label = {this.state.renderOrder[1]} onAnswerClick={this.postAnswer}/>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.ButtonToolbar>
             </ReactBootstrap.Row>
@@ -133,10 +123,10 @@ class App extends React.Component {
             <ReactBootstrap.Row>
                 <ReactBootstrap.ButtonToolbar block>
                     <ReactBootstrap.Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                        <AnswerButton label = {this.state.renderOrder[2]} onAnswerClick={this.postAnswer} buttonStyle="default" />
+                        <AnswerButton label = {this.state.renderOrder[2]} onAnswerClick={this.postAnswer}/>
                     </ReactBootstrap.Col>
                     <ReactBootstrap.Col xs={5} sm={4} md={3}>
-                        <AnswerButton label = {this.state.renderOrder[3]} onAnswerClick={this.postAnswer} buttonStyle="default" />
+                        <AnswerButton label = {this.state.renderOrder[3]} onAnswerClick={this.postAnswer}/>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.ButtonToolbar>
             </ReactBootstrap.Row>
