@@ -62,6 +62,7 @@ class App extends React.Component {
         super(props);
         this.state = {question: '',
                       answerReturn: '',
+                      correctAlt: '',
                       randomOrderAlt: ['', '', '', '']
                       };
         this.fetchQuestion = this.fetchQuestion.bind(this);
@@ -71,13 +72,15 @@ class App extends React.Component {
     fetchQuestion() {
         fetch('/api/question/', {credentials: "same-origin"})
         .then(result => result.json())
-        .then(response => this.setState({question: response.question,
-                                         answerReturn: '',
-                                         randomOrderAlt: this.randomizeOrder([response.alternative1,
-                                                                              response.alternative2,
-                                                                              response.alternative3,
-                                                                              response.correctAlternative])
-                                         })
+        .then(response =>
+                  this.setState({question: response.question,
+                                 answerReturn: '',
+                                 correctAlt: response.correctAlternative,
+                                 randomOrderAlt: this.randomizeOrder([response.alternative1,
+                                                                      response.alternative2,
+                                                                      response.alternative3,
+                                                                      response.correctAlternative])
+                                 })
         );
     }
 
