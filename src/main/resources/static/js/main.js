@@ -35,14 +35,10 @@ class GakuseiNav extends React.Component {
 class AnswerButton extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {buttonStyle: "default",
-                      result: "",
-                      answered: ""
+        this.state = {buttonStyle: "default"
         };
       }
       componentDidMount(){
-            this.setState({correctAnswer: this.props.correctAnswer,
-                    answered: this.props.label});
       }
     render() {
         return (
@@ -53,33 +49,10 @@ class AnswerButton extends React.Component {
 
 class NextButton extends React.Component{
 
-    constructor(props) {
-        super(props);
-        this.state = {question: '',
-                        alternative1: '',
-                        alternative2: '',
-                        alternative3: '',
-                        correctAlternative: ''};
-    }
     render(){
         return(
             <ReactBootstrap.Button bsStyle="info" onClick={this.props.onMagicClick}> Next Question </ReactBootstrap.Button>
         )
-    }
-}
-
-class ResultText extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state = {resultDisplay: "Click answer."};
-    }
-    componentDidMount() {
-        this.setState({resultDisplay: this.props.result});
-    }
-    render(){
-        return(
-            <h4>{this.props.result}</h4>
-            )
     }
 }
 
@@ -91,8 +64,8 @@ class App extends React.Component {
                       alternative2: '',
                       alternative3: '',
                       correctAlternative: '',
-                      questionReturn: '',
-                      answerReturn: 'Click the answer!'
+                      answerReturn: 'Click the answer!',
+                      renderOrder: ["", "", "", ""]
                       }
         this.fetchQuestion = this.fetchQuestion.bind(this);
         this.postAnswer = this.postAnswer.bind(this);
@@ -105,12 +78,28 @@ class App extends React.Component {
                 alternative1: response.alternative1,
                 alternative2: response.alternative2,
                 alternative3: response.alternative3,
-                correctAlternative: response.correctAlternative
+                correctAlternative: response.correctAlternative,
+                renderOrder: this.randomizeOrder([response.alternative1,
+                response.alternative2,
+                response.alternative3,
+                response.correctAlternative]),
+                answerReturn: ""
                 }));
 
             this.setState({
                 answerReturn: ""
             });
+    }
+
+    randomizeOrder(array){
+         let i = array.length - 1;
+         for(; i > 0; i--){
+             const j = Math.floor(Math.random() * (i + 1));
+             const temp = array[i];
+             array[i] = array[j];
+             array[j] = temp;
+         }
+         return array;
     }
 
     postAnswer(answer){
@@ -133,10 +122,10 @@ class App extends React.Component {
             <ReactBootstrap.Row>
                 <ReactBootstrap.ButtonToolbar block>
                     <ReactBootstrap.Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                        <AnswerButton label = {this.state.alternative1} correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer} buttonStyle="default" />
+                        <AnswerButton label = {this.state.renderOrder[0]} onAnswerClick={this.postAnswer} buttonStyle="default" />
                     </ReactBootstrap.Col>
                     <ReactBootstrap.Col xs={5} sm={4} md={3}>
-                        <AnswerButton label = {this.state.alternative2}  correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer} buttonStyle="default" />
+                        <AnswerButton label = {this.state.renderOrder[1]} onAnswerClick={this.postAnswer} buttonStyle="default" />
                     </ReactBootstrap.Col>
                 </ReactBootstrap.ButtonToolbar>
             </ReactBootstrap.Row>
@@ -144,10 +133,10 @@ class App extends React.Component {
             <ReactBootstrap.Row>
                 <ReactBootstrap.ButtonToolbar block>
                     <ReactBootstrap.Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                        <AnswerButton label = {this.state.alternative3} correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer} buttonStyle="default" />
+                        <AnswerButton label = {this.state.renderOrder[2]} onAnswerClick={this.postAnswer} buttonStyle="default" />
                     </ReactBootstrap.Col>
                     <ReactBootstrap.Col xs={5} sm={4} md={3}>
-                        <AnswerButton label = {this.state.correctAlternative} correctAnswer={this.state.correctAlternative} onAnswerClick={this.postAnswer} buttonStyle="default" />
+                        <AnswerButton label = {this.state.renderOrder[3]} onAnswerClick={this.postAnswer} buttonStyle="default" />
                     </ReactBootstrap.Col>
                 </ReactBootstrap.ButtonToolbar>
             </ReactBootstrap.Row>
