@@ -61,12 +61,8 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {question: '',
-                      alt1: '',
-                      alt2: '',
-                      alt3: '',
-                      correctAlt: '',
                       answerReturn: '',
-                      randomOrder: ['', '', '', '']
+                      randomOrderAlt: ['', '', '', '']
                       };
         this.fetchQuestion = this.fetchQuestion.bind(this);
         this.postAnswer = this.postAnswer.bind(this);
@@ -76,15 +72,11 @@ class App extends React.Component {
         fetch('/api/question/', {credentials: "same-origin"})
         .then(result => result.json())
         .then(response => this.setState({question: response.question,
-                                         alt1: response.alternative1,
-                                         alt2: response.alternative2,
-                                         alt3: response.alternative3,
-                                         correctAlt: response.correctAlternative,
                                          answerReturn: '',
-                                         randomOrder: this.randomizeOrder([response.alternative1,
-                                                                           response.alternative2,
-                                                                           response.alternative3,
-                                                                           response.correctAlternative])
+                                         randomOrderAlt: this.randomizeOrder([response.alternative1,
+                                                                              response.alternative2,
+                                                                              response.alternative3,
+                                                                              response.correctAlternative])
                                          })
         );
     }
@@ -120,10 +112,10 @@ class App extends React.Component {
                     <ReactBootstrap.Row>
                         <ReactBootstrap.ButtonToolbar block>
                             <ReactBootstrap.Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                                <AnswerButton label = {this.state.randomOrder[0]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[0]} onAnswerClick={this.postAnswer}/>
                             </ReactBootstrap.Col>
                             <ReactBootstrap.Col xs={5} sm={4} md={3}>
-                                <AnswerButton label = {this.state.randomOrder[1]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[1]} onAnswerClick={this.postAnswer}/>
                             </ReactBootstrap.Col>
                         </ReactBootstrap.ButtonToolbar>
                     </ReactBootstrap.Row>
@@ -131,10 +123,10 @@ class App extends React.Component {
                     <ReactBootstrap.Row>
                         <ReactBootstrap.ButtonToolbar block>
                             <ReactBootstrap.Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                                <AnswerButton label = {this.state.randomOrder[2]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[2]} onAnswerClick={this.postAnswer}/>
                             </ReactBootstrap.Col>
                             <ReactBootstrap.Col xs={5} sm={4} md={3}>
-                                <AnswerButton label = {this.state.randomOrder[3]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[3]} onAnswerClick={this.postAnswer}/>
                             </ReactBootstrap.Col>
                         </ReactBootstrap.ButtonToolbar>
                     </ReactBootstrap.Row>

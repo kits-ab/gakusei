@@ -38,7 +38,7 @@ class Form extends React.Component {
                     value={this.getCSRF()}
                 />
                 <ReactBootstrap.Button type="submit">
-                    Submit
+                    {this.props.btnText}
                 </ReactBootstrap.Button>
             </form>
         );
@@ -50,9 +50,9 @@ class Login extends React.Component {
         return (
             <div>
                 <h2>Login</h2>
-                <Form actionName="/auth" usernameId="loginText" passwordId="loginText" csrfId="loginCSRF"/>
+                <Form actionName="/auth" usernameId="loginText" passwordId="loginText" csrfId="loginCSRF" btnText="Login"/>
                 <h2>User Registration</h2>
-                <Form actionName="/registeruser" usernameId="regText" passwordId="regText" csrfId="regCSRF"/>
+                <Form actionName="/registeruser" usernameId="regText" passwordId="regText" csrfId="regCSRF" btnText="Register"/>
             </div>
         );
     }
