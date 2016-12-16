@@ -1,6 +1,6 @@
 class AnswerButton extends React.Component {
     onClick() {
-        fetch(`http://localhost:8080/api/question/${this.props.label}`, {
+        fetch(`/api/question/${this.props.label}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -24,7 +24,7 @@ class App extends React.Component {
                       }
     }
     componentDidMount() {
-        fetch('http://localhost:8080/api/question/', {credentials: "same-origin"})
+        fetch('/api/question/', {credentials: "same-origin"})
             .then(result => result.json())
             .then(response => this.setState({question: response.question,
                                              alternative1: response.alternative1,
