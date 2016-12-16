@@ -37,7 +37,7 @@ class GakuseiNav extends React.Component {
 class AnswerButton extends React.Component {
     render() {
         return (
-            <ReactBootstrap.Button bsStyle="default"
+            <ReactBootstrap.Button bsStyle={this.props.buttonStyle}
                                    bsSize="large" block
                                    onClick={this.props.onAnswerClick.bind(this, this.props.label)}>
                                    {this.props.label}
@@ -63,7 +63,8 @@ class App extends React.Component {
         this.state = {question: '',
                       answerReturn: '',
                       correctAlt: '',
-                      randomOrderAlt: ['', '', '', '']
+                      randomOrderAlt: ['', '', '', ''],
+                      buttonStyles: ['default', 'default', 'default', 'default']
                       };
         this.fetchQuestion = this.fetchQuestion.bind(this);
         this.postAnswer = this.postAnswer.bind(this);
@@ -79,7 +80,8 @@ class App extends React.Component {
                                  randomOrderAlt: this.randomizeOrder([response.alternative1,
                                                                       response.alternative2,
                                                                       response.alternative3,
-                                                                      response.correctAlternative])
+                                                                      response.correctAlternative]),
+                                 buttonStyles: ['default', 'default', 'default', 'default']
                                  })
         );
     }
@@ -96,7 +98,15 @@ class App extends React.Component {
     }
 
     postAnswer(answer) {
+        var bs = [];
+        if(answer === this.state.correctAlt){
+            bs = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'success' : 'default');
+        }else{
+            bs = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'danger' : 'default');
+        }
+
         this.setState({
+            buttonStyles: bs,
             answerReturn: (answer === this.state.correctAlt) ? "Correct!" : "Incorrect"
         });
     }
@@ -115,10 +125,12 @@ class App extends React.Component {
                     <ReactBootstrap.Row>
                         <ReactBootstrap.ButtonToolbar block>
                             <ReactBootstrap.Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[0]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[0]} onAnswerClick={this.postAnswer}
+                                buttonStyle = {this.state.buttonStyles[0]} />
                             </ReactBootstrap.Col>
                             <ReactBootstrap.Col xs={5} sm={4} md={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[1]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[1]} onAnswerClick={this.postAnswer}
+                                buttonStyle = {this.state.buttonStyles[1]} />
                             </ReactBootstrap.Col>
                         </ReactBootstrap.ButtonToolbar>
                     </ReactBootstrap.Row>
@@ -126,10 +138,12 @@ class App extends React.Component {
                     <ReactBootstrap.Row>
                         <ReactBootstrap.ButtonToolbar block>
                             <ReactBootstrap.Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[2]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[2]} onAnswerClick={this.postAnswer}
+                                buttonStyle = {this.state.buttonStyles[2]} />
                             </ReactBootstrap.Col>
                             <ReactBootstrap.Col xs={5} sm={4} md={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[3]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[3]} onAnswerClick={this.postAnswer}
+                                buttonStyle = {this.state.buttonStyles[3]} />
                             </ReactBootstrap.Col>
                         </ReactBootstrap.ButtonToolbar>
                     </ReactBootstrap.Row>
