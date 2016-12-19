@@ -9,8 +9,8 @@ import java.util.List;
 public class TestDataHolder {
 
     private String english;
-    private String katakana;
-    private String kunyomi;
+    private String writing;
+    private String reading;
     private String kanji;
     private String type;
 
@@ -22,23 +22,23 @@ public class TestDataHolder {
     }
 
     public void setEnglish(String english) {
-        this.english = parseIfStringIsNullValue(english);
+        this.english = english;
     }
 
-    public String getKatakana() {
-        return katakana;
+    public String getWriting() {
+        return writing;
     }
 
-    public void setKatakana(String katakana) {
-        this.katakana = parseIfStringIsNullValue(katakana);
+    public void setWriting(String writing) {
+        this.writing = writing;
     }
 
-    public String getKunyomi() {
-        return kunyomi;
+    public String getReading() {
+        return reading;
     }
 
-    public void setKunyomi(String kunyomi) {
-        this.kunyomi = parseIfStringIsNullValue(kunyomi);
+    public void setReading(String reading) {
+        this.reading = reading;
     }
 
     public String getKanji() {
@@ -46,7 +46,7 @@ public class TestDataHolder {
     }
 
     public void setKanji(String kanji) {
-        this.kanji = parseIfStringIsNullValue(kanji);
+        this.kanji = kanji;
     }
 
     public String getType() {
@@ -54,7 +54,7 @@ public class TestDataHolder {
     }
 
     public void setType(String type) {
-        this.type = parseIfStringIsNullValue(type);
+        this.type = type;
     }
 
     public Nugget createNugget() {
@@ -70,7 +70,7 @@ public class TestDataHolder {
     }
 
     public List<Fact> createFacts() {
-        if (this.english == null && this.katakana == null && this.kunyomi == null && this.kanji == null) {
+        if (this.english == null && this.writing == null && this.reading == null && this.kanji == null) {
             return null;
         }
         List<Fact> facts = new ArrayList<>();
@@ -80,16 +80,16 @@ public class TestDataHolder {
             fact.setData(this.english);
             facts.add(fact);
         }
-        if (this.katakana != null) {
+        if (this.writing != null) {
             Fact fact = new Fact();
             fact.setType("writing");
-            fact.setData(this.katakana);
+            fact.setData(this.writing);
             facts.add(fact);
         }
-        if (this.kunyomi != null) {
+        if (this.reading != null) {
             Fact fact = new Fact();
             fact.setType("reading");
-            fact.setData(this.kunyomi);
+            fact.setData(this.reading);
             facts.add(fact);
         }
         if (this.kanji != null) {
@@ -101,20 +101,12 @@ public class TestDataHolder {
         return facts;
     }
 
-    private String parseIfStringIsNullValue(String typeString) {
-        if (typeString.equalsIgnoreCase("null") || typeString == null) {
-            return null;
-        } else {
-            return typeString;
-        }
-    }
-
     @Override
     public String toString() {
         return "TestDataHolder{" +
                 "english='" + english + '\'' +
-                ", katakana='" + katakana + '\'' +
-                ", kunyomi='" + kunyomi + '\'' +
+                ", writing='" + writing + '\'' +
+                ", reading='" + reading + '\'' +
                 ", kanji='" + kanji + '\'' +
                 ", type='" + type + '\'' +
                 '}';

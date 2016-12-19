@@ -1,359 +1,340 @@
 [
   {
     "english": "grandfather",
-    "katakana": "おじいさん",
-    "kunyomi": "null",
-    "kanji": "null",
+    "reading": "おじいさん",
+    "writing": "おじいさん",
     "type": "noun"
   },
   {
     "english": "grandmother",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "おばあさん",
+    "reading": "おばあさん",
+    "writing": "おばあさん",
     "type": "noun"
   },
   {
     "english": "old man",
-    "katakana": "おじいさん",
-    "kunyomi": "null",
-    "kanji": "null",
+    "reading": "おじいさん",
+    "writing": "おじいさん",
     "type": "noun"
   },
   {
     "english": "father",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "ちち",
+    "writing": "父",
     "kanji": "父",
     "type": "noun"
   },
   {
     "english": "mother",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "はは",
+    "writing": "母",
     "kanji": "母",
     "type": "noun"
   },
   {
     "english": "older sister",
-    "katakana": "null",
-    "kunyomi": "あね",
+    "reading": "あね",
+    "writing": "姉",
     "kanji": "姉",
     "type": "noun"
   },
   {
-    "english": "older sister 2",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "お姉さん",
+    "english": "older sister",
+    "reading": "あねえさん",
+    "writing": "お姉さん",
+    "kanji": "姉",
     "type": "noun"
   },
   {
     "english": "younger sister",
-    "katakana": "null",
-    "kunyomi": "いもうと",
+    "reading": "いもうと",
+    "writing": "妹",
     "kanji": "妹",
     "type": "noun"
   },
   {
     "english": "older brother",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "お兄さん",
+    "reading": "おにいさん",
+    "writing": "お兄さん",
+    "kanji": "兄",
     "type": "noun"
   },
   {
     "english": "younger brother",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "おとうと",
+    "writing": "弟",
     "kanji": "弟",
     "type": "noun"
   },
   {
     "english": "man",
-    "katakana": "男の人",
-    "kunyomi": "null",
-    "kanji": "null",
+    "reading": "おとこのひと",
+    "writing": "男の人",
+    "kanji": "男人",
     "type": "noun"
   },
   {
     "english": "woman",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "おんなのひと",
+    "writing": "女の人",
     "kanji": "女の人",
     "type": "noun"
   },
   {
     "english": "bright",
-    "katakana": "頭がいい",
-    "kunyomi": "あたまがいい",
+    "reading": "あたまがいい",
+    "writing": "頭がいい",
     "kanji": "頭",
     "type": "adjective"
   },
   {
     "english": "smart",
-    "katakana": "頭がいい",
-    "kunyomi": "あたまがいい",
+    "reading": "あたまがいい",
+    "writing": "頭がいい",
     "kanji": "頭",
     "type": "adjective"
   },
   {
     "english": "clever",
-    "katakana": "頭がいい",
-    "kunyomi": "あたまがいい",
+    "reading": "あたまがいい",
+    "writing": "頭がいい",
     "kanji": "頭",
     "type": "adjective"
   },
   {
     "english": "apartment",
-    "katakana": "アパート",
-    "kunyomi": "null",
-    "kanji": "null",
+    "reading": "アパート",
+    "writing": "アパート",
     "type": "noun"
   },
   {
     "english": "song",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "うた",
+    "writing": "歌",
     "kanji": "歌",
     "type": "noun"
   },
   {
     "english": "one",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "いち",
+    "writing": "一",
     "kanji": "一",
     "type": "noun"
   },
   {
     "english": "years old",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "さい",
+    "writing": "歳",
     "kanji": "歳",
     "type": "adjective"
   },
   {
     "english": "to",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "に",
+    "reading": "に",
+    "writing": "に",
     "type": "adverb"
   },
   {
     "english": "company",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "かいしゃ",
+    "writing": "会社",
     "kanji": "会社",
     "type": "noun"
   },
   {
     "english": "family",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "かぞく",
+    "writing": "家族",
     "kanji": "家族",
     "type": "noun"
   },
   {
     "english": "hair",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "かみ",
+    "writing": "髪",
     "kanji": "髪",
     "type": "noun"
   },
   {
-    "english": "siblings",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "兄弟",
-    "type": "noun"
-  },
-  {
     "english": "mouth",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "くち",
+    "writing": "口",
     "kanji": "口",
     "type": "noun"
   },
   {
     "english": "country",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "くに",
+    "writing": "国",
     "kanji": "国",
     "type": "noun"
   },
   {
     "english": "car",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "くるま",
+    "writing": "車",
     "kanji": "車",
     "type": "noun"
   },
   {
     "english": "game",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "ゲーム",
+    "reading": "ゲーム",
+    "writing": "ゲーム",
     "type": "noun"
   },
   {
     "english": "convenience",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "コンビニ",
+    "reading": "コンビニ",
+    "writing": "コンビニ",
     "type": "noun"
   },
   {
     "english": "club activity",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "サ＝クル",
+    "reading": "サ＝クル",
+    "writing": "サ＝クル",
     "type": "noun"
   },
   {
     "english": "cafeteria",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "しょくどう",
+    "writing": "食堂",
     "kanji": "食堂",
     "type": "noun"
   },
   {
     "english": "DVD",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "DVD",
+    "reading": "ディーブイディー",
+    "writing": "DVD",
     "type": "noun"
   },
   {
     "english": "eye",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "め",
+    "writing": "目",
     "kanji": "目",
     "type": "noun"
   },
   {
     "english": "glasses",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "めがね",
+    "writing": "眼鏡",
     "kanji": "眼鏡",
     "type": "noun"
   },
   {
     "english": "cute",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "かわいい",
+    "reading": "かわいい",
+    "writing": "かわいい",
     "type": "adjective"
   },
   {
     "english": "tall",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "背が高い",
+    "reading": "せがたかい",
+    "writing": "背が高い",
+    "kanji": "背高",
     "type": "adjective"
   },
   {
     "english": "short",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "背が低い",
+    "reading": "せがひくい",
+    "writing": "背が低い",
+    "kanji": "背低",
     "type": "adjective"
   },
   {
-    "english": "short2",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "短い",
+    "english": "short",
+    "reading": "みじかい",
+    "writing": "短い",
+    "kanji": "短",
     "type": "adjective"
   },
   {
     "english": "long",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "長い",
+    "reading": "ながい",
+    "writing": "長い",
+    "kanji": "長",
     "type": "adjective"
   },
   {
     "english": "fast",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "速い",
+    "reading": "はやい",
+    "writing": "速い",
+    "kanji": "速",
     "type": "adjective"
   },
   {
     "english": "kind",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "しんせつ",
+    "writing": "親切",
     "kanji": "親切",
     "type": "adjective"
   },
   {
     "english": "convenient",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "べんり",
+    "writing": "便利",
     "kanji": "便利",
     "type": "adjective"
   },
   {
     "english": "sing",
-    "katakana": "null",
-    "kunyomi": "null",
+    "reading": "うたう",
+    "writing": "歌う",
     "kanji": "歌う",
     "type": "verb"
   },
   {
     "english": "put on (hat)",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "かぶる",
+    "reading": "かぶる",
+    "writing": "かぶる",
     "type": "verb"
   },
   {
     "english": "put on (below waist)",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "はく",
+    "reading": "はく",
+    "writing": "はく",
     "type": "verb"
   },
   {
     "english": "get to know",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "知る",
+    "reading": "しる",
+    "writing": "知る",
+    "kanji": "知",
     "type": "verb"
   },
   {
     "english": "i know",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "知っています",
+    "reading": "しっています",
+    "writing": "知っています",
+    "kanji": "知",
     "type": "verb"
   },
   {
     "english": "i don't know",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "知りません",
+    "reading": "しりません",
+    "writing": "知りません",
+    "kanji": "知",
     "type": "verb"
   },
   {
     "english": "live",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "住む",
+    "reading": "すむ",
+    "writing": "住む",
+    "kanji": "住",
     "type": "verb"
   },
   {
     "english": "gain weight",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "太る",
+    "reading": "ふとる",
+    "writing": "太る",
+    "kanji": "太",
     "type": "verb"
   },
   {
     "english": "heavy side",
-    "katakana": "null",
-    "kunyomi": "null",
-    "kanji": "太っています",
+    "reading": "ふとっています",
+    "writing": "太っています",
+    "kanji": "太",
     "type": "verb"
   }
 ]
