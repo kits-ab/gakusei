@@ -54,8 +54,7 @@ public class DataInit implements ApplicationRunner {
         ObjectMapper mapper = new ObjectMapper();
         Resource resource = resourceLoader.getResource("classpath:" + testDataFile);
         logger.info("Loaded resource");
-        try {
-            InputStream json = resource.getInputStream();
+        try (InputStream json = resource.getInputStream()) {
             List<TestDataHolder> dataHolders = mapper.readValue(
                     json,
                     mapper.getTypeFactory().constructCollectionType(
