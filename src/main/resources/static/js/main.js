@@ -106,8 +106,7 @@ class App extends React.Component {
         }
 
         this.setState({
-            buttonStyles: bs,
-            answerReturn: (answer === this.state.correctAlt) ? "Correct!" : "Incorrect"
+            buttonStyles: bs
         });
     }
 
