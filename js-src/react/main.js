@@ -42,10 +42,11 @@ class GakuseiNav extends React.Component {
 class AnswerButton extends React.Component {
     render() {
         return (
-            <Button bsStyle="default"
-                                   bsSize="large" block
-                                   onClick={this.props.onAnswerClick.bind(this, this.props.label)}>
-                {this.props.label}
+            <Button bsStyle={this.props.buttonStyle}
+               bsSize="large" block
+               onClick={this.props.onAnswerClick.bind(this, this.props.label)}
+               disabled = {this.props.disableButton}>
+               {this.props.buttonNumber + ". " + this.props.label}
             </Button>
         );
     }
@@ -54,9 +55,8 @@ class AnswerButton extends React.Component {
 class NextButton extends React.Component {
     render() {
         return(
-            <Button bsStyle="info"
-                                   onClick={this.props.onMagicClick}>
-                Next Question
+            <Button bsStyle="info" onClick={this.props.onMagicClick}>
+                Next Question (Enter)
             </Button>
         );
     }
@@ -68,10 +68,12 @@ class App extends React.Component {
         this.state = {question: '',
             answerReturn: '',
             correctAlt: '',
-            randomOrderAlt: ['', '', '', '']
+            randomOrderAlt: ['', '', '', ''],
+            buttonStyles: ['default', 'default', 'default', 'default'],
+            buttonDisabled: false
         };
         this.fetchQuestion = this.fetchQuestion.bind(this);
-        this.postAnswer = this.postAnswer.bind(this);
+        this.checkAnswer = this.checkAnswer.bind(this);
     }
 
     fetchQuestion() {
@@ -84,7 +86,9 @@ class App extends React.Component {
                                 randomOrderAlt: this.randomizeOrder([json.alternative1,
                                                                      json.alternative2,
                                                                      json.alternative3,
-                                                                     json.correctAlternative])
+                                                                     json.correctAlternative]),
+                                buttonStyles: ['default', 'default', 'default', 'default'],
+                                buttonDisabled: false
                                 })
             ).catch(ex => console.log('json parsing failed', ex))
     }
@@ -100,14 +104,46 @@ class App extends React.Component {
         return array;
     }
 
-    postAnswer(answer) {
+    checkAnswer(answer) {
+        var newButtonStyles = [];
+        if(answer === this.state.correctAlt){
+            newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'success' : 'default');
+        }else{
+            newButtonStyles = this.state.randomOrderAlt.map( (word) => {
+                if(word === answer){
+                    return "danger";
+                }else if(word === this.state.correctAlt){
+                    return "success";
+                }else{
+                    return "default";
+                }
+            });
+        }
+
         this.setState({
-            answerReturn: (answer === this.state.correctAlt) ? "Correct!" : "Incorrect"
+            buttonDisabled: true,
+            buttonStyles: newButtonStyles
         });
     }
 
     componentDidMount() {
         this.fetchQuestion();
+        window.addEventListener("keydown", this.onKeys.bind(this));
+    }
+
+    onKeys(event){
+        var keyDown = event.key;
+        if(keyDown === 'Enter'){
+            this.fetchQuestion();
+        }else if(keyDown === '1' && !this.state.buttonDisabled){
+            this.checkAnswer(this.state.randomOrderAlt[0]);
+        }else if(keyDown === '2' && !this.state.buttonDisabled){
+            this.checkAnswer(this.state.randomOrderAlt[1]);
+        }else if(keyDown === '3' && !this.state.buttonDisabled){
+            this.checkAnswer(this.state.randomOrderAlt[2]);
+        }else if(keyDown === '4' && !this.state.buttonDisabled){
+            this.checkAnswer(this.state.randomOrderAlt[3]);
+        }
     }
 
     render() {
@@ -120,10 +156,18 @@ class App extends React.Component {
                     <Row>
                         <ButtonToolbar>
                             <Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[0]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[0]}
+                                    buttonNumber = {1}
+                                    onAnswerClick={this.checkAnswer}
+                                    buttonStyle = {this.state.buttonStyles[0]}
+                                    disableButton = {this.state.buttonDisabled} />
                             </Col>
                             <Col xs={5} sm={4} md={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[1]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[1]}
+                                    buttonNumber = {2}
+                                    onAnswerClick={this.checkAnswer}
+                                    buttonStyle = {this.state.buttonStyles[1]}
+                                    disableButton = {this.state.buttonDisabled} />
                             </Col>
                         </ButtonToolbar>
                     </Row>
@@ -131,10 +175,18 @@ class App extends React.Component {
                     <Row>
                         <ButtonToolbar>
                             <Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[2]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[2]}
+                                    buttonNumber = {3}
+                                    onAnswerClick={this.checkAnswer}
+                                    buttonStyle = {this.state.buttonStyles[2]}
+                                    disableButton = {this.state.buttonDisabled} />
                             </Col>
                             <Col xs={5} sm={4} md={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[3]} onAnswerClick={this.postAnswer}/>
+                                <AnswerButton label = {this.state.randomOrderAlt[3]}
+                                    buttonNumber = {4}
+                                    onAnswerClick = {this.checkAnswer}
+                                    buttonStyle = {this.state.buttonStyles[3]}
+                                    disableButton = {this.state.buttonDisabled} />
                             </Col>
                         </ButtonToolbar>
                     </Row>
