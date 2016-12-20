@@ -110,8 +110,7 @@ class App extends React.Component {
                     return "danger";
                 }else if(word === this.state.correctAlt){
                     return "success";
-                }
-                else{
+                }else{
                     return "default";
                 }
             });
