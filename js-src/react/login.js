@@ -1,11 +1,15 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Button, FormGroup, FormControl, ControlLabel, HelpBlock} from 'react-bootstrap';
+
 class Form extends React.Component {
     FieldGroup({ id, label, help, ...props }) {
         return (
-            <ReactBootstrap.FormGroup controlId={id}>
-                <ReactBootstrap.ControlLabel>{label}</ReactBootstrap.ControlLabel>
-                <ReactBootstrap.FormControl {...props} />
-                {help && <ReactBootstrap.HelpBlock>{help}</ReactBootstrap.HelpBlock>}
-            </ReactBootstrap.FormGroup>
+            <FormGroup controlId={id}>
+                <ControlLabel>{label}</ControlLabel>
+                <FormControl {...props} />
+                {help && <HelpBlock>{help}</HelpBlock>}
+            </FormGroup>
         );
     }
     getCSRF() {
@@ -37,9 +41,9 @@ class Form extends React.Component {
                     name="_csrf"
                     value={this.getCSRF()}
                 />
-                <ReactBootstrap.Button type="submit">
+                <Button type="submit">
                     {this.props.btnText}
-                </ReactBootstrap.Button>
+                </Button>
             </form>
         );
     }
@@ -58,4 +62,4 @@ class Login extends React.Component {
     }
 }
 
-ReactDOM.render(<Login />, document.getElementById('root'));
+ReactDOM.render(<Login />, document.getElementById('login_root'));
