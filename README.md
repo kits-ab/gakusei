@@ -6,7 +6,8 @@ Gakusei (student in Japanese) is an application for studying Japanese characters
 App introduces
 
 - React
-- Spring Boot (embedded Apache Tomcat server)
+- Browserify
+- Spring Boot
 - Maven
 - Docker
 
@@ -15,6 +16,11 @@ Install docker: https://www.docker.com/products/overview
 
 ##Instructions
 Currently, it is possible to run the project locally with or without Docker.
+
+#####Generate frontend javascript bundle with npm
+
+1. ```npm install```
+2. ```npm run compile```
 
 ####Without Docker
 #####Using in-memory database (H2)

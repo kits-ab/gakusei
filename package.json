@@ -1,0 +1,35 @@
+{
+  "name": "gakusei",
+  "description": "J-App",
+  "private": true,
+  "scripts": {
+    "precompile": "rimraf ./src/main/resources/static/js/*",
+    "compile:login": "browserify ./js-src/react/login.js --debug -t babelify -o ./src/main/resources/static/js/login_bundle.js",
+    "compile:main": "browserify ./js-src/react/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
+    "compile": "npm run compile:login && npm run compile:main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kits-ab/gakusei.git"
+  },
+  "author": "Kits AB",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kits-ab/gakusei/issues"
+  },
+  "homepage": "https://github.com/kits-ab/gakusei",
+  "dependencies": {
+    "browserify": "^13.1.1",
+    "react": "^15.4.1",
+    "react-bootstrap": "^0.30.7",
+    "react-dom": "^15.4.1"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "babelify": "^7.2.0",
+    "browserify": "^13.1.1",
+    "rimraf": "^2.5.2"
+  }
+}
