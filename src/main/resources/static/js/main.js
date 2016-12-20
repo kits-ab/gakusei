@@ -41,7 +41,7 @@ class AnswerButton extends React.Component {
                                    bsSize="large" block
                                    onClick={this.props.onAnswerClick.bind(this, this.props.label)}
                                    disabled = {this.props.disableButton}>
-                                   {this.props.label}
+                                   {this.props.buttonNumber + ". " + this.props.label}
             </ReactBootstrap.Button>
         );
     }
@@ -52,7 +52,7 @@ class NextButton extends React.Component {
         return(
             <ReactBootstrap.Button bsStyle="info"
                                    onClick={this.props.onMagicClick}>
-                                   Next Question
+                                   Next Question (Enter)
             </ReactBootstrap.Button>
         );
     }
@@ -101,11 +101,11 @@ class App extends React.Component {
     }
 
     checkAnswer(answer) {
-        var newButtonStates = [];
+        var newButtonStyles = [];
         if(answer === this.state.correctAlt){
-            newButtonStates = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'success' : 'default');
+            newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'success' : 'default');
         }else{
-            newButtonStates = this.state.randomOrderAlt.map( (word) => {
+            newButtonStyles = this.state.randomOrderAlt.map( (word) => {
                 if(word === answer){
                     return "danger";
                 }else if(word === this.state.correctAlt){
@@ -119,12 +119,28 @@ class App extends React.Component {
 
         this.setState({
             buttonDisabled: true,
-            buttonStyles: newButtonStates
+            buttonStyles: newButtonStyles
         });
     }
 
     componentDidMount() {
         this.fetchQuestion();
+        window.addEventListener("keydown", this.onKeys.bind(this));
+    }
+
+    onKeys(event){
+        var keyDown = event.key;
+        if(keyDown === 'Enter'){
+            this.fetchQuestion();
+        }else if(keyDown === '1' && !this.state.buttonDisabled){
+            this.checkAnswer(this.state.randomOrderAlt[0]);
+        }else if(keyDown === '2' && !this.state.buttonDisabled){
+            this.checkAnswer(this.state.randomOrderAlt[1]);
+        }else if(keyDown === '3' && !this.state.buttonDisabled){
+            this.checkAnswer(this.state.randomOrderAlt[2]);
+        }else if(keyDown === '4' && !this.state.buttonDisabled){
+            this.checkAnswer(this.state.randomOrderAlt[3]);
+        }
     }
 
     render() {
@@ -137,14 +153,18 @@ class App extends React.Component {
                     <ReactBootstrap.Row>
                         <ReactBootstrap.ButtonToolbar block>
                             <ReactBootstrap.Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[0]} onAnswerClick={this.checkAnswer}
-                                buttonStyle = {this.state.buttonStyles[0]}
-                                 disableButton = {this.state.buttonDisabled} />
+                                <AnswerButton label = {this.state.randomOrderAlt[0]}
+                                    buttonNumber = {1}
+                                    onAnswerClick={this.checkAnswer}
+                                    buttonStyle = {this.state.buttonStyles[0]}
+                                    disableButton = {this.state.buttonDisabled} />
                             </ReactBootstrap.Col>
                             <ReactBootstrap.Col xs={5} sm={4} md={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[1]} onAnswerClick={this.checkAnswer}
-                                buttonStyle = {this.state.buttonStyles[1]}
-                                disableButton = {this.state.buttonDisabled} />
+                                <AnswerButton label = {this.state.randomOrderAlt[1]}
+                                    buttonNumber = {2}
+                                    onAnswerClick={this.checkAnswer}
+                                    buttonStyle = {this.state.buttonStyles[1]}
+                                    disableButton = {this.state.buttonDisabled} />
                             </ReactBootstrap.Col>
                         </ReactBootstrap.ButtonToolbar>
                     </ReactBootstrap.Row>
@@ -152,14 +172,18 @@ class App extends React.Component {
                     <ReactBootstrap.Row>
                         <ReactBootstrap.ButtonToolbar block>
                             <ReactBootstrap.Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[2]} onAnswerClick={this.checkAnswer}
-                                buttonStyle = {this.state.buttonStyles[2]}
-                                disableButton = {this.state.buttonDisabled} />
+                                <AnswerButton label = {this.state.randomOrderAlt[2]}
+                                    buttonNumber = {3}
+                                    onAnswerClick={this.checkAnswer}
+                                    buttonStyle = {this.state.buttonStyles[2]}
+                                    disableButton = {this.state.buttonDisabled} />
                             </ReactBootstrap.Col>
                             <ReactBootstrap.Col xs={5} sm={4} md={3}>
-                                <AnswerButton label = {this.state.randomOrderAlt[3]} onAnswerClick = {this.checkAnswer}
-                                buttonStyle = {this.state.buttonStyles[3]}
-                                disableButton = {this.state.buttonDisabled} />
+                                <AnswerButton label = {this.state.randomOrderAlt[3]}
+                                    buttonNumber = {4}
+                                    onAnswerClick = {this.checkAnswer}
+                                    buttonStyle = {this.state.buttonStyles[3]}
+                                    disableButton = {this.state.buttonDisabled} />
                             </ReactBootstrap.Col>
                         </ReactBootstrap.ButtonToolbar>
                     </ReactBootstrap.Row>
