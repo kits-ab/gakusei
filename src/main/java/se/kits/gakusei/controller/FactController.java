@@ -1,7 +1,5 @@
 package se.kits.gakusei.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -39,7 +37,10 @@ public class FactController {
         return new ResponseEntity<Fact>(savedFact, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/api/nuggets/{id}/facts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(
+            value = "/api/nuggets/{id}/facts",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Fact>> getNuggetsFacts(@PathVariable("id") Long nuggetId) {
         Nugget nugget = nuggetRepo.findOne(nuggetId);
         if (nugget == null) {

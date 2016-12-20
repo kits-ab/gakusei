@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Navbar, Nav, NavItem, NavbarBrand, Button, ButtonToolbar, Grid, Row, Col} from 'react-bootstrap';
+import 'whatwg-fetch';
 
 class GakuseiNav extends React.Component {
     render() {
@@ -75,17 +76,17 @@ class App extends React.Component {
 
     fetchQuestion() {
         fetch('/api/question/', {credentials: "same-origin"})
-            .then(result => result.json())
-            .then(response =>
-                this.setState({question: response.question,
-                    answerReturn: '',
-                    correctAlt: response.correctAlternative,
-                    randomOrderAlt: this.randomizeOrder([response.alternative1,
-                        response.alternative2,
-                        response.alternative3,
-                        response.correctAlternative])
-                })
-            );
+            .then(response => response.json())
+            .then(json =>
+                this.setState({ answerReturn: '',
+                                question: json.question,
+                                correctAlt: json.correctAlternative,
+                                randomOrderAlt: this.randomizeOrder([json.alternative1,
+                                                                     json.alternative2,
+                                                                     json.alternative3,
+                                                                     json.correctAlternative])
+                                })
+            ).catch(ex => console.log('json parsing failed', ex))
     }
 
     randomizeOrder(array) {

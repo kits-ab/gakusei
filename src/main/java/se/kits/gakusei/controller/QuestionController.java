@@ -4,21 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import se.kits.gakusei.content.model.Answer;
 import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Nugget;
-import se.kits.gakusei.content.model.Question;
+import se.kits.gakusei.dto.QuestionDTO;
 import se.kits.gakusei.content.repository.FactRepository;
-import se.kits.gakusei.content.repository.NuggetRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @RestController
 public class QuestionController {
@@ -30,8 +25,8 @@ public class QuestionController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    private ResponseEntity<Question> getQuestion() {
-        Question question = new Question();
+    private ResponseEntity<QuestionDTO> getQuestion() {
+        QuestionDTO question = new QuestionDTO();
         Random random = new Random();
 
         List<Fact> allFacts = (List) factRepo.findAll();
@@ -66,23 +61,6 @@ public class QuestionController {
         question.setAlternative2(alternatives.get(2).getData());
         question.setAlternative3(alternatives.get(3).getData());
 
-        return new ResponseEntity<Question>(question, HttpStatus.OK);
-    }
-
-    @RequestMapping(
-            value = "/api/answer",
-            method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    private ResponseEntity<Question> answer(@RequestBody Answer answer){
-        // receive answer
-        // check answer
-        // send new question
-
-        System.out.println("Student answered: " + answer.getAnswer());
-
-
-        return getQuestion();
+        return new ResponseEntity<QuestionDTO>(question, HttpStatus.OK);
     }
 }

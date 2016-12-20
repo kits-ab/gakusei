@@ -1,6 +1,6 @@
-package se.kits.gakusei.content.model;
+package se.kits.gakusei.dto;
 
-public class Question {
+public class QuestionDTO {
 
     String question;
 
@@ -9,7 +9,7 @@ public class Question {
     String alternative3;
     String correctAlternative;
 
-    public Question(){}
+    public QuestionDTO(){}
 
     public String getQuestion() {
         return question;
