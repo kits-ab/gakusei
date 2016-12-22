@@ -4,9 +4,21 @@ import {Navbar, Nav, NavItem, NavbarBrand, Button, ButtonToolbar, Grid, Row, Col
 import 'whatwg-fetch';
 
 class GakuseiNav extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    eventHandler(eventKey){
+        console.log("eventkey selected: " + eventKey)
+        if (eventKey === 1) {
+            this.props.updater('play')
+        } else if (eventKey === 2) {
+            this.props.updater('about');
+
+        }
+    }
     render() {
         return (
-            <Navbar inverse collapseOnSelect>
+            <Navbar onSelect={this.eventHandler.bind(this)} inverse collapseOnSelect>
                 <Navbar.Header>
                     <NavbarBrand>
                         <span><a href="#"><img height={'100%'}
@@ -16,8 +28,8 @@ class GakuseiNav extends React.Component {
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
-                    {/*<Nav>*/}
-                    {/*<NavItem eventKey={1} href="#">Link</NavItem>*/}
+                    <Nav>
+                    <NavItem eventKey={1} href="#">Play</NavItem>
                     {/*<NavItem eventKey={2} href="#">Link</NavItem>*/}
                     {/*<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">*/}
                     {/*<MenuItem eventKey={3.1}>Action</MenuItem>*/}
@@ -26,7 +38,7 @@ class GakuseiNav extends React.Component {
                     {/*<MenuItem divider />*/}
                     {/*<MenuItem eventKey={3.3}>Separated link</MenuItem>*/}
                     {/*</NavDropdown>*/}
-                    {/*</Nav>*/}
+                    </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={2} href="#">About</NavItem>
                         <Navbar.Text>
@@ -62,7 +74,7 @@ class NextButton extends React.Component {
     }
 }
 
-class App extends React.Component {
+class Gameplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {question: '',
@@ -149,7 +161,6 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <GakuseiNav/>
                 <Grid>
                     <Row><h2 className="text-center">{this.state.question}</h2></Row>
                     <br/>
@@ -204,4 +215,44 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('index_root'));
+class AboutPage extends React.Component {
+    render() {
+        return (
+            <div>
+                <br/>
+                <div className="text-center">About page placeholder</div>
+            </div>
+        );
+    }
+}
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentPage : <Gameplay/>
+        }
+
+    }
+
+    switchPage(newContent) {
+        console.log("Updating content root");
+        if (newContent === 'play') {
+            this.setState({currentPage : <Gameplay/>})
+        }
+        else if (newContent === 'about') {
+            this.setState({currentPage : <AboutPage/>})
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <GakuseiNav updater={this.switchPage.bind(this)} />
+                {this.state.currentPage}
+            </div>
+        );
+    }
+}
+
+ReactDOM.render(<App/>, document.getElementById('index_root'));
