@@ -1,6 +1,6 @@
 package se.kits.gakusei.content.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,7 +20,7 @@ public class Nugget implements Serializable{
     private String description;
 
     @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Fact> facts;
 
     public Nugget(){}

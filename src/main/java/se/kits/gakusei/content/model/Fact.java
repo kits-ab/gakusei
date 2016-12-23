@@ -1,7 +1,8 @@
 package se.kits.gakusei.content.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -21,6 +22,7 @@ public class Fact implements Serializable{
     private String description;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name="nuggetid")
     private Nugget nugget;
 
