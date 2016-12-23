@@ -46,8 +46,7 @@ public class NuggetController {
 
         // If no fact type filters are used, we should look for facts of all types
         if (factFilterCount == 0L) {
-            factTypes.clear();
-            factTypes.addAll(inputValidator.getFactTypes());
+            factTypes = new ArrayList<>(inputValidator.getFactTypes());
         }
 
         return new ResponseEntity<List<Nugget>>(nuggetRepo.getNuggetsbyFilter(
