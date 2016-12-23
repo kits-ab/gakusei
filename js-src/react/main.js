@@ -234,7 +234,6 @@ class App extends React.Component {
         this.state = {
             currentPage : <Gameplay/>
         }
-
     }
 
     switchPage(newContent) {
@@ -263,36 +262,18 @@ class App extends React.Component {
 class NuggetSearch extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {nuggetList: []};
-    }
-
-    render() {
-        return(
-            <div>
-                <QueryInput />
-                <br/>
-                <SearchResults />
-            </div>
-        )
-    }
-}
-
-class QueryInput extends React.Component{
-    constructor(props) {
-        super(props);
         this.state = {wordType: '',
             factType1: '',
             factType2: '',
             factType3: '',
             factType4: '',
-            //factTypes: ['', '', '', ''],
-            nuggetListResponse: []
+            nuggetList: []
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }    
+        this.updateQueryInput = this.updateQueryInput.bind(this);
+        this.fetchCustomQuery = this.fetchCustomQuery.bind(this);
+    }
 
-    handleChange(event){        
+    updateQueryInput(event){        
         if (event.target.id === 'kanjiFactType'){
             console.log(event.target.id + ": " + event.target.checked);
             this.setState({
@@ -316,11 +297,10 @@ class QueryInput extends React.Component{
         } else if (event.target.id === 'wordType') {
             console.log(event.target.id + ": " + event.target.value);
             this.setState({wordType: event.target.value});            
-        }
-        
+        }        
     }
 
-    handleSubmit(event){
+    fetchCustomQuery(event){
         var fetchUrl = '/api/filter/nuggets?wordType=' + this.state.wordType 
             + '&factType1=' + this.state.factType1 
             + '&factType2=' + this.state.factType2 
@@ -331,10 +311,39 @@ class QueryInput extends React.Component{
             .then(response => response.json())
             .then(json =>
                 this.setState({ 
-                    nuggetListResponse: json
+                    nuggetList: json
             }))
             .catch(ex => console.log('json parsing failed', ex));
         console.log(fetchUrl);
+        //event.preventDefault();
+    }
+
+    render() {
+        return(
+            <div>
+                <QueryInput handleChange={this.updateQueryInput}
+                    handleSubmit={this.fetchCustomQuery}/>
+                <br/>
+                <SearchResults nuggetResults={this.state.nuggetList} />
+            </div>
+        )
+    }
+}
+
+class QueryInput extends React.Component{
+    constructor(props) {
+        super(props);
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }    
+
+    handleChange(event) {
+        this.props.handleChange(event);
+    }
+
+    handleSubmit(event){
+        this.props.handleSubmit();
         event.preventDefault();
     }
 
@@ -343,8 +352,8 @@ class QueryInput extends React.Component{
             <form href="#" onSubmit={this.handleSubmit}>
                 <FormGroup>
                     <ControlLabel>Query Input</ControlLabel>
-                    <FormControl componentClass="select" placeholder="Word type"
-                    id="wordType" onChange={this.handleChange}>
+                    <FormControl componentClass="select" id="wordType" 
+                    onChange={this.handleChange}>
                         <option value=''>
                             Select word type
                         </option>
@@ -388,8 +397,18 @@ class QueryInput extends React.Component{
 
 class SearchResults extends React.Component{
     render() {
+        const listRows = this.props.nuggetResults.map( (nugget) => 
+            <li> {"id: " + nugget.id 
+            + " // type: " + nugget.type 
+            + " // description: " + nugget.description}
+            </li>
+        );
+
         return(
             <div>
+                <ul>
+                    {listRows}
+                </ul>
             </div>
         )
     }
