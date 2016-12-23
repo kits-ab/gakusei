@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Navbar, Nav, NavItem, NavbarBrand, Button, ButtonToolbar, Grid, Row, Col} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, NavbarBrand, Button, ButtonToolbar, Grid, Row, Col,
+FormGroup, DropdownButton, Checkbox, MenuItem, ButtonGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import 'whatwg-fetch';
 
 class GakuseiNav extends React.Component {
@@ -13,7 +14,8 @@ class GakuseiNav extends React.Component {
             this.props.updater('play')
         } else if (eventKey === 2) {
             this.props.updater('about');
-
+        } else if (eventKey === 3) {
+            this.props.updater('nuggetsearch');
         }
     }
     render() {
@@ -30,7 +32,7 @@ class GakuseiNav extends React.Component {
                 <Navbar.Collapse>
                     <Nav>
                     <NavItem eventKey={1} href="#">Play</NavItem>
-                    {/*<NavItem eventKey={2} href="#">Link</NavItem>*/}
+                    <NavItem eventKey={3} href="#">NuggetSearch</NavItem>
                     {/*<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">*/}
                     {/*<MenuItem eventKey={3.1}>Action</MenuItem>*/}
                     {/*<MenuItem eventKey={3.2}>Another action</MenuItem>*/}
@@ -243,6 +245,9 @@ class App extends React.Component {
         else if (newContent === 'about') {
             this.setState({currentPage : <AboutPage/>})
         }
+        else if (newContent === 'nuggetsearch') {
+            this.setState({currentPage : <NuggetSearch/>})
+        }
     }
 
     render() {
@@ -252,6 +257,141 @@ class App extends React.Component {
                 {this.state.currentPage}
             </div>
         );
+    }
+}
+
+class NuggetSearch extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {nuggetList: []};
+    }
+
+    render() {
+        return(
+            <div>
+                <QueryInput />
+                <br/>
+                <SearchResults />
+            </div>
+        )
+    }
+}
+
+class QueryInput extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {wordType: '',
+            factType1: '',
+            factType2: '',
+            factType3: '',
+            factType4: '',
+            //factTypes: ['', '', '', ''],
+            nuggetListResponse: []
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }    
+
+    handleChange(event){        
+        if (event.target.id === 'kanjiFactType'){
+            console.log(event.target.id + ": " + event.target.checked);
+            this.setState({
+                factType1: event.target.checked ? 'kanji' : ''
+            });
+        } else if (event.target.id === 'readingFactType') {
+            console.log(event.target.id + ": " + event.target.checked);
+            this.setState({
+                factType2: event.target.checked ? 'reading' : ''
+            });
+        } else if (event.target.id === 'writingFactType') {
+            console.log(event.target.id + ": " + event.target.checked);
+            this.setState({
+                factType3: event.target.checked ? 'writing' : ''
+            });
+        } else if (event.target.id === 'englishFactType') {
+            console.log(event.target.id + ": " + event.target.checked);
+            this.setState({
+                factType4: event.target.checked ? 'english_translation' : ''
+            });
+        } else if (event.target.id === 'wordType') {
+            console.log(event.target.id + ": " + event.target.value);
+            this.setState({wordType: event.target.value});            
+        }
+        
+    }
+
+    handleSubmit(event){
+        var fetchUrl = '/api/filter/nuggets?wordType=' + this.state.wordType 
+            + '&factType1=' + this.state.factType1 
+            + '&factType2=' + this.state.factType2 
+            + '&factType3=' + this.state.factType3 
+            + '&factType4=' + this.state.factType4;
+        fetch(fetchUrl, 
+            {credentials: "same-origin"})
+            .then(response => response.json())
+            .then(json =>
+                this.setState({ 
+                    nuggetListResponse: json
+            }))
+            .catch(ex => console.log('json parsing failed', ex));
+        console.log(fetchUrl);
+        event.preventDefault();
+    }
+
+    render() {
+        return(
+            <form href="#" onSubmit={this.handleSubmit}>
+                <FormGroup>
+                    <ControlLabel>Query Input</ControlLabel>
+                    <FormControl componentClass="select" placeholder="Word type"
+                    id="wordType" onChange={this.handleChange}>
+                        <option value=''>
+                            Select word type
+                        </option>
+                        <option value='verb'>
+                            Verb
+                        </option>
+                        <option value='adjective'>
+                            Adjective
+                        </option>
+                        <option value='noun'>
+                            Noun
+                        </option>
+                        <option value='adverb'>
+                            Adverb
+                        </option>
+                    </FormControl>                    
+                    {' '}
+                    <Checkbox id="kanjiFactType" inline onChange={this.handleChange}>
+                        Kanji
+                    </Checkbox>
+                    {' '}
+                    <Checkbox id="readingFactType" inline onChange={this.handleChange}>
+                        Japanese reading
+                    </Checkbox>
+                    {' '}
+                    <Checkbox  id="writingFactType" inline onChange={this.handleChange}>
+                        Japanese writing
+                    </Checkbox>
+                    {' '}
+                    <Checkbox id="englishFactType" inline onChange={this.handleChange}>
+                        English translation
+                    </Checkbox>                        
+                </FormGroup>
+                <Button type="submit">
+                  Submit
+                </Button>
+            </form>
+        )
+    }
+}
+
+class SearchResults extends React.Component{
+    render() {
+        return(
+            <div>
+            </div>
+        )
     }
 }
 
