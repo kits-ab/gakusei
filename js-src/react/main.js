@@ -398,7 +398,7 @@ class QueryInput extends React.Component{
 class SearchResults extends React.Component{
     render() {
         const listRows = this.props.nuggetResults.map( (nugget) => 
-            <li> {"id: " + nugget.id 
+            <li key={nugget.id}> {"id: " + nugget.id 
             + " // type: " + nugget.type 
             + " // description: " + nugget.description}
             </li>
