@@ -300,6 +300,7 @@ class NuggetSearch extends React.Component {
                     nuggetList: json
             }))
             .catch(ex => console.log('json parsing failed', ex));
+            event.preventDefault();
     }
 
     render() {
@@ -317,18 +318,11 @@ class NuggetSearch extends React.Component {
 class QueryInput extends React.Component{
     constructor(props) {
         super(props);
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit(event){
-        this.props.handleSubmit();
-        event.preventDefault();
     }
 
     render() {
         return(
-            <form href="#" onSubmit={this.handleSubmit}>
+            <form href="#" onSubmit={this.props.handleSubmit}>
                 <FormGroup>
                     <ControlLabel>Query Input</ControlLabel>
                     <FormControl componentClass="select" id="wordType" 
@@ -379,11 +373,7 @@ class SearchResults extends React.Component{
     constructor(props) {
         super(props);
 
-        this.state = {
-            factViewToggle: false,
-            expandId: ''
-        };
-
+        this.state = {};
     }
 
     render() {
@@ -394,8 +384,6 @@ class SearchResults extends React.Component{
         )
     }
 }
-
-
 
 class NuggetList extends React.Component {
 
