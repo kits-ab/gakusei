@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Navbar, Nav, NavItem, NavbarBrand, Button, ButtonToolbar, Grid, Row, Col,
-FormGroup, DropdownButton, Checkbox, MenuItem, ButtonGroup, FormControl, ControlLabel} from 'react-bootstrap';
+FormGroup, DropdownButton, Checkbox, MenuItem, ButtonGroup, FormControl, ControlLabel, Collapse} from 'react-bootstrap';
 import 'whatwg-fetch';
 
 class GakuseiNav extends React.Component {
@@ -396,10 +396,29 @@ class QueryInput extends React.Component{
 }
 
 class SearchResults extends React.Component{
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            factViewToggle: false,
+            expandId: ''
+        };
+
+        this.toggleFactView = this.toggleFactView.bind(this);
+    }
+
+    toggleFactView(nuggetId){
+        this.setState({
+            factViewToggle: !this.state.factViewToggle
+        });
+    }
+
     render() {
         return(
             <div>
-                <NuggetList nuggetResults={this.props.nuggetResults} />
+                <NuggetList nuggetResults={this.props.nuggetResults}
+                />
             </div>
         )
     }
@@ -408,13 +427,32 @@ class SearchResults extends React.Component{
 function NuggetList(props){
 
     const listRows = props.nuggetResults.map( (nugget) =>
-        <li key={nugget.id}> {"id: " + nugget.id
-        + " // type: " + nugget.type
-        + " // description: " + nugget.description}
+        <li key={nugget.id}>
+            {"type: " + nugget.type
+            + " // description: " + nugget.description}
+            <br/>
+            <FactList factlist={nugget.facts}/>
         </li>
     );
     return(
-        <ul>{listRows}</ul>
+        <div>
+            <ul>{listRows}</ul>
+        </div>
+    );
+}
+
+function FactList(props) {
+
+    const factListRows = props.factlist.map( (fact) =>
+        <li key={fact.id} > {"data: " + fact.data
+        + " // type: " + fact.type
+        + " // description: " + fact.description}
+        </li>
+    );
+    return(
+        <div>
+            <ul>{factListRows}</ul>
+        </div>
     );
 }
 
