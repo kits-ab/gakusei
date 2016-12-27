@@ -397,21 +397,24 @@ class QueryInput extends React.Component{
 
 class SearchResults extends React.Component{
     render() {
-        const listRows = this.props.nuggetResults.map( (nugget) => 
-            <li key={nugget.id}> {"id: " + nugget.id 
-            + " // type: " + nugget.type 
-            + " // description: " + nugget.description}
-            </li>
-        );
-
         return(
             <div>
-                <ul>
-                    {listRows}
-                </ul>
+                <NuggetList nuggetResults={this.props.nuggetResults} />
             </div>
         )
     }
+}
+
+function NuggetList(props){
+
+    const listRows = props.nuggetResults.map( (nugget) =>
+        + " // type: " + nugget.type
+        + " // description: " + nugget.description}
+        </li>
+    );
+    return(
+        <ul>{listRows}</ul>
+    );
 }
 
 ReactDOM.render(<App/>, document.getElementById('index_root'));
