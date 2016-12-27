@@ -350,19 +350,19 @@ class QueryInput extends React.Component{
                         </option>
                     </FormControl>                    
                     {' '}
-                    <Checkbox id="kanjiFactType" inline onChange={this.handleChange}>
+                    <Checkbox id="kanjiFactType" inline onChange={this.props.handleChange}>
                         Kanji
                     </Checkbox>
                     {' '}
-                    <Checkbox id="readingFactType" inline onChange={this.handleChange}>
+                    <Checkbox id="readingFactType" inline onChange={this.props.handleChange}>
                         Japanese reading
                     </Checkbox>
                     {' '}
-                    <Checkbox  id="writingFactType" inline onChange={this.handleChange}>
+                    <Checkbox  id="writingFactType" inline onChange={this.props.handleChange}>
                         Japanese writing
                     </Checkbox>
                     {' '}
-                    <Checkbox id="englishFactType" inline onChange={this.handleChange}>
+                    <Checkbox id="englishFactType" inline onChange={this.props.handleChange}>
                         English translation
                     </Checkbox>                        
                 </FormGroup>
@@ -426,10 +426,7 @@ class FactList extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            parentNugget: '',
-
-        };
+        this.state = {};
     }
 
     render(){
