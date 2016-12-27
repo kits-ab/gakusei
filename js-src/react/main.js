@@ -9,7 +9,6 @@ class GakuseiNav extends React.Component {
         super(props);
     }
     eventHandler(eventKey){
-        console.log("eventkey selected: " + eventKey)
         if (eventKey === 1) {
             this.props.updater('play')
         } else if (eventKey === 2) {
@@ -32,14 +31,7 @@ class GakuseiNav extends React.Component {
                 <Navbar.Collapse>
                     <Nav>
                     <NavItem eventKey={1} href="#">Play</NavItem>
-                    <NavItem eventKey={3} href="#">NuggetSearch</NavItem>
-                    {/*<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">*/}
-                    {/*<MenuItem eventKey={3.1}>Action</MenuItem>*/}
-                    {/*<MenuItem eventKey={3.2}>Another action</MenuItem>*/}
-                    {/*<MenuItem eventKey={3.3}>Something else here</MenuItem>*/}
-                    {/*<MenuItem divider />*/}
-                    {/*<MenuItem eventKey={3.3}>Separated link</MenuItem>*/}
-                    {/*</NavDropdown>*/}
+                    <NavItem eventKey={3} href="#">List Items</NavItem>
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={2} href="#">About</NavItem>
@@ -69,7 +61,7 @@ class AnswerButton extends React.Component {
 class NextButton extends React.Component {
     render() {
         return(
-            <Button bsStyle="info" onClick={this.props.onMagicClick}>
+            <Button bsStyle="info" onClick={this.props.onNextClick}>
                 Next Question (Enter)
             </Button>
         );
@@ -122,13 +114,13 @@ class Gameplay extends React.Component {
         var newButtonStyles = [];
         if(answer === this.state.correctAlt){
             newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'success' : 'default');
-        }else{
+        } else {
             newButtonStyles = this.state.randomOrderAlt.map( (word) => {
-                if(word === answer){
+                if(word === answer) {
                     return "danger";
-                }else if(word === this.state.correctAlt){
+                } else if(word === this.state.correctAlt) {
                     return "success";
-                }else{
+                } else {
                     return "default";
                 }
             });
@@ -147,15 +139,15 @@ class Gameplay extends React.Component {
 
     onKeys(event){
         var keyDown = event.key;
-        if(keyDown === 'Enter'){
+        if (keyDown === 'Enter') {
             this.fetchQuestion();
-        }else if(keyDown === '1' && !this.state.buttonDisabled){
+        } else if (keyDown === '1' && !this.state.buttonDisabled) {
             this.checkAnswer(this.state.randomOrderAlt[0]);
-        }else if(keyDown === '2' && !this.state.buttonDisabled){
+        } else if (keyDown === '2' && !this.state.buttonDisabled) {
             this.checkAnswer(this.state.randomOrderAlt[1]);
-        }else if(keyDown === '3' && !this.state.buttonDisabled){
+        } else if (keyDown === '3' && !this.state.buttonDisabled) {
             this.checkAnswer(this.state.randomOrderAlt[2]);
-        }else if(keyDown === '4' && !this.state.buttonDisabled){
+        } else if (keyDown === '4' && !this.state.buttonDisabled) {
             this.checkAnswer(this.state.randomOrderAlt[3]);
         }
     }
@@ -205,7 +197,7 @@ class Gameplay extends React.Component {
                     </Row>
                     <br/><br/>
                     <Row>
-                        <div className="text-center"><NextButton onMagicClick={this.fetchQuestion}/></div>
+                        <div className="text-center"><NextButton onNextClick={this.fetchQuestion}/></div>
                     </Row>
                     <br/>
                     <Row>
@@ -237,7 +229,6 @@ class App extends React.Component {
     }
 
     switchPage(newContent) {
-        console.log("Updating content root");
         if (newContent === 'play') {
             this.setState({currentPage : <Gameplay/>})
         }
@@ -275,27 +266,22 @@ class NuggetSearch extends React.Component {
 
     updateQueryInput(event){        
         if (event.target.id === 'kanjiFactType'){
-            console.log(event.target.id + ": " + event.target.checked);
             this.setState({
                 factType1: event.target.checked ? 'kanji' : ''
             });
         } else if (event.target.id === 'readingFactType') {
-            console.log(event.target.id + ": " + event.target.checked);
             this.setState({
                 factType2: event.target.checked ? 'reading' : ''
             });
         } else if (event.target.id === 'writingFactType') {
-            console.log(event.target.id + ": " + event.target.checked);
             this.setState({
                 factType3: event.target.checked ? 'writing' : ''
             });
         } else if (event.target.id === 'englishFactType') {
-            console.log(event.target.id + ": " + event.target.checked);
             this.setState({
                 factType4: event.target.checked ? 'english_translation' : ''
             });
         } else if (event.target.id === 'wordType') {
-            console.log(event.target.id + ": " + event.target.value);
             this.setState({wordType: event.target.value});            
         }        
     }
@@ -314,8 +300,6 @@ class NuggetSearch extends React.Component {
                     nuggetList: json
             }))
             .catch(ex => console.log('json parsing failed', ex));
-        console.log(fetchUrl);
-        //event.preventDefault();
     }
 
     render() {
@@ -334,12 +318,7 @@ class QueryInput extends React.Component{
     constructor(props) {
         super(props);
 
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }    
-
-    handleChange(event) {
-        this.props.handleChange(event);
     }
 
     handleSubmit(event){
@@ -353,7 +332,7 @@ class QueryInput extends React.Component{
                 <FormGroup>
                     <ControlLabel>Query Input</ControlLabel>
                     <FormControl componentClass="select" id="wordType" 
-                    onChange={this.handleChange}>
+                    onChange={this.props.handleChange}>
                         <option value=''>
                             Select word type
                         </option>
@@ -405,55 +384,76 @@ class SearchResults extends React.Component{
             expandId: ''
         };
 
-        this.toggleFactView = this.toggleFactView.bind(this);
-    }
-
-    toggleFactView(nuggetId){
-        this.setState({
-            factViewToggle: !this.state.factViewToggle
-        });
     }
 
     render() {
         return(
             <div>
-                <NuggetList nuggetResults={this.props.nuggetResults}
-                />
+                <NuggetList nuggetResults={this.props.nuggetResults} />
             </div>
         )
     }
 }
 
-function NuggetList(props){
 
-    const listRows = props.nuggetResults.map( (nugget) =>
-        <li key={nugget.id}>
-            {"type: " + nugget.type
-            + " // description: " + nugget.description}
-            <br/>
-            <FactList factlist={nugget.facts}/>
-        </li>
-    );
-    return(
-        <div>
-            <ul>{listRows}</ul>
-        </div>
-    );
+
+class NuggetList extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
+
+    render(){
+        const listRows = this.props.nuggetResults.map( (nugget) =>
+             <li key={nugget.id}>
+                 {"type: " + nugget.type
+                 + " // description: " + nugget.description}
+                 <FactList factlist={nugget.facts}/>
+             </li>
+         );
+        return(
+            <div>
+                <ul>{listRows}</ul>
+            </div>
+        )
+    }
 }
 
-function FactList(props) {
+class FactList extends React.Component {
 
-    const factListRows = props.factlist.map( (fact) =>
-        <li key={fact.id} > {"data: " + fact.data
-        + " // type: " + fact.type
-        + " // description: " + fact.description}
-        </li>
-    );
-    return(
-        <div>
-            <ul>{factListRows}</ul>
-        </div>
-    );
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            parentNugget: '',
+
+        };
+    }
+
+    render(){
+        const factListRows = this.props.factlist.map( (fact) =>
+            <li key={fact.id} > {"data: " + fact.data
+            + " // type: " + fact.type
+            + " // description: " + fact.description}
+            </li>
+        );
+
+        return(
+            <div>
+                <Button bsSize="xsmall"
+                onClick={ ()=> this.setState({ open: !this.state.open })} inline={true}>
+                    +
+                </Button><br/>
+                <Collapse in={this.state.open}>
+                    <div>
+                        <ul>{factListRows}</ul>
+                    </div>
+                </Collapse>
+            </div>
+        )
+    }
 }
 
 ReactDOM.render(<App/>, document.getElementById('index_root'));
