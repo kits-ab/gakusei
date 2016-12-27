@@ -443,7 +443,7 @@ class FactList extends React.Component {
         return(
             <div>
                 <Button bsSize="xsmall"
-                onClick={ ()=> this.setState({ open: !this.state.open })} inline={true}>
+                onClick={ ()=> this.setState({ open: !this.state.open })}>
                     +
                 </Button><br/>
                 <Collapse in={this.state.open}>
