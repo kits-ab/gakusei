@@ -408,6 +408,7 @@ class SearchResults extends React.Component{
 function NuggetList(props){
 
     const listRows = props.nuggetResults.map( (nugget) =>
+        <li key={nugget.id}> {"id: " + nugget.id
         + " // type: " + nugget.type
         + " // description: " + nugget.description}
         </li>
