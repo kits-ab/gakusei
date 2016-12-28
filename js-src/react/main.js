@@ -73,6 +73,7 @@ class GuessPlayPage extends React.Component {
         };
         this.fetchQuestion = this.fetchQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
+        this.successRate = this.successRate.bind(this);
     }
     fetchQuestion() {
         fetch('/api/question/', {credentials: "same-origin"})
@@ -103,6 +104,9 @@ class GuessPlayPage extends React.Component {
         var newButtonStyles = [];
         if (answer === this.state.correctAlt) {
             newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'success' : 'default');
+            if(sessionStorage.correctAttempts){
+                sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
+            }
         } else {
             newButtonStyles = this.state.randomOrderAlt.map( (word) => {
                 if (word === answer) {
@@ -114,6 +118,11 @@ class GuessPlayPage extends React.Component {
                 }
             });
         }
+
+        if(sessionStorage.totalAttempts){
+            sessionStorage.totalAttempts = Number(sessionStorage.totalAttempts) + 1;
+        }
+
         this.setState({
             buttonDisabled: true,
             buttonStyles: newButtonStyles
@@ -122,6 +131,15 @@ class GuessPlayPage extends React.Component {
     componentDidMount() {
         this.fetchQuestion();
         window.addEventListener("keydown", this.onKeys.bind(this));
+        sessionStorage.setItem('correctAttempts', 0);
+        sessionStorage.totalAttempts = 0;
+    }
+    successRate(){
+        if(Number(sessionStorage.totalAttempts) > 0){
+            return (Number(sessionStorage.correctAttempts)
+                /Number(sessionStorage.totalAttempts) * 100).toFixed(1) + " % success rate";
+        }
+        else { return ""; }
     }
     onKeys(event){
         var keyDown = event.key;
@@ -186,6 +204,16 @@ class GuessPlayPage extends React.Component {
                             <Button bsStyle="info"  onClick={this.fetchQuestion}>
                                 Next Question (Enter)
                             </Button>
+                        </div>
+                    </Row>
+                    <Row>
+                        <div className="text-center">
+                            <br/>
+                            {sessionStorage.correctAttempts + " correct attempts this session"}
+                            <br/>
+                            {sessionStorage.totalAttempts + " total attempts this session"}
+                            <br/>
+                            {this.successRate()}
                         </div>
                     </Row>
                     <br/>
