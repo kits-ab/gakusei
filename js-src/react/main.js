@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Navbar, Nav, NavItem, NavbarBrand, NavDropdown, Button, ButtonToolbar, Grid, Row, Col, FormGroup, DropdownButton, Checkbox, MenuItem, ButtonGroup, FormControl, ControlLabel, Collapse} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, NavbarBrand, NavDropdown, Button, ButtonToolbar, Grid, Row, Col, FormGroup,
+        DropdownButton, Checkbox, MenuItem, ButtonGroup, FormControl, ControlLabel, Collapse, ListGroup,
+        ListGroupItem} from 'react-bootstrap';
 import 'whatwg-fetch';
 
 class GakuseiNav extends React.Component {
@@ -31,16 +33,16 @@ class GakuseiNav extends React.Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                    <NavDropdown eventKey={1} title="Play" id="basic-nav-dropdown">
-                        <MenuItem eventKey={1.1}>Guess the word</MenuItem>
-                        <MenuItem eventKey={1.2}>Translation exercise</MenuItem>
+                    <NavDropdown eventKey={1} title="Spela" id="basic-nav-dropdown">
+                        <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
+                        <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
                     </NavDropdown>
-                    <NavItem eventKey={2} href="#">List Nuggets</NavItem>
+                    <NavItem eventKey={2} href="#">Lista Nuggets</NavItem>
                     </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={3} href="#">About</NavItem>
+                        <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
                         <Navbar.Text>
-                            <Navbar.Link href="/logout">Logout</Navbar.Link>
+                            <Navbar.Link href="/logout">Logga ut</Navbar.Link>
                         </Navbar.Text>
                     </Nav>
                 </Navbar.Collapse>
@@ -184,7 +186,7 @@ class GuessPlayPage extends React.Component {
                     <Row>
                         <div className="text-center">
                             <Button bsStyle="info"  onClick={this.fetchQuestion}>
-                                Next Question (Enter)
+                                Nästa fråga (Enter)
                             </Button>
                         </div>
                     </Row>
@@ -235,9 +237,9 @@ class TranslationPlayPage extends React.Component {
     }
     checkAnswer() {
         if (this.state.answer === this.state.correctAlt) {
-            this.setState({output: 'Correct!'})
+            this.setState({output: 'Rätt!'})
         } else {
-            this.setState({output: `Wrong! Correct answer is: ${this.state.correctAlt}`})
+            this.setState({output: `Fel! Det rätta svaret är: ${this.state.correctAlt}`})
         }
     }
     render() {
@@ -247,12 +249,12 @@ class TranslationPlayPage extends React.Component {
                     <Row><h2>{this.state.question}</h2></Row>
                     <br/>
                     <Row>
-                        <input value={this.state.answer} onChange={this.handleChange} placeholder='Enter answer here'/>
+                        <input value={this.state.answer} onChange={this.handleChange} placeholder='Skriv in ditt svar här'/>
                     </Row>
                     <br/>
-                    <Button type="submit" onClick={this.checkAnswer}>Check Answer</Button>
+                    <Button type="submit" onClick={this.checkAnswer}>Kontrollera svar</Button>
                     {'  '}
-                    <Button bsStyle="info" onClick={this.fetchQuestion}> Next Question</Button>
+                    <Button bsStyle="info" onClick={this.fetchQuestion}>Nästa ord</Button>
                     <br/>
                     <Row><h3>{this.state.output}</h3></Row>
                 </Grid>
@@ -328,45 +330,45 @@ class QueryInput extends React.Component{
         return(
             <form href="#" onSubmit={this.props.handleSubmit}>
                 <FormGroup>
-                    <ControlLabel>Filter nuggets on:</ControlLabel>
+                    <ControlLabel>Filtrera nuggets på:</ControlLabel>
                     <FormControl componentClass="select" id="wordType"
                     onChange={this.props.handleChange}>
                         <option value=''>
-                            All word types
+                            Alla ordtyper
                         </option>
                         <option value='verb'>
                             Verb
                         </option>
                         <option value='adjective'>
-                            Adjective
+                            Adjektiv
                         </option>
                         <option value='noun'>
-                            Noun
+                            Substantiv
                         </option>
                         <option value='adverb'>
                             Adverb
                         </option>
                     </FormControl>
-                    The nugget should contain the following translations:
+                    Nuggeten ska innehålla översättningar från följande språk:
                     <br/>
                     <Checkbox id="kanjiFactType" inline onChange={this.props.handleChange}>
                         Kanji
                     </Checkbox>
                     {' '}
                     <Checkbox id="readingFactType" inline onChange={this.props.handleChange}>
-                        Japanese reading
+                        Japansk läsning
                     </Checkbox>
                     {' '}
                     <Checkbox  id="writingFactType" inline onChange={this.props.handleChange}>
-                        Japanese writing
+                        Japansk skrivning
                     </Checkbox>
                     {' '}
                     <Checkbox id="englishFactType" inline onChange={this.props.handleChange}>
-                        English translation
+                        Engelska
                     </Checkbox>
                 </FormGroup>
                 <Button type="submit">
-                    List Nuggets
+                    Filtrera
                 </Button>
             </form>
         )
@@ -376,16 +378,15 @@ class QueryInput extends React.Component{
 class NuggetList extends React.Component {
     render() {
         const listRows = this.props.nuggetResults.map( (nugget) =>
-             <li key={nugget.id}>
-                 {"type: " + nugget.type
-                 + " // description: " + nugget.description}
+            <ListGroupItem key={nugget.id}>
+                 {"Ordtyp: " + nugget.type + " // beskrivning: " + nugget.description}
                  <FactList factlist={nugget.facts}/>
-             </li>
+            </ListGroupItem>
          );
         return(
-            <div>
-                <ul>{listRows}</ul>
-            </div>
+            <ListGroup>
+                {listRows}
+            </ListGroup>
         )
     }
 }
@@ -398,8 +399,8 @@ class FactList extends React.Component {
     render(){
         const factListRows = this.props.factlist.map( (fact) =>
             <li key={fact.id} > {"data: " + fact.data
-            + " // type: " + fact.type
-            + " // description: " + fact.description}
+            + " // typ: " + fact.type
+            + " // beskrivning: " + fact.description}
             </li>
         );
         return(
