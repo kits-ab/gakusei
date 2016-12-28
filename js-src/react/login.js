@@ -25,15 +25,15 @@ class Form extends React.Component {
                     id={this.props.usernameId}
                     name="username"
                     type="text"
-                    label="Username"
-                    placeholder="Enter username"
+                    label="Användarnamn"
+                    placeholder="Skriv in ditt användarnamn här"
                 />
                 <this.FieldGroup
                     id={this.props.passwordId}
                     name="password"
-                    label="Password"
+                    label="Lösenord"
                     type="password"
-                    placeholder="Enter password"
+                    placeholder="Skriv in ditt lösenord här"
                 />
                 <this.FieldGroup
                     id={this.props.csrfId}
@@ -53,10 +53,10 @@ class Login extends React.Component {
     render(){
         return (
             <div>
-                <h2>Login</h2>
-                <Form actionName="/auth" usernameId="loginText" passwordId="loginText" csrfId="loginCSRF" btnText="Login"/>
-                <h2>User Registration</h2>
-                <Form actionName="/registeruser" usernameId="regText" passwordId="regText" csrfId="regCSRF" btnText="Register"/>
+                <h2>Logga in</h2>
+                <Form actionName="/auth" usernameId="loginText" passwordId="loginText" csrfId="loginCSRF" btnText="Logga in"/>
+                <h2>Registrera användare</h2>
+                <Form actionName="/registeruser" usernameId="regText" passwordId="regText" csrfId="regCSRF" btnText="Registrera användare"/>
             </div>
         );
     }
