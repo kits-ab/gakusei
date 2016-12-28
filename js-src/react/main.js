@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Navbar, Nav, NavItem, NavbarBrand, Button, ButtonToolbar, Grid, Row, Col,
-FormGroup, DropdownButton, Checkbox, MenuItem, ButtonGroup, FormControl, ControlLabel, Collapse} from 'react-bootstrap';
+import {Navbar, Nav, NavItem, NavbarBrand, NavDropdown, Button, ButtonToolbar, Grid, Row, Col, FormGroup, DropdownButton, Checkbox, MenuItem, ButtonGroup, FormControl, ControlLabel, Collapse} from 'react-bootstrap';
 import 'whatwg-fetch';
 
 class GakuseiNav extends React.Component {
@@ -9,12 +8,14 @@ class GakuseiNav extends React.Component {
         super(props);
     }
     eventHandler(eventKey){
-        if (eventKey === 1) {
-            this.props.updater('play')
+        if (eventKey === 1.1) {
+            this.props.updater('GuessPlayPage')
+        } else if (eventKey === 1.2) {
+            this.props.updater('TranslationPlayPage')
         } else if (eventKey === 2) {
-            this.props.updater('about');
+            this.props.updater('NuggetListPage');
         } else if (eventKey === 3) {
-            this.props.updater('nuggetsearch');
+            this.props.updater('AboutPage');
         }
     }
     render() {
@@ -30,11 +31,14 @@ class GakuseiNav extends React.Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                    <NavItem eventKey={1} href="#">Play</NavItem>
-                    <NavItem eventKey={3} href="#">List Items</NavItem>
+                    <NavDropdown eventKey={1} title="Play" id="basic-nav-dropdown">
+                        <MenuItem eventKey={1.1}>Guess the word</MenuItem>
+                        <MenuItem eventKey={1.2}>Translation exercise</MenuItem>
+                    </NavDropdown>
+                    <NavItem eventKey={2} href="#">List Nuggets</NavItem>
                     </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={2} href="#">About</NavItem>
+                        <NavItem eventKey={3} href="#">About</NavItem>
                         <Navbar.Text>
                             <Navbar.Link href="/logout">Logout</Navbar.Link>
                         </Navbar.Text>
@@ -58,21 +62,10 @@ class AnswerButton extends React.Component {
     }
 }
 
-class NextButton extends React.Component {
-    render() {
-        return(
-            <Button bsStyle="info" onClick={this.props.onNextClick}>
-                Next Question (Enter)
-            </Button>
-        );
-    }
-}
-
-class Gameplay extends React.Component {
+class GuessPlayPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {question: '',
-            answerReturn: '',
             correctAlt: '',
             randomOrderAlt: ['', '', '', ''],
             buttonStyles: ['default', 'default', 'default', 'default'],
@@ -81,13 +74,11 @@ class Gameplay extends React.Component {
         this.fetchQuestion = this.fetchQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
     }
-
     fetchQuestion() {
         fetch('/api/question/', {credentials: "same-origin"})
             .then(response => response.json())
             .then(json =>
-                this.setState({ answerReturn: '',
-                                question: json.question,
+                this.setState({ question: json.question,
                                 correctAlt: json.correctAlternative,
                                 randomOrderAlt: this.randomizeOrder([json.alternative1,
                                                                      json.alternative2,
@@ -98,7 +89,6 @@ class Gameplay extends React.Component {
                                 })
             ).catch(ex => console.log('json parsing failed', ex))
     }
-
     randomizeOrder(array) {
         let i = array.length - 1;
         for (; i > 0; i--) {
@@ -109,14 +99,13 @@ class Gameplay extends React.Component {
         };
         return array;
     }
-
     checkAnswer(answer) {
         var newButtonStyles = [];
-        if(answer === this.state.correctAlt){
+        if (answer === this.state.correctAlt) {
             newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'success' : 'default');
         } else {
             newButtonStyles = this.state.randomOrderAlt.map( (word) => {
-                if(word === answer) {
+                if (word === answer) {
                     return "danger";
                 } else if(word === this.state.correctAlt) {
                     return "success";
@@ -125,18 +114,15 @@ class Gameplay extends React.Component {
                 }
             });
         }
-
         this.setState({
             buttonDisabled: true,
             buttonStyles: newButtonStyles
         });
     }
-
     componentDidMount() {
         this.fetchQuestion();
         window.addEventListener("keydown", this.onKeys.bind(this));
     }
-
     onKeys(event){
         var keyDown = event.key;
         if (keyDown === 'Enter') {
@@ -151,7 +137,6 @@ class Gameplay extends React.Component {
             this.checkAnswer(this.state.randomOrderAlt[3]);
         }
     }
-
     render() {
         return (
             <div>
@@ -197,12 +182,13 @@ class Gameplay extends React.Component {
                     </Row>
                     <br/><br/>
                     <Row>
-                        <div className="text-center"><NextButton onNextClick={this.fetchQuestion}/></div>
+                        <div className="text-center">
+                            <Button bsStyle="info"  onClick={this.fetchQuestion}>
+                                Next Question (Enter)
+                            </Button>
+                        </div>
                     </Row>
                     <br/>
-                    <Row>
-                        <div className="text-center">{this.state.answerReturn}</div>
-                    </Row>
                 </Grid>
             </div>
         );
@@ -220,37 +206,62 @@ class AboutPage extends React.Component {
     }
 }
 
-class App extends React.Component {
+class TranslationPlayPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            currentPage : <Gameplay/>
+        this.state = {answer: '',
+                      output: '',
+                      question: '',
+                      correctAlt: ''}
+        this.fetchQuestion = this.fetchQuestion.bind(this);
+        this.checkAnswer = this.checkAnswer.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    componentDidMount() {
+        this.fetchQuestion();
+    }
+    fetchQuestion() {
+        this.setState({answer: '',
+                       output: ''});
+        fetch('/api/question/', {credentials: "same-origin"})
+            .then(response => response.json())
+            .then(json =>
+                this.setState({ question: json.question,
+                                correctAlt: json.correctAlternative })
+            ).catch(ex => console.log('json parsing failed', ex))
+    }
+    handleChange(event) {
+        this.setState({answer: event.target.value});
+    }
+    checkAnswer() {
+        if (this.state.answer === this.state.correctAlt) {
+            this.setState({output: 'Correct!'})
+        } else {
+            this.setState({output: `Wrong! Correct answer is: ${this.state.correctAlt}`})
         }
     }
-
-    switchPage(newContent) {
-        if (newContent === 'play') {
-            this.setState({currentPage : <Gameplay/>})
-        }
-        else if (newContent === 'about') {
-            this.setState({currentPage : <AboutPage/>})
-        }
-        else if (newContent === 'nuggetsearch') {
-            this.setState({currentPage : <NuggetSearch/>})
-        }
-    }
-
     render() {
         return (
             <div>
-                <GakuseiNav updater={this.switchPage.bind(this)} />
-                {this.state.currentPage}
+                <Grid className="text-center">
+                    <Row><h2>{this.state.question}</h2></Row>
+                    <br/>
+                    <Row>
+                        <input value={this.state.answer} onChange={this.handleChange} placeholder='Enter answer here'/>
+                    </Row>
+                    <br/>
+                    <Button type="submit" onClick={this.checkAnswer}>Check Answer</Button>
+                    {'  '}
+                    <Button bsStyle="info" onClick={this.fetchQuestion}> Next Question</Button>
+                    <br/>
+                    <Row><h3>{this.state.output}</h3></Row>
+                </Grid>
             </div>
         );
     }
 }
 
-class NuggetSearch extends React.Component {
+class NuggetListPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {wordType: '',
@@ -263,8 +274,7 @@ class NuggetSearch extends React.Component {
         this.updateQueryInput = this.updateQueryInput.bind(this);
         this.fetchCustomQuery = this.fetchCustomQuery.bind(this);
     }
-
-    updateQueryInput(event){        
+    updateQueryInput(event){
         if (event.target.id === 'kanjiFactType'){
             this.setState({
                 factType1: event.target.checked ? 'kanji' : ''
@@ -282,53 +292,47 @@ class NuggetSearch extends React.Component {
                 factType4: event.target.checked ? 'english_translation' : ''
             });
         } else if (event.target.id === 'wordType') {
-            this.setState({wordType: event.target.value});            
-        }        
+            this.setState({wordType: event.target.value});
+        }
     }
-
     fetchCustomQuery(event){
-        var fetchUrl = '/api/filter/nuggets?wordType=' + this.state.wordType 
-            + '&factType1=' + this.state.factType1 
-            + '&factType2=' + this.state.factType2 
-            + '&factType3=' + this.state.factType3 
+        var fetchUrl = '/api/filter/nuggets?wordType=' + this.state.wordType
+            + '&factType1=' + this.state.factType1
+            + '&factType2=' + this.state.factType2
+            + '&factType3=' + this.state.factType3
             + '&factType4=' + this.state.factType4;
-        fetch(fetchUrl, 
+        fetch(fetchUrl,
             {credentials: "same-origin"})
             .then(response => response.json())
             .then(json =>
-                this.setState({ 
+                this.setState({
                     nuggetList: json
             }))
             .catch(ex => console.log('json parsing failed', ex));
             event.preventDefault();
     }
-
     render() {
         return(
             <div>
                 <QueryInput handleChange={this.updateQueryInput}
                     handleSubmit={this.fetchCustomQuery}/>
                 <br/>
-                <SearchResults nuggetResults={this.state.nuggetList} />
+                <NuggetList nuggetResults={this.state.nuggetList} />
             </div>
         )
     }
 }
 
 class QueryInput extends React.Component{
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return(
             <form href="#" onSubmit={this.props.handleSubmit}>
                 <FormGroup>
-                    <ControlLabel>Query Input</ControlLabel>
-                    <FormControl componentClass="select" id="wordType" 
+                    <ControlLabel>Filter nuggets on:</ControlLabel>
+                    <FormControl componentClass="select" id="wordType"
                     onChange={this.props.handleChange}>
                         <option value=''>
-                            Select word type
+                            All word types
                         </option>
                         <option value='verb'>
                             Verb
@@ -342,8 +346,9 @@ class QueryInput extends React.Component{
                         <option value='adverb'>
                             Adverb
                         </option>
-                    </FormControl>                    
-                    {' '}
+                    </FormControl>
+                    The nugget should contain the following translations:
+                    <br/>
                     <Checkbox id="kanjiFactType" inline onChange={this.props.handleChange}>
                         Kanji
                     </Checkbox>
@@ -358,42 +363,18 @@ class QueryInput extends React.Component{
                     {' '}
                     <Checkbox id="englishFactType" inline onChange={this.props.handleChange}>
                         English translation
-                    </Checkbox>                        
+                    </Checkbox>
                 </FormGroup>
                 <Button type="submit">
-                  Submit
+                    List Nuggets
                 </Button>
             </form>
         )
     }
 }
 
-class SearchResults extends React.Component{
-
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-    }
-
-    render() {
-        return(
-            <div>
-                <NuggetList nuggetResults={this.props.nuggetResults} />
-            </div>
-        )
-    }
-}
-
 class NuggetList extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-    }
-
-    render(){
+    render() {
         const listRows = this.props.nuggetResults.map( (nugget) =>
              <li key={nugget.id}>
                  {"type: " + nugget.type
@@ -410,13 +391,10 @@ class NuggetList extends React.Component {
 }
 
 class FactList extends React.Component {
-
     constructor(props) {
         super(props);
-
         this.state = {};
     }
-
     render(){
         const factListRows = this.props.factlist.map( (fact) =>
             <li key={fact.id} > {"data: " + fact.data
@@ -424,7 +402,6 @@ class FactList extends React.Component {
             + " // description: " + fact.description}
             </li>
         );
-
         return(
             <div>
                 <Button bsSize="xsmall"
@@ -438,6 +415,37 @@ class FactList extends React.Component {
                 </Collapse>
             </div>
         )
+    }
+}
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentPage : <GuessPlayPage/>,
+        }
+    }
+    switchPage(newContent) {
+        if (newContent === 'GuessPlayPage') {
+            this.setState({currentPage : <GuessPlayPage/>})
+        }
+        else if (newContent === 'TranslationPlayPage') {
+            this.setState({currentPage : <TranslationPlayPage/>})
+        }
+        else if (newContent === 'NuggetListPage') {
+            this.setState({currentPage : <NuggetListPage/>})
+        }
+        else if (newContent === 'AboutPage') {
+            this.setState({currentPage : <AboutPage/>})
+        }
+    }
+    render() {
+        return (
+            <div>
+                <GakuseiNav updater={this.switchPage.bind(this)} />
+                {this.state.currentPage}
+            </div>
+        );
     }
 }
 
