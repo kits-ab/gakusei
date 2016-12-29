@@ -1,5 +1,6 @@
 package se.kits.gakusei.content.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -22,6 +23,10 @@ public class Nugget implements Serializable{
     @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
     @JsonManagedReference
     private List<Fact> facts;
+
+    @ManyToMany(mappedBy = "nuggets")
+    @JsonBackReference
+    private List<Lesson> lessons;
 
     public Nugget(){}
 
@@ -59,5 +64,13 @@ public class Nugget implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
     }
 }
