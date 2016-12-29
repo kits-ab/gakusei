@@ -139,7 +139,7 @@ class GuessPlayPage extends React.Component {
         var successRateMessage = "";
         if(Number(sessionStorage.totalAttempts) > 0){
             successRate = Number(sessionStorage.correctAttempts)
-                / Number(sessionStorage.totalAttempts) * 100;;
+                / Number(sessionStorage.totalAttempts) * 100;
             successRateMessage = successRate.toFixed(1) + " % success rate";
             if(successRate >= 80){
                 return successRateMessage + " :D";
