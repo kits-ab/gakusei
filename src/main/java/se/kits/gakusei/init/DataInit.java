@@ -11,16 +11,18 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import se.kits.gakusei.content.model.Fact;
+import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.FactRepository;
+import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class DataInit implements ApplicationRunner {
@@ -35,6 +37,9 @@ public class DataInit implements ApplicationRunner {
     private FactRepository factRepository;
 
     @Autowired
+    private LessonRepository lessonRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -46,6 +51,7 @@ public class DataInit implements ApplicationRunner {
     public void run(ApplicationArguments applicationArguments) throws Exception {
         createUsers();
         createTestData(readTestDataFromFile());
+        createLessons();
     }
 
     private List<TestDataHolder> readTestDataFromFile() {
@@ -89,5 +95,20 @@ public class DataInit implements ApplicationRunner {
         users.add(new User("debiddo", passwordEncoder.encode("gakusei"), "ROLE_USER"));
         users.add(new User("admin", passwordEncoder.encode("gakusei"), "ROLE_ADMIN"));
         userRepository.save(users);
+    }
+
+    private void createLessons() {
+        Map<String, List<Nugget>> nuggetMap = nuggetRepository.findAll().stream().collect(Collectors.groupingBy(Nugget::getType));
+
+        List<Lesson> lessons = new ArrayList<>();
+        for (String wordType : nuggetMap.keySet()) {
+            Lesson l = new Lesson();
+            l.setName(wordType.substring(0, 1).toUpperCase() + wordType.substring(1) + "s");
+            l.setDescription("All nuggets with type '" + wordType + "'");
+            l.setNuggets(nuggetMap.get(wordType));
+            lessons.add(l);
+        }
+
+        lessonRepository.save(lessons);
     }
 }

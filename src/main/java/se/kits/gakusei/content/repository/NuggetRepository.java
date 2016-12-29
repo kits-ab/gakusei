@@ -7,7 +7,10 @@ import se.kits.gakusei.content.model.Nugget;
 
 import java.util.List;
 
-public interface NuggetRepository extends CrudRepository<Nugget, Long>{
+public interface NuggetRepository extends CrudRepository<Nugget, Long> {
+
+    List<Nugget> findAll();
+
     @Query("select t from Nugget t where t.id in " +
             "(select n.id from Nugget n inner join n.facts f " +
             "where n.type = :wordType and f.type in (:firstLangType, :secondLangType)" +
