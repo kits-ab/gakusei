@@ -73,7 +73,7 @@ class GuessPlayPage extends React.Component {
         };
         this.fetchQuestion = this.fetchQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
-        this.successRate = this.successRate.bind(this);
+        this.getSuccessRate = this.getSuccessRate.bind(this);
     }
     fetchQuestion() {
         fetch('/api/question/', {credentials: "same-origin"})
@@ -134,12 +134,25 @@ class GuessPlayPage extends React.Component {
         sessionStorage.setItem('correctAttempts', 0);
         sessionStorage.totalAttempts = 0;
     }
-    successRate(){
+    getSuccessRate(){
+        var successRate = 0;
+        var successRateMessage = "";
         if(Number(sessionStorage.totalAttempts) > 0){
-            return (Number(sessionStorage.correctAttempts)
-                /Number(sessionStorage.totalAttempts) * 100).toFixed(1) + " % success rate";
+            successRate = Number(sessionStorage.correctAttempts)
+                / Number(sessionStorage.totalAttempts) * 100;;
+            successRateMessage = successRate.toFixed(1) + " % success rate";
+            if(successRate >= 80){
+                return successRateMessage + " :D";
+            } else if(successRate < 80 && successRate >= 60){
+                return successRateMessage + " :)";
+            } else if(successRate < 60 && successRate >= 40){
+                return successRateMessage + " :/";
+            } else if(successRate < 40 && successRate >= 20){
+                return successRateMessage + " :(";
+            } else if(successRate < 20){
+                return successRateMessage + " :((";
+            }
         }
-        else { return ""; }
     }
     onKeys(event){
         var keyDown = event.key;
@@ -213,7 +226,7 @@ class GuessPlayPage extends React.Component {
                             <br/>
                             {sessionStorage.totalAttempts + " total attempts this session"}
                             <br/>
-                            {this.successRate()}
+                            {this.getSuccessRate()}
                         </div>
                     </Row>
                     <br/>
