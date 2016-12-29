@@ -72,23 +72,64 @@ class GuessPlayPage extends React.Component {
             buttonDisabled: false
         };
         this.fetchQuestion = this.fetchQuestion.bind(this);
+        this.getNextQuestion = this.getNextQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
         this.getSuccessRate = this.getSuccessRate.bind(this);
     }
+    fetchLesson() {
+//        fetch('/api/questions?lessonId=1', {credentials: "same-origin"})
+//            .then(response => response.json())
+//            .then(json =>
+//                sessionStorage.lesson = json;
+//                sessionStorage.currentQuestionIndex = 0;
+//                this.setState({
+//                    currentQuestion: sessionStorage.lesson[Number(sessionStorage.currentQuestionIndex)]
+//                })
+//            ).then(this.fetchQuestion())
+//            .catch(ex => console.log('json parsing failed', ex))
+            const MOCKLESSON = [{"question":"おばあさん","alternative1":"bright","alternative2":"long","alternative3":"years old","correctAlternative":"grandmother"}, {"question":"おとこのひと","alternative1":"older sister","alternative2":"cafeteria","alternative3":"grandfather","correctAlternative":"man"}, {"question":"すむ","alternative1":"convenience","alternative2":"older sister","alternative3":"game","correctAlternative":"live"}, {"question":"しんせつ","alternative1":"convenient","alternative2":"song","alternative3":"glasses","correctAlternative":"kind"}, {"question":"ふとっています","alternative1":"younger sister","alternative2":"to","alternative3":"older sister","correctAlternative":"heavy side"}];
+            sessionStorage.lesson = JSON.parse(MOCKLESSON);
+            sessionStorage.currentQuestionIndex = 0;
+            console.log(JSON.stringify(sessionStorage.lesson));
+            console.log(sessionStorage.lesson.length);
+            //this.fetchQuestion();
+//            this.setState({
+//                currentQuestion: sessionStorage.lesson[Number(sessionStorage.currentQuestionIndex)],
+//            });
+    }
     fetchQuestion() {
-        fetch('/api/question/', {credentials: "same-origin"})
-            .then(response => response.json())
-            .then(json =>
-                this.setState({ question: json.question,
-                                correctAlt: json.correctAlternative,
-                                randomOrderAlt: this.randomizeOrder([json.alternative1,
-                                                                     json.alternative2,
-                                                                     json.alternative3,
-                                                                     json.correctAlternative]),
+        this.setState({
+
+            question: this.state.currentQuestion.question,
+            correctAlt: this.state.currentQuestion.correctAlternative,
+            randomOrderAlt: this.randomizeOrder([this.state.currentQuestion.alternative1,
+                                                 this.state.currentQuestion.alternative2,
+                                                 this.state.currentQuestion.alternative3,
+                                                 this.state.currentQuestion.correctAlternative]),
                                 buttonStyles: ['default', 'default', 'default', 'default'],
                                 buttonDisabled: false
-                                })
-            ).catch(ex => console.log('json parsing failed', ex))
+        });
+//        fetch('/api/question/', {credentials: "same-origin"})
+//            .then(response => response.json())
+//            .then(json =>
+//                this.setState({ question: json.question,
+//                                correctAlt: json.correctAlternative,
+//                                randomOrderAlt: this.randomizeOrder([json.alternative1,
+//                                                                     json.alternative2,
+//                                                                     json.alternative3,
+//                                                                     json.correctAlternative]),
+//                                buttonStyles: ['default', 'default', 'default', 'default'],
+//                                buttonDisabled: false
+//                                })
+//            ).catch(ex => console.log('json parsing failed', ex))
+    }
+    getNextQuestion(){
+        if(sessionStorage.currentQuestionIndex < sessionStorage.lesson.length){
+            sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
+            this.fetchQuestion();
+        } else {
+            // do what? present results?
+        }
     }
     randomizeOrder(array) {
         let i = array.length - 1;
@@ -103,7 +144,8 @@ class GuessPlayPage extends React.Component {
     checkAnswer(answer) {
         var newButtonStyles = [];
         if (answer === this.state.correctAlt) {
-            newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'success' : 'default');
+            newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ?
+            'success' : 'default');
             if(sessionStorage.correctAttempts){
                 sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
             }
@@ -129,8 +171,9 @@ class GuessPlayPage extends React.Component {
         });
     }
     componentDidMount() {
-        this.fetchQuestion();
         window.addEventListener("keydown", this.onKeys.bind(this));
+        this.fetchLesson();
+        //this.fetchQuestion();
         sessionStorage.setItem('correctAttempts', 0);
         sessionStorage.totalAttempts = 0;
     }
@@ -157,7 +200,7 @@ class GuessPlayPage extends React.Component {
     onKeys(event){
         var keyDown = event.key;
         if (keyDown === 'Enter') {
-            this.fetchQuestion();
+            this.getNextQuestion();
         } else if (keyDown === '1' && !this.state.buttonDisabled) {
             this.checkAnswer(this.state.randomOrderAlt[0]);
         } else if (keyDown === '2' && !this.state.buttonDisabled) {
@@ -214,13 +257,14 @@ class GuessPlayPage extends React.Component {
                     <br/><br/>
                     <Row>
                         <div className="text-center">
-                            <Button bsStyle="info"  onClick={this.fetchQuestion}>
+                            <Button bsStyle="info"  onClick={this.getNextQuestion}>
                                 Next Question (Enter)
                             </Button>
                         </div>
                     </Row>
                     <Row>
                         <div className="text-center">
+                            Lesson progress: {Number(sessionStorage.currentQuestionIndex) + 1} /
                             <br/>
                             {sessionStorage.correctAttempts + " correct attempts this session"}
                             <br/>
