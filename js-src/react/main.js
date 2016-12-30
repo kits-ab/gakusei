@@ -291,7 +291,7 @@ class TranslationPlayPage extends React.Component {
         this.setState({answer: event.target.value});
     }
     checkAnswer() {
-        if (this.state.answer === this.state.correctAlt) {
+        if (this.state.answer.trim().toUpperCase() === this.state.correctAlt.toUpperCase()) {
             this.setState({output: 'Rätt!'})
         } else {
             this.setState({output: `Fel! Det rätta svaret är: ${this.state.correctAlt}`})
@@ -411,11 +411,11 @@ class QueryInput extends React.Component{
                     </Checkbox>
                     {' '}
                     <Checkbox id='readingFactType' inline onChange={this.props.handleChange}>
-                        Japansk läsning
+                        Japansk läsform
                     </Checkbox>
                     {' '}
                     <Checkbox  id='writingFactType' inline onChange={this.props.handleChange}>
-                        Japansk skrivning
+                        Japansk skrivform
                     </Checkbox>
                     {' '}
                     <Checkbox id='englishFactType' inline onChange={this.props.handleChange}>
