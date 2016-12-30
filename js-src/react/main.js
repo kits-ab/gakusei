@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Navbar, Nav, NavItem, NavbarBrand, NavDropdown, Button, ButtonToolbar, Grid, Row, Col, FormGroup,
         DropdownButton, Checkbox, MenuItem, ButtonGroup, FormControl, ControlLabel, Collapse, ListGroup,
-        ListGroupItem} from 'react-bootstrap';
+        ListGroupItem, Panel} from 'react-bootstrap';
 import 'whatwg-fetch';
+
+import xml2js from 'xml2js';
 
 class GakuseiNav extends React.Component {
     constructor(props) {
@@ -25,24 +27,24 @@ class GakuseiNav extends React.Component {
             <Navbar onSelect={this.eventHandler.bind(this)} inverse collapseOnSelect>
                 <Navbar.Header>
                     <NavbarBrand>
-                        <span><a href="#"><img height={'100%'}
-                                               src="/img/temp_gakusei_logo3.png"
-                                               alt="Gakusei logo"/></a>Gakusei</span>
+                        <span><a href='#'><img height={'100%'}
+                                               src='/img/temp_gakusei_logo3.png'
+                                               alt='Gakusei logo'/></a>Gakusei</span>
                     </NavbarBrand>
                     <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                    <NavDropdown eventKey={1} title="Spela" id="basic-nav-dropdown">
+                    <NavDropdown eventKey={1} title='Spela' id='basic-nav-dropdown'>
                         <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
                         <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
                     </NavDropdown>
-                    <NavItem eventKey={2} href="#">Lista Nuggets</NavItem>
+                    <NavItem eventKey={2} href='#'>Lista Nuggets</NavItem>
                     </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
+                        <NavItem eventKey={3} href='#'>Om Gakusei</NavItem>
                         <Navbar.Text>
-                            <Navbar.Link href="/logout">Logga ut</Navbar.Link>
+                            <Navbar.Link href='/logout'>Logga ut</Navbar.Link>
                         </Navbar.Text>
                     </Nav>
                 </Navbar.Collapse>
@@ -55,10 +57,10 @@ class AnswerButton extends React.Component {
     render() {
         return (
             <Button bsStyle={this.props.buttonStyle}
-               bsSize="large" block
+               bsSize='large' block
                onClick={this.props.onAnswerClick.bind(this, this.props.label)}
                disabled = {this.props.disableButton}>
-               {this.props.buttonNumber + ". " + this.props.label}
+               {this.props.buttonNumber + '. ' + this.props.label}
             </Button>
         );
     }
@@ -77,7 +79,7 @@ class GuessPlayPage extends React.Component {
         this.checkAnswer = this.checkAnswer.bind(this);
     }
     fetchQuestion() {
-        fetch('/api/question/', {credentials: "same-origin"})
+        fetch('/api/question/', {credentials: 'same-origin'})
             .then(response => response.json())
             .then(json =>
                 this.setState({ question: json.question,
@@ -108,11 +110,11 @@ class GuessPlayPage extends React.Component {
         } else {
             newButtonStyles = this.state.randomOrderAlt.map( (word) => {
                 if (word === answer) {
-                    return "danger";
+                    return 'danger';
                 } else if(word === this.state.correctAlt) {
-                    return "success";
+                    return 'success';
                 } else {
-                    return "default";
+                    return 'default';
                 }
             });
         }
@@ -123,7 +125,7 @@ class GuessPlayPage extends React.Component {
     }
     componentDidMount() {
         this.fetchQuestion();
-        window.addEventListener("keydown", this.onKeys.bind(this));
+        window.addEventListener('keydown', this.onKeys.bind(this));
     }
     onKeys(event){
         var keyDown = event.key;
@@ -143,7 +145,7 @@ class GuessPlayPage extends React.Component {
         return (
             <div>
                 <Grid>
-                    <Row><h2 className="text-center">{this.state.question}</h2></Row>
+                    <Row><h2 className='text-center'>{this.state.question}</h2></Row>
                     <br/>
                     <Row>
                         <ButtonToolbar>
@@ -184,8 +186,8 @@ class GuessPlayPage extends React.Component {
                     </Row>
                     <br/><br/>
                     <Row>
-                        <div className="text-center">
-                            <Button bsStyle="info"  onClick={this.fetchQuestion}>
+                        <div className='text-center'>
+                            <Button bsStyle='info'  onClick={this.fetchQuestion}>
                                 Nästa fråga (Enter)
                             </Button>
                         </div>
@@ -199,10 +201,63 @@ class GuessPlayPage extends React.Component {
 
 class AboutPage extends React.Component {
     render() {
+        let xmldoc = '';
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                xmldoc = xmlhttp.response;
+            }
+        };
+        xmlhttp.open('GET', 'license/licenses.xml', false);
+        xmlhttp.send();
+
+        let licenses = '';
+        xml2js.parseString(xmldoc, function (err, result) {
+            let dep = result.licenseSummary.dependencies[0].dependency;
+
+            dep.forEach(d => {
+                if (!d.licenses[0]['license']) {
+                    d.licenses[0] = {
+                        'license' : [{
+                            'name' : ['No license specified'],
+                            'url' : ['']
+                        }]
+                    };
+                }
+            });
+
+            const produceLicenses = licenses => licenses.map(
+                l => <div key={l.url[0] + l.name[0]}><a target='_blank' href={l.url[0]}>{l.name[0]}</a></div>
+            );
+
+            licenses = dep.map(d =>
+                <ListGroupItem key={d.groupId[0] + d.artifactId[0]}>
+                    {'Modul: ' + d.groupId[0] + ' : ' + d.artifactId[0]} <br/>
+                    {'Version: ' + d.version[0]} <br/>
+                    {'Licens(er): '} {produceLicenses(d.licenses[0].license)}
+                </ListGroupItem>);
+        });
         return (
             <div>
                 <br/>
-                <div className="text-center">About page placeholder</div>
+                <h2>Om Gakusei</h2>
+                <div>
+                    <p>Gakusei är en webbapp för övning/inlärning av japanska.
+                        Utvecklingen sker i form av ett open source-projekt.
+                        Utvecklingen har sponsrats av <a target='_blank' href='https://www.kits.se'>Kits</a>.
+                        Besök gärna projektets <a target='_blank' href='https://github.com/kits-ab/gakusei/'>Githubsida</a>.
+                    </p>
+                </div>
+                <div>
+                    <p>Webbappen Gakusei går under licensen <a target='_blank' href='https://www.opensource.org/licenses/mit-license.php'>MIT</a>.
+                        Nedan följer en lista på licenser för de moduler som projektet använder sig av.
+                    </p>
+                </div>
+                <Panel collapsible header='Licenser'>
+                    <ListGroup>
+                        {licenses}
+                    </ListGroup>
+                </Panel>
             </div>
         );
     }
@@ -225,7 +280,7 @@ class TranslationPlayPage extends React.Component {
     fetchQuestion() {
         this.setState({answer: '',
                        output: ''});
-        fetch('/api/question/', {credentials: "same-origin"})
+        fetch('/api/question/', {credentials: 'same-origin'})
             .then(response => response.json())
             .then(json =>
                 this.setState({ question: json.question,
@@ -245,16 +300,16 @@ class TranslationPlayPage extends React.Component {
     render() {
         return (
             <div>
-                <Grid className="text-center">
+                <Grid className='text-center'>
                     <Row><h2>{this.state.question}</h2></Row>
                     <br/>
                     <Row>
                         <input value={this.state.answer} onChange={this.handleChange} placeholder='Skriv in ditt svar här'/>
                     </Row>
                     <br/>
-                    <Button type="submit" onClick={this.checkAnswer}>Kontrollera svar</Button>
+                    <Button type='submit' onClick={this.checkAnswer}>Kontrollera svar</Button>
                     {'  '}
-                    <Button bsStyle="info" onClick={this.fetchQuestion}>Nästa ord</Button>
+                    <Button bsStyle='info' onClick={this.fetchQuestion}>Nästa ord</Button>
                     <br/>
                     <Row><h3>{this.state.output}</h3></Row>
                 </Grid>
@@ -304,7 +359,7 @@ class NuggetListPage extends React.Component {
             + '&factType3=' + this.state.factType3
             + '&factType4=' + this.state.factType4;
         fetch(fetchUrl,
-            {credentials: "same-origin"})
+            {credentials: 'same-origin'})
             .then(response => response.json())
             .then(json =>
                 this.setState({
@@ -328,10 +383,10 @@ class NuggetListPage extends React.Component {
 class QueryInput extends React.Component{
     render() {
         return(
-            <form href="#" onSubmit={this.props.handleSubmit}>
+            <form href='#' onSubmit={this.props.handleSubmit}>
                 <FormGroup>
                     <ControlLabel>Filtrera nuggets på:</ControlLabel>
-                    <FormControl componentClass="select" id="wordType"
+                    <FormControl componentClass='select' id='wordType'
                     onChange={this.props.handleChange}>
                         <option value=''>
                             Alla ordtyper
@@ -351,23 +406,23 @@ class QueryInput extends React.Component{
                     </FormControl>
                     Nuggeten ska innehålla översättningar från följande språk:
                     <br/>
-                    <Checkbox id="kanjiFactType" inline onChange={this.props.handleChange}>
+                    <Checkbox id='kanjiFactType' inline onChange={this.props.handleChange}>
                         Kanji
                     </Checkbox>
                     {' '}
-                    <Checkbox id="readingFactType" inline onChange={this.props.handleChange}>
+                    <Checkbox id='readingFactType' inline onChange={this.props.handleChange}>
                         Japansk läsform
                     </Checkbox>
                     {' '}
-                    <Checkbox  id="writingFactType" inline onChange={this.props.handleChange}>
+                    <Checkbox  id='writingFactType' inline onChange={this.props.handleChange}>
                         Japansk skrivform
                     </Checkbox>
                     {' '}
-                    <Checkbox id="englishFactType" inline onChange={this.props.handleChange}>
+                    <Checkbox id='englishFactType' inline onChange={this.props.handleChange}>
                         Engelska
                     </Checkbox>
                 </FormGroup>
-                <Button type="submit">
+                <Button type='submit'>
                     Filtrera
                 </Button>
             </form>
@@ -379,7 +434,7 @@ class NuggetList extends React.Component {
     render() {
         const listRows = this.props.nuggetResults.map( (nugget) =>
             <ListGroupItem key={nugget.id}>
-                 {"Ordtyp: " + nugget.type + " // beskrivning: " + nugget.description}
+                 {'Ordtyp: ' + nugget.type + ' // beskrivning: ' + nugget.description}
                  <FactList factlist={nugget.facts}/>
             </ListGroupItem>
          );
@@ -398,14 +453,14 @@ class FactList extends React.Component {
     }
     render(){
         const factListRows = this.props.factlist.map( (fact) =>
-            <li key={fact.id} > {"data: " + fact.data
-            + " // typ: " + fact.type
-            + " // beskrivning: " + fact.description}
+            <li key={fact.id} > {'data: ' + fact.data
+            + ' // typ: ' + fact.type
+            + ' // beskrivning: ' + fact.description}
             </li>
         );
         return(
             <div>
-                <Button bsSize="xsmall"
+                <Button bsSize='xsmall'
                 onClick={ ()=> this.setState({ open: !this.state.open })}>
                     +
                 </Button><br/>
