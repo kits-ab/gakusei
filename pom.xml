@@ -94,6 +94,9 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <version>1.10</version>
+                <configuration>
+                    <licensesOutputFile>${project.build.directory}/classes/static/license/licenses.xml</licensesOutputFile>
+                </configuration>
                 <executions>
                     <execution>
                         <id>download-licenses</id>
