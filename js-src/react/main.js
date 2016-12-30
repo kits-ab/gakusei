@@ -97,9 +97,9 @@ class GuessPlayPage extends React.Component {
                 console.log(json[0].correctAlternative);
                 console.log(JSON.stringify(json));
 
-                sessionStorage.lesson = JSON.stringify(json);
-                console.log(JSON.parse(sessionStorage.lesson)[0].correctAlternative);
-                console.log(sessionStorage.lesson);
+//                sessionStorage.lesson = JSON.stringify(json);
+//                console.log(JSON.parse(sessionStorage.lesson)[0].correctAlternative);
+//                console.log(sessionStorage.lesson);
                 this.setState({
                     question: json[0].question,
                     correctAlt: json[0].correctAlternative,
