@@ -71,66 +71,78 @@ class GuessPlayPage extends React.Component {
             correctAlt: '',
             randomOrderAlt: ['', '', '', ''],
             buttonStyles: ['default', 'default', 'default', 'default'],
-            buttonDisabled: false
+            buttonDisabled: false,
+            nextButtonDisable: false,
+            lesson: [],
+            currentQuestion: '',
         };
         this.fetchQuestion = this.fetchQuestion.bind(this);
         this.getNextQuestion = this.getNextQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
         this.getSuccessRate = this.getSuccessRate.bind(this);
+
+        sessionStorage.setItem('correctAttempts', 0);
+        sessionStorage.totalAttempts = 0;
+        sessionStorage.currentQuestionIndex = 0;
+
+    }
+    componentDidMount() {
+        window.addEventListener("keydown", this.onKeys.bind(this));
+        this.fetchLesson();
     }
     fetchLesson() {
-//        fetch('/api/questions?lessonId=1', {credentials: "same-origin"})
-//            .then(response => response.json())
-//            .then(json =>
-//                sessionStorage.lesson = json;
-//                sessionStorage.currentQuestionIndex = 0;
-//                this.setState({
-//                    currentQuestion: sessionStorage.lesson[Number(sessionStorage.currentQuestionIndex)]
-//                })
-//            ).then(this.fetchQuestion())
-//            .catch(ex => console.log('json parsing failed', ex))
-            const MOCKLESSON = [{"question":"おばあさん","alternative1":"bright","alternative2":"long","alternative3":"years old","correctAlternative":"grandmother"}, {"question":"おとこのひと","alternative1":"older sister","alternative2":"cafeteria","alternative3":"grandfather","correctAlternative":"man"}, {"question":"すむ","alternative1":"convenience","alternative2":"older sister","alternative3":"game","correctAlternative":"live"}, {"question":"しんせつ","alternative1":"convenient","alternative2":"song","alternative3":"glasses","correctAlternative":"kind"}, {"question":"ふとっています","alternative1":"younger sister","alternative2":"to","alternative3":"older sister","correctAlternative":"heavy side"}];
-            sessionStorage.lesson = JSON.parse(MOCKLESSON);
-            sessionStorage.currentQuestionIndex = 0;
-            console.log(JSON.stringify(sessionStorage.lesson));
-            console.log(sessionStorage.lesson.length);
-            //this.fetchQuestion();
-//            this.setState({
-//                currentQuestion: sessionStorage.lesson[Number(sessionStorage.currentQuestionIndex)],
-//            });
-    }
-    fetchQuestion() {
-        this.setState({
+        fetch('/api/questions?lessonName=Verbs', {credentials: "same-origin"})
+            .then(response => response.json())
+            .then(json => {
+                console.log(json[0].correctAlternative);
+                console.log(JSON.stringify(json));
 
-            question: this.state.currentQuestion.question,
-            correctAlt: this.state.currentQuestion.correctAlternative,
-            randomOrderAlt: this.randomizeOrder([this.state.currentQuestion.alternative1,
-                                                 this.state.currentQuestion.alternative2,
-                                                 this.state.currentQuestion.alternative3,
-                                                 this.state.currentQuestion.correctAlternative]),
+                sessionStorage.lesson = JSON.stringify(json);
+                console.log(JSON.parse(sessionStorage.lesson)[0].correctAlternative);
+                console.log(sessionStorage.lesson);
+                this.setState({
+                    question: json[0].question,
+                    correctAlt: json[0].correctAlternative,
+                    randomOrderAlt: this.randomizeOrder([
+                        json[0].alternative1,
+                        json[0].alternative2,
+                        json[0].alternative3,
+                        json[0].correctAlternative]),
+                    buttonStyles: ['default', 'default', 'default', 'default'],
+                    buttonDisabled: false
+                });
+                }
+            ).catch(ex => console.log('json parsing failed', ex));
+    }
+    fetchQuestion(questionIndex) {
+        this.setState({
+            question: JSON.parse(sessionStorage.lesson)[questionIndex].question,
+            correctAlt: JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative,
+            randomOrderAlt: this.randomizeOrder([
+                JSON.parse(sessionStorage.lesson)[questionIndex].alternative1,
+                JSON.parse(sessionStorage.lesson)[questionIndex].alternative2,
+                JSON.parse(sessionStorage.lesson)[questionIndex].alternative3,
+                JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative]),
                                 buttonStyles: ['default', 'default', 'default', 'default'],
                                 buttonDisabled: false
         });
-//        fetch('/api/question/', {credentials: "same-origin"})
-//            .then(response => response.json())
-//            .then(json =>
-//                this.setState({ question: json.question,
-//                                correctAlt: json.correctAlternative,
-//                                randomOrderAlt: this.randomizeOrder([json.alternative1,
-//                                                                     json.alternative2,
-//                                                                     json.alternative3,
-//                                                                     json.correctAlternative]),
-//                                buttonStyles: ['default', 'default', 'default', 'default'],
-//                                buttonDisabled: false
-//                                })
-//            ).catch(ex => console.log('json parsing failed', ex))
+        console.log(sessionStorage.currentQuestionIndex);
+        console.log(JSON.parse(sessionStorage.lesson)[Number(sessionStorage.currentQuestionIndex)]);
     }
     getNextQuestion(){
-        if(sessionStorage.currentQuestionIndex < sessionStorage.lesson.length){
-            sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
-            this.fetchQuestion();
+        sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
+        if(Number(sessionStorage.currentQuestionIndex) == JSON.parse(sessionStorage.lesson).length - 1){
+            this.setState({
+                nextButtonDisable: true
+            });
+        }
+        console.log("lesson length: " + JSON.parse(sessionStorage.lesson).length);
+        if(Number(sessionStorage.currentQuestionIndex) < JSON.parse(sessionStorage.lesson).length){
+            this.fetchQuestion(Number(sessionStorage.currentQuestionIndex));
         } else {
-            // do what? present results?
+            this.setState({
+                buttonDisabled: true
+            });
         }
     }
     randomizeOrder(array) {
@@ -172,12 +184,14 @@ class GuessPlayPage extends React.Component {
             buttonStyles: newButtonStyles
         });
     }
-    componentDidMount() {
-        window.addEventListener("keydown", this.onKeys.bind(this));
-        this.fetchLesson();
-        //this.fetchQuestion();
-        sessionStorage.setItem('correctAttempts', 0);
-        sessionStorage.totalAttempts = 0;
+    getLessonLength(){
+        if(sessionStorage.lesson){
+            return JSON.parse(sessionStorage.lesson).length;
+        }
+        else{
+            return 0;
+        }
+
     }
     getSuccessRate(){
         var successRate = 0;
@@ -259,18 +273,23 @@ class GuessPlayPage extends React.Component {
                     <br/><br/>
                     <Row>
                         <div className="text-center">
-                            <Button bsStyle="info"  onClick={this.getNextQuestion}>
+                            <Button bsStyle="info"  onClick={this.getNextQuestion}
+                            disabled={this.state.nextButtonDisable}>
                                 Nästa fråga (Enter)
                             </Button>
                         </div>
                     </Row>
                     <Row>
                         <div className="text-center">
-                            Lesson progress: {Number(sessionStorage.currentQuestionIndex) + 1} /
+                            Index: {Number(sessionStorage.currentQuestionIndex) + " / "
+                            + this.getLessonLength()}
                             <br/>
-                            {sessionStorage.correctAttempts + " correct attempts this session"}
+                            Lesson progress: {(Number(sessionStorage.currentQuestionIndex) + 1) + " / "
+                            + this.getLessonLength()}
                             <br/>
-                            {sessionStorage.totalAttempts + " total attempts this session"}
+                            {sessionStorage.correctAttempts + " rätt denna session"}
+                            <br/>
+                            {sessionStorage.totalAttempts + " antal försök denna session"}
                             <br/>
                             {this.getSuccessRate()}
                         </div>
