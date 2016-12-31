@@ -75,6 +75,7 @@ class GuessPlayPage extends React.Component {
             nextButtonDisable: false,
             lesson: [],
             currentQuestion: '',
+            countDownTime: 3
         };
         this.fetchQuestion = this.fetchQuestion.bind(this);
         this.getNextQuestion = this.getNextQuestion.bind(this);
@@ -91,6 +92,7 @@ class GuessPlayPage extends React.Component {
         this.fetchLesson();
     }
     fetchLesson() {
+        // '/api/questions?lessonName=Verbs' lessonSelection='lessonName=Verbs', this.props.lessonSelection
         fetch('/api/questions?lessonName=Verbs', {credentials: "same-origin"})
             .then(response => response.json())
             .then(json => {
@@ -109,7 +111,8 @@ class GuessPlayPage extends React.Component {
                         json[0].alternative3,
                         json[0].correctAlternative]),
                     buttonStyles: ['default', 'default', 'default', 'default'],
-                    buttonDisabled: false
+                    buttonDisabled: false,
+                    countDownText: ''
                 });
                 }
             ).catch(ex => console.log('json parsing failed', ex));
@@ -123,11 +126,12 @@ class GuessPlayPage extends React.Component {
                 JSON.parse(sessionStorage.lesson)[questionIndex].alternative2,
                 JSON.parse(sessionStorage.lesson)[questionIndex].alternative3,
                 JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative]),
-                                buttonStyles: ['default', 'default', 'default', 'default'],
-                                buttonDisabled: false
+            buttonStyles: ['default', 'default', 'default', 'default'],
+            buttonDisabled: false,
+            countDownText: ''
         });
-        console.log(sessionStorage.currentQuestionIndex);
-        console.log(JSON.parse(sessionStorage.lesson)[Number(sessionStorage.currentQuestionIndex)]);
+//        console.log(sessionStorage.currentQuestionIndex);
+//        console.log(JSON.parse(sessionStorage.lesson)[Number(sessionStorage.currentQuestionIndex)]);
     }
     getNextQuestion(){
         sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
@@ -136,7 +140,7 @@ class GuessPlayPage extends React.Component {
                 nextButtonDisable: true
             });
         }
-        console.log("lesson length: " + JSON.parse(sessionStorage.lesson).length);
+//        console.log("lesson length: " + JSON.parse(sessionStorage.lesson).length);
         if(Number(sessionStorage.currentQuestionIndex) < JSON.parse(sessionStorage.lesson).length){
             this.fetchQuestion(Number(sessionStorage.currentQuestionIndex));
         } else {
@@ -174,15 +178,31 @@ class GuessPlayPage extends React.Component {
                 }
             });
         }
-
         if(sessionStorage.totalAttempts){
             sessionStorage.totalAttempts = Number(sessionStorage.totalAttempts) + 1;
         }
-
         this.setState({
             buttonDisabled: true,
-            buttonStyles: newButtonStyles
+            buttonStyles: newButtonStyles,
+            currentCountDown: this.state.countDownTime
         });
+
+        if(Number(sessionStorage.currentQuestionIndex) < this.getLessonLength()-1 ){
+            this.countDown();
+        }
+
+    }
+    countDown(){
+        var countDownVisible = window.setInterval(() => {
+            this.setState({
+                countDownText: 'Nästa fråga om: ' + this.state.currentCountDown + ' sekunder',
+                currentCountDown: this.state.currentCountDown - 1
+            });
+            if(this.state.currentCountDown < 0){
+                window.clearInterval(countDownVisible);
+                this.getNextQuestion();
+            }
+        }, 1000);
     }
     getLessonLength(){
         if(sessionStorage.lesson){
@@ -273,18 +293,21 @@ class GuessPlayPage extends React.Component {
                     <br/><br/>
                     <Row>
                         <div className="text-center">
+                            {/*
                             <Button bsStyle="info"  onClick={this.getNextQuestion}
                             disabled={this.state.nextButtonDisable}>
                                 Nästa fråga (Enter)
                             </Button>
+                            */}
+                            <h2><b>{this.state.countDownText}</b></h2>
                         </div>
                     </Row>
                     <Row>
                         <div className="text-center">
-                            Index: {Number(sessionStorage.currentQuestionIndex) + " / "
+                            {/*Index: {Number(sessionStorage.currentQuestionIndex) + " / "
                             + this.getLessonLength()}
-                            <br/>
-                            Lesson progress: {(Number(sessionStorage.currentQuestionIndex) + 1) + " / "
+                            <br/> */}
+                            Fråga: {(Number(sessionStorage.currentQuestionIndex) + 1) + " / "
                             + this.getLessonLength()}
                             <br/>
                             {sessionStorage.correctAttempts + " rätt denna session"}
