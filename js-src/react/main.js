@@ -79,7 +79,7 @@ class GuessPlayPage extends React.Component {
             currentQuestion: '',
             countDownTime: 3
         };
-        this.fetchQuestion = this.fetchQuestion.bind(this);
+        this.setQuestion = this.setQuestion.bind(this);
         this.getNextQuestion = this.getNextQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
         this.getSuccessRate = this.getSuccessRate.bind(this);
@@ -121,24 +121,25 @@ class GuessPlayPage extends React.Component {
                 sessionStorage.lesson = JSON.stringify(json);
 //                console.log(JSON.parse(sessionStorage.lesson)[0].correctAlternative);
 //                console.log(sessionStorage.lesson);
-                this.setState({
-                    question: json[0].question,
-                    correctAlt: json[0].correctAlternative,
-                    randomOrderAlt: this.randomizeOrder([
-                        json[0].alternative1,
-                        json[0].alternative2,
-                        json[0].alternative3,
-                        json[0].correctAlternative]),
-                    buttonStyles: ['default', 'default', 'default', 'default'],
-                    buttonDisabled: false,
-                    countDownText: ''
-                });
+//                this.setState({
+//                    question: json[0].question,
+//                    correctAlt: json[0].correctAlternative,
+//                    randomOrderAlt: this.randomizeOrder([
+//                        json[0].alternative1,
+//                        json[0].alternative2,
+//                        json[0].alternative3,
+//                        json[0].correctAlternative]),
+//                    buttonStyles: ['default', 'default', 'default', 'default'],
+//                    buttonDisabled: false,
+//                    countDownText: ''
+//                });
+                this.setQuestion(0);
             }).catch(ex => {
                 console.log('json parsing failed', ex);
                 this.newLesson();
             });
     }
-    fetchQuestion(questionIndex) {
+    setQuestion(questionIndex) {
         this.setState({
             question: JSON.parse(sessionStorage.lesson)[questionIndex].question,
             correctAlt: JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative,
@@ -157,7 +158,7 @@ class GuessPlayPage extends React.Component {
     getNextQuestion(){
         if(Number(sessionStorage.currentQuestionIndex) + 1 < this.getLessonLength()){
             sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
-            this.fetchQuestion(Number(sessionStorage.currentQuestionIndex));
+            this.setQuestion(Number(sessionStorage.currentQuestionIndex));
 //            if(Number(sessionStorage.currentQuestionIndex) == JSON.parse(sessionStorage.lesson).length - 1){
 //                this.setState({
 //                    nextButtonDisable: true
