@@ -1,0 +1,33 @@
+type,english,swedish,reading,writing,kanji,teform,teform_w,shortform,shortform_w,longform,longform_w
+verb,sing,sjunga,うたう,歌う,歌,うたって,歌って,うたう,歌う,うたいます,歌います
+verb,put on (hat),ta på sig (huvudbeklädnad),かぶる,かぶる,,かぶって,かぶって,かぶる,かぶる,かぶります,かぶります
+verb,get to know,få veta,しる,知る,知,しって,知って,しる,知る,しります,知ります
+verb,know,veta,しっている,知っている,知,,,しっている,知っている,しっています,知っています
+verb,don't know,ovetande,しりません,知りません,知,,,,,,
+verb,live,bo,すむ,住む,住,すんで,住んで,すむ,住む,すみます,住みませ
+verb,put on (below waist),ta på sig (under midjan),はく,履く,履,はいて,履いて,はく,履く,はきます,履きます
+verb,gain weight,gå upp i vikt,ふとる,太る,太,ふとって,太って,ふとる,太る,ふとります,太ります
+verb,be overweight,vara överviktig,ふとっている,太っている,太,,,,,,
+verb,put on (glasses),ta på sig (glasögon),かける,かける,,かけて,かけて,かける,かける,かけます,かけます
+verb,put on (above waist),ta på sig (ovanför midjan),きる,着る,着,きて,着て,きる,着る,きます,着ます
+verb,work for,arbeta för,つとめる,勤める,勤,つとめて,勤めて,つとめる,勤める,つとめます,勤めます
+verb,lose weight,tappa vikt,やせる,痩せる,痩,やせて,痩せて,やせる,痩せる,やせます,痩せます
+verb,be thin,vara smal,やせている,痩せている,痩,,,,,,
+verb,get married,gifta sig,けっこんする,結婚する,結婚,けっこんして,結婚して,けっこんする,結婚する,けっこんします,結婚します
+verb,rain,regna,あめがふる,雨が降る,雨降,あめがふって,雨が降って,あめがふる,雨が降る,あめがふります,雨が降ります
+verb,wash,tvätta,あらう,洗う,洗,あらって,洗って,あらう,洗う,あらいます,洗います
+verb,say,säga,いう,言う,言,いって,言って,いう,言う,いいます,言います
+verb,need,behöva,いる,いる,,いって,いって,いる,いる,いります,いります
+verb,be late,vara sen,おそくなる,遅くなる,遅,おそくなって,遅くなって,おそくなる,遅くなる,おそくなります,遅くなります
+verb,think,tro,おもう,思う,思,おもって,思って,おもう,思う,思います,思います
+verb,cut,hugga,きる,切る,切,きって,切って,きる,切る,きります,切ります
+verb,make,tillverka,つくる,作る,作,つくって,作って,つくる,作る,つくります,作ります
+verb,take (thing),ta (sak),もっていく,持っていく,持,もっていって,持っていって,もっていく,持っていく,もっていきます,持っていきます
+verb,stare,stirra,じろじろみる,じろじろ見る,見,じろじろみて,じろじろ見て,じろじろみる,じろじろ見る,じろじろみます,じろじろ見ます
+verb,throw away,kasta,すてる,捨てる,捨,すてて,捨てて,すてる,捨てる,すてます,捨てます
+verb,begin,börja,はじめる,始める,始,はじめて,始めて,はじめる,始める,はじめます,始めます
+verb,drive,köra,うんてんする,運転する,運転,うんてんして,運転して,うんてんする,運転する,うんてんします,運転します
+verb,do laundry, tvätta (tvätt),せんたくする,洗濯する,洗濯,せんたくして,洗濯して,せんたくする,洗濯する,せんたくします,洗濯します
+verb,clean,städa,そうじする,掃除する,掃除,そうじして,掃除して,そうじする,掃除する,そうじします,掃除します
+verb,call,ringa,でんわする,電話する,電話,でんわして,電話して,でんわする,電話する,でんわします,電話します
+verb,cook,laga mat,りょうりする,料理する,料理,りょうりして,料理して,りょうりする,料理する,りょうりします,料理します

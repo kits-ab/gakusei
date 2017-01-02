@@ -1,5 +1,6 @@
 package se.kits.gakusei.init;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,17 +55,14 @@ public class DataInit implements ApplicationRunner {
         createLessons();
     }
 
-    private List<TestDataHolder> readTestDataFromFile() {
+    private Set<Map<String, Object>> readTestDataFromFile() {
         String testDataFile = "testdata/testdata.json";
 
         ObjectMapper mapper = new ObjectMapper();
         Resource resource = resourceLoader.getResource("classpath:" + testDataFile);
         logger.info("Loaded resource");
         try (InputStream json = resource.getInputStream()) {
-            List<TestDataHolder> dataHolders = mapper.readValue(
-                    json,
-                    mapper.getTypeFactory().constructCollectionType(
-                            List.class, TestDataHolder.class));
+            Set<Map<String, Object>> dataHolders = mapper.readValue(json,new TypeReference<Set<Map<String, Object>>>(){});
             logger.info(dataHolders.toString());
             return dataHolders;
         } catch (IOException e) {
@@ -74,10 +72,19 @@ public class DataInit implements ApplicationRunner {
         }
     }
 
-    private void createTestData(List<TestDataHolder> dataHolders) {
-        for (TestDataHolder tdh : dataHolders) {
-            Nugget nugget = tdh.createNugget();
-            List<Fact> facts = tdh.createFacts();
+    private void createTestData(Set<Map<String, Object>> dataHolders) {
+        for (Map<String, Object> tdh : dataHolders) {
+            Nugget nugget = new Nugget(tdh.get("type").toString());
+            nugget.setDescription(tdh.get("english").toString());
+            List<Fact> facts = new ArrayList<>();
+            for (Map.Entry entry : tdh.entrySet()) {
+                Fact fact = new Fact();
+                String type = entry.getKey().toString();
+                if (type.equals("english")) type = "english_translation";
+                fact.setType(type);
+                fact.setData(entry.getValue().toString());
+                facts.add(fact);
+            }
             Nugget savedNugget = nuggetRepository.save(nugget);
             savedNugget.setFacts(facts);
             for (Fact fact : facts) {
