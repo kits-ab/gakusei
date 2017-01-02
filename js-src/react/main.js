@@ -84,6 +84,7 @@ class GuessPlayPage extends React.Component {
         this.checkAnswer = this.checkAnswer.bind(this);
         this.getSuccessRate = this.getSuccessRate.bind(this);
         this.fetchLesson = this.fetchLesson.bind(this);
+        this.newLesson = this.newLesson.bind(this);
 
         sessionStorage.setItem('correctAttempts', 0);
         sessionStorage.totalAttempts = 0;
@@ -132,8 +133,10 @@ class GuessPlayPage extends React.Component {
                     buttonDisabled: false,
                     countDownText: ''
                 });
-                }
-            ).catch(ex => console.log('json parsing failed', ex));
+            }).catch(ex => {
+                console.log('json parsing failed', ex);
+                this.newLesson();
+            });
     }
     fetchQuestion(questionIndex) {
         this.setState({
@@ -322,7 +325,7 @@ class GuessPlayPage extends React.Component {
                     </Row>
                     <Row>
                         <div className="text-center">
-                            <Button bsStyle="info" onClick={this.newLesson.bind(this)}>
+                            <Button bsStyle="info" onClick={this.newLesson}>
                                 Ny lektion
                             </Button>
                         </div>
@@ -616,6 +619,9 @@ class FactList extends React.Component {
 class GuessPlaySelection extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            selectedLesson: 'Verbs'
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -635,10 +641,7 @@ class GuessPlaySelection extends React.Component {
                 <FormGroup>
                     <ControlLabel>Välj lektion</ControlLabel>
                     <FormControl componentClass="select" id="lessonSelection"
-                        onChange={this.handleChange}>
-                        <option value=''>
-                            Välj lektion
-                        </option>
+                        onChange={this.handleChange} value={this.state.selectedLesson}>
                         <option value='Verbs'>
                             Verb
                         </option>
