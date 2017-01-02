@@ -223,6 +223,11 @@ class AboutPage extends React.Component {
                             'url' : ['']
                         }]
                     };
+                } else if (!d.licenses[0].license[0]['url']) {
+                    d.licenses[0].license[0] = {
+                        'name' : d.licenses[0].license[0].name[0],
+                        'url' : ''
+                    }
                 }
             });
 
