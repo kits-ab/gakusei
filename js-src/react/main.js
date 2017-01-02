@@ -30,6 +30,7 @@ class GakuseiNav extends React.Component {
                         <span><a href='#'><img height={'100%'}
                                                src='/img/temp_gakusei_logo3.png'
                                                alt='Gakusei logo'/></a>Gakusei</span>
+
                     </NavbarBrand>
                     <Navbar.Toggle />
                 </Navbar.Header>
@@ -43,9 +44,9 @@ class GakuseiNav extends React.Component {
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={3} href='#'>Om Gakusei</NavItem>
-                        <Navbar.Text>
-                            <Navbar.Link href='/logout'>Logga ut</Navbar.Link>
-                        </Navbar.Text>
+                        {/*<Navbar.Text>*/}
+                            {/*<Navbar.Link href='/logout'>Logga ut</Navbar.Link>*/}
+                        {/*</Navbar.Text>*/}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

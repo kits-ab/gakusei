@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "precompile": "rimraf ./src/main/resources/static/js/*",
-    "compile:login": "browserify ./js-src/react/login.js --debug -t babelify -o ./src/main/resources/static/js/login_bundle.js",
     "compile:main": "browserify ./js-src/react/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
-    "compile": "npm run compile:login && npm run compile:main"
+    "compile": "npm run compile:main"
   },
   "repository": {
     "type": "git",
