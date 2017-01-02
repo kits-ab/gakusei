@@ -115,7 +115,7 @@ class GuessPlayPage extends React.Component {
         fetch('/api/questions?lessonName=' + this.props.selectedLesson, {credentials: "same-origin"})
             .then(response => response.json())
             .then(json => {
-                console.log(json[0].correctAlternative);
+//                console.log(json[0].correctAlternative);
                 console.log(JSON.stringify(json));
 
                 sessionStorage.lesson = JSON.stringify(json);
