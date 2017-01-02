@@ -72,7 +72,7 @@ class GuessPlayPage extends React.Component {
             randomOrderAlt: ['', '', '', ''],
             buttonStyles: ['default', 'default', 'default', 'default'],
             buttonDisabled: false,
-//            nextButtonDisable: false,
+            nextButtonDisable: false,
             lesson: [],
             currentQuestion: '',
             countDownTime: 3
@@ -81,7 +81,6 @@ class GuessPlayPage extends React.Component {
         this.getNextQuestion = this.getNextQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
         this.getSuccessRate = this.getSuccessRate.bind(this);
-        this.fetchLesson = this.fetchLesson.bind(this);
 
         sessionStorage.setItem('correctAttempts', 0);
         sessionStorage.totalAttempts = 0;
@@ -113,8 +112,7 @@ class GuessPlayPage extends React.Component {
                         json[0].correctAlternative]),
                     buttonStyles: ['default', 'default', 'default', 'default'],
                     buttonDisabled: false,
-                    countDownText: '',
-                    nextLessonDisable: true
+                    countDownText: ''
                 });
                 }
             ).catch(ex => console.log('json parsing failed', ex));
@@ -136,18 +134,18 @@ class GuessPlayPage extends React.Component {
 //        console.log(JSON.parse(sessionStorage.lesson)[Number(sessionStorage.currentQuestionIndex)]);
     }
     getNextQuestion(){
-        if(Number(sessionStorage.currentQuestionIndex) + 1 < this.getLessonLength()){
-            sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
+        sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
+        if(Number(sessionStorage.currentQuestionIndex) == JSON.parse(sessionStorage.lesson).length - 1){
+            this.setState({
+                nextButtonDisable: true
+            });
+        }
+//        console.log("lesson length: " + JSON.parse(sessionStorage.lesson).length);
+        if(Number(sessionStorage.currentQuestionIndex) < JSON.parse(sessionStorage.lesson).length){
             this.fetchQuestion(Number(sessionStorage.currentQuestionIndex));
-//            if(Number(sessionStorage.currentQuestionIndex) == JSON.parse(sessionStorage.lesson).length - 1){
-//                this.setState({
-//                    nextButtonDisable: true
-//                });
-//            }
         } else {
             this.setState({
-                buttonDisabled: true,
-                nextLessonDisable: false
+                buttonDisabled: true
             });
         }
     }
@@ -192,6 +190,7 @@ class GuessPlayPage extends React.Component {
         if(Number(sessionStorage.currentQuestionIndex) < this.getLessonLength()-1 ){
             this.countDown();
         }
+
     }
     countDown(){
         var countDownVisible = window.setInterval(() => {
@@ -212,6 +211,7 @@ class GuessPlayPage extends React.Component {
         else{
             return 0;
         }
+
     }
     getSuccessRate(){
         var successRate = 0;
@@ -293,6 +293,17 @@ class GuessPlayPage extends React.Component {
                     <br/><br/>
                     <Row>
                         <div className="text-center">
+                            {/*
+                            <Button bsStyle="info"  onClick={this.getNextQuestion}
+                            disabled={this.state.nextButtonDisable}>
+                                Nästa fråga (Enter)
+                            </Button>
+                            */}
+                            <h2><b>{this.state.countDownText}</b></h2>
+                        </div>
+                    </Row>
+                    <Row>
+                        <div className="text-center">
                             {/*Index: {Number(sessionStorage.currentQuestionIndex) + " / "
                             + this.getLessonLength()}
                             <br/> */}
@@ -304,21 +315,6 @@ class GuessPlayPage extends React.Component {
                             {sessionStorage.totalAttempts + " antal försök denna session"}
                             <br/>
                             {this.getSuccessRate()}
-                        </div>
-                    </Row>
-                    <Row>
-                        <div className="text-center">
-                            {/*
-                            <Button bsStyle="info"  onClick={this.getNextQuestion}
-                            disabled={this.state.nextButtonDisable}>
-                                Nästa fråga (Enter)
-                            </Button>
-                            */}
-                            {/*<Button bsStyle="info"  onClick={this.fetchLesson()}
-                            disabled={this.state.nextLessonDisable}>
-                                Nästa lektion
-                            </Button>*/}
-                            <h2><b>{this.state.countDownText}</b></h2>
                         </div>
                     </Row>
                     <br/>
@@ -550,56 +546,6 @@ class FactList extends React.Component {
     }
 }
 
-//class GuessPlaySelection extends React.Component {
-//    render(){
-//        return(
-//            <form href="#" onSubmit={this.props.handleSubmit}>
-//                <FormGroup>
-//                    <ControlLabel>Filtrera nuggets på:</ControlLabel>
-//                    <FormControl componentClass="select" id="wordType"
-//                    onChange={this.props.handleChange}>
-//                        <option value=''>
-//                            Alla ordtyper
-//                        </option>
-//                        <option value='verb'>
-//                            Verb
-//                        </option>
-//                        <option value='adjective'>
-//                            Adjektiv
-//                        </option>
-//                        <option value='noun'>
-//                            Substantiv
-//                        </option>
-//                        <option value='adverb'>
-//                            Adverb
-//                        </option>
-//                    </FormControl>
-//                    Nuggeten ska innehålla översättningar från följande språk:
-//                    <br/>
-//                    <Checkbox id="kanjiFactType" inline onChange={this.props.handleChange}>
-//                        Kanji
-//                    </Checkbox>
-//                    {' '}
-//                    <Checkbox id="readingFactType" inline onChange={this.props.handleChange}>
-//                        Japansk läsform
-//                    </Checkbox>
-//                    {' '}
-//                    <Checkbox  id="writingFactType" inline onChange={this.props.handleChange}>
-//                        Japansk skrivform
-//                    </Checkbox>
-//                    {' '}
-//                    <Checkbox id="englishFactType" inline onChange={this.props.handleChange}>
-//                        Engelska
-//                    </Checkbox>
-//                </FormGroup>
-//                <Button type="submit">
-//                    Filtrera
-//                </Button>
-//            </form>
-//        )
-//    }
-//}
-
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -611,9 +557,6 @@ class App extends React.Component {
         if (newContent === 'GuessPlayPage') {
             this.setState({currentPage : <GuessPlayPage/>})
         }
-//        else if (newContent === 'GuessPlaySelection') {
-//            this.setState({currentPage : <GuessPlaySelection />});
-//        }
         else if (newContent === 'TranslationPlayPage') {
             this.setState({currentPage : <TranslationPlayPage/>})
         }
