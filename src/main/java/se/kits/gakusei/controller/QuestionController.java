@@ -34,7 +34,7 @@ public class QuestionController {
     private ResponseEntity<QuestionDTO> getQuestion(
             @RequestParam(value = "wordType", defaultValue = "") String wordType,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
-            @RequestParam(name = "answerType", defaultValue = "english_translation") String answerType) {
+            @RequestParam(name = "answerType", defaultValue = "english") String answerType) {
 
         List<Nugget> nuggets;
         if (wordType.equals("")) {
@@ -60,7 +60,7 @@ public class QuestionController {
     private ResponseEntity<List<QuestionDTO>> getQuestionsFromLesson(
             @RequestParam(value = "lessonName") String lessonName,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
-            @RequestParam(name = "answerType", defaultValue = "english_translation") String answerType) {
+            @RequestParam(name = "answerType", defaultValue = "english") String answerType) {
 
         Lesson lesson = lessonRepository.findLessonByName(lessonName);
 

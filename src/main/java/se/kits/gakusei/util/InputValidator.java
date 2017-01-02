@@ -12,7 +12,7 @@ public class InputValidator {
             new HashSet<>(Arrays.asList("noun", "verb", "adjective", "adverb"));
 
     private final Set<String> factTypes =
-            new HashSet<>(Arrays.asList("english_translation", "reading", "writing", "kanji"));
+            new HashSet<>(Arrays.asList("english", "reading", "writing", "kanji"));
 
     public String validateNuggetType(String type) {
         return wordTypes.contains(type) ? type : "";

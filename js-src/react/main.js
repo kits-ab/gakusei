@@ -351,7 +351,7 @@ class NuggetListPage extends React.Component {
             });
         } else if (event.target.id === 'englishFactType') {
             this.setState({
-                factType4: event.target.checked ? 'english_translation' : ''
+                factType4: event.target.checked ? 'english' : ''
             });
         } else if (event.target.id === 'wordType') {
             this.setState({wordType: event.target.value});

@@ -80,7 +80,6 @@ public class DataInit implements ApplicationRunner {
             for (Map.Entry entry : tdh.entrySet()) {
                 Fact fact = new Fact();
                 String type = entry.getKey().toString();
-                if (type.equals("english")) type = "english_translation";
                 fact.setType(type);
                 fact.setData(entry.getValue().toString());
                 facts.add(fact);
