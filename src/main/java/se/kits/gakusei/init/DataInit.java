@@ -105,7 +105,6 @@ public class DataInit implements ApplicationRunner {
 
     private void createLessons() {
         Map<String, List<Nugget>> nuggetMap = nuggetRepository.findAll().stream().collect(Collectors.groupingBy(Nugget::getType));
-
         List<Lesson> lessons = new ArrayList<>();
         for (String wordType : nuggetMap.keySet()) {
             Lesson l = new Lesson();
@@ -114,7 +113,6 @@ public class DataInit implements ApplicationRunner {
             l.setNuggets(nuggetMap.get(wordType));
             lessons.add(l);
         }
-
         lessonRepository.save(lessons);
     }
 }
