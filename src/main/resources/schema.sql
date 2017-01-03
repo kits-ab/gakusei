@@ -1,11 +1,11 @@
---DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users;
 --CREATE TABLE users(id SERIAL PRIMARY KEY, username VARCHAR(32), password VARCHAR(64), userrole VARCHAR(64));
 
 DROP TABLE IF EXISTS contentschema.facts;
 DROP TABLE IF EXISTS contentschema.lessons CASCADE;
 DROP TABLE IF EXISTS contentschema.nuggets CASCADE;
 
-DROP SCHEMA IF EXISTS contentschema;
+DROP SCHEMA IF EXISTS contentschema CASCADE;
 CREATE SCHEMA contentschema;
 
 CREATE TABLE contentschema.lessons(
