@@ -4,6 +4,7 @@ import {Navbar, Nav, NavItem, NavbarBrand, NavDropdown, Button, ButtonToolbar, G
         DropdownButton, Checkbox, MenuItem, ButtonGroup, FormControl, ControlLabel, Collapse, ListGroup,
         ListGroupItem, Panel} from 'react-bootstrap';
 import 'whatwg-fetch';
+import checkStatus from 'fetch-check-http-status';
 
 import xml2js from 'xml2js';
 
@@ -74,17 +75,15 @@ class GuessPlayPage extends React.Component {
             randomOrderAlt: ['', '', '', ''],
             buttonStyles: ['default', 'default', 'default', 'default'],
             buttonDisabled: false,
-//            nextButtonDisable: false,
             lesson: [],
-            currentQuestion: '',
-            countDownTime: 3
+            currentQuestion: ''
         };
         this.setQuestion = this.setQuestion.bind(this);
         this.getNextQuestion = this.getNextQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
         this.getSuccessRate = this.getSuccessRate.bind(this);
         this.fetchLesson = this.fetchLesson.bind(this);
-        this.newLesson = this.newLesson.bind(this);
+        this.switchPage = this.switchPage.bind(this);
 
         sessionStorage.setItem('correctAttempts', 0);
         sessionStorage.totalAttempts = 0;
@@ -98,45 +97,24 @@ class GuessPlayPage extends React.Component {
     componentWillUnmount() {
         window.clearInterval(this.countDownVisible);
     }
-    countDown(){
-        this.countDownVisible = window.setInterval(() => {
-            this.setState({
-                countDownText: 'Nästa fråga om: ' + this.state.currentCountDown + ' sekunder',
-                currentCountDown: this.state.currentCountDown - 1
-            });
-            if(this.state.currentCountDown < 0){
-                window.clearInterval(this.countDownVisible);
-                this.getNextQuestion();
-            }
-        }, 1000);
-    }
     fetchLesson() {
-        // '/api/questions?lessonName=Verbs' lessonSelection='lessonName=Verbs', this.props.lessonSelection
         fetch('/api/questions?lessonName=' + this.props.selectedLesson, {credentials: "same-origin"})
+            .then(checkStatus)
             .then(response => response.json())
             .then(json => {
-//                console.log(json[0].correctAlternative);
-                console.log(JSON.stringify(json));
-
                 sessionStorage.lesson = JSON.stringify(json);
-//                console.log(JSON.parse(sessionStorage.lesson)[0].correctAlternative);
-//                console.log(sessionStorage.lesson);
-//                this.setState({
-//                    question: json[0].question,
-//                    correctAlt: json[0].correctAlternative,
-//                    randomOrderAlt: this.randomizeOrder([
-//                        json[0].alternative1,
-//                        json[0].alternative2,
-//                        json[0].alternative3,
-//                        json[0].correctAlternative]),
-//                    buttonStyles: ['default', 'default', 'default', 'default'],
-//                    buttonDisabled: false,
-//                    countDownText: ''
-//                });
+                this.setState({
+                    lessonLength: JSON.parse(sessionStorage.lesson).length
+                });
                 this.setQuestion(0);
-            }).catch(ex => {
-                console.log('json parsing failed', ex);
-                this.newLesson();
+                this.props.setErrorMessage('');
+            }).catch(error => {
+                const status = error.response ? error.response.status : 500;
+                if(status === 204){
+                    this.props.setErrorMessage('Frågelistan ' + this.props.selectedLesson
+                        + ' har för lite innehåll för en spelomgång.');
+                }
+                this.switchPage();
             });
     }
     setQuestion(questionIndex) {
@@ -149,24 +127,16 @@ class GuessPlayPage extends React.Component {
                 JSON.parse(sessionStorage.lesson)[questionIndex].alternative3,
                 JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative]),
             buttonStyles: ['default', 'default', 'default', 'default'],
-            buttonDisabled: false,
-            countDownText: ''
+            buttonDisabled: false
         });
-//        console.log(sessionStorage.currentQuestionIndex);
-//        console.log(JSON.parse(sessionStorage.lesson)[Number(sessionStorage.currentQuestionIndex)]);
     }
     getNextQuestion(){
-        if(Number(sessionStorage.currentQuestionIndex) + 1 < this.getLessonLength()){
+        if(Number(sessionStorage.currentQuestionIndex) + 1 < this.state.lessonLength){
             sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
             this.setQuestion(Number(sessionStorage.currentQuestionIndex));
-//            if(Number(sessionStorage.currentQuestionIndex) == JSON.parse(sessionStorage.lesson).length - 1){
-//                this.setState({
-//                    nextButtonDisable: true
-//                });
-//            }
         } else {
             this.setState({
-                buttonDisabled: true,
+                buttonDisabled: true
             });
         }
     }
@@ -185,9 +155,7 @@ class GuessPlayPage extends React.Component {
         if (answer === this.state.correctAlt) {
             newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ?
             'success' : 'default');
-            if(sessionStorage.correctAttempts){
-                sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
-            }
+            sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
         } else {
             newButtonStyles = this.state.randomOrderAlt.map( (word) => {
                 if (word === answer) {
@@ -199,25 +167,16 @@ class GuessPlayPage extends React.Component {
                 }
             });
         }
-        if(sessionStorage.totalAttempts){
-            sessionStorage.totalAttempts = Number(sessionStorage.totalAttempts) + 1;
-        }
+        sessionStorage.totalAttempts = Number(sessionStorage.totalAttempts) + 1;
         this.setState({
             buttonDisabled: true,
-            buttonStyles: newButtonStyles,
-            currentCountDown: this.state.countDownTime
+            buttonStyles: newButtonStyles
         });
 
-        if(Number(sessionStorage.currentQuestionIndex) < this.getLessonLength()-1 ){
-            this.countDown();
-        }
-    }
-    getLessonLength(){
-        if(sessionStorage.lesson){
-            return JSON.parse(sessionStorage.lesson).length;
-        }
-        else{
-            return 0;
+        if(Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1){
+            setTimeout(() => {
+                this.getNextQuestion();
+            }, 1000);
         }
     }
     getSuccessRate(){
@@ -240,22 +199,23 @@ class GuessPlayPage extends React.Component {
             }
         }
     }
-    newLesson() {
-        this.props.newLesson('GuessPlayPageSelection');
+    switchPage() {
+        this.props.switchPage('GuessPlayPageSelection');
     }
     onKeys(event){
         var keyDown = event.key;
-        if (keyDown === '1' && !this.state.buttonDisabled) {
-            this.checkAnswer(this.state.randomOrderAlt[0]);
-        } else if (keyDown === '2' && !this.state.buttonDisabled) {
-            this.checkAnswer(this.state.randomOrderAlt[1]);
-        } else if (keyDown === '3' && !this.state.buttonDisabled) {
-            this.checkAnswer(this.state.randomOrderAlt[2]);
-        } else if (keyDown === '4' && !this.state.buttonDisabled) {
-            this.checkAnswer(this.state.randomOrderAlt[3]);
-        } /*else if (keyDown === 'Enter') {
-            this.getNextQuestion();
-        }*/
+        if(!this.state.buttonDisabled){
+            if (keyDown === '1') {
+                this.checkAnswer(this.state.randomOrderAlt[0]);
+            } else if (keyDown === '2') {
+                this.checkAnswer(this.state.randomOrderAlt[1]);
+            } else if (keyDown === '3') {
+                this.checkAnswer(this.state.randomOrderAlt[2]);
+            } else if (keyDown === '4') {
+                this.checkAnswer(this.state.randomOrderAlt[3]);
+            }
+        }
+
     }
     render() {
         return (
@@ -304,30 +264,19 @@ class GuessPlayPage extends React.Component {
                     <Row>
                         <div className="text-center">
                             Fråga: {(Number(sessionStorage.currentQuestionIndex) + 1) + " / "
-                            + this.getLessonLength()}
+                            + this.state.lessonLength}
                             <br/>
-                            {sessionStorage.correctAttempts + " rätt denna session"}
+                            {sessionStorage.correctAttempts + " rätt"}
                             <br/>
-                            {sessionStorage.totalAttempts + " antal försök denna session"}
+                            {sessionStorage.totalAttempts + " försök"}
                             <br/>
                             {this.getSuccessRate()}
                         </div>
                     </Row>
                     <Row>
                         <div className="text-center">
-                            {/*
-                            <Button bsStyle="info"  onClick={this.getNextQuestion}
-                            disabled={this.state.nextButtonDisable}>
-                                Nästa fråga (Enter)
-                            </Button>
-                            */}
-                            <h2><b>{this.state.countDownText}</b></h2>
-                        </div>
-                    </Row>
-                    <Row>
-                        <div className="text-center">
-                            <Button bsStyle="info" onClick={this.newLesson}>
-                                Ny lektion
+                            <Button bsStyle="info" onClick={this.switchPage}>
+                                Ny spelomgång
                             </Button>
                         </div>
                     </Row>
@@ -593,6 +542,7 @@ class NuggetList extends React.Component {
 class FactList extends React.Component {
     constructor(props) {
         super(props);
+        this.state = { open: false };
     }
     render(){
         const factListRows = this.props.factlist.map( (fact) =>
@@ -633,34 +583,39 @@ class GuessPlaySelection extends React.Component {
         }
     }
     handleSubmit(event){
-        this.props.lessonSelection(this.state.selectedLesson);
+        this.props.switchPage('GuessPlayPage', this.state.selectedLesson);
         event.preventDefault();
     }
     render(){
         return(
-            <form href="#" onSubmit={this.handleSubmit}>
-                <FormGroup>
-                    <ControlLabel>Välj lektion</ControlLabel>
-                    <FormControl componentClass="select" id="lessonSelection"
-                        onChange={this.handleChange} value={this.state.selectedLesson}>
-                        <option value='Verbs'>
-                            Verb
-                        </option>
-                        <option value='Adjectives'>
-                            Adjektiv
-                        </option>
-                        <option value='Nouns'>
-                            Substantiv
-                        </option>
-                        <option value='Adverbs'>
-                            Adverb
-                        </option>
-                    </FormControl>
-                </FormGroup>
-                <Button type="submit">
-                    Välj lektion
-                </Button>
-            </form>
+            <div>
+                <form href="#" onSubmit={this.handleSubmit}>
+                    <FormGroup>
+                        <ControlLabel>Välj lista av frågor</ControlLabel>
+                        <FormControl componentClass="select" id="lessonSelection"
+                            onChange={this.handleChange} value={this.state.selectedLesson}>
+                            <option value='Verbs'>
+                                Verb
+                            </option>
+                            <option value='Adjectives'>
+                                Adjektiv
+                            </option>
+                            <option value='Nouns'>
+                                Substantiv
+                            </option>
+                            <option value='Adverbs'>
+                                Adverb
+                            </option>
+                        </FormControl>
+                    </FormGroup>
+                    <Button type="submit">
+                        Starta
+                    </Button>
+                </form>
+                <div className="text-center">
+                    <h1>{this.props.errorMessage}</h1>
+                </div>
+            </div>
         )
     }
 }
@@ -668,16 +623,25 @@ class GuessPlaySelection extends React.Component {
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.selectLesson = this.selectLesson.bind(this);
         this.switchPage = this.switchPage.bind(this);
+        this.setErrorMessage = this.setErrorMessage.bind(this);
         this.state = {
-//            currentPage : <GuessPlayPage/>,
-            currentPage : <GuessPlaySelection lessonSelection={this.selectLesson}/>
+            currentPage : <GuessPlaySelection switchPage={this.switchPage}/>,
+            errorMessage: ''
         }
     }
-    switchPage(newContent) {
+    switchPage(newContent, selectedLesson) {
         if (newContent === 'GuessPlayPageSelection') {
-            this.setState({currentPage : <GuessPlaySelection lessonSelection={this.selectLesson} />});
+            this.setState({currentPage : <GuessPlaySelection switchPage={this.switchPage}
+                errorMessage={this.state.errorMessage}
+                setErrorMessage={this.setErrorMessage}/>});
+        }
+        else if (newContent === 'GuessPlayPage') {
+            this.setState({
+                currentPage: <GuessPlayPage selectedLesson={selectedLesson}
+                    switchPage={this.switchPage}
+                    setErrorMessage={this.setErrorMessage}/>
+            });
         }
         else if (newContent === 'TranslationPlayPage') {
             this.setState({currentPage : <TranslationPlayPage/>})
@@ -689,9 +653,9 @@ class App extends React.Component {
             this.setState({currentPage : <AboutPage/>})
         }
     }
-    selectLesson(lessonChoice){
+    setErrorMessage(errorString) {
         this.setState({
-            currentPage: <GuessPlayPage selectedLesson={lessonChoice} newLesson={this.switchPage}/>
+            errorMessage: errorString
         });
     }
     render() {
