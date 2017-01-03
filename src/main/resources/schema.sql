@@ -4,8 +4,9 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS contentschema.facts;
 DROP TABLE IF EXISTS contentschema.lessons CASCADE;
 DROP TABLE IF EXISTS contentschema.nuggets CASCADE;
+DROP TABLE IF EXISTS contentschema.lessons_nuggets CASCADE;
 
-DROP SCHEMA IF EXISTS contentschema CASCADE;
+DROP SCHEMA IF EXISTS contentschema;
 CREATE SCHEMA contentschema;
 
 CREATE TABLE contentschema.lessons(
