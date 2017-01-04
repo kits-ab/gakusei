@@ -59,7 +59,8 @@ class AnswerButton extends React.Component {
             <Button bsStyle={this.props.buttonStyle}
                bsSize='large' block
                onClick={this.props.onAnswerClick.bind(this, this.props.label)}
-               disabled = {this.props.disableButton}>
+               disabled = {this.props.disableButton}
+               className={'btn answerbutton'}>
                {this.props.buttonNumber + '. ' + this.props.label}
             </Button>
         );
@@ -83,6 +84,7 @@ class GuessPlayPage extends React.Component {
         this.getSuccessRate = this.getSuccessRate.bind(this);
         this.fetchLesson = this.fetchLesson.bind(this);
         this.switchPage = this.switchPage.bind(this);
+        this.onKeys = this.onKeys.bind(this);
 
         sessionStorage.setItem('correctAttempts', 0);
         sessionStorage.totalAttempts = 0;
@@ -90,11 +92,16 @@ class GuessPlayPage extends React.Component {
 
     }
     componentDidMount() {
-        window.addEventListener("keydown", this.onKeys.bind(this));
+        window.addEventListener("keydown", this.onKeys);
         this.fetchLesson();
     }
     componentWillUnmount() {
         window.clearInterval(this.countDownVisible);
+        window.removeEventListener("keydown", this.onKeys);
+        sessionStorage.removeItem('correctAttempts');
+        sessionStorage.removeItem('totalAttempts');
+        sessionStorage.removeItem('currentQuestionIndex');
+
     }
     fetchLesson() {
         fetch('/api/questions?lessonName=' + this.props.selectedLesson, {credentials: "same-origin"})
