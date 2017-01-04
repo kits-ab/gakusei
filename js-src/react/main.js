@@ -31,6 +31,7 @@ class GakuseiNav extends React.Component {
                         <span><a href='#'><img height={'100%'}
                                                src='/img/temp_gakusei_logo3.png'
                                                alt='Gakusei logo'/></a>Gakusei</span>
+
                     </NavbarBrand>
                     <Navbar.Toggle />
                 </Navbar.Header>
@@ -44,9 +45,9 @@ class GakuseiNav extends React.Component {
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={3} href='#'>Om Gakusei</NavItem>
-                        <Navbar.Text>
-                            <Navbar.Link href='/logout'>Logga ut</Navbar.Link>
-                        </Navbar.Text>
+                        {/*<Navbar.Text>*/}
+                            {/*<Navbar.Link href='/logout'>Logga ut</Navbar.Link>*/}
+                        {/*</Navbar.Text>*/}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -330,6 +331,60 @@ class AboutPage extends React.Component {
                     {'Licens(er): '} {produceLicenses(d.licenses[0].license)}
                 </ListGroupItem>);
         });
+
+        const licenses_frontend = [{'name' : 'babel-preset-stage-2',
+                                       'version' : '6.18.0',
+                                       'license' : 'MIT'
+                                   },
+                                   {'name' : 'babel-preset-react',
+                                    'version' : '6.16.0',
+                                    'license' : 'MIT'
+                                   },
+                                   {'name' : 'babel-preset-es2015',
+                                    'version' : '6.18.0',
+                                    'license' : 'MIT'
+                                   },
+                                   {'name' : 'babelify',
+                                    'version' : '7.2.0',
+                                    'license' : 'MIT'
+                                   },
+                                   {'name' : 'whatwg-fetch',
+                                    'version' : '2.0.1',
+                                    'license' : 'MIT'
+                                   },
+                                   {'name' : 'react-dom',
+                                    'version' : '15.4.1',
+                                    'license' : 'BSD-3-Clause'
+                                   },
+                                   {'name' : 'react',
+                                    'version' : '15.4.1',
+                                    'license' : 'BSD-3-Clause'
+                                   },
+                                   {'name' : 'xml2js',
+                                    'version' : '0.4.17',
+                                    'license' : 'MIT'
+                                   },
+                                   {'name' : 'react-bootstrap',
+                                    'version' : '0.30.7',
+                                    'license' : 'MIT'
+                                   },
+                                   {'name' : 'browserify',
+                                    'version' : '13.1.1',
+                                    'license' : 'MIT'
+                                   }];
+
+        const license_url = {'MIT' : 'https://opensource.org/licenses/mit-license.php',
+                             'BSD-3-Clause' : 'https://opensource.org/licenses/BSD-3-Clause'}
+
+        const frontend_licenses = licenses_frontend.map(d =>
+            <ListGroupItem key={d.name + d.version}>
+                {'Modul: ' + d.name} <br/>
+                {'Version: ' + d.version} <br/>
+                {'Licens(er): '} <div key={license_url[d.license] + d.license}><a target='_blank'
+                                      href={license_url[d.license]}>{d.license}</a></div>
+            </ListGroupItem>
+        );
+
         return (
             <div>
                 <br/>
@@ -349,6 +404,7 @@ class AboutPage extends React.Component {
                 <Panel collapsible header='Licenser'>
                     <ListGroup>
                         {licenses}
+                        {frontend_licenses}
                     </ListGroup>
                 </Panel>
             </div>
@@ -439,7 +495,7 @@ class NuggetListPage extends React.Component {
             });
         } else if (event.target.id === 'englishFactType') {
             this.setState({
-                factType4: event.target.checked ? 'english_translation' : ''
+                factType4: event.target.checked ? 'english' : ''
             });
         } else if (event.target.id === 'wordType') {
             this.setState({wordType: event.target.value});
