@@ -8,6 +8,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "lessons", schema = "contentschema")
+@NamedNativeQuery(
+        name = "Lesson.findNuggetsByTwoFactTypes",
+        query = "select * from contentschema.nuggets where id in " +
+                "(select filtered.nugget_id from contentschema.facts " +
+                "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
+                "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
+                "on nuggetid = nugget_id " +
+                "where facts.type IN (:factType1, :factType2) " +
+                "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
+        resultClass = Nugget.class)
 public class Lesson implements Serializable {
 
     @Id
