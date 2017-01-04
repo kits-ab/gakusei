@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Navbar, Nav, NavItem, NavbarBrand, NavDropdown, Button, ButtonToolbar, Grid, Row, Col, FormGroup,
-        DropdownButton, Checkbox, MenuItem, ButtonGroup, FormControl, ControlLabel, Collapse, ListGroup,
+        Checkbox, MenuItem, FormControl, ControlLabel, Collapse, ListGroup,
         ListGroupItem, Panel} from 'react-bootstrap';
 import 'whatwg-fetch';
-import checkStatus from 'fetch-check-http-status';
-
 import xml2js from 'xml2js';
 
 class GakuseiNav extends React.Component {
@@ -100,7 +98,6 @@ class GuessPlayPage extends React.Component {
     }
     fetchLesson() {
         fetch('/api/questions?lessonName=' + this.props.selectedLesson, {credentials: "same-origin"})
-            .then(checkStatus)
             .then(response => response.json())
             .then(json => {
                 sessionStorage.lesson = JSON.stringify(json);
@@ -109,14 +106,7 @@ class GuessPlayPage extends React.Component {
                 });
                 this.setQuestion(0);
                 this.props.setErrorMessage('');
-            }).catch(error => {
-                const status = error.response ? error.response.status : 500;
-                if(status === 204){
-                    this.props.setErrorMessage('Frågelistan ' + this.props.selectedLesson
-                        + ' har för lite innehåll för en spelomgång.');
-                }
-                this.switchPage();
-            });
+            }).catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
     }
     setQuestion(questionIndex) {
         this.setState({
@@ -658,9 +648,6 @@ class GuessPlaySelection extends React.Component {
                             </option>
                             <option value='Nouns'>
                                 Substantiv
-                            </option>
-                            <option value='Adverbs'>
-                                Adverb
                             </option>
                         </FormControl>
                     </FormGroup>

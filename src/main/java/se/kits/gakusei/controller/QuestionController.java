@@ -68,7 +68,7 @@ public class QuestionController {
             List<Nugget> nuggets = lesson.getNuggets();
             List<QuestionDTO> questions = questionHandler.getQuestions(nuggets, questionType, answerType);
             if (questions.isEmpty()) {
-                return new ResponseEntity<List<QuestionDTO>>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<List<QuestionDTO>>(HttpStatus.INTERNAL_SERVER_ERROR);
             } else {
                 return new ResponseEntity<List<QuestionDTO>>(questions, HttpStatus.OK);
             }
