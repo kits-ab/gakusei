@@ -105,7 +105,6 @@ class GuessPlayPage extends React.Component {
                     lessonLength: JSON.parse(sessionStorage.lesson).length
                 });
                 this.setQuestion(0);
-                this.props.setErrorMessage('');
             }).catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
     }
     setQuestion(questionIndex) {
@@ -176,7 +175,7 @@ class GuessPlayPage extends React.Component {
         if(Number(sessionStorage.totalAttempts) > 0){
             successRate = Number(sessionStorage.correctAttempts)
                 / Number(sessionStorage.totalAttempts) * 100;
-            successRateMessage = successRate.toFixed(1) + " % success rate";
+            successRateMessage = successRate.toFixed(0) + "% rätt";
             if(successRate >= 80){
                 return successRateMessage + " :D";
             } else if(successRate < 80 && successRate >= 60){
@@ -655,9 +654,6 @@ class GuessPlaySelection extends React.Component {
                         Starta
                     </Button>
                 </form>
-                <div className="text-center">
-                    <h1>{this.props.errorMessage}</h1>
-                </div>
             </div>
         )
     }
@@ -667,23 +663,19 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.switchPage = this.switchPage.bind(this);
-        this.setErrorMessage = this.setErrorMessage.bind(this);
         this.state = {
-            currentPage : <GuessPlaySelection switchPage={this.switchPage}/>,
-            errorMessage: ''
+            currentPage : <GuessPlaySelection switchPage={this.switchPage}/>
         }
     }
     switchPage(newContent, selectedLesson) {
         if (newContent === 'GuessPlayPageSelection') {
-            this.setState({currentPage : <GuessPlaySelection switchPage={this.switchPage}
-                errorMessage={this.state.errorMessage}
-                setErrorMessage={this.setErrorMessage}/>});
+            this.setState({currentPage : <GuessPlaySelection switchPage={this.switchPage}/>
+            });
         }
         else if (newContent === 'GuessPlayPage') {
             this.setState({
                 currentPage: <GuessPlayPage selectedLesson={selectedLesson}
-                    switchPage={this.switchPage}
-                    setErrorMessage={this.setErrorMessage}/>
+                    switchPage={this.switchPage}/>
             });
         }
         else if (newContent === 'TranslationPlayPage') {
@@ -695,11 +687,6 @@ class App extends React.Component {
         else if (newContent === 'AboutPage') {
             this.setState({currentPage : <AboutPage/>})
         }
-    }
-    setErrorMessage(errorString) {
-        this.setState({
-            errorMessage: errorString
-        });
     }
     render() {
         return (
