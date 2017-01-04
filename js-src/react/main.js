@@ -659,12 +659,37 @@ class GuessPlaySelection extends React.Component {
     }
 }
 
+const LandingPage = props => {
+    return (
+            <Row>
+                <Col xsOffset={1} xs={10}>
+                    <div className="text-left">
+                        <h3>Välkommen till betaversionen av Gakusei!</h3>
+                        <p>
+                            Gakusei är en webbapplikation där du kan öva dig på japanska.
+                            Den nuvarande versionen har två spellägen.
+                        </p>
+                        <p>
+                            Det första kallas "Gissa ordet".
+                            Där ska man välja rätt översättning på ett ord bland fyra alternativ.
+                            Just nu kan man välja spelomgångar indelade efter ordklasser.
+                        </p>
+                        <p>
+                            Det andra spelläget kallas för "Översätt ordet".
+                            Här gäller det att skriva in rätt översättning på ett ord.
+                        </p>
+                    </div>
+                </Col>
+            </Row>
+    )
+};
+
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.switchPage = this.switchPage.bind(this);
         this.state = {
-            currentPage : <GuessPlaySelection switchPage={this.switchPage}/>
+            currentPage : <LandingPage/>
         }
     }
     switchPage(newContent, selectedLesson) {
