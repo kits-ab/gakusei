@@ -2,6 +2,12 @@
   "name": "gakusei",
   "description": "J-App",
   "private": true,
+  "author": "Kits AB",
+  "license": "MIT",
+  "homepage": "https://github.com/kits-ab/gakusei",
+  "bugs": {
+    "url": "https://github.com/kits-ab/gakusei/issues"
+  },
   "scripts": {
     "precompile": "rimraf ./src/main/resources/static/js/*",
     "compile:main": "browserify ./js-src/react/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
@@ -11,12 +17,6 @@
     "type": "git",
     "url": "git+https://github.com/kits-ab/gakusei.git"
   },
-  "author": "Kits AB",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kits-ab/gakusei/issues"
-  },
-  "homepage": "https://github.com/kits-ab/gakusei",
   "dependencies": {
     "browserify": "^13.1.1",
     "fetch-check-http-status": "^2.0.0",

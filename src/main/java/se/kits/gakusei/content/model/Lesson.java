@@ -23,6 +23,7 @@ public class Lesson implements Serializable {
     @JsonManagedReference
     @JoinTable(
             name = "lessons_nuggets",
+            schema = "contentschema",
             joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"))
     private List<Nugget> nuggets;
