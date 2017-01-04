@@ -34,7 +34,7 @@ public class QuestionController {
     private ResponseEntity<QuestionDTO> getQuestion(
             @RequestParam(value = "wordType", defaultValue = "") String wordType,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
-            @RequestParam(name = "answerType", defaultValue = "english") String answerType) {
+            @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
 
         List<Nugget> nuggets;
         if (wordType.equals("")) {
@@ -60,20 +60,15 @@ public class QuestionController {
     private ResponseEntity<List<QuestionDTO>> getQuestionsFromLesson(
             @RequestParam(value = "lessonName") String lessonName,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
-            @RequestParam(name = "answerType", defaultValue = "english") String answerType) {
+            @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
 
-        Lesson lesson = lessonRepository.findLessonByName(lessonName);
+        List<Nugget> nuggets = lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType, answerType);
 
-        if (lesson != null) {
-            List<Nugget> nuggets = lesson.getNuggets();
-            List<QuestionDTO> questions = questionHandler.getQuestions(nuggets, questionType, answerType);
-            if (questions.isEmpty()) {
-                return new ResponseEntity<List<QuestionDTO>>(HttpStatus.INTERNAL_SERVER_ERROR);
-            } else {
-                return new ResponseEntity<List<QuestionDTO>>(questions, HttpStatus.OK);
-            }
+        List<QuestionDTO> questions = questionHandler.getQuestions(nuggets, questionType, answerType);
+        if (questions.isEmpty()) {
+            return new ResponseEntity<List<QuestionDTO>>(HttpStatus.INTERNAL_SERVER_ERROR);
         } else {
-            return new ResponseEntity<List<QuestionDTO>>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<List<QuestionDTO>>(questions, HttpStatus.OK);
         }
     }
 }

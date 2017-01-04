@@ -20,9 +20,6 @@ public class QuestionHandler {
         List<QuestionDTO> questions = nuggets.stream()
                 .map(n -> createQuestion(n, nuggets, questionType, answerType))
                 .collect(Collectors.toList());
-        if (questions.get(0) == null) {
-            questions.clear();
-        }
         Collections.shuffle(questions);
         return questions;
     }
