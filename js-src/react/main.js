@@ -376,26 +376,34 @@ class AboutPage extends React.Component {
 
         return (
             <div>
-                <br/>
-                <h2>Om Gakusei</h2>
-                <div>
-                    <p>Gakusei är en webbapp för övning/inlärning av japanska.
-                        Utvecklingen sker i form av ett open source-projekt.
-                        Utvecklingen har sponsrats av <a target='_blank' href='https://www.kits.se'>Kits</a>.
-                        Besök gärna projektets <a target='_blank' href='https://github.com/kits-ab/gakusei/'>Githubsida</a>.
-                    </p>
-                </div>
-                <div>
-                    <p>Webbappen Gakusei går under licensen <a target='_blank' href='https://www.opensource.org/licenses/mit-license.php'>MIT</a>.
-                        Nedan följer en lista på licenser för de moduler som projektet använder sig av.
-                    </p>
-                </div>
-                <Panel collapsible header='Licenser'>
-                    <ListGroup>
-                        {licenses}
-                        {frontend_licenses}
-                    </ListGroup>
-                </Panel>
+                <Grid>
+                    <Row>
+                        <Col xs={12}>
+                            <h2>Om Gakusei</h2>
+                            <div>
+                                <p> Gakusei är en webbapp för övning/inlärning av japanska.
+                                    Utvecklingen sker i form av ett open source-projekt.
+                                    Utvecklingen har sponsrats av
+                                    <a target='_blank' href='https://www.kits.se'> Kits</a>.
+                                    Besök gärna projektets
+                                    <a target='_blank' href='https://github.com/kits-ab/gakusei/'> Githubsida</a>.
+                                </p>
+                            </div>
+                            <div>
+                                <p> Webbappen Gakusei går under licensen
+                                    <a target='_blank' href='https://www.opensource.org/licenses/mit-license.php'> MIT</a>.
+                                    Nedan följer en lista på licenser för de moduler som projektet använder sig av.
+                                </p>
+                            </div>
+                            <Panel collapsible header='Licenser'>
+                                <ListGroup>
+                                    {licenses}
+                                    {frontend_licenses}
+                                </ListGroup>
+                            </Panel>
+                        </Col>
+                    </Row>
+                </Grid>
             </div>
         );
     }
@@ -509,10 +517,17 @@ class NuggetListPage extends React.Component {
     render() {
         return(
             <div>
-                <QueryInput handleChange={this.updateQueryInput}
-                    handleSubmit={this.fetchCustomQuery}/>
-                <br/>
-                <NuggetList nuggetResults={this.state.nuggetList} />
+                <Grid>
+                    <Row>
+                        <Col xs={12}>
+                            <QueryInput handleChange={this.updateQueryInput}
+                                        handleSubmit={this.fetchCustomQuery}/>
+                            <br/>
+                            <NuggetList nuggetResults={this.state.nuggetList} />
+                        </Col>
+                    </Row>
+                </Grid>
+
             </div>
         )
     }
@@ -634,26 +649,32 @@ class GuessPlaySelection extends React.Component {
     render(){
         return(
             <div>
-                <form href="#" onSubmit={this.handleSubmit}>
-                    <FormGroup>
-                        <ControlLabel>Välj lista av frågor</ControlLabel>
-                        <FormControl componentClass="select" id="lessonSelection"
-                            onChange={this.handleChange} value={this.state.selectedLesson}>
-                            <option value='Verbs'>
-                                Verb
-                            </option>
-                            <option value='Adjectives'>
-                                Adjektiv
-                            </option>
-                            <option value='Nouns'>
-                                Substantiv
-                            </option>
-                        </FormControl>
-                    </FormGroup>
-                    <Button type="submit">
-                        Starta
-                    </Button>
-                </form>
+                <Grid>
+                    <form href="#" onSubmit={this.handleSubmit}>
+                        <Row>
+                            <Col xs={8} lg={3}>
+                                <FormGroup>
+                                    <ControlLabel>Välj lista av frågor</ControlLabel>
+                                    <FormControl componentClass="select" id="lessonSelection"
+                                                 onChange={this.handleChange} value={this.state.selectedLesson}>
+                                        <option value='Verbs'>
+                                            Verb
+                                        </option>
+                                        <option value='Adjectives'>
+                                            Adjektiv
+                                        </option>
+                                        <option value='Nouns'>
+                                            Substantiv
+                                        </option>
+                                    </FormControl>
+                                </FormGroup>
+                            </Col>
+                        </Row>
+                        <Button type="submit">
+                            Starta
+                        </Button>
+                    </form>
+                </Grid>
             </div>
         )
     }
@@ -661,26 +682,30 @@ class GuessPlaySelection extends React.Component {
 
 const LandingPage = props => {
     return (
-            <Row>
-                <Col xsOffset={1} xs={10}>
-                    <div className="text-left">
-                        <h3>Välkommen till betaversionen av Gakusei!</h3>
-                        <p>
-                            Gakusei är en webbapplikation där du kan öva dig på japanska.
-                            Den nuvarande versionen har två spellägen.
-                        </p>
-                        <p>
-                            Det första kallas "Gissa ordet".
-                            Där ska man välja rätt översättning på ett ord bland fyra alternativ.
-                            Just nu kan man välja spelomgångar indelade efter ordklasser.
-                        </p>
-                        <p>
-                            Det andra spelläget kallas för "Översätt ordet".
-                            Här gäller det att skriva in rätt översättning på ett ord.
-                        </p>
-                    </div>
-                </Col>
-            </Row>
+        <div>
+            <Grid>
+                <Row>
+                    <Col xs={12}>
+                        <div className="text-left">
+                            <h3>Välkommen till betaversionen av Gakusei!</h3>
+                            <p>
+                                Gakusei är en webbapplikation där du kan öva dig på japanska.
+                                Den nuvarande versionen har två spellägen.
+                            </p>
+                            <p>
+                                Det första kallas "Gissa ordet".
+                                Där ska man välja rätt översättning på ett ord bland fyra alternativ.
+                                Just nu kan man välja spelomgångar indelade efter ordklasser.
+                            </p>
+                            <p>
+                                Det andra spelläget kallas för "Översätt ordet".
+                                Här gäller det att skriva in rätt översättning på ett ord.
+                            </p>
+                        </div>
+                    </Col>
+                </Row>
+            </Grid>
+        </div>
     )
 };
 
