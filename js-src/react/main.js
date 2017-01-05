@@ -222,14 +222,14 @@ class GuessPlayPage extends React.Component {
                     <br/>
                     <Row>
                         <ButtonToolbar>
-                            <Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
+                            <Col xs={6} sm={4} smOffset={2} md={3} mdOffset={3}>
                                 <AnswerButton label = {this.state.randomOrderAlt[0]}
                                     buttonNumber = {1}
                                     onAnswerClick={this.checkAnswer}
                                     buttonStyle = {this.state.buttonStyles[0]}
                                     disableButton = {this.state.buttonDisabled} />
                             </Col>
-                            <Col xs={5} sm={4} md={3}>
+                            <Col xs={6} sm={4} md={3}>
                                 <AnswerButton label = {this.state.randomOrderAlt[1]}
                                     buttonNumber = {2}
                                     onAnswerClick={this.checkAnswer}
@@ -241,14 +241,14 @@ class GuessPlayPage extends React.Component {
                     <br/>
                     <Row>
                         <ButtonToolbar>
-                            <Col xs={5} xsOffset={1} sm={4} smOffset={2} md={3} mdOffset={3}>
+                            <Col xs={6} sm={4} smOffset={2} md={3} mdOffset={3}>
                                 <AnswerButton label = {this.state.randomOrderAlt[2]}
                                     buttonNumber = {3}
                                     onAnswerClick={this.checkAnswer}
                                     buttonStyle = {this.state.buttonStyles[2]}
                                     disableButton = {this.state.buttonDisabled} />
                             </Col>
-                            <Col xs={5} sm={4} md={3}>
+                            <Col xs={6} sm={4} md={3}>
                                 <AnswerButton label = {this.state.randomOrderAlt[3]}
                                     buttonNumber = {4}
                                     onAnswerClick = {this.checkAnswer}
