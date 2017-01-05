@@ -657,9 +657,10 @@ class GuessPlaySelection extends React.Component {
         return(
             <div>
                 <Grid>
+                    <Row>
+                        <Col xs={8} lg={3}>
                     <form href="#" onSubmit={this.handleSubmit}>
-                        <Row>
-                            <Col xs={8} lg={3}>
+
                                 <FormGroup>
                                     <ControlLabel>Välj lista av frågor</ControlLabel>
                                     <FormControl componentClass="select" id="lessonSelection"
@@ -675,12 +676,13 @@ class GuessPlaySelection extends React.Component {
                                         </option>
                                     </FormControl>
                                 </FormGroup>
-                            </Col>
-                        </Row>
+
                         <Button type="submit">
                             Starta
                         </Button>
                     </form>
+                        </Col>
+                    </Row>
                 </Grid>
             </div>
         )
