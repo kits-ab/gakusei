@@ -11,14 +11,16 @@ class GakuseiNav extends React.Component {
         super(props);
     }
     eventHandler(eventKey){
-        if (eventKey === 1.1) {
+        if (eventKey === 0) {
+            this.props.updater('LandingPage')
+        } else if (eventKey === 1.1) {
             this.props.updater('GuessPlayPageSelection')
         } else if (eventKey === 1.2) {
             this.props.updater('TranslationPlayPage')
         } else if (eventKey === 2) {
-            this.props.updater('NuggetListPage');
+            this.props.updater('NuggetListPage')
         } else if (eventKey === 3) {
-            this.props.updater('AboutPage');
+            this.props.updater('AboutPage')
         }
     }
     render() {
@@ -26,7 +28,7 @@ class GakuseiNav extends React.Component {
             <Navbar onSelect={this.eventHandler.bind(this)} inverse collapseOnSelect>
                 <Navbar.Header>
                     <NavbarBrand>
-                        <span><a href='#'><img height={'100%'}
+                        <span onClick={() => this.eventHandler(0)}><a href='#'><img height={'100%'}
                                                src='/img/temp_gakusei_logo3.png'
                                                alt='Gakusei logo'/></a>Gakusei</span>
 
@@ -745,6 +747,9 @@ class App extends React.Component {
         }
         else if (newContent === 'AboutPage') {
             this.setState({currentPage : <AboutPage/>})
+        }
+        else if (newContent === 'LandingPage') {
+            this.setState({currentPage : <LandingPage/>})
         }
     }
     render() {
