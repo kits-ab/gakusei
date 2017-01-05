@@ -62,7 +62,7 @@ class AnswerButton extends React.Component {
                bsSize='large' block
                onClick={this.props.onAnswerClick.bind(this, this.props.label)}
                disabled = {this.props.disableButton}
-               className={'btn answerbutton'}>
+               className={'btn answerbutton hyphenation'}>
                {this.props.buttonNumber + '. ' + this.props.label}
             </Button>
         );
