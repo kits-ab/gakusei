@@ -14,3 +14,10 @@
     -moz-hyphens: auto;
     hyphens: auto;
 }
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select,
+    textarea,
+    input {
+        font-size: 1.5em !important;
+    }
+}
