@@ -18,8 +18,6 @@ export default class GuessPlayPage extends React.Component {
         this.getNextQuestion = this.getNextQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
         this.getSuccessRate = this.getSuccessRate.bind(this);
-        this.fetchLesson = this.fetchLesson.bind(this);
-        this.switchPage = this.switchPage.bind(this);
         this.onKeys = this.onKeys.bind(this);
 
         sessionStorage.setItem('correctAttempts', 0);
@@ -29,26 +27,16 @@ export default class GuessPlayPage extends React.Component {
     }
     componentDidMount() {
         window.addEventListener("keydown", this.onKeys);
-        this.fetchLesson();
+        this.setState({
+            lessonLength: JSON.parse(sessionStorage.lesson).length
+        });
+        this.setQuestion(0);
     }
     componentWillUnmount() {
         window.clearInterval(this.countDownVisible);
         window.removeEventListener("keydown", this.onKeys);
-        sessionStorage.removeItem('correctAttempts');
-        sessionStorage.removeItem('totalAttempts');
         sessionStorage.removeItem('currentQuestionIndex');
 
-    }
-    fetchLesson() {
-        fetch('/api/questions?lessonName=' + this.props.selectedLesson, {credentials: "same-origin"})
-            .then(response => response.json())
-            .then(json => {
-                sessionStorage.lesson = JSON.stringify(json);
-                this.setState({
-                    lessonLength: JSON.parse(sessionStorage.lesson).length
-                });
-                this.setQuestion(0);
-            }).catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
     }
     setQuestion(questionIndex) {
         this.setState({
@@ -110,6 +98,8 @@ export default class GuessPlayPage extends React.Component {
             setTimeout(() => {
                 this.getNextQuestion();
             }, 1000);
+        } else {
+            setTimeout(() => this.props.switchPage('EndScreenPage'), 1000);
         }
     }
     getSuccessRate(){
@@ -133,9 +123,6 @@ export default class GuessPlayPage extends React.Component {
         } else {
               return successRateMessage;
         }
-    }
-    switchPage() {
-        this.props.switchPage('GuessPlayPageSelection');
     }
     onKeys(event){
         var keyDown = event.key;
@@ -202,7 +189,8 @@ export default class GuessPlayPage extends React.Component {
                     </Row>
                     <Row>
                         <div className="text-center">
-                            <Button bsStyle="info" onClick={this.switchPage}>
+                            <Button bsStyle="info" onClick={() =>
+                            this.props.switchPage('GuessPlayPageSelection')}>
                                 Ny spelomgång
                             </Button>
                         </div>

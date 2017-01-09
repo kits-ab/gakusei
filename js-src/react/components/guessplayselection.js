@@ -10,15 +10,22 @@ export default class GuessPlaySelection extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-
+    fetchLesson() {
+        fetch('/api/questions?lessonName=' + this.state.selectedLesson, {credentials: "same-origin"})
+            .then(response => response.json())
+            .then(json => {
+                sessionStorage.lesson = JSON.stringify(json);
+                this.props.switchPage('GuessPlayPage', this.state.selectedLesson);
+            }).catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
+    }
     handleChange(event){
         if (event.target.id === 'lessonSelection') {
             this.setState({selectedLesson: event.target.value});
         }
     }
     handleSubmit(event){
-        this.props.switchPage('GuessPlayPage', this.state.selectedLesson);
         event.preventDefault();
+        this.fetchLesson();
     }
     render(){
         return(
