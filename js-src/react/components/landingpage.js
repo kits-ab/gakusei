@@ -17,6 +17,7 @@ export default class LandingPage extends React.Component {
                                 Det första kallas "Gissa ordet".
                                 Där ska man välja rätt översättning på ett ord bland fyra alternativ.
                                 Just nu kan man välja spelomgångar indelade efter ordklasser.
+                                Vid spel vid dator kan tangenterna 1-4 användas för att välja svarsalternativ.
                             </p>
                             <p>
                                 Det andra spelläget kallas för "Översätt ordet".

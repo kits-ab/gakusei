@@ -9,7 +9,7 @@ export default class AnswerButton extends React.Component {
                onClick={this.props.onAnswerClick.bind(this, this.props.label)}
                disabled = {this.props.disableButton}
                className={'btn answerbutton hyphenation'}>
-               {this.props.buttonNumber + '. ' + this.props.label}
+               {this.props.label}
             </Button>
         );
     }
