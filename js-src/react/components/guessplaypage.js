@@ -114,22 +114,24 @@ export default class GuessPlayPage extends React.Component {
     }
     getSuccessRate(){
         var successRate = 0;
-        var successRateMessage = "";
-        if(Number(sessionStorage.totalAttempts) > 0){
+        var successRateMessage = '';
+        if (Number(sessionStorage.totalAttempts) > 0) {
             successRate = Number(sessionStorage.correctAttempts)
                 / Number(sessionStorage.totalAttempts) * 100;
-            successRateMessage = successRate.toFixed(0) + "% rätt";
+            successRateMessage = successRate.toFixed(0) + '%';
             if(successRate >= 80){
-                return successRateMessage + " :D";
+                return ', ' + successRateMessage + ' :D';
             } else if(successRate < 80 && successRate >= 60){
-                return successRateMessage + " :)";
+                return ', ' + successRateMessage + ' :)';
             } else if(successRate < 60 && successRate >= 40){
-                return successRateMessage + " :/";
+                return ', ' + successRateMessage + ' :/';
             } else if(successRate < 40 && successRate >= 20){
-                return successRateMessage + " :(";
+                return ', ' + successRateMessage + ' :(';
             } else if(successRate < 20){
-                return successRateMessage + " :((";
+                return ', ' + successRateMessage + ' :((';
             }
+        } else {
+              return successRateMessage;
         }
     }
     switchPage() {
@@ -160,14 +162,12 @@ export default class GuessPlayPage extends React.Component {
                         <ButtonToolbar>
                             <Col xs={6} sm={4} smOffset={2} md={3} mdOffset={3}>
                                 <AnswerButton label = {this.state.randomOrderAlt[0]}
-                                    buttonNumber = {1}
                                     onAnswerClick={this.checkAnswer}
                                     buttonStyle = {this.state.buttonStyles[0]}
                                     disableButton = {this.state.buttonDisabled} />
                             </Col>
                             <Col xs={6} sm={4} md={3}>
                                 <AnswerButton label = {this.state.randomOrderAlt[1]}
-                                    buttonNumber = {2}
                                     onAnswerClick={this.checkAnswer}
                                     buttonStyle = {this.state.buttonStyles[1]}
                                     disableButton = {this.state.buttonDisabled} />
@@ -179,14 +179,12 @@ export default class GuessPlayPage extends React.Component {
                         <ButtonToolbar>
                             <Col xs={6} sm={4} smOffset={2} md={3} mdOffset={3}>
                                 <AnswerButton label = {this.state.randomOrderAlt[2]}
-                                    buttonNumber = {3}
                                     onAnswerClick={this.checkAnswer}
                                     buttonStyle = {this.state.buttonStyles[2]}
                                     disableButton = {this.state.buttonDisabled} />
                             </Col>
                             <Col xs={6} sm={4} md={3}>
                                 <AnswerButton label = {this.state.randomOrderAlt[3]}
-                                    buttonNumber = {4}
                                     onAnswerClick = {this.checkAnswer}
                                     buttonStyle = {this.state.buttonStyles[3]}
                                     disableButton = {this.state.buttonDisabled} />
@@ -196,14 +194,10 @@ export default class GuessPlayPage extends React.Component {
                     <br/><br/>
                     <Row>
                         <div className="text-center">
-                            Fråga: {(Number(sessionStorage.currentQuestionIndex) + 1) + " / "
+                            Fråga: {(Number(sessionStorage.currentQuestionIndex) + 1) + ' / '
                             + this.state.lessonLength}
                             <br/>
-                            {sessionStorage.correctAttempts + " rätt"}
-                            <br/>
-                            {sessionStorage.totalAttempts + " försök"}
-                            <br/>
-                            {this.getSuccessRate()}
+                            {sessionStorage.correctAttempts + ' rätt' + this.getSuccessRate()}
                         </div>
                     </Row>
                     <Row>
