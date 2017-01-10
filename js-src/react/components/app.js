@@ -5,7 +5,8 @@ import AboutPage from './aboutpage';
 import TranslationPlayPage from './translationplaypage';
 import NuggetListPage from './nuggetlistpage';
 import GuessPlaySelection from './guessplayselection';
-import LandingPage from './landingpage'
+import LandingPage from './landingpage';
+import EndScreenPage from './endscreenpage';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -37,6 +38,9 @@ export default class App extends React.Component {
         }
         else if (newContent === 'LandingPage') {
             this.setState({currentPage : <LandingPage/>})
+        }
+        else if (newContent === 'EndScreenPage'){
+            this.setState({currentPage: <EndScreenPage switchPage={this.switchPage} />});
         }
     }
     render() {
