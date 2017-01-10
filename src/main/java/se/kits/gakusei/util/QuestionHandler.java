@@ -1,7 +1,6 @@
 package se.kits.gakusei.util;
 
 import org.springframework.stereotype.Component;
-import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.dto.QuestionDTO;
 
