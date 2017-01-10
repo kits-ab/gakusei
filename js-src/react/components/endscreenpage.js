@@ -21,21 +21,23 @@ export default class EndScreenPage extends React.Component {
                 <Row>
                     <div className="text-center">
                         <h2>
-                        {sessionStorage.correctAttempts + " rätt (" +
-                        this.state.successRate.toFixed(0) + " %)"}
+                            {this.state.successRate.toFixed(0)}% rätt!
+                        </h2>
+                        <h2>
+                            Du svarade rätt på {sessionStorage.correctAttempts} av {sessionStorage.totalAttempts} möjliga frågor
                         </h2>
                     </div>
                 </Row>
                 <Row>
                     <div className="text-center">
-                        <Button bsStyle="info" onClick={() =>
-                        this.props.switchPage('GuessPlayPage')}>
-                            Samma frågor igen
+                        <Button bsStyle="info"
+                                onClick={() => this.props.switchPage('GuessPlayPage')}>
+                            Försök igen
                         </Button>
                         {' '}
-                        <Button bsStyle="info" onClick={() =>
-                        this.props.switchPage('GuessPlayPageSelection')}>
-                            Nya frågor
+                        <Button bsStyle="info"
+                                onClick={() => this.props.switchPage('GuessPlayPageSelection')}>
+                            Välj nya frågor
                         </Button>
                     </div>
                 </Row>

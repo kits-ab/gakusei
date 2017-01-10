@@ -7,9 +7,8 @@ export default class QueryInput extends React.Component{
         return(
             <form href='#' onSubmit={this.props.handleSubmit}>
                 <FormGroup>
-                    <ControlLabel>Filtrera nuggets på:</ControlLabel>
-                    <FormControl componentClass='select' id='wordType'
-                    onChange={this.props.handleChange}>
+                    <ControlLabel>Filtrera ord på:</ControlLabel>
+                    <FormControl componentClass='select' id='wordType' onChange={this.props.handleChange}>
                         <option value=''>
                             Alla ordtyper
                         </option>
@@ -26,22 +25,25 @@ export default class QueryInput extends React.Component{
                             Adverb
                         </option>
                     </FormControl>
-                    Nuggeten ska innehålla översättningar från följande språk:
+                    <br/>
+                    <ControlLabel>Markera de översättningar ordet ska ha
+                                  (om inget alternativ är markerat listas alla ord):
+                    </ControlLabel>
                     <br/>
                     <Checkbox id='kanjiFactType' inline onChange={this.props.handleChange}>
                         Kanji
                     </Checkbox>
-                    {' '}
+                    <br/>
                     <Checkbox id='readingFactType' inline onChange={this.props.handleChange}>
                         Japansk läsform
                     </Checkbox>
-                    {' '}
+                    <br/>
                     <Checkbox  id='writingFactType' inline onChange={this.props.handleChange}>
                         Japansk skrivform
                     </Checkbox>
-                    {' '}
-                    <Checkbox id='englishFactType' inline onChange={this.props.handleChange}>
-                        Engelska
+                    <br/>
+                    <Checkbox id='swedishFactType' inline onChange={this.props.handleChange}>
+                        Svenska
                     </Checkbox>
                 </FormGroup>
                 <Button type='submit'>

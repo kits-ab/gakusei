@@ -1,19 +1,20 @@
 import React from 'react';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Accordion, Panel} from 'react-bootstrap';
 import FactList from './factlist'
 
 export default class NuggetList extends React.Component {
     render() {
         const listRows = this.props.nuggetResults.map( (nugget) =>
-            <ListGroupItem key={nugget.id}>
-                 {'Ordtyp: ' + nugget.type + ' // beskrivning: ' + nugget.description}
+            <Panel header={'Ordtyp: ' + nugget.type + ', beskrivning: ' + nugget.description}
+                   eventKey={nugget.id}
+                   key={nugget.id}>
                  <FactList factlist={nugget.facts}/>
-            </ListGroupItem>
+            </Panel>
          );
         return(
-            <ListGroup>
+            <Accordion>
                 {listRows}
-            </ListGroup>
+            </Accordion>
         )
     }
 }

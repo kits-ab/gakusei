@@ -194,15 +194,6 @@ export default class GuessPlayPage extends React.Component {
                             {sessionStorage.correctAttempts + ' rätt' + this.getSuccessRate()}
                         </div>
                     </Row>
-                    <Row>
-                        <div className="text-center">
-                            <Button bsStyle="info" onClick={() =>
-                            this.props.switchPage('GuessPlayPageSelection')}>
-                                Ny spelomgång
-                            </Button>
-                        </div>
-                    </Row>
-                    <br/>
                 </Grid>
             </div>
         );
