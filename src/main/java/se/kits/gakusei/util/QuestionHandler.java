@@ -1,6 +1,7 @@
 package se.kits.gakusei.util;
 
 import org.springframework.stereotype.Component;
+import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.dto.QuestionDTO;
 
@@ -12,13 +13,15 @@ public class QuestionHandler {
 
     public QuestionDTO getQuestion(List<Nugget> nuggets, String questionType, String answerType) {
         Random random = new Random();
-        Nugget nugget = nuggets.get(random.nextInt(nuggets.size()));
-        return createQuestion(nugget, nuggets, questionType, answerType);
+        List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> isNotHidden(n)).collect(Collectors.toList());
+        Nugget nugget = notHiddenNuggets.get(random.nextInt(notHiddenNuggets.size()));
+        return createQuestion(nugget, notHiddenNuggets, questionType, answerType);
     }
 
     public List<QuestionDTO> getQuestions(List<Nugget> nuggets, String questionType, String answerType) {
-        List<QuestionDTO> questions = nuggets.stream()
-                .map(n -> createQuestion(n, nuggets, questionType, answerType))
+        List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> isNotHidden(n)).collect(Collectors.toList());
+        List<QuestionDTO> questions = notHiddenNuggets.stream()
+                .map(n -> createQuestion(n, notHiddenNuggets, questionType, answerType))
                 .collect(Collectors.toList());
         Collections.shuffle(questions);
         return questions;
@@ -48,5 +51,12 @@ public class QuestionHandler {
         } else {
             return null;
         }
+    }
+
+    private boolean isNotHidden(Nugget nugget) {
+        List<Boolean> boolList = nugget.getFacts().stream()
+                .map(f -> f.getType().equals("state") && f.getData().equals("hidden"))
+                .collect(Collectors.toList());
+        return !boolList.contains(true);
     }
 }
