@@ -78,8 +78,9 @@ public class DataInit implements ApplicationRunner {
             nugget.setDescription(tdh.get("english").toString());
             List<Fact> facts = new ArrayList<>();
             for (Map.Entry entry : tdh.entrySet()) {
+                String type;
+                if ((type = entry.getKey().toString()).equals("type")) continue;
                 Fact fact = new Fact();
-                String type = entry.getKey().toString();
                 fact.setType(type);
                 fact.setData(entry.getValue().toString());
                 facts.add(fact);
