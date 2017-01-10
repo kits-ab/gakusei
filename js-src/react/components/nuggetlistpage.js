@@ -30,9 +30,9 @@ export default class NuggetListPage extends React.Component {
             this.setState({
                 factType3: event.target.checked ? 'writing' : ''
             });
-        } else if (event.target.id === 'englishFactType') {
+        } else if (event.target.id === 'swedishFactType') {
             this.setState({
-                factType4: event.target.checked ? 'english' : ''
+                factType4: event.target.checked ? 'swedish' : ''
             });
         } else if (event.target.id === 'wordType') {
             this.setState({wordType: event.target.value});

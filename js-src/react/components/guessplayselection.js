@@ -33,8 +33,7 @@ export default class GuessPlaySelection extends React.Component {
                 <Grid>
                     <Row>
                         <Col xs={8} lg={3}>
-                    <form href="#" onSubmit={this.handleSubmit}>
-
+                            <form href="#" onSubmit={this.handleSubmit}>
                                 <FormGroup>
                                     <ControlLabel>Välj lista av frågor</ControlLabel>
                                     <FormControl componentClass="select" id="lessonSelection"
@@ -50,7 +49,6 @@ export default class GuessPlaySelection extends React.Component {
                                         </option>
                                     </FormControl>
                                 </FormGroup>
-
                         <Button type="submit">
                             Starta
                         </Button>

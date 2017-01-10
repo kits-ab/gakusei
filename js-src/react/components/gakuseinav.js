@@ -36,7 +36,7 @@ export default class GakuseiNav extends React.Component {
                         <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
                         <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
                     </NavDropdown>
-                    <NavItem eventKey={2} href='#'>Lista Nuggets</NavItem>
+                    <NavItem eventKey={2} href='#'>Lista ord</NavItem>
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={3} href='#'>Om Gakusei</NavItem>
