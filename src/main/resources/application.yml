@@ -26,11 +26,3 @@ spring:
   profiles: heroku
   datasource:
     url: ${JDBC_DATABASE_URL}
-
----
-
-# Profile used to override JDBC URL when starting the jar in Dockerfile
-spring:
-  profiles: container
-  datasource:
-    url: jdbc:postgresql://psql:5432/gakusei
