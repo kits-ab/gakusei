@@ -10,7 +10,7 @@
   },
   "scripts": {
     "precompile": "rimraf ./src/main/resources/static/js/*",
-    "compile:main": "browserify ./js-src/react/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
+    "compile:main": "browserify ./js-src/react/main.js -t babelify -o ./src/main/resources/static/js/main_bundle.js",
     "compile": "npm run compile:main"
   },
   "repository": {
