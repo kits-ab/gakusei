@@ -18,7 +18,8 @@ description VARCHAR(1024)
 CREATE TABLE contentschema.nuggets(
 id serial PRIMARY KEY NOT NULL,
 type VARCHAR(32) NOT NULL,
-description VARCHAR(256)
+description VARCHAR(256),
+hidden boolean
 );
 
 CREATE TABLE contentschema.facts(
