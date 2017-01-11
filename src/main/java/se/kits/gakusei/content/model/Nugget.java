@@ -20,6 +20,8 @@ public class Nugget implements Serializable{
 
     private String description;
 
+    private boolean hidden = false;
+
     @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
     @JsonManagedReference
     private List<Fact> facts;
@@ -48,6 +50,14 @@ public class Nugget implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
     public List<Fact> getFacts() {
