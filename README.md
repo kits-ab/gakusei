@@ -1,7 +1,11 @@
 # gakusei
 
 ## About
-Gakusei (student in Japanese) is an application for studying Japanese characters.
+Gakusei, which means _student_ in Japanese, is an application for learning and practicing Japanese.
+The project's primary focus is to develop a tool for learning Japanese via Swedish.
+Gakusei is governed by [Daigaku Sverige](http://www.daigaku.se), and sponsored by [Kits](https://www.kits.se).
+
+A beta version of Gakusei can be tested at [gakusei.daigaku.se](http://gakusei.daigaku.se).
 
 The app introduces
 
