@@ -15,7 +15,7 @@ import java.util.*;
 public class NuggetController {
 
     @Autowired
-    private NuggetRepository nuggetRepo;
+    private NuggetRepository nuggetRepository;
 
     @Autowired
     private FactRepository factRepository;
@@ -53,7 +53,7 @@ public class NuggetController {
             factTypes = factRepository.getAllFactTypes();
         }
 
-        return new ResponseEntity<List<Nugget>>(nuggetRepo.getNuggetsbyFilter( wordType,
+        return new ResponseEntity<List<Nugget>>(nuggetRepository.getNuggetsbyFilter( wordType,
                 factTypes.get(0), factTypes.get(1), factTypes.get(2), factTypes.get(3), factTypes.get(4),
                 factTypes.get(5), factTypes.get(6), factTypes.get(7), factTypes.get(8), factTypes.get(9),
                 factTypes.get(10), factTypes.get(11), factFilterCount),

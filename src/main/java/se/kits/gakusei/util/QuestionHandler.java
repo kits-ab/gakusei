@@ -26,7 +26,7 @@ public class QuestionHandler {
         return questions;
     }
 
-    private QuestionDTO createQuestion(Nugget nugget, List<Nugget> nuggets, String questionType, String answerType) {
+    protected QuestionDTO createQuestion(Nugget nugget, List<Nugget> nuggets, String questionType, String answerType) {
         if (nuggets.size() >= 4) {
             List<Nugget> shuffledNuggets = new LinkedList<>(nuggets);
             Collections.shuffle(shuffledNuggets);
