@@ -12,7 +12,6 @@ export default class TranslationPlayPage extends React.Component {
                       checkDisable: false,
                       results: []
                       };
-        this.setQuestion = this.setQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
@@ -61,7 +60,7 @@ export default class TranslationPlayPage extends React.Component {
         });
         sessionStorage.totalAttempts = Number(sessionStorage.totalAttempts) + 1;
         this.setState({
-            results: this.state.results.concat([[this.state.question, this.state.correctAlt, answer]])
+            results: this.state.results.concat([[this.state.question, this.state.correctAlt, this.state.answer]])
         });
         if(Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1){
             setTimeout(() => {

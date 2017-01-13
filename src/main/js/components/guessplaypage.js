@@ -14,6 +14,7 @@ export default class GuessPlayPage extends React.Component {
             results: []
         };
         this.checkAnswer = this.checkAnswer.bind(this);
+        this.onKeys = this.onKeys.bind(this);
 
         sessionStorage.setItem('correctAttempts', 0);
         sessionStorage.totalAttempts = 0;
