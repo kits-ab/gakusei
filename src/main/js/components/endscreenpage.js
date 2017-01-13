@@ -31,12 +31,12 @@ export default class EndScreenPage extends React.Component {
                 <Row>
                     <div className="text-center">
                         <Button bsStyle="info"
-                                onClick={() => this.props.switchPage('GuessPlayPage')}>
+                                onClick={() => this.props.switchPage(this.props.gamemode)}>
                             Försök igen
                         </Button>
                         {' '}
-                        <Button bsStyle="info"
-                                onClick={() => this.props.switchPage('GuessPlayPageSelection')}>
+                        <Button bsStyle="info" onClick={() =>
+                        this.props.switchPage('LessonSelection', '', this.props.gamemode)}>
                             Välj nya frågor
                         </Button>
                     </div>

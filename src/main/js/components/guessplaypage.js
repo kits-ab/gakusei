@@ -99,7 +99,7 @@ export default class GuessPlayPage extends React.Component {
                 this.getNextQuestion();
             }, 1000);
         } else {
-            setTimeout(() => this.props.switchPage('EndScreenPage'), 1000);
+            setTimeout(() => this.props.switchPage('EndScreenPage', '', 'GuessPlayPage'), 1000);
         }
     }
     getSuccessRate(){

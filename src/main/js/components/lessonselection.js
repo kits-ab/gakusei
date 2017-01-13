@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 
-export default class GuessPlaySelection extends React.Component {
+export default class LessonSelection extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -15,7 +15,7 @@ export default class GuessPlaySelection extends React.Component {
             .then(response => response.json())
             .then(json => {
                 sessionStorage.lesson = JSON.stringify(json);
-                this.props.switchPage('GuessPlayPage', this.state.selectedLesson);
+                this.props.switchPage(this.props.gamemode, this.state.selectedLesson);
             }).catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
     }
     handleChange(event){
@@ -28,9 +28,18 @@ export default class GuessPlaySelection extends React.Component {
         this.fetchLesson();
     }
     render(){
+        var title = '';
+        if(this.props.gamemode === 'GuessPlayPage'){
+            title = 'Gissa ordet';
+        } else if(this.props.gamemode === 'TranslationPlayPage') {
+            title = 'Översätt ordet';
+        }
         return(
             <div>
                 <Grid>
+                    <Row>
+                    <h1 className="text-center">{title}</h1>
+                    </Row>
                     <Row>
                         <Col xs={8} lg={3}>
                             <form href="#" onSubmit={this.handleSubmit}>
