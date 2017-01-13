@@ -20,7 +20,7 @@ export default class GuessPlayPage extends React.Component {
         sessionStorage.currentQuestionIndex = 0;
     }
     componentDidMount() {
-        window.addEventListener('keydown', this.onKeys);
+        window.addEventListener('keydown', this.onKeys.bind(this));
         this.setState({
             lessonLength: JSON.parse(sessionStorage.lesson).length
         });
@@ -28,7 +28,7 @@ export default class GuessPlayPage extends React.Component {
     }
     componentWillUnmount() {
         window.clearInterval(this.countDownVisible);
-        window.removeEventListener('keydown', this.onKeys);
+        window.removeEventListener('keydown', this.onKeys.bind(this));
         sessionStorage.removeItem('currentQuestionIndex');
 
     }
