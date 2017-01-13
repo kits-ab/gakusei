@@ -11,22 +11,16 @@ export default class GuessPlayPage extends React.Component {
             randomOrderAlt: ['', '', '', ''],
             buttonStyles: ['default', 'default', 'default', 'default'],
             buttonDisabled: false,
-            lesson: [],
-            currentQuestion: ''
+            results: []
         };
-        this.setQuestion = this.setQuestion.bind(this);
-        this.getNextQuestion = this.getNextQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
-        this.getSuccessRate = this.getSuccessRate.bind(this);
-        this.onKeys = this.onKeys.bind(this);
 
         sessionStorage.setItem('correctAttempts', 0);
         sessionStorage.totalAttempts = 0;
         sessionStorage.currentQuestionIndex = 0;
-
     }
     componentDidMount() {
-        window.addEventListener("keydown", this.onKeys);
+        window.addEventListener('keydown', this.onKeys);
         this.setState({
             lessonLength: JSON.parse(sessionStorage.lesson).length
         });
@@ -34,7 +28,7 @@ export default class GuessPlayPage extends React.Component {
     }
     componentWillUnmount() {
         window.clearInterval(this.countDownVisible);
-        window.removeEventListener("keydown", this.onKeys);
+        window.removeEventListener('keydown', this.onKeys);
         sessionStorage.removeItem('currentQuestionIndex');
 
     }
@@ -74,8 +68,7 @@ export default class GuessPlayPage extends React.Component {
     checkAnswer(answer) {
         let newButtonStyles = [];
         if (answer === this.state.correctAlt) {
-            newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ?
-            'success' : 'default');
+            newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'success' : 'default');
             sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
         } else {
             newButtonStyles = this.state.randomOrderAlt.map( (word) => {
@@ -91,7 +84,8 @@ export default class GuessPlayPage extends React.Component {
         sessionStorage.totalAttempts = Number(sessionStorage.totalAttempts) + 1;
         this.setState({
             buttonDisabled: true,
-            buttonStyles: newButtonStyles
+            buttonStyles: newButtonStyles,
+            results: this.state.results.concat([[this.state.question, this.state.correctAlt, answer]])
         });
 
         if(Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1){
@@ -99,7 +93,7 @@ export default class GuessPlayPage extends React.Component {
                 this.getNextQuestion();
             }, 1000);
         } else {
-            setTimeout(() => this.props.switchPage('EndScreenPage'), 1000);
+            setTimeout(() => this.props.switchPage('EndScreenPage', '', this.state.results), 1000);
         }
     }
     getSuccessRate(){
