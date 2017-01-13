@@ -17,7 +17,7 @@ export default class EndScreenPage extends React.Component {
     }
     render(){
         const results = this.props.results.map(result =>
-            <ListGroupItem key={result[0], result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
+            <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
                 {`Fråga: ${result[0]}, Korrekt svar: ${result[1]}, Ditt svar: ${result[2]}`}
             </ListGroupItem>
         );
