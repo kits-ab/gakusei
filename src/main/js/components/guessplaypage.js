@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, ButtonToolbar, Grid, Row, Col} from 'react-bootstrap';
+import {ButtonToolbar, Grid, Row, Col} from 'react-bootstrap';
 import 'whatwg-fetch';
 import AnswerButton from './answerbutton';
 
