@@ -9,7 +9,8 @@ export default class TranslationPlayPage extends React.Component {
                       output: '',
                       question: '',
                       correctAlt: '',
-                      checkDisable: false
+                      checkDisable: false,
+                      results: []
                       };
         this.setQuestion = this.setQuestion.bind(this);
         this.checkAnswer = this.checkAnswer.bind(this);
@@ -59,12 +60,15 @@ export default class TranslationPlayPage extends React.Component {
             checkDisable: true
         });
         sessionStorage.totalAttempts = Number(sessionStorage.totalAttempts) + 1;
+        this.setState({
+            results: this.state.results.concat([[this.state.question, this.state.correctAlt, answer]])
+        });
         if(Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1){
             setTimeout(() => {
                 this.getNextQuestion();
             }, 2000);
         } else {
-            setTimeout(() => this.props.switchPage('EndScreenPage', '', 'TranslationPlayPage'), 2000);
+            setTimeout(() => this.props.switchPage('EndScreenPage', '', 'TranslationPlayPage', this.state.results), 2000);
         }
     }
     getSuccessRate(){
