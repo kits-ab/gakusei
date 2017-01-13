@@ -30,7 +30,7 @@ public class QuestionController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    private ResponseEntity<QuestionDTO> getQuestion(
+    protected ResponseEntity<QuestionDTO> getQuestion(
             @RequestParam(value = "wordType", defaultValue = "") String wordType,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
@@ -56,7 +56,7 @@ public class QuestionController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    private ResponseEntity<List<QuestionDTO>> getQuestionsFromLesson(
+    protected ResponseEntity<List<QuestionDTO>> getQuestionsFromLesson(
             @RequestParam(value = "lessonName") String lessonName,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
