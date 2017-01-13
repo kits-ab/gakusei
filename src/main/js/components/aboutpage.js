@@ -5,51 +5,65 @@ import xml2js from 'xml2js';
 export default class AboutPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {backend_licenses: '',
-                      frontend_licenses: '',
-                      license_url: {'MIT' : 'https://opensource.org/licenses/mit-license.php',
-                                    'BSD-3-Clause' : 'https://opensource.org/licenses/BSD-3-Clause'},
-                      frontend_data: [{'name' : 'babel-preset-stage-2',
-                                       'version' : '6.18.0',
-                                       'license' : 'MIT'
-                                      },
-                                      {'name' : 'babel-preset-react',
-                                       'version' : '6.16.0',
-                                       'license' : 'MIT'
-                                      },
-                                      {'name' : 'babel-preset-es2015',
-                                       'version' : '6.18.0',
-                                       'license' : 'MIT'
-                                      },
-                                      {'name' : 'babelify',
-                                       'version' : '7.2.0',
-                                       'license' : 'MIT'
-                                      },
-                                      {'name' : 'whatwg-fetch',
-                                       'version' : '2.0.1',
-                                       'license' : 'MIT'
-                                      },
-                                      {'name' : 'react-dom',
-                                       'version' : '15.4.1',
-                                       'license' : 'BSD-3-Clause'
-                                      },
-                                      {'name' : 'react',
-                                       'version' : '15.4.1',
-                                       'license' : 'BSD-3-Clause'
-                                      },
-                                      {'name' : 'xml2js',
-                                       'version' : '0.4.17',
-                                       'license' : 'MIT'
-                                      },
-                                      {'name' : 'react-bootstrap',
-                                       'version' : '0.30.7',
-                                       'license' : 'MIT'
-                                      },
-                                      {'name' : 'browserify',
-                                       'version' : '13.1.1',
-                                       'license' : 'MIT'
-                                      }]
-                      };
+        this.state = {
+            backend_licenses: '',
+            frontend_licenses: '',
+            license_url: {
+                'MIT' : 'https://opensource.org/licenses/mit-license.php',
+                'BSD-3-Clause' : 'https://opensource.org/licenses/BSD-3-Clause',
+                'LGPL' : 'https://opensource.org/licenses/LGPL-2.1'
+            },
+            frontend_data: [
+                {'name' : 'babel-preset-stage-2',
+                    'version' : '6.18.0',
+                    'license' : 'MIT'
+                },
+                {'name' : 'babel-preset-react',
+                    'version' : '6.16.0',
+                    'license' : 'MIT'
+                },
+                {'name' : 'babel-preset-es2015',
+                    'version' : '6.18.0',
+                    'license' : 'MIT'
+                },
+                {'name' : 'babelify',
+                    'version' : '7.2.0',
+                    'license' : 'MIT'
+                },
+                {'name' : 'whatwg-fetch',
+                    'version' : '2.0.1',
+                    'license' : 'MIT'
+                },
+                {'name' : 'react-dom',
+                    'version' : '15.4.1',
+                    'license' : 'BSD-3-Clause'
+                },
+                {'name' : 'react',
+                    'version' : '15.4.1',
+                    'license' : 'BSD-3-Clause'
+                },
+                {'name' : 'xml2js',
+                    'version' : '0.4.17',
+                    'license' : 'MIT'
+                },
+                {'name' : 'react-bootstrap',
+                    'version' : '0.30.7',
+                    'license' : 'MIT'
+                },
+                {'name' : 'browserify',
+                    'version' : '13.1.1',
+                    'license' : 'MIT'
+                },
+                {'name' : 'hypher',
+                    'version' : '0.2.5',
+                    'license' : 'BSD-3-Clause'
+                },
+                {'name' : 'hyphenation.sv',
+                    'version' : '0.2.1',
+                    'license' : 'LGPL'
+                }
+            ]
+        };
     }
     componentDidMount() {
         this.fetchBackendLicenses();

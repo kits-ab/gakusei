@@ -1,18 +1,8 @@
 .btn{
     white-space: normal;
 }
-
 .answerbutton{
     height: 5em;
-}
-
-.hyphenation{
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    hyphens: auto;
 }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select,
