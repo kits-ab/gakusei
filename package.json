@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "browserify": "^13.1.1",
+    "hyphenation.sv": "^0.2.1",
+    "hypher": "^0.2.5",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.1",

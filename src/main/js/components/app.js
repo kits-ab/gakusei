@@ -16,7 +16,7 @@ export default class App extends React.Component {
             currentPage : <LandingPage/>
         }
     }
-    switchPage(newContent, selectedLesson, gamemode) {
+    switchPage(newContent, selectedLesson, gamemode, resultsFromGame) {
         if (newContent === 'LessonSelection') {
             this.setState({currentPage : <LessonSelection switchPage={this.switchPage}
             gamemode={gamemode}/>
@@ -42,7 +42,7 @@ export default class App extends React.Component {
         }
         else if (newContent === 'EndScreenPage'){
             this.setState({currentPage: <EndScreenPage switchPage={this.switchPage}
-            gamemode={gamemode}/>});
+            gamemode={gamemode} results={resultsFromGame}/>});
         }
     }
     render() {
