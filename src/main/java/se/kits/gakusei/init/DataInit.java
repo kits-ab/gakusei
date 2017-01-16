@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
+@Profile("development")
 public class DataInit implements ApplicationRunner {
 
     @Autowired
@@ -40,6 +43,9 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private LessonRepository lessonRepository;
 
+    @Autowired
+    private Environment environment;
+
 //    @Autowired
 //    private UserRepository userRepository;
 
@@ -53,6 +59,7 @@ public class DataInit implements ApplicationRunner {
 //        createUsers();
         createTestData(readTestDataFromFile());
         createLessons();
+        logger.info("*** Data initialized with profile(s): " + Arrays.toString(environment.getActiveProfiles()));
     }
 
     private Set<Map<String, Object>> readTestDataFromFile() {
