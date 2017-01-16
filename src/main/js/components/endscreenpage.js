@@ -45,8 +45,8 @@ export default class EndScreenPage extends React.Component {
                             Försök igen
                         </Button>
                         {' '}
-                        <Button bsStyle="info" onClick={() =>
-                        this.props.switchPage('LessonSelection', '', this.props.gamemode)}>
+                        <Button bsStyle="info"
+                                onClick={() => this.props.switchPage('LessonSelection', '', this.props.gamemode)}>
                             Välj nya frågor
                         </Button>
                     </div>

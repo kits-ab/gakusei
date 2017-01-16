@@ -58,10 +58,10 @@ export default class LessonSelection extends React.Component {
                                         </option>
                                     </FormControl>
                                 </FormGroup>
-                        <Button type="submit">
-                            Starta
-                        </Button>
-                    </form>
+                                <Button type="submit">
+                                    Starta
+                                </Button>
+                            </form>
                         </Col>
                     </Row>
                 </Grid>

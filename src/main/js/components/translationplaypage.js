@@ -81,8 +81,7 @@ export default class TranslationPlayPage extends React.Component {
                         <input value={this.state.answer} onChange={this.handleChange} placeholder='Skriv in ditt svar här'/>
                     </Row>
                     <Row>
-                        <Button type='submit' onClick={this.checkAnswer}
-                        disabled={this.state.checkDisable}>
+                        <Button type='submit' onClick={this.checkAnswer} disabled={this.state.checkDisable}>
                             Kontrollera svar
                         </Button>
                     </Row>

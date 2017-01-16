@@ -18,14 +18,14 @@ export default class App extends React.Component {
     }
     switchPage(newContent, selectedLesson, gamemode, resultsFromGame) {
         if (newContent === 'LessonSelection') {
-            this.setState({currentPage : <LessonSelection switchPage={this.switchPage}
-            gamemode={gamemode}/>
+            this.setState({
+                currentPage : <LessonSelection switchPage={this.switchPage} gamemode={gamemode}/>
             });
         }
         else if (newContent === 'GuessPlayPage') {
             this.setState({
                 currentPage: <GuessPlayPage selectedLesson={selectedLesson}
-                                            switchPage={this.switchPage}/>
+                                            switchPage={this.switchPage} />
             });
         }
         else if (newContent === 'TranslationPlayPage') {
@@ -41,8 +41,12 @@ export default class App extends React.Component {
             this.setState({currentPage : <LandingPage/>})
         }
         else if (newContent === 'EndScreenPage'){
-            this.setState({currentPage: <EndScreenPage switchPage={this.switchPage}
-            gamemode={gamemode} results={resultsFromGame}/>});
+            this.setState({
+                currentPage: <EndScreenPage
+                                switchPage={this.switchPage}
+                                gamemode={gamemode}
+                                results={resultsFromGame} />
+            });
         }
     }
     render() {
