@@ -4,7 +4,7 @@ import GuessPlayPage from './guessplaypage';
 import AboutPage from './aboutpage';
 import TranslationPlayPage from './translationplaypage';
 import NuggetListPage from './nuggetlistpage';
-import GuessPlaySelection from './guessplayselection';
+import LessonSelection from './lessonselection';
 import LandingPage from './landingpage';
 import EndScreenPage from './endscreenpage';
 
@@ -16,19 +16,20 @@ export default class App extends React.Component {
             currentPage : <LandingPage/>
         }
     }
-    switchPage(newContent, selectedLesson, resultsFromGame) {
-        if (newContent === 'GuessPlayPageSelection') {
-            this.setState({currentPage : <GuessPlaySelection switchPage={this.switchPage}/>
+    switchPage(newContent, selectedLesson, gamemode, resultsFromGame) {
+        if (newContent === 'LessonSelection') {
+            this.setState({
+                currentPage : <LessonSelection switchPage={this.switchPage} gamemode={gamemode}/>
             });
         }
         else if (newContent === 'GuessPlayPage') {
             this.setState({
                 currentPage: <GuessPlayPage selectedLesson={selectedLesson}
-                                            switchPage={this.switchPage}/>
+                                            switchPage={this.switchPage} />
             });
         }
         else if (newContent === 'TranslationPlayPage') {
-            this.setState({currentPage : <TranslationPlayPage/>})
+            this.setState({currentPage : <TranslationPlayPage switchPage={this.switchPage}/>})
         }
         else if (newContent === 'NuggetListPage') {
             this.setState({currentPage : <NuggetListPage/>})
@@ -39,8 +40,13 @@ export default class App extends React.Component {
         else if (newContent === 'LandingPage') {
             this.setState({currentPage : <LandingPage/>})
         }
-        else if (newContent === 'EndScreenPage') {
-            this.setState({currentPage: <EndScreenPage switchPage={this.switchPage} results={resultsFromGame}/>});
+        else if (newContent === 'EndScreenPage'){
+            this.setState({
+                currentPage: <EndScreenPage
+                                switchPage={this.switchPage}
+                                gamemode={gamemode}
+                                results={resultsFromGame} />
+            });
         }
     }
     render() {
