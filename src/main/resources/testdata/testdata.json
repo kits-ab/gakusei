@@ -171,7 +171,7 @@
     "state": "",
     "id": "n4_9",
     "type": [
-      "interjaction"
+      "interjection"
     ]
   },
   {
@@ -408,7 +408,7 @@
     "reading": [
       "あく"
     ],
-    "state": "hidden",
+    "state": "",
     "id": "n5_21",
     "type": [
       "verb"
@@ -428,7 +428,7 @@
     "reading": [
       "あく"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_22",
     "type": [
       "verb"
@@ -1156,7 +1156,7 @@
   },
   {
     "swedish": [
-      "vara"
+      "vara (saker)"
     ],
     "writing": [
       "ある"
@@ -1208,7 +1208,7 @@
     "reading": [
       "あるく"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_61",
     "type": [
       "verb"
@@ -1268,7 +1268,7 @@
     "reading": [
       "よい"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_64",
     "type": [
       "adjective"
@@ -1916,7 +1916,7 @@
   },
   {
     "swedish": [
-      "vara"
+      "vara (varelser)"
     ],
     "writing": [
       "居る"
@@ -4260,7 +4260,7 @@
     "state": "",
     "id": "n5_213",
     "type": [
-      "other"
+      "adjective"
     ]
   },
   {
@@ -4300,7 +4300,7 @@
     "state": "",
     "id": "n5_215",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4317,10 +4317,10 @@
     "reading": [
       "かわ"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_216",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4340,7 +4340,7 @@
     "state": "",
     "id": "n5_217",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4360,7 +4360,7 @@
     "state": "",
     "id": "n5_218",
     "type": [
-      "other"
+      "adjective"
     ]
   },
   {
@@ -4380,7 +4380,7 @@
     "state": "",
     "id": "n5_219",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4397,10 +4397,10 @@
     "reading": [
       "き"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_220",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4420,7 +4420,7 @@
     "state": "",
     "id": "n5_221",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4437,10 +4437,10 @@
     "reading": [
       "きいろ"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_222",
     "type": [
-      "other"
+      "adjective"
     ]
   },
   {
@@ -4460,7 +4460,7 @@
     "state": "",
     "id": "n5_223",
     "type": [
-      "other"
+      "adjective"
     ]
   },
   {
@@ -4471,7 +4471,7 @@
       "消える"
     ],
     "english": [
-      "to disappear"
+      "disappear"
     ],
     "jnlp": "n5",
     "reading": [
@@ -4497,7 +4497,7 @@
     "reading": [
       "きく"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_225",
     "type": [
       "verb"
@@ -4517,7 +4517,7 @@
     "reading": [
       "きく"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_226",
     "type": [
       "verb"
@@ -4560,7 +4560,7 @@
     "state": "",
     "id": "n5_228",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4580,7 +4580,7 @@
     "state": "",
     "id": "n5_229",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4600,7 +4600,7 @@
     "state": "",
     "id": "n5_230",
     "type": [
-      "other"
+      "adjective"
     ]
   },
   {
@@ -4620,7 +4620,7 @@
     "state": "",
     "id": "n5_231",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4640,7 +4640,7 @@
     "state": "",
     "id": "n5_232",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4660,7 +4660,7 @@
     "state": "",
     "id": "n5_233",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4680,7 +4680,7 @@
     "state": "",
     "id": "n5_234",
     "type": [
-      "other"
+      "temporal"
     ]
   },
   {
@@ -4697,10 +4697,10 @@
     "reading": [
       "く"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_235",
     "type": [
-      "other"
+      "numeric"
     ]
   },
   {
@@ -4720,7 +4720,7 @@
     "state": "",
     "id": "n5_236",
     "type": [
-      "other"
+      "numeric"
     ]
   },
   {
@@ -4740,7 +4740,7 @@
     "state": "",
     "id": "n5_237",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4760,7 +4760,7 @@
     "state": "",
     "id": "n5_238",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4780,7 +4780,7 @@
     "state": "",
     "id": "n5_239",
     "type": [
-      "other"
+      "temporal"
     ]
   },
   {
@@ -4800,7 +4800,7 @@
     "state": "",
     "id": "n5_240",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4820,7 +4820,7 @@
     "state": "",
     "id": "n5_241",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4840,7 +4840,7 @@
     "state": "",
     "id": "n5_242",
     "type": [
-      "other"
+      "temporal"
     ]
   },
   {
@@ -4860,7 +4860,7 @@
     "state": "",
     "id": "n5_243",
     "type": [
-      "other"
+      "adjective"
     ]
   },
   {
@@ -4920,7 +4920,7 @@
     "state": "",
     "id": "n5_246",
     "type": [
-      "other"
+      "adjective"
     ]
   },
   {
@@ -4937,10 +4937,10 @@
     "reading": [
       "きれい"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_247",
     "type": [
-      "other"
+      "adjective"
     ]
   },
   {
@@ -4960,7 +4960,7 @@
     "state": "",
     "id": "n5_248",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -4980,7 +4980,7 @@
     "state": "",
     "id": "n5_249",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -5000,7 +5000,7 @@
     "state": "",
     "id": "n5_250",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -5017,10 +5017,10 @@
     "reading": [
       "キロ"
     ],
-    "state": "",
+    "state": "hidden",
     "id": "n5_251",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -5040,7 +5040,7 @@
     "state": "",
     "id": "n5_252",
     "type": [
-      "other"
+      "noun"
     ]
   },
   {
@@ -5060,7 +5060,7 @@
     "state": "",
     "id": "n5_253",
     "type": [
-      "other"
+      "temporal"
     ]
   },
   {
@@ -5080,7 +5080,7 @@
     "state": "",
     "id": "n5_254",
     "type": [
-      "other"
+      "noun"
     ]
   }
 ]
