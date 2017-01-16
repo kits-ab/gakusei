@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,6 +42,9 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private LessonRepository lessonRepository;
 
+    @Autowired
+    private Environment environment;
+
 //    @Autowired
 //    private UserRepository userRepository;
 
@@ -48,11 +53,21 @@ public class DataInit implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Value("${gakusei.data-init}")
+    private boolean datainit;
+
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
 //        createUsers();
-        createTestData(readTestDataFromFile());
-        createLessons();
+
+        String activeProfiles = Arrays.toString(environment.getActiveProfiles());
+        if (datainit) {
+            createTestData(readTestDataFromFile());
+            createLessons();
+            logger.info("*** Data initialization was set on profile(s): " + activeProfiles);
+        } else {
+            logger.info("*** Data initialization was NOT set on profile(s): " + activeProfiles);
+        }
     }
 
     private Set<Map<String, Object>> readTestDataFromFile() {
