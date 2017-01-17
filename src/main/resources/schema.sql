@@ -10,7 +10,7 @@ description VARCHAR(1024)
 );
 
 CREATE TABLE IF NOT EXISTS contentschema.nuggets(
-id SERIAL PRIMARY KEY NOT NULL,
+id VARCHAR(16) PRIMARY KEY NOT NULL,
 type VARCHAR(32) NOT NULL,
 description VARCHAR(256),
 hidden BOOLEAN
@@ -18,7 +18,7 @@ hidden BOOLEAN
 
 CREATE TABLE IF NOT EXISTS contentschema.lessons_nuggets(
 lesson_id SERIAL,
-nugget_id SERIAL
+nugget_id VARCHAR(16)
 );
 
 CREATE TABLE IF NOT EXISTS contentschema.facts(
@@ -26,5 +26,5 @@ id SERIAL PRIMARY KEY NOT NULL,
 type VARCHAR(32) NOT NULL,
 data VARCHAR(128) NOT NULL,
 description VARCHAR(256),
-nuggetid INTEGER NOT NULL REFERENCES contentschema.nuggets(id)
+nuggetid VARCHAR(16) NOT NULL REFERENCES contentschema.nuggets(id)
 );
