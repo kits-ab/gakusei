@@ -4,7 +4,7 @@ import GuessPlayPage from './guessplaypage';
 import AboutPage from './aboutpage';
 import TranslationPlayPage from './translationplaypage';
 import NuggetListPage from './nuggetlistpage';
-import GuessPlaySelection from './guessplayselection';
+import LessonSelection from './lessonselection';
 import LandingPage from './landingpage';
 import EndScreenPage from './endscreenpage';
 
@@ -19,7 +19,7 @@ export default class App extends React.Component {
     switchPage(newContent, props) {
         props = Object.assign({switchPage: this.switchPage}, props);
         const pages = {
-            'GuessPlayPageSelection'    : <GuessPlaySelection {...props}/>,
+            'LessonSelection'           : <LessonSelection {...props}/>,
             'GuessPlayPage'             : <GuessPlayPage {...props}/>,
             'TranslationPlayPage'       : <TranslationPlayPage/>,
             'NuggetListPage'            : <NuggetListPage/>,
