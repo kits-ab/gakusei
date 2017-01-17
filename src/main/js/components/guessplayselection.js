@@ -15,7 +15,7 @@ export default class GuessPlaySelection extends React.Component {
             .then(response => response.json())
             .then(json => {
                 sessionStorage.lesson = JSON.stringify(json);
-                this.props.switchPage('GuessPlayPage', this.state.selectedLesson);
+                this.props.switchPage('GuessPlayPage', {selectedLesson: this.state.selectedLesson});
             }).catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
     }
     handleChange(event){

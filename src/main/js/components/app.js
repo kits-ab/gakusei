@@ -16,32 +16,18 @@ export default class App extends React.Component {
             currentPage : <LandingPage/>
         }
     }
-    switchPage(newContent, selectedLesson, resultsFromGame) {
-        if (newContent === 'GuessPlayPageSelection') {
-            this.setState({currentPage : <GuessPlaySelection switchPage={this.switchPage}/>
-            });
-        }
-        else if (newContent === 'GuessPlayPage') {
-            this.setState({
-                currentPage: <GuessPlayPage selectedLesson={selectedLesson}
-                                            switchPage={this.switchPage}/>
-            });
-        }
-        else if (newContent === 'TranslationPlayPage') {
-            this.setState({currentPage : <TranslationPlayPage/>})
-        }
-        else if (newContent === 'NuggetListPage') {
-            this.setState({currentPage : <NuggetListPage/>})
-        }
-        else if (newContent === 'AboutPage') {
-            this.setState({currentPage : <AboutPage/>})
-        }
-        else if (newContent === 'LandingPage') {
-            this.setState({currentPage : <LandingPage/>})
-        }
-        else if (newContent === 'EndScreenPage') {
-            this.setState({currentPage: <EndScreenPage switchPage={this.switchPage} results={resultsFromGame}/>});
-        }
+    switchPage(newContent, props) {
+        props = Object.assign({switchPage: this.switchPage}, props);
+        const pages = {
+            'GuessPlayPageSelection'    : <GuessPlaySelection {...props}/>,
+            'GuessPlayPage'             : <GuessPlayPage {...props}/>,
+            'TranslationPlayPage'       : <TranslationPlayPage/>,
+            'NuggetListPage'            : <NuggetListPage/>,
+            'AboutPage'                 : <AboutPage/>,
+            'EndScreenPage'             : <EndScreenPage {...props}/>,
+            'LandingPage'               : <LandingPage/>
+        };
+        this.setState({currentPage : pages[newContent]});
     }
     render() {
         return (
