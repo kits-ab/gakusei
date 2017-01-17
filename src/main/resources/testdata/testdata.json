@@ -1,5044 +1,5086 @@
 [
   {
+    "swedish": [
+      "servitör"
+    ],
+    "writing": [
+      "ウエイター"
+    ],
+    "english": [
+      "waiter"
+    ],
+    "reading": [
+      "ウエイター"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "会う",
-    "reading": "あう",
-    "english": "to meet",
-    "swedish": "möta"
+    "id": "12x1",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "främmande språk"
+    ],
+    "writing": [
+      "外国語"
+    ],
+    "english": [
+      "foreign language"
+    ],
+    "reading": [
+      "がいこくご"
+    ],
+    "state": "",
+    "id": "12x2",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "musikinstrument"
+    ],
+    "writing": [
+      "楽器"
+    ],
+    "english": [
+      "musical instrument"
+    ],
+    "reading": [
+      "がっき"
+    ],
+    "state": "",
+    "id": "12x3",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "karate"
+    ],
+    "writing": [
+      "空手"
+    ],
+    "english": [
+      "karate"
+    ],
+    "reading": [
+      "からて"
+    ],
+    "state": "",
+    "id": "12x4",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "svart te"
+    ],
+    "writing": [
+      "紅茶"
+    ],
+    "english": [
+      "black tea"
+    ],
+    "reading": [
+      "こうちゃ"
+    ],
+    "state": "",
+    "id": "12x5",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "språk"
+    ],
+    "writing": [
+      "言語"
+    ],
+    "english": [
+      "language"
+    ],
+    "jnlp": "n3",
+    "reading": [
+      "げんご"
+    ],
+    "state": "",
+    "id": "n3_6",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "annons"
+    ],
+    "writing": [
+      "広告"
+    ],
+    "english": [
+      "advertisement"
+    ],
+    "jnlp": "n3",
+    "reading": [
+      "こうこく"
+    ],
+    "state": "",
+    "id": "n3_7",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "Ah"
+    ],
+    "writing": [
+      "あ"
+    ],
+    "english": [
+      "Ah"
+    ],
+    "jnlp": "n4",
+    "reading": [
+      "あ"
+    ],
+    "state": "",
+    "id": "n4_8",
+    "type": [
+      "interjection"
+    ]
+  },
+  {
+    "swedish": [
+      "Aha..."
+    ],
+    "writing": [
+      "ああ"
+    ],
+    "english": [
+      "like that"
+    ],
+    "jnlp": "n4",
+    "reading": [
+      "ああ"
+    ],
+    "state": "",
+    "id": "n4_9",
+    "type": [
+      "interjection"
+    ]
+  },
+  {
+    "swedish": [
+      "mellan"
+    ],
+    "writing": [
+      "間"
+    ],
+    "english": [
+      "a space"
+    ],
+    "jnlp": "n4",
+    "reading": [
+      "あいだ"
+    ],
+    "state": "",
+    "id": "n4_10",
+    "type": [
+      "proposition"
+    ]
+  },
+  {
+    "swedish": [
+      "baby"
+    ],
+    "writing": [
+      "あかちゃん"
+    ],
+    "english": [
+      "baby"
+    ],
+    "jnlp": "n4",
+    "reading": [
+      "あかちゃん"
+    ],
+    "state": "",
+    "id": "n4_11",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "ditt hus (artig)"
+    ],
+    "writing": [
+      "お宅"
+    ],
+    "english": [
+      "(polite) your house"
+    ],
+    "jnlp": "n4",
+    "reading": [
+      "おたく"
+    ],
+    "state": "",
+    "id": "n4_12",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "kimono"
+    ],
+    "writing": [
+      "着物"
+    ],
+    "english": [
+      "kimono"
+    ],
+    "jnlp": "n4",
+    "reading": [
+      "きもの"
+    ],
+    "state": "",
+    "id": "n4_13",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "möta"
+    ],
+    "writing": [
+      "会う"
+    ],
+    "english": [
+      "to meet"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あう"
+    ],
+    "state": "",
+    "id": "n5_14",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "blå"
+    ],
+    "writing": [
+      "青"
+    ],
+    "english": [
+      "blue"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あお"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "青",
-    "reading": "あお",
-    "english": "blue",
-    "swedish": "blå"
+    "id": "n5_15",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "blå"
+    ],
+    "writing": [
+      "青い"
+    ],
+    "english": [
+      "blue"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あおい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "青い",
-    "reading": "あおい",
-    "english": "blue",
-    "swedish": "blå"
+    "id": "n5_16",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "röd"
+    ],
+    "writing": [
+      "赤"
+    ],
+    "english": [
+      "red"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あか"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "other",
-    "writing": "赤",
-    "reading": "あか",
-    "english": "red",
-    "swedish": "röd"
+    "id": "n5_17",
+    "type": [
+      "other"
+    ]
   },
   {
+    "swedish": [
+      "röd"
+    ],
+    "writing": [
+      "赤い"
+    ],
+    "english": [
+      "red"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あかい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "赤い",
-    "reading": "あかい",
-    "english": "red",
-    "swedish": "röd"
+    "id": "n5_18",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "ljus"
+    ],
+    "writing": [
+      "明い"
+    ],
+    "english": [
+      "bright"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あかるい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "明い",
-    "reading": "あかるい",
-    "english": "bright",
-    "swedish": "ljus"
+    "id": "n5_19",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "höst"
+    ],
+    "writing": [
+      "秋"
+    ],
+    "english": [
+      "autumn"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あき"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "秋",
-    "reading": "あき",
-    "english": "autumn",
-    "swedish": "höst"
+    "id": "n5_20",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "öppna sig"
+    ],
+    "writing": [
+      "開く"
+    ],
+    "english": [
+      "to become open"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あく"
+    ],
+    "state": "",
+    "id": "n5_21",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "öppna"
+    ],
+    "writing": [
+      "開く"
+    ],
+    "english": [
+      "to open"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あく"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "開く",
-    "reading": "あく",
-    "english": "to become open",
-    "swedish": "öppna sig"
+    "id": "n5_22",
+    "type": [
+      "verb"
+    ]
   },
   {
+    "swedish": [
+      "öppna"
+    ],
+    "writing": [
+      "開ける"
+    ],
+    "english": [
+      "to open"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あける"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "開く",
-    "reading": "あく",
-    "english": "to open",
-    "swedish": "öppna"
+    "id": "n5_23",
+    "type": [
+      "verb"
+    ]
   },
   {
+    "swedish": [
+      "ge"
+    ],
+    "writing": [
+      "上げる"
+    ],
+    "english": [
+      "to give"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あげる"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "開ける",
-    "reading": "あける",
-    "english": "to open",
-    "swedish": "öppna"
+    "id": "n5_24",
+    "type": [
+      "verb"
+    ]
   },
   {
+    "swedish": [
+      "morgon"
+    ],
+    "writing": [
+      "朝"
+    ],
+    "english": [
+      "morning"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あさ"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "上げる",
-    "reading": "あげる",
-    "english": "to give",
-    "swedish": "ge"
+    "id": "n5_25",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "frukost"
+    ],
+    "writing": [
+      "朝御飯"
+    ],
+    "english": [
+      "breakfast"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あさごはん"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "朝",
-    "reading": "あさ",
-    "english": "morning",
-    "swedish": "morgon"
+    "id": "n5_26",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "övermorgon"
+    ],
+    "writing": [
+      "あさって"
+    ],
+    "english": [
+      "day after tomorrow"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あさって"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "朝御飯",
-    "reading": "あさごはん",
-    "english": "breakfast",
-    "swedish": "frukost"
+    "id": "n5_27",
+    "type": [
+      "temporal"
+    ]
   },
   {
-    "state": "",
+    "swedish": [
+      "ben"
+    ],
+    "writing": [
+      "足"
+    ],
+    "english": [
+      "leg"
+    ],
     "jnlp": "n5",
-    "type": "temporal",
-    "writing": "あさって",
-    "reading": "あさって",
-    "english": "day after tomorrow",
-    "swedish": "övermorgon"
-  },
-  {
+    "reading": [
+      "あし"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "足",
-    "reading": "あし",
-    "english": "leg",
-    "swedish": "ben"
+    "id": "n5_28",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "fot"
+    ],
+    "writing": [
+      "足"
+    ],
+    "english": [
+      "foot"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あし"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "足",
-    "reading": "あし",
-    "english": "foot",
-    "swedish": "fot"
+    "id": "n5_29",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "imorgon"
+    ],
+    "writing": [
+      "明日"
+    ],
+    "english": [
+      "tomorrow"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あした"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "temporal",
-    "writing": "明日",
-    "reading": "あした",
-    "english": "tomorrow",
-    "swedish": "imorgon"
+    "id": "n5_30",
+    "type": [
+      "temporal"
+    ]
   },
   {
+    "swedish": [
+      "där borta"
+    ],
+    "writing": [
+      "あそこ"
+    ],
+    "english": [
+      "over there"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あそこ"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "pronoun",
-    "writing": "あそこ",
-    "reading": "あそこ",
-    "english": "over there",
-    "swedish": "där borta"
+    "id": "n5_31",
+    "type": [
+      "pronoun"
+    ]
   },
   {
+    "swedish": [
+      "hälsa på"
+    ],
+    "writing": [
+      "遊ぶ"
+    ],
+    "english": [
+      "to make a visit"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あそぶ"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "遊ぶ",
-    "reading": "あそぶ",
-    "english": "to make a visit",
-    "swedish": "hälsa på"
+    "id": "n5_32",
+    "type": [
+      "verb"
+    ]
   },
   {
+    "swedish": [
+      "leka"
+    ],
+    "writing": [
+      "遊ぶ"
+    ],
+    "english": [
+      "to play"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あそぶ"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "遊ぶ",
-    "reading": "あそぶ",
-    "english": "to play",
-    "swedish": "leka"
+    "id": "n5_33",
+    "type": [
+      "verb"
+    ]
   },
   {
+    "swedish": [
+      "varm"
+    ],
+    "writing": [
+      "暖かい"
+    ],
+    "english": [
+      "warm"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あたたかい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "暖かい",
-    "reading": "あたたかい",
-    "english": "warm",
-    "swedish": "varm"
+    "id": "n5_34",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "huvud"
+    ],
+    "writing": [
+      "頭"
+    ],
+    "english": [
+      "head"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あたま"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "頭",
-    "reading": "あたま",
-    "english": "head",
-    "swedish": "huvud"
+    "id": "n5_35",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "ny"
+    ],
+    "writing": [
+      "新しい"
+    ],
+    "english": [
+      "new"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あたらしい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "新しい",
-    "reading": "あたらしい",
-    "english": "new",
-    "swedish": "ny"
+    "id": "n5_36",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "där"
+    ],
+    "writing": [
+      "あちら"
+    ],
+    "english": [
+      "there"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あちら"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "pronoun",
-    "writing": "あちら",
-    "reading": "あちら",
-    "english": "there",
-    "swedish": "där"
+    "id": "n5_37",
+    "type": [
+      "pronoun"
+    ]
   },
   {
+    "swedish": [
+      "het"
+    ],
+    "writing": [
+      "暑い"
+    ],
+    "english": [
+      "hot"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あつい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "暑い",
-    "reading": "あつい",
-    "english": "hot",
-    "swedish": "het"
+    "id": "n5_38",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "brännhet"
+    ],
+    "writing": [
+      "熱い"
+    ],
+    "english": [
+      "hot to the touch"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あつい"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "熱い",
-    "reading": "あつい",
-    "english": "hot to the touch",
-    "swedish": "brännhet"
+    "id": "n5_39",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "tjock"
+    ],
+    "writing": [
+      "厚い"
+    ],
+    "english": [
+      "thick"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あつい"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "厚い",
-    "reading": "あつい",
-    "english": "thick",
-    "swedish": "tjock"
+    "id": "n5_40",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "djup"
+    ],
+    "writing": [
+      "厚い"
+    ],
+    "english": [
+      "deep"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あつい"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "厚い",
-    "reading": "あつい",
-    "english": "deep",
-    "swedish": "djup"
+    "id": "n5_41",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "snäll"
+    ],
+    "writing": [
+      "厚い"
+    ],
+    "english": [
+      "kind"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あつい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "厚い",
-    "reading": "あつい",
-    "english": "kind",
-    "swedish": "snäll"
+    "id": "n5_42",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "där borta"
+    ],
+    "writing": [
+      "あっち"
+    ],
+    "english": [
+      "over there"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あっち"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "pronoun",
-    "writing": "あっち",
-    "reading": "あっち",
-    "english": "over there",
-    "swedish": "där borta"
+    "id": "n5_43",
+    "type": [
+      "pronoun"
+    ]
   },
   {
+    "swedish": [
+      "efteråt"
+    ],
+    "writing": [
+      "後"
+    ],
+    "english": [
+      "afterwards"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あと"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "temporal",
-    "writing": "後",
-    "reading": "あと",
-    "english": "afterwards",
-    "swedish": "efteråt"
+    "id": "n5_44",
+    "type": [
+      "temporal"
+    ]
   },
   {
+    "swedish": [
+      "du"
+    ],
+    "writing": [
+      "あなた"
+    ],
+    "english": [
+      "you"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あなた"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "pronoun",
-    "writing": "あなた",
-    "reading": "あなた",
-    "english": "you",
-    "swedish": "du"
+    "id": "n5_45",
+    "type": [
+      "pronoun"
+    ]
   },
   {
+    "swedish": [
+      "storebror (ödmjuk)"
+    ],
+    "writing": [
+      "兄"
+    ],
+    "english": [
+      "(humble) older brother"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あに"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "兄",
-    "reading": "あに",
-    "english": "(humble) older brother",
-    "swedish": "storebror (ödmjuk)"
+    "id": "n5_46",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "storasyster (ödmjuk)"
+    ],
+    "writing": [
+      "姉"
+    ],
+    "english": [
+      "(humble) older sister"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あね"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "姉",
-    "reading": "あね",
-    "english": "(humble) older sister",
-    "swedish": "storasyster (ödmjuk)"
+    "id": "n5_47",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "där borta"
+    ],
+    "writing": [
+      "あの"
+    ],
+    "english": [
+      "that over there"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あの"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "pronoun",
-    "writing": "あの",
-    "reading": "あの",
-    "english": "that over there",
-    "swedish": "där borta"
+    "id": "n5_48",
+    "type": [
+      "pronoun"
+    ]
   },
   {
+    "swedish": [
+      "hm..."
+    ],
+    "writing": [
+      "あの"
+    ],
+    "english": [
+      "um..."
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あの"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "interjection",
-    "writing": "あの",
-    "reading": "あの",
-    "english": "um...",
-    "swedish": "hm..."
+    "id": "n5_49",
+    "type": [
+      "interjection"
+    ]
   },
   {
+    "swedish": [
+      "lägenhet"
+    ],
+    "writing": [
+      "アパート"
+    ],
+    "english": [
+      "apartment"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "アパート"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "アパート",
-    "reading": "アパート",
-    "english": "apartment",
-    "swedish": "lägenhet"
+    "id": "n5_50",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "duscha"
+    ],
+    "writing": [
+      "あびる"
+    ],
+    "english": [
+      "shower"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あびる"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "あびる",
-    "reading": "あびる",
-    "english": "shower",
-    "swedish": "duscha"
+    "id": "n5_51",
+    "type": [
+      "verb"
+    ]
   },
   {
+    "swedish": [
+      "bada"
+    ],
+    "writing": [
+      "あびる"
+    ],
+    "english": [
+      "bathe"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あびる"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "あびる",
-    "reading": "あびる",
-    "english": "bathe",
-    "swedish": "bada"
+    "id": "n5_52",
+    "type": [
+      "verb"
+    ]
   },
   {
+    "swedish": [
+      "farlig"
+    ],
+    "writing": [
+      "危ない"
+    ],
+    "english": [
+      "dangerous"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あぶない"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "危ない",
-    "reading": "あぶない",
-    "english": "dangerous",
-    "swedish": "farlig"
+    "id": "n5_53",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "söt"
+    ],
+    "writing": [
+      "甘い"
+    ],
+    "english": [
+      "sweet"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あまい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "甘い",
-    "reading": "あまい",
-    "english": "sweet",
-    "swedish": "söt"
+    "id": "n5_54",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "inte mycket"
+    ],
+    "writing": [
+      "あまり"
+    ],
+    "english": [
+      "not very"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あまり"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adverb",
-    "writing": "あまり",
-    "reading": "あまり",
-    "english": "not very",
-    "swedish": "inte mycket"
+    "id": "n5_55",
+    "type": [
+      "adverb"
+    ]
   },
   {
+    "swedish": [
+      "regn"
+    ],
+    "writing": [
+      "雨"
+    ],
+    "english": [
+      "rain"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あめ"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "雨",
-    "reading": "あめ",
-    "english": "rain",
-    "swedish": "regn"
+    "id": "n5_56",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "godis"
+    ],
+    "writing": [
+      "飴"
+    ],
+    "english": [
+      "candy"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あめ"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "飴",
-    "reading": "あめ",
-    "english": "candy",
-    "swedish": "godis"
+    "id": "n5_57",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "tvätta"
+    ],
+    "writing": [
+      "洗う"
+    ],
+    "english": [
+      "wash"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あらう"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "ある",
-    "reading": "ある",
-    "english": "be (used for inanimate objects)",
-    "swedish": "vara"
+    "id": "n5_58",
+    "type": [
+      "verb"
+    ]
   },
   {
+    "swedish": [
+      "vara (saker)"
+    ],
+    "writing": [
+      "ある"
+    ],
+    "english": [
+      "be (used for inanimate objects)"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "ある"
+    ],
+    "state": "",
+    "id": "n5_59",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "ha"
+    ],
+    "writing": [
+      "ある"
+    ],
+    "english": [
+      "have (used for inanimate objects)"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "ある"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "ある",
-    "reading": "ある",
-    "english": "have (used for inanimate objects)",
-    "swedish": "ha"
+    "id": "n5_60",
+    "type": [
+      "verb"
+    ]
   },
   {
-    "state": "",
+    "swedish": [
+      "gå"
+    ],
+    "writing": [
+      "歩く"
+    ],
+    "english": [
+      "walk"
+    ],
     "jnlp": "n5",
-    "type": "verb",
-    "writing": "歩く",
-    "reading": "あるく",
-    "english": "walk",
-    "swedish": "gå"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "pronoun",
-    "writing": "あれ",
-    "reading": "あれ",
-    "english": "that",
-    "swedish": "det"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "いい",
-    "reading": "いい",
-    "english": "good",
-    "swedish": "bra"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "よい",
-    "reading": "よい",
-    "english": "good",
-    "swedish": "bra"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "interjection",
-    "writing": "いいえ",
-    "reading": "いいえ",
-    "english": "no",
-    "swedish": "nej"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "家",
-    "reading": "いえ",
-    "english": "house",
-    "swedish": "hus"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "adverb",
-    "writing": "いかが",
-    "reading": "いかが",
-    "english": "how",
-    "swedish": "hur"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "行く",
-    "reading": "いく",
-    "english": "go",
-    "swedish": "gå"
-  },
-  {
+    "reading": [
+      "あるく"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "adverb",
-    "writing": "いくつ",
-    "reading": "いくつ",
-    "english": "how old?",
-    "swedish": "hur gammal?"
+    "id": "n5_61",
+    "type": [
+      "verb"
+    ]
   },
   {
+    "swedish": [
+      "det"
+    ],
+    "writing": [
+      "あれ"
+    ],
+    "english": [
+      "that"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "あれ"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adverb",
-    "writing": "いくつ",
-    "reading": "いくつ",
-    "english": "how many?",
-    "swedish": "hur många?"
+    "id": "n5_62",
+    "type": [
+      "pronoun"
+    ]
   },
   {
+    "swedish": [
+      "bra"
+    ],
+    "writing": [
+      "いい"
+    ],
+    "english": [
+      "good"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adverb",
-    "writing": "いくら",
-    "reading": "いくら",
-    "english": "how much?",
-    "swedish": "hyr mycket?"
+    "id": "n5_63",
+    "type": [
+      "adjective"
+    ]
   },
   {
-    "state": "",
+    "swedish": [
+      "bra"
+    ],
+    "writing": [
+      "よい"
+    ],
+    "english": [
+      "good"
+    ],
     "jnlp": "n5",
-    "type": "noun",
-    "writing": "池",
-    "reading": "いけ",
-    "english": "pond",
-    "swedish": "damm"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "医者",
-    "reading": "いしゃ",
-    "english": "medical doctor",
-    "swedish": "läkare"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "いす",
-    "reading": "いす",
-    "english": "chair",
-    "swedish": "stol"
-  },
-  {
+    "reading": [
+      "よい"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "忙しい",
-    "reading": "いそがしい",
-    "english": "irritated",
-    "swedish": "irriterad"
+    "id": "n5_64",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "nej"
+    ],
+    "writing": [
+      "いいえ"
+    ],
+    "english": [
+      "no"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いいえ"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "忙しい",
-    "reading": "いそがしい",
-    "english": "busy",
-    "swedish": "upptagen"
+    "id": "n5_65",
+    "type": [
+      "interjection"
+    ]
   },
   {
+    "swedish": [
+      "säga"
+    ],
+    "writing": [
+      "言う"
+    ],
+    "english": [
+      "say"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いう"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "痛い",
-    "reading": "いたい",
-    "english": "painful",
-    "swedish": "smärtsam"
+    "id": "n5_66",
+    "type": [
+      "verb"
+    ]
   },
   {
+    "swedish": [
+      "hus"
+    ],
+    "writing": [
+      "家"
+    ],
+    "english": [
+      "house"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いえ"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "numeric",
-    "writing": "一",
-    "reading": "いち",
-    "english": "one",
-    "swedish": "ett"
+    "id": "n5_67",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "hur"
+    ],
+    "writing": [
+      "いかが"
+    ],
+    "english": [
+      "how"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いかが"
+    ],
+    "state": "",
+    "id": "n5_68",
+    "type": [
+      "adverb"
+    ]
+  },
+  {
+    "swedish": [
+      "gå"
+    ],
+    "writing": [
+      "行く"
+    ],
+    "english": [
+      "go"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いく"
+    ],
+    "state": "",
+    "id": "n5_69",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "hur gammal?"
+    ],
+    "writing": [
+      "いくつ"
+    ],
+    "english": [
+      "how old?"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いくつ"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "一日",
-    "reading": "いちにち",
-    "english": "first of month",
-    "swedish": "första i månad"
+    "id": "n5_70",
+    "type": [
+      "adverb"
+    ]
   },
   {
+    "swedish": [
+      "hur många?"
+    ],
+    "writing": [
+      "いくつ"
+    ],
+    "english": [
+      "how many?"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いくつ"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "一日",
-    "reading": "いちにち",
-    "english": "one day",
-    "swedish": "en dag"
+    "id": "n5_71",
+    "type": [
+      "adverb"
+    ]
   },
   {
+    "swedish": [
+      "hyr mycket?"
+    ],
+    "writing": [
+      "いくら"
+    ],
+    "english": [
+      "how much?"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いくら"
+    ],
+    "state": "",
+    "id": "n5_72",
+    "type": [
+      "adverb"
+    ]
+  },
+  {
+    "swedish": [
+      "damm"
+    ],
+    "writing": [
+      "池"
+    ],
+    "english": [
+      "pond"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いけ"
+    ],
+    "state": "",
+    "id": "n5_73",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "läkare"
+    ],
+    "writing": [
+      "医者"
+    ],
+    "english": [
+      "medical doctor"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いしゃ"
+    ],
+    "state": "",
+    "id": "n5_74",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "stol"
+    ],
+    "writing": [
+      "いす"
+    ],
+    "english": [
+      "chair"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いす"
+    ],
+    "state": "",
+    "id": "n5_75",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "irriterad"
+    ],
+    "writing": [
+      "忙しい"
+    ],
+    "english": [
+      "irritated"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いそがしい"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "adverb",
-    "writing": "いちばん",
-    "reading": "いちばん",
-    "english": "first",
-    "swedish": "först"
+    "id": "n5_76",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "upptagen"
+    ],
+    "writing": [
+      "忙しい"
+    ],
+    "english": [
+      "busy"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いそがしい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "adverb",
-    "writing": "いちばん",
-    "reading": "いちばん",
-    "english": "best",
-    "swedish": "bäst"
+    "id": "n5_77",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "smärtsam"
+    ],
+    "writing": [
+      "痛い"
+    ],
+    "english": [
+      "painful"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いたい"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "pronoun",
-    "writing": "いつ",
-    "reading": "いつ",
-    "english": "when",
-    "swedish": "när"
+    "id": "n5_78",
+    "type": [
+      "adjective"
+    ]
   },
   {
+    "swedish": [
+      "ett"
+    ],
+    "writing": [
+      "一"
+    ],
+    "english": [
+      "one"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いち"
+    ],
+    "state": "",
+    "id": "n5_79",
+    "type": [
+      "numeric"
+    ]
+  },
+  {
+    "swedish": [
+      "första i månad"
+    ],
+    "writing": [
+      "一日"
+    ],
+    "english": [
+      "first of month"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いちにち"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "五日",
-    "reading": "いつか",
-    "english": "fifth day",
-    "swedish": "femte i månad"
+    "id": "n5_80",
+    "type": [
+      "noun"
+    ]
   },
   {
+    "swedish": [
+      "en dag"
+    ],
+    "writing": [
+      "一日"
+    ],
+    "english": [
+      "one day"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いちにち"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "五日",
-    "reading": "いつか",
-    "english": "five days",
-    "swedish": "fem dagar"
+    "id": "n5_81",
+    "type": [
+      "noun"
+    ]
   },
   {
-    "state": "",
+    "swedish": [
+      "först"
+    ],
+    "writing": [
+      "いちばん"
+    ],
+    "english": [
+      "first"
+    ],
     "jnlp": "n5",
-    "type": "adverb",
-    "writing": "一緒",
-    "reading": "いっしょ",
-    "english": "together",
-    "swedish": "tillsammans"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "numeric",
-    "writing": "五つ",
-    "reading": "いつつ",
-    "english": "five",
-    "swedish": "fem"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "adverb",
-    "writing": "いつも",
-    "reading": "いつも",
-    "english": "always",
-    "swedish": "alltid"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "犬",
-    "reading": "いぬ",
-    "english": "dog",
-    "swedish": "hund"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "adverb",
-    "writing": "今",
-    "reading": "いま",
-    "english": "now",
-    "swedish": "nu"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "意味",
-    "reading": "いみ",
-    "english": "meaning",
-    "swedish": "betydelse"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "妹",
-    "reading": "いもうと",
-    "english": "(humble) younger sister",
-    "swedish": "yngre syster (ödmjuk)"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "adjective",
-    "writing": "嫌",
-    "reading": "いや",
-    "english": "unpleasant",
-    "swedish": "otrevlig"
-  },
-  {
-    "state": "",
-    "jnlp": "n5",
-    "type": "noun",
-    "writing": "入口",
-    "reading": "いりぐち",
-    "english": "entrance",
-    "swedish": "entré"
-  },
-  {
+    "reading": [
+      "いちばん"
+    ],
     "state": "hidden",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "居る",
-    "reading": "いる",
-    "english": "have (used for people and animals)",
-    "swedish": "ha"
+    "id": "n5_82",
+    "type": [
+      "adverb"
+    ]
   },
   {
+    "swedish": [
+      "bäst"
+    ],
+    "writing": [
+      "いちばん"
+    ],
+    "english": [
+      "best"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いちばん"
+    ],
     "state": "",
-    "jnlp": "n5",
-    "type": "verb",
-    "writing": "居る",
-    "reading": "いる",
-    "english": "to be (used for people and animals)",
-    "swedish": "vara"
+    "id": "n5_83",
+    "type": [
+      "adverb"
+    ]
   },
   {
+    "swedish": [
+      "när"
+    ],
+    "writing": [
+      "いつ"
+    ],
+    "english": [
+      "when"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いつ"
+    ],
     "state": "",
+    "id": "n5_84",
+    "type": [
+      "pronoun"
+    ]
+  },
+  {
+    "swedish": [
+      "femte i månad"
+    ],
+    "writing": [
+      "五日"
+    ],
+    "english": [
+      "fifth day"
+    ],
     "jnlp": "n5",
-    "type": "verb",
-    "writing": "入れる",
-    "reading": "いれる",
-    "english": "put in",
-    "swedish": "stoppa in"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "洗う",
-    "reading": "あらう",
-    "english": "wash",
-    "swedish": "tvätta",
-    "kanji": "洗",
-    "teform": "あらって",
-    "teform_w": "洗って",
-    "shortform": "あらう",
-    "shortform_w": "洗う",
-    "longform": "あらいます",
-    "longform_w": "洗います"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "言う",
-    "reading": "いう",
-    "english": "say",
-    "swedish": "säga",
-    "kanji": "言",
-    "teform": "いって",
-    "teform_w": "言って",
-    "shortform": "いう",
-    "shortform_w": "言う",
-    "longform": "いいます",
-    "longform_w": "言います"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "要る",
-    "reading": "いる",
-    "english": "need",
-    "swedish": "behöva",
-    "teform": "いって",
-    "teform_w": "いって",
-    "shortform": "いる",
-    "shortform_w": "いる",
-    "longform": "いります",
-    "longform_w": "いります"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "歌う",
-    "reading": "うたう",
-    "english": "sing",
-    "swedish": "sjunga",
-    "kanji": "歌",
-    "teform": "うたって",
-    "teform_w": "歌って",
-    "shortform": "うたう",
-    "shortform_w": "歌う",
-    "longform": "うたいます",
-    "longform_w": "歌います"
-  },
-  {
-    "state": "ignore",
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "切る",
-    "reading": "きる",
-    "english": "cut",
-    "swedish": "hugga",
-    "kanji": "切",
-    "teform": "きって",
-    "teform_w": "切って",
-    "shortform": "きる",
-    "shortform_w": "切る",
-    "longform": "きります",
-    "longform_w": "切ります"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "着る",
-    "reading": "きる",
-    "english": "put on (between waist and shoulders)",
-    "swedish": "ta på sig (ovanför midjan)",
-    "kanji": "着",
-    "teform": "きて",
-    "teform_w": "着て",
-    "shortform": "きる",
-    "shortform_w": "着る",
-    "longform": "きます",
-    "longform_w": "着ます"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "きれい",
-    "reading": "きれい",
-    "english": "clean"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "きれい",
-    "reading": "きれい",
-    "english": "pretty"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "キログラム",
-    "reading": "キログラム",
-    "english": "kilogram"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "キロメートル",
-    "reading": "キロメートル",
-    "english": "kilometre"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "キロ",
-    "reading": "キロ",
-    "english": "kilogram"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "キロ",
-    "reading": "キロ",
-    "english": "kilometre"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "銀行",
-    "reading": "ぎんこう",
-    "english": "bank"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "金曜日",
-    "reading": "きんようび",
-    "english": "Friday"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "薬",
-    "reading": "くすり",
-    "english": "medicine"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ください",
-    "reading": "ください",
-    "english": "please"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "果物",
-    "reading": "くだもの",
-    "english": "fruit"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "口",
-    "reading": "くち",
-    "english": "opening"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "口",
-    "reading": "くち",
-    "english": "mouth"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "靴",
-    "reading": "くつ",
-    "english": "shoes"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "靴下",
-    "reading": "くつした",
-    "english": "socks"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "国",
-    "reading": "くに",
-    "english": "country"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "曇り",
-    "reading": "くもり",
-    "english": "cloudy weather"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "曇る",
-    "reading": "くもる",
-    "english": "to become dim"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "曇る",
-    "reading": "くもる",
-    "english": "to become cloudy"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "暗い",
-    "reading": "くらい",
-    "english": "gloomy"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "クラス",
-    "reading": "クラス",
-    "english": "class"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "グラム",
-    "reading": "グラム",
-    "english": "gram"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "来る",
-    "reading": "くる",
-    "english": "to come"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "車",
-    "reading": "くるま",
-    "english": "vehicle"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "車",
-    "reading": "くるま",
-    "english": "car"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "黒",
-    "reading": "くろ",
-    "english": "black"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "黒い",
-    "reading": "くろい",
-    "english": "black"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "警官",
-    "reading": "けいかん",
-    "english": "policeman"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "今朝",
-    "reading": "けさ",
-    "english": "this morning"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "消す",
-    "reading": "けす",
-    "english": "to turn off power"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "消す",
-    "reading": "けす",
-    "english": "to erase"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "結構",
-    "reading": "けっこう",
-    "english": "enough"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "結構",
-    "reading": "けっこう",
-    "english": "splendid"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "結婚",
-    "reading": "けっこん",
-    "english": "marriage"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "月曜日",
-    "reading": "げつようび",
-    "english": "Monday"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "玄関",
-    "reading": "げんかん",
-    "english": "entry hall"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "元気",
-    "reading": "げんき",
-    "english": "vitality"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "元気",
-    "reading": "げんき",
-    "english": "health"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "五",
-    "reading": "ご",
-    "english": "five"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "公園",
-    "reading": "こうえん",
-    "english": "park"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "交差点",
-    "reading": "こうさてん",
-    "english": "intersection"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "紅茶",
-    "reading": "こうちゃ",
-    "english": "black tea"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "交番",
-    "reading": "こうばん",
-    "english": "police box"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "声",
-    "reading": "こえ",
-    "english": "voice"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "コート",
-    "reading": "コート",
-    "english": "tennis court"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "コート",
-    "reading": "コート",
-    "english": "coat"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "コーヒー",
-    "reading": "コーヒー",
-    "english": "coffee"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ここ",
-    "reading": "ここ",
-    "english": "here"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "午後",
-    "reading": "ごご",
-    "english": "afternoon"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "九日",
-    "reading": "ここのか",
-    "english": "ninth day"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "九日",
-    "reading": "ここのか",
-    "english": "nine days"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "九つ",
-    "reading": "ここのつ",
-    "english": "nine"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "午前",
-    "reading": "ごぜん",
-    "english": "morning"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "答える",
-    "reading": "こたえる",
-    "english": "to answer"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "こちら",
-    "reading": "こちら",
-    "english": "this person or way"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "こっち",
-    "reading": "こっち",
-    "english": "this person or way"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "コップ",
-    "reading": "コップ",
-    "english": "a glass"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "今年",
-    "reading": "ことし",
-    "english": "this year"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "言葉",
-    "reading": "ことば",
-    "english": "language"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "言葉",
-    "reading": "ことば",
-    "english": "word"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "子供",
-    "reading": "こども",
-    "english": "child"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "この",
-    "reading": "この",
-    "english": "this"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "御飯",
-    "reading": "ごはん",
-    "english": "meal"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "御飯",
-    "reading": "ごはん",
-    "english": "cooked rice"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "コピーする",
-    "reading": "コピーする",
-    "english": "to copy"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "困る",
-    "reading": "こまる",
-    "english": "to be worried"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "これ",
-    "reading": "これ",
-    "english": "this"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "今月",
-    "reading": "こんげつ",
-    "english": "this month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "今週",
-    "reading": "こんしゅう",
-    "english": "this week"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "こんな",
-    "reading": "こんな",
-    "english": "such"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "今晩",
-    "reading": "こんばん",
-    "english": "this evening"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "さあ",
-    "reading": "さあ",
-    "english": "well…"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "財布",
-    "reading": "さいふ",
-    "english": "wallet"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "魚",
-    "reading": "さかな",
-    "english": "fish"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "先",
-    "reading": "さき",
-    "english": "previous"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "先",
-    "reading": "さき",
-    "english": "the future"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "咲く",
-    "reading": "さく",
-    "english": "to bloom"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "作文",
-    "reading": "さくぶん",
-    "english": "writing"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "作文",
-    "reading": "さくぶん",
-    "english": "composition"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "差す",
-    "reading": "さす",
-    "english": "to raise an umbrella"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "差す",
-    "reading": "さす",
-    "english": "to stretch out hands"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "雑誌",
-    "reading": "ざっし",
-    "english": "magazine"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "砂糖",
-    "reading": "さとう",
-    "english": "sugar"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "寒い",
-    "reading": "さむい",
-    "english": "cold"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "さ来年",
-    "reading": "さらいねん",
-    "english": "year after next"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "三",
-    "reading": "さん",
-    "english": "three"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "散歩",
-    "reading": "さんぽする",
-    "english": "to stroll"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "四",
-    "reading": "よん",
-    "english": "four"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "四",
-    "reading": "し",
-    "english": "four"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "塩",
-    "reading": "しお",
-    "english": "salt"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "しかし",
-    "reading": "しかし",
-    "english": "however"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "時間",
-    "reading": "じかん",
-    "english": "time"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "仕事",
-    "reading": "しごと",
-    "english": "job"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "辞書",
-    "reading": "じしょ",
-    "english": "dictionary"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "静か",
-    "reading": "しずか",
-    "english": "quiet"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "下",
-    "reading": "した",
-    "english": "below"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "七",
-    "reading": "しち",
-    "english": "seven"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "七",
-    "reading": "なな",
-    "english": "seven"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "質問",
-    "reading": "しつもん",
-    "english": "question"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "自転車",
-    "reading": "じてんしゃ",
-    "english": "bicycle"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "自動車",
-    "reading": "じどうしゃ",
-    "english": "automobile"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "死ぬ",
-    "reading": "しぬ",
-    "english": "to die"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "字引",
-    "reading": "じびき",
-    "english": "dictionary"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "自分",
-    "reading": "じぶん",
-    "english": "oneself"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "閉まる",
-    "reading": "しまる",
-    "english": "to be closed"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "閉まる",
-    "reading": "しまる",
-    "english": "to close"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "閉める",
-    "reading": "しめる",
-    "english": "to close something"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "締める",
-    "reading": "しめる",
-    "english": "to tie"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "じゃあ",
-    "reading": "じゃあ",
-    "english": "well then…"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "じゃ",
-    "reading": "じゃ",
-    "english": "well then…"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "写真",
-    "reading": "しゃしん",
-    "english": "photograph"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "シャツ",
-    "reading": "シャツ",
-    "english": "shirt"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "シャワー",
-    "reading": "シャワー",
-    "english": "shower"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "十",
-    "reading": "じゅう とお",
-    "english": "ten"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "授業",
-    "reading": "じゅぎょう",
-    "english": "class work"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "授業",
-    "reading": "じゅぎょう",
-    "english": "lesson"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "宿題",
-    "reading": "しゅくだい",
-    "english": "homework"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "上手",
-    "reading": "じょうず",
-    "english": "skillful"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "丈夫",
-    "reading": "じょうぶ",
-    "english": "durable"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "丈夫",
-    "reading": "じょうぶ",
-    "english": "strong"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "しょうゆ",
-    "reading": "しょうゆ",
-    "english": "soy sauce"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "食堂",
-    "reading": "しょくどう",
-    "english": "dining hall"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "知る",
-    "reading": "しる",
-    "english": "to know",
-    "swedish": "få veta",
-    "kanji": "知",
-    "teform": "しって",
-    "teform_w": "知って",
-    "shortform": "しる",
-    "shortform_w": "知る",
-    "longform": "しります",
-    "longform_w": "知ります"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "白",
-    "reading": "しろ",
-    "english": "white"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "白い",
-    "reading": "しろい",
-    "english": "white"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "新聞",
-    "reading": "しんぶん",
-    "english": "newspaper"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "水曜日",
-    "reading": "すいようび",
-    "english": "Wednesday"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "吸う",
-    "reading": "すう",
-    "english": "to suck"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "吸う",
-    "reading": "すう",
-    "english": "to smoke"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "スカート",
-    "reading": "スカート",
-    "english": "skirt"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "好き",
-    "reading": "すき",
-    "english": "likeable"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "少ない",
-    "reading": "すくない",
-    "english": "a few"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "すぐに",
-    "reading": "すぐに",
-    "english": "instantly"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "少し",
-    "reading": "すこし",
-    "english": "few"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "涼しい",
-    "reading": "すずしい",
-    "english": "refreshing"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ストーブ",
-    "reading": "ストーブ",
-    "english": "heater"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "スプーン",
-    "reading": "スプーン",
-    "english": "spoon"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "スポーツ",
-    "reading": "スポーツ",
-    "english": "sport"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ズボン",
-    "reading": "ズボン",
-    "english": "trousers"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "住む",
-    "reading": "すむ",
-    "english": "to live in",
-    "swedish": "bo",
-    "kanji": "住",
-    "teform": "すんで",
-    "teform_w": "住んで",
-    "shortform": "すむ",
-    "shortform_w": "住む",
-    "longform": "すみます",
-    "longform_w": "住みませ"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "スリッパ",
-    "reading": "スリッパ",
-    "english": "slippers"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "する",
-    "reading": "する",
-    "english": "to do"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "座る",
-    "reading": "すわる",
-    "english": "to sit"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "背",
-    "reading": "せ",
-    "english": "stature"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "背",
-    "reading": "せ",
-    "english": "height"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "生徒",
-    "reading": "せいと",
-    "english": "pupil"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "セーター",
-    "reading": "セーター",
-    "english": "jumper"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "セーター",
-    "reading": "セーター",
-    "english": "sweater"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "せっけん",
-    "reading": "せっけん",
-    "english": "soap"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "背広",
-    "reading": "せびろ",
-    "english": "business suit"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "狭い",
-    "reading": "せまい",
-    "english": "narrow"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ゼロ",
-    "reading": "ゼロ",
-    "english": "zero"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "千",
-    "reading": "せん",
-    "english": "thousand"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "先月",
-    "reading": "せんげつ",
-    "english": "last month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "先週",
-    "reading": "せんしゅう",
-    "english": "last week"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "先生",
-    "reading": "せんせい",
-    "english": "doctor"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "先生",
-    "reading": "せんせい",
-    "english": "teacher"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "洗濯",
-    "reading": "せんたく",
-    "english": "washing"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "全部",
-    "reading": "ぜんぶ",
-    "english": "all"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "reading": "そうじする",
-    "english": "clean",
-    "swedish": "sopa",
-    "writing": "掃除する",
-    "kanji": "掃除",
-    "teform": "そうじして",
-    "teform_w": "掃除して",
-    "shortform": "そうじする",
-    "shortform_w": "掃除する",
-    "longform": "そうじします",
-    "longform_w": "掃除します"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "掃除する",
-    "reading": "そうじする",
-    "english": "clean",
-    "swedish": "städa",
-    "kanji": "掃除",
-    "teform": "そうじして",
-    "teform_w": "掃除して",
-    "shortform": "そうじする",
-    "shortform_w": "掃除する",
-    "longform": "そうじします",
-    "longform_w": "掃除します"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "そして",
-    "reading": "そして",
-    "english": "and"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "そうして",
-    "reading": "そうして",
-    "english": "and"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "そこ",
-    "reading": "そこ",
-    "english": "that place"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "そちら",
-    "reading": "そちら",
-    "english": "over there"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "そっち",
-    "reading": "そっち",
-    "english": "over there"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "外",
-    "reading": "そと",
-    "english": "outside"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "その",
-    "reading": "その",
-    "english": "that"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "そば",
-    "reading": "そば",
-    "english": "beside"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "そば",
-    "reading": "そば",
-    "english": "near"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "空",
-    "reading": "そら",
-    "english": "sky"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "それ",
-    "reading": "それ",
-    "english": "that"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "それから",
-    "reading": "それから",
-    "english": "after that"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "それでは",
-    "reading": "それでは",
-    "english": "in that situation"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "大学",
-    "reading": "だいがく",
-    "english": "university"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "大使館",
-    "reading": "たいしかん",
-    "english": "embassy"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "大丈夫",
-    "reading": "だいじょうぶ",
-    "english": "all right"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "大好き",
-    "reading": "だいすき",
-    "english": "to be very likeable"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "大切",
-    "reading": "たいせつ",
-    "english": "important"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "台所",
-    "reading": "だいどころ",
-    "english": "kitchen"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "たいへん",
-    "reading": "たいへん",
-    "english": "very"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "たいへん",
-    "reading": "たいへん",
-    "english": "difficult situation"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "高い",
-    "reading": "たかい",
-    "english": "expensive"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "高い",
-    "reading": "たかい",
-    "english": "tall"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "たくさん",
-    "reading": "たくさん",
-    "english": "many"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "タクシー",
-    "reading": "タクシー",
-    "english": "taxi"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "出す",
-    "reading": "だす",
-    "english": "to put out"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "立つ",
-    "reading": "たつ",
-    "english": "to stand"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "たて",
-    "reading": "たて",
-    "english": "height"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "たて",
-    "reading": "たて",
-    "english": "length"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "建物",
-    "reading": "たてもの",
-    "english": "building"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "楽しい",
-    "reading": "たのしい",
-    "english": "enjoyable"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "頼む",
-    "reading": "たのむ",
-    "english": "to ask"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "たばこ",
-    "reading": "たばこ",
-    "english": "cigarettes"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "たばこ",
-    "reading": "たばこ",
-    "english": "tobacco"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "たぶん",
-    "reading": "たぶん",
-    "english": "probably"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "食べ物",
-    "reading": "たべもの",
-    "english": "food"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "食べる",
-    "reading": "たべる",
-    "english": "to eat"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "卵",
-    "reading": "たまご",
-    "english": "egg"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "誰",
-    "reading": "だれ",
-    "english": "who"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "誰",
-    "reading": "だれか",
-    "english": "somebody"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "誕生日",
-    "reading": "たんじょうび",
-    "english": "birthday"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "だんだん",
-    "reading": "だんだん",
-    "english": "gradually"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "小さい",
-    "reading": "ちいさい",
-    "english": "little"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "小さな",
-    "reading": "ちいさな",
-    "english": "little"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "近い",
-    "reading": "ちかい",
-    "english": "near"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "違う",
-    "reading": "ちがう",
-    "english": "to differ"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "近く",
-    "reading": "ちかく",
-    "english": "near"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "地下鉄",
-    "reading": "ちかてつ",
-    "english": "underground train"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "地図",
-    "reading": "ちず",
-    "english": "map"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "茶色",
-    "reading": "ちゃいろ",
-    "english": "brown"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ちゃわん",
-    "reading": "ちゃわん",
-    "english": "rice bowl"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ちょうど",
-    "reading": "ちょうど",
-    "english": "exactly"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ちょっと",
-    "reading": "ちょっと",
-    "english": "somewhat"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "一日",
-    "reading": "ついたち",
-    "english": "first of month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "使う",
-    "reading": "つかう",
-    "english": "to use"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "疲れる",
-    "reading": "つかれる",
-    "english": "to get tired"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "次",
-    "reading": "つぎ",
-    "english": "next"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "着く",
-    "reading": "つく",
-    "english": "to arrive at"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "机",
-    "reading": "つくえ",
-    "english": "desk"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "english": "make",
-    "swedish": "tillverka",
-    "reading": "つくる",
-    "writing": "作る",
-    "kanji": "作",
-    "teform": "つくって",
-    "teform_w": "作って",
-    "shortform": "つくる",
-    "shortform_w": "作る",
-    "longform": "つくります",
-    "longform_w": "作ります"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "つける",
-    "reading": "つける",
-    "english": "to turn on"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "勤める",
-    "reading": "つとめる",
-    "english": "work for",
-    "swedish": "arbeta för",
-    "kanji": "勤",
-    "teform": "つとめて",
-    "teform_w": "勤めて",
-    "shortform": "つとめる",
-    "shortform_w": "勤める",
-    "longform": "つとめます",
-    "longform_w": "勤めます"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "つまらない",
-    "reading": "つまらない",
-    "english": "boring"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "冷たい",
-    "reading": "つめたい",
-    "english": "cold to the touch"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "強い",
-    "reading": "つよい",
-    "english": "powerful"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "手",
-    "reading": "て",
-    "english": "hand"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "テープ",
-    "reading": "テープ",
-    "english": "tape"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "テーブル",
-    "reading": "テーブル",
-    "english": "table"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "テープレコーダー",
-    "reading": "テープレコーダー",
-    "english": "tape recorder"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "出かける",
-    "reading": "でかける",
-    "english": "to go out"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "手紙",
-    "reading": "てがみ",
-    "english": "letter"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "できる",
-    "reading": "できる",
-    "english": "to be able to"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "出口",
-    "reading": "でぐち",
-    "english": "exit"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "テスト",
-    "reading": "テスト",
-    "english": "test"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "では",
-    "reading": "では",
-    "english": "with that..."
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "デパート",
-    "reading": "デパート",
-    "english": "department store"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "でも",
-    "reading": "でも",
-    "english": "but"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "出る",
-    "reading": "でる",
-    "english": "to leave"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "出る",
-    "reading": "でる",
-    "english": "to appear"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "テレビ",
-    "reading": "テレビ",
-    "english": "television"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "天気",
-    "reading": "てんき",
-    "english": "weather"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "電気",
-    "reading": "でんき",
-    "english": "electric light"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "電気",
-    "reading": "でんき",
-    "english": "electricity"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "電車",
-    "reading": "でんしゃ",
-    "english": "electric train"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "電話",
-    "reading": "でんわ",
-    "english": "telephone"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "戸",
-    "reading": "と",
-    "english": "Japanese style door"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ドア",
-    "reading": "ドア",
-    "english": "Western style door"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "トイレ",
-    "reading": "トイレ",
-    "english": "toilet"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どう",
-    "reading": "どう",
-    "english": "in what way"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どう",
-    "reading": "どう",
-    "english": "how"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どうして",
-    "reading": "どうして",
-    "english": "for what reason"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どうぞ",
-    "reading": "どうぞ",
-    "english": "please"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "動物",
-    "reading": "どうぶつ",
-    "english": "animal"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どうも",
-    "reading": "どうも",
-    "english": "thanks"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "遠い",
-    "reading": "とおい",
-    "english": "far"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "十日",
-    "reading": "とおか",
-    "english": "the tenth day"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "十日",
-    "reading": "とおか",
-    "english": "ten days"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "時々",
-    "reading": "ときどき",
-    "english": "sometimes"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "時計",
-    "reading": "とけい",
-    "english": "clock"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "時計",
-    "reading": "とけい",
-    "english": "watch"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どこ",
-    "reading": "どこ",
-    "english": "where"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "所",
-    "reading": "ところ",
-    "english": "place"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "年",
-    "reading": "とし",
-    "english": "year"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "図書館",
-    "reading": "としょかん",
-    "english": "library"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どちら",
-    "reading": "どちら",
-    "english": "which of two"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どっち",
-    "reading": "どっち",
-    "english": "which"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "とても",
-    "reading": "とても",
-    "english": "very"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どなた",
-    "reading": "どなた",
-    "english": "who"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "隣",
-    "reading": "となり",
-    "english": "next door to"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どの",
-    "reading": "どの",
-    "english": "which"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "飛ぶ",
-    "reading": "とぶ",
-    "english": "to hop"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "飛ぶ",
-    "reading": "とぶ",
-    "english": "to fly"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "止まる",
-    "reading": "とまる",
-    "english": "to come to a halt"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "友達",
-    "reading": "ともだち",
-    "english": "friend"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "土曜日",
-    "reading": "どようび",
-    "english": "Saturday"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "鳥",
-    "reading": "とり",
-    "english": "bird"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "とり肉",
-    "reading": "とりにく",
-    "english": "chicken meat"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "取る",
-    "reading": "とる",
-    "english": "to take something"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "撮る",
-    "reading": "とる",
-    "english": "to take a photo or record a film"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "どれ",
-    "reading": "どれ",
-    "english": "which (of three or more)"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ナイフ",
-    "reading": "ナイフ",
-    "english": "knife"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "中",
-    "reading": "なか",
-    "english": "middle"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "長い",
-    "reading": "ながい",
-    "english": "long"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "鳴く",
-    "reading": "なく",
-    "english": "animal noise. to chirp roar or croak etc."
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "無くす",
-    "reading": "なくす",
-    "english": "to lose something"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "なぜ",
-    "reading": "なぜ",
-    "english": "why"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "夏",
-    "reading": "なつ",
-    "english": "summer"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "夏休み",
-    "reading": "なつやすみ",
-    "english": "summer holiday"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "など",
-    "reading": "など",
-    "english": "et cetera"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "七つ",
-    "reading": "ななつ",
-    "english": "seven"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "七日",
-    "reading": "なのか",
-    "english": "the seventh day"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "七日",
-    "reading": "なのか",
-    "english": "seven days"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "名前",
-    "reading": "なまえ",
-    "english": "name"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "習う",
-    "reading": "ならう",
-    "english": "to learn"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "並ぶ",
-    "reading": "ならぶ",
-    "english": "to stand in a line"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "並ぶ",
-    "reading": "ならぶ",
-    "english": "to line up"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "並べる",
-    "reading": "ならべる",
-    "english": "to set up"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "並べる",
-    "reading": "ならべる",
-    "english": "to line up"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "なる",
-    "reading": "なる",
-    "english": "to become"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "何",
-    "reading": "なに",
-    "english": "what"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "何",
-    "reading": "なん",
-    "english": "what"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "二",
-    "reading": "に",
-    "english": "two"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "賑やか",
-    "reading": "にぎやか",
-    "english": "busy"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "賑やか",
-    "reading": "にぎやか",
-    "english": "bustling"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "肉",
-    "reading": "にく",
-    "english": "meat"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "西",
-    "reading": "にし",
-    "english": "west"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "日曜日",
-    "reading": "にちようび",
-    "english": "Sunday"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "荷物",
-    "reading": "にもつ",
-    "english": "luggage"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ニュース",
-    "reading": "ニュース",
-    "english": "news"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "庭",
-    "reading": "にわ",
-    "english": "garden"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "脱ぐ",
-    "reading": "ぬぐ",
-    "english": "to take off clothes"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "温い",
-    "reading": "ぬるい",
-    "english": "luke warm"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ネクタイ",
-    "reading": "ネクタイ",
-    "english": "necktie"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ネクタイ",
-    "reading": "ネクタイ",
-    "english": "tie"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "猫",
-    "reading": "ねこ",
-    "english": "cat"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "寝る",
-    "reading": "ねる",
-    "english": "to sleep"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "寝る",
-    "reading": "ねる",
-    "english": "to go to bed"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ノート",
-    "reading": "ノート",
-    "english": "exercise book"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ノート",
-    "reading": "ノート",
-    "english": "notebook"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "登る",
-    "reading": "のぼる",
-    "english": "to climb"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "飲み物",
-    "reading": "のみもの",
-    "english": "a drink"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "飲む",
-    "reading": "のむ",
-    "english": "to drink"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "乗る",
-    "reading": "のる",
-    "english": "to ride"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "乗る",
-    "reading": "のる",
-    "english": "to get on"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "歯",
-    "reading": "は",
-    "english": "tooth"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "パーティー",
-    "reading": "パーティー",
-    "english": "party"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "はい",
-    "reading": "はい",
-    "english": "yes"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "灰皿",
-    "reading": "はいざら",
-    "english": "ashtray"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "入る",
-    "reading": "はいる",
-    "english": "to contain"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "入る",
-    "reading": "はいる",
-    "english": "to enter"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "葉書",
-    "reading": "はがき",
-    "english": "postcard"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "はく",
-    "reading": "はく",
-    "english": "put on (below waist)",
-    "swedish": "ta på sig (under midjan)",
-    "kanji": "履",
-    "teform": "はいて",
-    "teform_w": "履いて",
-    "shortform": "はく",
-    "shortform_w": "履く",
-    "longform": "はきます",
-    "longform_w": "履きます"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "はく",
-    "reading": "はく",
-    "english": "to wear"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "箱",
-    "reading": "はこ",
-    "english": "box"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "橋",
-    "reading": "はし",
-    "english": "bridge"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "はし",
-    "reading": "はし",
-    "english": "chopsticks"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "始まる",
-    "reading": "はじまる",
-    "english": "to begin"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "初め",
-    "reading": "はじめ",
-    "english": "beginning"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "始め",
-    "reading": "はじめ",
-    "english": "beginning"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "初めて",
-    "reading": "はじめて",
-    "english": "for the first time"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "走る",
-    "reading": "はしる",
-    "english": "to run"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "バス",
-    "reading": "バス",
-    "english": "bus"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "バター",
-    "reading": "バター",
-    "english": "butter"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "二十歳",
-    "reading": "はたち",
-    "english": "20th year"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "二十歳",
-    "reading": "はたち",
-    "english": "20 years old"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "働く",
-    "reading": "はたらく",
-    "english": "to work"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "八",
-    "reading": "はち",
-    "english": "eight"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "二十日",
-    "reading": "はつか",
-    "english": "twentieth"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "二十日",
-    "reading": "はつか",
-    "english": "twenty days"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "花",
-    "reading": "はな",
-    "english": "flower"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "鼻",
-    "reading": "はな",
-    "english": "nose"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "話",
-    "reading": "はなし",
-    "english": "story"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "話",
-    "reading": "はなし",
-    "english": "talk"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "話す",
-    "reading": "はなす",
-    "english": "to speak"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "早い",
-    "reading": "はやい",
-    "english": "early"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "速い",
-    "reading": "はやい",
-    "english": "quick"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "春",
-    "reading": "はる",
-    "english": "spring"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "貼る",
-    "reading": "はる",
-    "english": "to stick"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "晴れ",
-    "reading": "はれ",
-    "english": "clear weather"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "晴れる",
-    "reading": "はれる",
-    "english": "to be sunny"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "半",
-    "reading": "はん",
-    "english": "half"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "晩",
-    "reading": "ばん",
-    "english": "evening"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "パン",
-    "reading": "パン",
-    "english": "bread"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ハンカチ",
-    "reading": "ハンカチ",
-    "english": "handkerchief"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "番号",
-    "reading": "ばんごう",
-    "english": "number"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "晩御飯",
-    "reading": "ばんごはん",
-    "english": "evening meal"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "半分",
-    "reading": "はんぶん",
-    "english": "half minute"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "東",
-    "reading": "ひがし",
-    "english": "east"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "引く",
-    "reading": "ひく",
-    "english": "to pull"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "弾く",
-    "reading": "ひく",
-    "english": "to play an instrument with strings including piano"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "低い",
-    "reading": "ひくい",
-    "english": "low"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "低い",
-    "reading": "ひくい",
-    "english": "short"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "飛行機",
-    "reading": "ひこうき",
-    "english": "aeroplane"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "左",
-    "reading": "ひだり",
-    "english": "left hand side"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "人",
-    "reading": "ひと",
-    "english": "person"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "一つ",
-    "reading": "ひとつ",
-    "english": "one"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "一月",
-    "reading": "ひとつき",
-    "english": "one month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "一人",
-    "reading": "ひとり",
-    "english": "one person"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "暇",
-    "reading": "ひま",
-    "english": "free time"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "百",
-    "reading": "ひゃく",
-    "english": "hundred"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "病院",
-    "reading": "びょういん",
-    "english": "hospital"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "病気",
-    "reading": "びょうき",
-    "english": "illness"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "昼",
-    "reading": "ひる",
-    "english": "daytime"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "昼",
-    "reading": "ひる",
-    "english": "noon"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "昼御飯",
-    "reading": "ひるごはん",
-    "english": "midday meal"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "広い",
-    "reading": "ひろい",
-    "english": "wide"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "広い",
-    "reading": "ひろい",
-    "english": "spacious"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "フィルム",
-    "reading": "フィルム",
-    "english": "roll of film"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "封筒",
-    "reading": "ふうとう",
-    "english": "envelope"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "プール",
-    "reading": "プール",
-    "english": "swimming pool"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "フォーク",
-    "reading": "フォーク",
-    "english": "fork"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "吹く",
-    "reading": "ふく",
-    "english": "to blow"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "服",
-    "reading": "ふく",
-    "english": "clothes"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "二つ",
-    "reading": "ふたつ",
-    "english": "two"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "豚肉",
-    "reading": "ぶたにく",
-    "english": "pork"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "二人",
-    "reading": "ふたり",
-    "english": "two people"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "二日",
-    "reading": "ふつか",
-    "english": "second day of the month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "二日",
-    "reading": "ふつか",
-    "english": "two days"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "太い",
-    "reading": "ふとい",
-    "english": "fat"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "冬",
-    "reading": "ふゆ",
-    "english": "winter"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "降る",
-    "reading": "ふる",
-    "english": "to fall e.g. rain or snow"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "古い",
-    "reading": "ふるい",
-    "english": "old (not used for people)"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ふろ",
-    "reading": "ふろ",
-    "english": "bath"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "文章",
-    "reading": "ぶんしょう",
-    "english": "text"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "文章",
-    "reading": "ぶんしょう",
-    "english": "sentence"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ページ",
-    "reading": "ページ",
-    "english": "page"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "下手",
-    "reading": "へた",
-    "english": "unskillful"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ベッド",
-    "reading": "ベッド",
-    "english": "bed"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ペット",
-    "reading": "ペット",
-    "english": "pet"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "部屋",
-    "reading": "へや",
-    "english": "room"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "辺",
-    "reading": "へん",
-    "english": "area"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ペン",
-    "reading": "ペン",
-    "english": "pen"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "勉強",
-    "reading": "べんきょうする",
-    "english": "to study"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "便利",
-    "reading": "べんり",
-    "english": "convenient"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "便利",
-    "reading": "べんり",
-    "english": "useful"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "帽子",
-    "reading": "ぼうし",
-    "english": "hat"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ボールペン",
-    "reading": "ボールペン",
-    "english": "ball-point pen"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ほか",
-    "reading": "ほか",
-    "english": "the rest"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ほか",
-    "reading": "ほか",
-    "english": "other"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ポケット",
-    "reading": "ポケット",
-    "english": "pocket"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "欲しい",
-    "reading": "ほしい",
-    "english": "want"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ポスト",
-    "reading": "ポスト",
-    "english": "post"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "細い",
-    "reading": "ほそい",
-    "english": "thin"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ボタン",
-    "reading": "ボタン",
-    "english": "button"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ホテル",
-    "reading": "ホテル",
-    "english": "hotel"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "本",
-    "reading": "ほん",
-    "english": "book"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "本棚",
-    "reading": "ほんだな",
-    "english": "bookshelves"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ほんとう",
-    "reading": "ほんとう",
-    "english": "truth"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "毎朝",
-    "reading": "まいあさ",
-    "english": "every morning"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "毎月",
-    "reading": "まいげつ",
-    "english": "every month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "毎月",
-    "reading": "まいつき",
-    "english": "every month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "毎週",
-    "reading": "まいしゅう",
-    "english": "every week"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "毎日",
-    "reading": "まいにち",
-    "english": "every day"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "毎年",
-    "reading": "まいとし",
-    "english": "every year"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "毎年",
-    "reading": "まいねん",
-    "english": "every year"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "毎晩",
-    "reading": "まいばん",
-    "english": "every night"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "前",
-    "reading": "まえ",
-    "english": "before"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "曲る",
-    "reading": "まがる",
-    "english": "to bend"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "曲る",
-    "reading": "まがる",
-    "english": "to turn"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "まずい",
-    "reading": "まずい",
-    "english": "unpleasant"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "また",
-    "reading": "また",
-    "english": "and"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "また",
-    "reading": "また",
-    "english": "again"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "まだ",
-    "reading": "まだ",
-    "english": "still"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "まだ",
-    "reading": "まだ",
-    "english": "yet"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "町",
-    "reading": "まち",
-    "english": "city"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "町",
-    "reading": "まち",
-    "english": "town"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "待つ",
-    "reading": "まつ",
-    "english": "to wait"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "まっすぐ",
-    "reading": "まっすぐ",
-    "english": "straight ahead"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "まっすぐ",
-    "reading": "まっすぐ",
-    "english": "direct"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "マッチ",
-    "reading": "マッチ",
-    "english": "match"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "窓",
-    "reading": "まど",
-    "english": "window"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "丸い",
-    "reading": "まるい",
-    "english": "circular"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "円い",
-    "reading": "まるい",
-    "english": "round"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "丸い",
-    "reading": "まるい",
-    "english": "circular"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "円い",
-    "reading": "まるい",
-    "english": "round"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "万",
-    "reading": "まん",
-    "english": "ten thousand"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "万年筆",
-    "reading": "まんねんひつ",
-    "english": "fountain pen"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "磨く",
-    "reading": "みがく",
-    "english": "to polish"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "磨く",
-    "reading": "みがく",
-    "english": "to brush teeth"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "右",
-    "reading": "みぎ",
-    "english": "right side"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "短い",
-    "reading": "みじかい",
-    "english": "short"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "水",
-    "reading": "みず",
-    "english": "water"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "店",
-    "reading": "みせ",
-    "english": "shop"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "見せる",
-    "reading": "みせる",
-    "english": "to show"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "道",
-    "reading": "みち",
-    "english": "street"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "三日",
-    "reading": "みっか",
-    "english": "third day of the month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "三日",
-    "reading": "みっか",
-    "english": "three days"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "三つ",
-    "reading": "みっつ",
-    "english": "three"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "緑",
-    "reading": "みどり",
-    "english": "green"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "皆さん",
-    "reading": "みなさん",
-    "english": "everyone"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "南",
-    "reading": "みなみ",
-    "english": "south"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "耳",
-    "reading": "みみ",
-    "english": "ear"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "見る 観る",
-    "reading": "みる",
-    "english": "to watch"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "見る 観る",
-    "reading": "みる",
-    "english": "to see"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "みんな",
-    "reading": "みんな",
-    "english": "everyone"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "六日",
-    "reading": "むいか",
-    "english": "sixth day of the month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "六日",
-    "reading": "むいか",
-    "english": "six days"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "向こう",
-    "reading": "むこう",
-    "english": "over there"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "難しい",
-    "reading": "むずかしい",
-    "english": "difficult"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "六つ",
-    "reading": "むっつ",
-    "english": "six"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "村",
-    "reading": "むら",
-    "english": "village"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "目",
-    "reading": "め",
-    "english": "eye"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "メートル",
-    "reading": "メートル",
-    "english": "metre"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "眼鏡",
-    "reading": "めがね",
-    "english": "glasses"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "もう",
-    "reading": "もう",
-    "english": "already"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "もう一度",
-    "reading": "もういちど",
-    "english": "again"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "木曜日",
-    "reading": "もくようび",
-    "english": "Thursday"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "持つ",
-    "reading": "もつ",
-    "english": "to hold"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "もっと",
-    "reading": "もっと",
-    "english": "more"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "物",
-    "reading": "もの",
-    "english": "thing"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "門",
-    "reading": "もん",
-    "english": "gate"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "問題",
-    "reading": "もんだい",
-    "english": "problem"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "八百屋",
-    "reading": "やおや",
-    "english": "greengrocer"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "野菜",
-    "reading": "やさい",
-    "english": "vegetable"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "易しい",
-    "reading": "やさしい",
-    "english": "simple"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "易しい",
-    "reading": "やさしい",
-    "english": "easy"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "安い",
-    "reading": "やすい",
-    "english": "cheap"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "休み",
-    "reading": "やすみ",
-    "english": "holiday"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "休み",
-    "reading": "やすみ",
-    "english": "rest"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "休む",
-    "reading": "やすむ",
-    "english": "to rest"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "八つ",
-    "reading": "やっつ",
-    "english": "eight"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "山",
-    "reading": "やま",
-    "english": "mountain"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "やる",
-    "reading": "やる",
-    "english": "to do"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "夕方",
-    "reading": "ゆうがた",
-    "english": "evening"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "夕飯",
-    "reading": "ゆうはん",
-    "english": "dinner"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "郵便局",
-    "reading": "ゆうびんきょく",
-    "english": "post office"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "昨夜",
-    "reading": "ゆうべ",
-    "english": "last night"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "有名",
-    "reading": "ゆうめい",
-    "english": "famous"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "雪",
-    "reading": "ゆき",
-    "english": "snow"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "行く",
-    "reading": "ゆく",
-    "english": "to go"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ゆっくりと",
-    "reading": "ゆっくりと",
-    "english": "slowly"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "八日",
-    "reading": "ようか",
-    "english": "eighth day of the month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "八日",
-    "reading": "ようか",
-    "english": "eight days"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "洋服",
-    "reading": "ようふく",
-    "english": "western-style clothes"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "よく",
-    "reading": "よく",
-    "english": "well"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "よく",
-    "reading": "よく",
-    "english": "often"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "横",
-    "reading": "よこ",
-    "english": "width"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "横",
-    "reading": "よこ",
-    "english": "side"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "横",
-    "reading": "よこ",
-    "english": "beside"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "四日",
-    "reading": "よっか",
-    "english": "fourth day of the month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "四日",
-    "reading": "よっか",
-    "english": "four days"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "四つ",
-    "reading": "よっつ",
-    "english": "four"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "呼ぶ",
-    "reading": "よぶ",
-    "english": "to invite"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "呼ぶ",
-    "reading": "よぶ",
-    "english": "to call out"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "読む",
-    "reading": "よむ",
-    "english": "to read"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "夜",
-    "reading": "よる",
-    "english": "night"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "夜",
-    "reading": "よる",
-    "english": "evening"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "弱い",
-    "reading": "よわい",
-    "english": "weak"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "来月",
-    "reading": "らいげつ",
-    "english": "next month"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "来週",
-    "reading": "らいしゅう",
-    "english": "next week"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "来年",
-    "reading": "らいねん",
-    "english": "next year"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ラジオ",
-    "reading": "ラジオ",
-    "english": "radio"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ラジカセ",
-    "reading": "ラジカセ",
-    "english": "radio cassette player"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "ラジオカセット",
-    "reading": "ラジオカセット",
-    "english": "radio cassette player"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "りっぱ",
-    "reading": "りっぱ",
-    "english": "splendid"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "留学生",
-    "reading": "りゅうがくせい",
-    "english": "overseas student"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "両親",
-    "reading": "りょうしん",
-    "english": "both parents"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "料理",
-    "reading": "りょうり",
-    "english": "cuisine"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "旅行",
-    "reading": "りょこう",
-    "english": "travel"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "零",
-    "reading": "れい",
-    "english": "zero"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "冷蔵庫",
-    "reading": "れいぞうこ",
-    "english": "refrigerator"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "レコード",
-    "reading": "レコード",
-    "english": "record"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "レストラン",
-    "reading": "レストラン",
-    "english": "restaurant"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "練習",
-    "reading": "れんしゅうする",
-    "english": "to practice"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "廊下",
-    "reading": "ろうか",
-    "english": "corridor"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "六",
-    "reading": "ろく",
-    "english": "six"
-  },
-  {
-    "jlpt": "n5",
-    "type": "otherワイシャツ",
-    "writing": "ワイシャツ",
-    "reading": "business shirt",
-    "english": ""
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "若い",
-    "reading": "わかい",
-    "english": "young"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "分かる",
-    "reading": "わかる",
-    "english": "to be understood"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "忘れる",
-    "reading": "わすれる",
-    "english": "to forget"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "私",
-    "reading": "わたくし",
-    "english": "(humble) I"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "私",
-    "reading": "わたし",
-    "english": "I"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "渡す",
-    "reading": "わたす",
-    "english": "to hand over"
-  },
-  {
-    "jlpt": "n5",
-    "type": "verb",
-    "writing": "渡る",
-    "reading": "わたる",
-    "english": "to go across"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "悪い",
-    "reading": "わるい",
-    "english": "bad"
-  },
-  {
-    "jlpt": "n5",
-    "type": "other",
-    "writing": "より、ほう",
-    "reading": "より、ほう",
-    "english": "Used for comparison."
-  },
-  {
-    "type": "verb",
-    "english": "put on (hat)",
-    "swedish": "ta på sig (huvudbeklädnad)",
-    "reading": "かぶる",
-    "writing": "かぶる",
-    "teform": "かぶって",
-    "teform_w": "かぶって",
-    "shortform": "かぶる",
-    "shortform_w": "かぶる",
-    "longform": "かぶります",
-    "longform_w": "かぶります"
-  },
-  {
-    "type": "verb",
-    "english": "know",
-    "swedish": "veta",
-    "reading": "しっている",
-    "writing": "知っている",
-    "kanji": "知",
-    "shortform": "しっている",
-    "shortform_w": "知っている",
-    "longform": "しっています",
-    "longform_w": "知っています"
-  },
-  {
-    "type": "verb",
-    "english": "gain weight",
-    "swedish": "gå upp i vikt",
-    "reading": "ふとる",
-    "writing": "太る",
-    "kanji": "太",
-    "teform": "ふとって",
-    "teform_w": "太って",
-    "shortform": "ふとる",
-    "shortform_w": "太る",
-    "longform": "ふとります",
-    "longform_w": "太ります"
-  },
-  {
-    "type": "verb",
-    "english": "be overweight",
-    "swedish": "vara överviktig",
-    "reading": "ふとっている",
-    "writing": "太っている",
-    "kanji": "太"
-  },
-  {
-    "type": "verb",
-    "english": "put on (glasses)",
-    "swedish": "ta på sig (glasögon)",
-    "reading": "かける",
-    "writing": "かける",
-    "teform": "かけて",
-    "teform_w": "かけて",
-    "shortform": "かける",
-    "shortform_w": "かける",
-    "longform": "かけます",
-    "longform_w": "かけます"
-  },
-  {
-    "type": "verb",
-    "english": "lose weight",
-    "swedish": "tappa vikt",
-    "reading": "やせる",
-    "writing": "痩せる",
-    "kanji": "痩",
-    "teform": "やせて",
-    "teform_w": "痩せて",
-    "shortform": "やせる",
-    "shortform_w": "痩せる",
-    "longform": "やせます",
-    "longform_w": "痩せます"
-  },
-  {
-    "type": "verb",
-    "english": "be thin",
-    "swedish": "vara smal",
-    "reading": "やせている",
-    "writing": "痩せている",
-    "kanji": "痩"
-  },
-  {
-    "type": "verb",
-    "english": "get married",
-    "swedish": "gifta sig",
-    "reading": "けっこんする",
-    "writing": "結婚する",
-    "kanji": "結婚",
-    "teform": "けっこんして",
-    "teform_w": "結婚して",
-    "shortform": "けっこんする",
-    "shortform_w": "結婚する",
-    "longform": "けっこんします",
-    "longform_w": "結婚します"
-  },
-  {
-    "type": "verb",
-    "english": "rain",
-    "swedish": "regna",
-    "reading": "あめがふる",
-    "writing": "雨が降る",
-    "kanji": "雨降",
-    "teform": "あめがふって",
-    "teform_w": "雨が降って",
-    "shortform": "あめがふる",
-    "shortform_w": "雨が降る",
-    "longform": "あめがふります",
-    "longform_w": "雨が降ります"
-  },
-  {
-    "type": "verb",
-    "english": "be late",
-    "swedish": "vara sen",
-    "reading": "おそくなる",
-    "writing": "遅くなる",
-    "kanji": "遅",
-    "teform": "おそくなって",
-    "teform_w": "遅くなって",
-    "shortform": "おそくなる",
-    "shortform_w": "遅くなる",
-    "longform": "おそくなります",
-    "longform_w": "遅くなります"
-  },
-  {
-    "type": "verb",
-    "english": "think",
-    "swedish": "tro",
-    "reading": "おもう",
-    "writing": "思う",
-    "kanji": "思",
-    "teform": "おもって",
-    "teform_w": "思って",
-    "shortform": "おもう",
-    "shortform_w": "思う",
-    "longform": "思います",
-    "longform_w": "思います"
-  },
-  {
-    "type": "verb",
-    "english": "take (thing)",
-    "swedish": "ta (sak)",
-    "reading": "もっていく",
-    "writing": "持っていく",
-    "kanji": "持",
-    "teform": "もっていって",
-    "teform_w": "持っていって",
-    "shortform": "もっていく",
-    "shortform_w": "持っていく",
-    "longform": "もっていきます",
-    "longform_w": "持っていきます"
-  },
-  {
-    "type": "verb",
-    "english": "stare",
-    "swedish": "stirra",
-    "reading": "じろじろみる",
-    "writing": "じろじろ見る",
-    "kanji": "見",
-    "teform": "じろじろみて",
-    "teform_w": "じろじろ見て",
-    "shortform": "じろじろみる",
-    "shortform_w": "じろじろ見る",
-    "longform": "じろじろみます",
-    "longform_w": "じろじろ見ます"
-  },
-  {
-    "type": "verb",
-    "english": "throw away",
-    "swedish": "kasta",
-    "reading": "すてる",
-    "writing": "捨てる",
-    "kanji": "捨",
-    "teform": "すてて",
-    "teform_w": "捨てて",
-    "shortform": "すてる",
-    "shortform_w": "捨てる",
-    "longform": "すてます",
-    "longform_w": "捨てます"
-  },
-  {
-    "type": "verb",
-    "english": "begin",
-    "swedish": "börja",
-    "reading": "はじめる",
-    "writing": "始める",
-    "kanji": "始",
-    "teform": "はじめて",
-    "teform_w": "始めて",
-    "shortform": "はじめる",
-    "shortform_w": "始める",
-    "longform": "はじめます",
-    "longform_w": "始めます"
-  },
-  {
-    "type": "verb",
-    "english": "drive",
-    "swedish": "köra",
-    "reading": "うんてんする",
-    "writing": "運転する",
-    "kanji": "運転",
-    "teform": "うんてんして",
-    "teform_w": "運転して",
-    "shortform": "うんてんする",
-    "shortform_w": "運転する",
-    "longform": "うんてんします",
-    "longform_w": "運転します"
-  },
-  {
-    "type": "verb",
-    "english": "do laundry",
-    "swedish": " tvätta (tvätt)",
-    "reading": "せんたくする",
-    "writing": "洗濯する",
-    "kanji": "洗濯",
-    "teform": "せんたくして",
-    "teform_w": "洗濯して",
-    "shortform": "せんたくする",
-    "shortform_w": "洗濯する",
-    "longform": "せんたくします",
-    "longform_w": "洗濯します"
-  },
-  {
-    "type": "verb",
-    "english": "call",
-    "swedish": "ringa",
-    "reading": "でんわする",
-    "writing": "電話する",
-    "kanji": "電話",
-    "teform": "でんわして",
-    "teform_w": "電話して",
-    "shortform": "でんわする",
-    "shortform_w": "電話する",
-    "longform": "でんわします",
-    "longform_w": "電話します"
-  },
-  {
-    "type": "verb",
-    "english": "cook",
-    "swedish": "laga mat",
-    "reading": "りょうりする",
-    "writing": "料理する",
-    "kanji": "料理",
-    "teform": "りょうりして",
-    "teform_w": "料理して",
-    "shortform": "りょうりする",
-    "shortform_w": "料理する",
-    "longform": "りょうりします",
-    "longform_w": "料理します"
+    "reading": [
+      "いつか"
+    ],
+    "state": "hidden",
+    "id": "n5_85",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "fem dagar"
+    ],
+    "writing": [
+      "五日"
+    ],
+    "english": [
+      "five days"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いつか"
+    ],
+    "state": "",
+    "id": "n5_86",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "tillsammans"
+    ],
+    "writing": [
+      "一緒"
+    ],
+    "english": [
+      "together"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いっしょ"
+    ],
+    "state": "",
+    "id": "n5_87",
+    "type": [
+      "adverb"
+    ]
+  },
+  {
+    "swedish": [
+      "fem"
+    ],
+    "writing": [
+      "五つ"
+    ],
+    "english": [
+      "five"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いつつ"
+    ],
+    "state": "",
+    "id": "n5_88",
+    "type": [
+      "numeric"
+    ]
+  },
+  {
+    "swedish": [
+      "alltid"
+    ],
+    "writing": [
+      "いつも"
+    ],
+    "english": [
+      "always"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いつも"
+    ],
+    "state": "",
+    "id": "n5_89",
+    "type": [
+      "adverb"
+    ]
+  },
+  {
+    "swedish": [
+      "hund"
+    ],
+    "writing": [
+      "犬"
+    ],
+    "english": [
+      "dog"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いぬ"
+    ],
+    "state": "",
+    "id": "n5_90",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "nu"
+    ],
+    "writing": [
+      "今"
+    ],
+    "english": [
+      "now"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いま"
+    ],
+    "state": "",
+    "id": "n5_91",
+    "type": [
+      "adverb"
+    ]
+  },
+  {
+    "swedish": [
+      "betydelse"
+    ],
+    "writing": [
+      "意味"
+    ],
+    "english": [
+      "meaning"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いみ"
+    ],
+    "state": "",
+    "id": "n5_92",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "yngre syster (ödmjuk)"
+    ],
+    "writing": [
+      "妹"
+    ],
+    "english": [
+      "(humble) younger sister"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いもうと"
+    ],
+    "state": "",
+    "id": "n5_93",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "otrevlig"
+    ],
+    "writing": [
+      "嫌"
+    ],
+    "english": [
+      "unpleasant"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いや"
+    ],
+    "state": "",
+    "id": "n5_94",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "entré"
+    ],
+    "writing": [
+      "入口"
+    ],
+    "english": [
+      "entrance"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いりぐち"
+    ],
+    "state": "",
+    "id": "n5_95",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "ha"
+    ],
+    "writing": [
+      "居る"
+    ],
+    "english": [
+      "have (used for people and animals)"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いる"
+    ],
+    "state": "hidden",
+    "id": "n5_96",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "vara (varelser)"
+    ],
+    "writing": [
+      "居る"
+    ],
+    "english": [
+      "to be (used for people and animals)"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いる"
+    ],
+    "state": "",
+    "id": "n5_97",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "behöva"
+    ],
+    "writing": [
+      "要る"
+    ],
+    "english": [
+      "need"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いる"
+    ],
+    "state": "hidden",
+    "id": "n5_98",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "stoppa in"
+    ],
+    "writing": [
+      "入れる"
+    ],
+    "english": [
+      "put in"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いれる"
+    ],
+    "state": "",
+    "id": "n5_99",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "färg"
+    ],
+    "writing": [
+      "色"
+    ],
+    "english": [
+      "colour"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いろ"
+    ],
+    "state": "",
+    "id": "n5_100",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "blandade"
+    ],
+    "writing": [
+      "いろいろ"
+    ],
+    "english": [
+      "various"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "いろいろ"
+    ],
+    "state": "",
+    "id": "n5_101",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "ovanför"
+    ],
+    "writing": [
+      "上"
+    ],
+    "english": [
+      "on top of"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うえ"
+    ],
+    "state": "",
+    "id": "n5_102",
+    "type": [
+      "adverb"
+    ]
+  },
+  {
+    "swedish": [
+      "bakom"
+    ],
+    "writing": [
+      "後ろ"
+    ],
+    "english": [
+      "behind"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うしろ"
+    ],
+    "state": "",
+    "id": "n5_103",
+    "type": [
+      "adverb"
+    ]
+  },
+  {
+    "swedish": [
+      "svag"
+    ],
+    "writing": [
+      "薄い"
+    ],
+    "english": [
+      "weak"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うすい"
+    ],
+    "state": "",
+    "id": "n5_104",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "tunn"
+    ],
+    "writing": [
+      "薄い"
+    ],
+    "english": [
+      "thin"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うすい"
+    ],
+    "state": "hidden",
+    "id": "n5_105",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "sång"
+    ],
+    "writing": [
+      "歌"
+    ],
+    "english": [
+      "song"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うた"
+    ],
+    "state": "",
+    "id": "n5_106",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "sjunga"
+    ],
+    "writing": [
+      "歌う"
+    ],
+    "english": [
+      "sing"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うたう"
+    ],
+    "state": "",
+    "id": "n5_107",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "födas"
+    ],
+    "writing": [
+      "生まれる"
+    ],
+    "english": [
+      "be born"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うまれる"
+    ],
+    "state": "",
+    "id": "n5_108",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "hav"
+    ],
+    "writing": [
+      "海"
+    ],
+    "english": [
+      "sea"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うみ"
+    ],
+    "state": "",
+    "id": "n5_109",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "sälja"
+    ],
+    "writing": [
+      "売る"
+    ],
+    "english": [
+      "sell"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うる"
+    ],
+    "state": "",
+    "id": "n5_110",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "irriterande"
+    ],
+    "writing": [
+      "煩い"
+    ],
+    "english": [
+      "annoying"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うるさい"
+    ],
+    "state": "hidden",
+    "id": "n5_111",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "väsnande"
+    ],
+    "writing": [
+      "煩い"
+    ],
+    "english": [
+      "noisy"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うるさい"
+    ],
+    "state": "",
+    "id": "n5_112",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "jacka"
+    ],
+    "writing": [
+      "上着"
+    ],
+    "english": [
+      "jacket"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "うわぎ"
+    ],
+    "state": "",
+    "id": "n5_113",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "bild"
+    ],
+    "writing": [
+      "絵"
+    ],
+    "english": [
+      "picture"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "え"
+    ],
+    "state": "",
+    "id": "n5_114",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "film"
+    ],
+    "writing": [
+      "映画"
+    ],
+    "english": [
+      "movie"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "えいが"
+    ],
+    "state": "",
+    "id": "n5_115",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "biograf"
+    ],
+    "writing": [
+      "映画館"
+    ],
+    "english": [
+      "cinema"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "えいがかん"
+    ],
+    "state": "",
+    "id": "n5_116",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "engelska"
+    ],
+    "writing": [
+      "英語"
+    ],
+    "english": [
+      "English language"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "えいご"
+    ],
+    "state": "",
+    "id": "n5_117",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "ja"
+    ],
+    "writing": [
+      "ええ"
+    ],
+    "english": [
+      "yes"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "ええ"
+    ],
+    "state": "",
+    "id": "n5_118",
+    "type": [
+      "interjection"
+    ]
+  },
+  {
+    "swedish": [
+      "station"
+    ],
+    "writing": [
+      "駅"
+    ],
+    "english": [
+      "station"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "えき"
+    ],
+    "state": "",
+    "id": "n5_119",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "hiss"
+    ],
+    "writing": [
+      "エレベーター"
+    ],
+    "english": [
+      "elevator"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "エレベーター"
+    ],
+    "state": "",
+    "id": "n5_120",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "blyertspenna"
+    ],
+    "writing": [
+      "鉛筆"
+    ],
+    "english": [
+      "pencil"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "えんぴつ"
+    ],
+    "state": "",
+    "id": "n5_121",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "delikat"
+    ],
+    "writing": [
+      "おいしい"
+    ],
+    "english": [
+      "delicious"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おいしい"
+    ],
+    "state": "",
+    "id": "n5_122",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "många"
+    ],
+    "writing": [
+      "多い"
+    ],
+    "english": [
+      "many"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おおい"
+    ],
+    "state": "",
+    "id": "n5_123",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "stor"
+    ],
+    "writing": [
+      "大きい"
+    ],
+    "english": [
+      "big"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おおきい"
+    ],
+    "state": "",
+    "id": "n5_124",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "stor"
+    ],
+    "writing": [
+      "大きな"
+    ],
+    "english": [
+      "big"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おおきな"
+    ],
+    "state": "hidden",
+    "id": "n5_125",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "folkrik"
+    ],
+    "writing": [
+      "大勢"
+    ],
+    "english": [
+      "great number of people"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おおぜい"
+    ],
+    "state": "",
+    "id": "n5_126",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "mor (artig)"
+    ],
+    "writing": [
+      "お母さん"
+    ],
+    "english": [
+      "(honorable) mother"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おかあさん"
+    ],
+    "state": "",
+    "id": "n5_127",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "godis"
+    ],
+    "writing": [
+      "お菓子"
+    ],
+    "english": [
+      "candy",
+      "sweets"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おかし"
+    ],
+    "state": "",
+    "id": "n5_128",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "pengar"
+    ],
+    "writing": [
+      "お金"
+    ],
+    "english": [
+      "money"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おかね"
+    ],
+    "state": "",
+    "id": "n5_129",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "stiga upp"
+    ],
+    "writing": [
+      "起きる"
+    ],
+    "english": [
+      "to get up"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おきる"
+    ],
+    "state": "",
+    "id": "n5_130",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "lägga"
+    ],
+    "writing": [
+      "置く"
+    ],
+    "english": [
+      "to put"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おく"
+    ],
+    "state": "",
+    "id": "n5_131",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "fru (artig)"
+    ],
+    "writing": [
+      "奥さん"
+    ],
+    "english": [
+      "(honorable) wife"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おくさん"
+    ],
+    "state": "",
+    "id": "n5_132",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "risvin"
+    ],
+    "writing": [
+      "お酒"
+    ],
+    "english": [
+      "rice wine"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おさけ"
+    ],
+    "state": "",
+    "id": "n5_133",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "alkohol"
+    ],
+    "writing": [
+      "お酒"
+    ],
+    "english": [
+      "alcohol"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おさけ"
+    ],
+    "state": "hidden",
+    "id": "n5_134",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "tallrik"
+    ],
+    "writing": [
+      "お皿"
+    ],
+    "english": [
+      "dish",
+      "plate"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おさら"
+    ],
+    "state": "",
+    "id": "n5_135",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "pensionär (man)"
+    ],
+    "writing": [
+      "伯父"
+    ],
+    "english": [
+      "male senior citizen"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おじいさん"
+    ],
+    "state": "hidden",
+    "id": "n5_136",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "farfar",
+      "morfar"
+    ],
+    "writing": [
+      "叔父"
+    ],
+    "english": [
+      "grandfather"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おじいさん"
+    ],
+    "state": "hidden",
+    "id": "n5_137",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "pensionär (man)"
+    ],
+    "writing": [
+      "伯父"
+    ],
+    "english": [
+      "male senior citizen"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おじいさん"
+    ],
+    "state": "hidden",
+    "id": "n5_138",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "farfar",
+      "morfar"
+    ],
+    "writing": [
+      "叔父"
+    ],
+    "english": [
+      "grandfather"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おじいさん"
+    ],
+    "state": "",
+    "id": "n5_139",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "berätta"
+    ],
+    "writing": [
+      "教える"
+    ],
+    "english": [
+      "tell"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おしえる"
+    ],
+    "state": "",
+    "id": "n5_140",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "lära ut"
+    ],
+    "writing": [
+      "教える"
+    ],
+    "english": [
+      "teach"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おしえる"
+    ],
+    "state": "",
+    "id": "n5_141",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "medelålders man"
+    ],
+    "writing": [
+      "叔父"
+    ],
+    "english": [
+      "middle aged gentleman"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おじさん"
+    ],
+    "state": "hidden",
+    "id": "n5_142",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "farbror",
+      "morbror"
+    ],
+    "writing": [
+      "伯父"
+    ],
+    "english": [
+      "uncle"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おじさん"
+    ],
+    "state": "hidden",
+    "id": "n5_143",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "medelålders man"
+    ],
+    "writing": [
+      "叔父"
+    ],
+    "english": [
+      "middle aged gentleman"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おじさん"
+    ],
+    "state": "hidden",
+    "id": "n5_144",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "farbror",
+      "morbror"
+    ],
+    "writing": [
+      "伯父"
+    ],
+    "english": [
+      "uncle"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おじさん"
+    ],
+    "state": "",
+    "id": "n5_145",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "stämpla"
+    ],
+    "writing": [
+      "押す"
+    ],
+    "english": [
+      "stamp"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おす"
+    ],
+    "state": "hidden",
+    "id": "n5_146",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "putta"
+    ],
+    "writing": [
+      "押す"
+    ],
+    "english": [
+      "push"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おす"
+    ],
+    "state": "",
+    "id": "n5_147",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "långsam"
+    ],
+    "writing": [
+      "遅い"
+    ],
+    "english": [
+      "slow"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おそい"
+    ],
+    "state": "hidden",
+    "id": "n5_148",
+    "type": [
+      "other"
+    ]
+  },
+  {
+    "swedish": [
+      "sen"
+    ],
+    "writing": [
+      "遅い"
+    ],
+    "english": [
+      "late"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おそい"
+    ],
+    "state": "",
+    "id": "n5_149",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "grönt te"
+    ],
+    "writing": [
+      "お茶"
+    ],
+    "english": [
+      "green tea"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おちゃ"
+    ],
+    "state": "",
+    "id": "n5_150",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "badrum"
+    ],
+    "writing": [
+      "お手洗い"
+    ],
+    "english": [
+      "bathroom"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おてあらい"
+    ],
+    "state": "",
+    "id": "n5_151",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "far (artig)"
+    ],
+    "writing": [
+      "お父さん"
+    ],
+    "english": [
+      "(honorable) father"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おとうさん"
+    ],
+    "state": "",
+    "id": "n5_152",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "yngre bror"
+    ],
+    "writing": [
+      "弟"
+    ],
+    "english": [
+      "younger brother"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おとうと"
+    ],
+    "state": "",
+    "id": "n5_153",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "man"
+    ],
+    "writing": [
+      "男"
+    ],
+    "english": [
+      "man"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おとこ"
+    ],
+    "state": "",
+    "id": "n5_154",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "pojke"
+    ],
+    "writing": [
+      "男の子"
+    ],
+    "english": [
+      "boy"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おとこのこ"
+    ],
+    "state": "",
+    "id": "n5_155",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "iförrgår"
+    ],
+    "writing": [
+      "一昨日"
+    ],
+    "english": [
+      "day before yesterday"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おととい"
+    ],
+    "state": "",
+    "id": "n5_156",
+    "type": [
+      "temporal"
+    ]
+  },
+  {
+    "swedish": [
+      "förrförra året"
+    ],
+    "writing": [
+      "一昨年"
+    ],
+    "english": [
+      "year before last"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おととし"
+    ],
+    "state": "",
+    "id": "n5_157",
+    "type": [
+      "temporal"
+    ]
+  },
+  {
+    "swedish": [
+      "vuxen"
+    ],
+    "writing": [
+      "大人"
+    ],
+    "english": [
+      "adult"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おとな"
+    ],
+    "state": "",
+    "id": "n5_158",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "mage"
+    ],
+    "writing": [
+      "おなか"
+    ],
+    "english": [
+      "stomach"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おなか"
+    ],
+    "state": "",
+    "id": "n5_159",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "samma"
+    ],
+    "writing": [
+      "同じ"
+    ],
+    "english": [
+      "same"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おなじ"
+    ],
+    "state": "",
+    "id": "n5_160",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "äldre bror"
+    ],
+    "writing": [
+      "お兄さん"
+    ],
+    "english": [
+      "(honorable) older brother"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おにいさん"
+    ],
+    "state": "",
+    "id": "n5_161",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "äldre syster"
+    ],
+    "writing": [
+      "お姉さん"
+    ],
+    "english": [
+      "(honorable) older sister"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おねえさん"
+    ],
+    "state": "",
+    "id": "n5_162",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "pensionär (kvinna)"
+    ],
+    "writing": [
+      "おばあさん"
+    ],
+    "english": [
+      "female senior-citizen"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おばあさん"
+    ],
+    "state": "hidden",
+    "id": "n5_163",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "farmor",
+      "mormor"
+    ],
+    "writing": [
+      "おばあさん"
+    ],
+    "english": [
+      "grandmother"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おばあさん"
+    ],
+    "state": "",
+    "id": "n5_164",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "moster",
+      "faster"
+    ],
+    "writing": [
+      "伯母さん"
+    ],
+    "english": [
+      "aunt"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おばさん"
+    ],
+    "state": "hidden",
+    "id": "n5_165",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "moster",
+      "faster"
+    ],
+    "writing": [
+      "叔母さん"
+    ],
+    "english": [
+      "aunt"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おばさん"
+    ],
+    "state": "",
+    "id": "n5_166",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "bad"
+    ],
+    "writing": [
+      "お風呂"
+    ],
+    "english": [
+      "bath"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おふろ"
+    ],
+    "state": "",
+    "id": "n5_167",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "bento"
+    ],
+    "writing": [
+      "お弁当"
+    ],
+    "english": [
+      "boxed lunch"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おべんとう"
+    ],
+    "state": "",
+    "id": "n5_168",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "komma ihåg"
+    ],
+    "writing": [
+      "覚える"
+    ],
+    "english": [
+      "remember"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おぼえる"
+    ],
+    "state": "",
+    "id": "n5_169",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "polisman (familjär)"
+    ],
+    "writing": [
+      "おまわりさん"
+    ],
+    "english": [
+      "friendly term for policeman"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おまわりさん"
+    ],
+    "state": "",
+    "id": "n5_170",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "tung"
+    ],
+    "writing": [
+      "重い"
+    ],
+    "english": [
+      "heavy"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おもい"
+    ],
+    "state": "",
+    "id": "n5_171",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "intressant"
+    ],
+    "writing": [
+      "おもしろい"
+    ],
+    "english": [
+      "interesting"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おもしろい"
+    ],
+    "state": "",
+    "id": "n5_172",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "simma"
+    ],
+    "writing": [
+      "泳ぐ"
+    ],
+    "english": [
+      "to swim"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "およぐ"
+    ],
+    "state": "",
+    "id": "n5_173",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "nedstiga"
+    ],
+    "writing": [
+      "降りる"
+    ],
+    "english": [
+      "to descend"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おりる"
+    ],
+    "state": "",
+    "id": "n5_174",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "kliva av"
+    ],
+    "writing": [
+      "降りる"
+    ],
+    "english": [
+      "to get off"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おりる"
+    ],
+    "state": "hidden",
+    "id": "n5_175",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "avsluta"
+    ],
+    "writing": [
+      "終る"
+    ],
+    "english": [
+      "to finish"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おわる"
+    ],
+    "state": "",
+    "id": "n5_176",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "musik"
+    ],
+    "writing": [
+      "音楽"
+    ],
+    "english": [
+      "music"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おんがく"
+    ],
+    "state": "",
+    "id": "n5_177",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "kvinna"
+    ],
+    "writing": [
+      "女"
+    ],
+    "english": [
+      "woman"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おんな"
+    ],
+    "state": "",
+    "id": "n5_178",
+    "type": [
+      "other"
+    ]
+  },
+  {
+    "swedish": [
+      "flicka"
+    ],
+    "writing": [
+      "女の子"
+    ],
+    "english": [
+      "girl"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "おんなのこ"
+    ],
+    "state": "",
+    "id": "n5_179",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "främmande land"
+    ],
+    "writing": [
+      "外国"
+    ],
+    "english": [
+      "foreign country"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "がいこく"
+    ],
+    "state": "",
+    "id": "n5_180",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "utlänning"
+    ],
+    "writing": [
+      "外国人"
+    ],
+    "english": [
+      "foreigner"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "がいこくじん"
+    ],
+    "state": "",
+    "id": "n5_181",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "företag"
+    ],
+    "writing": [
+      "会社"
+    ],
+    "english": [
+      "company"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かいしゃ"
+    ],
+    "state": "",
+    "id": "n5_182",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "trappa"
+    ],
+    "writing": [
+      "階段"
+    ],
+    "english": [
+      "stairs"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かいだん"
+    ],
+    "state": "",
+    "id": "n5_183",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "shopping"
+    ],
+    "writing": [
+      "買い物"
+    ],
+    "english": [
+      "shopping"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かいもの"
+    ],
+    "state": "",
+    "id": "n5_184",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "köpa"
+    ],
+    "writing": [
+      "買う"
+    ],
+    "english": [
+      "buy"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かう"
+    ],
+    "state": "",
+    "id": "n5_185",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "returnera"
+    ],
+    "writing": [
+      "返す"
+    ],
+    "english": [
+      "return something"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かえす"
+    ],
+    "state": "",
+    "id": "n5_186",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "återvända"
+    ],
+    "writing": [
+      "帰る"
+    ],
+    "english": [
+      "go back"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かえる"
+    ],
+    "state": "",
+    "id": "n5_187",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "ta tid eller pengar"
+    ],
+    "writing": [
+      "かかる"
+    ],
+    "english": [
+      "to take time or money"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かかる"
+    ],
+    "state": "",
+    "id": "n5_188",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "nyckel"
+    ],
+    "writing": [
+      "かぎ"
+    ],
+    "english": [
+      "key"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かぎ"
+    ],
+    "state": "",
+    "id": "n5_189",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "skriva"
+    ],
+    "writing": [
+      "書く"
+    ],
+    "english": [
+      "write"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かく"
+    ],
+    "state": "",
+    "id": "n5_190",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "student"
+    ],
+    "writing": [
+      "学生"
+    ],
+    "english": [
+      "student"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "がくせい"
+    ],
+    "state": "",
+    "id": "n5_191",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "ringa"
+    ],
+    "writing": [
+      "かける"
+    ],
+    "english": [
+      "to call by phone"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かける"
+    ],
+    "state": "",
+    "id": "n5_192",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "paraply"
+    ],
+    "writing": [
+      "傘"
+    ],
+    "english": [
+      "umbrella"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かさ"
+    ],
+    "state": "",
+    "id": "n5_193",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "låna ut"
+    ],
+    "writing": [
+      "貸す"
+    ],
+    "english": [
+      "lend"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かす"
+    ],
+    "state": "",
+    "id": "n5_194",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "vind"
+    ],
+    "writing": [
+      "風"
+    ],
+    "english": [
+      "wind"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かぜ"
+    ],
+    "state": "",
+    "id": "n5_195",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "förkylning"
+    ],
+    "writing": [
+      "風邪"
+    ],
+    "english": [
+      "a cold"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かぜ"
+    ],
+    "state": "",
+    "id": "n5_196",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "familj"
+    ],
+    "writing": [
+      "家族"
+    ],
+    "english": [
+      "family"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かぞく"
+    ],
+    "state": "",
+    "id": "n5_197",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "sätt att göra"
+    ],
+    "writing": [
+      "方"
+    ],
+    "english": [
+      "way of doing"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かた"
+    ],
+    "state": "",
+    "id": "n5_198",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "person"
+    ],
+    "writing": [
+      "方"
+    ],
+    "english": [
+      "person"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かた"
+    ],
+    "state": "",
+    "id": "n5_199",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "skola"
+    ],
+    "writing": [
+      "学校"
+    ],
+    "english": [
+      "school"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "がっこう"
+    ],
+    "state": "",
+    "id": "n5_200",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "kopp"
+    ],
+    "writing": [
+      "カップ"
+    ],
+    "english": [
+      "cup"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "カップ"
+    ],
+    "state": "",
+    "id": "n5_201",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "hushåll"
+    ],
+    "writing": [
+      "家庭"
+    ],
+    "english": [
+      "household"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かてい"
+    ],
+    "state": "",
+    "id": "n5_202",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "hörn"
+    ],
+    "writing": [
+      "角"
+    ],
+    "english": [
+      "a corner"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かど"
+    ],
+    "state": "",
+    "id": "n5_203",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "korg"
+    ],
+    "writing": [
+      "かばん"
+    ],
+    "english": [
+      "basket"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かばん"
+    ],
+    "state": "",
+    "id": "n5_204",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "väska"
+    ],
+    "writing": [
+      "かばん"
+    ],
+    "english": [
+      "bag"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かばん"
+    ],
+    "state": "",
+    "id": "n5_205",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "vas"
+    ],
+    "writing": [
+      "花瓶"
+    ],
+    "english": [
+      "a vase"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かびん"
+    ],
+    "state": "",
+    "id": "n5_206",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "papper"
+    ],
+    "writing": [
+      "紙"
+    ],
+    "english": [
+      "paper"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かみ"
+    ],
+    "state": "",
+    "id": "n5_207",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "kamera"
+    ],
+    "writing": [
+      "カメラ"
+    ],
+    "english": [
+      "camera"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "カメラ"
+    ],
+    "state": "",
+    "id": "n5_208",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "tisdag"
+    ],
+    "writing": [
+      "火曜日"
+    ],
+    "english": [
+      "Tuesday"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かようび"
+    ],
+    "state": "",
+    "id": "n5_209",
+    "type": [
+      "temporal"
+    ]
+  },
+  {
+    "swedish": [
+      "kryddstark"
+    ],
+    "writing": [
+      "辛い"
+    ],
+    "english": [
+      "spicy"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "からい"
+    ],
+    "state": "",
+    "id": "n5_210",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "kropp"
+    ],
+    "writing": [
+      "体"
+    ],
+    "english": [
+      "body"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "からだ"
+    ],
+    "state": "",
+    "id": "n5_211",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "låna"
+    ],
+    "writing": [
+      "借りる"
+    ],
+    "english": [
+      "borrow"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かりる"
+    ],
+    "state": "",
+    "id": "n5_212",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "lätt"
+    ],
+    "writing": [
+      "軽い"
+    ],
+    "english": [
+      "light"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かるい"
+    ],
+    "state": "",
+    "id": "n5_213",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "curry"
+    ],
+    "writing": [
+      "カレー"
+    ],
+    "english": [
+      "curry"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "カレー"
+    ],
+    "state": "",
+    "id": "n5_214",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "kalender"
+    ],
+    "writing": [
+      "カレンダー"
+    ],
+    "english": [
+      "calendar"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "カレンダー"
+    ],
+    "state": "",
+    "id": "n5_215",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "flod"
+    ],
+    "writing": [
+      "河"
+    ],
+    "english": [
+      "river"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かわ"
+    ],
+    "state": "hidden",
+    "id": "n5_216",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "flod"
+    ],
+    "writing": [
+      "川"
+    ],
+    "english": [
+      "river"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かわ"
+    ],
+    "state": "",
+    "id": "n5_217",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "söt"
+    ],
+    "writing": [
+      "かわいい"
+    ],
+    "english": [
+      "cute"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かわいい"
+    ],
+    "state": "",
+    "id": "n5_218",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "kinesiskt tecken"
+    ],
+    "writing": [
+      "漢字"
+    ],
+    "english": [
+      "Chinese character"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "かんじ"
+    ],
+    "state": "",
+    "id": "n5_219",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "trä"
+    ],
+    "writing": [
+      "木"
+    ],
+    "english": [
+      "wood"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "き"
+    ],
+    "state": "hidden",
+    "id": "n5_220",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "träd"
+    ],
+    "writing": [
+      "木"
+    ],
+    "english": [
+      "tree"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "き"
+    ],
+    "state": "",
+    "id": "n5_221",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "gul"
+    ],
+    "writing": [
+      "黄色"
+    ],
+    "english": [
+      "yellow"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きいろ"
+    ],
+    "state": "hidden",
+    "id": "n5_222",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "gul"
+    ],
+    "writing": [
+      "黄色い"
+    ],
+    "english": [
+      "yellow"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きいろい"
+    ],
+    "state": "",
+    "id": "n5_223",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "försvinna"
+    ],
+    "writing": [
+      "消える"
+    ],
+    "english": [
+      "disappear"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きえる"
+    ],
+    "state": "",
+    "id": "n5_224",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "fråga"
+    ],
+    "writing": [
+      "聞く"
+    ],
+    "english": [
+      "ask"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きく"
+    ],
+    "state": "hidden",
+    "id": "n5_225",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "lyssna på"
+    ],
+    "writing": [
+      "聞く"
+    ],
+    "english": [
+      "listen to"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きく"
+    ],
+    "state": "hidden",
+    "id": "n5_226",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "höra"
+    ],
+    "writing": [
+      "聞く"
+    ],
+    "english": [
+      "hear"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きく"
+    ],
+    "state": "",
+    "id": "n5_227",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "norr"
+    ],
+    "writing": [
+      "北"
+    ],
+    "english": [
+      "north"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きた"
+    ],
+    "state": "",
+    "id": "n5_228",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "gitarr"
+    ],
+    "writing": [
+      "ギター"
+    ],
+    "english": [
+      "guitar"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "ギター"
+    ],
+    "state": "",
+    "id": "n5_229",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "smutsig"
+    ],
+    "writing": [
+      "汚い"
+    ],
+    "english": [
+      "dirty"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きたない"
+    ],
+    "state": "",
+    "id": "n5_230",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "kafé"
+    ],
+    "writing": [
+      "喫茶店"
+    ],
+    "english": [
+      "coffee lounge"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きっさてん"
+    ],
+    "state": "",
+    "id": "n5_231",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "frimärke"
+    ],
+    "writing": [
+      "切手"
+    ],
+    "english": [
+      "postage stamp"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きって"
+    ],
+    "state": "",
+    "id": "n5_232",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "biljett"
+    ],
+    "writing": [
+      "切符"
+    ],
+    "english": [
+      "ticket"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きっぷ"
+    ],
+    "state": "",
+    "id": "n5_233",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "igår"
+    ],
+    "writing": [
+      "昨日"
+    ],
+    "english": [
+      "yesterday"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きのう"
+    ],
+    "state": "",
+    "id": "n5_234",
+    "type": [
+      "temporal"
+    ]
+  },
+  {
+    "swedish": [
+      "nio"
+    ],
+    "writing": [
+      "九"
+    ],
+    "english": [
+      "nine"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "く"
+    ],
+    "state": "hidden",
+    "id": "n5_235",
+    "type": [
+      "numeric"
+    ]
+  },
+  {
+    "swedish": [
+      "nio"
+    ],
+    "writing": [
+      "九"
+    ],
+    "english": [
+      "nine"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きゅう"
+    ],
+    "state": "",
+    "id": "n5_236",
+    "type": [
+      "numeric"
+    ]
+  },
+  {
+    "swedish": [
+      "nötkött"
+    ],
+    "writing": [
+      "牛肉"
+    ],
+    "english": [
+      "beef"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "ぎゅうにく"
+    ],
+    "state": "",
+    "id": "n5_237",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "mjölk"
+    ],
+    "writing": [
+      "牛乳"
+    ],
+    "english": [
+      "milk"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "ぎゅうにゅう"
+    ],
+    "state": "",
+    "id": "n5_238",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "idag"
+    ],
+    "writing": [
+      "今日"
+    ],
+    "english": [
+      "today"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きょう"
+    ],
+    "state": "",
+    "id": "n5_239",
+    "type": [
+      "temporal"
+    ]
+  },
+  {
+    "swedish": [
+      "klassrum"
+    ],
+    "writing": [
+      "教室"
+    ],
+    "english": [
+      "classroom"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きょうしつ"
+    ],
+    "state": "",
+    "id": "n5_240",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "syskon (ödmjuk)"
+    ],
+    "writing": [
+      "兄弟"
+    ],
+    "english": [
+      "(humble) siblings"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きょうだい"
+    ],
+    "state": "",
+    "id": "n5_241",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "förra året"
+    ],
+    "writing": [
+      "去年"
+    ],
+    "english": [
+      "last year"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きょねん"
+    ],
+    "state": "",
+    "id": "n5_242",
+    "type": [
+      "temporal"
+    ]
+  },
+  {
+    "swedish": [
+      "hat"
+    ],
+    "writing": [
+      "嫌い"
+    ],
+    "english": [
+      "hate"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きらい"
+    ],
+    "state": "",
+    "id": "n5_243",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "skära"
+    ],
+    "writing": [
+      "切る"
+    ],
+    "english": [
+      "cut"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きる"
+    ],
+    "state": "",
+    "id": "n5_244",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "ta på sig (överkropp)"
+    ],
+    "writing": [
+      "着る"
+    ],
+    "english": [
+      "to put on from the shoulders down"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きる"
+    ],
+    "state": "",
+    "id": "n5_245",
+    "type": [
+      "verb"
+    ]
+  },
+  {
+    "swedish": [
+      "ren"
+    ],
+    "writing": [
+      "きれい"
+    ],
+    "english": [
+      "clean"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きれい"
+    ],
+    "state": "",
+    "id": "n5_246",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "söt"
+    ],
+    "writing": [
+      "きれい"
+    ],
+    "english": [
+      "pretty"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きれい"
+    ],
+    "state": "hidden",
+    "id": "n5_247",
+    "type": [
+      "adjective"
+    ]
+  },
+  {
+    "swedish": [
+      "kilogram"
+    ],
+    "writing": [
+      "キログラム"
+    ],
+    "english": [
+      "kilogram"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "キログラム"
+    ],
+    "state": "",
+    "id": "n5_248",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "kilometer"
+    ],
+    "writing": [
+      "キロメートル"
+    ],
+    "english": [
+      "kilometre"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "キロメートル"
+    ],
+    "state": "",
+    "id": "n5_249",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "kilo"
+    ],
+    "writing": [
+      "キロ"
+    ],
+    "english": [
+      "kilogram"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "キロ"
+    ],
+    "state": "",
+    "id": "n5_250",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "km"
+    ],
+    "writing": [
+      "キロ"
+    ],
+    "english": [
+      "kilometre"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "キロ"
+    ],
+    "state": "hidden",
+    "id": "n5_251",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "bank"
+    ],
+    "writing": [
+      "銀行"
+    ],
+    "english": [
+      "bank"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "ぎんこう"
+    ],
+    "state": "",
+    "id": "n5_252",
+    "type": [
+      "noun"
+    ]
+  },
+  {
+    "swedish": [
+      "fredag"
+    ],
+    "writing": [
+      "金曜日"
+    ],
+    "english": [
+      "Friday"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "きんようび"
+    ],
+    "state": "",
+    "id": "n5_253",
+    "type": [
+      "temporal"
+    ]
+  },
+  {
+    "swedish": [
+      "medicin"
+    ],
+    "writing": [
+      "薬"
+    ],
+    "english": [
+      "medicine"
+    ],
+    "jnlp": "n5",
+    "reading": [
+      "くすり"
+    ],
+    "state": "",
+    "id": "n5_254",
+    "type": [
+      "noun"
+    ]
   }
 ]
