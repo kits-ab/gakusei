@@ -8,9 +8,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.dto.QuestionDTO;
+import se.kits.gakusei.test_tools.TestTools;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,25 +20,25 @@ import java.util.stream.Stream;
 public class QuestionHandlerTest {
 
     @Captor
-    ArgumentCaptor<Nugget> nuggetCaptor;
+    private ArgumentCaptor<Nugget> nuggetCaptor;
 
     @Captor
-    ArgumentCaptor<List<Nugget>> listCaptor;
+    private ArgumentCaptor<List<Nugget>> listCaptor;
 
     @Captor
-    ArgumentCaptor<String> questionTypeCaptor;
+    private ArgumentCaptor<String> questionTypeCaptor;
 
     @Captor
-    ArgumentCaptor<String> answerTypeCaptor;
+    private ArgumentCaptor<String> answerTypeCaptor;
 
-    List<Nugget> nuggets;
-    String questionType;
-    String answerType;
-    QuestionHandler questionHandler;
+    private List<Nugget> nuggets;
+    private String questionType;
+    private String answerType;
+    private QuestionHandler questionHandler;
 
     @Before
     public void setUp() throws Exception {
-        nuggets = generateNuggets();
+        nuggets = TestTools.generateNuggets();
         questionType = "swedish";
         answerType = "english";
         questionHandler = new QuestionHandler();
@@ -67,6 +67,7 @@ public class QuestionHandlerTest {
     @Test
     public void testGetQuestions() throws Exception {
         List<QuestionDTO> questions = questionHandler.getQuestions(nuggets, questionType, answerType);
+
         assertEquals(6, questions.size());
         assertFalse(questions.stream().anyMatch(q -> q == null));
         assertTrue(questions.stream().allMatch(q -> q.getQuestion().startsWith("swe_test")));
@@ -80,6 +81,7 @@ public class QuestionHandlerTest {
     public void testCreateQuestion() throws Exception {
         List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
         Nugget nugget = notHiddenNuggets.get(0);
+
         QuestionDTO dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
 
         assertTrue(dto.getQuestion().startsWith("swe_test"));
@@ -99,30 +101,9 @@ public class QuestionHandlerTest {
         List<Nugget> notHiddenNuggets =
                 nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList()).subList(0, 2);
         Nugget nugget = notHiddenNuggets.get(0);
+
         QuestionDTO dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
+
         assertNull(dto);
     }
-
-    // Helper method to get a list of nuggets
-    private List<Nugget> generateNuggets() {
-        List<Nugget> nuggets = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Nugget n = new Nugget("verb");
-            Fact f1 = new Fact();
-            f1.setType("swedish");
-            f1.setData("swe_test" + i);
-            f1.setNugget(n);
-            Fact f2 = new Fact();
-            f2.setType("english");
-            f2.setData("eng_test" + i);
-            f2.setNugget(n);
-            n.setFacts(new ArrayList<Fact>(Arrays.asList(f1, f2)));
-            if (i % 3 == 0) {
-                n.setHidden(true);
-            }
-            nuggets.add(n);
-        }
-        return nuggets;
-    }
-
 }

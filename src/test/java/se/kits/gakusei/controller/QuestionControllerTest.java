@@ -10,15 +10,13 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
-import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.dto.QuestionDTO;
+import se.kits.gakusei.test_tools.TestTools;
 import se.kits.gakusei.util.QuestionHandler;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,27 +24,22 @@ import java.util.List;
 public class QuestionControllerTest {
 
     @InjectMocks
-    QuestionController questionController;
+    private QuestionController questionController;
 
     @Mock
-    NuggetRepository nuggetRepository;
+    private NuggetRepository nuggetRepository;
 
     @Mock
-    QuestionHandler questionHandler;
+    private QuestionHandler questionHandler;
 
     @Mock
-    LessonRepository lessonRepository;
+    private LessonRepository lessonRepository;
 
-    String wordType;
-    String questionType;
-    String answerType;
-    String question;
-    String alt1;
-    String alt2;
-    String alt3;
-    String altCorrect;
-    List<Nugget> nuggets;
-    QuestionDTO dto;
+    private String wordType;
+    private String questionType;
+    private String answerType;
+    private List<Nugget> nuggets;
+    private QuestionDTO dto;
 
     @Before
     public void setUp() throws Exception {
@@ -55,12 +48,12 @@ public class QuestionControllerTest {
 
         questionType = "reading";
         answerType = "swedish";
-        question = "question";
-        alt1 = "alternative1";
-        alt2 = "alternative2";
-        alt3 = "alternative3";
-        altCorrect = "alternativeCorrect";
-        nuggets = generateNuggets();
+        String question = "question";
+        String alt1 = "alternative1";
+        String alt2 = "alternative2";
+        String alt3 = "alternative3";
+        String altCorrect = "alternativeCorrect";
+        nuggets = TestTools.generateNuggets();
         dto = new QuestionDTO();
         dto.setQuestion(question);
         dto.setAlternative1(alt1);
@@ -73,10 +66,11 @@ public class QuestionControllerTest {
     @Test
     public void testGetQuestionWithoutWordType() throws Exception {
         wordType = "";
-        // Behaviour
+
         Mockito.when(nuggetRepository.getNuggetsWithoutWordType(questionType, answerType)).thenReturn(nuggets);
 
         ResponseEntity<QuestionDTO> re = questionController.getQuestion(wordType, questionType, answerType);
+
         assertEquals(dto, re.getBody());
         assertEquals(200, re.getStatusCodeValue());
     }
@@ -84,8 +78,11 @@ public class QuestionControllerTest {
     @Test
     public void testGetQuestionWithWordType() throws Exception {
         wordType = "verb";
+
         Mockito.when(nuggetRepository.getNuggetsWithWordType(wordType, questionType, answerType)).thenReturn(nuggets);
+
         ResponseEntity<QuestionDTO> re = questionController.getQuestion(wordType, questionType, answerType);
+
         assertEquals(dto, re.getBody());
         assertEquals(200, re.getStatusCodeValue());
     }
@@ -93,9 +90,12 @@ public class QuestionControllerTest {
     @Test
     public void testGetQuestionReturnNoContent() throws Exception {
         wordType = "";
+
         Mockito.when(nuggetRepository.getNuggetsWithoutWordType(questionType, answerType)).thenReturn(nuggets);
         Mockito.when(questionHandler.getQuestion(nuggets, questionType, answerType)).thenReturn(null);
+
         ResponseEntity<QuestionDTO> re = questionController.getQuestion(wordType, questionType, answerType);
+
         assertNull(re.getBody());
         assertEquals(204, re.getStatusCodeValue());
     }
@@ -104,10 +104,12 @@ public class QuestionControllerTest {
     public void testGetQuestionsFromLessonOK() throws Exception {
         String lesson = "Verbs";
         List<QuestionDTO> dtoList = Collections.singletonList(dto);
+
         Mockito.when(lessonRepository.findNuggetsByTwoFactTypes(lesson, questionType, answerType)).thenReturn(nuggets);
         Mockito.when(questionHandler.getQuestions(nuggets, questionType, answerType)).thenReturn(dtoList);
 
         ResponseEntity<List<QuestionDTO>> re = questionController.getQuestionsFromLesson(lesson, questionType, answerType);
+
         assertEquals(dtoList, re.getBody());
         assertEquals(200, re.getStatusCodeValue());
     }
@@ -116,33 +118,13 @@ public class QuestionControllerTest {
     public void testGetQuestionsFromLessonInternalServerError() throws Exception {
         String lesson = "Verbs";
         List<QuestionDTO> emptyList = Collections.EMPTY_LIST;
+
         Mockito.when(lessonRepository.findNuggetsByTwoFactTypes(lesson, questionType, answerType)).thenReturn(nuggets);
         Mockito.when(questionHandler.getQuestions(nuggets, questionType, answerType)).thenReturn(emptyList);
 
         ResponseEntity<List<QuestionDTO>> re = questionController.getQuestionsFromLesson(lesson, questionType, answerType);
+
         assertNull(re.getBody());
         assertEquals(500, re.getStatusCodeValue());
-    }
-
-    // Helper method to get a list of nuggets
-    private List<Nugget> generateNuggets() {
-        List<Nugget> nuggets = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Nugget n = new Nugget("verb");
-            Fact f1 = new Fact();
-            f1.setType("swedish");
-            f1.setData("swe_test" + i);
-            f1.setNugget(n);
-            Fact f2 = new Fact();
-            f2.setType("english");
-            f2.setData("eng_test" + i);
-            f2.setNugget(n);
-            n.setFacts(new ArrayList<Fact>(Arrays.asList(f1, f2)));
-            if (i % 3 == 0) {
-                n.setHidden(true);
-            }
-            nuggets.add(n);
-        }
-        return nuggets;
     }
 }

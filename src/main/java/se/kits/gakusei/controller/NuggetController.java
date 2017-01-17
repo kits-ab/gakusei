@@ -25,7 +25,7 @@ public class NuggetController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    private ResponseEntity<List<Nugget>> findNuggetsByFilter(
+    protected ResponseEntity<List<Nugget>> findNuggetsByFilter(
             @RequestParam(value = "wordType", defaultValue = "%") String wordType,
             @RequestParam(value = "factTypes") List<String> factTypes) {
 
