@@ -9,9 +9,9 @@ export default class GakuseiNav extends React.Component {
         if (eventKey === 0) {
             this.props.updater('LandingPage')
         } else if (eventKey === 1.1) {
-            this.props.updater('GuessPlayPageSelection')
+            this.props.updater('LessonSelection', '', 'GuessPlayPage')
         } else if (eventKey === 1.2) {
-            this.props.updater('TranslationPlayPage')
+            this.props.updater('LessonSelection', '', 'TranslationPlayPage')
         } else if (eventKey === 2) {
             this.props.updater('NuggetListPage')
         } else if (eventKey === 3) {
