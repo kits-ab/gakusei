@@ -40,10 +40,10 @@ export default class NuggetListPage extends React.Component {
     }
     fetchCustomQuery(event){
         var fetchUrl = '/api/filter/nuggets?wordType=' + this.state.wordType
-            + '&factType1=' + this.state.factType1
-            + '&factType2=' + this.state.factType2
-            + '&factType3=' + this.state.factType3
-            + '&factType4=' + this.state.factType4;
+            + '&factTypes=' + this.state.factType1
+            + '&factTypes=' + this.state.factType2
+            + '&factTypes=' + this.state.factType3
+            + '&factTypes=' + this.state.factType4;
         fetch(fetchUrl,
             {credentials: 'same-origin'})
             .then(response => response.json())
@@ -56,19 +56,16 @@ export default class NuggetListPage extends React.Component {
     }
     render() {
         return(
-            <div>
-                <Grid>
-                    <Row>
-                        <Col xs={12}>
-                            <QueryInput handleChange={this.updateQueryInput}
-                                        handleSubmit={this.fetchCustomQuery}/>
-                            <br/>
-                            <NuggetList nuggetResults={this.state.nuggetList} />
-                        </Col>
-                    </Row>
-                </Grid>
-
-            </div>
+            <Grid>
+                <Row>
+                    <Col xs={12}>
+                        <QueryInput handleChange={this.updateQueryInput}
+                                    handleSubmit={this.fetchCustomQuery}/>
+                        <br/>
+                        <NuggetList nuggetResults={this.state.nuggetList} />
+                    </Col>
+                </Row>
+            </Grid>
         )
     }
 }

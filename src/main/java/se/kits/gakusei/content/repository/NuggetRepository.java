@@ -28,22 +28,9 @@ public interface NuggetRepository extends CrudRepository<Nugget, Long> {
 
     @Query("select t from Nugget t where t.id in " +
             "(select n.id from Nugget n inner join n.facts f " +
-            "where n.type LIKE :wordType and f.type in (:firstLangType, :secondLangType, :thirdLangType, " +
-            ":fourthLangType, :fifthLangType, :sixthLangType, :seventhLangType, :eighthLangType, " +
-            ":ninthLangType, :tenthLangType, :eleventhLangType, :twelfthLangType)" +
+            "where n.type LIKE :wordType and f.type in (:langTypes)" +
             "group by n.id having count(n.id) >= :words)")
     List<Nugget> getNuggetsbyFilter(@Param("wordType") String wordType,
-                                    @Param("firstLangType") String firstLangType,
-                                    @Param("secondLangType") String secondLangType,
-                                    @Param("thirdLangType") String thirdLangType,
-                                    @Param("fourthLangType") String fourthLangType,
-                                    @Param("fifthLangType") String fifthLangType,
-                                    @Param("sixthLangType") String sixthLangType,
-                                    @Param("seventhLangType") String seventhLangType,
-                                    @Param("eighthLangType") String eighthLangType,
-                                    @Param("ninthLangType") String ninthLangType,
-                                    @Param("tenthLangType") String tenthLangType,
-                                    @Param("eleventhLangType") String eleventhLangType,
-                                    @Param("twelfthLangType") String twelfthLangType,
+                                    @Param("langTypes") List<String> langTypes,
                                     @Param("words") Long words);
 }
