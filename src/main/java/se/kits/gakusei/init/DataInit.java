@@ -89,12 +89,13 @@ public class DataInit implements ApplicationRunner {
 
     private void createTestData(Set<Map<String, Object>> dataHolders) {
         for (Map<String, Object> tdh : dataHolders) {
-            Nugget nugget = new Nugget(tdh.get("type").toString());
-            nugget.setDescription(tdh.get("english").toString());
+            Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
+            nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
+            nugget.setId(tdh.get("id").toString());
             List<Fact> facts = new ArrayList<>();
             for (Map.Entry entry : tdh.entrySet()) {
                 String type = entry.getKey().toString();
-                if (type.equals("type") || type.equals("state")) {
+                if (type.equals("type") || type.equals("state") || type.equals("id")) {
                     if (entry.getValue().toString().equals("hidden")) {
                         nugget.setHidden(true);
                     }
@@ -102,7 +103,12 @@ public class DataInit implements ApplicationRunner {
                 }
                 Fact fact = new Fact();
                 fact.setType(type);
-                fact.setData(entry.getValue().toString());
+                Object data = entry.getValue();
+                if (data instanceof String) {
+                    fact.setData(data.toString());
+                } else {
+                    fact.setData(((ArrayList<String>) entry.getValue()).get(0));
+                }
                 facts.add(fact);
             }
             Nugget savedNugget = nuggetRepository.save(nugget);

@@ -12,8 +12,7 @@ import java.util.List;
 public class Nugget implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(nullable = false)
     private String type;
@@ -68,11 +67,11 @@ public class Nugget implements Serializable{
         this.facts = facts;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
