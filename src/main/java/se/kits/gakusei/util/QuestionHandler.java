@@ -27,26 +27,26 @@ public class QuestionHandler {
     }
 
     protected QuestionDTO createQuestion(Nugget nugget, List<Nugget> nuggets, String questionType, String answerType) {
-        if (nuggets.size() >= 4) {
-            List<Nugget> shuffledNuggets = new LinkedList<>(nuggets);
-            Collections.shuffle(shuffledNuggets);
-            shuffledNuggets.remove(nugget);
-            QuestionDTO question = new QuestionDTO();
-            List<String> alternatives = new ArrayList<>();
-            alternatives.add(nugget.getFacts().stream().filter(f -> f.getType()
-                    .equals(answerType)).findFirst().orElse(null).getData());
-            
-            //Avoid getting the same alternative from another nugget
-            while (alternatives.size() < 4) {
-                Nugget tempNugget = shuffledNuggets.remove(0);
-                String tempAlternative = tempNugget.getFacts().stream().filter(f -> f.getType().equals(answerType))
-                        .findFirst().orElse(null).getData();
-                if (!alternatives.contains(tempAlternative)) {
-                    alternatives.add(tempAlternative);
-                }
+        List<Nugget> shuffledNuggets = new LinkedList<>(nuggets);
+        Collections.shuffle(shuffledNuggets);
+        shuffledNuggets.remove(nugget);
+        QuestionDTO question = new QuestionDTO();
+        List<String> alternatives = new ArrayList<>();
+        alternatives.add(nugget.getFacts().stream().filter(f -> f.getType()
+                .equals(answerType)).findFirst().get().getData());
+
+        //Avoid getting the same alternative from another nugget
+        while (alternatives.size() < 4 && !shuffledNuggets.isEmpty()) {
+            Nugget tempNugget = shuffledNuggets.remove(0);
+            String tempAlternative = tempNugget.getFacts().stream().filter(f -> f.getType().equals(answerType))
+                    .findFirst().get().getData();
+            if (!alternatives.contains(tempAlternative)) {
+                alternatives.add(tempAlternative);
             }
+        }
+        if (alternatives.size() == 4) {
             question.setQuestion(nugget.getFacts().stream().filter(f -> f.getType()
-                    .equals(questionType)).findFirst().orElse(null).getData());
+                    .equals(questionType)).findFirst().get().getData());
             question.setCorrectAlternative(alternatives.get(0));
             question.setAlternative1(alternatives.get(1));
             question.setAlternative2(alternatives.get(2));
