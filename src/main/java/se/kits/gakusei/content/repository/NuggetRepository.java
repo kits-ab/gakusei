@@ -7,7 +7,7 @@ import se.kits.gakusei.content.model.Nugget;
 
 import java.util.List;
 
-public interface NuggetRepository extends CrudRepository<Nugget, Long> {
+public interface NuggetRepository extends CrudRepository<Nugget, String> {
 
     List<Nugget> findAll();
 
