@@ -38,6 +38,3 @@ spring:
   profiles: heroku
   datasource:
     url: ${JDBC_DATABASE_URL}
-
-gakusei:
-  data-init: true
