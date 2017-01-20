@@ -2,7 +2,7 @@ import React from 'react';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import 'whatwg-fetch';
 import AnswerButton from './AnswerButton';
-import Utility from '../util/utility';
+import Utility from '../util/Utility';
 
 export default class GuessPlayPage extends React.Component {
   constructor(props) {

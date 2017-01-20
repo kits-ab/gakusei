@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Grid, Row } from 'react-bootstrap';
 import 'whatwg-fetch';
-import Utility from '../util/utility';
+import Utility from '../util/Utility';
 
 export default class TranslationPlayPage extends React.Component {
   constructor(props) {
