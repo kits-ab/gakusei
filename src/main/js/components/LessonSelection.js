@@ -53,9 +53,12 @@ export default class LessonSelection extends React.Component {
                     onChange={this.handleChange}
                     value={this.state.selectedLesson}
                   >
-                    <option value="Verbs">Verb</option>
-                    <option value="Adjectives">Adjektiv</option>
-                    <option value="Nouns">Substantiv</option>
+                    <option value="JLPT N3">JLPT N3</option>
+                    <option value="JLPT N4">JLPT N4</option>
+                    <option value="JLPT N5">JLPT N5</option>
+                    <option value="GENKI 1">GENKI 1</option>
+                    <option value="GENKI 13">GENKI 13</option>
+                    <option value="GENKI 15">GENKI 15</option>
                   </FormControl>
                 </FormGroup>
                 <Button type="submit">Starta</Button>
