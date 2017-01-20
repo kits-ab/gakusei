@@ -19,6 +19,8 @@
   },
   "dependencies": {
     "browserify": "^13.1.1",
+    "hyphenation.sv": "^0.2.1",
+    "hypher": "^0.2.5",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.1",
@@ -31,6 +33,11 @@
     "babel-preset-stage-2": "^6.18.0",
     "babelify": "^7.2.0",
     "browserify": "^13.1.1",
+    "eslint": "^3.13.1",
+    "eslint-config-airbnb": "^14.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^3.0.2",
+    "eslint-plugin-react": "^6.9.0",
     "rimraf": "^2.5.2"
   }
 }

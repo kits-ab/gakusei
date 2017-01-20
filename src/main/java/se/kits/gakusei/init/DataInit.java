@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,6 +42,9 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private LessonRepository lessonRepository;
 
+    @Autowired
+    private Environment environment;
+
 //    @Autowired
 //    private UserRepository userRepository;
 
@@ -48,11 +53,21 @@ public class DataInit implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Value("${gakusei.data-init}")
+    private boolean datainit;
+
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
 //        createUsers();
-        createTestData(readTestDataFromFile());
-        createLessons();
+
+        String activeProfiles = Arrays.toString(environment.getActiveProfiles());
+        if (datainit) {
+            createTestData(readTestDataFromFile());
+            createLessons();
+            logger.info("*** Data initialization was set on profile(s): " + activeProfiles);
+        } else {
+            logger.info("*** Data initialization was NOT set on profile(s): " + activeProfiles);
+        }
     }
 
     private Set<Map<String, Object>> readTestDataFromFile() {
@@ -74,14 +89,27 @@ public class DataInit implements ApplicationRunner {
 
     private void createTestData(Set<Map<String, Object>> dataHolders) {
         for (Map<String, Object> tdh : dataHolders) {
-            Nugget nugget = new Nugget(tdh.get("type").toString());
-            nugget.setDescription(tdh.get("english").toString());
+            Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
+            nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
+            nugget.setId(tdh.get("id").toString());
             List<Fact> facts = new ArrayList<>();
+            Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id"));
             for (Map.Entry entry : tdh.entrySet()) {
-                Fact fact = new Fact();
                 String type = entry.getKey().toString();
+                if (typeSet.contains(type)) {
+                    if (entry.getValue().toString().equals("hidden")) {
+                        nugget.setHidden(true);
+                    }
+                    continue;
+                }
+                Fact fact = new Fact();
                 fact.setType(type);
-                fact.setData(entry.getValue().toString());
+                Object data = entry.getValue();
+                if (data instanceof String) {
+                    fact.setData(data.toString());
+                } else {
+                    fact.setData(((ArrayList<String>) entry.getValue()).get(0));
+                }
                 facts.add(fact);
             }
             Nugget savedNugget = nuggetRepository.save(nugget);
@@ -104,6 +132,13 @@ public class DataInit implements ApplicationRunner {
 //    }
 
     private void createLessons() {
+        createLessonsByWordType();
+        createLessonsByCategory("jnlp");
+        createLessonsByCategory("jlpt");
+        createLessonsByCategory("genki");
+    }
+
+    private void createLessonsByWordType() {
         Map<String, List<Nugget>> nuggetMap = nuggetRepository.findAll().stream().collect(Collectors.groupingBy(Nugget::getType));
         List<Lesson> lessons = new ArrayList<>();
         for (String wordType : nuggetMap.keySet()) {
@@ -111,6 +146,29 @@ public class DataInit implements ApplicationRunner {
             l.setName(wordType.substring(0, 1).toUpperCase() + wordType.substring(1) + "s");
             l.setDescription("All nuggets with type '" + wordType + "'");
             l.setNuggets(nuggetMap.get(wordType));
+            lessons.add(l);
+        }
+        lessonRepository.save(lessons);
+    }
+
+    private void createLessonsByCategory(String category) {
+        List<Nugget> nuggets = nuggetRepository.findAll().stream()
+                .filter(n -> n.getFacts().stream().anyMatch(f -> category.equals(f.getType())))
+                .collect(Collectors.toList());
+        if (nuggets.isEmpty()) return;
+
+        Map<String, List<Nugget>> nuggetMap = new HashMap<>();
+        for (Nugget n : nuggets) {
+            Fact fact = n.getFacts().stream().filter(f -> category.equals(f.getType())).findFirst().get();
+            String lessonName = (fact.getType() + " " + fact.getData()).toUpperCase();
+            nuggetMap.computeIfAbsent(lessonName, k -> new ArrayList<>()).add(n);
+        }
+        List<Lesson> lessons = new ArrayList<>();
+        for (String lessonName : nuggetMap.keySet()) {
+            Lesson l = new Lesson();
+            l.setName(lessonName);
+            l.setDescription("All nuggets with type '" + lessonName + "'");
+            l.setNuggets(nuggetMap.get(lessonName));
             lessons.add(l);
         }
         lessonRepository.save(lessons);

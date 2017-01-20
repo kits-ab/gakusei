@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.NuggetRepository;
@@ -31,7 +30,7 @@ public class QuestionController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    private ResponseEntity<QuestionDTO> getQuestion(
+    protected ResponseEntity<QuestionDTO> getQuestion(
             @RequestParam(value = "wordType", defaultValue = "") String wordType,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
@@ -57,7 +56,7 @@ public class QuestionController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    private ResponseEntity<List<QuestionDTO>> getQuestionsFromLesson(
+    protected ResponseEntity<List<QuestionDTO>> getQuestionsFromLesson(
             @RequestParam(value = "lessonName") String lessonName,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {

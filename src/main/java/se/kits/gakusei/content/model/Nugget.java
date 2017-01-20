@@ -12,13 +12,14 @@ import java.util.List;
 public class Nugget implements Serializable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(nullable = false)
     private String type;
 
     private String description;
+
+    private boolean hidden = false;
 
     @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
     @JsonManagedReference
@@ -50,6 +51,14 @@ public class Nugget implements Serializable{
         this.description = description;
     }
 
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
     public List<Fact> getFacts() {
         return facts;
     }
@@ -58,11 +67,11 @@ public class Nugget implements Serializable{
         this.facts = facts;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -12,38 +12,45 @@ public class QuestionHandler {
 
     public QuestionDTO getQuestion(List<Nugget> nuggets, String questionType, String answerType) {
         Random random = new Random();
-        Nugget nugget = nuggets.get(random.nextInt(nuggets.size()));
-        return createQuestion(nugget, nuggets, questionType, answerType);
+        List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
+        Nugget nugget = notHiddenNuggets.get(random.nextInt(notHiddenNuggets.size()));
+        return createQuestion(nugget, notHiddenNuggets, questionType, answerType);
     }
 
     public List<QuestionDTO> getQuestions(List<Nugget> nuggets, String questionType, String answerType) {
-        List<QuestionDTO> questions = nuggets.stream()
-                .map(n -> createQuestion(n, nuggets, questionType, answerType))
+        List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
+        List<QuestionDTO> questions = notHiddenNuggets.stream()
+                .map(n -> createQuestion(n, notHiddenNuggets, questionType, answerType))
                 .collect(Collectors.toList());
         Collections.shuffle(questions);
         return questions;
     }
 
-    private QuestionDTO createQuestion(Nugget nugget, List<Nugget> nuggets, String questionType, String answerType) {
-        if (nuggets.size() >= 4) {
-            List<Nugget> shuffledNuggets = new LinkedList<>(nuggets);
-            Collections.shuffle(shuffledNuggets);
-            shuffledNuggets.remove(nugget);
-            List<Nugget> alternativesNuggets = shuffledNuggets.subList(0, 4);
-            List<String> alternatives = new ArrayList<>();
-            QuestionDTO question = new QuestionDTO();
+    protected QuestionDTO createQuestion(Nugget nugget, List<Nugget> nuggets, String questionType, String answerType) {
+        List<Nugget> shuffledNuggets = new LinkedList<>(nuggets);
+        Collections.shuffle(shuffledNuggets);
+        shuffledNuggets.remove(nugget);
+        QuestionDTO question = new QuestionDTO();
+        List<String> alternatives = new ArrayList<>();
+        alternatives.add(nugget.getFacts().stream().filter(f -> f.getType()
+                .equals(answerType)).findFirst().get().getData());
 
+        //Avoid getting the same alternative from another nugget
+        while (alternatives.size() < 4 && !shuffledNuggets.isEmpty()) {
+            Nugget tempNugget = shuffledNuggets.remove(0);
+            String tempAlternative = tempNugget.getFacts().stream().filter(f -> f.getType().equals(answerType))
+                    .findFirst().get().getData();
+            if (!alternatives.contains(tempAlternative)) {
+                alternatives.add(tempAlternative);
+            }
+        }
+        if (alternatives.size() == 4) {
             question.setQuestion(nugget.getFacts().stream().filter(f -> f.getType()
-                    .equals(questionType)).findFirst().orElse(null).getData());
-
-            question.setCorrectAlternative(nugget.getFacts().stream().filter(f -> f.getType()
-                    .equals(answerType)).findFirst().orElse(null).getData());
-
-            alternativesNuggets.forEach(n -> alternatives.add(n.getFacts().stream().filter(f -> f.getType()
-                    .equals(answerType)).findFirst().orElse(null).getData()));
-            question.setAlternative1(alternatives.get(0));
-            question.setAlternative2(alternatives.get(1));
-            question.setAlternative3(alternatives.get(2));
+                    .equals(questionType)).findFirst().get().getData());
+            question.setCorrectAlternative(alternatives.get(0));
+            question.setAlternative1(alternatives.get(1));
+            question.setAlternative2(alternatives.get(2));
+            question.setAlternative3(alternatives.get(3));
             return question;
         } else {
             return null;

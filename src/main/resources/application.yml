@@ -1,4 +1,16 @@
 spring:
+  profiles:
+    active: development
+  data:
+    rest:
+      base-path: /api
+gakusei:
+  data-init: false
+
+---
+
+spring:
+  profiles: development
   datasource:
     url: jdbc:h2:mem:gakusei:DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;INIT=create schema if not exists CONTENTSCHEMA
     driver-class-name: org.h2.Driver
@@ -6,9 +18,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
-  data:
-    rest:
-      base-path: /api
+
+gakusei:
+  data-init: true
 
 ---
 
@@ -26,11 +38,3 @@ spring:
   profiles: heroku
   datasource:
     url: ${JDBC_DATABASE_URL}
-
----
-
-# Profile used to override JDBC URL when starting the jar in Dockerfile
-spring:
-  profiles: container
-  datasource:
-    url: jdbc:postgresql://psql:5432/gakusei
