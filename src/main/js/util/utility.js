@@ -29,4 +29,19 @@ export default class Utility{
               return successRateMessage;
         }
     }
+    static logEvent(eventType, eventData, gamemode, userID){
+        var bodyData = {
+                        'timestamp': Number(new Date()),
+                        'gamemode': 'GuessPlayPage',
+                        'type': eventType,
+                        'data': eventData,
+                        'userid': 1 //null user
+        }
+        fetch('/api/event', {
+            method: 'POST',
+            body: JSON.stringify(bodyData),
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'same-origin'
+        });
+    }
 }

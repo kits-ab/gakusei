@@ -11,7 +11,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Lesson;
@@ -19,8 +19,10 @@ import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.FactRepository;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.NuggetRepository;
-//import se.kits.gakusei.user.model.User;
-//import se.kits.gakusei.user.repository.UserRepository;
+import se.kits.gakusei.user.model.User;
+import se.kits.gakusei.user.repository.UserRepository;
+import se.kits.gakusei.user.model.User;
+import se.kits.gakusei.user.repository.UserRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,11 +47,11 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private Environment environment;
 
-//    @Autowired
-//    private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -58,10 +60,10 @@ public class DataInit implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
-//        createUsers();
 
         String activeProfiles = Arrays.toString(environment.getActiveProfiles());
         if (datainit) {
+            createUsers();
             createTestData(readTestDataFromFile());
             createLessons();
             logger.info("*** Data initialization was set on profile(s): " + activeProfiles);
@@ -121,15 +123,16 @@ public class DataInit implements ApplicationRunner {
         }
     }
 
-//    private void createUsers() {
-//        List<User> users = new ArrayList<>();
-//        users.add(new User("pieru", passwordEncoder.encode("gakusei"), "ROLE_USER"));
-//        users.add(new User("yoakimu", passwordEncoder.encode("gakusei"), "ROLE_USER"));
-//        users.add(new User("pa", passwordEncoder.encode("gakusei"), "ROLE_USER"));
-//        users.add(new User("debiddo", passwordEncoder.encode("gakusei"), "ROLE_USER"));
-//        users.add(new User("admin", passwordEncoder.encode("gakusei"), "ROLE_ADMIN"));
-//        userRepository.save(users);
-//    }
+    private void createUsers() {
+        List<User> users = new ArrayList<>();
+        users.add(new User("nulluser", passwordEncoder.encode("gakusei"), "NULL_USER"));
+        users.add(new User("pieru", passwordEncoder.encode("gakusei"), "ROLE_USER"));
+        users.add(new User("yoakimu", passwordEncoder.encode("gakusei"), "ROLE_USER"));
+        users.add(new User("pa", passwordEncoder.encode("gakusei"), "ROLE_USER"));
+        users.add(new User("debiddo", passwordEncoder.encode("gakusei"), "ROLE_USER"));
+        users.add(new User("admin", passwordEncoder.encode("gakusei"), "ROLE_ADMIN"));
+        userRepository.save(users);
+    }
 
     private void createLessons() {
         createLessonsByWordType();

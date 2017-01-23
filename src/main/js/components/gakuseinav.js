@@ -40,9 +40,9 @@ export default class GakuseiNav extends React.Component {
                     </Nav>
                     <Nav pullRight>
                         <NavItem eventKey={3} href='#'>Om Gakusei</NavItem>
-                        {/*<Navbar.Text>*/}
-                            {/*<Navbar.Link href='/logout'>Logga ut</Navbar.Link>*/}
-                        {/*</Navbar.Text>*/}
+                        <Navbar.Text>
+                            <Navbar.Link href='/logout'>Logga ut</Navbar.Link>
+                        </Navbar.Text>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

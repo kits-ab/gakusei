@@ -45,6 +45,11 @@ export default class GuessPlayPage extends React.Component {
                 JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative]),
             buttonStyles: ['default', 'default', 'default', 'default'],
             buttonDisabled: false
+        }, () => {
+            this.logEvent('question', this.state.question);
+            for(let i = 0; i < this.state.randomOrderAlt.length; i++){
+                this.logEvent('alternative', this.state.randomOrderAlt[i]);
+            }
         });
     }
     getNextQuestion(){
@@ -67,7 +72,23 @@ export default class GuessPlayPage extends React.Component {
         };
         return array;
     }
+    logEvent(eventType, eventData){
+        var bodyData = {
+                        'timestamp': Number(new Date()),
+                        'gamemode': 'GuessPlayPage',
+                        'type': eventType,
+                        'data': eventData,
+                        'userid': 1 //null user
+        }
+        fetch('/api/event', {
+            credentials: "same-origin",
+            method: "POST",
+            body: JSON.stringify(bodyData),
+            headers: {"Content-Type": "application/json"}
+        });
+    }
     checkAnswer(answer) {
+        this.logEvent('userAnswer', answer);
         let newButtonStyles = [];
         if (answer === this.state.correctAlt) {
             newButtonStyles = this.state.randomOrderAlt.map( (word) => (word === answer) ? 'success' : 'default');
@@ -89,7 +110,8 @@ export default class GuessPlayPage extends React.Component {
             buttonStyles: newButtonStyles,
             results: this.state.results.concat([[this.state.question, this.state.correctAlt, answer]])
         });
-
+        this.logEvent('correctAnswer', this.state.question);
+        this.logEvent('correctAnswer', this.state.correctAlt);
         if(Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1){
             setTimeout(() => {
                 this.getNextQuestion();
