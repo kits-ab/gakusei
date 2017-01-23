@@ -16,9 +16,12 @@ export default class EndScreenPage extends React.Component {
     sessionStorage.removeItem('totalAttempts');
   }
   render() {
-    const results = this.props.results.map(result =>
+    const results = this.props.results.map(result => (result[0].length > 1) ?
       <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
-        Fråga: {result[0]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
+        Reading: {result[0][0]}, Writing: {result[0][1]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
+      </ListGroupItem> :
+      <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
+        Reading: {result[0][0]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
       </ListGroupItem>
     );
     return (

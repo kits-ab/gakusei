@@ -17,6 +17,7 @@ import se.kits.gakusei.dto.QuestionDTO;
 import se.kits.gakusei.test_tools.TestTools;
 import se.kits.gakusei.util.QuestionHandler;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -48,7 +49,8 @@ public class QuestionControllerTest {
 
         questionType = "reading";
         answerType = "swedish";
-        String question = "question";
+        List<String> question = new ArrayList<>();
+        question.add("question");
         String alt1 = "alternative1";
         String alt2 = "alternative2";
         String alt3 = "alternative3";

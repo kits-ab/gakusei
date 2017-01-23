@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Grid, Row } from 'react-bootstrap';
-import 'whatwg-fetch';
 import Utility from '../util/Utility';
 
 export default class TranslationPlayPage extends React.Component {
@@ -9,7 +8,7 @@ export default class TranslationPlayPage extends React.Component {
     this.state = {
       answer: '',
       output: '',
-      question: '',
+      question: [],
       correctAlt: '',
       checkDisable: false,
       results: []
@@ -71,10 +70,15 @@ export default class TranslationPlayPage extends React.Component {
     }
   }
   render() {
+    const questionOutput = (this.state.question.length > 1) ?
+      <div><h2>Reading: {this.state.question[0]}</h2><h2>Writing: {this.state.question[1]}</h2></div>
+      : <h2>{this.state.question[0]}</h2>;
     return (
       <div>
         <Grid className="text-center">
-          <Row><h2>{this.state.question}</h2></Row>
+          <Row>
+            {questionOutput}
+          </Row>
           <br />
           <Row>
             <input value={this.state.answer} onChange={this.handleChange} placeholder="Skriv in ditt svar här" />
