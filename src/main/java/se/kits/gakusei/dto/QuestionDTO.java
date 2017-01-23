@@ -1,9 +1,10 @@
 package se.kits.gakusei.dto;
 
+import java.util.List;
+
 public class QuestionDTO {
 
-    String question;
-
+    List<String> question;
     String alternative1;
     String alternative2;
     String alternative3;
@@ -11,11 +12,11 @@ public class QuestionDTO {
 
     public QuestionDTO(){}
 
-    public String getQuestion() {
+    public List<String> getQuestion() {
         return question;
     }
 
-    public void setQuestion(String question) {
+    public void setQuestion(List<String> question) {
         this.question = question;
     }
 

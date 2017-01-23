@@ -1,6 +1,5 @@
 import React from 'react';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
-import 'whatwg-fetch';
 import AnswerButton from './AnswerButton';
 import Utility from '../util/Utility';
 
@@ -8,7 +7,7 @@ export default class GuessPlayPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: '',
+      question: [],
       correctAlt: '',
       randomOrderAlt: ['', '', '', ''],
       buttonStyles: ['default', 'default', 'default', 'default'],
@@ -111,11 +110,14 @@ export default class GuessPlayPage extends React.Component {
     }
   }
   render() {
+    const questionOutput = (this.state.question.length > 1) ?
+      <div><h2>Reading: {this.state.question[0]}</h2><h2>Writing: {this.state.question[1]}</h2></div> :
+      <h2>{this.state.question[0]}</h2>;
     return (
       <div>
-        <Grid>
+        <Grid className="text-center">
           <Row>
-            <h2 className="text-center">{this.state.question}</h2>
+            {questionOutput}
           </Row>
           <br />
           <Row>
@@ -162,7 +164,7 @@ export default class GuessPlayPage extends React.Component {
           <br />
           <br />
           <Row>
-            <div className="text-center">
+            <div>
               <p>
                 Fråga: {Number(sessionStorage.currentQuestionIndex) + 1} / {this.state.lessonLength}
               </p>

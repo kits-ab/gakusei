@@ -70,7 +70,7 @@ public class QuestionHandlerTest {
 
         assertEquals(6, questions.size());
         assertFalse(questions.stream().anyMatch(q -> q == null));
-        assertTrue(questions.stream().allMatch(q -> q.getQuestion().startsWith("swe_test")));
+        assertTrue(questions.stream().allMatch(q -> q.getQuestion().get(0).startsWith("swe_test")));
         assertTrue(questions.stream().allMatch(q -> q.getAlternative1().startsWith("eng_test")));
         assertTrue(questions.stream().allMatch(q -> q.getAlternative2().startsWith("eng_test")));
         assertTrue(questions.stream().allMatch(q -> q.getAlternative3().startsWith("eng_test")));
@@ -84,15 +84,16 @@ public class QuestionHandlerTest {
 
         QuestionDTO dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
 
-        assertTrue(dto.getQuestion().startsWith("swe_test"));
+        assertTrue(dto.getQuestion().get(0).startsWith("swe_test"));
         Stream.of(dto.getAlternative1(), dto.getAlternative2(), dto.getAlternative3(), dto.getCorrectAlternative())
                 .forEach(alt -> assertTrue(alt.startsWith("eng_test")));
 
-        String q = dto.getQuestion();
+        String q = dto.getQuestion().get(0);
         String ca = dto.getCorrectAlternative();
         assertEquals(q.charAt(q.length()-1), ca.charAt(ca.length()-1));
 
-        Set<String> ids = new HashSet<>(Arrays.asList(dto.getAlternative1(), dto.getAlternative2(), dto.getAlternative3(), dto.getCorrectAlternative()));
+        Set<String> ids = new HashSet<>(Arrays.asList(dto.getAlternative1(), dto.getAlternative2(),
+                dto.getAlternative3(), dto.getCorrectAlternative()));
         assertEquals(4, ids.size());
     }
 
