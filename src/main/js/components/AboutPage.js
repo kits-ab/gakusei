@@ -136,25 +136,14 @@ export default class AboutPage extends React.Component {
             <Col xs={12}>
               <h2>Om Gakusei</h2>
               <div>
-                <p> Gakusei är en webbapp för övning/inlärning av japanska.
+                <p>Gakusei är en webbapp för övning/inlärning av japanska.
                   Utvecklingen sker i form av ett open source-projekt.
-                  Utvecklingen har sponsrats av
-                  <a target="_blank" rel="noopener noreferrer" href="https://www.kits.se"> Kits</a>.
-                  Besök gärna projektets
-                  <a target="_blank" rel="noopener noreferrer" href="https://github.com/kits-ab/gakusei/">
-                    Githubsida.
-                  </a>
+                  Utvecklingen har sponsrats av <a target="_blank" rel="noopener noreferrer" href="https://www.kits.se">Kits</a>.
+                  Besök gärna projektets <a target="_blank" rel="noopener noreferrer" href="https://github.com/kits-ab/gakusei/">Githubsida.</a>
                 </p>
               </div>
               <div>
-                <p> Webbappen Gakusei går under licensen
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://www.opensource.org/licenses/mit-license.php"
-                  >
-                    MIT
-                  </a>.
+                <p> Webbappen Gakusei går under licensen <a target="_blank" rel="noopener noreferrer" href="https://opensource.org/licenses/mit-license.php">MIT</a>.
                   Nedan följer en lista på licenser för de moduler som projektet använder sig av.
                 </p>
               </div>

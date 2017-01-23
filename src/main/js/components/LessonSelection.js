@@ -5,7 +5,7 @@ export default class LessonSelection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedLesson: 'Verbs'
+      selectedLesson: 'JLPT N3'
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
