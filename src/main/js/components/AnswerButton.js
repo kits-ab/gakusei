@@ -3,6 +3,19 @@ import { Button } from 'react-bootstrap';
 import Hypher from 'hypher';
 import swedish from 'hyphenation.sv';
 
+function hyphenateSwedish(text) {
+  // Threshold to avoid unnecessary hyphenation
+  const hyphenateThreshold = 10;
+  const words = text.split(' ');
+  for (let i = 0; i < words.length; i += 1) {
+    if (words[i].length > hyphenateThreshold) {
+      const h = new Hypher(swedish);
+      return h.hyphenateText(text);
+    }
+  }
+  return text;
+}
+
 const AnswerButton = (props) => {
   const buttonLabel = hyphenateSwedish(props.label);
   return (
@@ -17,18 +30,5 @@ const AnswerButton = (props) => {
     </Button>
   );
 };
-
-function hyphenateSwedish(text) {
-  // Threshold to avoid unnecessary hyphenation
-  const hyphenateThreshold = 10;
-  const words = text.split(' ');
-  for (let i = 0; i < words.length; i++) {
-    if (words[i].length > hyphenateThreshold) {
-      let h = new Hypher(swedish);
-      return h.hyphenateText(text);
-    }
-  }
-  return text;
-}
 
 export default AnswerButton;

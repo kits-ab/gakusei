@@ -29,7 +29,6 @@ export default class GuessPlayPage extends React.Component {
     this.setQuestion(0);
   }
   componentWillUnmount() {
-    window.clearInterval(this.countDownVisible);
     window.removeEventListener('keydown', this.onKeys);
     sessionStorage.removeItem('currentQuestionIndex');
   }
@@ -76,8 +75,7 @@ export default class GuessPlayPage extends React.Component {
     }
   }
   randomizeOrder(array) {
-    let i = array.length - 1;
-    for (; i > 0; i -= 1) {
+    for (let i = array.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
       const temp = array[i];
       array[i] = array[j];
@@ -85,12 +83,13 @@ export default class GuessPlayPage extends React.Component {
     }
     return array;
   }
-  logEvent(eventType, eventData){
+  logEvent(eventType, eventData) {
+    const dataString = Array.isArray(eventData) ? eventData.join('|') : eventData;
     const bodyData = {
       timestamp: Number(new Date()),
       gamemode: 'GuessPlayPage',
       type: eventType,
-      data: eventData,
+      data: dataString,
       username: this.props.username
     };
     const xsrfTokenValue = getCSRF();
