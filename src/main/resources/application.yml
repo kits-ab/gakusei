@@ -15,7 +15,7 @@ spring:
     url: jdbc:h2:mem:gakusei:DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;INIT=create schema if not exists CONTENTSCHEMA
     driver-class-name: org.h2.Driver
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
 
