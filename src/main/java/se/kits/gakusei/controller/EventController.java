@@ -1,7 +1,6 @@
 package se.kits.gakusei.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import se.kits.gakusei.user.repository.EventRepository;
 import se.kits.gakusei.user.repository.UserRepository;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @RestController
 public class EventController {
@@ -42,7 +40,7 @@ public class EventController {
     }
 
     @RequestMapping(
-            value = "/api/event",
+            value = "/api/events",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
@@ -53,18 +51,16 @@ public class EventController {
         event.setType(eventDTO.getType());
         event.setData(eventDTO.getData());
         event.setTimestamp(new Timestamp(eventDTO.getTimestamp()));
-        User u = userRepository.findOne(eventDTO.getUserid());
-        if(u != null){
-            event.setUser(u);
+        User user = userRepository.findByUsername(eventDTO.getUsername());
+        if(user != null){
+            event.setUser(user);
             System.out.println(event.getTimestamp().toString()
-                + " / " + event.getGamemode()
-                + " / " + event.getType()
-                + " / " + event.getData()
-                + " / " + u.getUsername());
-            System.out.println();
+                    + " / " + event.getGamemode()
+                    + " / " + event.getType()
+                    + " / " + event.getData()
+                    + " / " + user.getUsername());
             return new ResponseEntity<Event>(eventRepository.save(event), HttpStatus.OK);
         }else{
-            System.out.println("FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL FAIL ");
             return new ResponseEntity<Event>(HttpStatus.NO_CONTENT);
         }
     }

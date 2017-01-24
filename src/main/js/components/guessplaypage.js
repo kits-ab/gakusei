@@ -3,6 +3,7 @@ import {ButtonToolbar, Grid, Row, Col} from 'react-bootstrap';
 import 'whatwg-fetch';
 import AnswerButton from './answerbutton';
 import Utility from '../util/utility';
+import getCSRF from '../util/getcsrf'
 
 export default class GuessPlayPage extends React.Component {
     constructor(props) {
@@ -73,18 +74,22 @@ export default class GuessPlayPage extends React.Component {
         return array;
     }
     logEvent(eventType, eventData){
-        var bodyData = {
-                        'timestamp': Number(new Date()),
-                        'gamemode': 'GuessPlayPage',
-                        'type': eventType,
-                        'data': eventData,
-                        'userid': 1 //null user
-        }
-        fetch('/api/event', {
+      var bodyData = {
+                        timestamp: Number(new Date()),
+                        gamemode: 'GuessPlayPage',
+                        type: eventType,
+                        data: eventData,
+                        username: this.props.username
+      };
+      let xsrfTokenValue = getCSRF();
+      fetch('/api/events', {
             credentials: "same-origin",
             method: "POST",
             body: JSON.stringify(bodyData),
-            headers: {"Content-Type": "application/json"}
+            headers: {
+              "Content-Type": "application/json",
+              "X-XSRF-TOKEN": xsrfTokenValue
+            }
         });
     }
     checkAnswer(answer) {

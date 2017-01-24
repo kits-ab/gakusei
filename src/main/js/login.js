@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button, FormGroup, FormControl, ControlLabel, HelpBlock} from 'react-bootstrap';
+import getCSRF from './util/getcsrf'
 
 class Form extends React.Component {
     FieldGroup({ id, label, help, ...props }) {
@@ -11,12 +12,6 @@ class Form extends React.Component {
                 {help && <HelpBlock>{help}</HelpBlock>}
             </FormGroup>
         );
-    }
-    getCSRF() {
-        let cookies = document.cookie.split('; ');
-        let keys = cookies.map(cookie => cookie.split('=')[0]);
-        let csrfValue = cookies[keys.indexOf("XSRF-TOKEN")].split('=')[1];
-        return csrfValue;
     }
     render(){
         return (
@@ -39,7 +34,7 @@ class Form extends React.Component {
                     id={this.props.csrfId}
                     type="hidden"
                     name="_csrf"
-                    value={this.getCSRF()}
+                    value={getCSRF()}
                 />
                 <Button type="submit">
                     {this.props.btnText}

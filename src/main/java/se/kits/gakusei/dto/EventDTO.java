@@ -1,14 +1,12 @@
 package se.kits.gakusei.dto;
 
-import java.sql.Timestamp;
-
 public class EventDTO {
 
     private long timestamp;
     private String gamemode;
     private String type;
     private String data;
-    private long userid;
+    private String username;
 
     public EventDTO(){}
 
@@ -44,11 +42,11 @@ public class EventDTO {
         this.data = data;
     }
 
-    public long getUserid() {
-        return userid;
+    public String  getUsername() {
+        return username;
     }
 
-    public void setUserid(long userid) {
-        this.userid = userid;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

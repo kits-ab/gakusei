@@ -37,9 +37,10 @@ export default class GakuseiNav extends React.Component {
                         <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
                     </NavDropdown>
                     <NavItem eventKey={2} href='#'>Lista ord</NavItem>
+                    <NavItem eventKey={3} href='#'>Om Gakusei</NavItem>
                     </Nav>
                     <Nav pullRight>
-                        <NavItem eventKey={3} href='#'>Om Gakusei</NavItem>
+                        <Navbar.Text>Inloggad som: {this.props.username}</Navbar.Text>
                         <Navbar.Text>
                             <Navbar.Link href='/logout'>Logga ut</Navbar.Link>
                         </Navbar.Text>
