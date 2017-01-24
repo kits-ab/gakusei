@@ -1,65 +1,60 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Button, FormGroup, FormControl, ControlLabel, HelpBlock} from 'react-bootstrap';
+import { Button, Col, ControlLabel, FormControl, FormGroup, Grid, HelpBlock, Row } from 'react-bootstrap';
+import getCSRF from './util/getcsrf';
 
-class Form extends React.Component {
-    FieldGroup({ id, label, help, ...props }) {
-        return (
-            <FormGroup controlId={id}>
-                <ControlLabel>{label}</ControlLabel>
-                <FormControl {...props} />
-                {help && <HelpBlock>{help}</HelpBlock>}
-            </FormGroup>
-        );
-    }
-    getCSRF() {
-        let cookies = document.cookie.split('; ');
-        let keys = cookies.map(cookie => cookie.split('=')[0]);
-        let csrfValue = cookies[keys.indexOf("XSRF-TOKEN")].split('=')[1];
-        return csrfValue;
-    }
-    render(){
-        return (
-            <form method="post" action={this.props.actionName}>
-                <this.FieldGroup
-                    id={this.props.usernameId}
-                    name="username"
-                    type="text"
-                    label="Användarnamn"
-                    placeholder="Skriv in ditt användarnamn här"
-                />
-                <this.FieldGroup
-                    id={this.props.passwordId}
-                    name="password"
-                    label="Lösenord"
-                    type="password"
-                    placeholder="Skriv in ditt lösenord här"
-                />
-                <this.FieldGroup
-                    id={this.props.csrfId}
-                    type="hidden"
-                    name="_csrf"
-                    value={this.getCSRF()}
-                />
-                <Button type="submit">
-                    {this.props.btnText}
-                </Button>
-            </form>
-        );
-    }
-}
+const Form = props =>
+  (
+    <form method="post" action={props.actionName}>
+      <FieldGroup
+        id={props.usernameId}
+        name="username"
+        type="text"
+        label="Användarnamn"
+        placeholder="Skriv in ditt användarnamn här"
+      />
+      <FieldGroup
+        id={props.passwordId}
+        name="password"
+        label="Lösenord"
+        type="password"
+        placeholder="Skriv in ditt lösenord här"
+      />
+      <FieldGroup
+        id={props.csrfId}
+        type="hidden"
+        name="_csrf"
+        value={getCSRF()}
+      />
+      <Button type="submit">
+        {props.btnText}
+      </Button>
+    </form>
+  );
 
-class Login extends React.Component {
-    render(){
-        return (
-            <div>
-                <h2>Logga in</h2>
-                <Form actionName="/auth" usernameId="loginText" passwordId="loginText" csrfId="loginCSRF" btnText="Logga in"/>
-                <h2>Registrera användare</h2>
-                <Form actionName="/registeruser" usernameId="regText" passwordId="regText" csrfId="regCSRF" btnText="Registrera användare"/>
-            </div>
-        );
-    }
-}
+const Login = () =>
+  <Grid>
+    <Row>
+      <Col xsOffset={0} xs={12} smOffset={3} sm={6} mdOffset={4} md={4}>
+        <h2>Logga in</h2>
+        <Form actionName="/auth" usernameId="loginText" passwordId="loginText" csrfId="loginCSRF" btnText="Logga in" />
+        <h2>Registrera användare</h2>
+        <Form
+          actionName="/registeruser"
+          usernameId="regText"
+          passwordId="regText"
+          csrfId="regCSRF"
+          btnText="Registrera användare"
+        />
+      </Col>
+    </Row>
+  </Grid>;
+
+const FieldGroup = ({ id, label, help, ...props }) =>
+  <FormGroup controlId={id}>
+    <ControlLabel>{label}</ControlLabel>
+    <FormControl {...props} />
+    {help && <HelpBlock>{help}</HelpBlock>}
+  </FormGroup>;
 
 ReactDOM.render(<Login />, document.getElementById('login_root'));
