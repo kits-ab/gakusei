@@ -1,3 +1,5 @@
+import getCSRF from './getcsrf';
+
 export default class Utility {
 
   static getSuccessRate() {
@@ -26,5 +28,27 @@ export default class Utility {
       }
     }
     return successRateMessage;
+  }
+
+  static logEvent(page, eventType, eventData, username) {
+    const dataString = Array.isArray(eventData) ? eventData.join('|') : eventData;
+    const bodyData = {
+      'timestamp': Number(new Date()),
+      'gamemode': page,
+      'type': eventType,
+      'data': dataString,
+      'username': username
+    };
+    const xsrfTokenValue = getCSRF();
+    fetch('/api/events',
+    {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify(bodyData),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': xsrfTokenValue
+      }
+    });
   }
 }

@@ -33,7 +33,7 @@ export default class App extends React.Component {
     const pages = {
       LessonSelection: <LessonSelection {...props} />,
       GuessPlayPage: <GuessPlayPage {...props} />,
-      TranslationPlayPage: <TranslationPlayPage />,
+      TranslationPlayPage: <TranslationPlayPage {...props}/>,
       NuggetListPage: <NuggetListPage />,
       AboutPage: <AboutPage />,
       EndScreenPage: <EndScreenPage {...props} />,
