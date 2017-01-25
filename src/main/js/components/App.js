@@ -44,7 +44,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <GakuseiNav updater={this.switchPage} username={this.state.loggedInUser} />
+        <GakuseiNav switchPage={this.switchPage} username={this.state.loggedInUser} />
         {this.state.currentPage}
       </div>
     );
