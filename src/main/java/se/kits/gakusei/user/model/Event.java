@@ -16,20 +16,20 @@ public class Event implements Serializable{
     private long id;
 
     @NotNull
-    @Column
+    @Column(nullable = false)
     private Timestamp timestamp;
 
     @NotNull
-    @Column
+    @Column(nullable = false)
     private String gamemode;
 
     @NotNull
-    @Column
+    @Column(nullable = false)
     private String type;
     // question, alternative, userAnswer, correctAnswer
 
     @NotNull
-    @Column
+    @Column(nullable = false)
     private String data;
 
     @JsonBackReference

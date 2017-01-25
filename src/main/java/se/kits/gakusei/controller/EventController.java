@@ -47,13 +47,13 @@ public class EventController {
     )
     public ResponseEntity<Event> addEvent(@RequestBody EventDTO eventDTO){
         Event event = new Event();
-        event.setGamemode(eventDTO.getGamemode());
-        event.setType(eventDTO.getType());
-        event.setData(eventDTO.getData());
-        event.setTimestamp(new Timestamp(eventDTO.getTimestamp()));
         User user = userRepository.findByUsername(eventDTO.getUsername());
         if(user != null){
             event.setUser(user);
+            event.setGamemode(eventDTO.getGamemode());
+            event.setType(eventDTO.getType());
+            event.setData(eventDTO.getData());
+            event.setTimestamp(new Timestamp(eventDTO.getTimestamp()));
             System.out.println(event.getTimestamp().toString()
                     + " / " + event.getGamemode()
                     + " / " + event.getType()
