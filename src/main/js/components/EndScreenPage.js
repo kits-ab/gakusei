@@ -1,35 +1,29 @@
+/* global sessionStorage*/
+
 import React from 'react';
 import { Button, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 export default class EndScreenPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { successRate: 0 };
-  }
-  componentDidMount() {
-    this.setState({
-      successRate: (Number(sessionStorage.correctAttempts) / Number(sessionStorage.totalAttempts)) * 100
-    });
-  }
   componentWillUnmount() {
     sessionStorage.removeItem('correctAttempts');
     sessionStorage.removeItem('totalAttempts');
   }
   render() {
-    const results = this.props.results.map(result => (result[0].length > 1) ?
+    const successRate = ((Number(sessionStorage.correctAttempts) / Number(sessionStorage.totalAttempts)) * 100);
+    const results = this.props.results.map(result => ((result[0].length > 1) ?
       <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
         Reading: {result[0][0]}, Writing: {result[0][1]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
       </ListGroupItem> :
       <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
         Reading: {result[0][0]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
-      </ListGroupItem>
+      </ListGroupItem>)
     );
     return (
       <Grid>
         <Row>
           <div className="text-center">
             <h2>
-              {this.state.successRate.toFixed(0)}% rätt!
+              {successRate.toFixed(0)}% rätt!
             </h2>
             <h3>
               Du svarade rätt på {sessionStorage.correctAttempts} av {sessionStorage.totalAttempts} möjliga frågor
@@ -57,3 +51,15 @@ export default class EndScreenPage extends React.Component {
     );
   }
 }
+
+EndScreenPage.propTypes = {
+  gamemode: React.PropTypes.string,
+  switchPage: React.PropTypes.func,
+  results: React.PropTypes.arrayOf(React.PropTypes.array)
+};
+
+EndScreenPage.defaultProps = {
+  gamemode: '',
+  switchPage: () => {},
+  results: []
+};

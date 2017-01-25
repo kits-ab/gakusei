@@ -1,3 +1,5 @@
+/* global fetch window XMLSerializer*/
+
 import React from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Panel } from 'react-bootstrap';
 import xml2js from 'xml2js';
@@ -90,16 +92,17 @@ export default class AboutPage extends React.Component {
     xml2js.parseString(xmldoc, (err, result) => {
       dep = result.licenseSummary.dependencies[0].dependency;
       dep.forEach((d) => {
+        const dependency = Object.assign({}, d);
         if (!d.licenses[0].license) {
-          d.licenses[0] = {
+          dependency.licenses[0] = {
             license: [{
               name: ['No license specified'],
               url: ['']
             }]
           };
         } else if (!d.licenses[0].license[0].url) {
-          d.licenses[0].license[0] = {
-            name: d.licenses[0].license[0].name[0],
+          dependency.licenses[0].license[0] = {
+            name: dependency.licenses[0].license[0].name[0],
             url: ''
           };
         }

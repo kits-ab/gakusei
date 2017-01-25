@@ -19,4 +19,12 @@ const NuggetList = (props) => {
   );
 };
 
+NuggetList.propTypes = {
+  nuggetResults: React.PropTypes.arrayOf(React.PropTypes.object)
+};
+
+NuggetList.defaultProps = {
+  nuggetResults: []
+};
+
 export default NuggetList;

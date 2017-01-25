@@ -1,36 +1,52 @@
+/* global document*/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Col, ControlLabel, FormControl, FormGroup, Grid, HelpBlock, Row } from 'react-bootstrap';
 import getCSRF from './util/getcsrf';
 
 const Form = props =>
-  (
-    <form method="post" action={props.actionName}>
-      <FieldGroup
-        id={props.usernameId}
-        name="username"
-        type="text"
-        label="Användarnamn"
-        placeholder="Skriv in ditt användarnamn här"
-      />
-      <FieldGroup
-        id={props.passwordId}
-        name="password"
-        label="Lösenord"
-        type="password"
-        placeholder="Skriv in ditt lösenord här"
-      />
-      <FieldGroup
-        id={props.csrfId}
-        type="hidden"
-        name="_csrf"
-        value={getCSRF()}
-      />
-      <Button type="submit">
-        {props.btnText}
-      </Button>
-    </form>
-  );
+  <form method="post" action={props.actionName}>
+    <FieldGroup
+      id={props.usernameId}
+      name="username"
+      type="text"
+      label="Användarnamn"
+      placeholder="Skriv in ditt användarnamn här"
+    />
+    <FieldGroup
+      id={props.passwordId}
+      name="password"
+      label="Lösenord"
+      type="password"
+      placeholder="Skriv in ditt lösenord här"
+    />
+    <FieldGroup
+      id={props.csrfId}
+      type="hidden"
+      name="_csrf"
+      value={getCSRF()}
+    />
+    <Button type="submit">
+      {props.btnText}
+    </Button>
+  </form>;
+
+Form.propTypes = {
+  actionName: React.PropTypes.string,
+  usernameId: React.PropTypes.string,
+  passwordId: React.PropTypes.string,
+  csrfId: React.PropTypes.string,
+  btnText: React.PropTypes.string
+};
+
+Form.defaultProps = {
+  actionName: '',
+  usernameId: '',
+  passwordId: '',
+  csrfId: '',
+  btnText: ''
+};
 
 const Login = () =>
   <Grid>
@@ -56,5 +72,11 @@ const FieldGroup = ({ id, label, help, ...props }) =>
     <FormControl {...props} />
     {help && <HelpBlock>{help}</HelpBlock>}
   </FormGroup>;
+
+FieldGroup.propTypes = {
+  id: React.PropTypes.string,
+  label: React.PropTypes.string,
+  help: React.PropTypes.string
+};
 
 ReactDOM.render(<Login />, document.getElementById('login_root'));

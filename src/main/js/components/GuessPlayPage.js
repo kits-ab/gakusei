@@ -1,3 +1,5 @@
+/* global fetch window sessionStorage*/
+
 import React from 'react';
 import 'whatwg-fetch';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
@@ -14,7 +16,8 @@ export default class GuessPlayPage extends React.Component {
       randomOrderAlt: ['', '', '', ''],
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonDisabled: false,
-      results: []
+      results: [],
+      lessonLength: JSON.parse(sessionStorage.lesson).length
     };
     this.checkAnswer = this.checkAnswer.bind(this);
     this.onKeys = this.onKeys.bind(this);
@@ -25,7 +28,6 @@ export default class GuessPlayPage extends React.Component {
   }
   componentDidMount() {
     window.addEventListener('keydown', this.onKeys);
-    this.setState({ lessonLength: JSON.parse(sessionStorage.lesson).length });
     this.setQuestion(0);
   }
   componentWillUnmount() {
@@ -105,10 +107,11 @@ export default class GuessPlayPage extends React.Component {
       });
   }
   checkAnswer(answer) {
+
     this.logEvent('userAnswer', answer);
     let newButtonStyles = [];
     if (answer === this.state.correctAlt) {
-      newButtonStyles = this.state.randomOrderAlt.map(word => (word === answer) ? 'success' : 'default');
+      newButtonStyles = this.state.randomOrderAlt.map(word => ((word === answer) ? 'success' : 'default'));
       sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
     } else {
       newButtonStyles = this.state.randomOrderAlt.map((word) => {
@@ -206,3 +209,13 @@ export default class GuessPlayPage extends React.Component {
     );
   }
 }
+
+GuessPlayPage.propTypes = {
+  username: React.PropTypes.string,
+  switchPage: React.PropTypes.func
+};
+
+GuessPlayPage.defaultProps = {
+  username: '',
+  switchPage: () => {}
+};

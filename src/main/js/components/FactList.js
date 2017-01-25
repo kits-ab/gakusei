@@ -8,4 +8,12 @@ const FactList = (props) => {
   return (<ListGroup>{factListRows}</ListGroup>);
 };
 
+FactList.propTypes = {
+  factlist: React.PropTypes.arrayOf(React.PropTypes.object)
+};
+
+FactList.defaultProps = {
+  factlist: []
+};
+
 export default FactList;
