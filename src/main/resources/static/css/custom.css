@@ -1,6 +1,11 @@
 .btn{
     white-space: normal;
 }
+.brandButton {
+    background-color: Transparent;
+    border: none;
+    outline: none;
+}
 .answerbutton{
     height: 5em;
 }
