@@ -1,3 +1,5 @@
+/* global sessionStorage*/
+
 import React from 'react';
 import { Button, Grid, Row } from 'react-bootstrap';
 import Utility from '../util/Utility';
@@ -11,7 +13,8 @@ export default class TranslationPlayPage extends React.Component {
       question: [],
       correctAlt: '',
       checkDisable: false,
-      results: []
+      results: [],
+      lessonLength: JSON.parse(sessionStorage.lesson).length
     };
     this.checkAnswer = this.checkAnswer.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -21,7 +24,6 @@ export default class TranslationPlayPage extends React.Component {
     sessionStorage.currentQuestionIndex = 0;
   }
   componentDidMount() {
-    this.setState({ lessonLength: JSON.parse(sessionStorage.lesson).length });
     this.setQuestion(0);
   }
   componentWillUnmount() {
@@ -71,7 +73,10 @@ export default class TranslationPlayPage extends React.Component {
         this.getNextQuestion();
       }, 2000);
     } else {
-      setTimeout(() => this.props.switchPage('EndScreenPage', '', 'TranslationPlayPage', this.state.results), 2000);
+      setTimeout(
+        () => this.props.switchPage('EndScreenPage', { results: this.state.results, gamemode: 'TranslationPlayPage' }),
+        2000
+      );
     }
   }
   render() {
@@ -108,3 +113,7 @@ export default class TranslationPlayPage extends React.Component {
     );
   }
 }
+
+TranslationPlayPage.propTypes = {
+  switchPage: React.PropTypes.func.isRequired
+};

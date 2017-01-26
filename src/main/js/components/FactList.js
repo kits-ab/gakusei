@@ -8,4 +8,8 @@ const FactList = (props) => {
   return (<ListGroup>{factListRows}</ListGroup>);
 };
 
+FactList.propTypes = {
+  factlist: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+};
+
 export default FactList;
