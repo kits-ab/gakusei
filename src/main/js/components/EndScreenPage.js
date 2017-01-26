@@ -2,11 +2,22 @@
 
 import React from 'react';
 import { Button, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
+import Utility from '../util/Utility';
 
 export default class EndScreenPage extends React.Component {
+  componentDidMount() {
+    this.logEvents();
+  }
   componentWillUnmount() {
     sessionStorage.removeItem('correctAttempts');
     sessionStorage.removeItem('totalAttempts');
+  }
+  logEvents() {
+    for (let i = 0; i < this.props.results.length; i += 1) {
+      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][0], this.props.username);
+      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][1], this.props.username);
+      Utility.logEvent('EndScreenPage', 'userAnswer', this.props.results[i][2], this.props.username);
+    }
   }
   render() {
     const successRate = ((Number(sessionStorage.correctAttempts) / Number(sessionStorage.totalAttempts)) * 100);
@@ -53,12 +64,14 @@ export default class EndScreenPage extends React.Component {
 }
 
 EndScreenPage.propTypes = {
+  username: React.PropTypes.string,
   gamemode: React.PropTypes.string,
   switchPage: React.PropTypes.func,
   results: React.PropTypes.arrayOf(React.PropTypes.array)
 };
 
 EndScreenPage.defaultProps = {
+  username: '',
   gamemode: '',
   switchPage: () => {},
   results: []

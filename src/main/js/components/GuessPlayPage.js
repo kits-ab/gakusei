@@ -5,7 +5,6 @@ import 'whatwg-fetch';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
 import Utility from '../util/Utility';
-import getCSRF from '../util/getcsrf';
 
 export default class GuessPlayPage extends React.Component {
   constructor(props) {
@@ -60,9 +59,9 @@ export default class GuessPlayPage extends React.Component {
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonDisabled: false
     }, () => {
-      this.logEvent('question', this.state.question);
+      Utility.logEvent('GuessPlayPage', 'question', this.state.question, this.props.username);
       for (let i = 0; i < this.state.randomOrderAlt.length; i += 1) {
-        this.logEvent('alternative', this.state.randomOrderAlt[i]);
+        Utility.logEvent('GuessPlayPage', 'alternative', this.state.randomOrderAlt[i], this.props.username);
       }
     });
   }
@@ -85,30 +84,8 @@ export default class GuessPlayPage extends React.Component {
     }
     return array;
   }
-  logEvent(eventType, eventData) {
-    const dataString = Array.isArray(eventData) ? eventData.join('|') : eventData;
-    const bodyData = {
-      timestamp: Number(new Date()),
-      gamemode: 'GuessPlayPage',
-      type: eventType,
-      data: dataString,
-      username: this.props.username
-    };
-    const xsrfTokenValue = getCSRF();
-    fetch('/api/events',
-      {
-        credentials: 'same-origin',
-        method: 'POST',
-        body: JSON.stringify(bodyData),
-        headers: {
-          'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': xsrfTokenValue
-        }
-      });
-  }
   checkAnswer(answer) {
-
-    this.logEvent('userAnswer', answer);
+    Utility.logEvent('GuessPlayPage', 'userAnswer', answer, this.props.username);
     let newButtonStyles = [];
     if (answer === this.state.correctAlt) {
       newButtonStyles = this.state.randomOrderAlt.map(word => ((word === answer) ? 'success' : 'default'));
@@ -129,8 +106,8 @@ export default class GuessPlayPage extends React.Component {
       buttonStyles: newButtonStyles,
       results: this.state.results.concat([[this.state.question, this.state.correctAlt, answer]])
     });
-    this.logEvent('correctAnswer', this.state.question);
-    this.logEvent('correctAnswer', this.state.correctAlt);
+    Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.question, this.props.username);
+    Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.correctAlt, this.props.username);
     if (Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1) {
       setTimeout(() => {
         this.getNextQuestion();
