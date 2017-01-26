@@ -1,7 +1,6 @@
 /* global fetch window sessionStorage*/
 
 import React from 'react';
-import 'whatwg-fetch';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
 import Utility from '../util/Utility';

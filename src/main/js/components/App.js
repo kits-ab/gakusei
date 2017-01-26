@@ -10,6 +10,8 @@ import NuggetListPage from './NuggetListPage';
 import LessonSelection from './LessonSelection';
 import LandingPage from './LandingPage';
 import EndScreenPage from './EndScreenPage';
+import UserStatisticPage from './UserStatisticPage';
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -39,7 +41,8 @@ export default class App extends React.Component {
       NuggetListPage: <NuggetListPage />,
       AboutPage: <AboutPage />,
       EndScreenPage: <EndScreenPage {...props} />,
-      LandingPage: <LandingPage />
+      LandingPage: <LandingPage />,
+      UserStatisticsPage: <UserStatisticPage {...props} />
     };
     this.setState({ currentPage: pages[newContent] });
   }
