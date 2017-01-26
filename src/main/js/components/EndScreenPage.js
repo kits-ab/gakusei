@@ -67,5 +67,10 @@ EndScreenPage.propTypes = {
   username: React.PropTypes.string.isRequired,
   gamemode: React.PropTypes.string.isRequired,
   switchPage: React.PropTypes.func.isRequired,
-  results: React.PropTypes.arrayOf(React.PropTypes.array).isRequired
+  results: React.PropTypes.arrayOf(React.PropTypes.array)
+};
+
+EndScreenPage.defaultProps = {
+  results: [],
+  gamemode: ''
 };

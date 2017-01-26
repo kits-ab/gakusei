@@ -1,3 +1,5 @@
+/* global fetch */
+
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import 'whatwg-fetch';

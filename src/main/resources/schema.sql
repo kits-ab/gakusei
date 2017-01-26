@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS users(
-id SERIAL PRIMARY KEY,
-username VARCHAR(32),
+username VARCHAR(32) PRIMARY KEY,
 password VARCHAR(64),
 userrole VARCHAR(64)
 );
@@ -11,7 +10,7 @@ timestamp TIMESTAMP NOT NULL,
 type VARCHAR(64) NOT NULL,
 data VARCHAR(64) NOT NULL,
 gamemode VARCHAR(64) NOT NULL,
-username INTEGER REFERENCES users(id)
+user_ref VARCHAR(32) REFERENCES users(username)
 );
 
 CREATE SCHEMA IF NOT EXISTS contentschema;

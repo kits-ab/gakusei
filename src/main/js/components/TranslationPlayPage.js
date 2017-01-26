@@ -53,7 +53,9 @@ export default class TranslationPlayPage extends React.Component {
   }
   checkAnswer() {
     Utility.logEvent('TranslationPlayPage', 'userAnswer', this.state.answer, this.props.username);
+    let answeredCorrectly = false;
     if (this.state.answer.trim().toUpperCase() === this.state.correctAlt.toUpperCase()) {
+      answeredCorrectly = true;
       this.setState({ output: 'Rätt!' });
       sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
     } else {
@@ -61,6 +63,7 @@ export default class TranslationPlayPage extends React.Component {
     }
     Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.question, this.props.username);
     Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.correctAlt, this.props.username);
+    Utility.logEvent('TranslationPlayPage', 'answeredCorrectly', answeredCorrectly, this.props.username);
     this.setState({
       checkDisable: true
     });
@@ -115,5 +118,6 @@ export default class TranslationPlayPage extends React.Component {
 }
 
 TranslationPlayPage.propTypes = {
-  switchPage: React.PropTypes.func.isRequired
+  switchPage: React.PropTypes.func.isRequired,
+  username: React.PropTypes.string.isRequired
 };

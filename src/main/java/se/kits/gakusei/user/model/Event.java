@@ -3,38 +3,39 @@ package se.kits.gakusei.user.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "events")
+@NamedNativeQuery(
+        name = "Event.getUserSuccessRate",
+        query = "select round((count(case data when 'true' then 1 else null end) * 100.0) / count(*)) " +
+                "from events " +
+                "where user_ref = :username and type = 'answeredCorrectly'"
+)
 public class Event implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
     @Column(nullable = false)
     private Timestamp timestamp;
 
-    @NotNull
     @Column(nullable = false)
     private String gamemode;
 
-    @NotNull
     @Column(nullable = false)
     private String type;
     // question, alternative, userAnswer, correctAnswer
 
-    @NotNull
     @Column(nullable = false)
     private String data;
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name="userid")
+    @JoinColumn(name="user_ref")
     private User user;
 
     public Event(){}
