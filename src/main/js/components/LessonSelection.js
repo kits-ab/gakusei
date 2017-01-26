@@ -1,4 +1,4 @@
-/* global sessionStorage*/
+/* global fetch sessionStorage*/
 
 import React from 'react';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
@@ -74,6 +74,10 @@ export default class LessonSelection extends React.Component {
 }
 
 LessonSelection.propTypes = {
-  gamemode: React.PropTypes.string.isRequired,
+  gamemode: React.PropTypes.string,
   switchPage: React.PropTypes.func.isRequired
+};
+
+LessonSelection.defaultProps = {
+  gamemode: ''
 };

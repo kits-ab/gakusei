@@ -14,6 +14,8 @@ const GakuseiNav = (props) => {
       updater('NuggetListPage');
     } else if (eventKey === 3) {
       updater('AboutPage');
+    } else if (eventKey === 4) {
+      updater('UserStatisticsPage');
     }
   };
   return (
@@ -39,7 +41,7 @@ const GakuseiNav = (props) => {
           <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
         </Nav>
         <Nav pullRight>
-          <Navbar.Text>Inloggad som: {props.username}</Navbar.Text>
+          <NavItem eventKey={4} href="#">Inloggad som: {props.username}</NavItem>
           <Navbar.Text>
             <Navbar.Link href="/logout">Logga ut</Navbar.Link>
           </Navbar.Text>

@@ -1,5 +1,7 @@
+/* global document */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App'
+import App from './components/App';
 
-ReactDOM.render(<App/>, document.getElementById('index_root'));
+ReactDOM.render(<App />, document.getElementById('index_root'));

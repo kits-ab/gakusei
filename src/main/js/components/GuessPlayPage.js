@@ -1,7 +1,6 @@
 /* global fetch window sessionStorage*/
 
 import React from 'react';
-import 'whatwg-fetch';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
 import Utility from '../util/Utility';
@@ -51,7 +50,7 @@ export default class GuessPlayPage extends React.Component {
     this.setState({
       question: JSON.parse(sessionStorage.lesson)[questionIndex].question,
       correctAlt: JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative,
-      randomOrderAlt: this.randomizeOrder([
+      randomOrderAlt: Utility.randomizeOrder([
         JSON.parse(sessionStorage.lesson)[questionIndex].alternative1,
         JSON.parse(sessionStorage.lesson)[questionIndex].alternative2,
         JSON.parse(sessionStorage.lesson)[questionIndex].alternative3,
@@ -75,19 +74,12 @@ export default class GuessPlayPage extends React.Component {
       });
     }
   }
-  randomizeOrder(array) {
-    for (let i = array.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-  }
   checkAnswer(answer) {
     Utility.logEvent('GuessPlayPage', 'userAnswer', answer, this.props.username);
     let newButtonStyles = [];
+    let answeredCorrectly = false;
     if (answer === this.state.correctAlt) {
+      answeredCorrectly = true;
       newButtonStyles = this.state.randomOrderAlt.map(word => ((word === answer) ? 'success' : 'default'));
       sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
     } else {
@@ -108,6 +100,7 @@ export default class GuessPlayPage extends React.Component {
     });
     Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.question, this.props.username);
     Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.correctAlt, this.props.username);
+    Utility.logEvent('GuessPlayPage', 'answeredCorrectly', answeredCorrectly, this.props.username);
     if (Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1) {
       setTimeout(() => {
         this.getNextQuestion();

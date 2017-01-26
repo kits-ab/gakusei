@@ -6,14 +6,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import se.kits.gakusei.user.model.User;
 
 @RestResource(exported=false)
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<User, String> {
     User findByUsername(String username);
 
     @Override
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     Iterable<User> findAll();
-
-    @Override
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    User findOne(Long aLong);
 }
