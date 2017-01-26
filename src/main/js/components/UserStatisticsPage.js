@@ -3,7 +3,7 @@
 import React from 'react';
 import 'whatwg-fetch';
 
-export default class UserStatisticPage extends React.Component {
+export default class UserStatisticsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = { successRate: 0 };
@@ -24,6 +24,6 @@ export default class UserStatisticPage extends React.Component {
   }
 }
 
-UserStatisticPage.propTypes = {
+UserStatisticsPage.propTypes = {
   username: React.PropTypes.string.isRequired
 };
