@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
+import Utility from '../util/Utility';
 
 export default class EndScreenPage extends React.Component {
   constructor(props) {
@@ -10,10 +11,18 @@ export default class EndScreenPage extends React.Component {
     this.setState({
       successRate: (Number(sessionStorage.correctAttempts) / Number(sessionStorage.totalAttempts)) * 100
     });
+    this.logEvents();
   }
   componentWillUnmount() {
     sessionStorage.removeItem('correctAttempts');
     sessionStorage.removeItem('totalAttempts');
+  }
+  logEvents(){
+    for(let i = 0; i < this.props.results.length; i++){
+      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][0], this.props.username);
+      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][1], this.props.username);
+      Utility.logEvent('EndScreenPage', 'userAnswer', this.props.results[i][2], this.props.username);
+    }
   }
   render() {
     const results = this.props.results.map(result => (result[0].length > 1) ?
