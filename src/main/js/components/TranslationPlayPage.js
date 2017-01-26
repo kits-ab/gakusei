@@ -115,9 +115,5 @@ export default class TranslationPlayPage extends React.Component {
 }
 
 TranslationPlayPage.propTypes = {
-  switchPage: React.PropTypes.func
-};
-
-TranslationPlayPage.defaultProps = {
-  switchPage: () => {}
+  switchPage: React.PropTypes.func.isRequired
 };

@@ -74,11 +74,6 @@ export default class LessonSelection extends React.Component {
 }
 
 LessonSelection.propTypes = {
-  gamemode: React.PropTypes.string,
-  switchPage: React.PropTypes.func
-};
-
-LessonSelection.defaultProps = {
-  gamemode: '',
-  switchPage: () => {}
+  gamemode: React.PropTypes.string.isRequired,
+  switchPage: React.PropTypes.func.isRequired
 };

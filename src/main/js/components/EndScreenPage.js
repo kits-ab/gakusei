@@ -64,15 +64,8 @@ export default class EndScreenPage extends React.Component {
 }
 
 EndScreenPage.propTypes = {
-  username: React.PropTypes.string,
-  gamemode: React.PropTypes.string,
-  switchPage: React.PropTypes.func,
-  results: React.PropTypes.arrayOf(React.PropTypes.array)
-};
-
-EndScreenPage.defaultProps = {
-  username: '',
-  gamemode: '',
-  switchPage: () => {},
-  results: []
+  username: React.PropTypes.string.isRequired,
+  gamemode: React.PropTypes.string.isRequired,
+  switchPage: React.PropTypes.func.isRequired,
+  results: React.PropTypes.arrayOf(React.PropTypes.array).isRequired
 };

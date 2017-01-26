@@ -33,19 +33,11 @@ const Form = props =>
   </form>;
 
 Form.propTypes = {
-  actionName: React.PropTypes.string,
-  usernameId: React.PropTypes.string,
-  passwordId: React.PropTypes.string,
-  csrfId: React.PropTypes.string,
-  btnText: React.PropTypes.string
-};
-
-Form.defaultProps = {
-  actionName: '',
-  usernameId: '',
-  passwordId: '',
-  csrfId: '',
-  btnText: ''
+  actionName: React.PropTypes.string.isRequired,
+  usernameId: React.PropTypes.string.isRequired,
+  passwordId: React.PropTypes.string.isRequired,
+  csrfId: React.PropTypes.string.isRequired,
+  btnText: React.PropTypes.string.isRequired
 };
 
 const Login = () =>

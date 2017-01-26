@@ -9,11 +9,7 @@ const FactList = (props) => {
 };
 
 FactList.propTypes = {
-  factlist: React.PropTypes.arrayOf(React.PropTypes.object)
-};
-
-FactList.defaultProps = {
-  factlist: []
+  factlist: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
 };
 
 export default FactList;

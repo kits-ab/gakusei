@@ -20,11 +20,7 @@ const NuggetList = (props) => {
 };
 
 NuggetList.propTypes = {
-  nuggetResults: React.PropTypes.arrayOf(React.PropTypes.object)
-};
-
-NuggetList.defaultProps = {
-  nuggetResults: []
+  nuggetResults: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
 };
 
 export default NuggetList;

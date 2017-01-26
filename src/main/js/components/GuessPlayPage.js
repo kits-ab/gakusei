@@ -188,11 +188,6 @@ export default class GuessPlayPage extends React.Component {
 }
 
 GuessPlayPage.propTypes = {
-  username: React.PropTypes.string,
-  switchPage: React.PropTypes.func
-};
-
-GuessPlayPage.defaultProps = {
-  username: '',
-  switchPage: () => {}
+  username: React.PropTypes.string.isRequired,
+  switchPage: React.PropTypes.func.isRequired
 };

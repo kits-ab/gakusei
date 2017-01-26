@@ -49,13 +49,8 @@ const QueryInput = props =>
   </form>;
 
 QueryInput.propTypes = {
-  handleSubmit: React.PropTypes.func,
-  handleChange: React.PropTypes.func
-};
-
-QueryInput.defaultProps = {
-  handleSubmit: () => {},
-  handleChange: () => {}
+  handleSubmit: React.PropTypes.func.isRequired,
+  handleChange: React.PropTypes.func.isRequired
 };
 
 export default QueryInput;
