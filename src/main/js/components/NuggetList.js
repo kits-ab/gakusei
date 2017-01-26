@@ -19,4 +19,8 @@ const NuggetList = (props) => {
   );
 };
 
+NuggetList.propTypes = {
+  nuggetResults: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+};
+
 export default NuggetList;

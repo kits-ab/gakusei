@@ -1,3 +1,5 @@
+/* global fetch*/
+
 import React from 'react';
 import 'whatwg-fetch';
 import GakuseiNav from './GakuseiNav';
@@ -33,7 +35,7 @@ export default class App extends React.Component {
     const pages = {
       LessonSelection: <LessonSelection {...props} />,
       GuessPlayPage: <GuessPlayPage {...props} />,
-      TranslationPlayPage: <TranslationPlayPage {...props}/>,
+      TranslationPlayPage: <TranslationPlayPage {...props} />,
       NuggetListPage: <NuggetListPage />,
       AboutPage: <AboutPage />,
       EndScreenPage: <EndScreenPage {...props} />,

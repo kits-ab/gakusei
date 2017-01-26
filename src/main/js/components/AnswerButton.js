@@ -31,4 +31,11 @@ const AnswerButton = (props) => {
   );
 };
 
+AnswerButton.propTypes = {
+  label: React.PropTypes.string.isRequired,
+  buttonStyle: React.PropTypes.string.isRequired,
+  onAnswerClick: React.PropTypes.func.isRequired,
+  disableButton: React.PropTypes.bool.isRequired
+};
+
 export default AnswerButton;

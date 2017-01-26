@@ -10,10 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
-/**
- * Created by joakim on 2016-12-14.
- */
-
 @Controller
 public class RegisterUserController {
 

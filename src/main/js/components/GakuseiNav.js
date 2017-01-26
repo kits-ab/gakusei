@@ -50,12 +50,11 @@ const GakuseiNav = (props) => {
 };
 
 GakuseiNav.propTypes = {
-  switchPage: React.PropTypes.func,
+  switchPage: React.PropTypes.func.isRequired,
   username: React.PropTypes.string
 };
 
 GakuseiNav.defaultProps = {
-  switchPage: () => {},
   username: 'No one'
 };
 
