@@ -87,7 +87,9 @@ export default class GuessPlayPage extends React.Component {
   checkAnswer(answer) {
     Utility.logEvent('GuessPlayPage', 'userAnswer', answer, this.props.username);
     let newButtonStyles = [];
+    let answeredCorrectly = false;
     if (answer === this.state.correctAlt) {
+      answeredCorrectly = true;
       newButtonStyles = this.state.randomOrderAlt.map(word => ((word === answer) ? 'success' : 'default'));
       sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
     } else {
@@ -108,6 +110,7 @@ export default class GuessPlayPage extends React.Component {
     });
     Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.question, this.props.username);
     Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.correctAlt, this.props.username);
+    Utility.logEvent('GuessPlayPage', 'answeredCorrectly', answeredCorrectly, this.props.username);
     if (Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1) {
       setTimeout(() => {
         this.getNextQuestion();
