@@ -50,7 +50,7 @@ export default class GuessPlayPage extends React.Component {
     this.setState({
       question: JSON.parse(sessionStorage.lesson)[questionIndex].question,
       correctAlt: JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative,
-      randomOrderAlt: this.randomizeOrder([
+      randomOrderAlt: Utility.randomizeOrder([
         JSON.parse(sessionStorage.lesson)[questionIndex].alternative1,
         JSON.parse(sessionStorage.lesson)[questionIndex].alternative2,
         JSON.parse(sessionStorage.lesson)[questionIndex].alternative3,
@@ -73,15 +73,6 @@ export default class GuessPlayPage extends React.Component {
         buttonDisabled: true
       });
     }
-  }
-  randomizeOrder(array) {
-    for (let i = array.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
   }
   checkAnswer(answer) {
     Utility.logEvent('GuessPlayPage', 'userAnswer', answer, this.props.username);

@@ -10,7 +10,7 @@ import NuggetListPage from './NuggetListPage';
 import LessonSelection from './LessonSelection';
 import LandingPage from './LandingPage';
 import EndScreenPage from './EndScreenPage';
-import UserStatisticPage from './UserStatisticPage';
+import UserStatisticPage from './UserStatisticsPage';
 
 
 export default class App extends React.Component {
