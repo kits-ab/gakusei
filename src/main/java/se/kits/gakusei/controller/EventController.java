@@ -1,6 +1,7 @@
 package se.kits.gakusei.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ public class EventController {
     @Autowired
     private UserRepository userRepository;
 
+    @Value("${gakusei.event-logging}")
+    private boolean eventLogging;
+
     @RequestMapping(
             value = "/api/events",
             method = RequestMethod.GET,
@@ -46,6 +50,9 @@ public class EventController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<Event> addEvent(@RequestBody EventDTO eventDTO){
+        if (eventLogging) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         Event event = new Event();
         User user = userRepository.findByUsername(eventDTO.getUsername());
         if(user != null){
@@ -59,9 +66,10 @@ public class EventController {
                     + " / " + event.getType()
                     + " / " + event.getData()
                     + " / " + user.getUsername());
-            return new ResponseEntity<Event>(eventRepository.save(event), HttpStatus.OK);
+            eventRepository.save(event);
+            return new ResponseEntity<>(HttpStatus.OK);
         }else{
-            return new ResponseEntity<Event>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
