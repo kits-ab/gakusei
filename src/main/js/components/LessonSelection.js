@@ -32,7 +32,7 @@ export default class LessonSelection extends React.Component {
     this.fetchLesson();
   }
   render() {
-    let title = '';
+    let title;
     if (this.props.gamemode === 'GuessPlayPage') {
       title = 'Gissa ordet';
     } else if (this.props.gamemode === 'TranslationPlayPage') {
@@ -40,12 +40,12 @@ export default class LessonSelection extends React.Component {
     }
     return (
       <div>
-        <Grid>
+        <Grid className="text-center">
           <Row>
-            <h1 className="text-center">{title}</h1>
+            <h1>{title}</h1>
           </Row>
           <Row>
-            <Col xs={8} lg={3}>
+            <Col xs={8} xsOffset={2} lg={4} lgOffset={4}>
               <form href="#" onSubmit={this.handleSubmit}>
                 <FormGroup>
                   <ControlLabel>Välj lista av frågor</ControlLabel>

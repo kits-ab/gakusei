@@ -6,6 +6,7 @@ spring:
       base-path: /api
 gakusei:
   data-init: false
+  event-logging: true
 
 ---
 
@@ -38,3 +39,6 @@ spring:
   profiles: heroku
   datasource:
     url: ${JDBC_DATABASE_URL}
+
+gakusei:
+  event-logging: false
