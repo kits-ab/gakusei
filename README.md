@@ -41,4 +41,4 @@ In the project root directory, perform step 1 followed either step 2.a or 2.b.
 
 ### System overview
 
-![Alt System Overview](https://github.com/kits-ab/gakusei/doc/img/GakuseiOverview.png)
+![Alt System Overview](./doc/img/GakuseiOverview.png)
