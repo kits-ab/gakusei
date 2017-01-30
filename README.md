@@ -10,6 +10,7 @@ A beta version of Gakusei can be tested at [gakusei.daigaku.se](http://gakusei.d
 The app introduces
 
 - React
+- React-Bootstrap
 - Browserify
 - Spring Boot
 - Maven
@@ -37,3 +38,7 @@ In the project root directory, perform step 1 followed either step 2.a or 2.b.
 2. In Postgres, create a user with name/password *gakusei*
 3. In Postgres, create a database with the name *gakusei* with the user *gakusei* as owner (or appropriate privileges)
 4. Run the project with ```mvn spring-boot:run -Dspring.profiles.active=postgres```
+
+### System overview
+
+![Alt System Overview](https://github.com/kits-ab/gakusei/doc/img/GakuseiOverview.png)
