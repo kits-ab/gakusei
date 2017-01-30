@@ -8,4 +8,6 @@ public interface EventRepository extends CrudRepository<Event, Long> {
 
 
     Integer getUserSuccessRate(@Param("username") String username);
+
+    String getLatestNuggetForUser(@Param("username") String username);
 }

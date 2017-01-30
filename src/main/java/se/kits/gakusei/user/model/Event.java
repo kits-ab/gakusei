@@ -8,12 +8,24 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "events")
-@NamedNativeQuery(
-        name = "Event.getUserSuccessRate",
-        query = "select round((count(case data when 'true' then 1 else null end) * 100.0) / count(*)) " +
-                "from events " +
-                "where user_ref = :username and type = 'answeredCorrectly'"
-)
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "Event.getUserSuccessRate",
+                query = "select round((count(case data when 'true' then 1 else null end) * 100.0) / count(*)) " +
+                        "from events " +
+                        "where user_ref = :username and type = 'answeredCorrectly'"
+        ),
+        @NamedNativeQuery(
+                name = "Event.getLatestNuggetForUser",
+                query = "SELECT data" +
+                        "FROM public.events" +
+                        "where user_ref = :username and type = 'question'" +
+                        "ORDER BY timestamp" +
+                        "DESC" +
+                        "limit 1"
+        )
+})
+
 public class Event implements Serializable{
 
     @Id

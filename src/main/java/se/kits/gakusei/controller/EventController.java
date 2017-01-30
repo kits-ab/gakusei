@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import se.kits.gakusei.dto.EventDTO;
 import se.kits.gakusei.user.model.Event;
+import se.kits.gakusei.user.model.ProgressTracking;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.EventRepository;
+import se.kits.gakusei.user.repository.ProgressTrackingRepository;
 import se.kits.gakusei.user.repository.UserRepository;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @RestController
 public class EventController {
@@ -26,9 +29,12 @@ public class EventController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ProgressTrackingRepository progressTrackingRepository;
+
     @Value("${gakusei.event-logging}")
     private boolean eventLogging;
-
+    
     @RequestMapping(
             value = "/api/events",
             method = RequestMethod.GET,
@@ -64,5 +70,22 @@ public class EventController {
                 + " / " + user.getUsername());
         eventRepository.save(event);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private void progressHandler(Event event){
+        // how to get relevant word? sql query for latest question in events?
+        //check if user.progresstracking("word") exists
+        // if type == "answeredCorrectly"
+        // if data == true, increment correctCount / correct_count
+        // else increment incorrectCount / incorrect_count
+        User user = event.getUser();
+        List<ProgressTracking> progressTrackingList = user.getProgressTrackingList();
+        String lastNugget = eventRepository.getLatestNuggetForUser(user.getUsername());
+        progressTrackingList.stream();
+
+        if(event.getType().equalsIgnoreCase("answeredCorrectly")
+                && event.getData().equalsIgnoreCase("true")){
+
+        }
     }
 }
