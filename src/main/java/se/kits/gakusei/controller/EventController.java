@@ -50,7 +50,7 @@ public class EventController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<Event> addEvent(@RequestBody EventDTO eventDTO){
-        if (eventLogging) {
+        if (!eventLogging) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         Event event = new Event();
