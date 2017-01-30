@@ -35,20 +35,15 @@ public class QuestionController {
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
 
-        List<Nugget> nuggets;
-        if (wordType.equals("")) {
-            nuggets = nuggetRepository.getNuggetsWithoutWordType(questionType, answerType);
-        } else {
-            nuggets = nuggetRepository.getNuggetsWithWordType(wordType, questionType, answerType);
-        }
+        List<Nugget> nuggets = wordType.isEmpty() ?
+                nuggetRepository.getNuggetsWithoutWordType(questionType, answerType) :
+                nuggetRepository.getNuggetsWithWordType(wordType, questionType, answerType);
 
         QuestionDTO question = questionHandler.getQuestion(nuggets, questionType, answerType);
 
-        if (question != null) {
-            return new ResponseEntity<QuestionDTO>(question, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<QuestionDTO>(HttpStatus.NO_CONTENT);
-        }
+        return (question == null) ?
+                new ResponseEntity<QuestionDTO>(HttpStatus.NO_CONTENT) :
+                new ResponseEntity<QuestionDTO>(question, HttpStatus.OK);
     }
 
     @RequestMapping(
@@ -62,12 +57,10 @@ public class QuestionController {
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
 
         List<Nugget> nuggets = lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType, answerType);
-
         List<QuestionDTO> questions = questionHandler.getQuestions(nuggets, questionType, answerType);
-        if (questions.isEmpty()) {
-            return new ResponseEntity<List<QuestionDTO>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        } else {
-            return new ResponseEntity<List<QuestionDTO>>(questions, HttpStatus.OK);
-        }
+
+        return questions.isEmpty() ?
+                new ResponseEntity<List<QuestionDTO>>(HttpStatus.INTERNAL_SERVER_ERROR) :
+                new ResponseEntity<List<QuestionDTO>>(questions, HttpStatus.OK);
     }
 }
