@@ -28,9 +28,8 @@ public class StatisticsController {
     )
     public ResponseEntity<Integer> getSuccessRate(@PathVariable("user") String username) {
         User user = userRepository.findByUsername(username);
-        if (user == null) {
-            return new ResponseEntity<Integer>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<Integer>(eventRepository.getUserSuccessRate(user.getUsername()), HttpStatus.OK);
+        return (user != null) ?
+                new ResponseEntity<Integer>(eventRepository.getUserSuccessRate(user.getUsername()), HttpStatus.OK) :
+                new ResponseEntity<Integer>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
