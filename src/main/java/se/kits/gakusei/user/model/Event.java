@@ -10,7 +10,8 @@ import java.sql.Timestamp;
 @Table(name = "events")
 @NamedNativeQuery(
         name = "Event.getUserSuccessRate",
-        query = "select round((count(case data when 'true' then 1 else null end) * 100.0) / count(*)) " +
+        query = "select round( " +
+                "coalesce( (count(case data when 'true' then 1 else null end) * 100.0) / nullif(count(*), 0), 0)) " +
                 "from events " +
                 "where user_ref = :username and type = 'answeredCorrectly'"
 )
