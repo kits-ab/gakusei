@@ -2,20 +2,16 @@ import React from 'react';
 import { Navbar, Nav, NavItem, NavbarBrand, NavDropdown, MenuItem } from 'react-bootstrap';
 
 const GakuseiNav = (props) => {
-  const updater = props.switchPage;
+  const switchPage = props.switchPage;
   const eventHandler = (eventKey) => {
-    if (eventKey === 0) {
-      updater('LandingPage');
-    } else if (eventKey === 1.1) {
-      updater('LessonSelection', { gamemode: 'GuessPlayPage' });
-    } else if (eventKey === 1.2) {
-      updater('LessonSelection', { gamemode: 'TranslationPlayPage' });
-    } else if (eventKey === 2) {
-      updater('NuggetListPage');
-    } else if (eventKey === 3) {
-      updater('AboutPage');
-    } else if (eventKey === 4) {
-      updater('UserStatisticsPage');
+    switch (eventKey) {
+      case 1.1: switchPage('LessonSelection', { gamemode: 'GuessPlayPage' }); break;
+      case 1.2: switchPage('LessonSelection', { gamemode: 'TranslationPlayPage' }); break;
+      case 1.3: switchPage('QuizSelection', { gamemode: 'QuizPlayPage' }); break;
+      case 2: switchPage('NuggetListPage'); break;
+      case 3: switchPage('AboutPage'); break;
+      case 4: switchPage('UserStatisticsPage'); break;
+      default: switchPage('LandingPage');
     }
   };
   return (
@@ -36,6 +32,7 @@ const GakuseiNav = (props) => {
           <NavDropdown eventKey={1} title="Spela" id="basic-nav-dropdown">
             <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
             <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
+            <MenuItem eventKey={1.3}>Quiz</MenuItem>
           </NavDropdown>
           <NavItem eventKey={2} href="#">Lista ord</NavItem>
           <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
