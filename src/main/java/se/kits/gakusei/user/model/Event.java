@@ -16,13 +16,22 @@ import java.sql.Timestamp;
                         "where user_ref = :username and type = 'answeredCorrectly'"
         ),
         @NamedNativeQuery(
-                name = "Event.getLatestNuggetForUser",
-                query = "SELECT data" +
-                        "FROM public.events" +
-                        "where user_ref = :username and type = 'question'" +
-                        "ORDER BY timestamp" +
-                        "DESC" +
-                        "limit 1"
+                name = "Event.getLatestQuestionForUser",
+                query = "SELECT data " +
+                        "FROM events " +
+                        "WHERE user_ref = :username AND type = 'question' " +
+                        "ORDER BY timestamp " +
+                        "DESC " +
+                        "LIMIT 1"
+        ),
+        @NamedNativeQuery(
+                name = "Event.getLatestAnswerTimestamp",
+                query = "SELECT timestamp " +
+                        "FROM events " +
+                        "WHERE type = 'userAnswer' AND user_ref = :username " +
+                        "ORDER BY timestamp " +
+                        "DESC " +
+                        "LIMIT 1"
         )
 })
 

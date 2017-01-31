@@ -37,7 +37,10 @@ export default class TranslationPlayPage extends React.Component {
       correctAlt: JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative,
       checkDisable: false
     }, () => {
-      Utility.logEvent('TranslationPlayPage', 'question', this.state.question, this.props.username);
+      Utility.logEvent('TranslationPlayPage', 'question', this.state.question[0], this.props.username);
+      if (this.state.question.length > 1) {
+        Utility.logEvent('TranslationPlayPage', 'question', this.state.question[1], this.props.username);
+      }
     });
   }
   getNextQuestion() {
@@ -61,7 +64,10 @@ export default class TranslationPlayPage extends React.Component {
     } else {
       this.setState({ output: `Fel! Det rätta svaret är: ${this.state.correctAlt}` });
     }
-    Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.question, this.props.username);
+    Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.question[0], this.props.username);
+    if (this.state.question.length > 1) {
+      Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.question[1], this.props.username);
+    }
     Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.correctAlt, this.props.username);
     Utility.logEvent('TranslationPlayPage', 'answeredCorrectly', answeredCorrectly, this.props.username);
     this.setState({

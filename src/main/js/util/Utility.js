@@ -33,12 +33,11 @@ export default class Utility {
   }
 
   static logEvent(page, eventType, eventData, username) {
-    const dataString = Array.isArray(eventData) ? eventData.join('|') : eventData;
     const bodyData = {
       timestamp: Number(new Date()),
       gamemode: page,
       type: eventType,
-      data: dataString,
+      data: eventData,
       username
     };
     const xsrfTokenValue = getCSRF();

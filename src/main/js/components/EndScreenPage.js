@@ -14,7 +14,10 @@ export default class EndScreenPage extends React.Component {
   }
   logEvents() {
     for (let i = 0; i < this.props.results.length; i += 1) {
-      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][0], this.props.username);
+      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][0][0], this.props.username);
+      if (this.props.results[i][0].length > 1) {
+        Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][0][1], this.props.username);
+      }
       Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][1], this.props.username);
       Utility.logEvent('EndScreenPage', 'userAnswer', this.props.results[i][2], this.props.username);
     }

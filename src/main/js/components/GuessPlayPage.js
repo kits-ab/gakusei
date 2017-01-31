@@ -58,7 +58,10 @@ export default class GuessPlayPage extends React.Component {
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonDisabled: false
     }, () => {
-      Utility.logEvent('GuessPlayPage', 'question', this.state.question, this.props.username);
+      Utility.logEvent('GuessPlayPage', 'question', this.state.question[0], this.props.username);
+      if (this.state.question.length > 1) {
+        Utility.logEvent('GuessPlayPage', 'question', this.state.question[1], this.props.username);
+      }
       for (let i = 0; i < this.state.randomOrderAlt.length; i += 1) {
         Utility.logEvent('GuessPlayPage', 'alternative', this.state.randomOrderAlt[i], this.props.username);
       }
@@ -98,7 +101,10 @@ export default class GuessPlayPage extends React.Component {
       buttonStyles: newButtonStyles,
       results: this.state.results.concat([[this.state.question, this.state.correctAlt, answer]])
     });
-    Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.question, this.props.username);
+    Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.question[0], this.props.username);
+    if (this.state.question.length > 1) {
+      Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.question[1], this.props.username);
+    }
     Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.correctAlt, this.props.username);
     Utility.logEvent('GuessPlayPage', 'answeredCorrectly', answeredCorrectly, this.props.username);
     if (Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1) {
