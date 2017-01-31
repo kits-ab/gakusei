@@ -7,17 +7,9 @@ Gakusei is governed by [Daigaku Sverige](http://www.daigaku.se), and sponsored b
 
 A beta version of Gakusei can be tested at [gakusei.daigaku.se](http://gakusei.daigaku.se).
 
-The app introduces
-
-- React
-- React-Bootstrap
-- Browserify
-- Spring Boot
-- Maven
-
 ### Prerequisites
 To build the project, it is recommended to use npm and maven.
-In the instructions below, it is assumed that the aforementioned tools are available. 
+In the instructions below, it is assumed that the aforementioned tools are available.
 
 ### Instructions
 Start with cloning the project.
@@ -30,7 +22,7 @@ In the project root directory, perform step 1 followed either step 2.a or 2.b.
 
 ##### 2.a. Using in-memory database (H2)
 
-1. Run ```mvn spring-boot:run``` 
+1. Run ```mvn spring-boot:run```
 
 ##### 2.b. Using PostgreSQL
 
@@ -40,5 +32,29 @@ In the project root directory, perform step 1 followed either step 2.a or 2.b.
 4. Run the project with ```mvn spring-boot:run -Dspring.profiles.active=postgres```
 
 ### System overview
+The following picture gives a brief overview of the projects structure:
 
 ![Alt System Overview](./doc/img/GakuseiOverview.png)
+
+#### Frontend
+- React
+- React Bootstrap
+- Browserify
+
+By using Browserify and Babel the React JSX components are used to create two javascript bundle files, main_bundle.js
+and login_bundle.js which serves as the project's frontend. The frontend communicates with the backend through REST
+requests.
+
+#### Backend
+- Spring Boot
+- Maven
+
+The backend is a Spring Boot application. The frontend's REST requests are received by the controllers which handles the
+request. The controllers uses modules with business logic and repositories with the database connections in order to
+handle the requests and returning a response.
+
+### Options
+In the project's Spring Boot configuration file (src/main/resources/application.yml) the data initialization and event
+logging can be turned on and off. (If the data initialization is turned on the system will add data to the database at
+each start up and will cause redundant data)
+

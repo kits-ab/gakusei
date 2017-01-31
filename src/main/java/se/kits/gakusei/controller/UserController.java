@@ -43,10 +43,9 @@ public class UserController {
     )
     public ResponseEntity<Iterable<User>> getUsers() {
         Iterable<User> users = ur.findAll();
-        if (users == null) {
-            return new ResponseEntity<Iterable<User>>(HttpStatus.FORBIDDEN);
-        }
-        return new ResponseEntity<Iterable<User>>(users, HttpStatus.OK);
+        return (users == null) ?
+                new ResponseEntity<Iterable<User>>(HttpStatus.FORBIDDEN) :
+                new ResponseEntity<Iterable<User>>(users, HttpStatus.OK);
     }
 
     @RequestMapping(

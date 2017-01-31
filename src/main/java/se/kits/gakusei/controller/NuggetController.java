@@ -36,7 +36,7 @@ public class NuggetController {
             factTypes = factRepository.getAllFactTypes();
         }
 
-        return new ResponseEntity<List<Nugget>>( nuggetRepository.getNuggetsbyFilter(wordType,
-                factTypes, factFilterCount), HttpStatus.OK);
+        return new ResponseEntity<List<Nugget>>(
+                nuggetRepository.getNuggetsbyFilter(wordType, factTypes, factFilterCount), HttpStatus.OK);
     }
 }
