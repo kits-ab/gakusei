@@ -114,18 +114,18 @@ export default class FourAlternativeQuestion extends React.Component {
     const questionText = {
       GuessPlayPage: (
         <div>
-          <h2>Reading: {this.state.question[0]}</h2>
-          <h2>Writing: {(this.state.question.length > 1) ? this.state.question[1] : ''}</h2>
+          <h2>Läsform: {this.state.question[0]}</h2>
+          <h2>Skrivform: {(this.state.question.length > 1) ? this.state.question[1] : ''}</h2>
         </div>
       ),
-      default: <h2>Question: {this.state.question[0]}</h2>
+      QuizPlayPage: <h2>{this.state.question[0]}</h2>
     };
 
     return (
       <div>
         <Grid className="text-center">
           <Row>
-            {questionText[this.props.pageName || 'default']}
+            {questionText[this.props.pageName]}
           </Row>
           <br />
           <Row>

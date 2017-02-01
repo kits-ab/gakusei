@@ -39,7 +39,7 @@ public class QuestionController {
                 nuggetRepository.getNuggetsWithoutWordType(questionType, answerType) :
                 nuggetRepository.getNuggetsWithWordType(wordType, questionType, answerType);
 
-        QuestionDTO question = questionHandler.getQuestion(nuggets, questionType, answerType);
+        QuestionDTO question = questionHandler.createOneQuestion(nuggets, questionType, answerType);
 
         return (question == null) ?
                 new ResponseEntity<QuestionDTO>(HttpStatus.NO_CONTENT) :
@@ -57,7 +57,7 @@ public class QuestionController {
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
 
         List<Nugget> nuggets = lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType, answerType);
-        List<QuestionDTO> questions = questionHandler.getQuestions(nuggets, questionType, answerType);
+        List<QuestionDTO> questions = questionHandler.createManyQuestions(nuggets, questionType, answerType);
 
         return questions.isEmpty() ?
                 new ResponseEntity<List<QuestionDTO>>(HttpStatus.INTERNAL_SERVER_ERROR) :

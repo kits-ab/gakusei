@@ -14,7 +14,7 @@ export default class LessonSelection extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   fetchLesson() {
-    fetch(`/api/questions?lessonName=${this.state.selectedLesson}`, { credentials: 'same-origin' })
+    fetch(`${this.props.fetchURL}?lessonName=${this.state.selectedLesson}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
         (json) => {
@@ -68,5 +68,6 @@ export default class LessonSelection extends React.Component {
 LessonSelection.propTypes = {
   gamemode: React.PropTypes.string.isRequired,
   switchPage: React.PropTypes.func.isRequired,
-  lessonNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  lessonNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  fetchURL: React.PropTypes.string.isRequired
 };
