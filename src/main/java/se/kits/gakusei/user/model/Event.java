@@ -20,7 +20,7 @@ import java.sql.Timestamp;
                 query = "SELECT data " +
                         "FROM events " +
                         "WHERE user_ref = :username AND type = 'question' " +
-                        "ORDER BY timestamp " +
+                        "ORDER BY events.timestamp " +
                         "DESC " +
                         "LIMIT 1"
         ),
@@ -29,7 +29,7 @@ import java.sql.Timestamp;
                 query = "SELECT timestamp " +
                         "FROM events " +
                         "WHERE type = 'userAnswer' AND user_ref = :username " +
-                        "ORDER BY timestamp " +
+                        "ORDER BY events.timestamp " +
                         "DESC " +
                         "LIMIT 1"
         )

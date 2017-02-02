@@ -9,16 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import se.kits.gakusei.content.model.Nugget;
-import se.kits.gakusei.content.repository.FactRepository;
-import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.dto.EventDTO;
 import se.kits.gakusei.user.model.Event;
-import se.kits.gakusei.user.model.ProgressTracking;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.EventRepository;
 import se.kits.gakusei.user.repository.ProgressTrackingRepository;
 import se.kits.gakusei.user.repository.UserRepository;
+import se.kits.gakusei.util.ProgressHandler;
+
 import java.sql.Timestamp;
 
 @RestController
@@ -34,10 +32,7 @@ public class EventController {
     private ProgressTrackingRepository progressTrackingRepository;
 
     @Autowired
-    private FactRepository factRepository;
-
-    @Autowired
-    private NuggetRepository nuggetRepository;
+    private ProgressHandler progressHandler;
 
     @Value("${gakusei.event-logging}")
     private boolean eventLogging;
@@ -77,45 +72,8 @@ public class EventController {
                 + " / " + user.getUsername());
         event = eventRepository.save(event);
         if (event.getType().equalsIgnoreCase("answeredCorrectly")) {
-            progressHandler(event);
+            progressHandler.trackProgress(event);
         }
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private void progressHandler(Event event) {
-
-        User user = userRepository.findByUsername(event.getUser().getUsername());
-        String latestQuestion = eventRepository.getLatestQuestionForUser(user.getUsername());
-        Nugget nugget = nuggetRepository.findAll()
-            .stream()
-            .filter(n -> n.getFacts()
-                    .stream()
-                    .anyMatch(f -> f.getData().equalsIgnoreCase(latestQuestion)))
-            .findFirst().get();
-
-        if (nugget != null) {
-            ProgressTracking pt = progressTrackingRepository.findProgressTrackingByUserAndNugget(user, nugget);
-            if (pt != null) {
-                if (event.getData().trim().equalsIgnoreCase("true")) {
-                    pt.setCorrectCount(pt.getCorrectCount() + 1L);
-                } else {
-                    pt.setIncorrectCount(pt.getIncorrectCount() + 1L);
-                }
-            } else {
-                pt = new ProgressTracking();
-                pt.setUser(user);
-                pt.setNugget(nugget);
-                if (event.getData().trim().equalsIgnoreCase("true")) {
-                    pt.setCorrectCount(1L);
-                    pt.setIncorrectCount(0L);
-                } else {
-                    pt.setCorrectCount(0L);
-                    pt.setIncorrectCount(1L);
-                }
-            }
-            pt.setLatestTimestamp(eventRepository.getLatestAnswerTimestamp(user.getUsername()));
-            pt.setLatestResult(Boolean.parseBoolean(event.getData()));
-            progressTrackingRepository.save(pt);
-        }
     }
 }
