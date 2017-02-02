@@ -13,7 +13,6 @@ import se.kits.gakusei.dto.EventDTO;
 import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.EventRepository;
-import se.kits.gakusei.user.repository.ProgressTrackingRepository;
 import se.kits.gakusei.user.repository.UserRepository;
 import se.kits.gakusei.util.ProgressHandler;
 
@@ -27,9 +26,6 @@ public class EventController {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private ProgressTrackingRepository progressTrackingRepository;
 
     @Autowired
     private ProgressHandler progressHandler;

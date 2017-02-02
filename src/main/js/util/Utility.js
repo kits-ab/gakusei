@@ -33,6 +33,16 @@ export default class Utility {
   }
 
   static logEvent(page, eventType, eventData, username) {
+    if (eventType === 'question' || eventType === 'correctAnswerQuestionType') {
+      for (let i = 0; i < eventData.length; i += 1) {
+        this.postEvent(page, eventType, eventData[i], username);
+      }
+    } else {
+      this.postEvent(page, eventType, eventData, username);
+    }
+  }
+
+  static postEvent(page, eventType, eventData, username) {
     const bodyData = {
       timestamp: Number(new Date()),
       gamemode: page,

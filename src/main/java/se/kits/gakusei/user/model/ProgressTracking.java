@@ -21,7 +21,7 @@ public class ProgressTracking implements Serializable{
     private User user;
 
     @ManyToOne
-    @JsonBackReference
+//    @JsonBackReference
     @JoinColumn(name = "nuggetid")
     private Nugget nugget;
 

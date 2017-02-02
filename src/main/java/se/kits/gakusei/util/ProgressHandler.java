@@ -44,7 +44,7 @@ public class ProgressHandler {
             if (pt != null) {
                 if (event.getData().trim().equalsIgnoreCase("true")) {
                     pt.setCorrectCount(pt.getCorrectCount() + 1L);
-                } else if (event.getData().equalsIgnoreCase("false")){
+                } else {
                     pt.setIncorrectCount(pt.getIncorrectCount() + 1L);
                 }
             } else {
