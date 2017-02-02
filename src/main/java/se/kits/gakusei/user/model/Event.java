@@ -1,3 +1,8 @@
+/*
+ * The Event class is used to make statistic conclusions of users behavior, results and exposure of words. The events
+ * are sent from frontend when users makes choices or are exposed to data and are then logged.
+ */
+
 package se.kits.gakusei.user.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -35,7 +40,7 @@ import java.sql.Timestamp;
         )
 })
 
-public class Event implements Serializable{
+public class Event implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,10 +61,11 @@ public class Event implements Serializable{
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name="user_ref")
+    @JoinColumn(name = "user_ref")
     private User user;
 
-    public Event(){}
+    public Event() {
+    }
 
     public long getId() {
         return id;
