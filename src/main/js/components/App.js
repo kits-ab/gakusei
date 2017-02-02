@@ -11,6 +11,8 @@ import LessonSelection from './LessonSelection';
 import LandingPage from './LandingPage';
 import EndScreenPage from './EndScreenPage';
 import UserStatisticPage from './UserStatisticsPage';
+import QuizPlayPage from './QuizPlayPage';
+import QuizSelection from './QuizSelection';
 
 
 export default class App extends React.Component {
@@ -36,7 +38,9 @@ export default class App extends React.Component {
       newProps);
     const pages = {
       LessonSelection: <LessonSelection {...props} />,
+      QuizSelection: <QuizSelection {...props} />,
       GuessPlayPage: <GuessPlayPage {...props} />,
+      QuizPlayPage: <QuizPlayPage {...props} />,
       TranslationPlayPage: <TranslationPlayPage {...props} />,
       NuggetListPage: <NuggetListPage />,
       AboutPage: <AboutPage />,

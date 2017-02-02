@@ -11,14 +11,14 @@ import java.util.stream.Collectors;
 @Component
 public class QuestionHandler {
 
-    public QuestionDTO getQuestion(List<Nugget> nuggets, String questionType, String answerType) {
+    public QuestionDTO createOneQuestion(List<Nugget> nuggets, String questionType, String answerType) {
         Random random = new Random();
         List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
         Nugget nugget = notHiddenNuggets.get(random.nextInt(notHiddenNuggets.size()));
         return createQuestion(nugget, notHiddenNuggets, questionType, answerType);
     }
 
-    public List<QuestionDTO> getQuestions(List<Nugget> nuggets, String questionType, String answerType) {
+    public List<QuestionDTO> createManyQuestions(List<Nugget> nuggets, String questionType, String answerType) {
         List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
         List<QuestionDTO> questions = notHiddenNuggets.stream()
                 .map(n -> createQuestion(n, notHiddenNuggets, questionType, answerType))
@@ -65,5 +65,24 @@ public class QuestionHandler {
         } else {
             return null;
         }
+    }
+
+    public List<QuestionDTO> createQuizQuestions(List<Nugget> nuggets) {
+        return nuggets.stream().map(n -> createQuizQuestion(n)).collect(Collectors.toList());
+    }
+
+    protected QuestionDTO createQuizQuestion(Nugget nugget) {
+        QuestionDTO question = new QuestionDTO();
+        question.setQuestion(Collections.singletonList(nugget.getDescription()));
+        List<Fact> facts = nugget.getFacts();
+        question.setCorrectAlternative(
+                facts.stream().filter(f -> f.getType().equals("correct")).findFirst().get().getData());
+        List<Fact> incorrectAlternatives =
+                facts.stream().filter(f -> f.getType().equals("incorrect")).collect(Collectors.toList());
+        Collections.shuffle(incorrectAlternatives);
+        question.setAlternative1(incorrectAlternatives.get(0).getData());
+        question.setAlternative2(incorrectAlternatives.get(1).getData());
+        question.setAlternative3(incorrectAlternatives.get(2).getData());
+        return question;
     }
 }

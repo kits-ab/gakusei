@@ -49,20 +49,9 @@ public class QuestionControllerTest {
 
         questionType = "reading";
         answerType = "swedish";
-        List<String> question = new ArrayList<>();
-        question.add("question");
-        String alt1 = "alternative1";
-        String alt2 = "alternative2";
-        String alt3 = "alternative3";
-        String altCorrect = "alternativeCorrect";
         nuggets = TestTools.generateNuggets();
-        dto = new QuestionDTO();
-        dto.setQuestion(question);
-        dto.setAlternative1(alt1);
-        dto.setAlternative2(alt2);
-        dto.setAlternative3(alt3);
-        dto.setCorrectAlternative(altCorrect);
-        Mockito.when(questionHandler.getQuestion(nuggets, questionType, answerType)).thenReturn(dto);
+        dto = TestTools.generateQuestionDTO();
+        Mockito.when(questionHandler.createOneQuestion(nuggets, questionType, answerType)).thenReturn(dto);
     }
 
     @Test
@@ -94,7 +83,7 @@ public class QuestionControllerTest {
         wordType = "";
 
         Mockito.when(nuggetRepository.getNuggetsWithoutWordType(questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(questionHandler.getQuestion(nuggets, questionType, answerType)).thenReturn(null);
+        Mockito.when(questionHandler.createOneQuestion(nuggets, questionType, answerType)).thenReturn(null);
 
         ResponseEntity<QuestionDTO> re = questionController.getQuestion(wordType, questionType, answerType);
 
@@ -108,7 +97,7 @@ public class QuestionControllerTest {
         List<QuestionDTO> dtoList = Collections.singletonList(dto);
 
         Mockito.when(lessonRepository.findNuggetsByTwoFactTypes(lesson, questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(questionHandler.getQuestions(nuggets, questionType, answerType)).thenReturn(dtoList);
+        Mockito.when(questionHandler.createManyQuestions(nuggets, questionType, answerType)).thenReturn(dtoList);
 
         ResponseEntity<List<QuestionDTO>> re = questionController.getQuestionsFromLesson(lesson, questionType, answerType);
 
@@ -122,7 +111,7 @@ public class QuestionControllerTest {
         List<QuestionDTO> emptyList = Collections.EMPTY_LIST;
 
         Mockito.when(lessonRepository.findNuggetsByTwoFactTypes(lesson, questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(questionHandler.getQuestions(nuggets, questionType, answerType)).thenReturn(emptyList);
+        Mockito.when(questionHandler.createManyQuestions(nuggets, questionType, answerType)).thenReturn(emptyList);
 
         ResponseEntity<List<QuestionDTO>> re = questionController.getQuestionsFromLesson(lesson, questionType, answerType);
 
