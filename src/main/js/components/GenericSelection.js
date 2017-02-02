@@ -4,7 +4,7 @@ import React from 'react';
 import 'whatwg-fetch';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
-export default class LessonSelection extends React.Component {
+export default class GenericSelection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,7 +65,7 @@ export default class LessonSelection extends React.Component {
   }
 }
 
-LessonSelection.propTypes = {
+GenericSelection.propTypes = {
   gamemode: React.PropTypes.string.isRequired,
   switchPage: React.PropTypes.func.isRequired,
   lessonNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,

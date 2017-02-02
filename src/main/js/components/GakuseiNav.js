@@ -20,7 +20,7 @@ const GakuseiNav = (props) => {
         <NavbarBrand>
           <button className="brandButton" onClick={() => eventHandler(0)}>
             <span>
-              <img height="100%" src="/img/temp_gakusei_logo3.png" alt="Gakusei logo" />
+              <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
               Gakusei
             </span>
           </button>
