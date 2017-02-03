@@ -111,7 +111,7 @@ public class ProgressHandlerTest {
     }
 
     public ProgressTracking createProgressTracking(User user,
-                                                   Nugget nugget,
+                                                   String nuggetID,
                                                    long correctCount,
                                                    long incorrectCount,
                                                    Timestamp latestTimestamp,
@@ -119,7 +119,7 @@ public class ProgressHandlerTest {
 
         ProgressTracking pt = new ProgressTracking();
         pt.setUser(user);
-        pt.setNugget(nugget);
+        pt.setNuggetID(nuggetID);
         pt.setCorrectCount(correctCount);
         pt.setIncorrectCount(incorrectCount);
         pt.setLatestTimestamp(latestTimestamp);
@@ -131,13 +131,14 @@ public class ProgressHandlerTest {
     public void testProgressHandlerExistentAndCorrect() throws Exception {
         Timestamp timestampSql = new Timestamp(timestamp);
         ProgressTracking progressTracking =
-                createProgressTracking(user, nuggets.get(1), correctCount, incorrectCount, timestampSql, true);
+                createProgressTracking(user, nuggets.get(1).getId(), correctCount, incorrectCount, timestampSql, true);
         ProgressTracking spyPT = spy(progressTracking);
         Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", "true");
         when(userRepository.findByUsername(username)).thenReturn(user);
         when(eventRepository.getLatestQuestionForUser(username)).thenReturn(testQuestion);
         when(factRepository.findNuggetsByFactData(testQuestion)).thenReturn(nuggets);
-        when(progressTrackingRepository.findProgressTrackingByUserAndNugget(user, nuggets.get(1))).thenReturn(spyPT);
+        when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
+                .thenReturn(spyPT);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
         progressHandler.trackProgress(event);
         verify(spyPT).setCorrectCount(correctCountCaptor.capture());
@@ -152,13 +153,14 @@ public class ProgressHandlerTest {
     public void testProgressHandlerExistentAndIncorrect() throws Exception {
         Timestamp timestampSql = new Timestamp(timestamp);
         ProgressTracking progressTracking =
-                createProgressTracking(user, nuggets.get(1), correctCount, incorrectCount, timestampSql, true);
+                createProgressTracking(user, nuggets.get(1).getId(), correctCount, incorrectCount, timestampSql, true);
         ProgressTracking spyPT = spy(progressTracking);
         Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", "false");
         when(userRepository.findByUsername(username)).thenReturn(user);
         when(eventRepository.getLatestQuestionForUser(username)).thenReturn(testQuestion);
         when(nuggetRepository.findAll()).thenReturn(nuggets);
-        when(progressTrackingRepository.findProgressTrackingByUserAndNugget(user, nuggets.get(1))).thenReturn(spyPT);
+        when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
+                .thenReturn(spyPT);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
         when(factRepository.findNuggetsByFactData(testQuestion)).thenReturn(nuggets);
         progressHandler.trackProgress(event);
@@ -177,7 +179,8 @@ public class ProgressHandlerTest {
         when(userRepository.findByUsername(username)).thenReturn(user);
         when(eventRepository.getLatestQuestionForUser(username)).thenReturn(testQuestion);
         when(nuggetRepository.findAll()).thenReturn(nuggets);
-        when(progressTrackingRepository.findProgressTrackingByUserAndNugget(user, nuggets.get(1))).thenReturn(null);
+        when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
+                .thenReturn(null);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
         when(factRepository.findNuggetsByFactData(testQuestion)).thenReturn(nuggets);
         progressHandler.trackProgress(event);
@@ -196,7 +199,8 @@ public class ProgressHandlerTest {
         when(userRepository.findByUsername(username)).thenReturn(user);
         when(eventRepository.getLatestQuestionForUser(username)).thenReturn(testQuestion);
         when(nuggetRepository.findAll()).thenReturn(nuggets);
-        when(progressTrackingRepository.findProgressTrackingByUserAndNugget(user, nuggets.get(1))).thenReturn(null);
+        when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
+                .thenReturn(null);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
         when(factRepository.findNuggetsByFactData(testQuestion)).thenReturn(nuggets);
         progressHandler.trackProgress(event);
