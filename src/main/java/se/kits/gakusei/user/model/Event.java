@@ -15,10 +15,11 @@ import java.sql.Timestamp;
 @Table(name = "events")
 @NamedNativeQueries({
         @NamedNativeQuery(
-                name = "Event.getUserSuccessRate",
-                query = "select round((count(case data when 'true' then 1 else null end) * 100.0) / count(*)) " +
-                        "from events " +
-                        "where user_ref = :username and type = 'answeredCorrectly'"
+        name = "Event.getUserSuccessRate",
+        query = "select round( " +
+                "coalesce( (count(case data when 'true' then 1 else null end) * 100.0) / nullif(count(*), 0), 0)) " +
+                "from events " +
+                "where user_ref = :username and type = 'answeredCorrectly'"
         ),
         @NamedNativeQuery(
                 name = "Event.getLatestQuestionForUser",
@@ -39,7 +40,6 @@ import java.sql.Timestamp;
                         "LIMIT 1"
         )
 })
-
 public class Event implements Serializable {
 
     @Id

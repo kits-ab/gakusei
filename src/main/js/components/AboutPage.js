@@ -1,6 +1,7 @@
 /* global fetch window XMLSerializer*/
 
 import React from 'react';
+import 'whatwg-fetch';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Panel } from 'react-bootstrap';
 import xml2js from 'xml2js';
 
