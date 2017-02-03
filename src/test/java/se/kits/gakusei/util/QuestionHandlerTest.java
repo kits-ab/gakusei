@@ -46,10 +46,10 @@ public class QuestionHandlerTest {
     }
 
     @Test
-    public void testGetQuestion() throws Exception {
+    public void testCreateOneQuestion() throws Exception {
         QuestionHandler spyQh;
         spyQh = Mockito.spy(questionHandler);
-        spyQh.getQuestion(nuggets, questionType, answerType);
+        spyQh.createOneQuestion(nuggets, questionType, answerType);
         Mockito.verify(spyQh).createQuestion(
                 nuggetCaptor.capture(),
                 listCaptor.capture(),
@@ -65,8 +65,8 @@ public class QuestionHandlerTest {
     }
 
     @Test
-    public void testGetQuestions() throws Exception {
-        List<QuestionDTO> questions = questionHandler.getQuestions(nuggets, questionType, answerType);
+    public void testCreateManyQuestions() throws Exception {
+        List<QuestionDTO> questions = questionHandler.createManyQuestions(nuggets, questionType, answerType);
 
         assertEquals(6, questions.size());
         assertFalse(questions.stream().anyMatch(q -> q == null));
@@ -106,5 +106,20 @@ public class QuestionHandlerTest {
         QuestionDTO dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
 
         assertNull(dto);
+    }
+
+    @Test
+    public void testCreateQuizQuestion() throws Exception {
+        String correctData = "quiz_correct";
+        String incorrectData = "quiz_incorrect";
+        String description = "quiz_question";
+        Nugget quizNugget = TestTools.generateQuizNugget(description, correctData, incorrectData);
+        QuestionDTO question = questionHandler.createQuizQuestion(quizNugget);
+        assertEquals(1, question.getQuestion().size());
+        assertEquals(description, question.getQuestion().get(0));
+        assertEquals(correctData, question.getCorrectAlternative());
+        assertTrue(question.getAlternative1().startsWith(incorrectData));
+        assertTrue(question.getAlternative2().startsWith(incorrectData));
+        assertTrue(question.getAlternative3().startsWith(incorrectData));
     }
 }

@@ -12,7 +12,10 @@
     "precompile": "rimraf ./src/main/resources/static/js/*",
     "compile:main": "browserify ./src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
     "compile:login": "browserify ./src/main/js/login.js --debug -t babelify -o ./src/main/resources/static/js/login_bundle.js",
-    "compile": "npm run compile:login && npm run compile:main"
+    "compile": "npm run compile:login && npm run compile:main",
+    "watch:main": "watchify src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js -dv -v -p livereactload",
+    "watch:login": "watchify src/main/js/login.js --debug -t babelify -o ./src/main/resources/static/js/login_bundle.js -dv -v -p livereactload",
+    "start": "npm run watch:main"
   },
   "repository": {
     "type": "git",
@@ -29,8 +32,9 @@
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
     "babel-preset-stage-2": "^6.18.0",
     "babelify": "^7.2.0",
     "browserify": "^13.1.1",
@@ -39,6 +43,9 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
-    "rimraf": "^2.5.2"
+    "livereactload": "^3.2.0",
+    "react-proxy": "^1.1.8",
+    "rimraf": "^2.5.2",
+    "watchify": "^3.9.0"
   }
 }

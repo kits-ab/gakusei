@@ -10,8 +10,7 @@ import java.util.List;
 
 public interface LessonRepository extends CrudRepository<Lesson, Long> {
 
-    @Query("select l from Lesson l where l.name = :lessonName")
-    Lesson findLessonByName(@Param("lessonName") String lessonName);
+    Lesson findByName(String name);
 
     List<Nugget> findNuggetsByTwoFactTypes(
             @Param("lessonName") String lessonName,
