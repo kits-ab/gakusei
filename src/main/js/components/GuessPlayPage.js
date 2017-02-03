@@ -98,7 +98,7 @@ export default class GuessPlayPage extends React.Component {
       buttonStyles: newButtonStyles,
       results: this.state.results.concat([[this.state.question, this.state.correctAlt, answer]])
     });
-    Utility.logEvent('GuessPlayPage', 'correctAnswerQuestionType', this.state.question, this.props.username);
+    Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.question, this.props.username);
     Utility.logEvent('GuessPlayPage', 'correctAnswer', this.state.correctAlt, this.props.username);
     Utility.logEvent('GuessPlayPage', 'answeredCorrectly', answeredCorrectly, this.props.username);
     if (Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1) {

@@ -33,7 +33,7 @@ export default class Utility {
   }
 
   static logEvent(page, eventType, eventData, username) {
-    if (eventType === 'question' || eventType === 'correctAnswerQuestionType') {
+    if (Array.isArray(eventData)) {
       for (let i = 0; i < eventData.length; i += 1) {
         this.postEvent(page, eventType, eventData[i], username);
       }
