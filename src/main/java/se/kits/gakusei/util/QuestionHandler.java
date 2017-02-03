@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.dto.QuestionDTO;
+import se.kits.gakusei.dto.ResourceReference;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class QuestionHandler {
         LinkedList<Nugget> shuffledNuggets = new LinkedList<>(nuggets);
         shuffledNuggets.remove(nugget);
         Collections.shuffle(shuffledNuggets);
-        QuestionDTO question = new QuestionDTO();
+        QuestionDTO question = createQuestionDTOWithResource(nugget);
         List<String> alternatives = new ArrayList<>();
         alternatives.add(nugget.getFacts().stream().filter(f -> f.getType()
                 .equals(answerType)).findFirst().get().getData());
@@ -72,7 +73,7 @@ public class QuestionHandler {
     }
 
     protected QuestionDTO createQuizQuestion(Nugget nugget) {
-        QuestionDTO question = new QuestionDTO();
+        QuestionDTO question = createQuestionDTOWithResource(nugget);
         question.setQuestion(Collections.singletonList(nugget.getDescription()));
         List<Fact> facts = nugget.getFacts();
         question.setCorrectAlternative(
@@ -84,5 +85,18 @@ public class QuestionHandler {
         question.setAlternative2(incorrectAlternatives.get(1).getData());
         question.setAlternative3(incorrectAlternatives.get(2).getData());
         return question;
+    }
+
+    protected QuestionDTO createQuestionDTOWithResource(Nugget nugget) {
+        // TODO: Make generic for any type of resource (not only 'kanjidrawing')
+        QuestionDTO questionDTO = new QuestionDTO();
+        Fact fact = nugget.getFacts().stream().filter(f -> f.getType().equals("kanjidrawing")).findFirst().orElse(null);
+        if (fact != null) {
+            ResourceReference resource = new ResourceReference();
+            resource.setType(fact.getType());
+            resource.setLocation(fact.getData());
+            questionDTO.setResourceReference(resource);
+        }
+        return questionDTO;
     }
 }
