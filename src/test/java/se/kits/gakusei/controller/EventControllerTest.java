@@ -2,14 +2,11 @@ package se.kits.gakusei.controller;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
-
 import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 import se.kits.gakusei.dto.EventDTO;
@@ -83,7 +80,7 @@ public class EventControllerTest {
     }
 
     @Test
-    public void testAddEventOK() throws Exception{
+    public void testAddEventOK() throws Exception {
         Event event = createEvent(timestamp, user, gamemode, type, data);
         when(userRepository.findByUsername(eventDTO.getUsername())).thenReturn(user);
         when(eventRepository.save(any(Event.class))).thenReturn(event);
@@ -93,7 +90,7 @@ public class EventControllerTest {
     }
 
     @Test
-    public void testAddEventNoUser() throws Exception{
+    public void testAddEventNoUser() throws Exception {
         when(userRepository.findByUsername(username)).thenReturn(null);
         ResponseEntity<Event> re = eventController.addEvent(eventDTO);
         assertEquals(500, re.getStatusCodeValue());

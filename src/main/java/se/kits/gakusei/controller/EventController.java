@@ -14,6 +14,7 @@ import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.EventRepository;
 import se.kits.gakusei.user.repository.UserRepository;
+import se.kits.gakusei.util.ProgressHandler;
 
 import java.sql.Timestamp;
 
@@ -25,6 +26,9 @@ public class EventController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProgressHandler progressHandler;
 
     @Value("${gakusei.event-logging}")
     private boolean eventLogging;
@@ -47,7 +51,7 @@ public class EventController {
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<Event> addEvent(@RequestBody EventDTO eventDTO){
+    public ResponseEntity<Event> addEvent(@RequestBody EventDTO eventDTO) {
         if (!eventLogging) { return new ResponseEntity<>(HttpStatus.NO_CONTENT); }
         Event event = new Event();
         User user = userRepository.findByUsername(eventDTO.getUsername());
@@ -62,7 +66,10 @@ public class EventController {
                 + " / " + event.getType()
                 + " / " + event.getData()
                 + " / " + user.getUsername());
-        eventRepository.save(event);
+        event = eventRepository.save(event);
+        if (event.getType().equalsIgnoreCase("answeredCorrectly")) {
+            progressHandler.trackProgress(event);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

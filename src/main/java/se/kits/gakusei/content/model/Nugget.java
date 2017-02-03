@@ -2,10 +2,15 @@ package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sun.javaws.progress.Progress;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import se.kits.gakusei.user.model.ProgressTracking;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="nuggets", schema = "contentschema")
@@ -23,11 +28,17 @@ public class Nugget implements Serializable{
 
     @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
     @JsonManagedReference
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Fact> facts;
 
     @ManyToMany(mappedBy = "nuggets")
     @JsonBackReference
     private List<Lesson> lessons;
+
+//    @OneToMany(mappedBy = "nugget", fetch=FetchType.EAGER)
+//    @JsonManagedReference
+//    @Fetch(value = FetchMode.SUBSELECT)
+//    private List<ProgressTracking> progressTrackingList;
 
     public Nugget(){}
 
@@ -82,4 +93,13 @@ public class Nugget implements Serializable{
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
+
+
+//    public List<ProgressTracking> getProgressTrackingList() {
+//        return progressTrackingList;
+//    }
+//
+//    public void setProgressTrackingList(List<ProgressTracking> progressTrackingList) {
+//        this.progressTrackingList = progressTrackingList;
+//    }
 }
