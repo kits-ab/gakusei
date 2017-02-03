@@ -56,7 +56,8 @@ export default class FourAlternativeQuestion extends React.Component {
         JSON.parse(sessionStorage.lesson)[questionIndex].alternative3,
         JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative]),
       buttonStyles: ['default', 'default', 'default', 'default'],
-      buttonDisabled: false
+      buttonDisabled: false,
+      resourceRef: JSON.parse(sessionStorage.lesson)[questionIndex].resourceReference
     }, () => {
       Utility.logEvent(this.props.pageName, 'question', this.state.question, this.props.username);
       for (let i = 0; i < this.state.randomOrderAlt.length; i += 1) {
@@ -110,7 +111,7 @@ export default class FourAlternativeQuestion extends React.Component {
         () => this.props.switchPage('EndScreenPage', { results: this.state.results, gamemode: this.props.pageName }), 1000);
     }
   }
-  render() {
+  displayQuestion(pageName) {
     const questionText = {
       GuessPlayPage: (
         <div>
@@ -120,12 +121,18 @@ export default class FourAlternativeQuestion extends React.Component {
       ),
       QuizPlayPage: <h2>{this.state.question[0]}</h2>
     };
-
+    let resource;
+    if (this.state.resourceRef && this.state.resourceRef.type === 'kanjidrawing') {
+      resource = <object height="50em" type="image/svg+xml" data={this.state.resourceRef.location}>SVG error</object>;
+    }
+    return resource ? <div>{resource}<br />{questionText[pageName]}</div> : questionText[pageName];
+  }
+  render() {
     return (
       <div>
         <Grid className="text-center">
           <Row>
-            {questionText[this.props.pageName]}
+            {this.displayQuestion(this.props.pageName)}
           </Row>
           <br />
           <Row>
