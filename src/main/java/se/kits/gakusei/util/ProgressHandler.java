@@ -2,6 +2,7 @@ package se.kits.gakusei.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.FactRepository;
 import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.ProgressTracking;
@@ -32,11 +33,12 @@ public class ProgressHandler {
         User user = userRepository.findByUsername(event.getUser().getUsername());
         Timestamp latestTS = eventRepository.getLatestAnswerTimestamp(user.getUsername());
         String latestQuestion = eventRepository.getLatestQuestionForUser(user.getUsername());
-        String nuggetID = factRepository.findNuggetsByFactData(latestQuestion).stream()
+        Nugget nugget = factRepository.findNuggetsByFactData(latestQuestion).stream()
                 .filter(n -> !n.isHidden())
-                .findFirst().orElse(null).getId();
+                .findFirst().orElse(null);
 
-        if (nuggetID != null) {
+        if (nugget != null) {
+            String nuggetID = nugget.getId();
             ProgressTracking pt = progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggetID);
             if (pt != null) {
                 if (event.getData().trim().equalsIgnoreCase("true")) {
