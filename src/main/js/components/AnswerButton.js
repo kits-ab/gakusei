@@ -18,11 +18,13 @@ function hyphenateSwedish(text) {
 
 const AnswerButton = (props) => {
   const buttonLabel = hyphenateSwedish(props.label);
+  const answerClickFunc = props.onAnswerClick.bind(this, props.label);
+
   return (
     <Button
       bsStyle={props.buttonStyle}
       bsSize="large" block
-      onClick={props.onAnswerClick.bind(this, props.label)}
+      onClick={answerClickFunc}
       disabled={props.disableButton}
       className="btn answerbutton"
     >
