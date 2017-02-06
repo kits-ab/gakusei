@@ -92,35 +92,39 @@ public class DataInit implements ApplicationRunner {
 
     private void createTestData(Set<Map<String, Object>> dataHolders) {
         for (Map<String, Object> tdh : dataHolders) {
-            Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
-            nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
-            nugget.setId(tdh.get("id").toString());
-            List<Fact> facts = new ArrayList<>();
-            Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id"));
-            for (Map.Entry entry : tdh.entrySet()) {
-                String type = entry.getKey().toString();
-                if (typeSet.contains(type)) {
-                    if (entry.getValue().toString().equals("hidden")) {
-                        nugget.setHidden(true);
+            try {
+                Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
+                nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
+                nugget.setId(tdh.get("id").toString());
+                List<Fact> facts = new ArrayList<>();
+                Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id"));
+                for (Map.Entry entry : tdh.entrySet()) {
+                    String type = entry.getKey().toString();
+                    if (typeSet.contains(type)) {
+                        if (entry.getValue().toString().equals("hidden")) {
+                            nugget.setHidden(true);
+                        }
+                        continue;
                     }
-                    continue;
+                    Fact fact = new Fact();
+                    fact.setType(type);
+                    Object data = entry.getValue();
+                    if (data instanceof String) {
+                        fact.setData(data.toString());
+                    } else {
+                        fact.setData(((ArrayList<String>) entry.getValue()).get(0));
+                    }
+                    facts.add(fact);
                 }
-                Fact fact = new Fact();
-                fact.setType(type);
-                Object data = entry.getValue();
-                if (data instanceof String) {
-                    fact.setData(data.toString());
-                } else {
-                    fact.setData(((ArrayList<String>) entry.getValue()).get(0));
+                Nugget savedNugget = nuggetRepository.save(nugget);
+                savedNugget.setFacts(facts);
+                for (Fact fact : facts) {
+                    fact.setNugget(savedNugget);
                 }
-                facts.add(fact);
+                factRepository.save(facts);
+            } catch (Exception e) {
+                logger.warn("Faulty nugget detected, skipping: " + tdh);
             }
-            Nugget savedNugget = nuggetRepository.save(nugget);
-            savedNugget.setFacts(facts);
-            for (Fact fact : facts) {
-                fact.setNugget(savedNugget);
-            }
-            factRepository.save(facts);
         }
     }
 
