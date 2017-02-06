@@ -2,15 +2,12 @@ package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.javaws.progress.Progress;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import se.kits.gakusei.user.model.ProgressTracking;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="nuggets", schema = "contentschema")
