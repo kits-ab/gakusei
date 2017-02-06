@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.NuggetRepository;
-import se.kits.gakusei.dto.QuestionDTO;
 import se.kits.gakusei.util.QuestionHandler;
 
 import java.util.*;
@@ -30,7 +29,7 @@ public class QuestionController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    protected ResponseEntity<QuestionDTO> getQuestion(
+    protected ResponseEntity<HashMap<String, Object>> getQuestion(
             @RequestParam(value = "wordType", defaultValue = "") String wordType,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
@@ -39,11 +38,11 @@ public class QuestionController {
                 nuggetRepository.getNuggetsWithoutWordType(questionType, answerType) :
                 nuggetRepository.getNuggetsWithWordType(wordType, questionType, answerType);
 
-        QuestionDTO question = questionHandler.createOneQuestion(nuggets, questionType, answerType);
+        HashMap<String, Object> question = questionHandler.createOneQuestion(nuggets, questionType, answerType);
 
         return (question == null) ?
-                new ResponseEntity<QuestionDTO>(HttpStatus.NO_CONTENT) :
-                new ResponseEntity<QuestionDTO>(question, HttpStatus.OK);
+                new ResponseEntity<HashMap<String, Object>>(HttpStatus.NO_CONTENT) :
+                new ResponseEntity<HashMap<String, Object>>(question, HttpStatus.OK);
     }
 
     @RequestMapping(
@@ -51,16 +50,16 @@ public class QuestionController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    protected ResponseEntity<List<QuestionDTO>> getQuestionsFromLesson(
+    protected ResponseEntity<List<HashMap<String, Object>>> getQuestionsFromLesson(
             @RequestParam(value = "lessonName") String lessonName,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
 
         List<Nugget> nuggets = lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType, answerType);
-        List<QuestionDTO> questions = questionHandler.createManyQuestions(nuggets, questionType, answerType);
+        List<HashMap<String, Object>> questions = questionHandler.createManyQuestions(nuggets, questionType, answerType);
 
         return questions.isEmpty() ?
-                new ResponseEntity<List<QuestionDTO>>(HttpStatus.INTERNAL_SERVER_ERROR) :
-                new ResponseEntity<List<QuestionDTO>>(questions, HttpStatus.OK);
+                new ResponseEntity<List<HashMap<String, Object>>>(HttpStatus.INTERNAL_SERVER_ERROR) :
+                new ResponseEntity<List<HashMap<String, Object>>>(questions, HttpStatus.OK);
     }
 }

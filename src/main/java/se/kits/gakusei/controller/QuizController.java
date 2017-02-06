@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.repository.LessonRepository;
-import se.kits.gakusei.dto.QuestionDTO;
 import se.kits.gakusei.util.QuestionHandler;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -29,10 +29,10 @@ public class QuizController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<List<QuestionDTO>> getQuizQuestions(@RequestParam(value = "lessonName") String lessonName) {
+    public ResponseEntity<List<HashMap<String, Object>>> getQuizQuestions(@RequestParam(value = "lessonName") String lessonName) {
         Lesson lesson = lessonRepository.findByName(lessonName);
-        if (lesson == null) return new ResponseEntity<List<QuestionDTO>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        final List<QuestionDTO> quizQuestions = questionHandler.createQuizQuestions(lesson.getNuggets());
-        return new ResponseEntity<List<QuestionDTO>>(quizQuestions, HttpStatus.OK);
+        if (lesson == null) return new ResponseEntity<List<HashMap<String, Object>>>(HttpStatus.INTERNAL_SERVER_ERROR);
+        final List<HashMap<String, Object>> quizQuestions = questionHandler.createQuizQuestions(lesson.getNuggets());
+        return new ResponseEntity<List<HashMap<String, Object>>>(quizQuestions, HttpStatus.OK);
     }
 }

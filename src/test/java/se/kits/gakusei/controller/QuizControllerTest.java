@@ -12,11 +12,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.ResponseEntity;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.repository.LessonRepository;
-import se.kits.gakusei.dto.QuestionDTO;
 import se.kits.gakusei.test_tools.TestTools;
 import se.kits.gakusei.util.QuestionHandler;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -45,9 +45,9 @@ public class QuizControllerTest {
         String description = "quiz_question";
         Lesson lesson = TestTools.generateQuizLesson(lessonName, description, correctData, incorrectData);
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
-        List<QuestionDTO> dtoList = Collections.singletonList(TestTools.generateQuestionDTO());
+        List<HashMap<String, Object>> dtoList = Collections.singletonList(TestTools.generateQuestionDTO());
         Mockito.when(questionHandler.createQuizQuestions(lesson.getNuggets())).thenReturn(dtoList);
-        ResponseEntity<List<QuestionDTO>> re = quizController.getQuizQuestions(lessonName);
+        ResponseEntity<List<HashMap<String, Object>>> re = quizController.getQuizQuestions(lessonName);
 
         assertEquals(dtoList, re.getBody());
         assertEquals(200, re.getStatusCodeValue());
@@ -56,7 +56,7 @@ public class QuizControllerTest {
     @Test
     public void testGetQuizQuestionsLessonNameNull() {
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(null);
-        ResponseEntity<List<QuestionDTO>> re = quizController.getQuizQuestions(lessonName);
+        ResponseEntity<List<HashMap<String, Object>>> re = quizController.getQuizQuestions(lessonName);
         assertEquals(null, re.getBody());
         assertEquals(500, re.getStatusCodeValue());
     }

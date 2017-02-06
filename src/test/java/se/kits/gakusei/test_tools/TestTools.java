@@ -3,12 +3,7 @@ package se.kits.gakusei.test_tools;
 import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
-import se.kits.gakusei.dto.QuestionDTO;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class TestTools {
 
@@ -66,19 +61,19 @@ public class TestTools {
         return lesson;
     }
 
-    public static QuestionDTO generateQuestionDTO() {
+    public static HashMap<String, Object> generateQuestionDTO() {
         List<String> question = new ArrayList<>();
         question.add("question");
         String alt1 = "alternative1";
         String alt2 = "alternative2";
         String alt3 = "alternative3";
         String altCorrect = "alternativeCorrect";
-        QuestionDTO dto = new QuestionDTO();
-        dto.setQuestion(question);
-        dto.setAlternative1(alt1);
-        dto.setAlternative2(alt2);
-        dto.setAlternative3(alt3);
-        dto.setCorrectAlternative(altCorrect);
+        HashMap<String, Object> dto = new HashMap<>();
+        dto.put("question", question);
+        dto.put("alternative1", alt1);
+        dto.put("alternative2", alt2);
+        dto.put("alternative3", alt3);
+        dto.put("correctAlternative", altCorrect);
         return dto;
     }
 }
