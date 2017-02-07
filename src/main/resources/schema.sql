@@ -44,7 +44,7 @@ nuggetid VARCHAR(16) NOT NULL REFERENCES contentschema.nuggets(id)
 CREATE TABLE IF NOT EXISTS progresstrackinglist(
 id SERIAL PRIMARY KEY,
 user_ref VARCHAR(32) REFERENCES users(username),
-nuggetid VARCHAR(16) REFERENCES contentschema.nuggets(id),
+nugget_id VARCHAR(16),
 correct_count BIGINT,
 incorrect_count BIGINT,
 latest_timestamp TIMESTAMP,

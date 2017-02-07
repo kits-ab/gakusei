@@ -1,7 +1,6 @@
 package se.kits.gakusei.user.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import se.kits.gakusei.content.model.Nugget;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,10 +19,8 @@ public class ProgressTracking implements Serializable{
     @JoinColumn(name = "user_ref")
     private User user;
 
-    @ManyToOne
-//    @JsonBackReference
-    @JoinColumn(name = "nuggetid")
-    private Nugget nugget;
+    @Column(name = "nugget_id")
+    private String nuggetID;
 
     @Column(name = "correct_count")
     private long correctCount;
@@ -87,11 +84,11 @@ public class ProgressTracking implements Serializable{
         this.user = user;
     }
 
-    public Nugget getNugget() {
-        return nugget;
+    public String getNuggetID() {
+        return nuggetID;
     }
 
-    public void setNugget(Nugget nugget) {
-        this.nugget = nugget;
+    public void setNuggetID(String nuggetID) {
+        this.nuggetID = nuggetID;
     }
 }

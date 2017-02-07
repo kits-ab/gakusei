@@ -9,7 +9,6 @@ import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import se.kits.gakusei.content.model.Nugget;
-import se.kits.gakusei.dto.QuestionDTO;
 import se.kits.gakusei.test_tools.TestTools;
 
 import java.util.*;
@@ -66,15 +65,15 @@ public class QuestionHandlerTest {
 
     @Test
     public void testCreateManyQuestions() throws Exception {
-        List<QuestionDTO> questions = questionHandler.createManyQuestions(nuggets, questionType, answerType);
+        List<HashMap<String, Object>> questions = questionHandler.createManyQuestions(nuggets, questionType, answerType);
 
         assertEquals(6, questions.size());
         assertFalse(questions.stream().anyMatch(q -> q == null));
-        assertTrue(questions.stream().allMatch(q -> q.getQuestion().get(0).startsWith("swe_test")));
-        assertTrue(questions.stream().allMatch(q -> q.getAlternative1().startsWith("eng_test")));
-        assertTrue(questions.stream().allMatch(q -> q.getAlternative2().startsWith("eng_test")));
-        assertTrue(questions.stream().allMatch(q -> q.getAlternative3().startsWith("eng_test")));
-        assertTrue(questions.stream().allMatch(q -> q.getCorrectAlternative().startsWith("eng_test")));
+        assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("question")).get(0).startsWith("swe_test")));
+        assertTrue(questions.stream().allMatch(q -> q.get("alternative1").toString().startsWith("eng_test")));
+        assertTrue(questions.stream().allMatch(q -> q.get("alternative2").toString().startsWith("eng_test")));
+        assertTrue(questions.stream().allMatch(q -> q.get("alternative3").toString().startsWith("eng_test")));
+        assertTrue(questions.stream().allMatch(q -> q.get("correctAlternative").toString().startsWith("eng_test")));
     }
 
     @Test
@@ -82,18 +81,25 @@ public class QuestionHandlerTest {
         List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
         Nugget nugget = notHiddenNuggets.get(0);
 
-        QuestionDTO dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
+        HashMap<String, Object> dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
 
-        assertTrue(dto.getQuestion().get(0).startsWith("swe_test"));
-        Stream.of(dto.getAlternative1(), dto.getAlternative2(), dto.getAlternative3(), dto.getCorrectAlternative())
-                .forEach(alt -> assertTrue(alt.startsWith("eng_test")));
+        assertTrue(((List<String>) dto.get("question")).get(0).startsWith("swe_test"));
+        Stream.of(dto.get("alternative1"),
+                dto.get("alternative2"),
+                dto.get("alternative3"),
+                dto.get("correctAlternative"))
+                .forEach(alt -> assertTrue(alt.toString().startsWith("eng_test")));
 
-        String q = dto.getQuestion().get(0);
-        String ca = dto.getCorrectAlternative();
+        String q = ((List<String>)dto.get("question")).get(0);
+        String ca = dto.get("correctAlternative").toString();
         assertEquals(q.charAt(q.length()-1), ca.charAt(ca.length()-1));
 
-        Set<String> ids = new HashSet<>(Arrays.asList(dto.getAlternative1(), dto.getAlternative2(),
-                dto.getAlternative3(), dto.getCorrectAlternative()));
+        Set<String> ids = new HashSet<>(Arrays.asList(
+                dto.get("alternative1").toString(),
+                dto.get("alternative2").toString(),
+                dto.get("alternative3").toString(),
+                dto.get("correctAlternative").toString()
+        ));
         assertEquals(4, ids.size());
     }
 
@@ -103,7 +109,7 @@ public class QuestionHandlerTest {
                 nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList()).subList(0, 2);
         Nugget nugget = notHiddenNuggets.get(0);
 
-        QuestionDTO dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
+        HashMap<String, Object> dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
 
         assertNull(dto);
     }
@@ -114,12 +120,12 @@ public class QuestionHandlerTest {
         String incorrectData = "quiz_incorrect";
         String description = "quiz_question";
         Nugget quizNugget = TestTools.generateQuizNugget(description, correctData, incorrectData);
-        QuestionDTO question = questionHandler.createQuizQuestion(quizNugget);
-        assertEquals(1, question.getQuestion().size());
-        assertEquals(description, question.getQuestion().get(0));
-        assertEquals(correctData, question.getCorrectAlternative());
-        assertTrue(question.getAlternative1().startsWith(incorrectData));
-        assertTrue(question.getAlternative2().startsWith(incorrectData));
-        assertTrue(question.getAlternative3().startsWith(incorrectData));
+        HashMap<String, Object> question = questionHandler.createQuizQuestion(quizNugget);
+        assertEquals(1, ((List<String>) question.get("question")).size());
+        assertEquals(description, ((List<String>) question.get("question")).get(0));
+        assertEquals(correctData, question.get("correctAlternative").toString());
+        assertTrue(question.get("alternative1").toString().startsWith(incorrectData));
+        assertTrue(question.get("alternative2").toString().startsWith(incorrectData));
+        assertTrue(question.get("alternative3").toString().startsWith(incorrectData));
     }
 }
