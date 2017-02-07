@@ -30,6 +30,9 @@
     "react-bootstrap": "^0.30.7",
     "react-chartjs-2": "^2.0.0",
     "react-dom": "^15.4.1",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0",
     "whatwg-fetch": "^2.0.1",
     "xml2js": "^0.4.17"
   },
