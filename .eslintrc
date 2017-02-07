@@ -178,7 +178,12 @@
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-default-props.md
     "react/require-default-props": "warn",
 
-    // Our own!
+    // Our own rules!
+    "prefer-const":"warn",
+    "no-unused-labels":"warn",
+    "no-multi-spaces": "warn",
+    "indent": ["warn"],
+    "no-trailing-spaces": ["warn"],
     "no-unused-vars": ["warn"],
     "func-names": ["warn", "never"],
     "comma-dangle": ["warn", "never"],
