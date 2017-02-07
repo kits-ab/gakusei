@@ -8,6 +8,21 @@ export default class UserStatisticsPage extends React.Component {
   constructor(props) {
     super(props);
 
+    this.chartOptions = {
+      maintainAspectRatio: true,
+      legend: {
+        onClick: () => { /* Do nothing */ }
+      },
+      tooltips: {
+        callbacks: {
+          label(tooltipItem, data) {
+            return `${data.labels[tooltipItem.index]}: ${data.datasets[0].data[tooltipItem.index]}%`;
+          }
+        }
+      }
+    };
+
+
     this.state = {
       successRate: 0,
       chartData: {
@@ -22,12 +37,11 @@ export default class UserStatisticsPage extends React.Component {
       //   }
       // },
         datasets: [{
-          label: ['My First dataset', 'something more'],
           backgroundColor: ['rgba(130,230,130,1.0)', 'rgba(130,170,130,0.4)'],
-          borderColor: 'rgba(130,130,130,1)',
-          borderWidth: 0,
-          hoverBackgroundColor: 'rgba(30,130,130,0.4)',
-          hoverBorderColor: 'rgba(30,130,130,1)',
+          // borderColor: 'rgba(130,130,130,0)',
+          // borderWidth: 5,
+          // hoverBackgroundColor: 'rgba(30,130,130,0.4)',
+          // hoverBorderColor: 'rgba(30,130,130,1)',
           data: [
             0,
             100
@@ -43,11 +57,6 @@ export default class UserStatisticsPage extends React.Component {
       .then(response => response.json())
       .then(data => this.updateData(data))
       .catch(ex => console.log('Fel vid hämtning av användarstatistik', ex));
-
-    // fetch(`api/statistics/${this.props.username}`, { credentials: 'same-origin' })
-    //   .then(response => response.json())
-    //   .then(data => this.updateSuccessRate(data))
-    //   .catch(ex => console.log('Fel vid hämtning av användarstatistik', ex));
   }
 
   updateData(newSuccessRate) {
@@ -58,22 +67,12 @@ export default class UserStatisticsPage extends React.Component {
           'Rätt gissningar',
           'Totala gissningar'
         ],
-      // scales: {
-      //   ticks: {
-      //     min: 0,
-      //     max: 100
-      //   }
-      // },
         datasets: [{
-          label: ['My First dataset', 'something more'],
-          backgroundColor: ['rgba(130,230,130,1.0)', 'rgba(130,170,130,0.4)'],
-          borderColor: 'rgba(130,130,130,1)',
-          borderWidth: 0,
-          hoverBackgroundColor: 'rgba(30,130,130,0.4)',
-          hoverBorderColor: 'rgba(30,130,130,1)',
+          label: ['Rätt gissningar', 'Totala gissningar'],
+          backgroundColor: ['rgba(130,200,130,1.0)', 'rgba(130,170,130,0.4)'],
           data: [
             newSuccessRate,
-            100
+            100 - newSuccessRate
           ]
         }]
       }
@@ -88,12 +87,7 @@ export default class UserStatisticsPage extends React.Component {
           data={this.state.chartData}
           // width={100}
           // height={0}
-          options={{
-            maintainAspectRatio: true,
-            legend: {
-              onClick: () => { /* Do nothing */ }
-            }
-          }}
+          options={this.chartOptions}
         />
       </div>
     );
