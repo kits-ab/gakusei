@@ -4,7 +4,10 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import 'whatwg-fetch';
 
-export default class UserStatisticsPage extends React.Component {
+import { connect } from 'react-redux';
+import * as RandomStore from '../store/Random';
+
+export class UserStatisticsPage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -81,6 +84,9 @@ export default class UserStatisticsPage extends React.Component {
     return (
       <div className="text-center">
         <h2>Din totala svarsprocent är {this.state.successRate}%</h2>
+        <p>Current height: <strong>{this.props.height}</strong></p>
+        <p>Current width: <strong>{this.props.width}</strong></p>
+        <p>Times clicked: <strong>{this.props.count}</strong></p>
         <Pie data={this.state.chartData} options={this.chartOptions} />
       </div>
     );
@@ -90,3 +96,9 @@ export default class UserStatisticsPage extends React.Component {
 UserStatisticsPage.propTypes = {
   username: React.PropTypes.string.isRequired
 };
+
+// Wire up the React component to the Redux store
+export default connect(
+    state => state.random, // Selects which state properties are merged into the component's props
+    RandomStore.actionCreators                 // Selects which action creators are merged into the component's props
+)(UserStatisticsPage);
