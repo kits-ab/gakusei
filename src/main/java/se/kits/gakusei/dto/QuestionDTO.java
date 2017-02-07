@@ -4,13 +4,22 @@ import java.util.List;
 
 public class QuestionDTO {
 
-    List<String> question;
-    String alternative1;
-    String alternative2;
-    String alternative3;
-    String correctAlternative;
+    private List<String> question;
+    private String alternative1;
+    private String alternative2;
+    private String alternative3;
+    private String correctAlternative;
+    private ResourceReference resourceReference;
 
     public QuestionDTO(){}
+
+    public ResourceReference getResourceReference() {
+        return resourceReference;
+    }
+
+    public void setResourceReference(ResourceReference resourceReference) {
+        this.resourceReference = resourceReference;
+    }
 
     public List<String> getQuestion() {
         return question;

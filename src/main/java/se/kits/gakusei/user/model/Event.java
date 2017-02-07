@@ -13,12 +13,33 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "events")
-@NamedNativeQuery(
+@NamedNativeQueries({
+        @NamedNativeQuery(
         name = "Event.getUserSuccessRate",
-        query = "select round((count(case data when 'true' then 1 else null end) * 100.0) / count(*)) " +
+        query = "select round( " +
+                "coalesce( (count(case data when 'true' then 1 else null end) * 100.0) / nullif(count(*), 0), 0)) " +
                 "from events " +
                 "where user_ref = :username and type = 'answeredCorrectly'"
-)
+        ),
+        @NamedNativeQuery(
+                name = "Event.getLatestQuestionForUser",
+                query = "SELECT data " +
+                        "FROM events " +
+                        "WHERE user_ref = :username AND type = 'question' " +
+                        "ORDER BY events.timestamp " +
+                        "DESC " +
+                        "LIMIT 1"
+        ),
+        @NamedNativeQuery(
+                name = "Event.getLatestAnswerTimestamp",
+                query = "SELECT timestamp " +
+                        "FROM events " +
+                        "WHERE type = 'userAnswer' AND user_ref = :username " +
+                        "ORDER BY events.timestamp " +
+                        "DESC " +
+                        "LIMIT 1"
+        )
+})
 public class Event implements Serializable {
 
     @Id

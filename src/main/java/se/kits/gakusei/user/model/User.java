@@ -2,25 +2,19 @@ package se.kits.gakusei.user.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User implements Serializable{
 
     private static final long serialVersionUID = 6433155328293181762L;
-
-    public User() {
-    }
-
-    public User(String username, String password, String role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
 
     @Id
     private String username;
@@ -33,7 +27,22 @@ public class User implements Serializable{
 
     @JsonManagedReference
     @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Event> events;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<ProgressTracking> progressTrackingList;
+
+    public User() {
+    }
+
+    public User(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
     public String getUsername() {
         return username;
@@ -65,5 +74,13 @@ public class User implements Serializable{
 
     public void setEvents(List<Event> events) {
         this.events = events;
+    }
+
+    public List<ProgressTracking> getProgressTrackingList() {
+        return progressTrackingList;
+    }
+
+    public void setProgressTrackingList(List<ProgressTracking> progressTrackingList) {
+        this.progressTrackingList = progressTrackingList;
     }
 }

@@ -63,8 +63,11 @@ public class DataInit implements ApplicationRunner {
 
         String activeProfiles = Arrays.toString(environment.getActiveProfiles());
         if (datainit) {
+            String testDataFile = "testdata/testdata.json";
+            String quizDataFile = "testdata/quizdata.json";
             createUsers();
-            createTestData(readTestDataFromFile());
+            createTestData(readTestDataFromFile(testDataFile));
+            createQuiz(readTestDataFromFile(quizDataFile));
             createLessons();
             logger.info("*** Data initialization was set on profile(s): " + activeProfiles);
         } else {
@@ -72,10 +75,8 @@ public class DataInit implements ApplicationRunner {
         }
     }
 
-    private Set<Map<String, Object>> readTestDataFromFile() {
-        String testDataFile = "testdata/testdata.json";
-
-        ObjectMapper mapper = new ObjectMapper();
+    private Set<Map<String, Object>> readTestDataFromFile(String testDataFile) {
+                ObjectMapper mapper = new ObjectMapper();
         Resource resource = resourceLoader.getResource("classpath:" + testDataFile);
         logger.info("Loaded resource");
         try (InputStream json = resource.getInputStream()) {
@@ -91,35 +92,39 @@ public class DataInit implements ApplicationRunner {
 
     private void createTestData(Set<Map<String, Object>> dataHolders) {
         for (Map<String, Object> tdh : dataHolders) {
-            Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
-            nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
-            nugget.setId(tdh.get("id").toString());
-            List<Fact> facts = new ArrayList<>();
-            Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id"));
-            for (Map.Entry entry : tdh.entrySet()) {
-                String type = entry.getKey().toString();
-                if (typeSet.contains(type)) {
-                    if (entry.getValue().toString().equals("hidden")) {
-                        nugget.setHidden(true);
+            try {
+                Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
+                nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
+                nugget.setId(tdh.get("id").toString());
+                List<Fact> facts = new ArrayList<>();
+                Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id"));
+                for (Map.Entry entry : tdh.entrySet()) {
+                    String type = entry.getKey().toString();
+                    if (typeSet.contains(type)) {
+                        if (entry.getValue().toString().equals("hidden")) {
+                            nugget.setHidden(true);
+                        }
+                        continue;
                     }
-                    continue;
+                    Fact fact = new Fact();
+                    fact.setType(type);
+                    Object data = entry.getValue();
+                    if (data instanceof String) {
+                        fact.setData(data.toString());
+                    } else {
+                        fact.setData(((ArrayList<String>) entry.getValue()).get(0));
+                    }
+                    facts.add(fact);
                 }
-                Fact fact = new Fact();
-                fact.setType(type);
-                Object data = entry.getValue();
-                if (data instanceof String) {
-                    fact.setData(data.toString());
-                } else {
-                    fact.setData(((ArrayList<String>) entry.getValue()).get(0));
+                Nugget savedNugget = nuggetRepository.save(nugget);
+                savedNugget.setFacts(facts);
+                for (Fact fact : facts) {
+                    fact.setNugget(savedNugget);
                 }
-                facts.add(fact);
+                factRepository.save(facts);
+            } catch (Exception e) {
+                logger.warn("Faulty nugget detected, skipping: " + tdh);
             }
-            Nugget savedNugget = nuggetRepository.save(nugget);
-            savedNugget.setFacts(facts);
-            for (Fact fact : facts) {
-                fact.setNugget(savedNugget);
-            }
-            factRepository.save(facts);
         }
     }
 
@@ -139,6 +144,7 @@ public class DataInit implements ApplicationRunner {
         createLessonsByCategory("jnlp");
         createLessonsByCategory("jlpt");
         createLessonsByCategory("genki");
+        createLessonsByCategory("quiz");
     }
 
     private void createLessonsByWordType() {
@@ -163,7 +169,10 @@ public class DataInit implements ApplicationRunner {
         Map<String, List<Nugget>> nuggetMap = new HashMap<>();
         for (Nugget n : nuggets) {
             Fact fact = n.getFacts().stream().filter(f -> category.equals(f.getType())).findFirst().get();
-            String lessonName = (fact.getType() + " " + fact.getData()).toUpperCase();
+
+            String lessonName = fact.getType().equals("quiz") ?
+                    fact.getData() :
+                    (fact.getType() + " " + fact.getData()).toUpperCase();
             nuggetMap.computeIfAbsent(lessonName, k -> new ArrayList<>()).add(n);
         }
         List<Lesson> lessons = new ArrayList<>();
@@ -175,5 +184,48 @@ public class DataInit implements ApplicationRunner {
             lessons.add(l);
         }
         lessonRepository.save(lessons);
+    }
+
+    private void createQuiz(Set<Map<String, Object>> dataHolders) {
+        for (Map<String, Object> tdh : dataHolders) {
+            Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
+            nugget.setDescription((String) tdh.get("question"));
+            nugget.setId(tdh.get("id").toString());
+            List<Fact> facts = new ArrayList<>();
+            Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id", "question"));
+            for (Map.Entry entry : tdh.entrySet()) {
+                String type = entry.getKey().toString();
+                if (typeSet.contains(type)) {
+                    if (entry.getValue().toString().equals("hidden")) {
+                        nugget.setHidden(true);
+                    }
+                    continue;
+                }
+                Object data = entry.getValue();
+                if (data instanceof String) {
+                    Fact fact = new Fact();
+                    fact.setType(type);
+                    fact.setData(data.toString());
+                    facts.add(fact);
+                } else {
+                    List<Fact> collectedFacts = ((List<String>) data).stream()
+                            .map(d -> {
+                                Fact f = new Fact();
+                                f.setType(entry.getKey().toString());
+                                f.setData(d);
+                                return f;
+                            })
+                            .collect(Collectors.toList());
+                    facts.addAll(collectedFacts);
+                }
+
+            }
+            Nugget savedNugget = nuggetRepository.save(nugget);
+            savedNugget.setFacts(facts);
+            for (Fact fact : facts) {
+                fact.setNugget(savedNugget);
+            }
+            factRepository.save(facts);
+        }
     }
 }
