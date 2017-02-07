@@ -53,27 +53,28 @@ export default class UserStatisticsPage extends React.Component {
   }
 
   updateData(newSuccessRate) {
-    this.setState({
-      successRate: newSuccessRate,
-      chartData: {
-        labels: [
-          'Rätt gissningar', 'Totala gissningar'
-        ],
-        datasets: [
-          {
-            label: [
-              'Rätt gissningar', 'Totala gissningar'
-            ],
-            backgroundColor: [
-              'rgba(130,200,130,1.0)', 'rgba(130,170,130,0.4)'
-            ],
-            data: [
-              newSuccessRate, 100 - newSuccessRate
-            ]
-          }
-        ]
+    this.setState(
+      { ...this.state,
+        chartData: {
+          labels: [
+            'Rätt gissningar', 'Totala gissningar'
+          ],
+          datasets: [
+            {
+              label: [
+                'Rätt gissningar', 'Totala gissningar'
+              ],
+              backgroundColor: [
+                'rgba(130,200,130,1.0)', 'rgba(130,170,130,0.4)'
+              ],
+              data: [
+                newSuccessRate, 100 - newSuccessRate
+              ]
+            }
+          ]
+        }
       }
-    });
+    );
   }
 
   render() {
