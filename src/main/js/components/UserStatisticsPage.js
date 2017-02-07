@@ -11,7 +11,8 @@ export default class UserStatisticsPage extends React.Component {
     this.chartOptions = {
       maintainAspectRatio: true,
       legend: {
-        onClick: () => { /* Do nothing */ }
+        onClick: () => { /* Do nothing */
+        }
       },
       tooltips: {
         callbacks: {
@@ -22,31 +23,23 @@ export default class UserStatisticsPage extends React.Component {
       }
     };
 
-
     this.state = {
       successRate: 0,
       chartData: {
         labels: [
-          'Rätt gissningar',
-          'Totala gissningar'
+          'Rätt gissningar', 'Totala gissningar'
         ],
-      // scales: {
-      //   ticks: {
-      //     min: 0,
-      //     max: 100
-      //   }
-      // },
-        datasets: [{
-          backgroundColor: ['rgba(130,230,130,1.0)', 'rgba(130,170,130,0.4)'],
-          // borderColor: 'rgba(130,130,130,0)',
-          // borderWidth: 5,
-          // hoverBackgroundColor: 'rgba(30,130,130,0.4)',
-          // hoverBorderColor: 'rgba(30,130,130,1)',
-          data: [
-            0,
-            100
-          ]
-        }]
+        // scales: {   ticks: {     min: 0,     max: 100   } },
+        datasets: [
+          {
+            backgroundColor: [
+              'rgba(130,230,130,1.0)', 'rgba(130,170,130,0.4)'
+            ],
+            // borderColor: 'rgba(130,130,130,0)', borderWidth: 5, hoverBackgroundColor:
+            // 'rgba(30,130,130,0.4)', hoverBorderColor: 'rgba(30,130,130,1)',
+            data: [0, 100]
+          }
+        ]
       }
     };
 
@@ -64,17 +57,21 @@ export default class UserStatisticsPage extends React.Component {
       successRate: newSuccessRate,
       chartData: {
         labels: [
-          'Rätt gissningar',
-          'Totala gissningar'
+          'Rätt gissningar', 'Totala gissningar'
         ],
-        datasets: [{
-          label: ['Rätt gissningar', 'Totala gissningar'],
-          backgroundColor: ['rgba(130,200,130,1.0)', 'rgba(130,170,130,0.4)'],
-          data: [
-            newSuccessRate,
-            100 - newSuccessRate
-          ]
-        }]
+        datasets: [
+          {
+            label: [
+              'Rätt gissningar', 'Totala gissningar'
+            ],
+            backgroundColor: [
+              'rgba(130,200,130,1.0)', 'rgba(130,170,130,0.4)'
+            ],
+            data: [
+              newSuccessRate, 100 - newSuccessRate
+            ]
+          }
+        ]
       }
     });
   }
@@ -83,12 +80,7 @@ export default class UserStatisticsPage extends React.Component {
     return (
       <div className="text-center">
         <h2>Din totala svarsprocent är {this.state.successRate}%</h2>
-        <Pie
-          data={this.state.chartData}
-          // width={100}
-          // height={0}
-          options={this.chartOptions}
-        />
+        <Pie data={this.state.chartData} options={this.chartOptions} />
       </div>
     );
   }
