@@ -210,5 +210,9 @@
       "pragma": "React",
       "version": "0.14"
     }
-  }
+  },
+  "globals": {
+        "window": true,
+        "fetch"
+    }
 }
