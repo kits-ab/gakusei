@@ -30,7 +30,7 @@ export class UserStatisticsPage extends React.Component {
       successRate: 0,
       chartData: {
         labels: [
-          'Rätt gissningar', 'Totala gissningar'
+          'Andel rätt svar', 'Andel fel svar'
         ],
         // scales: {   ticks: {     min: 0,     max: 100   } },
         datasets: [
@@ -47,6 +47,7 @@ export class UserStatisticsPage extends React.Component {
     };
 
     this.getUserStatistics();
+    this.props.fetchPosts('pics');
   }
   getUserStatistics() {
     fetch(`api/statistics/${this.props.username}`, { credentials: 'same-origin' })
@@ -58,14 +59,15 @@ export class UserStatisticsPage extends React.Component {
   updateData(newSuccessRate) {
     this.setState(
       { ...this.state,
+        successRate: newSuccessRate,
         chartData: {
           labels: [
-            'Rätt gissningar', 'Totala gissningar'
+            'Andel rätt svar', 'Andel fel svar'
           ],
           datasets: [
             {
               label: [
-                'Rätt gissningar', 'Totala gissningar'
+                'Andel rätt svar', 'Andel fel svar'
               ],
               backgroundColor: [
                 'rgba(130,200,130,1.0)', 'rgba(130,170,130,0.4)'
@@ -83,7 +85,7 @@ export class UserStatisticsPage extends React.Component {
   render() {
     return (
       <div className="text-center">
-        <h2>Din totala svarsprocent är {this.state.successRate}%</h2>
+        <h2 onClick={this.props.incrementHeight}>Din totala svarsprocent är {this.state.successRate}%</h2>
         <p>Current height: <strong>{this.props.height}</strong></p>
         <p>Current width: <strong>{this.props.width}</strong></p>
         <p>Times clicked: <strong>{this.props.count}</strong></p>
@@ -94,11 +96,21 @@ export class UserStatisticsPage extends React.Component {
 }
 
 UserStatisticsPage.propTypes = {
-  username: React.PropTypes.string.isRequired
+  username: React.PropTypes.string.isRequired,
+  // action creators
+  incrementHeight: React.PropTypes.func.isRequired,
+  incrementWidth: React.PropTypes.func.isRequired,
+  incrementCount: React.PropTypes.func.isRequired,
+  fetchPosts: React.PropTypes.func.isRequired
 };
 
-// Wire up the React component to the Redux store
+// Wire up the React component to the Redux store and export it when importing this file
 export default connect(
     state => state.random, // Selects which state properties are merged into the component's props
-    RandomStore.actionCreators                 // Selects which action creators are merged into the component's props
+    { ...RandomStore.actionCreators } // Selects which action creators are merged into the component's props
 )(UserStatisticsPage);
+
+// const VisibleUserStatisticsPage = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(UserStatisticsPage);
