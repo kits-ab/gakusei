@@ -13,6 +13,7 @@ import EndScreenPage from './EndScreenPage';
 import UserStatisticPage from './UserStatisticsPage';
 import QuizPlayPage from './QuizPlayPage';
 import QuizSelection from './QuizSelection';
+import GrammarPage from './GrammarPage'
 
 
 export default class App extends React.Component {
@@ -46,7 +47,8 @@ export default class App extends React.Component {
       AboutPage: <AboutPage />,
       EndScreenPage: <EndScreenPage {...props} />,
       LandingPage: <LandingPage />,
-      UserStatisticsPage: <UserStatisticPage {...props} />
+      UserStatisticsPage: <UserStatisticPage {...props} />,
+      GrammarPage: <GrammarPage />
     };
     this.setState({ currentPage: pages[newContent] });
   }
