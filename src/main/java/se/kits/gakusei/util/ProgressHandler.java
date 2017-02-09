@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.FactRepository;
-import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.ProgressTracking;
 import se.kits.gakusei.user.model.User;
@@ -13,7 +12,6 @@ import se.kits.gakusei.user.repository.ProgressTrackingRepository;
 import se.kits.gakusei.user.repository.UserRepository;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Component
 public class ProgressHandler {
@@ -40,7 +38,8 @@ public class ProgressHandler {
                 .findFirst().orElse(null);
 
         if (nugget != null) {
-            ProgressTracking pt = progressTrackingRepository.findProgressTrackingByUserAndNugget(user, nugget);
+            String nuggetID = nugget.getId();
+            ProgressTracking pt = progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggetID);
             if (pt != null) {
                 if (event.getData().trim().equalsIgnoreCase("true")) {
                     pt.setCorrectCount(pt.getCorrectCount() + 1L);
@@ -50,7 +49,7 @@ public class ProgressHandler {
             } else {
                 pt = new ProgressTracking();
                 pt.setUser(user);
-                pt.setNugget(nugget);
+                pt.setNuggetID(nuggetID);
                 if (event.getData().trim().equalsIgnoreCase("true")) {
                     pt.setCorrectCount(1L);
                     pt.setIncorrectCount(0L);
