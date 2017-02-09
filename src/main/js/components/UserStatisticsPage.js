@@ -6,6 +6,7 @@ import 'whatwg-fetch';
 
 import { connect } from 'react-redux';
 import * as UserStatisticsStore from '../store/UserStatistics';
+import * as Security from '../store/Security';
 
 export class UserStatisticsPage extends React.Component {
   static getChartOptions() {
@@ -26,7 +27,7 @@ export class UserStatisticsPage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.props.fetchUserSuccessRate(this.props.username);
+    this.props.fetchUserSuccessRate(this.props.loggedInUser);
   }
 
   getChartData() {
@@ -63,15 +64,15 @@ export class UserStatisticsPage extends React.Component {
 }
 
 UserStatisticsPage.propTypes = {
-  username: React.PropTypes.string.isRequired,
+  // username: React.PropTypes.string.isRequired,
   successRate: React.PropTypes.number.isRequired,
   // used action creators
+  loggedInUser: React.PropTypes.string.isRequired,
   fetchUserSuccessRate: React.PropTypes.func.isRequired,
   requestingSuccessRate: React.PropTypes.bool.isRequired
 };
 
-// Wire up the React component to the Redux store and export it when importing this file
 export default connect(
-    state => state.userStatistics, // Selects which state properties are merged into the component's props
-    { ...UserStatisticsStore.actionCreators } // Selects which action creators are merged into the component's props
+    state => ({ ...state.userStatistics, ...state.security }), // Selects which state properties are merged into the component's props
+    { ...UserStatisticsStore.actionCreators, ...Security.actionCreators } // Selects which action creators are merged into the component's props
 )(UserStatisticsPage);

@@ -1,10 +1,16 @@
 /* global sessionStorage*/
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Utility from '../util/Utility';
+import * as SecurityStore from '../store/Security';
 
-export default class EndScreenPage extends React.Component {
+export class EndScreenPage extends React.Component {
+  // constructor(props) {
+  //   super(props);
+  // }
+
   componentDidMount() {
     this.logEvents();
   }
@@ -14,9 +20,9 @@ export default class EndScreenPage extends React.Component {
   }
   logEvents() {
     for (let i = 0; i < this.props.results.length; i += 1) {
-      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][0], this.props.username);
-      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][1], this.props.username);
-      Utility.logEvent('EndScreenPage', 'userAnswer', this.props.results[i][2], this.props.username);
+      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][0], this.props.loggedInUser);
+      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][1], this.props.loggedInUser);
+      Utility.logEvent('EndScreenPage', 'userAnswer', this.props.results[i][2], this.props.loggedInUser);
     }
   }
   render() {
@@ -64,13 +70,23 @@ export default class EndScreenPage extends React.Component {
 }
 
 EndScreenPage.propTypes = {
-  username: React.PropTypes.string.isRequired,
+  // username: React.PropTypes.string.isRequired,
   gamemode: React.PropTypes.string.isRequired,
   switchPage: React.PropTypes.func.isRequired,
-  results: React.PropTypes.arrayOf(React.PropTypes.array)
+  results: React.PropTypes.arrayOf(React.PropTypes.array),
+  // used action creators
+  // fetchLoggedInUser: React.PropTypes.func.isRequired,
+  // loggedIn: React.PropTypes.bool.isRequired,
+  loggedInUser: React.PropTypes.string.isRequired
 };
 
 EndScreenPage.defaultProps = {
   results: [],
   gamemode: ''
 };
+
+// Wire up the React component to the Redux store and export it when importing this file
+export default connect(
+    state => state.security, // Selects which state properties are merged into the component's props
+    { ...SecurityStore.actionCreators } // Selects which action creators are merged into the component's props
+)(EndScreenPage);

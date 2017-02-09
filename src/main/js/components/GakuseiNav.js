@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavbarBrand, NavDropdown, MenuItem } from 'react-bootstrap';
+import * as SecurityStore from '../store/Security';
 
 const GakuseiNav = (props) => {
   const switchPage = props.switchPage;
@@ -38,7 +40,7 @@ const GakuseiNav = (props) => {
           <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={4} href="#">Inloggad som: {props.username}</NavItem>
+          <NavItem eventKey={4} href="#">Inloggad som: {props.loggedInUser}</NavItem>
           <Navbar.Text>
             <Navbar.Link href="/logout">Logga ut</Navbar.Link>
           </Navbar.Text>
@@ -50,11 +52,15 @@ const GakuseiNav = (props) => {
 
 GakuseiNav.propTypes = {
   switchPage: React.PropTypes.func.isRequired,
-  username: React.PropTypes.string
+  // username: React.PropTypes.string,
+    // used action creators
+  // fetchLoggedInUser: React.PropTypes.func.isRequired,
+  // loggedIn: React.PropTypes.bool.isRequired,
+  loggedInUser: React.PropTypes.string.isRequired
 };
 
-GakuseiNav.defaultProps = {
-  username: 'No one'
-};
-
-export default GakuseiNav;
+// Wire up the React component to the Redux store and export it when importing this file
+export default connect(
+    state => state.security, // Selects which state properties are merged into the component's props
+    { ...SecurityStore.actionCreators } // Selects which action creators are merged into the component's props
+)(GakuseiNav);

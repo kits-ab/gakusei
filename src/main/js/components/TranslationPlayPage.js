@@ -1,10 +1,12 @@
 /* global sessionStorage*/
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button, Grid, Row } from 'react-bootstrap';
 import Utility from '../util/Utility';
+import * as SecurityStore from '../store/Security';
 
-export default class TranslationPlayPage extends React.Component {
+export class TranslationPlayPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +39,7 @@ export default class TranslationPlayPage extends React.Component {
       correctAlt: JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative,
       checkDisable: false
     }, () => {
-      Utility.logEvent('TranslationPlayPage', 'question', this.state.question, this.props.username);
+      Utility.logEvent('TranslationPlayPage', 'question', this.state.question, this.props.loggedInUser);
     });
   }
   getNextQuestion() {
@@ -52,7 +54,7 @@ export default class TranslationPlayPage extends React.Component {
     this.setState({ answer: event.target.value });
   }
   checkAnswer() {
-    Utility.logEvent('TranslationPlayPage', 'userAnswer', this.state.answer, this.props.username);
+    Utility.logEvent('TranslationPlayPage', 'userAnswer', this.state.answer, this.props.loggedInUser);
     let answeredCorrectly = false;
     if (this.state.answer.trim().toUpperCase() === this.state.correctAlt.toUpperCase()) {
       answeredCorrectly = true;
@@ -61,9 +63,9 @@ export default class TranslationPlayPage extends React.Component {
     } else {
       this.setState({ output: `Fel! Det rätta svaret är: ${this.state.correctAlt}` });
     }
-    Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.question, this.props.username);
-    Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.correctAlt, this.props.username);
-    Utility.logEvent('TranslationPlayPage', 'answeredCorrectly', answeredCorrectly, this.props.username);
+    Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.question, this.props.loggedInUser);
+    Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.correctAlt, this.props.loggedInUser);
+    Utility.logEvent('TranslationPlayPage', 'answeredCorrectly', answeredCorrectly, this.props.loggedInUser);
     this.setState({
       checkDisable: true
     });
@@ -119,5 +121,14 @@ export default class TranslationPlayPage extends React.Component {
 
 TranslationPlayPage.propTypes = {
   switchPage: React.PropTypes.func.isRequired,
-  username: React.PropTypes.string.isRequired
+  // username: React.PropTypes.string.isRequired,
+  // used action creators
+  // fetchLoggedInUser: React.PropTypes.func.isRequired,
+  // loggedIn: React.PropTypes.bool.isRequired,
+  loggedInUser: React.PropTypes.string.isRequired
 };
+
+export default connect(
+    state => state.security, // Selects which state properties are merged into the component's props
+    { ...SecurityStore.actionCreators } // Selects which action creators are merged into the component's props
+)(TranslationPlayPage);

@@ -2,6 +2,8 @@
 
 import React from 'react';
 import 'whatwg-fetch';
+import { connect } from 'react-redux';
+
 import GakuseiNav from './GakuseiNav';
 import GuessPlayPage from './GuessPlayPage';
 import AboutPage from './AboutPage';
@@ -14,26 +16,29 @@ import UserStatisticPage from './UserStatisticsPage';
 import QuizPlayPage from './QuizPlayPage';
 import QuizSelection from './QuizSelection';
 
+import * as SecurityStore from '../store/Security';
 
-export default class App extends React.Component {
+export class App extends React.Component {
   constructor(props) {
     super(props);
     this.switchPage = this.switchPage.bind(this);
     this.state = { currentPage: <LandingPage /> };
+
+    this.props.fetchLoggedInUser();
   }
   componentDidMount() {
-    this.setLoggedInUser();
+    // this.setLoggedInUser();
   }
-  setLoggedInUser() {
-    fetch('/username', { credentials: 'same-origin' })
-      .then(response => response.text())
-      .then(user => this.setState({ loggedInUser: user }));
-  }
+  // setLoggedInUser() {
+  //   // fetch('/username', { credentials: 'same-origin' })
+  //   //   .then(response => response.text())
+  //   //   .then(user => this.setState({ loggedInUser: user }));
+  // }
   switchPage(newContent, newProps) {
     const props = Object.assign(
       {
         switchPage: this.switchPage,
-        username: this.state.loggedInUser
+        username: this.props.loggedInUser
       },
       newProps);
     const pages = {
@@ -53,9 +58,26 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <GakuseiNav switchPage={this.switchPage} username={this.state.loggedInUser} />
-        {this.state.currentPage}
+        { this.props.loggedIn ?
+          <div>
+            <GakuseiNav switchPage={this.switchPage} username={this.props.loggedInUser} />
+            { this.state.currentPage }
+          </div> :
+          <p>Loading...</p>}
       </div>
     );
   }
 }
+
+App.propTypes = {
+  // used action creators
+  fetchLoggedInUser: React.PropTypes.func.isRequired,
+  loggedIn: React.PropTypes.bool.isRequired,
+  loggedInUser: React.PropTypes.string.isRequired
+};
+
+// Wire up the React component to the Redux store and export it when importing this file
+export default connect(
+    state => state.security, // Selects which state properties are merged into the component's props
+    { ...SecurityStore.actionCreators } // Selects which action creators are merged into the component's props
+)(App);

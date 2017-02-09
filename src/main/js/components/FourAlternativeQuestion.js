@@ -1,11 +1,13 @@
 /* global fetch window sessionStorage */
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
 import Utility from '../util/Utility';
+import * as SecurityStore from '../store/Security';
 
-export default class FourAlternativeQuestion extends React.Component {
+export class FourAlternativeQuestion extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -59,9 +61,9 @@ export default class FourAlternativeQuestion extends React.Component {
       buttonDisabled: false,
       resourceRef: JSON.parse(sessionStorage.lesson)[questionIndex].resourceReference
     }, () => {
-      Utility.logEvent(this.props.pageName, 'question', this.state.question, this.props.username);
+      Utility.logEvent(this.props.pageName, 'question', this.state.question, this.props.loggedInUser);
       for (let i = 0; i < this.state.randomOrderAlt.length; i += 1) {
-        Utility.logEvent(this.props.pageName, 'alternative', this.state.randomOrderAlt[i], this.props.username);
+        Utility.logEvent(this.props.pageName, 'alternative', this.state.randomOrderAlt[i], this.props.loggedInUser);
       }
     });
   }
@@ -76,7 +78,7 @@ export default class FourAlternativeQuestion extends React.Component {
     }
   }
   checkAnswer(answer) {
-    Utility.logEvent(this.props.pageName, 'userAnswer', answer, this.props.username);
+    Utility.logEvent(this.props.pageName, 'userAnswer', answer, this.props.loggedInUser);
     let newButtonStyles = [];
     let answeredCorrectly = false;
     if (answer === this.state.correctAlt) {
@@ -99,9 +101,9 @@ export default class FourAlternativeQuestion extends React.Component {
       buttonStyles: newButtonStyles,
       results: this.state.results.concat([[this.state.question, this.state.correctAlt, answer]])
     });
-    Utility.logEvent(this.props.pageName, 'correctAnswer', this.state.question, this.props.username);
-    Utility.logEvent(this.props.pageName, 'correctAnswer', this.state.correctAlt, this.props.username);
-    Utility.logEvent(this.props.pageName, 'answeredCorrectly', answeredCorrectly, this.props.username);
+    Utility.logEvent(this.props.pageName, 'correctAnswer', this.state.question, this.props.loggedInUser);
+    Utility.logEvent(this.props.pageName, 'correctAnswer', this.state.correctAlt, this.props.loggedInUser);
+    Utility.logEvent(this.props.pageName, 'answeredCorrectly', answeredCorrectly, this.props.loggedInUser);
     if (Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1) {
       setTimeout(() => {
         this.getNextQuestion();
@@ -195,7 +197,21 @@ export default class FourAlternativeQuestion extends React.Component {
 }
 
 FourAlternativeQuestion.propTypes = {
-  username: React.PropTypes.string.isRequired,
+  // username: React.PropTypes.string.isRequired,
   switchPage: React.PropTypes.func.isRequired,
-  pageName: React.PropTypes.string.isRequired
+  pageName: React.PropTypes.string.isRequired,
+    // used action creators
+  // fetchLoggedInUser: React.PropTypes.func.isRequired,
+  // loggedIn: React.PropTypes.bool.isRequired,
+  loggedInUser: React.PropTypes.string.isRequired,
+  lessonSuccessRate: React.PropTypes.number.isRequired,
+  lessonSuccessRateMessage: React.PropTypes.string.isRequired,
+  correctAttempts: React.PropTypes.number.isRequired,
+  totalAttempts: React.PropTypes.number.isRequired
 };
+
+// Wire up the React component to the Redux store and export it when importing this file
+export default connect(
+    state => state.security, // Selects which state properties are merged into the component's props
+    { ...SecurityStore.actionCreators } // Selects which action creators are merged into the component's props
+)(FourAlternativeQuestion);
