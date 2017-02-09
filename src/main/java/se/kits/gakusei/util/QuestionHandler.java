@@ -11,19 +11,18 @@ import java.util.stream.Collectors;
 @Component
 public class QuestionHandler {
 
-    public HashMap<String, Object> createOneQuestion(List<Nugget> nuggets, String questionType, String answerType) {
-        Random random = new Random();
-        List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-        Nugget nugget = notHiddenNuggets.get(random.nextInt(notHiddenNuggets.size()));
-        return createQuestion(nugget, notHiddenNuggets, questionType, answerType);
-    }
-
-    public List<HashMap<String, Object>> createManyQuestions(List<Nugget> nuggets, String questionType, String answerType) {
+    public List<HashMap<String, Object>> createQuestions(List<Nugget> nuggets,
+                                                         int quantity,
+                                                         String questionType,
+                                                         String answerType) {
         List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
         List<HashMap<String, Object>> questions = notHiddenNuggets.stream()
                 .map(n -> createQuestion(n, notHiddenNuggets, questionType, answerType))
                 .collect(Collectors.toList());
         Collections.shuffle(questions);
+        if (questions.size() > quantity) {
+            return questions.subList(0, quantity);
+        }
         return questions;
     }
 

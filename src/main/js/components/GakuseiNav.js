@@ -7,10 +7,11 @@ const GakuseiNav = (props) => {
     switch (eventKey) {
       case 1.1: switchPage('LessonSelection', { gamemode: 'GuessPlayPage' }); break;
       case 1.2: switchPage('LessonSelection', { gamemode: 'TranslationPlayPage' }); break;
-      case 1.3: switchPage('QuizSelection', { gamemode: 'QuizPlayPage' }); break;
-      case 2: switchPage('NuggetListPage'); break;
-      case 3: switchPage('AboutPage'); break;
-      case 4: switchPage('UserStatisticsPage'); break;
+      case 2: switchPage('GrammarPage'); break;
+      case 3: switchPage('QuizSelection', { gamemode: 'QuizPlayPage' }); break;
+      case 4: switchPage('NuggetListPage'); break;
+      case 5: switchPage('AboutPage'); break;
+      case 6: switchPage('UserStatisticsPage'); break;
       default: switchPage('LandingPage');
     }
   };
@@ -29,16 +30,17 @@ const GakuseiNav = (props) => {
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          <NavDropdown eventKey={1} title="Spela" id="basic-nav-dropdown">
+          <NavDropdown eventKey={1} title="Glosor" id="basic-nav-dropdown">
             <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
             <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
-            <MenuItem eventKey={1.3}>Quiz</MenuItem>
           </NavDropdown>
-          <NavItem eventKey={2} href="#">Lista ord</NavItem>
-          <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
+          <NavItem eventKey={2} href="#">Grammatik</NavItem>
+          <NavItem eventKey={3} href="#">Quiz</NavItem>
+          <NavItem eventKey={4} href="#">Lista ord</NavItem>
+          <NavItem eventKey={5} href="#">Om Gakusei</NavItem>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={4} href="#">Inloggad som: {props.username}</NavItem>
+          <NavItem eventKey={6} href="#">Inloggad som: {props.username}</NavItem>
           <Navbar.Text>
             <Navbar.Link href="/logout">Logga ut</Navbar.Link>
           </Navbar.Text>
