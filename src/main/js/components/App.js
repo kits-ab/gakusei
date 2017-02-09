@@ -13,7 +13,7 @@ import EndScreenPage from './EndScreenPage';
 import UserStatisticPage from './UserStatisticsPage';
 import QuizPlayPage from './QuizPlayPage';
 import QuizSelection from './QuizSelection';
-import GrammarPage from './GrammarPage'
+import GrammarPage from './GrammarPage';
 
 
 export default class App extends React.Component {
