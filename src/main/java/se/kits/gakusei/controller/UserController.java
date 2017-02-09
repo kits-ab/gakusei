@@ -57,15 +57,15 @@ public class UserController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     @ResponseBody
-    public Map<String, String> currentUserName(Authentication authentication) {
-        Map<String, String> values = new HashMap<>();
+    public Map<String, Object> currentUserName(Authentication authentication) {
+        Map<String, Object> values = new HashMap<>();
         String nameKey = "username";
         String authenticatedKey = "loggedIn";
         values.put(nameKey, "");
-        values.put(authenticatedKey, "false");
+        values.put(authenticatedKey, Boolean.FALSE);
         if (authentication != null && authentication.isAuthenticated()) {
             values.put(nameKey, authentication.getName());
-            values.put(authenticatedKey, "true");
+            values.put(authenticatedKey, Boolean.TRUE);
         }
         return values;
     }

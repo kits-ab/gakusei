@@ -33,7 +33,7 @@ export default class App extends React.Component {
   componentWillMount() {
     fetch('/username', { credentials: 'same-origin' })
       .then(response => response.json())
-      .then((json) => { if (json.loggedIn === 'true') this.setLoggedInUser(json.username); });
+      .then((json) => { if (json.loggedIn === true) this.setLoggedInUser(json.username); });
   }
   setLoggedInUser(username) {
     this.setState(
