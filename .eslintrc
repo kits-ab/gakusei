@@ -179,6 +179,7 @@
     "react/require-default-props": "warn",
 
     // Our own rules!
+    "import/no-named-as-default": "off",
     "prefer-const":"warn",
     "no-unused-labels":"warn",
     "no-multi-spaces": "warn",
@@ -212,7 +213,8 @@
     }
   },
   "globals": {
-        "window": true,
-        "fetch": true
+    "document": true,
+    "window": true,
+    "fetch": true
   }
 }
