@@ -32,8 +32,10 @@ const Login = (props) => {
     })
       .then(() => fetch('/username', { credentials: 'same-origin' }))
       .then(response => response.json())
-      .then(json => json.username)
-      .then(username => (username === usernameFromForm ? loginSuccess(username) : resetForm(formName)))
+      .then(json => (
+        json.loggedIn === true && json.username === usernameFromForm ?
+          loginSuccess(json.username) :
+          resetForm(formName)))
       .catch(ex => console.log('Fel vid inloggning', ex));
   };
   const register = (formBody, usernameFromForm, formName) => {
