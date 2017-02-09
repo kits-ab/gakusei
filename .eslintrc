@@ -213,6 +213,6 @@
   },
   "globals": {
         "window": true,
-        "fetch"
-    }
+        "fetch": true
+  }
 }

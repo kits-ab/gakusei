@@ -9,9 +9,9 @@ import configureStore from './configureStore';
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
 // ! Don't have server-rendering yet, might add later
-// const initialState = window.initialReduxState;
-// const store = configureStore(initialState);
-const store = configureStore(null);
+const initialState = window.initialReduxState;
+const store = configureStore(initialState);
+
 // const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
