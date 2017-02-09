@@ -39,11 +39,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/login", "/registeruser", "/js/*", "/license/*").permitAll()
+                    .antMatchers("/registeruser", "/username", "/js/*", "/license/*", "/img/logo/*", "/css/*").permitAll()
                     .antMatchers("/**","/logout").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .and()
                 .formLogin()
-                    .loginPage("/login")
+                    .loginPage("/")
                     .loginProcessingUrl("/auth")
                     .defaultSuccessUrl("/", true)
                     .permitAll()
@@ -57,8 +57,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                     .and()
                 .logout()
-                    // Remove this and add POST to /logout in frontend
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/");
     }
 }

@@ -3,6 +3,10 @@ import { Navbar, Nav, NavItem, NavbarBrand, NavDropdown, MenuItem } from 'react-
 
 const GakuseiNav = (props) => {
   const switchPage = props.switchPage;
+  const logout = () => {
+    props.logout();
+    switchPage('LandingPage');
+  };
   const eventHandler = (eventKey) => {
     switch (eventKey) {
       case 1.1: switchPage('LessonSelection', { gamemode: 'GuessPlayPage' }); break;
@@ -11,9 +15,12 @@ const GakuseiNav = (props) => {
       case 2: switchPage('NuggetListPage'); break;
       case 3: switchPage('AboutPage'); break;
       case 4: switchPage('UserStatisticsPage'); break;
+      case 5: switchPage('Login'); break;
+      case 6: logout(); break;
       default: switchPage('LandingPage');
     }
   };
+  const loggedIn = props.isLoggedIn();
   return (
     <Navbar onSelect={eventHandler} inverse collapseOnSelect>
       <Navbar.Header>
@@ -29,19 +36,21 @@ const GakuseiNav = (props) => {
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          <NavDropdown eventKey={1} title="Spela" id="basic-nav-dropdown">
-            <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
-            <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
-            <MenuItem eventKey={1.3}>Quiz</MenuItem>
-          </NavDropdown>
-          <NavItem eventKey={2} href="#">Lista ord</NavItem>
-          <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
+          {
+            loggedIn ? (
+              <NavDropdown eventKey={1} title="Spela" id="basic-nav-dropdown">
+                <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
+                <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
+                <MenuItem eventKey={1.3}>Quiz</MenuItem>
+              </NavDropdown>
+              ) : ''
+          }
+          {loggedIn ? <NavItem eventKey={2}>Lista ord</NavItem> : ''}
+          <NavItem eventKey={3}>Om Gakusei</NavItem>
         </Nav>
         <Nav pullRight>
-          <NavItem eventKey={4} href="#">Inloggad som: {props.username}</NavItem>
-          <Navbar.Text>
-            <Navbar.Link href="/logout">Logga ut</Navbar.Link>
-          </Navbar.Text>
+          { loggedIn ? <NavItem eventKey={4}>Inloggad som: {props.username}</NavItem> : '' }
+          { loggedIn ? <NavItem eventKey={6}>Logga ut</NavItem> : <NavItem eventKey={5}>Logga in</NavItem> }
         </Nav>
       </Navbar.Collapse>
     </Navbar>
@@ -50,11 +59,8 @@ const GakuseiNav = (props) => {
 
 GakuseiNav.propTypes = {
   switchPage: React.PropTypes.func.isRequired,
-  username: React.PropTypes.string
-};
-
-GakuseiNav.defaultProps = {
-  username: 'No one'
+  isLoggedIn: React.PropTypes.func.isRequired,
+  username: React.PropTypes.string.isRequired
 };
 
 export default GakuseiNav;

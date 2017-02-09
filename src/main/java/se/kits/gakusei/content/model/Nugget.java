@@ -32,11 +32,6 @@ public class Nugget implements Serializable{
     @JsonBackReference
     private List<Lesson> lessons;
 
-//    @OneToMany(mappedBy = "nugget", fetch=FetchType.EAGER)
-//    @JsonManagedReference
-//    @Fetch(value = FetchMode.SUBSELECT)
-//    private List<ProgressTracking> progressTrackingList;
-
     public Nugget(){}
 
     public Nugget(String type){
@@ -90,13 +85,4 @@ public class Nugget implements Serializable{
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
-
-
-//    public List<ProgressTracking> getProgressTrackingList() {
-//        return progressTrackingList;
-//    }
-//
-//    public void setProgressTrackingList(List<ProgressTracking> progressTrackingList) {
-//        this.progressTrackingList = progressTrackingList;
-//    }
 }
