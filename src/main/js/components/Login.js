@@ -48,6 +48,7 @@ const Login = (props) => {
       },
       body: formBody
     })
+      .then(resp => (resp.status === 201 ? Promise.resolve(resp) : Promise.reject(new Error(resp.statusText))))
       .then(() => performLogin(formBody, usernameFromForm, formName))
       .catch(ex => console.log('Fel vid registrering av användare', ex));
   };
