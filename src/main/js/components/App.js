@@ -15,6 +15,7 @@ import QuizPlayPage from './QuizPlayPage';
 import QuizSelection from './QuizSelection';
 import Login from './Login';
 import getCSRF from '../util/getcsrf';
+import GrammarPage from './GrammarPage';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -75,7 +76,8 @@ export default class App extends React.Component {
       EndScreenPage: <EndScreenPage {...props} />,
       LandingPage: <LandingPage />,
       UserStatisticsPage: <UserStatisticsPage {...props} />,
-      Login: <Login {...props} setLoggedInUser={this.setLoggedInUser} />
+      Login: <Login {...props} setLoggedInUser={this.setLoggedInUser} />,
+      GrammarPage: <GrammarPage />
     };
     this.setState({ currentPage: pages[newContent] });
   }

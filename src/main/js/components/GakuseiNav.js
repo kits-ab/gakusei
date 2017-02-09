@@ -11,12 +11,13 @@ const GakuseiNav = (props) => {
     switch (eventKey) {
       case 1.1: switchPage('LessonSelection', { gamemode: 'GuessPlayPage' }); break;
       case 1.2: switchPage('LessonSelection', { gamemode: 'TranslationPlayPage' }); break;
-      case 1.3: switchPage('QuizSelection', { gamemode: 'QuizPlayPage' }); break;
-      case 2: switchPage('NuggetListPage'); break;
-      case 3: switchPage('AboutPage'); break;
-      case 4: switchPage('UserStatisticsPage'); break;
-      case 5: switchPage('Login'); break;
-      case 6: logout(); break;
+      case 2: switchPage('GrammarPage'); break;
+      case 3: switchPage('QuizSelection', { gamemode: 'QuizPlayPage' }); break;
+      case 4: switchPage('NuggetListPage'); break;
+      case 5: switchPage('AboutPage'); break;
+      case 6: switchPage('UserStatisticsPage'); break;
+      case 7: switchPage('Login'); break;
+      case 8: logout(); break;
       default: switchPage('LandingPage');
     }
   };
@@ -36,21 +37,21 @@ const GakuseiNav = (props) => {
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          {
-            loggedIn ? (
-              <NavDropdown eventKey={1} title="Spela" id="basic-nav-dropdown">
-                <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
-                <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
-                <MenuItem eventKey={1.3}>Quiz</MenuItem>
-              </NavDropdown>
-              ) : ''
+          { loggedIn ? (
+            <NavDropdown eventKey={1} title="Glosor" id="basic-nav-dropdown">
+              <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
+              <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
+            </NavDropdown>
+            ) : ''
           }
-          {loggedIn ? <NavItem eventKey={2}>Lista ord</NavItem> : ''}
-          <NavItem eventKey={3}>Om Gakusei</NavItem>
+          { loggedIn ? <NavItem eventKey={2}>Grammatik</NavItem> : '' }
+          { loggedIn ? <NavItem eventKey={3}>Quiz</NavItem> : '' }
+          { loggedIn ? <NavItem eventKey={4}>Lista ord</NavItem> : '' }
+          <NavItem eventKey={5}>Om Gakusei</NavItem>
         </Nav>
         <Nav pullRight>
-          { loggedIn ? <NavItem eventKey={4}>Inloggad som: {props.username}</NavItem> : '' }
-          { loggedIn ? <NavItem eventKey={6}>Logga ut</NavItem> : <NavItem eventKey={5}>Logga in</NavItem> }
+          { loggedIn ? <NavItem eventKey={6}>Inloggad som: {props.username}</NavItem> : '' }
+          { !loggedIn ? <NavItem eventKey={7}>Logga in</NavItem> : <NavItem eventKey={8}>Logga ut</NavItem>}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

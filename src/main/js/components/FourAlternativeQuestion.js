@@ -3,6 +3,7 @@
 import React from 'react';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
+import DisplayQuestion from './DisplayQuestion';
 import Utility from '../util/Utility';
 
 export default class FourAlternativeQuestion extends React.Component {
@@ -15,7 +16,8 @@ export default class FourAlternativeQuestion extends React.Component {
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonDisabled: false,
       results: [],
-      lessonLength: JSON.parse(sessionStorage.lesson).length
+      lessonLength: JSON.parse(sessionStorage.lesson).length,
+      resourceRef: ''
     };
     this.checkAnswer = this.checkAnswer.bind(this);
     this.onKeys = this.onKeys.bind(this);
@@ -111,29 +113,16 @@ export default class FourAlternativeQuestion extends React.Component {
         () => this.props.switchPage('EndScreenPage', { results: this.state.results, gamemode: this.props.pageName }), 1000);
     }
   }
-  displayQuestion(pageName) {
-    const questionText = {
-      GuessPlayPage: (
-        <div>
-          <h2>Läsform: {this.state.question[0]}</h2>
-          <h2>Skrivform: {(this.state.question.length > 1) ? this.state.question[1] : ''}</h2>
-        </div>
-      ),
-      QuizPlayPage: <h2>{this.state.question[0]}</h2>
-    };
-    let resource;
-    if (this.state.resourceRef && this.state.resourceRef.type === 'kanjidrawing') {
-      resource = <object height="50em" type="image/svg+xml" data={this.state.resourceRef.location}>SVG error</object>;
-    }
-    return resource ? <div>{resource}<br />{questionText[pageName]}</div> : questionText[pageName];
-  }
   render() {
     return (
       <div>
         <Grid className="text-center">
-          <Row>
-            {this.displayQuestion(this.props.pageName)}
-          </Row>
+          <DisplayQuestion
+            pageName={this.props.pageName}
+            question={this.state.question}
+            questionType={this.props.questionType}
+            resourceRef={this.state.resourceRef}
+          />
           <br />
           <Row>
             <ButtonToolbar>
@@ -197,5 +186,6 @@ export default class FourAlternativeQuestion extends React.Component {
 FourAlternativeQuestion.propTypes = {
   username: React.PropTypes.string.isRequired,
   switchPage: React.PropTypes.func.isRequired,
-  pageName: React.PropTypes.string.isRequired
+  pageName: React.PropTypes.string.isRequired,
+  questionType: React.PropTypes.string.isRequired
 };
