@@ -21,25 +21,29 @@ public class RegisterUserController {
 
     @RequestMapping(value = "/registeruser", method = RequestMethod.POST)
     public ModelAndView registerUser(@RequestBody String input) {
-        User user = new User();
+        User user = null;
+        User existingUser = null;
 
         String[] values = input.split("&");
-        String username = values[0].split("=")[1];
-        String password = values[1].split("=")[1];
-        // Validate User fields
+        if (values != null && values.length > 1) {
+            String username = values[0].split("=")[1];
+            String password = values[1].split("=")[1];
+            // Validate User fields
 
-        user.setUsername(username);
-        user.setPassword(passwordEncoder.encode(password));
-        user.setRole("ROLE_USER");
-
+            user = new User();
+            user.setUsername(username);
+            user.setPassword(passwordEncoder.encode(password));
+            user.setRole("ROLE_USER");
+        }
         // Check if User exists
-        User existingUser = userRepo.findByUsername(username);
+        if (user != null) {
+            existingUser = userRepo.findByUsername(user.getUsername());
+        }
         if(existingUser != null) {
             //TODO: show user that the username is taken
-            return new ModelAndView("redirect:" + "login");
+            return new ModelAndView("redirect:" + "/?registrationError");
         }
-
         userRepo.save(user);
-        return new ModelAndView("redirect:" + "login");
+        return new ModelAndView("redirect:" + "/");
     }
 }
