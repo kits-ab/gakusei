@@ -1,7 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import GenericSelection from './GenericSelection';
+import * as UserStatisticsStore from '../store/UserStatistics';
 
-const lessons = ['JLPT N3', 'JLPT N4', 'JLPT N5', 'GENKI 1', 'GENKI 13', 'GENKI 15'];
-const LessonSelection = props => <GenericSelection {...props} lessonNames={lessons} fetchURL="/api/questions" />;
+const LessonSelection = props => <GenericSelection {...props} />;
 
-export default LessonSelection;
+export default connect(
+    state => ({ ...state.userStatistics }), // Selects which state properties are merged into the component's props
+    { ...UserStatisticsStore.actionCreators } // Selects which action creators are merged into the component's props
+)(LessonSelection);

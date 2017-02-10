@@ -2,18 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavbarBrand, NavDropdown, MenuItem } from 'react-bootstrap';
 import * as SecurityStore from '../store/Security';
+import * as UserStatisticsStore from '../store/UserStatistics';
 
-const GakuseiNav = (props) => {
+export const GakuseiNav = (props) => {
   const switchPage = props.switchPage;
   const eventHandler = (eventKey) => {
     switch (eventKey) {
-      case 1.1: switchPage('LessonSelection', { gamemode: 'GuessPlayPage' }); break;
-      case 1.2: switchPage('LessonSelection', { gamemode: 'TranslationPlayPage' }); break;
-      case 1.3: switchPage('QuizSelection', { gamemode: 'QuizPlayPage' }); break;
-      case 2: switchPage('NuggetListPage'); break;
-      case 3: switchPage('AboutPage'); break;
-      case 4: switchPage('UserStatisticsPage'); break;
-      default: switchPage('LandingPage');
+      case 1.1:
+        this.props.setGameMode('GuessPlayPage');
+        switchPage('LessonSelection'); break;
+      case 1.2:
+        this.props.setGameMode('TranslationPlayPage');
+        switchPage('LessonSelection'); break;
+      case 1.3:
+        this.props.setGameMode('QuizPlayPage');
+        switchPage('QuizSelection'); break;
+      case 2:
+        switchPage('NuggetListPage'); break;
+      case 3:
+        switchPage('AboutPage'); break;
+      case 4:
+        switchPage('UserStatisticsPage'); break;
+      default:
+        switchPage('LandingPage');
     }
   };
   return (
@@ -61,6 +72,6 @@ GakuseiNav.propTypes = {
 
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
-    state => state.security, // Selects which state properties are merged into the component's props
-    { ...SecurityStore.actionCreators } // Selects which action creators are merged into the component's props
+    state => ({ ...state.userStatistics, ...state.security }), // Selects which state properties are merged into the component's props
+    { ...UserStatisticsStore.actionCreators, ...SecurityStore.actionCreators } // Selects which action creators are merged into the component's props
 )(GakuseiNav);

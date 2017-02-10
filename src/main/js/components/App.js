@@ -34,34 +34,36 @@ export class App extends React.Component {
   //   //   .then(response => response.text())
   //   //   .then(user => this.setState({ loggedInUser: user }));
   // }
-  switchPage(newContent, newProps) {
-    const props = Object.assign(
-      {
-        switchPage: this.switchPage,
-        username: this.props.loggedInUser
-      },
-      newProps);
-    const pages = {
-      LessonSelection: <LessonSelection {...props} />,
-      QuizSelection: <QuizSelection {...props} />,
-      GuessPlayPage: <GuessPlayPage {...props} />,
-      QuizPlayPage: <QuizPlayPage {...props} />,
-      TranslationPlayPage: <TranslationPlayPage {...props} />,
-      NuggetListPage: <NuggetListPage />,
-      AboutPage: <AboutPage />,
-      EndScreenPage: <EndScreenPage {...props} />,
-      LandingPage: <LandingPage />,
-      UserStatisticsPage: <UserStatisticPage {...props} />
-    };
-    this.setState({ currentPage: pages[newContent] });
+  switchPage(pageName, newProps) {
+    // const props = Object.assign(
+    //   {
+    //     switchPage: this.switchPage,
+    //     username: this.props.loggedInUser
+    //   },
+    //   newProps);
+    // const pages = {
+    //   LessonSelection: <LessonSelection {...props} />,
+    //   QuizSelection: <QuizSelection {...props} />,
+    //   GuessPlayPage: <GuessPlayPage {...props} />,
+    //   QuizPlayPage: <QuizPlayPage {...props} />,
+    //   TranslationPlayPage: <TranslationPlayPage {...props} />,
+    //   NuggetListPage: <NuggetListPage />,
+    //   AboutPage: <AboutPage />,
+    //   EndScreenPage: <EndScreenPage {...props} />,
+    //   LandingPage: <LandingPage />,
+    //   UserStatisticsPage: <UserStatisticPage {...props} />
+    // };
+    this.props.setPageByName(pageName);
+
+    // this.setState({ currentPage: pages[newContent] });
   }
   render() {
     return (
       <div>
         { this.props.loggedIn ?
           <div>
-            <GakuseiNav switchPage={this.switchPage} username={this.props.loggedInUser} />
-            { this.state.currentPage }
+            <GakuseiNav />
+            { this.props.currentPage }
           </div> :
           <p>Loading...</p>}
       </div>

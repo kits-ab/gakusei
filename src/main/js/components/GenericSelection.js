@@ -3,32 +3,22 @@
 import React from 'react';
 import 'whatwg-fetch';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import * as UserStatisticsStore from '../store/UserStatistics';
 
-export default class GenericSelection extends React.Component {
+export class GenericSelection extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedLesson: this.props.lessonNames[0]
-    };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  fetchLesson() {
-    fetch(`${this.props.fetchURL}?lessonName=${this.state.selectedLesson}`, { credentials: 'same-origin' })
-      .then(response => response.json())
-      .then(
-        (json) => {
-          sessionStorage.lesson = JSON.stringify(json);
-          this.props.switchPage(this.props.gamemode);
-        })
-      .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
-  }
+
   handleChange(event) {
-    this.setState({ selectedLesson: event.target.value });
+    this.props.setSelectedLesson(event.target.value);
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.fetchLesson();
+    this.props.fetchLesson(function () { this.props.switchPage(this.props.gamemode); });
   }
   render() {
     const title = {
@@ -51,7 +41,7 @@ export default class GenericSelection extends React.Component {
                   componentClass="select"
                   id="lessonSelection"
                   onChange={this.handleChange}
-                  value={this.state.selectedLesson}
+                  value={this.props.selectedLesson}
                 >
                   {options}
                 </FormControl>
@@ -71,3 +61,8 @@ GenericSelection.propTypes = {
   lessonNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   fetchURL: React.PropTypes.string.isRequired
 };
+
+export default connect(
+    state => ({ ...state.userStatistics }), // Selects which state properties are merged into the component's props
+    { ...UserStatisticsStore.actionCreators } // Selects which action creators are merged into the component's props
+)(GenericSelection);
