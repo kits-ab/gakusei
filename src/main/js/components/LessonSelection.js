@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import GenericSelection from './GenericSelection';
-import * as UserStatisticsStore from '../store/UserStatistics';
+import * as Store from '../Store';
 
-const LessonSelection = props => <GenericSelection {...props} />;
+const LessonSelection = () => <GenericSelection />;
 
 export default connect(
-    state => ({ ...state.userStatistics }), // Selects which state properties are merged into the component's props
-    { ...UserStatisticsStore.actionCreators } // Selects which action creators are merged into the component's props
+    // Selects which state properties are merged into the component's props
+    state => (state.reducer),
+    // Selects which action creators are merged into the component's props
+    Store.actionCreators
 )(LessonSelection);

@@ -1,68 +1,77 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavbarBrand, NavDropdown, MenuItem } from 'react-bootstrap';
-import * as SecurityStore from '../store/Security';
-import * as UserStatisticsStore from '../store/UserStatistics';
 
-export const GakuseiNav = (props) => {
-  const switchPage = props.switchPage;
-  const eventHandler = (eventKey) => {
+import * as Store from '../Store';
+
+export class GakuseiNav extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.something = 'test';
+
+    const hello = 'there';
+  }
+
+  eventHandler(eventKey) {
     switch (eventKey) {
       case 1.1:
         this.props.setGameMode('GuessPlayPage');
-        switchPage('LessonSelection'); break;
+        this.props.switchPage('LessonSelection'); break;
       case 1.2:
         this.props.setGameMode('TranslationPlayPage');
-        switchPage('LessonSelection'); break;
+        this.props.switchPage('LessonSelection'); break;
       case 1.3:
         this.props.setGameMode('QuizPlayPage');
-        switchPage('QuizSelection'); break;
+        this.props.switchPage('QuizSelection'); break;
       case 2:
-        switchPage('NuggetListPage'); break;
+        this.props.switchPage('NuggetListPage'); break;
       case 3:
-        switchPage('AboutPage'); break;
+        this.props.switchPage('AboutPage'); break;
       case 4:
-        switchPage('UserStatisticsPage'); break;
+        this.props.switchPage('UserStatisticsPage'); break;
       default:
-        switchPage('LandingPage');
+        this.props.switchPage('LandingPage');
     }
-  };
-  return (
-    <Navbar onSelect={eventHandler} inverse collapseOnSelect>
-      <Navbar.Header>
-        <NavbarBrand>
-          <button className="brandButton" onClick={() => eventHandler(0)}>
-            <span>
-              <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
+  }
+
+  render() {
+    return (
+      <Navbar onSelect={this.eventHandler.bind(this)} inverse collapseOnSelect>
+        <Navbar.Header>
+          <NavbarBrand>
+            <button className="brandButton" onClick={this.eventHandler.bind(this)}>
+              <span>
+                <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
               Gakusei
             </span>
-          </button>
-        </NavbarBrand>
-        <Navbar.Toggle />
-      </Navbar.Header>
-      <Navbar.Collapse>
-        <Nav>
-          <NavDropdown eventKey={1} title="Spela" id="basic-nav-dropdown">
-            <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
-            <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
-            <MenuItem eventKey={1.3}>Quiz</MenuItem>
-          </NavDropdown>
-          <NavItem eventKey={2} href="#">Lista ord</NavItem>
-          <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
-        </Nav>
-        <Nav pullRight>
-          <NavItem eventKey={4} href="#">Inloggad som: {props.loggedInUser}</NavItem>
-          <Navbar.Text>
-            <Navbar.Link href="/logout">Logga ut</Navbar.Link>
-          </Navbar.Text>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-  );
-};
+            </button>
+          </NavbarBrand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
+            <NavDropdown eventKey={1} title="Spela" id="basic-nav-dropdown">
+              <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
+              <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
+              <MenuItem eventKey={1.3}>Quiz</MenuItem>
+            </NavDropdown>
+            <NavItem eventKey={2} href="#">Lista ord</NavItem>
+            <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
+          </Nav>
+          <Nav pullRight>
+            <NavItem eventKey={4} href="#">Inloggad som: {this.props.loggedInUser}</NavItem>
+            <Navbar.Text>
+              <Navbar.Link href="/logout">Logga ut</Navbar.Link>
+            </Navbar.Text>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    );
+  }
+}
 
 GakuseiNav.propTypes = {
-  switchPage: React.PropTypes.func.isRequired,
   // username: React.PropTypes.string,
     // used action creators
   // fetchLoggedInUser: React.PropTypes.func.isRequired,
@@ -72,6 +81,8 @@ GakuseiNav.propTypes = {
 
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
-    state => ({ ...state.userStatistics, ...state.security }), // Selects which state properties are merged into the component's props
-    { ...UserStatisticsStore.actionCreators, ...SecurityStore.actionCreators } // Selects which action creators are merged into the component's props
+    // Selects which state properties are merged into the component's props
+    state => (state.reducer),
+    // Selects which action creators are merged into the component's props
+    Store.actionCreators
 )(GakuseiNav);

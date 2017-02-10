@@ -179,6 +179,7 @@
     "react/require-default-props": "warn",
 
     // Our own rules!
+    "no-useless-constructor": "warn",
     "import/no-named-as-default": "off",
     "prefer-const":"warn",
     "no-unused-labels":"warn",

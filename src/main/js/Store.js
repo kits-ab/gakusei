@@ -3,19 +3,19 @@ import 'whatwg-fetch';
 // For temporary page management
 import React from 'react';
 
-import Utility from '../util/Utility';
+import Utility from './util/Utility';
 
 // For temporary page management
-import GuessPlayPage from '../components/GuessPlayPage';
-import AboutPage from '../components/AboutPage';
-import TranslationPlayPage from '../components/TranslationPlayPage';
-import NuggetListPage from '../components/NuggetListPage';
-import LessonSelection from '../components/LessonSelection';
-import LandingPage from '../components/LandingPage';
-import EndScreenPage from '../components/EndScreenPage';
-import UserStatisticPage from '../components/UserStatisticsPage';
-import QuizPlayPage from '../components/QuizPlayPage';
-import QuizSelection from '../components/QuizSelection';
+// import GuessPlayPage from './components/GuessPlayPage';
+// import AboutPage from './components/AboutPage';
+// import TranslationPlayPage from './components/TranslationPlayPage';
+// import NuggetListPage from './components/NuggetListPage';
+// import LessonSelection from './components/LessonSelection';
+// import LandingPage from './components/LandingPage';
+// import EndScreenPage from './components/EndScreenPage';
+// import UserStatisticPage from './components/UserStatisticsPage';
+// import QuizPlayPage from './components/QuizPlayPage';
+// import QuizSelection from './components/QuizSelection';
 
 // ----------------
 // DEFAULT STATE
@@ -32,18 +32,7 @@ export const defaultState = {
   // App.js
   currentPageName: null,
   currentPage: null,
-  pages: {
-    LessonSelection: <LessonSelection />,
-    QuizSelection: <QuizSelection />,
-    GuessPlayPage: <GuessPlayPage />,
-    QuizPlayPage: <QuizPlayPage />,
-    TranslationPlayPage: <TranslationPlayPage />,
-    NuggetListPage: <NuggetListPage />,
-    AboutPage: <AboutPage />,
-    EndScreenPage: <EndScreenPage />,
-    LandingPage: <LandingPage />,
-    UserStatisticsPage: <UserStatisticPage />
-  },
+  switchPageRef: null,
 
   // GakuseiNav.js
   gamemode: null,
@@ -72,7 +61,12 @@ export const defaultState = {
   // Things originally in SessionStorage
   correctAttempts: 0,
   totalAttempts: 0,
-  currentQuestionIndex: 0
+  currentQuestionIndex: 0,
+
+  // Security
+  loggedIn: false,
+  loggedInUser: null,
+  csrf: null
 };
 
 // -----------------
@@ -100,6 +94,15 @@ export const CLEAR_USER_ANSWERS = 'CLEAR_USER_ANSWERS';
 export const SHOW_ANSWER_BUTTON_STYLES = 'SHOW_ANSWER_BUTTON_STYLES';
 export const RECEIVE_ANSWER_BUTTON_STYLES = 'RECEIVE_ANSWER_BUTTON_STYLES';
 export const CLEAR_ANSWERS = 'CLEAR_ANSWERS';
+
+// Security stuff
+export const RECEIVE_CSRF = 'RECEIVE_CSRF';
+export const REQUEST_CSRF = 'REQUEST_CSRF';
+export const RECEIVE_LOGGED_IN_USER = 'RECEIVE_LOGGED_IN_USER';
+export const REQUEST_LOGGED_IN_USER = 'REQUEST_LOGGED_IN_USER';
+
+// Switchpage (temporary)
+export const SET_SWITCH_PAGE_REF = 'SET_SWITCH_PAGE_REF';
 
 export function calcLessonSuccessRateMessage(lessonSuccessRate) {
   let lessonSuccessRateMessage = '';
@@ -178,11 +181,15 @@ export function calcAnswerButtonStyles(userAnswerWord) {
   };
 }
 
-export function addUserAnswer(userAnswer) {
+export function addUserAnswer(userActualAnswer) {
   return {
     type: ADD_USER_ANSWER,
     description: 'Add an answer a user made, along with correct results',
-    userAnswer
+    userAnswer: [...this.userAnswers, [
+      this.processedQuestion.question,
+      this.processedQuestion.correctAlternative,
+      userActualAnswer
+    ]]
   };
 }
 
@@ -222,11 +229,23 @@ export function setAllButtonsDisabledState(disabled) {
   };
 }
 
-export function setPageByName(pageName) {
+export function setSwitchPageReference(switchPageRef) {
   return {
-    type: SET_PAGE,
-    description: 'Set current page for use in switchPage',
-    currentPageName: pageName
+    type: SET_SWITCH_PAGE_REF,
+    description: 'Set reference to switchpage',
+    switchPageRef
+  };
+}
+
+export function setPageByName(pageName) {
+  return function (dispatch, getState) {
+    getState().reducer.switchPageRef(pageName);
+
+    dispatch({
+      type: SET_PAGE,
+      description: 'Set current page for use in switchPage',
+      currentPageName: pageName
+    });
   };
 }
 
@@ -239,20 +258,21 @@ export function setGameMode(gamemode) {
 }
 
 export function calcNextQuestion() {
-  return function (dispatch) {
-    const localQuestionIndex = this.currentQuestionIndex + 1;
+  return function (dispatch, getState) {
+    const state = getState();
+    const localQuestionIndex = getState().reducer.currentQuestionIndex + 1;
 
     const processedQuestion = {
-      actualQuestionShapes: this.props.questions[localQuestionIndex].question,
-      correctAlternative: this.props.questions[localQuestionIndex].correctAlternative,
+      actualQuestionShapes: state.questions[localQuestionIndex].question,
+      correctAlternative: state.questions[localQuestionIndex].correctAlternative,
       randomizedAlternatives: Utility.randomizeOrder([
-        this.props.questions[localQuestionIndex].alternative1,
-        this.props.questions[localQuestionIndex].alternative2,
-        this.props.questions[localQuestionIndex].alternative3,
-        this.props.questions[localQuestionIndex].correctAlternative]),
+        state.questions[localQuestionIndex].alternative1,
+        state.questions[localQuestionIndex].alternative2,
+        state.questions[localQuestionIndex].alternative3,
+        state.questions[localQuestionIndex].correctAlternative]),
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonDisabled: false,
-      resourceRef: this.props.questions[localQuestionIndex].resourceReference
+      resourceRef: state.questions[localQuestionIndex].resourceReference
     };
 
     dispatch(this.receiveNextProcessedQuestion(processedQuestion));
@@ -353,6 +373,59 @@ export function fetchUserSuccessRate(username) {
   };
 }
 
+export function receiveCSRF(csrf) {
+  return {
+    type: RECEIVE_CSRF,
+    description: 'Fetching complete',
+    csrf
+  };
+}
+
+export function requestCSRF() {
+  return {
+    type: REQUEST_CSRF,
+    description: 'Fetching now in progress'
+  };
+}
+
+export function receiveLoggedInUser(user) {
+  return {
+    type: RECEIVE_LOGGED_IN_USER,
+    description: 'Fetching complete',
+    user
+  };
+}
+
+export function requestLoggedInUser() {
+  return {
+    type: REQUEST_LOGGED_IN_USER,
+    description: 'Fetching now in progress'
+  };
+}
+
+export function fetchLoggedInUser() {
+  return function (dispatch) {
+    dispatch(requestLoggedInUser());
+
+    fetch('/username', { credentials: 'same-origin' })
+      .then(response => response.text())
+      .then(user => dispatch(receiveLoggedInUser(user)));
+  };
+}
+
+export function fetchCSRF() {
+  return function (dispatch) {
+    dispatch(requestCSRF());
+
+    const cookies = document.cookie.split('; ');
+    const keys = cookies.map(cookie => cookie.split('=')[0]);
+    const csrfValue = cookies[keys.indexOf('XSRF-TOKEN')].split('=')[1];
+
+    dispatch(receiveCSRF(csrfValue));
+    return csrfValue;
+  };
+}
+
 export const actionCreators = {
   requestUserSuccessRate,
   fetchUserSuccessRate,
@@ -372,7 +445,15 @@ export const actionCreators = {
   clearUserAnswers,
   resetAttempts,
   calcAnswerButtonStyles,
-  resetLesson
+  resetLesson,
+  // Security
+  fetchCSRF,
+  requestCSRF,
+  receiveCSRF,
+  fetchLoggedInUser,
+  requestLoggedInUser,
+  receiveLoggedInUser,
+  setSwitchPageReference
 };
 
 // ----------------
@@ -406,15 +487,20 @@ export const reducer = (state, action) => {
         ...state,
         userAnswers: []
       };
+    case SET_SWITCH_PAGE_REF:
+      return {
+        ...state,
+        switchPageRef: action.switchPageRef
+      };
     case SET_PAGE:
       return {
         ...state,
-        currentPage: action.currentPage
+        currentPageName: action.currentPageName
       };
     case ADD_USER_ANSWER:
       return {
         ...state,
-        userAnswers: [...this.userAnswers, [this.processedQuestion.question, this.processedQuestion.correctAlternative, action.userAnswer]]
+        userAnswers: action.userAnswers
       };
     case CLEAR_USER_ANSWERS:
       return {
@@ -487,10 +573,36 @@ export const reducer = (state, action) => {
         totalAttempts: 0,
         lessonSuccessRate: 0
       };
+      // Security stuff
+    case RECEIVE_CSRF:
+      return {
+        ...state,
+        csrf: action.csrf
+      };
+    case REQUEST_CSRF:
+      return {
+        ...state,
+        csrf: null
+      };
+    case REQUEST_LOGGED_IN_USER:
+      return {
+        ...state,
+        csrf: null
+      };
+    case RECEIVE_LOGGED_IN_USER:
+      return {
+        ...state,
+        loggedIn: true,
+        loggedInUser: action.user
+      };
   }
 };
 
-// Not needed since we only have 1 reducer
+export const reducers = {
+  reducer
+};
+
+// Not needed since we only have 1 reducer..?
 // const randomStore = combineReducers({
 //   reducer
 // });

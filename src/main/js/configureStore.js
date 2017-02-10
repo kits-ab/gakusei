@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import * as Store from './store';
+import * as Store from './Store';
 
 function buildRootReducer(allReducers) {
   // return combineReducers(Object.assign({}, allReducers, { routing: routerReducer }));

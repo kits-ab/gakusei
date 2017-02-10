@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Row } from 'react-bootstrap';
 import Utility from '../util/Utility';
-import * as SecurityStore from '../store/Security';
+import * as Store from '../Store';
 
 export class TranslationPlayPage extends React.Component {
   constructor(props) {
@@ -129,6 +129,8 @@ TranslationPlayPage.propTypes = {
 };
 
 export default connect(
-    state => state.security, // Selects which state properties are merged into the component's props
-    { ...SecurityStore.actionCreators } // Selects which action creators are merged into the component's props
+    // Selects which state properties are merged into the component's props
+    state => (state.reducer),
+    // Selects which action creators are merged into the component's props
+    Store.actionCreators
 )(TranslationPlayPage);

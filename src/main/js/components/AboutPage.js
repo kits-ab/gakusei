@@ -4,8 +4,11 @@ import React from 'react';
 import 'whatwg-fetch';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Panel } from 'react-bootstrap';
 import xml2js from 'xml2js';
+import { connect } from 'react-redux';
+import * as Store from '../Store';
 
-export default class AboutPage extends React.Component {
+
+export class AboutPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -164,3 +167,10 @@ export default class AboutPage extends React.Component {
     );
   }
 }
+
+export default connect(
+    // Selects which state properties are merged into the component's props
+    state => (state.reducer),
+    // Selects which action creators are merged into the component's props
+    Store.actionCreators
+)(AboutPage);

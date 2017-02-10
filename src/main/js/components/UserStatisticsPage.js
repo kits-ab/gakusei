@@ -5,8 +5,7 @@ import { Pie } from 'react-chartjs-2';
 import 'whatwg-fetch';
 
 import { connect } from 'react-redux';
-import * as UserStatisticsStore from '../store/UserStatistics';
-import * as Security from '../store/Security';
+import * as Store from '../Store';
 
 export class UserStatisticsPage extends React.Component {
   static getChartOptions() {
@@ -73,6 +72,8 @@ UserStatisticsPage.propTypes = {
 };
 
 export default connect(
-    state => ({ ...state.userStatistics, ...state.security }), // Selects which state properties are merged into the component's props
-    { ...UserStatisticsStore.actionCreators, ...Security.actionCreators } // Selects which action creators are merged into the component's props
+    // Selects which state properties are merged into the component's props
+    state => (state.reducer),
+    // Selects which action creators are merged into the component's props
+    Store.actionCreators
 )(UserStatisticsPage);

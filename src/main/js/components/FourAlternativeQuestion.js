@@ -5,21 +5,12 @@ import { connect } from 'react-redux';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
 import Utility from '../util/Utility';
-import * as SecurityStore from '../store/Security';
-import * as UserStatisticsStore from '../store/UserStatistics';
+
+import * as Store from '../Store';
 
 export class FourAlternativeQuestion extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   question: [],
-    //   correctAlt: '',
-    //   randomizedAlternatives: ['', '', '', ''],
-    //   buttonStyles: ['default', 'default', 'default', 'default'],
-    //   buttonDisabled: false,
-    //   results: [],
-    //   lessonLength: this.props.questions.length
-    // };
     this.checkAnswer = this.checkAnswer.bind(this);
     this.onKeys = this.onKeys.bind(this);
 
@@ -49,7 +40,7 @@ export class FourAlternativeQuestion extends React.Component {
   }
 
   checkAnswer(answer) {
-    Utility.logEvent(this.props.currentPageName, 'userAnswer', answer, this.props.loggedInUser);
+    // Utility.logEvent(this.props.currentPageName, 'userAnswer', answer, this.props.loggedInUser);
 
     if (answer === this.props.processedQuestion.correctAlternative) {
       this.props.receiveCorrectAttempt();
@@ -60,9 +51,6 @@ export class FourAlternativeQuestion extends React.Component {
     this.props.addUserAnswer(answer);
     this.props.calcAnswerButtonStyles(answer);
 
-    // Utility.logEvent(this.props.currentPageName, 'correctAnswer', this.state.question, this.props.loggedInUser);
-    // Utility.logEvent(this.props.currentPageName, 'correctAnswer', this.state.correctAlt, this.props.loggedInUser);
-    // Utility.logEvent(this.props.currentPageName, 'answeredCorrectly', answeredCorrectly, this.props.loggedInUser);
     if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
       setTimeout(() => {
         this.props.calcNextQuestion();
@@ -70,11 +58,11 @@ export class FourAlternativeQuestion extends React.Component {
     } else {
       setTimeout(
         () => {
-          this.props.setPageByName('EndScreenPage');
+          this.props.switchPage('EndScreenPage');
         }, 1000);
     }
   }
-  displayQuestion(pageName) {
+  displayQuestion() {
     const questionText = {
       GuessPlayPage: (
         <div>
@@ -88,14 +76,14 @@ export class FourAlternativeQuestion extends React.Component {
     if (this.props.resourceRef && this.state.resourceRef.type === 'kanjidrawing') {
       resource = <object height="50em" type="image/svg+xml" data={this.state.resourceRef.location}>SVG error</object>;
     }
-    return resource ? <div>{resource}<br />{questionText[pageName]}</div> : questionText[pageName];
+    return resource ? <div>{resource}<br />{questionText[this.props.currentPageName]}</div> : questionText[this.props.currentPageName];
   }
   render() {
     return (
       <div>
         <Grid className="text-center">
           <Row>
-            {this.displayQuestion(this.props.currentPageName)}
+            {this.displayQuestion()}
           </Row>
           <br />
           <Row>
@@ -162,35 +150,35 @@ FourAlternativeQuestion.propTypes = {
   // switchPage: React.PropTypes.func.isRequired,
   // pageName: React.PropTypes.string.isRequired,
   // redux props
-  successRate: React.PropTypes.number.isRequired,
-  lessonSuccessRate: React.PropTypes.number.isRequired,
+  // successRate: React.PropTypes.number.isRequired,
+  // lessonSuccessRate: React.PropTypes.number.isRequired,
   lessonSuccessRateMessage: React.PropTypes.string.isRequired,
-  requestingSuccessRate: React.PropTypes.bool.isRequired,
-  requestSuccessRateStatus: React.PropTypes.string.isRequired,
-  requestSuccessRateResponse: React.PropTypes.string.isRequired,
-  requestSuccessRateLastReceived: React.PropTypes.date.isRequired,
+  // requestingSuccessRate: React.PropTypes.bool.isRequired,
+  // requestSuccessRateStatus: React.PropTypes.string.isRequired,
+  // requestSuccessRateResponse: React.PropTypes.string.isRequired,
+  // requestSuccessRateLastReceived: React.PropTypes.number.isRequired,
 
   currentPageName: React.PropTypes.string.isRequired,
-  currentPage: React.PropTypes.string.isRequired,
-  pages: React.PropTypes.object.isRequired,
+  // currentPage: React.PropTypes.string.isRequired,
+  // pages: React.PropTypes.object.isRequired,
 
-  gamemode: React.PropTypes.string.isRequired,
+  // gamemode: React.PropTypes.string.isRequired,
 
-  lessonNames: React.PropTypes.array.isRequired,
-  fetchURL: React.PropTypes.string.isRequired,
+  // lessonNames: React.PropTypes.array.isRequired,
+  // fetchURL: React.PropTypes.string.isRequired,
 
-  selectedLesson: React.PropTypes.string.isRequired,
+  // selectedLesson: React.PropTypes.string.isRequired,
 
   // FourAlternativeQuestion.js
-  questions: React.PropTypes.arrayOf({
-    question: React.PropTypes.arrayOf(React.PropTypes.string.isRequired).isRequired,
-    alternative1: React.PropTypes.string.isRequired,
-    alternative2: React.PropTypes.string.isRequired,
-    alternative3: React.PropTypes.string.isRequired,
-    correctAlternative: React.PropTypes.string.isRequired
-  }).isRequired,
+  // questions: React.PropTypes.arrayOf({
+  //   question: React.PropTypes.arrayOf(React.PropTypes.string.isRequired).isRequired,
+  //   alternative1: React.PropTypes.string.isRequired,
+  //   alternative2: React.PropTypes.string.isRequired,
+  //   alternative3: React.PropTypes.string.isRequired,
+  //   correctAlternative: React.PropTypes.string.isRequired
+  // }).isRequired,
 
-  processedQuestion: React.PropTypes.React.PropTypes.objectOf({
+  processedQuestion: React.PropTypes.objectOf({
     actualQuestionShapes: React.PropTypes.array.isRequired,
     correctAlternative: React.PropTypes.string.isRequired,
     randomizedAlternatives: React.PropTypes.array.isRequired,
@@ -199,36 +187,36 @@ FourAlternativeQuestion.propTypes = {
     resourceRef: React.PropTypes.string.isRequired }).isRequired,
   resourceRef: React.PropTypes.string.isRequired,
   allButtonsDisabled: React.PropTypes.bool.isRequired,
-  userAnswers: React.PropTypes.arrayOf(
-    React.PropTypes.string.isRequired, // question
-    React.PropTypes.string.isRequired, // correctAlternative
-    React.PropTypes.string.isRequired, // answer
-  ).isRequired,
+  // userAnswers: React.PropTypes.arrayOf(
+  //   React.PropTypes.string.isRequired, // question
+  //   React.PropTypes.string.isRequired, // correctAlternative
+  //   React.PropTypes.string.isRequired, // answer
+  // ).isRequired,
   lessonLength: React.PropTypes.number.isRequired,
   correctAttempts: React.PropTypes.number.isRequired,
-  totalAttempts: React.PropTypes.number.isRequired,
+  // totalAttempts: React.PropTypes.number.isRequired,
   currentQuestionIndex: React.PropTypes.number.isRequired,
-  loggedInUser: React.PropTypes.string.isRequired,
+  // loggedInUser: React.PropTypes.string.isRequired,
   // redux action creators
   // fetchLoggedInUser: React.PropTypes.func.isRequired,
   // loggedIn: React.PropTypes.bool.isRequired,
-  requestUserSuccessRate: React.PropTypes.func.isRequired,
-  fetchUserSuccessRate: React.PropTypes.func.isRequired,
-  receiveUserSuccessRate: React.PropTypes.func.isRequired,
+  // requestUserSuccessRate: React.PropTypes.func.isRequired,
+  // fetchUserSuccessRate: React.PropTypes.func.isRequired,
+  // receiveUserSuccessRate: React.PropTypes.func.isRequired,
   receiveCorrectAttempt: React.PropTypes.func.isRequired,
   receiveIncorrectAttempt: React.PropTypes.func.isRequired,
-  calcLessonSuccessRate: React.PropTypes.func.isRequired,
+  // calcLessonSuccessRate: React.PropTypes.func.isRequired,
   // incrementQuestionIndex,
-  resetQuestionIndex: React.PropTypes.func.isRequired,
-  fetchLesson: React.PropTypes.func.isRequired,
-  setSelectedLesson: React.PropTypes.func.isRequired,
-  setGameMode: React.PropTypes.func.isRequired,
+  // resetQuestionIndex: React.PropTypes.func.isRequired,
+  // fetchLesson: React.PropTypes.func.isRequired,
+  // setSelectedLesson: React.PropTypes.func.isRequired,
+  // setGameMode: React.PropTypes.func.isRequired,
   setPageByName: React.PropTypes.func.isRequired,
   calcNextQuestion: React.PropTypes.func.isRequired,
-  setAllButtonsDisabledState: React.PropTypes.func.isRequired,
+  // setAllButtonsDisabledState: React.PropTypes.func.isRequired,
   addUserAnswer: React.PropTypes.func.isRequired,
-  clearUserAnswers: React.PropTypes.func.isRequired,
-  resetAttempts: React.PropTypes.func.isRequired,
+  // clearUserAnswers: React.PropTypes.func.isRequired,
+  // resetAttempts: React.PropTypes.func.isRequired,
   calcAnswerButtonStyles: React.PropTypes.func.isRequired,
   resetLesson: React.PropTypes.func.isRequired
 };
@@ -236,7 +224,7 @@ FourAlternativeQuestion.propTypes = {
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => ({ ...state.userStatistics, ...state.security }),
+    state => (state.reducer),
     // Selects which action creators are merged into the component's props
-    { ...UserStatisticsStore.actionCreators, ...SecurityStore.actionCreators }
+    Store.actionCreators
 )(FourAlternativeQuestion);

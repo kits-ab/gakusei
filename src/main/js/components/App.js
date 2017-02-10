@@ -5,6 +5,9 @@ import 'whatwg-fetch';
 import { connect } from 'react-redux';
 
 import GakuseiNav from './GakuseiNav';
+
+import * as Store from '../Store';
+
 import GuessPlayPage from './GuessPlayPage';
 import AboutPage from './AboutPage';
 import TranslationPlayPage from './TranslationPlayPage';
@@ -16,18 +19,21 @@ import UserStatisticPage from './UserStatisticsPage';
 import QuizPlayPage from './QuizPlayPage';
 import QuizSelection from './QuizSelection';
 
-import * as SecurityStore from '../store/Security';
+const temporaryStuff = null;
 
 export class App extends React.Component {
   constructor(props) {
     super(props);
-    this.switchPage = this.switchPage.bind(this);
-    this.state = { currentPage: <LandingPage /> };
 
+    // this.props.setSwitchPageReference(this.switchPage);
+    // this.switchPage = this.switchPage.bind(this);
+    // this.state = { currentPage: <LandingPage /> };
+    
     this.props.fetchLoggedInUser();
   }
   componentDidMount() {
     // this.setLoggedInUser();
+    this.switchPage('LandingPage');
   }
   // setLoggedInUser() {
   //   // fetch('/username', { credentials: 'same-origin' })
@@ -35,27 +41,24 @@ export class App extends React.Component {
   //   //   .then(user => this.setState({ loggedInUser: user }));
   // }
   switchPage(pageName, newProps) {
-    // const props = Object.assign(
-    //   {
-    //     switchPage: this.switchPage,
-    //     username: this.props.loggedInUser
-    //   },
-    //   newProps);
-    // const pages = {
-    //   LessonSelection: <LessonSelection {...props} />,
-    //   QuizSelection: <QuizSelection {...props} />,
-    //   GuessPlayPage: <GuessPlayPage {...props} />,
-    //   QuizPlayPage: <QuizPlayPage {...props} />,
-    //   TranslationPlayPage: <TranslationPlayPage {...props} />,
-    //   NuggetListPage: <NuggetListPage />,
-    //   AboutPage: <AboutPage />,
-    //   EndScreenPage: <EndScreenPage {...props} />,
-    //   LandingPage: <LandingPage />,
-    //   UserStatisticsPage: <UserStatisticPage {...props} />
-    // };
-    this.props.setPageByName(pageName);
-
-    // this.setState({ currentPage: pages[newContent] });
+    const props = Object.assign(
+      {
+        switchPage: this.switchPage
+      },
+      newProps);
+    const pages = {
+      LessonSelection: <LessonSelection {...props} />,
+      QuizSelection: <QuizSelection {...props} />,
+      GuessPlayPage: <GuessPlayPage {...props} />,
+      QuizPlayPage: <QuizPlayPage {...props} />,
+      TranslationPlayPage: <TranslationPlayPage {...props} />,
+      NuggetListPage: <NuggetListPage />,
+      AboutPage: <AboutPage />,
+      EndScreenPage: <EndScreenPage {...props} />,
+      LandingPage: <LandingPage />,
+      UserStatisticsPage: <UserStatisticPage {...props} />
+    };
+    this.setState({ currentPage: pages[pageName] });
   }
   render() {
     return (
@@ -63,7 +66,7 @@ export class App extends React.Component {
         { this.props.loggedIn ?
           <div>
             <GakuseiNav />
-            { this.props.currentPage }
+            { this.state !== null ? this.state.currentPage : <p>Loading...</p> }
           </div> :
           <p>Loading...</p>}
       </div>
@@ -72,14 +75,19 @@ export class App extends React.Component {
 }
 
 App.propTypes = {
-  // used action creators
-  fetchLoggedInUser: React.PropTypes.func.isRequired,
+  // redux props
+  // currentPage: React.PropTypes.any.isRequired,
   loggedIn: React.PropTypes.bool.isRequired,
-  loggedInUser: React.PropTypes.string.isRequired
+  // loggedInUser: React.PropTypes.string.isRequired,
+  // action creators
+  fetchLoggedInUser: React.PropTypes.func.isRequired,
+  setPageByName: React.PropTypes.func.isRequired
 };
 
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
-    state => state.security, // Selects which state properties are merged into the component's props
-    { ...SecurityStore.actionCreators } // Selects which action creators are merged into the component's props
+    // Selects which state properties are merged into the component's props
+    state => (state.reducer),
+    // Selects which action creators are merged into the component's props
+    Store.actionCreators
 )(App);
