@@ -30,45 +30,33 @@ public class QuestionHandler {
                                                      List<Nugget> nuggets,
                                                      String questionType,
                                                      String answerType) {
+        HashMap<String, Object> questionMap = createQuestionDTOWithResource(nugget);
         LinkedList<Nugget> shuffledNuggets = new LinkedList<>(nuggets);
         shuffledNuggets.remove(nugget);
         Collections.shuffle(shuffledNuggets);
-        HashMap<String, Object> question = createQuestionDTOWithResource(nugget);
-        List<String> alternatives = new ArrayList<>();
-        alternatives.add(nugget.getFacts().stream().filter(f -> f.getType()
-                .equals(answerType)).findFirst().get().getData());
+        List<List<String>> alternatives = new ArrayList<>();
+        alternatives.add(createAlternative(nugget, answerType));
 
         //Avoid getting the same alternative from another nugget
         while (alternatives.size() < 4 && !shuffledNuggets.isEmpty()) {
-            String tempAlternative = shuffledNuggets.poll().getFacts().stream().filter(f -> f.getType()
-                    .equals(answerType)).findFirst().get().getData();
-            if (!alternatives.contains(tempAlternative)) {
+            List<String> tempAlternative = createAlternative(shuffledNuggets.poll(), answerType);
+            if (alternatives.stream().noneMatch(l -> l.get(0).equals(tempAlternative.get(0)))) {
                 alternatives.add(tempAlternative);
             }
         }
         if (alternatives.size() == 4) {
-            List<String> questions = new ArrayList<>();
-            questions.add(nugget.getFacts().stream().filter(f -> f.getType()
-                    .equals(questionType)).findFirst().get().getData());
-            //Add writing if questionType is reading
-            if (questionType.equals("reading")) {
-                Fact tempFact = nugget.getFacts().stream().filter(f -> f.getType()
-                        .equals("writing")).findFirst().orElse(null);
-                if (tempFact != null) {
-                    questions.add(tempFact.getData());
-                }
-            }
-            question.put("question", questions);
-            question.put("correctAlternative", alternatives.get(0));
-            question.put("alternative1", alternatives.get(1));
-            question.put("alternative2", alternatives.get(2));
-            question.put("alternative3", alternatives.get(3));
-            return question;
+            List<String> question = createAlternative(nugget, questionType);
+            questionMap.put("question", question);
+            questionMap.put("correctAlternative", alternatives.get(0));
+            questionMap.put("alternative1", alternatives.get(1));
+            questionMap.put("alternative2", alternatives.get(2));
+            questionMap.put("alternative3", alternatives.get(3));
+            return questionMap;
         } else {
             return null;
         }
     }
-
+    
     public List<HashMap<String, Object>> createQuizQuestions(List<Nugget> nuggets) {
         return nuggets.stream().map(n -> createQuizQuestion(n)).collect(Collectors.toList());
     }
@@ -99,5 +87,18 @@ public class QuestionHandler {
             questionDTO.put("resourceReference", resource);
         }
         return questionDTO;
+    }
+
+    private List<String> createAlternative(Nugget nugget, String type) {
+        List<String> alternative = new ArrayList<>();
+        alternative.add(nugget.getFacts().stream().filter(f -> f.getType().equals(type)).findFirst().get().getData());
+        if (type.equals("reading")) {
+            Fact tempFact = nugget.getFacts().stream().filter(f -> f.getType().equals("writing"))
+                    .findFirst().orElse(null);
+            if (tempFact != null) {
+                alternative.add(tempFact.getData());
+            }
+        }
+        return alternative;
     }
 }

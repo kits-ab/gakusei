@@ -11,7 +11,7 @@ export default class TranslationPlayPage extends React.Component {
       answer: '',
       output: '',
       question: [],
-      correctAlt: '',
+      correctAlt: [],
       checkDisable: false,
       results: [],
       lessonLength: JSON.parse(sessionStorage.lesson).length
@@ -54,7 +54,7 @@ export default class TranslationPlayPage extends React.Component {
   checkAnswer() {
     Utility.logEvent('TranslationPlayPage', 'userAnswer', this.state.answer, this.props.username);
     let answeredCorrectly = false;
-    if (this.state.answer.trim().toUpperCase() === this.state.correctAlt.toUpperCase()) {
+    if (this.state.answer.trim().toUpperCase() === this.state.correctAlt[0].toUpperCase()) {
       answeredCorrectly = true;
       this.setState({ output: 'Rätt!' });
       sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;

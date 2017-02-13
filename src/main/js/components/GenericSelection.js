@@ -23,7 +23,8 @@ export default class GenericSelection extends React.Component {
       .then(
         (json) => {
           sessionStorage.lesson = JSON.stringify(json);
-          this.props.switchPage(this.props.gamemode, { questionType: this.state.questionType });
+          this.props.switchPage(this.props.gamemode,
+            { questionType: this.state.questionType, answerType: this.state.answerType });
         })
       .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
   }
