@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavbarBrand, NavDropdown, MenuItem } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import * as Store from '../Store';
 
@@ -16,22 +17,22 @@ export class GakuseiNav extends React.Component {
   eventHandler(eventKey) {
     switch (eventKey) {
       case 1.1:
-        this.props.setGameMode('GuessPlayPage');
-        this.props.switchPage('LessonSelection'); break;
+        this.props.setGameMode('/play/guess');
+        this.props.setPageByName('/select', { type: 'guess' }); break;
       case 1.2:
-        this.props.setGameMode('TranslationPlayPage');
-        this.props.switchPage('LessonSelection'); break;
+        this.props.setGameMode('TranslationPlay');
+        this.props.setPageByName('LessonSelection'); break;
       case 1.3:
-        this.props.setGameMode('QuizPlayPage');
-        this.props.switchPage('QuizSelection'); break;
+        this.props.setGameMode('/play/quiz');
+        this.props.setPageByName('/select', { type: 'quiz' }); break;
       case 2:
-        this.props.switchPage('NuggetListPage'); break;
+        this.props.setPageByName('NuggetList'); break;
       case 3:
-        this.props.switchPage('AboutPage'); break;
+        this.props.setPageByName('About'); break;
       case 4:
-        this.props.switchPage('UserStatisticsPage'); break;
+        this.props.setPageByName('UserStatistics'); break;
       default:
-        this.props.switchPage('LandingPage');
+        this.props.setPageByName('Landing');
     }
   }
 
@@ -61,9 +62,9 @@ export class GakuseiNav extends React.Component {
           </Nav>
           <Nav pullRight>
             <NavItem eventKey={4} href="#">Inloggad som: {this.props.loggedInUser}</NavItem>
-            <Navbar.Text>
-              <Navbar.Link href="/logout">Logga ut</Navbar.Link>
-            </Navbar.Text>
+            <LinkContainer to="/logout">
+              <NavItem eventKey={5}>Logga ut</NavItem>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

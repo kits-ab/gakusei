@@ -4,7 +4,7 @@ import * as Store from '../Store';
 
 import FourAlternativeQuestion from './FourAlternativeQuestion';
 
-const GuessPlayPage = props => <FourAlternativeQuestion {...props} pageName="GuessPlayPage" />;
+const GuessPlayPage = () => <FourAlternativeQuestion pageName="GuessPlayPage" />;
 
 export default connect(
     // Selects which state properties are merged into the component's props

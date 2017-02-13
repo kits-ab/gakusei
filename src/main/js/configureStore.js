@@ -1,10 +1,12 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { routerReducer, routerMiddleware, push } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 import thunkMiddleware from 'redux-thunk';
 import * as Store from './Store';
 
 function buildRootReducer(allReducers) {
-  // return combineReducers(Object.assign({}, allReducers, { routing: routerReducer }));
-  return combineReducers(Object.assign({}, allReducers, { routing: 'test' }));
+  return combineReducers(Object.assign({}, allReducers, { routing: routerReducer }));
+  // return combineReducers(Object.assign({}, allReducers, { routing: 'test' }));
 }
 
 export default function configureStore(initialState) {
@@ -14,7 +16,7 @@ export default function configureStore(initialState) {
   const devToolsExtension = windowIfDefined && windowIfDefined.devToolsExtension;
 
   const createStoreWithMiddleware = compose(
-        applyMiddleware(thunkMiddleware),
+        applyMiddleware(thunkMiddleware, routerMiddleware(browserHistory)),
         devToolsExtension ? devToolsExtension() : f => f
     )(createStore);
 

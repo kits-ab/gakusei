@@ -2,6 +2,8 @@
 import 'whatwg-fetch';
 // For temporary page management
 import React from 'react';
+import { browserHistory } from 'react-router';
+import { push } from 'react-router-redux';
 
 import Utility from './util/Utility';
 
@@ -38,7 +40,7 @@ export const defaultState = {
   gamemode: null,
 
   // LessonSelection.js
-  lessonNames: ['JLPT N3', 'JLPT N4', 'JLPT N5', 'GENKI 1', 'GENKI 13', 'GENKI 15'],
+  lessonNames: [],
   fetchURL: '/api/questions',
 
   // GenericSelection.js
@@ -93,16 +95,14 @@ export const ADD_USER_ANSWER = 'ADD_USER_ANSWER';
 export const CLEAR_USER_ANSWERS = 'CLEAR_USER_ANSWERS';
 export const SHOW_ANSWER_BUTTON_STYLES = 'SHOW_ANSWER_BUTTON_STYLES';
 export const RECEIVE_ANSWER_BUTTON_STYLES = 'RECEIVE_ANSWER_BUTTON_STYLES';
-export const CLEAR_ANSWERS = 'CLEAR_ANSWERS';
+export const SET_LESSON_NAMES = 'SET_LESSON_NAMES';
+export const CLEAR_PROCESSED_QUESTION = 'CLEAR_PROCESSED_QUESTION';
 
 // Security stuff
 export const RECEIVE_CSRF = 'RECEIVE_CSRF';
 export const REQUEST_CSRF = 'REQUEST_CSRF';
 export const RECEIVE_LOGGED_IN_USER = 'RECEIVE_LOGGED_IN_USER';
 export const REQUEST_LOGGED_IN_USER = 'REQUEST_LOGGED_IN_USER';
-
-// Switchpage (temporary)
-export const SET_SWITCH_PAGE_REF = 'SET_SWITCH_PAGE_REF';
 
 export function calcLessonSuccessRateMessage(lessonSuccessRate) {
   let lessonSuccessRateMessage = '';
@@ -115,15 +115,15 @@ export function calcLessonSuccessRateMessage(lessonSuccessRate) {
   };
 
   lessonSuccessRateMessage = `${lessonSuccessRate}%`;
-  if (this.lessonSuccessRate >= 80) {
+  if (lessonSuccessRate >= 80) {
     lessonSuccessRateMessage += `, ${lessonSuccessRateMessage} ${emojiFeedback.veryGood}`;
-  } else if (this.lessonSuccessRate < 80 && this.lessonSuccessRate >= 60) {
+  } else if (lessonSuccessRate < 80 && lessonSuccessRate >= 60) {
     lessonSuccessRateMessage += `, ${lessonSuccessRateMessage} ${emojiFeedback.good}`;
-  } else if (this.lessonSuccessRate < 60 && this.lessonSuccessRate >= 40) {
+  } else if (lessonSuccessRate < 60 && lessonSuccessRate >= 40) {
     lessonSuccessRateMessage += `, ${lessonSuccessRateMessage} ${emojiFeedback.average}`;
-  } else if (this.lessonSuccessRate < 40 && this.lessonSuccessRate >= 20) {
+  } else if (lessonSuccessRate < 40 && lessonSuccessRate >= 20) {
     lessonSuccessRateMessage += `, ${lessonSuccessRateMessage} ${emojiFeedback.bad}`;
-  } else if (this.lessonSuccessRate < 20) {
+  } else if (lessonSuccessRate < 20) {
     lessonSuccessRateMessage += `, ${lessonSuccessRateMessage} ${emojiFeedback.veryBad}`;
   }
 
@@ -143,11 +143,12 @@ export function receiveLessonSuccessRate(lessonSuccessRate) {
 }
 
 export function calcLessonSuccessRate() {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    const state = getState().reducer;
     let lessonSuccessRate = 0;
 
-    if (this.totalAttempts > 0) {
-      lessonSuccessRate = ((this.correctAttempts / this.totalAttempts) * 100).toFixed(0);
+    if (state.totalAttempts > 0) {
+      lessonSuccessRate = ((state.correctAttempts / state.totalAttempts) * 100).toFixed(0);
     }
 
     dispatch(receiveLessonSuccessRate(lessonSuccessRate));
@@ -163,33 +164,38 @@ export function receiveCorrectAttempt() {
 }
 
 export function calcAnswerButtonStyles(userAnswerWord) {
-  let newButtonStyles = [];
+  return function (dispatch, getState) {
+    const state = getState().reducer;
 
-  newButtonStyles = this.processedQuestion.randomizedAlternatives.map((word) => {
-    if (word === userAnswerWord) {
-      return 'danger';
-    } else if (word === this.processedQuestion.correctAlternative) {
-      return 'success';
-    }
-    return 'default';
-  });
+    let newButtonStyles = [];
 
-  return {
-    type: RECEIVE_ANSWER_BUTTON_STYLES,
-    description: 'Set the style of each answer button',
-    buttonStyles: newButtonStyles
+    newButtonStyles = state.processedQuestion.randomizedAlternatives.map((word) => {
+      if (word === userAnswerWord) {
+        return 'danger';
+      } else if (word === state.processedQuestion.correctAlternative) {
+        return 'success';
+      }
+      return 'default';
+    });
+
+    dispatch({
+      type: RECEIVE_ANSWER_BUTTON_STYLES,
+      description: 'Set the style of each answer button',
+      buttonStyles: newButtonStyles
+    });
   };
 }
 
 export function addUserAnswer(userActualAnswer) {
-  return {
-    type: ADD_USER_ANSWER,
-    description: 'Add an answer a user made, along with correct results',
-    userAnswer: [...this.userAnswers, [
-      this.processedQuestion.question,
-      this.processedQuestion.correctAlternative,
-      userActualAnswer
-    ]]
+  return function (dispatch, getState) {
+    const state = getState().reducer;
+
+    dispatch({ type: ADD_USER_ANSWER,
+      description: 'Add an answer a user made, along with correct results',
+      userAnswer: [
+        state.processedQuestion,
+        userActualAnswer
+      ] });
   };
 }
 
@@ -214,13 +220,6 @@ export function resetAttempts() {
   };
 }
 
-export function clearAnswers() {
-  return {
-    type: CLEAR_ANSWERS,
-    description: 'Clear the answers object'
-  };
-}
-
 export function setAllButtonsDisabledState(disabled) {
   return {
     type: SET_ALL_BUTTONS_DISABLED_STATE,
@@ -229,21 +228,22 @@ export function setAllButtonsDisabledState(disabled) {
   };
 }
 
-export function setSwitchPageReference(switchPageRef) {
-  return {
-    type: SET_SWITCH_PAGE_REF,
-    description: 'Set reference to switchpage',
-    switchPageRef
-  };
-}
+export function setPageByName(pageName, params = null, _state = null) {
+  return function (dispatch) {
+    // getState().reducer.switchPageRef(pageName);
 
-export function setPageByName(pageName) {
-  return function (dispatch, getState) {
-    getState().reducer.switchPageRef(pageName);
+    // browserHistory.push(pageName, params);
+    // dispatch(push(`${pageName}?test=123`));
+    // dispatch(push(pageName, ...params)); // Bork
+    dispatch(push({
+      pathname: `${pageName}`,
+      query: { ...params },
+      state: _state
+    }));
 
     dispatch({
       type: SET_PAGE,
-      description: 'Set current page for use in switchPage',
+      description: 'Set name of current page, for supporting deprecated functions',
       currentPageName: pageName
     });
   };
@@ -257,30 +257,10 @@ export function setGameMode(gamemode) {
   };
 }
 
-export function calcNextQuestion() {
-  return function (dispatch, getState) {
-    const state = getState();
-    const localQuestionIndex = getState().reducer.currentQuestionIndex + 1;
-
-    const processedQuestion = {
-      actualQuestionShapes: state.questions[localQuestionIndex].question,
-      correctAlternative: state.questions[localQuestionIndex].correctAlternative,
-      randomizedAlternatives: Utility.randomizeOrder([
-        state.questions[localQuestionIndex].alternative1,
-        state.questions[localQuestionIndex].alternative2,
-        state.questions[localQuestionIndex].alternative3,
-        state.questions[localQuestionIndex].correctAlternative]),
-      buttonStyles: ['default', 'default', 'default', 'default'],
-      buttonDisabled: false,
-      resourceRef: state.questions[localQuestionIndex].resourceReference
-    };
-
-    dispatch(this.receiveNextProcessedQuestion(processedQuestion));
-
-    // Utility.logEvent(this.currentPageName, 'question', this.state.question, this.props.loggedInUser);
-    // for (let i = 0; i < this.state.randomOrderAlt.length; i += 1) {
-    //   Utility.logEvent(this.currentPageName, 'alternative', this.state.randomOrderAlt[i], this.props.loggedInUser);
-    // }
+export function incrementQuestionIndex() {
+  return {
+    type: INCREMENT_QUESTION_INDEX,
+    description: 'Increment the question index'
   };
 }
 
@@ -292,11 +272,34 @@ export function receiveNextProcessedQuestion(processedQuestion) {
   };
 }
 
-// To be deprecated
-export function incrementQuestionIndex() {
-  return {
-    type: INCREMENT_QUESTION_INDEX,
-    description: 'Increment the question index'
+export function calcNextQuestion(autoIncrementQuestionIndex = true) {
+  return function (dispatch, getState) {
+    const state = getState().reducer;
+    const localQuestionIndex = state.currentQuestionIndex + 1;
+
+    const processedQuestion = {
+      actualQuestionShapes: state.questions[localQuestionIndex].question,
+      correctAlternative: state.questions[localQuestionIndex].correctAlternative,
+      randomizedAlternatives: Utility.randomizeOrder([
+        state.questions[localQuestionIndex].alternative1,
+        state.questions[localQuestionIndex].alternative2,
+        state.questions[localQuestionIndex].alternative3,
+        state.questions[localQuestionIndex].correctAlternative]),
+      buttonStyles: ['default', 'default', 'default', 'default'],
+      buttonDisabled: false,
+      resourceRef: state.questions[localQuestionIndex].resourceReference || null
+    };
+
+    if (autoIncrementQuestionIndex) {
+      dispatch(incrementQuestionIndex());
+    }
+
+    dispatch(receiveNextProcessedQuestion(processedQuestion));
+
+    // Utility.logEvent(this.currentPageName, 'question', this.state.question, this.props.loggedInUser);
+    // for (let i = 0; i < this.state.randomOrderAlt.length; i += 1) {
+    //   Utility.logEvent(this.currentPageName, 'alternative', this.state.randomOrderAlt[i], this.props.loggedInUser);
+    // }
   };
 }
 
@@ -332,11 +335,18 @@ export function requestUserSuccessRate() {
   };
 }
 
-export function receiveLesson(jsonQuestions) {
+export function receiveLesson(questions) {
   return {
     type: RECEIVE_LESSON,
     description: 'Received lesson data in json-format',
-    questions: JSON.parse(jsonQuestions)
+    questions
+  };
+}
+
+export function clearProcessedQuestion() {
+  return {
+    type: CLEAR_PROCESSED_QUESTION,
+    description: 'Clears the content of the processed question. Sort of unnecessary..'
   };
 }
 
@@ -344,19 +354,37 @@ export function resetLesson() {
   return function (dispatch) {
     dispatch(resetAttempts());
     dispatch(resetQuestionIndex());
-    dispatch(clearAnswers());
+    dispatch(clearUserAnswers());
   };
 }
 
-export function fetchLesson(temporarySwitchpageCallback) {
-  return function (dispatch) {
-    return fetch(`${this.fetchURL}?lessonName=${this.selectedLesson}`, { credentials: 'same-origin' })
+
+export function setLessonNames(lessonNames) {
+  return function (dispatch, getState) {
+    const state = getState().reducer;
+
+    const something = dispatch({
+      type: SET_LESSON_NAMES,
+      description: 'Manually set lesson names. Temporary function.',
+      lessonNames
+    });
+
+    dispatch(setSelectedLesson(something.lessonNames[0]));
+  };
+}
+
+export function fetchLesson(temporaryCallback) {
+  return function (dispatch, getState) {
+    const state = getState().reducer;
+    return fetch(`${state.fetchURL}?lessonName=${state.selectedLesson}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
         (json) => {
           // sessionStorage.lesson = JSON.stringify(json);
           dispatch(receiveLesson(json));
-          temporarySwitchpageCallback();
+          dispatch(calcNextQuestion(false));
+          temporaryCallback();
+          // temporarySwitchpageCallback();
         })
       .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
   };
@@ -453,7 +481,7 @@ export const actionCreators = {
   fetchLoggedInUser,
   requestLoggedInUser,
   receiveLoggedInUser,
-  setSwitchPageReference
+  setLessonNames
 };
 
 // ----------------
@@ -477,20 +505,22 @@ export const reducer = (state, action) => {
         ...state,
         allButtonsDisabled: action.allButtonsDisabled
       };
+    case CLEAR_PROCESSED_QUESTION:
+      return {
+        ...state,
+        processedQuestion: {
+          actualQuestionShapes: [],
+          correctAlternative: null,
+          randomizedAlternatives: [],
+          buttonStyles: ['default', 'default', 'default', 'default'],
+          buttonDisabled: false,
+          resourceRef: []
+        }
+      };
     case RECEIVE_ANSWER_BUTTON_STYLES:
       return {
         ...state,
-        processedQuestion: { ...this.processedQuestion, buttonStyles: action.buttonStyles }
-      };
-    case CLEAR_ANSWERS:
-      return {
-        ...state,
-        userAnswers: []
-      };
-    case SET_SWITCH_PAGE_REF:
-      return {
-        ...state,
-        switchPageRef: action.switchPageRef
+        processedQuestion: { ...state.processedQuestion, buttonStyles: action.buttonStyles }
       };
     case SET_PAGE:
       return {
@@ -500,7 +530,7 @@ export const reducer = (state, action) => {
     case ADD_USER_ANSWER:
       return {
         ...state,
-        userAnswers: action.userAnswers
+        userAnswers: [...state.userAnswers, action.userAnswer]
       };
     case CLEAR_USER_ANSWERS:
       return {
@@ -512,6 +542,11 @@ export const reducer = (state, action) => {
         ...state,
         questions: action.questions,
         lessonLength: action.questions.length
+      };
+    case SET_LESSON_NAMES:
+      return {
+        ...state,
+        lessonNames: action.lessonNames
       };
     case REQUEST_USER_SUCCESS_RATE:
       return {
@@ -527,8 +562,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         processedQuestion: action.processedQuestion,
-        resourceRef: action.processedQuestion.resourceRef,
-        currentQuestionIndex: this.currentQuestionIndex + 1
+        resourceRef: action.processedQuestion.resourceRef
       };
     case SET_SELECTED_LESSON:
       return {
@@ -548,7 +582,7 @@ export const reducer = (state, action) => {
     case INCREMENT_QUESTION_INDEX:
       return {
         ...state,
-        currentQuestionIndex: this.currentQuestionIndex + 1
+        currentQuestionIndex: state.currentQuestionIndex + 1
       };
     case RESET_QUESTION_INDEX:
       return {
@@ -558,13 +592,13 @@ export const reducer = (state, action) => {
     case RECEIVE_CORRECT_ATTEMPT:
       return {
         ...state,
-        correctAttempts: this.correctAttempts + 1,
-        totalAttempts: this.totalAttempts + 1
+        correctAttempts: state.correctAttempts + 1,
+        totalAttempts: state.totalAttempts + 1
       };
     case RECEIVE_INCORRECT_ATTEMPT:
       return {
         ...state,
-        totalAttempts: this.totalAttempts + 1
+        totalAttempts: state.totalAttempts + 1
       };
     case RESET_ATTEMPTS:
       return {

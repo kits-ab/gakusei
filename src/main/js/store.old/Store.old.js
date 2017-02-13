@@ -211,13 +211,6 @@ export function resetAttempts() {
   };
 }
 
-export function clearAnswers() {
-  return {
-    type: CLEAR_ANSWERS,
-    description: 'Clear the answers object'
-  };
-}
-
 export function setAllButtonsDisabledState(disabled) {
   return {
     type: SET_ALL_BUTTONS_DISABLED_STATE,
@@ -332,7 +325,7 @@ export function resetLesson() {
   return function (dispatch) {
     dispatch(resetAttempts());
     dispatch(resetQuestionIndex());
-    dispatch(clearAnswers());
+    dispatch(clearUserAnswers());
   };
 }
 

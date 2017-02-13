@@ -13,12 +13,14 @@ export class FourAlternativeQuestion extends React.Component {
     super(props);
     this.checkAnswer = this.checkAnswer.bind(this);
     this.onKeys = this.onKeys.bind(this);
+  }
 
+  componentWillMount() {
     this.props.resetLesson();
   }
+
   componentDidMount() {
     window.addEventListener('keydown', this.onKeys);
-    this.setQuestion(0);
   }
   componentWillUnmount() {
     window.removeEventListener('keydown', this.onKeys);
@@ -58,19 +60,20 @@ export class FourAlternativeQuestion extends React.Component {
     } else {
       setTimeout(
         () => {
-          this.props.switchPage('EndScreenPage');
+          // this.props.setPageByName('EndScreen');
+          this.props.setPageByName('EndScreen', this.props.location.query);
         }, 1000);
     }
   }
   displayQuestion() {
     const questionText = {
-      GuessPlayPage: (
+      GuessPlay: (
         <div>
-          <h2>Läsform: {this.props.processedQuestion.question[0]}</h2>
-          {(this.props.processedQuestion.length > 1) ? <h2>Skrivform: {this.props.processedQuestion[1]} </h2> : ' '}
+          <h2>Läsform: {this.props.processedQuestion.actualQuestionShapes[0]}</h2>
+          {(this.props.processedQuestion.length > 1) ? <h2>Skrivform: {this.props.processedQuestion.actualQuestionShapes[1]} </h2> : ' '}
         </div>
       ),
-      QuizPlayPage: <h2>{this.props.processedQuestion[0]}</h2>
+      QuizPlay: <h2>{this.props.processedQuestion.actualQuestionShapes[0]}</h2>
     };
     let resource;
     if (this.props.resourceRef && this.state.resourceRef.type === 'kanjidrawing') {
@@ -83,7 +86,7 @@ export class FourAlternativeQuestion extends React.Component {
       <div>
         <Grid className="text-center">
           <Row>
-            {this.displayQuestion()}
+            {this.displayQuestion.bind(this)}
           </Row>
           <br />
           <Row>
@@ -178,14 +181,14 @@ FourAlternativeQuestion.propTypes = {
   //   correctAlternative: React.PropTypes.string.isRequired
   // }).isRequired,
 
-  processedQuestion: React.PropTypes.objectOf({
+  processedQuestion: React.PropTypes.shape({
     actualQuestionShapes: React.PropTypes.array.isRequired,
     correctAlternative: React.PropTypes.string.isRequired,
     randomizedAlternatives: React.PropTypes.array.isRequired,
     buttonStyles: React.PropTypes.array.isRequired,
     buttonDisabled: React.PropTypes.bool.isRequired,
-    resourceRef: React.PropTypes.string.isRequired }).isRequired,
-  resourceRef: React.PropTypes.string.isRequired,
+    resourceRef: React.PropTypes.object }).isRequired,
+  // resourceRef: React.PropTypes.string.isRequired,
   allButtonsDisabled: React.PropTypes.bool.isRequired,
   // userAnswers: React.PropTypes.arrayOf(
   //   React.PropTypes.string.isRequired, // question

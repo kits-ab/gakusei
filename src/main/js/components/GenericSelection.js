@@ -11,6 +11,18 @@ export class GenericSelection extends React.Component {
     super(props);
     // this.handleSubmit = this.handleSubmit.bind(this);
     // this.handleChange = this.handleChange.bind(this);
+    console.log('Hello world');
+    // console.log(this.props.location.query.lessons);
+  }
+
+  componentWillMount() {
+    let lessonsX = [];
+    if (this.props.location.query.type === 'guess') {
+      lessonsX = ['JLPT N3', 'JLPT N4', 'JLPT N5', 'GENKI 1', 'GENKI 13', 'GENKI 15'];
+    } else if (this.props.location.query.type === 'quiz') {
+      lessonsX = ['Den japanska floran'];
+    }
+    this.props.setLessonNames(lessonsX);
   }
 
   handleChange(event) {
@@ -18,8 +30,7 @@ export class GenericSelection extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    // const self = this;
-    this.props.fetchLesson(() => { this.props.switchPage(this.props.gamemode); });
+    this.props.fetchLesson(() => { this.props.setPageByName('/play', this.props.location.query); });
   }
   render() {
     const title = {
@@ -42,7 +53,7 @@ export class GenericSelection extends React.Component {
                   componentClass="select"
                   id="lessonSelection"
                   onChange={this.handleChange.bind(this)}
-                  value={this.props.selectedLesson}
+                  value={this.props.selectedLesson || ''}
                 >
                   {options}
                 </FormControl>
@@ -58,7 +69,7 @@ export class GenericSelection extends React.Component {
 
 GenericSelection.propTypes = {
   gamemode: React.PropTypes.string.isRequired,
-  switchPage: React.PropTypes.func.isRequired,
+  // switchPage: React.PropTypes.func.isRequired,
   lessonNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   fetchURL: React.PropTypes.string.isRequired,
   // Action creators

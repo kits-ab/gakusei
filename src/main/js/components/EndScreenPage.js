@@ -7,9 +7,11 @@ import Utility from '../util/Utility';
 import * as Store from '../Store';
 
 export class EndScreenPage extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+    this.playAgain = this.playAgain.bind(this);
+    this.backtoSelection = this.backtoSelection.bind(this);
+  }
 
   componentDidMount() {
     this.logEvents();
@@ -17,6 +19,16 @@ export class EndScreenPage extends React.Component {
   componentWillUnmount() {
     sessionStorage.removeItem('correctAttempts');
     sessionStorage.removeItem('totalAttempts');
+  }
+  backtoSelection() {
+    // this.props.resetLesson();
+    this.props.fetchLesson(() => { this.props.setPageByName('/select', this.props.location.query); });
+    // this.props.setPageByName('/select', this.props.location.query);
+  }
+  playAgain() {
+    // this.props.resetLesson();
+    this.props.fetchLesson(() => { this.props.setPageByName('/play', this.props.location.query); });
+    // this.props.setPageByName('/play', this.props.location.query);
   }
   logEvents() {
     for (let i = 0; i < this.props.results.length; i += 1) {
@@ -40,7 +52,7 @@ export class EndScreenPage extends React.Component {
         <Row>
           <div className="text-center">
             <h2>
-              {successRate.toFixed(0)}% rätt!
+              {this.props.lessonSuccessRate.toFixed(0)}% rätt!
             </h2>
             <h3>
               Du svarade rätt på {sessionStorage.correctAttempts} av {sessionStorage.totalAttempts} möjliga frågor
@@ -54,11 +66,11 @@ export class EndScreenPage extends React.Component {
         </ListGroup>
         <Row>
           <div className="text-center">
-            <Button bsStyle="info" onClick={() => this.props.switchPage(this.props.gamemode)}>Försök igen</Button>
+            <Button bsStyle="info" onClick={this.playAgain}>Försök igen</Button>
             {' '}
             <Button
               bsStyle="info"
-              onClick={() => this.props.switchPage('LessonSelection', { gamemode: this.props.gamemode })}
+              onClick={this.backtoSelection}
             >
               Välj nya frågor
             </Button>
@@ -72,12 +84,14 @@ export class EndScreenPage extends React.Component {
 EndScreenPage.propTypes = {
   // username: React.PropTypes.string.isRequired,
   gamemode: React.PropTypes.string.isRequired,
-  switchPage: React.PropTypes.func.isRequired,
+  // switchPage: React.PropTypes.func.isRequired,
   results: React.PropTypes.arrayOf(React.PropTypes.array),
-  // used action creators
-  // fetchLoggedInUser: React.PropTypes.func.isRequired,
+  // store props
+  lessonSuccessRate: React.PropTypes.number.isRequired,
+  loggedInUser: React.PropTypes.string.isRequired,
+  // action creators
   // loggedIn: React.PropTypes.bool.isRequired,
-  loggedInUser: React.PropTypes.string.isRequired
+  setPageByName: React.PropTypes.func.isRequired
 };
 
 EndScreenPage.defaultProps = {

@@ -47,7 +47,7 @@ export class TranslationPlayPage extends React.Component {
       sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
       this.setQuestion(Number(sessionStorage.currentQuestionIndex));
     } else {
-      this.props.switchPage('EndScreenPage', { gamemode: 'TranslationPlayPage' });
+      this.props.setPageByName('EndScreenPage', { gamemode: 'TranslationPlayPage' });
     }
   }
   handleChange(event) {
@@ -79,7 +79,7 @@ export class TranslationPlayPage extends React.Component {
       }, 2000);
     } else {
       setTimeout(
-        () => this.props.switchPage('EndScreenPage', { results: this.state.results, gamemode: 'TranslationPlayPage' }),
+        () => this.props.setPageByName('EndScreenPage', { results: this.state.results, gamemode: 'TranslationPlayPage' }),
         2000
       );
     }
