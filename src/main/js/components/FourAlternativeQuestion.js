@@ -11,8 +11,8 @@ export default class FourAlternativeQuestion extends React.Component {
     super(props);
     this.state = {
       question: [],
-      correctAlt: '',
-      randomOrderAlt: ['', '', '', ''],
+      correctAlt: ['', ''],
+      randomOrderAlt: [['', ''], ['', ''], ['', ''], ['', '']],
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonDisabled: false,
       results: [],
@@ -81,15 +81,15 @@ export default class FourAlternativeQuestion extends React.Component {
     Utility.logEvent(this.props.pageName, 'userAnswer', answer, this.props.username);
     let newButtonStyles = [];
     let answeredCorrectly = false;
-    if (answer === this.state.correctAlt) {
+    if (answer === this.state.correctAlt[0]) {
       answeredCorrectly = true;
-      newButtonStyles = this.state.randomOrderAlt.map(word => ((word === answer) ? 'success' : 'default'));
+      newButtonStyles = this.state.randomOrderAlt.map(word => ((word[0] === answer) ? 'success' : 'default'));
       sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
     } else {
       newButtonStyles = this.state.randomOrderAlt.map((word) => {
-        if (word === answer) {
+        if (word[0] === answer) {
           return 'danger';
-        } else if (word === this.state.correctAlt) {
+        } else if (word[0] === this.state.correctAlt[0]) {
           return 'success';
         }
         return 'default';
@@ -99,7 +99,7 @@ export default class FourAlternativeQuestion extends React.Component {
     this.setState({
       buttonDisabled: true,
       buttonStyles: newButtonStyles,
-      results: this.state.results.concat([[this.state.question, this.state.correctAlt, answer]])
+      results: this.state.results.concat([[this.state.question, this.state.correctAlt[0], answer]])
     });
     Utility.logEvent(this.props.pageName, 'correctAnswer', this.state.question, this.props.username);
     Utility.logEvent(this.props.pageName, 'correctAnswer', this.state.correctAlt, this.props.username);
@@ -110,7 +110,14 @@ export default class FourAlternativeQuestion extends React.Component {
       }, 1000);
     } else {
       setTimeout(
-        () => this.props.switchPage('EndScreenPage', { results: this.state.results, gamemode: this.props.pageName }), 1000);
+        () => this.props.switchPage('EndScreenPage',
+          {
+            results: this.state.results,
+            gamemode: this.props.pageName,
+            questionType: this.props.questionType,
+            answerType: this.props.answerType
+          }),
+        1000);
     }
   }
   render() {
@@ -132,6 +139,7 @@ export default class FourAlternativeQuestion extends React.Component {
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.state.buttonStyles[0]}
                   disableButton={this.state.buttonDisabled}
+                  answerType={this.props.answerType}
                 />
               </Col>
               <Col xs={6} sm={4} md={3}>
@@ -140,6 +148,7 @@ export default class FourAlternativeQuestion extends React.Component {
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.state.buttonStyles[1]}
                   disableButton={this.state.buttonDisabled}
+                  answerType={this.props.answerType}
                 />
               </Col>
             </ButtonToolbar>
@@ -153,6 +162,7 @@ export default class FourAlternativeQuestion extends React.Component {
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.state.buttonStyles[2]}
                   disableButton={this.state.buttonDisabled}
+                  answerType={this.props.answerType}
                 />
               </Col>
               <Col xs={6} sm={4} md={3}>
@@ -161,6 +171,7 @@ export default class FourAlternativeQuestion extends React.Component {
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.state.buttonStyles[3]}
                   disableButton={this.state.buttonDisabled}
+                  answerType={this.props.answerType}
                 />
               </Col>
             </ButtonToolbar>
@@ -187,5 +198,6 @@ FourAlternativeQuestion.propTypes = {
   username: React.PropTypes.string.isRequired,
   switchPage: React.PropTypes.func.isRequired,
   pageName: React.PropTypes.string.isRequired,
-  questionType: React.PropTypes.string.isRequired
+  questionType: React.PropTypes.string.isRequired,
+  answerType: React.PropTypes.string.isRequired
 };

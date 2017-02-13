@@ -23,10 +23,10 @@ export default class EndScreenPage extends React.Component {
     const successRate = ((Number(sessionStorage.correctAttempts) / Number(sessionStorage.totalAttempts)) * 100);
     const results = this.props.results.map(result => ((result[0].length > 1) ?
       <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
-        Läsform: {result[0][0]}, Skrivform: {result[0][1]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
+        Fråga: {result[0][0]}, Fråga: {result[0][1]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
       </ListGroupItem> :
       <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
-        Läsform: {result[0][0]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
+        Fråga: {result[0][0]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
       </ListGroupItem>)
     );
     return (
@@ -48,7 +48,13 @@ export default class EndScreenPage extends React.Component {
         </ListGroup>
         <Row>
           <div className="text-center">
-            <Button bsStyle="info" onClick={() => this.props.switchPage(this.props.gamemode)}>Försök igen</Button>
+            <Button
+              bsStyle="info"
+              onClick={() => this.props.switchPage(this.props.gamemode,
+                      { questionType: this.props.questionType, answerType: this.props.answerType })}
+            >
+              Försök igen
+            </Button>
             {' '}
             <Button
               bsStyle="info"
@@ -66,11 +72,15 @@ export default class EndScreenPage extends React.Component {
 EndScreenPage.propTypes = {
   username: React.PropTypes.string.isRequired,
   gamemode: React.PropTypes.string.isRequired,
+  questionType: React.PropTypes.string,
+  answerType: React.PropTypes.string,
   switchPage: React.PropTypes.func.isRequired,
   results: React.PropTypes.arrayOf(React.PropTypes.array)
 };
 
 EndScreenPage.defaultProps = {
   results: [],
-  gamemode: ''
+  gamemode: '',
+  questionType: '',
+  answerType: ''
 };
