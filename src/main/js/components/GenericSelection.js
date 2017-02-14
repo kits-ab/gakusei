@@ -8,12 +8,16 @@ export default class GenericSelection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedLesson: this.props.lessonNames[0],
+      lessonNames: [],
       questionType: 'reading',
-      answerType: 'swedish'
+      answerType: 'swedish',
+      selectedLesson: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+  componentWillMount() {
+    this.fetchLessonNames();
   }
   fetchLesson() {
     fetch(
@@ -26,6 +30,13 @@ export default class GenericSelection extends React.Component {
           this.props.switchPage(this.props.gamemode,
             { questionType: this.state.questionType, answerType: this.state.answerType });
         })
+      .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
+  }
+  fetchLessonNames() {
+    const lessonType = this.props.gamemode === 'QuizPlayPage' ? 'quiz' : 'vocabulary';
+    fetch(`/api/lessonNames?lessonType=${lessonType}`, { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then(result => this.setState({ lessonNames: result, selectedLesson: result[0] }))
       .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
   }
   handleChange(event) {
@@ -46,7 +57,7 @@ export default class GenericSelection extends React.Component {
       TranslationPlayPage: 'Översätt ordet',
       QuizPlayPage: 'Quiz'
     };
-    const options = this.props.lessonNames.map(name => <option key={name} value={name}>{name}</option>);
+    const options = this.state.lessonNames.map(name => <option key={name} value={name}>{name}</option>);
     let languageSelection;
     if (this.props.gamemode === 'QuizPlayPage') {
       languageSelection = <div />;
@@ -110,6 +121,5 @@ export default class GenericSelection extends React.Component {
 GenericSelection.propTypes = {
   gamemode: React.PropTypes.string.isRequired,
   switchPage: React.PropTypes.func.isRequired,
-  lessonNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   fetchURL: React.PropTypes.string.isRequired
 };
