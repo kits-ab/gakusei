@@ -13,11 +13,22 @@ export class GenericSelection extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  // Triggers when we change between play types but remain in "selection" page
+  componentWillReceiveProps(nextProps) {
+    if (this.props.location.query.type !== nextProps.location.query.type) {
+      this.calcLessonNames(nextProps.location.query.type);
+    }
+  }
+
   componentWillMount() {
+    this.calcLessonNames(this.props.location.query.type);
+  }
+
+  calcLessonNames(lessonType) {
     let lessons = [];
-    if (this.props.location.query.type === 'guess') {
+    if (lessonType === 'guess' || lessonType === 'translate') {
       lessons = ['JLPT N3', 'JLPT N4', 'JLPT N5', 'GENKI 1', 'GENKI 13', 'GENKI 15'];
-    } else if (this.props.location.query.type === 'quiz') {
+    } else if (lessonType === 'quiz') {
       lessons = ['Den japanska floran'];
     }
     this.props.setLessonNames(lessons);
@@ -28,7 +39,12 @@ export class GenericSelection extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.props.fetchLesson(() => { this.props.setPageByName('/play', this.props.location.query); });
+
+    if (this.props.location.query.type === 'translate') {
+      this.props.fetchLesson(this.props.location.query.type, () => { this.props.setPageByName('/translate', this.props.location.query); });
+    } else {
+      this.props.fetchLesson(this.props.location.query.type, () => { this.props.setPageByName('/play', this.props.location.query); });
+    }
   }
   render() {
     const title = {
@@ -65,7 +81,11 @@ export class GenericSelection extends React.Component {
 GenericSelection.propTypes = {
   // gamemode: React.PropTypes.string.isRequired,
   // switchPage: React.PropTypes.func.isRequired,
-  location: React.PropTypes.objectOf({ query: React.PropTypes.objectOf({ type: React.PropTypes.string }) }).isRequired,
+  location: React.PropTypes.shape({
+    query: React.PropTypes.shape({
+      type: React.PropTypes.string
+    })
+  }).isRequired,
   lessonNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   // fetchURL: React.PropTypes.string.isRequired,
   selectedLesson: React.PropTypes.string.isRequired,

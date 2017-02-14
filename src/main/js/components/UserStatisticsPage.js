@@ -24,6 +24,12 @@ export class UserStatisticsPage extends React.Component {
     };
   }
 
+  constructor(props) {
+    super(props);
+
+    this.getChartData = this.getChartData.bind(this);
+  }
+
   componentWillMount() {
     this.props.fetchUserSuccessRate(this.props.loggedInUser);
   }

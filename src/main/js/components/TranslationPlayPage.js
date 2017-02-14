@@ -9,51 +9,79 @@ import * as Store from '../Store';
 export class TranslationPlayPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      answer: '',
-      output: '',
-      question: [],
-      correctAlt: '',
-      checkDisable: false,
-      results: [],
-      lessonLength: JSON.parse(sessionStorage.lesson).length
-    };
+    // this.state = {
+    //   answer: '',
+    //   output: '',
+    //   question: [],
+    //   correctAlt: '',
+    //   checkDisable: false,
+    //   results: [],
+    //   lessonLength: JSON.parse(sessionStorage.lesson).length
+    // };
     this.checkAnswer = this.checkAnswer.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.displayQuestion = this.displayQuestion.bind(this);
 
-    sessionStorage.correctAttempts = 0;
-    sessionStorage.totalAttempts = 0;
-    sessionStorage.currentQuestionIndex = 0;
+    // sessionStorage.correctAttempts = 0;
+    // sessionStorage.totalAttempts = 0;
+    // sessionStorage.currentQuestionIndex = 0;
   }
-  componentDidMount() {
-    this.setQuestion(0);
+  componentWillMount() {
+    this.props.resetLesson();
+    this.setState({ answer: '' });
   }
-  componentWillUnmount() {
-    sessionStorage.removeItem('currentQuestionIndex');
-  }
-  setQuestion(questionIndex) {
-    this.setState({
-      answer: '',
-      output: '',
-      question: JSON.parse(sessionStorage.lesson)[questionIndex].question,
-      correctAlt: JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative,
-      checkDisable: false
-    }, () => {
-      Utility.logEvent('TranslationPlayPage', 'question', this.state.question, this.props.loggedInUser);
-    });
-  }
-  getNextQuestion() {
-    if (Number(sessionStorage.currentQuestionIndex) + 1 < this.state.lessonLength) {
-      sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
-      this.setQuestion(Number(sessionStorage.currentQuestionIndex));
-    } else {
-      this.props.setPageByName('EndScreenPage', { gamemode: 'TranslationPlayPage' });
-    }
-  }
+
+  // setQuestion(questionIndex) {
+  //   this.setState({
+  //     answer: '',
+  //     output: '',
+  //     question: JSON.parse(sessionStorage.lesson)[questionIndex].question,
+  //     correctAlt: JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative,
+  //     checkDisable: false
+  //   }, () => {
+  //     Utility.logEvent('TranslationPlayPage', 'question', this.state.question, this.props.loggedInUser);
+  //   });
+  // }
+  // getNextQuestion() {
+  //   if (Number(sessionStorage.currentQuestionIndex) + 1 < this.state.lessonLength) {
+  //     sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
+  //     this.setQuestion(Number(sessionStorage.currentQuestionIndex));
+  //   } else {
+  //     this.props.setPageByName('EndScreenPage', { gamemode: 'TranslationPlayPage' });
+  //   }
+  // }
+
   handleChange(event) {
     this.setState({ answer: event.target.value });
   }
+
   checkAnswer() {
+    this.props.addUserAnswer(this.state.answer);
+
+    if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
+      setTimeout(() => {
+        this.setState({ answer: '' });
+        this.props.calcNextQuestion();
+      }, 1000);
+    } else {
+      setTimeout(
+        () => {
+          this.props.setPageByName('finish', this.props.location.query);
+        }, 1000);
+    }
+  }
+
+  getOutput() {
+    if (this.props.currentProcessedQuestionAnswered) {
+      return (<Row>
+        { (this.props.currentProcessedQuestionAnsweredCorrectly ?
+          <h3>Rätt!</h3> : <h3>Fel..</h3>) }
+      </Row>);
+    }
+    return '';
+  }
+
+  checkAnswerOld() {
     Utility.logEvent('TranslationPlayPage', 'userAnswer', this.state.answer, this.props.loggedInUser);
     let answeredCorrectly = false;
     if (this.state.answer.trim().toUpperCase() === this.state.correctAlt.toUpperCase()) {
@@ -84,15 +112,29 @@ export class TranslationPlayPage extends React.Component {
       );
     }
   }
+
+  displayQuestion() {
+    const questionText = {
+      translate: (
+        <div>
+          <h2>Läsform: {this.props.processedQuestion.actualQuestionShapes[0]}</h2>
+          {(this.props.processedQuestion.length > 1) ? <h2>Skrivform: {this.props.processedQuestion.actualQuestionShapes[1]} </h2> : ' '}
+        </div>
+      )
+    };
+    let resource;
+    if (this.props.resourceRef && this.props.resourceRef.type === 'kanjidrawing') {
+      resource = <object height="50em" type="image/svg+xml" data={this.props.resourceRef.location}>SVG error</object>;
+    }
+    return resource ? <div>{resource}<br />{questionText.translate}</div> : questionText.translate;
+  }
+
   render() {
-    const questionOutput = (this.state.question.length > 1) ?
-      <div><h2>Reading: {this.state.question[0]}</h2><h2>Writing: {this.state.question[1]}</h2></div>
-      : <h2>{this.state.question[0]}</h2>;
     return (
       <div>
         <Grid className="text-center">
           <Row>
-            {questionOutput}
+            {this.displayQuestion()}
           </Row>
           <br />
           <Row>
@@ -105,14 +147,12 @@ export class TranslationPlayPage extends React.Component {
           </Row>
           <Row>
             <div className="text-center">
-              {`Fråga: ${(Number(sessionStorage.currentQuestionIndex) + 1)} / ${this.state.lessonLength}`}
+              Fråga: {this.props.currentQuestionIndex + 1} / {this.props.lessonLength}
               <br />
-              {`${sessionStorage.correctAttempts} rätt ${Utility.getSuccessRate()}`}
+              {this.props.correctAttempts} rätt {this.props.lessonSuccessRateMessage}
             </div>
           </Row>
-          <Row>
-            <h3>{this.state.output}</h3>
-          </Row>
+          { this.getOutput() }
         </Grid>
       </div>
     );
@@ -120,7 +160,6 @@ export class TranslationPlayPage extends React.Component {
 }
 
 TranslationPlayPage.propTypes = {
-  switchPage: React.PropTypes.func.isRequired,
   // username: React.PropTypes.string.isRequired,
   // used action creators
   // fetchLoggedInUser: React.PropTypes.func.isRequired,

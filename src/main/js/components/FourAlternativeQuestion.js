@@ -25,7 +25,6 @@ export class FourAlternativeQuestion extends React.Component {
   }
   componentWillUnmount() {
     window.removeEventListener('keydown', this.onKeys);
-    this.props.resetLesson();
   }
   onKeys(event) {
     const keyDown = event.key;

@@ -41,10 +41,10 @@ export const defaultState = {
 
   // LessonSelection.js
   lessonNames: [],
-  fetchURL: '/api/questions',
+  // fetchURL: '/api/questions',
 
   // GenericSelection.js
-  selectedLesson: null,
+  selectedLesson: '',
 
   // FourAlternativeQuestion.js
   questions: [], // contains object array of properties: question, alternative1, alternative2, alternative3, correctAlternative
@@ -58,12 +58,14 @@ export const defaultState = {
   },
   resourceRef: null,
   allButtonsDisabled: false,
-  userAnswers: [],
+  processedQuestionsWithAnswer: [],
   lessonLength: 0,
   // Things originally in SessionStorage
   correctAttempts: 0,
   totalAttempts: 0,
   currentQuestionIndex: 0,
+  currentProcessedQuestionAnswered: false,
+  currentProcessedQuestionAnsweredCorrectly: false,
 
   // Security
   loggedIn: false,
@@ -163,14 +165,18 @@ export function receiveCorrectAttempt() {
   };
 }
 
-export function calcAnswerButtonStyles(userAnswerWord) {
+export function calcAnswerButtonStyles() {
   return function (dispatch, getState) {
     const state = getState().reducer;
+
+    const userAnswerWord = state
+      .processedQuestionsWithAnswer[state.currentQuestionIndex]
+      .userAnswer;
 
     let newButtonStyles = [];
 
     newButtonStyles = state.processedQuestion.randomizedAlternatives.map((word) => {
-      if (word === userAnswerWord) {
+      if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
         return 'danger';
       } else if (word === state.processedQuestion.correctAlternative) {
         return 'success';
@@ -186,16 +192,33 @@ export function calcAnswerButtonStyles(userAnswerWord) {
   };
 }
 
+export function receiveIncorrectAttempt() {
+  return {
+    type: RECEIVE_INCORRECT_ATTEMPT,
+    description: 'Used made an incorrect attempt'
+  };
+}
+
 export function addUserAnswer(userActualAnswer) {
   return function (dispatch, getState) {
     const state = getState().reducer;
 
+    const processedQuestionWithAnswer = {
+      ...state.processedQuestion,
+      userAnswer: userActualAnswer,
+      userCorrect: (userActualAnswer.toLowerCase() ===
+                    state.processedQuestion.correctAlternative.toLowerCase())
+    };
+
+    if (processedQuestionWithAnswer.userCorrect) {
+      dispatch(receiveCorrectAttempt());
+    } else {
+      dispatch(receiveIncorrectAttempt());
+    }
+
     dispatch({ type: ADD_USER_ANSWER,
       description: 'Add an answer a user made, along with correct results',
-      userAnswer: [
-        state.processedQuestion,
-        userActualAnswer
-      ] });
+      processedQuestionWithAnswer });
   };
 }
 
@@ -203,13 +226,6 @@ export function clearUserAnswers() {
   return {
     type: CLEAR_USER_ANSWERS,
     description: 'Clear user answer history'
-  };
-}
-
-export function receiveIncorrectAttempt() {
-  return {
-    type: RECEIVE_INCORRECT_ATTEMPT,
-    description: 'Used made an incorrect attempt'
   };
 }
 
@@ -272,27 +288,25 @@ export function receiveNextProcessedQuestion(processedQuestion) {
   };
 }
 
-export function calcNextQuestion(autoIncrementQuestionIndex = true) {
+export function calcNextQuestion() {
   return function (dispatch, getState) {
     const state = getState().reducer;
-    const localQuestionIndex = state.currentQuestionIndex + 1;
+    const localQuestionIndex = state.currentQuestionIndex;
 
     const processedQuestion = {
-      actualQuestionShapes: state.questions[localQuestionIndex].question,
-      correctAlternative: state.questions[localQuestionIndex].correctAlternative,
+      actualQuestionShapes: state.questions[localQuestionIndex].question.map(s => s.toLowerCase()),
+      correctAlternative: state.questions[localQuestionIndex].correctAlternative.toLowerCase(),
       randomizedAlternatives: Utility.randomizeOrder([
-        state.questions[localQuestionIndex].alternative1,
-        state.questions[localQuestionIndex].alternative2,
-        state.questions[localQuestionIndex].alternative3,
-        state.questions[localQuestionIndex].correctAlternative]),
+        state.questions[localQuestionIndex].alternative1.toLowerCase(),
+        state.questions[localQuestionIndex].alternative2.toLowerCase(),
+        state.questions[localQuestionIndex].alternative3.toLowerCase(),
+        state.questions[localQuestionIndex].correctAlternative.toLowerCase()]),
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonDisabled: false,
       resourceRef: state.questions[localQuestionIndex].resourceReference || null
     };
 
-    if (autoIncrementQuestionIndex) {
-      dispatch(incrementQuestionIndex());
-    }
+    dispatch(incrementQuestionIndex());
 
     dispatch(receiveNextProcessedQuestion(processedQuestion));
 
@@ -373,16 +387,26 @@ export function setLessonNames(lessonNames) {
   };
 }
 
-export function fetchLesson(temporaryCallback) {
+export function fetchLesson(lessonType, temporaryCallback) {
+  let fetchURL;
+
+  if (lessonType === 'quiz') {
+    fetchURL = '/api/quiz';
+  } else if (lessonType === 'guess') {
+    fetchURL = '/api/questions';
+  } else if (lessonType === 'translate') {
+    fetchURL = '/api/questions';
+  }
+
   return function (dispatch, getState) {
     const state = getState().reducer;
-    return fetch(`${state.fetchURL}?lessonName=${state.selectedLesson}`, { credentials: 'same-origin' })
+    return fetch(`${fetchURL}?lessonName=${state.selectedLesson}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
         (json) => {
           // sessionStorage.lesson = JSON.stringify(json);
           dispatch(receiveLesson(json));
-          dispatch(calcNextQuestion(false));
+          dispatch(calcNextQuestion());
           temporaryCallback();
           // temporarySwitchpageCallback();
         })
@@ -530,12 +554,14 @@ export const reducer = (state, action) => {
     case ADD_USER_ANSWER:
       return {
         ...state,
-        userAnswers: [...state.userAnswers, action.userAnswer]
+        processedQuestionsWithAnswer: [...state.processedQuestionsWithAnswer, action.processedQuestionWithAnswer]
       };
     case CLEAR_USER_ANSWERS:
       return {
         ...state,
-        userAnswers: []
+        processedQuestionsWithAnswer: [],
+        currentProcessedQuestionAnswered: false,
+        currentProcessedQuestionAnsweredCorrectly: null
       };
     case RECEIVE_LESSON:
       return {
@@ -562,7 +588,9 @@ export const reducer = (state, action) => {
       return {
         ...state,
         processedQuestion: action.processedQuestion,
-        resourceRef: action.processedQuestion.resourceRef
+        resourceRef: action.processedQuestion.resourceRef,
+        currentProcessedQuestionAnswered: false,
+        currentProcessedQuestionAnsweredCorrectly: null
       };
     case SET_SELECTED_LESSON:
       return {
@@ -593,12 +621,16 @@ export const reducer = (state, action) => {
       return {
         ...state,
         correctAttempts: state.correctAttempts + 1,
-        totalAttempts: state.totalAttempts + 1
+        totalAttempts: state.totalAttempts + 1,
+        currentProcessedQuestionAnswered: true,
+        currentProcessedQuestionAnsweredCorrectly: true
       };
     case RECEIVE_INCORRECT_ATTEMPT:
       return {
         ...state,
-        totalAttempts: state.totalAttempts + 1
+        totalAttempts: state.totalAttempts + 1,
+        currentProcessedQuestionAnswered: true,
+        currentProcessedQuestionAnsweredCorrectly: false
       };
     case RESET_ATTEMPTS:
       return {

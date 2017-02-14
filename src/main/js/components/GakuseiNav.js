@@ -6,9 +6,11 @@ import { LinkContainer } from 'react-router-bootstrap';
 import * as Store from '../Store';
 
 export class GakuseiNav extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+  constructor(props) {
+    super(props);
+
+    this.eventHandler = this.eventHandler.bind(this);
+  }
 
   eventHandler(eventKey) {
     switch (eventKey) {
@@ -16,8 +18,7 @@ export class GakuseiNav extends React.Component {
         // this.props.setGameMode('/play/guess');
         this.props.setPageByName('/select', { type: 'guess' }); break;
       case 1.2:
-        this.props.setGameMode('TranslationPlay');
-        this.props.setPageByName('LessonSelection'); break;
+        this.props.setPageByName('/select', { type: 'translate' }); break;
       case 1.3:
         // this.props.setGameMode('/play/quiz');
         this.props.setPageByName('/select', { type: 'quiz' }); break;
@@ -34,10 +35,10 @@ export class GakuseiNav extends React.Component {
 
   render() {
     return (
-      <Navbar onSelect={this.eventHandler.bind(this)} inverse collapseOnSelect>
+      <Navbar onSelect={this.eventHandler} inverse collapseOnSelect>
         <Navbar.Header>
           <NavbarBrand>
-            <button className="brandButton" onClick={this.eventHandler.bind(this)}>
+            <button className="brandButton" onClick={this.eventHandler}>
               <span>
                 <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
               Gakusei

@@ -11,22 +11,26 @@ export class EndScreenPage extends React.Component {
     super(props);
     this.playAgain = this.playAgain.bind(this);
     this.backtoSelection = this.backtoSelection.bind(this);
+    this.showResults = this.showResults.bind(this);
   }
 
   componentDidMount() {
     this.logEvents();
   }
-  componentWillUnmount() {
-    sessionStorage.removeItem('correctAttempts');
-    sessionStorage.removeItem('totalAttempts');
-  }
+  // componentWillUnmount() {
+
+  // }
   backtoSelection() {
     // this.props.resetLesson();
-    this.props.fetchLesson(() => { this.props.setPageByName('/select', this.props.location.query); });
+    this.props.fetchLesson(this.props.location.query.type, () => { this.props.setPageByName('/select', this.props.location.query); });
     // this.props.setPageByName('/select', this.props.location.query);
   }
   playAgain() {
     // this.props.resetLesson();
+    if (this.props.location.query.type === 'translate') {
+      this.props.fetchLesson(this.props.location.query.type, () => { this.props.setPageByName('/translate', this.props.location.query); });
+    }
+
     this.props.fetchLesson(() => { this.props.setPageByName('/play', this.props.location.query); });
     // this.props.setPageByName('/play', this.props.location.query);
   }
@@ -37,16 +41,33 @@ export class EndScreenPage extends React.Component {
       Utility.logEvent('EndScreenPage', 'userAnswer', this.props.results[i][2], this.props.loggedInUser);
     }
   }
+  showResults() {
+    const result = this.props.processedQuestionsWithAnswer.map((qa, index) => (qa.actualQuestionShapes.length > 1 ?
+      <ListGroupItem key={index} bsStyle={(qa.userAnswer === qa.correctAlternative) ? 'success' : 'danger'}>
+        Läsform: {qa.actualQuestionShapes[0]}
+        , Skrivform: {qa.actualQuestionShapes[1]}
+        , Korrekt svar: {qa.correctAlternative}
+        , Ditt svar: {qa.userAnswer}
+      </ListGroupItem> :
+      <ListGroupItem key={index} bsStyle={(qa.userAnswer === qa.correctAlternative) ? 'success' : 'danger'}>
+        Läsform: {qa.actualQuestionShapes[0]}
+        , Korrekt svar: {qa.correctAlternative}
+        , Ditt svar: {qa.userAnswer}
+      </ListGroupItem>)
+    );
+
+    return result;
+  }
   render() {
-    const successRate = ((Number(sessionStorage.correctAttempts) / Number(sessionStorage.totalAttempts)) * 100);
-    const results = this.props.results.map(result => ((result[0].length > 1) ?
+    // const successRate = (this.props.correctAttempts / this.props.totalAttempts) * 100;
+    /* const results = this.props.results.map(result => ((result[0].length > 1) ?
       <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
         Läsform: {result[0][0]}, Skrivform: {result[0][1]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
       </ListGroupItem> :
       <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
         Läsform: {result[0][0]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
       </ListGroupItem>)
-    );
+    );*/
     return (
       <Grid>
         <Row>
@@ -55,13 +76,13 @@ export class EndScreenPage extends React.Component {
               {this.props.lessonSuccessRate.toFixed(0)}% rätt!
             </h2>
             <h3>
-              Du svarade rätt på {sessionStorage.correctAttempts} av {sessionStorage.totalAttempts} möjliga frågor
+              Du svarade rätt på {this.props.correctAttempts} av {this.props.totalAttempts} möjliga frågor
             </h3>
           </div>
         </Row>
         <ListGroup>
           <ListGroupItem>
-            {results}
+            {this.showResults()}
           </ListGroupItem>
         </ListGroup>
         <Row>
@@ -82,9 +103,6 @@ export class EndScreenPage extends React.Component {
 }
 
 EndScreenPage.propTypes = {
-  // username: React.PropTypes.string.isRequired,
-  gamemode: React.PropTypes.string.isRequired,
-  // switchPage: React.PropTypes.func.isRequired,
   results: React.PropTypes.arrayOf(React.PropTypes.array),
   // store props
   lessonSuccessRate: React.PropTypes.number.isRequired,

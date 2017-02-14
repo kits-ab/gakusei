@@ -73,7 +73,7 @@ ReactDOM.render(
         <Route path="/home" component={LandingPage} />
         <Route path="/play" component={FourAlternativeQuestion} />
         <Route path="/select" component={GenericSelection} />
-        <Route path="/TranslationPlay" component={TranslationPlayPage} />
+        <Route path="/translate" component={TranslationPlayPage} />
         <Route path="/lists" component={NuggetListPage} />
         <Route path="/finish" component={EndScreenPage} />
         <Route path="/profile" component={UserStatisticsPage} />
