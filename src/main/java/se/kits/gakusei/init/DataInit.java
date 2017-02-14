@@ -21,8 +21,6 @@ import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
-import se.kits.gakusei.user.model.User;
-import se.kits.gakusei.user.repository.UserRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -140,24 +138,21 @@ public class DataInit implements ApplicationRunner {
     }
 
     private void createLessons() {
-        createLessonsByWordType();
+        createVerbLesson();
         createLessonsByCategory("jnlp");
         createLessonsByCategory("jlpt");
         createLessonsByCategory("genki");
         createLessonsByCategory("quiz");
     }
 
-    private void createLessonsByWordType() {
-        Map<String, List<Nugget>> nuggetMap = nuggetRepository.findAll().stream().collect(Collectors.groupingBy(Nugget::getType));
-        List<Lesson> lessons = new ArrayList<>();
-        for (String wordType : nuggetMap.keySet()) {
-            Lesson l = new Lesson();
-            l.setName(wordType.substring(0, 1).toUpperCase() + wordType.substring(1) + "s");
-            l.setDescription("All nuggets with type '" + wordType + "'");
-            l.setNuggets(nuggetMap.get(wordType));
-            lessons.add(l);
-        }
-        lessonRepository.save(lessons);
+    private void createVerbLesson() {
+        List<Nugget> verbNuggets = nuggetRepository.findAll().stream().filter(n -> n.getType().equals("verb"))
+                .collect(Collectors.toList());
+        Lesson lesson = new Lesson();
+        lesson.setName("Verbs");
+        lesson.setDescription("All nuggets with type verb");
+        lesson.setNuggets(verbNuggets);
+        lessonRepository.save(lesson);
     }
 
     private void createLessonsByCategory(String category) {
@@ -179,7 +174,7 @@ public class DataInit implements ApplicationRunner {
         for (String lessonName : nuggetMap.keySet()) {
             Lesson l = new Lesson();
             l.setName(lessonName);
-            l.setDescription("All nuggets with type '" + lessonName + "'");
+            l.setDescription(category);
             l.setNuggets(nuggetMap.get(lessonName));
             lessons.add(l);
         }

@@ -20,46 +20,20 @@ import UserStatisticsPage from './UserStatisticsPage';
 import QuizPlayPage from './QuizPlayPage';
 import QuizSelection from './QuizSelection';
 
-const temporaryStuff = null;
+import Login from './Login';
+import getCSRF from '../util/getcsrf';
+import GrammarPage from './GrammarPage';
 
 export class App extends React.Component {
   constructor(props) {
     super(props);
-
-    // this.props.setSwitchPageReference(this.switchPage);
-    // this.switchPage = this.switchPage.bind(this);
-    // this.state = { currentPage: <LandingPage /> };
   }
   componentWillMount() {
     this.props.fetchLoggedInUser();
   }
-  // setLoggedInUser() {
-  //   // fetch('/username', { credentials: 'same-origin' })
-  //   //   .then(response => response.text())
-  //   //   .then(user => this.setState({ loggedInUser: user }));
-  // }
-  // switchPage(pageName, newProps) {
-  //   const props = Object.assign(
-  //     {
-  //       switchPage: this.switchPage
-  //     },
-  //     newProps);
-  //   const pages = {
-  //     LessonSelection: <LessonSelection {...props} />,
-  //     QuizSelection: <QuizSelection {...props} />,
-  //     GuessPlayPage: <GuessPlayPage {...props} />,
-  //     QuizPlayPage: <QuizPlayPage {...props} />,
-  //     TranslationPlayPage: <TranslationPlayPage {...props} />,
-  //     NuggetListPage: <NuggetListPage />,
-  //     AboutPage: <AboutPage />,
-  //     EndScreenPage: <EndScreenPage {...props} />,
-  //     LandingPage: <LandingPage />,
-  //     UserStatisticsPage: <UserStatisticsPage {...props} />
-  //   };
-  //   this.setState({ currentPage: pages[pageName] });
-  // }
 
   render() {
+    const navProps = this.assignProps();
     return (
       <div>
         { this.props.loggedIn ?
@@ -68,7 +42,7 @@ export class App extends React.Component {
             {/* <Link to="landing">test</Link>*/}
             { this.props.children }
           </div> :
-          <p>Loading...</p>}
+          <div />}
       </div>
     );
   }

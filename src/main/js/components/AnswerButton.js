@@ -20,8 +20,15 @@ function hyphenateSwedish(text) {
 }
 
 const AnswerButton = (props) => {
-  const buttonLabel = hyphenateSwedish(props.label);
-  const answerClickFunc = props.onAnswerClick.bind(this, props.label);
+  let reading;
+  let writing = '';
+  if (props.answerType === 'swedish') {
+    reading = hyphenateSwedish(props.label[0]);
+  } else {
+    writing = props.label[1] !== '' ? 'Writing: '.concat(props.label[1]) : '';
+    reading = ('Reading: '.concat(props.label[0]));
+  }
+  const answerClickFunc = props.onAnswerClick.bind(this, props.label[0]);
 
   return (
     <Button
@@ -31,16 +38,17 @@ const AnswerButton = (props) => {
       disabled={props.disableButton}
       className="btn answerbutton"
     >
-      {buttonLabel}
+      {reading}<br />{writing}
     </Button>
   );
 };
 
 AnswerButton.propTypes = {
-  label: React.PropTypes.string.isRequired,
+  label: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   buttonStyle: React.PropTypes.string.isRequired,
   onAnswerClick: React.PropTypes.func.isRequired,
-  disableButton: React.PropTypes.bool.isRequired
+  disableButton: React.PropTypes.bool.isRequired,
+  answerType: React.PropTypes.string.isRequired
 };
 
 export default connect(

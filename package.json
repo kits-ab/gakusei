@@ -12,10 +12,8 @@
   "scripts": {
     "precompile": "rimraf ./src/main/resources/static/js/*",
     "compile:main": "browserify ./src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
-    "compile:login": "browserify ./src/main/js/login.js --debug -t babelify -o ./src/main/resources/static/js/login_bundle.js",
-    "compile": "npm run compile:login && npm run compile:main",
+    "compile": "npm run compile:main",
     "watch:main": "watchify src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js -dv -v -p livereactload",
-    "watch:login": "watchify src/main/js/login.js --debug -t babelify -o ./src/main/resources/static/js/login_bundle.js -dv -v -p livereactload",
     "start": "npm run watch:main"
   },
   "repository": {

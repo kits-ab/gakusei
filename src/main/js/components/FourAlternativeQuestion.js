@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
+import DisplayQuestion from './DisplayQuestion';
 import Utility from '../util/Utility';
 
 import * as Store from '../Store';
@@ -11,6 +12,18 @@ import * as Store from '../Store';
 export class FourAlternativeQuestion extends React.Component {
   constructor(props) {
     super(props);
+
+    // this.state = {
+    //   question: [],
+    //   correctAlt: ['', ''],
+    //   randomOrderAlt: [['', ''], ['', ''], ['', ''], ['', '']],
+    //   buttonStyles: ['default', 'default', 'default', 'default'],
+    //   buttonDisabled: false,
+    //   results: [],
+    //   lessonLength: JSON.parse(sessionStorage.lesson).length,
+    //   resourceRef: ''
+    // };
+
     this.checkAnswer = this.checkAnswer.bind(this);
     this.onKeys = this.onKeys.bind(this);
     this.displayQuestion = this.displayQuestion.bind(this);
@@ -30,13 +43,13 @@ export class FourAlternativeQuestion extends React.Component {
     const keyDown = event.key;
     if (!this.props.allButtonsDisabled) {
       if (keyDown === '1') {
-        this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[0]);
+        this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[0][0]);
       } else if (keyDown === '2') {
-        this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[1]);
+        this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[1][0]);
       } else if (keyDown === '3') {
-        this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[2]);
+        this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[2][0]);
       } else if (keyDown === '4') {
-        this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[3]);
+        this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[3][0]);
       }
     }
   }
@@ -54,15 +67,42 @@ export class FourAlternativeQuestion extends React.Component {
     this.props.calcAnswerButtonStyles(answer);
 
     if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
-      setTimeout(() => {
-        this.props.calcNextQuestion();
-      }, 1000);
-    } else {
-      setTimeout(
+    // let newButtonStyles = [];
+    // let answeredCorrectly = false;
+    // if (answer === this.state.correctAlt[0]) {
+    //   answeredCorrectly = true;
+    //   newButtonStyles = this.state.randomOrderAlt.map(word => ((word[0] === answer) ? 'success' : 'default'));
+    //   sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
+    // } else {
+    //   newButtonStyles = this.state.randomOrderAlt.map((word) => {
+    //     if (word[0] === answer) {
+    //       return 'danger';
+    //     } else if (word[0] === this.state.correctAlt[0]) {
+    //       return 'success';
+    //     }
+    //     return 'default';
+    //   });
+    // }
+
+    // this.setState({
+    //   buttonDisabled: true,
+    //   buttonStyles: newButtonStyles,
+    //   results: this.state.results.concat([[this.state.question, this.state.correctAlt[0], answer]])
+    // });
+    // Utility.logEvent(this.props.pageName, 'correctAnswer', this.state.question, this.props.username);
+    // Utility.logEvent(this.props.pageName, 'correctAnswer', this.state.correctAlt, this.props.username);
+    // Utility.logEvent(this.props.pageName, 'answeredCorrectly', answeredCorrectly, this.props.username);
+      if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
+        setTimeout(() => {
+          this.props.calcNextQuestion();
+        }, 1000);
+      } else {
+        setTimeout(
         () => {
           // this.props.setPageByName('EndScreen');
           this.props.setPageByName('finish', this.props.location.query);
         }, 1000);
+      }
     }
   }
 
@@ -82,13 +122,19 @@ export class FourAlternativeQuestion extends React.Component {
     }
     return resource ? <div>{resource}<br />{questionText[this.props.location.query.type]}</div> : questionText[this.props.location.query.type];
   }
+
   render() {
     return (
       <div>
         <Grid className="text-center">
-          <Row>
-            {this.displayQuestion()}
-          </Row>
+
+          {/* {this.displayQuestion()}*/}
+          <DisplayQuestion
+            pageName={this.props.pageName}
+            question={this.state.question}
+            questionType={this.props.questionType}
+            resourceRef={this.state.resourceRef}
+          />
           <br />
           <Row>
             <ButtonToolbar>
@@ -96,16 +142,18 @@ export class FourAlternativeQuestion extends React.Component {
                 <AnswerButton
                   label={this.props.processedQuestion.randomizedAlternatives[0]}
                   onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.props.processedQuestion.buttonStyles[0]}
-                  disableButton={this.props.processedQuestion.buttonDisabled}
+                  buttonStyle={this.state.buttonStyles[0]}
+                  disableButton={this.state.buttonDisabled}
+                  answerType={this.props.answerType}
                 />
               </Col>
               <Col xs={6} sm={4} md={3}>
                 <AnswerButton
                   label={this.props.processedQuestion.randomizedAlternatives[1]}
                   onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.props.processedQuestion.buttonStyles[1]}
-                  disableButton={this.props.processedQuestion.buttonDisabled}
+                  buttonStyle={this.state.buttonStyles[1]}
+                  disableButton={this.state.buttonDisabled}
+                  answerType={this.props.answerType}
                 />
               </Col>
             </ButtonToolbar>
@@ -117,16 +165,18 @@ export class FourAlternativeQuestion extends React.Component {
                 <AnswerButton
                   label={this.props.processedQuestion.randomizedAlternatives[2]}
                   onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.props.processedQuestion.buttonStyles[2]}
-                  disableButton={this.props.processedQuestion.buttonDisabled}
+                  buttonStyle={this.state.buttonStyles[2]}
+                  disableButton={this.state.buttonDisabled}
+                  answerType={this.props.answerType}
                 />
               </Col>
               <Col xs={6} sm={4} md={3}>
                 <AnswerButton
                   label={this.props.processedQuestion.randomizedAlternatives[3]}
                   onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.props.processedQuestion.buttonStyles[3]}
-                  disableButton={this.props.processedQuestion.buttonDisabled}
+                  buttonStyle={this.state.buttonStyles[3]}
+                  disableButton={this.state.buttonDisabled}
+                  answerType={this.props.answerType}
                 />
               </Col>
             </ButtonToolbar>
@@ -222,7 +272,11 @@ FourAlternativeQuestion.propTypes = {
   // clearUserAnswers: React.PropTypes.func.isRequired,
   // resetAttempts: React.PropTypes.func.isRequired,
   calcAnswerButtonStyles: React.PropTypes.func.isRequired,
-  resetLesson: React.PropTypes.func.isRequired
+  resetLesson: React.PropTypes.func.isRequired,
+
+  pageName: React.PropTypes.string.isRequired,
+  questionType: React.PropTypes.string.isRequired,
+  answerType: React.PropTypes.string.isRequired
 };
 
 // Wire up the React component to the Redux store and export it when importing this file

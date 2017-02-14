@@ -62,10 +62,10 @@ export class EndScreenPage extends React.Component {
     // const successRate = (this.props.correctAttempts / this.props.totalAttempts) * 100;
     /* const results = this.props.results.map(result => ((result[0].length > 1) ?
       <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
-        Läsform: {result[0][0]}, Skrivform: {result[0][1]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
+        Fråga: {result[0][0]}, Fråga: {result[0][1]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
       </ListGroupItem> :
       <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
-        Läsform: {result[0][0]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
+        Fråga: {result[0][0]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
       </ListGroupItem>)
     );*/
     return (
@@ -114,7 +114,9 @@ EndScreenPage.propTypes = {
 
 EndScreenPage.defaultProps = {
   results: [],
-  gamemode: ''
+  gamemode: '',
+  questionType: '',
+  answerType: ''
 };
 
 // Wire up the React component to the Redux store and export it when importing this file

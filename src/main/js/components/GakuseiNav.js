@@ -19,15 +19,21 @@ export class GakuseiNav extends React.Component {
         this.props.setPageByName('/select', { type: 'guess' }); break;
       case 1.2:
         this.props.setPageByName('/select', { type: 'translate' }); break;
-      case 1.3:
+      case 3:
         // this.props.setGameMode('/play/quiz');
         this.props.setPageByName('/select', { type: 'quiz' }); break;
-      case 2:
-        this.props.setPageByName('/lists'); break;
-      case 3:
-        this.props.setPageByName('/about'); break;
       case 4:
+        this.props.setPageByName('/lists'); break;
+      case 5:
+        this.props.setPageByName('/about'); break;
+      case 6:
         this.props.setPageByName('/profile'); break;
+      // case 7:
+        // TODO: Fix route to login page via react router
+        // switchPage('Login'); break;
+      // case 8:
+        // TODO: Fix logout functionality in react router
+        // logout(); break;
       default:
         this.props.setPageByName('/');
     }
@@ -49,19 +55,21 @@ export class GakuseiNav extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <NavDropdown eventKey={1} title="Spela" id="basic-nav-dropdown">
+            { this.props.loggedIn ? (
+            <NavDropdown eventKey={1} title="Glosor" id="basic-nav-dropdown">
               <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
               <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
-              <MenuItem eventKey={1.3}>Quiz</MenuItem>
             </NavDropdown>
-            <NavItem eventKey={2} href="#">Lista ord</NavItem>
-            <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
+            ) : ''
+          }
+            { this.props.loggedIn ? <NavItem eventKey={2}>Grammatik</NavItem> : '' }
+            { this.props.loggedIn ? <NavItem eventKey={3}>Quiz</NavItem> : '' }
+            { this.props.loggedIn ? <NavItem eventKey={4}>Lista ord</NavItem> : '' }
+            <NavItem eventKey={5}>Om Gakusei</NavItem>
           </Nav>
           <Nav pullRight>
-            <NavItem eventKey={4} href="#">Inloggad som: {this.props.loggedInUser}</NavItem>
-            <LinkContainer to="/logout">
-              <NavItem eventKey={5}>Logga ut</NavItem>
-            </LinkContainer>
+            { this.props.loggedIn ? <NavItem eventKey={6}>Inloggad som: {props.username}</NavItem> : '' }
+            { !this.props.loggedIn ? <NavItem eventKey={7}>Logga in</NavItem> : <NavItem eventKey={8}>Logga ut</NavItem>}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

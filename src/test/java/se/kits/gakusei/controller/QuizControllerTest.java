@@ -45,7 +45,7 @@ public class QuizControllerTest {
         String description = "quiz_question";
         Lesson lesson = TestTools.generateQuizLesson(lessonName, description, correctData, incorrectData);
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
-        List<HashMap<String, Object>> dtoList = Collections.singletonList(TestTools.generateQuestionDTO());
+        List<HashMap<String, Object>> dtoList = Collections.singletonList(TestTools.generateQuestion());
         Mockito.when(questionHandler.createQuizQuestions(lesson.getNuggets())).thenReturn(dtoList);
         ResponseEntity<List<HashMap<String, Object>>> re = quizController.getQuizQuestions(lessonName);
 
