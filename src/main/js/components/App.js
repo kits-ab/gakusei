@@ -33,20 +33,22 @@ export class App extends React.Component {
   }
 
   render() {
-    const navProps = this.assignProps();
+    // const navProps = this.assignProps();
     return (
       <div>
-        { this.props.loggedIn ?
-          <div>
-            <GakuseiNav />
-            {/* <Link to="landing">test</Link>*/}
-            { this.props.children }
-          </div> :
-          <div />}
+        <GakuseiNav />
+        { this.props.children }
       </div>
     );
   }
 }
+
+        /* { this.props.loggedIn ?
+          <div>
+            <GakuseiNav />
+            { this.props.children }
+          </div> :
+          <div />}*/
 
 
 App.propTypes = {
@@ -66,7 +68,7 @@ App.propTypes = {
   loggedIn: React.PropTypes.bool.isRequired,
   // loggedInUser: React.PropTypes.string.isRequired,
   // action creators
-  fetchLoggedInUser: React.PropTypes.func.isRequired,
+  fetchLoggedInUser: React.PropTypes.func.isRequired
   // setPageByName: React.PropTypes.func.isRequired
 };
 

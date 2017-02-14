@@ -101,6 +101,7 @@ export const SHOW_ANSWER_BUTTON_STYLES = 'SHOW_ANSWER_BUTTON_STYLES';
 export const RECEIVE_ANSWER_BUTTON_STYLES = 'RECEIVE_ANSWER_BUTTON_STYLES';
 export const SET_LESSON_NAMES = 'SET_LESSON_NAMES';
 export const CLEAR_PROCESSED_QUESTION = 'CLEAR_PROCESSED_QUESTION';
+export const RECEIVE_LOGGED_IN_STATUS = 'RECEIVE_LOGGED_IN_STATUS';
 
 // Security stuff
 export const RECEIVE_CSRF = 'RECEIVE_CSRF';
@@ -351,6 +352,39 @@ export function requestUserSuccessRate() {
   };
 }
 
+export function requestUserRegister(form) {
+    return function (dispatch, getState) {
+    fetch('/registeruser', {
+      method: 'POST',
+      body: form
+    })// .then(response => response.json())
+      .then((result) => {
+        // dispatch(setLessonNames(result));
+        debugger;
+      });
+  };
+}
+
+export function requestUserLogin(form) {
+  return function (dispatch, getState) {
+    fetch('/auth', {
+      method: 'POST',
+      body: form
+    })// .then(response => response.json())
+      .then((result) => {
+        // dispatch(setLessonNames(result));
+        debugger;
+      });
+
+    // fetch(`/auth?usernameId=${username}&passwordId=${password}&csrfId=${csrf}`, { credentials: 'same-origin' })
+    //   .then(response => response.json())
+    //   .then((result) => {
+    //     // dispatch(setLessonNames(result));
+    //     debugger;
+    //   });
+  };
+}
+
 export function receiveLesson(questions) {
   return {
     type: RECEIVE_LESSON,
@@ -462,6 +496,14 @@ export function receiveLoggedInUser(user) {
   };
 }
 
+export function receiveLoggedInStatus(loggedIn) {
+  return {
+    type: RECEIVE_LOGGED_IN_STATUS,
+    description: 'Receive status on whether we are logged in or not',
+    loggedIn
+  };
+}
+
 export function requestLoggedInUser() {
   return {
     type: REQUEST_LOGGED_IN_USER,
@@ -474,8 +516,11 @@ export function fetchLoggedInUser() {
     dispatch(requestLoggedInUser());
 
     fetch('/username', { credentials: 'same-origin' })
-      .then(response => response.text())
-      .then(user => dispatch(receiveLoggedInUser(user)));
+      .then(response => response.json())
+      .then((usernameInfo) => {
+        dispatch(receiveLoggedInUser(usernameInfo.username));
+        dispatch(receiveLoggedInStatus(usernameInfo.loggedIn));
+      });
   };
 }
 
@@ -520,7 +565,9 @@ export const actionCreators = {
   fetchLoggedInUser,
   requestLoggedInUser,
   receiveLoggedInUser,
-  setLessonNames
+  setLessonNames,
+  requestUserLogin,
+  requestUserRegister
 };
 
 // ----------------
@@ -631,6 +678,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         currentQuestionIndex: 0
+      };
+    case RECEIVE_LOGGED_IN_STATUS:
+      return {
+        ...state,
+        loggedIn: action.loggedIn
       };
     case RECEIVE_CORRECT_ATTEMPT:
       return {

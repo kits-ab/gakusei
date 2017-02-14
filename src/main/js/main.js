@@ -10,16 +10,17 @@ import App from './components/App';
 import configureStore from './configureStore';
 
 
-import GuessPlayPage from './components/GuessPlayPage';
+// import GuessPlayPage from './components/GuessPlayPage';
 import AboutPage from './components/AboutPage';
 import TranslationPlayPage from './components/TranslationPlayPage';
 import NuggetListPage from './components/NuggetListPage';
-import LessonSelection from './components/LessonSelection';
+// import LessonSelection from './components/LessonSelection';
 import LandingPage from './components/LandingPage';
 import EndScreenPage from './components/EndScreenPage';
 import UserStatisticsPage from './components/UserStatisticsPage';
-import QuizPlayPage from './components/QuizPlayPage';
-import QuizSelection from './components/QuizSelection';
+// import QuizPlayPage from './components/QuizPlayPage';
+// import QuizSelection from './components/QuizSelection';
+import Login from './components/Login';
 
 // New
 import FourAlternativeQuestion from './components/FourAlternativeQuestion';
@@ -69,7 +70,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route name="Gakusei" path="/" component={App}>
-        <IndexRedirect to="home" />
+        {/* <IndexRedirect to="home" />*/}
+        <IndexRedirect to="login" />
+        <Route path="/login" component={Login} />
         <Route path="/home" component={LandingPage} />
         <Route path="/play" component={FourAlternativeQuestion} />
         <Route path="/select" component={GenericSelection} />

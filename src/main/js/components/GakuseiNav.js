@@ -56,10 +56,10 @@ export class GakuseiNav extends React.Component {
         <Navbar.Collapse>
           <Nav>
             { this.props.loggedIn ? (
-            <NavDropdown eventKey={1} title="Glosor" id="basic-nav-dropdown">
-              <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
-              <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
-            </NavDropdown>
+              <NavDropdown eventKey={1} title="Glosor" id="basic-nav-dropdown">
+                <MenuItem eventKey={1.1}>Gissa ordet</MenuItem>
+                <MenuItem eventKey={1.2}>Översätt ordet</MenuItem>
+              </NavDropdown>
             ) : ''
           }
             { this.props.loggedIn ? <NavItem eventKey={2}>Grammatik</NavItem> : '' }
@@ -68,7 +68,7 @@ export class GakuseiNav extends React.Component {
             <NavItem eventKey={5}>Om Gakusei</NavItem>
           </Nav>
           <Nav pullRight>
-            { this.props.loggedIn ? <NavItem eventKey={6}>Inloggad som: {props.username}</NavItem> : '' }
+            { this.props.loggedIn ? <NavItem eventKey={6}>Inloggad som: {this.props.loggedInUser}</NavItem> : '' }
             { !this.props.loggedIn ? <NavItem eventKey={7}>Logga in</NavItem> : <NavItem eventKey={8}>Logga ut</NavItem>}
           </Nav>
         </Navbar.Collapse>
@@ -78,9 +78,10 @@ export class GakuseiNav extends React.Component {
 }
 
 GakuseiNav.propTypes = {
+  loggedIn: React.PropTypes.bool.isRequired,
+  loggedInUser: React.PropTypes.string.isRequired,
   // action creators
-  setPageByName: React.PropTypes.func.isRequired,
-  loggedInUser: React.PropTypes.string.isRequired
+  setPageByName: React.PropTypes.func.isRequired
 };
 
 // Wire up the React component to the Redux store and export it when importing this file
