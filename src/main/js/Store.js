@@ -45,9 +45,11 @@ export const defaultState = {
 
   // GenericSelection.js
   selectedLesson: '',
+  questionType: 'reading',
+  answerType: 'swedish',
 
   // FourAlternativeQuestion.js
-  questions: [], // contains object array of properties: question, alternative1, alternative2, alternative3, correctAlternative
+  questions: [],
   processedQuestion: {
     actualQuestionShapes: [],
     correctAlternative: null,
@@ -387,6 +389,17 @@ export function setLessonNames(lessonNames) {
   };
 }
 
+
+export function fetchLessonNames(type) {
+  return function (dispatch) {
+    const lessonType = type === 'quiz' ? 'quiz' : 'vocabulary';
+    fetch(`/api/lessonNames?lessonType=${lessonType}`, { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then(result => dispatch(setLessonNames(result)));
+      // .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
+  };
+}
+
 export function fetchLesson(lessonType, temporaryCallback) {
   let fetchURL;
 
@@ -400,7 +413,8 @@ export function fetchLesson(lessonType, temporaryCallback) {
 
   return function (dispatch, getState) {
     const state = getState().reducer;
-    return fetch(`${fetchURL}?lessonName=${state.selectedLesson}`, { credentials: 'same-origin' })
+    return fetch(`${fetchURL}?lessonName=${state.selectedLesson}&questionType=${state.questionType}&` +
+      `answerType=${state.answerType}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
         (json) => {
@@ -409,8 +423,8 @@ export function fetchLesson(lessonType, temporaryCallback) {
           dispatch(calcNextQuestion());
           temporaryCallback();
           // temporarySwitchpageCallback();
-        })
-      .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
+        });
+      // .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
   };
 }
 
@@ -420,8 +434,8 @@ export function fetchUserSuccessRate(username) {
 
     return fetch(`api/statistics/${username}`, { credentials: 'same-origin' })
       .then(response => response.json())
-      .then(data => dispatch(receiveUserSuccessRate(data, 'success', data)))
-      .catch(ex => dispatch(receiveUserSuccessRate(0, 'error', ex)));
+      .then(data => dispatch(receiveUserSuccessRate(data, 'success', data)));
+      // .catch(ex => dispatch(receiveUserSuccessRate(0, 'error', ex)));
   };
 }
 
@@ -488,6 +502,7 @@ export const actionCreators = {
   // incrementQuestionIndex,
   resetQuestionIndex,
   fetchLesson,
+  fetchLessonNames,
   setSelectedLesson,
   setGameMode,
   setPageByName,
