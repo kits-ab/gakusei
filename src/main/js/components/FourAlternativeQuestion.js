@@ -38,13 +38,13 @@ export default class FourAlternativeQuestion extends React.Component {
     const keyDown = event.key;
     if (!this.state.buttonDisabled) {
       if (keyDown === '1') {
-        this.checkAnswer(this.state.randomOrderAlt[0]);
+        this.checkAnswer(this.state.randomOrderAlt[0][0]);
       } else if (keyDown === '2') {
-        this.checkAnswer(this.state.randomOrderAlt[1]);
+        this.checkAnswer(this.state.randomOrderAlt[1][0]);
       } else if (keyDown === '3') {
-        this.checkAnswer(this.state.randomOrderAlt[2]);
+        this.checkAnswer(this.state.randomOrderAlt[2][0]);
       } else if (keyDown === '4') {
-        this.checkAnswer(this.state.randomOrderAlt[3]);
+        this.checkAnswer(this.state.randomOrderAlt[3][0]);
       }
     }
   }
