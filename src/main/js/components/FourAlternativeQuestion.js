@@ -13,6 +13,7 @@ export class FourAlternativeQuestion extends React.Component {
     super(props);
     this.checkAnswer = this.checkAnswer.bind(this);
     this.onKeys = this.onKeys.bind(this);
+    this.displayQuestion = this.displayQuestion.bind(this);
   }
 
   componentWillMount() {
@@ -61,32 +62,33 @@ export class FourAlternativeQuestion extends React.Component {
       setTimeout(
         () => {
           // this.props.setPageByName('EndScreen');
-          this.props.setPageByName('EndScreen', this.props.location.query);
+          this.props.setPageByName('finish', this.props.location.query);
         }, 1000);
     }
   }
+
   displayQuestion() {
     const questionText = {
-      GuessPlay: (
+      guess: (
         <div>
           <h2>Läsform: {this.props.processedQuestion.actualQuestionShapes[0]}</h2>
           {(this.props.processedQuestion.length > 1) ? <h2>Skrivform: {this.props.processedQuestion.actualQuestionShapes[1]} </h2> : ' '}
         </div>
       ),
-      QuizPlay: <h2>{this.props.processedQuestion.actualQuestionShapes[0]}</h2>
+      quiz: <h2>{this.props.processedQuestion.actualQuestionShapes[0]}</h2>
     };
     let resource;
-    if (this.props.resourceRef && this.state.resourceRef.type === 'kanjidrawing') {
-      resource = <object height="50em" type="image/svg+xml" data={this.state.resourceRef.location}>SVG error</object>;
+    if (this.props.resourceRef && this.props.resourceRef.type === 'kanjidrawing') {
+      resource = <object height="50em" type="image/svg+xml" data={this.props.resourceRef.location}>SVG error</object>;
     }
-    return resource ? <div>{resource}<br />{questionText[this.props.currentPageName]}</div> : questionText[this.props.currentPageName];
+    return resource ? <div>{resource}<br />{questionText[this.props.location.query.type]}</div> : questionText[this.props.location.query.type];
   }
   render() {
     return (
       <div>
         <Grid className="text-center">
           <Row>
-            {this.displayQuestion.bind(this)}
+            {this.displayQuestion()}
           </Row>
           <br />
           <Row>
