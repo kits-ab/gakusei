@@ -6,33 +6,29 @@ import { LinkContainer } from 'react-router-bootstrap';
 import * as Store from '../Store';
 
 export class GakuseiNav extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.something = 'test';
-
-    const hello = 'there';
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   eventHandler(eventKey) {
     switch (eventKey) {
       case 1.1:
-        this.props.setGameMode('/play/guess');
+        // this.props.setGameMode('/play/guess');
         this.props.setPageByName('/select', { type: 'guess' }); break;
       case 1.2:
         this.props.setGameMode('TranslationPlay');
         this.props.setPageByName('LessonSelection'); break;
       case 1.3:
-        this.props.setGameMode('/play/quiz');
+        // this.props.setGameMode('/play/quiz');
         this.props.setPageByName('/select', { type: 'quiz' }); break;
       case 2:
-        this.props.setPageByName('NuggetList'); break;
+        this.props.setPageByName('/lists'); break;
       case 3:
-        this.props.setPageByName('About'); break;
+        this.props.setPageByName('/about'); break;
       case 4:
-        this.props.setPageByName('UserStatistics'); break;
+        this.props.setPageByName('/profile'); break;
       default:
-        this.props.setPageByName('Landing');
+        this.props.setPageByName('/');
     }
   }
 
@@ -73,10 +69,8 @@ export class GakuseiNav extends React.Component {
 }
 
 GakuseiNav.propTypes = {
-  // username: React.PropTypes.string,
-    // used action creators
-  // fetchLoggedInUser: React.PropTypes.func.isRequired,
-  // loggedIn: React.PropTypes.bool.isRequired,
+  // action creators
+  setPageByName: React.PropTypes.func.isRequired,
   loggedInUser: React.PropTypes.string.isRequired
 };
 
