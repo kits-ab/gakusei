@@ -24,8 +24,7 @@ export class UserStatisticsPage extends React.Component {
     };
   }
 
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     this.props.fetchUserSuccessRate(this.props.loggedInUser);
   }
 
@@ -65,10 +64,10 @@ export class UserStatisticsPage extends React.Component {
 UserStatisticsPage.propTypes = {
   // username: React.PropTypes.string.isRequired,
   successRate: React.PropTypes.number.isRequired,
-  // used action creators
   loggedInUser: React.PropTypes.string.isRequired,
-  fetchUserSuccessRate: React.PropTypes.func.isRequired,
-  requestingSuccessRate: React.PropTypes.bool.isRequired
+  requestingSuccessRate: React.PropTypes.bool.isRequired,
+  // action creators
+  fetchUserSuccessRate: React.PropTypes.func.isRequired
 };
 
 export default connect(

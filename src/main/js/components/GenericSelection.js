@@ -9,20 +9,18 @@ import * as Store from '../Store';
 export class GenericSelection extends React.Component {
   constructor(props) {
     super(props);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
-    console.log('Hello world');
-    // console.log(this.props.location.query.lessons);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentWillMount() {
-    let lessonsX = [];
+    let lessons = [];
     if (this.props.location.query.type === 'guess') {
-      lessonsX = ['JLPT N3', 'JLPT N4', 'JLPT N5', 'GENKI 1', 'GENKI 13', 'GENKI 15'];
+      lessons = ['JLPT N3', 'JLPT N4', 'JLPT N5', 'GENKI 1', 'GENKI 13', 'GENKI 15'];
     } else if (this.props.location.query.type === 'quiz') {
-      lessonsX = ['Den japanska floran'];
+      lessons = ['Den japanska floran'];
     }
-    this.props.setLessonNames(lessonsX);
+    this.props.setLessonNames(lessons);
   }
 
   handleChange(event) {
@@ -42,17 +40,14 @@ export class GenericSelection extends React.Component {
     return (
       <Grid className="text-center">
         <Row>
-          <h1>{title[this.props.gamemode]}</h1>
-        </Row>
-        <Row>
           <Col xs={8} xsOffset={2} lg={4} lgOffset={4}>
-            <form href="#" onSubmit={this.handleSubmit.bind(this)}>
+            <form href="#" onSubmit={this.handleSubmit}>
               <FormGroup>
                 <ControlLabel>Välj lista av frågor</ControlLabel>
                 <FormControl
                   componentClass="select"
                   id="lessonSelection"
-                  onChange={this.handleChange.bind(this)}
+                  onChange={this.handleChange}
                   value={this.props.selectedLesson || ''}
                 >
                   {options}
@@ -68,10 +63,12 @@ export class GenericSelection extends React.Component {
 }
 
 GenericSelection.propTypes = {
-  gamemode: React.PropTypes.string.isRequired,
+  // gamemode: React.PropTypes.string.isRequired,
   // switchPage: React.PropTypes.func.isRequired,
+  location: React.PropTypes.objectOf({ query: React.PropTypes.objectOf({ type: React.PropTypes.string }) }).isRequired,
   lessonNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  fetchURL: React.PropTypes.string.isRequired,
+  // fetchURL: React.PropTypes.string.isRequired,
+  selectedLesson: React.PropTypes.string.isRequired,
   // Action creators
   setPageByName: React.PropTypes.func.isRequired
 };
