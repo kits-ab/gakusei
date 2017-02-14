@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { browserHistory, Router, Route } from 'react-router';
+import { browserHistory, Router, Route, IndexRedirect } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import App from './components/App';
@@ -69,17 +69,15 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route name="Gakusei" path="/" component={App}>
-
-        <Route path="/play" component={FourAlternativeQuestion} />
+        <IndexRedirect to="home" />
+        <Route path="/home" component={LandingPage} />
         <Route path="/play" component={FourAlternativeQuestion} />
         <Route path="/select" component={GenericSelection} />
-        <Route path="/select" component={GenericSelection} />
-
         <Route path="/TranslationPlay" component={TranslationPlayPage} />
-        <Route path="/NuggetList" component={NuggetListPage} />
-        <Route path="/Landing" component={LandingPage} />
-        <Route path="/EndScreen" component={EndScreenPage} />
-        <Route path="/UserStatistics" component={UserStatisticsPage} />
+        <Route path="/lists" component={NuggetListPage} />
+        <Route path="/finish" component={EndScreenPage} />
+        <Route path="/profile" component={UserStatisticsPage} />
+        <Route path="/about" component={AboutPage} />
       </Route>
     </Router>
   </Provider>,
