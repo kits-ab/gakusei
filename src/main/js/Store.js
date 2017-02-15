@@ -352,39 +352,6 @@ export function requestUserSuccessRate() {
   };
 }
 
-export function requestUserRegister(form) {
-    return function (dispatch, getState) {
-    fetch('/registeruser', {
-      method: 'POST',
-      body: form
-    })// .then(response => response.json())
-      .then((result) => {
-        // dispatch(setLessonNames(result));
-        debugger;
-      });
-  };
-}
-
-export function requestUserLogin(form) {
-  return function (dispatch, getState) {
-    fetch('/auth', {
-      method: 'POST',
-      body: form
-    })// .then(response => response.json())
-      .then((result) => {
-        // dispatch(setLessonNames(result));
-        debugger;
-      });
-
-    // fetch(`/auth?usernameId=${username}&passwordId=${password}&csrfId=${csrf}`, { credentials: 'same-origin' })
-    //   .then(response => response.json())
-    //   .then((result) => {
-    //     // dispatch(setLessonNames(result));
-    //     debugger;
-    //   });
-  };
-}
-
 export function receiveLesson(questions) {
   return {
     type: RECEIVE_LESSON,
@@ -534,6 +501,56 @@ export function fetchCSRF() {
 
     dispatch(receiveCSRF(csrfValue));
     return csrfValue;
+  };
+}
+
+export function requestUserRegister(data) {
+  return function (dispatch, getState) {
+    const formBody = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
+
+    fetch('/registeruser', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+      body: formBody
+    }).then((response) => {
+      debugger;
+      if (response.status === 201) {
+        // Registration succeeded
+        dispatch(receiveLoggedInStatus(true));
+        dispatch(receiveLoggedInUser(data.username));
+        dispatch(setPageByName('home'));
+      } else if (response.status === 422) {
+        // User already exists
+      }
+    });
+  };
+}
+
+export function requestUserLogin(data) {
+  return function (dispatch, getState) {
+    const formBody = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
+
+    fetch('/auth', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+      body: formBody
+    })
+    .then((response) => {
+      debugger;
+      if (response.status === 200) {
+        dispatch(receiveLoggedInStatus(true));
+        dispatch(receiveLoggedInUser(data.username));
+        dispatch(setPageByName('home'));
+      }
+    });
   };
 }
 

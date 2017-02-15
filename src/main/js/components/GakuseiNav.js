@@ -28,9 +28,8 @@ export class GakuseiNav extends React.Component {
         this.props.setPageByName('/about'); break;
       case 6:
         this.props.setPageByName('/profile'); break;
-      // case 7:
-        // TODO: Fix route to login page via react router
-        // switchPage('Login'); break;
+      case 7:
+        this.props.setPageByName('/login'); break;
       // case 8:
         // TODO: Fix logout functionality in react router
         // logout(); break;

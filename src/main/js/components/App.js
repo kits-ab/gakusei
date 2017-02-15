@@ -43,26 +43,7 @@ export class App extends React.Component {
   }
 }
 
-        /* { this.props.loggedIn ?
-          <div>
-            <GakuseiNav />
-            { this.props.children }
-          </div> :
-          <div />}*/
-
-
 App.propTypes = {
-      /* <div>
-        { this.props.loggedIn ?
-          <div>
-            <GakuseiNav />
-            <a href="guess-play">test</a>
-            { this.props.children }
-            { this.state !== null ? this.state.currentPage : <p>Loading...</p> }
-          </div> :
-          <p>Loading...</p>}
-      </div>*/
-
   // redux props
   // currentPage: React.PropTypes.any.isRequired,
   loggedIn: React.PropTypes.bool.isRequired,
