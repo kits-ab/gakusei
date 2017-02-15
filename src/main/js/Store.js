@@ -178,13 +178,16 @@ export function calcAnswerButtonStyles() {
 
     let newButtonStyles = [];
 
-    newButtonStyles = state.processedQuestion.randomizedAlternatives.map((word) => {
-      if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
-        return 'danger';
-      } else if (word === state.processedQuestion.correctAlternative) {
-        return 'success';
-      }
-      return 'default';
+    // TODO: Fix the way this evaluates
+    newButtonStyles = state.processedQuestion.randomizedAlternatives.map((words) => {
+      words.map((word) => {
+        if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
+          return 'danger';
+        } else if (word === state.processedQuestion.correctAlternative) {
+          return 'success';
+        }
+        return 'default';
+      });
     });
 
     dispatch({
@@ -209,8 +212,8 @@ export function addUserAnswer(userActualAnswer) {
     const processedQuestionWithAnswer = {
       ...state.processedQuestion,
       userAnswer: userActualAnswer,
-      userCorrect: (userActualAnswer.toLowerCase() ===
-                    state.processedQuestion.correctAlternative.toLowerCase())
+      userCorrect: state.processedQuestion.correctAlternative
+      .some(s => s.toLowerCase() === userActualAnswer.toLowerCase())
     };
 
     if (processedQuestionWithAnswer.userCorrect) {
@@ -298,12 +301,12 @@ export function calcNextQuestion() {
 
     const processedQuestion = {
       actualQuestionShapes: state.questions[localQuestionIndex].question.map(s => s.toLowerCase()),
-      correctAlternative: state.questions[localQuestionIndex].correctAlternative.toLowerCase(),
+      correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase()),
       randomizedAlternatives: Utility.randomizeOrder([
-        state.questions[localQuestionIndex].alternative1.toLowerCase(),
-        state.questions[localQuestionIndex].alternative2.toLowerCase(),
-        state.questions[localQuestionIndex].alternative3.toLowerCase(),
-        state.questions[localQuestionIndex].correctAlternative.toLowerCase()]),
+        state.questions[localQuestionIndex].alternative1.map(s => s.toLowerCase()),
+        state.questions[localQuestionIndex].alternative2.map(s => s.toLowerCase()),
+        state.questions[localQuestionIndex].alternative3.map(s => s.toLowerCase()),
+        state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase())]),
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonDisabled: false,
       resourceRef: state.questions[localQuestionIndex].resourceReference || null
@@ -517,7 +520,6 @@ export function requestUserRegister(data) {
       },
       body: formBody
     }).then((response) => {
-      debugger;
       if (response.status === 201) {
         // Registration succeeded
         dispatch(receiveLoggedInStatus(true));
@@ -544,7 +546,6 @@ export function requestUserLogin(data) {
       body: formBody
     })
     .then((response) => {
-      debugger;
       if (response.status === 200) {
         dispatch(receiveLoggedInStatus(true));
         dispatch(receiveLoggedInUser(data.username));

@@ -21,14 +21,15 @@ export class GenericSelection extends React.Component {
   }
 
   componentWillMount() {
-    this.calcLessonNames(this.props.location.query.type);
+    // this.calcLessonNames(this.props.location.query.type);
     this.props.fetchLessonNames(this.props.location.query.type);
   }
 
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.location.query.type !== nextProps.location.query.type) {
-      this.calcLessonNames(nextProps.location.query.type);
+      // this.calcLessonNames(nextProps.location.query.type);
+      this.props.fetchLessonNames(this.props.location.query.type);
     }
   }
 
@@ -83,7 +84,7 @@ export class GenericSelection extends React.Component {
       TranslationPlayPage: 'Översätt ordet',
       QuizPlayPage: 'Quiz'
     };
-    const options = this.state.lessonNames.map(name => <option key={name} value={name}>{name}</option>);
+    const options = this.props.lessonNames.map(name => <option key={name} value={name}>{name}</option>);
     let languageSelection;
     if (this.props.gamemode === 'QuizPlayPage') {
       languageSelection = <div />;

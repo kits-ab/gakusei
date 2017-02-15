@@ -127,14 +127,13 @@ export class FourAlternativeQuestion extends React.Component {
     return (
       <div>
         <Grid className="text-center">
-
-          {/* {this.displayQuestion()}*/}
-          <DisplayQuestion
+          {this.displayQuestion()}
+          {/* <DisplayQuestion
             pageName={this.props.pageName}
             question={this.state.question}
             questionType={this.props.questionType}
             resourceRef={this.state.resourceRef}
-          />
+          />*/}
           <br />
           <Row>
             <ButtonToolbar>
@@ -142,8 +141,8 @@ export class FourAlternativeQuestion extends React.Component {
                 <AnswerButton
                   label={this.props.processedQuestion.randomizedAlternatives[0]}
                   onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.state.buttonStyles[0]}
-                  disableButton={this.state.buttonDisabled}
+                  buttonStyle={this.props.processedQuestion.buttonStyles[0]}
+                  disableButton={this.props.processedQuestion.buttonDisabled}
                   answerType={this.props.answerType}
                 />
               </Col>
@@ -151,8 +150,8 @@ export class FourAlternativeQuestion extends React.Component {
                 <AnswerButton
                   label={this.props.processedQuestion.randomizedAlternatives[1]}
                   onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.state.buttonStyles[1]}
-                  disableButton={this.state.buttonDisabled}
+                  buttonStyle={this.props.processedQuestion.buttonStyles[1]}
+                  disableButton={this.props.processedQuestion.buttonDisabled}
                   answerType={this.props.answerType}
                 />
               </Col>
@@ -165,8 +164,8 @@ export class FourAlternativeQuestion extends React.Component {
                 <AnswerButton
                   label={this.props.processedQuestion.randomizedAlternatives[2]}
                   onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.state.buttonStyles[2]}
-                  disableButton={this.state.buttonDisabled}
+                  buttonStyle={this.props.processedQuestion.buttonStyles[2]}
+                  disableButton={this.props.processedQuestion.buttonDisabled}
                   answerType={this.props.answerType}
                 />
               </Col>
@@ -174,8 +173,8 @@ export class FourAlternativeQuestion extends React.Component {
                 <AnswerButton
                   label={this.props.processedQuestion.randomizedAlternatives[3]}
                   onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.state.buttonStyles[3]}
-                  disableButton={this.state.buttonDisabled}
+                  buttonStyle={this.props.processedQuestion.buttonStyles[3]}
+                  disableButton={this.props.processedQuestion.buttonDisabled}
                   answerType={this.props.answerType}
                 />
               </Col>
