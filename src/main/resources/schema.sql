@@ -13,6 +13,11 @@ gamemode VARCHAR(64) NOT NULL,
 user_ref VARCHAR(32) REFERENCES users(username)
 );
 
+CREATE TABLE IF NOT EXISTS users_lessons(
+username VARCHAR(32),
+lesson_id SERIAL
+);
+
 CREATE SCHEMA IF NOT EXISTS contentschema;
 
 CREATE TABLE IF NOT EXISTS contentschema.lessons(

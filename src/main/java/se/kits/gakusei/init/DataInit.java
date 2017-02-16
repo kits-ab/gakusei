@@ -139,7 +139,7 @@ public class DataInit implements ApplicationRunner {
 
     private void createLessons() {
         createVerbLesson();
-        createLessonsByCategory("jnlp");
+        createLessonsByCategory("kll");
         createLessonsByCategory("jlpt");
         createLessonsByCategory("genki");
         createLessonsByCategory("quiz");

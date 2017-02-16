@@ -39,10 +39,10 @@ public class QuestionHandlerTest {
         assertEquals(6, questions.size());
         assertFalse(questions.stream().anyMatch(q -> q == null));
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("question")).get(0).startsWith("swe_test")));
-        assertTrue(questions.stream().allMatch(q -> q.get("alternative1").toString().startsWith("eng_test")));
-        assertTrue(questions.stream().allMatch(q -> q.get("alternative2").toString().startsWith("eng_test")));
-        assertTrue(questions.stream().allMatch(q -> q.get("alternative3").toString().startsWith("eng_test")));
-        assertTrue(questions.stream().allMatch(q -> q.get("correctAlternative").toString().startsWith("eng_test")));
+        assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative1")).get(0).startsWith("eng_test")));
+        assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative2")).get(0).startsWith("eng_test")));
+        assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative3")).get(0).startsWith("eng_test")));
+        assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("correctAlternative")).get(0).startsWith("eng_test")));
     }
 
     @Test
@@ -57,10 +57,10 @@ public class QuestionHandlerTest {
                 dto.get("alternative2"),
                 dto.get("alternative3"),
                 dto.get("correctAlternative"))
-                .forEach(alt -> assertTrue(alt.toString().startsWith("eng_test")));
+                .forEach(alt -> assertTrue(((List<String>) alt).get(0).startsWith("eng_test")));
 
         String q = ((List<String>) dto.get("question")).get(0);
-        String ca = dto.get("correctAlternative").toString();
+        String ca = ((List<String>) dto.get("correctAlternative")).get(0);
         assertEquals(q.charAt(q.length()-1), ca.charAt(ca.length()-1));
 
         Set<String> ids = new HashSet<>(Arrays.asList(
@@ -92,9 +92,9 @@ public class QuestionHandlerTest {
         HashMap<String, Object> question = questionHandler.createQuizQuestion(quizNugget);
         assertEquals(1, ((List<String>) question.get("question")).size());
         assertEquals(description, ((List<String>) question.get("question")).get(0));
-        assertEquals(correctData, question.get("correctAlternative").toString());
-        assertTrue(question.get("alternative1").toString().startsWith(incorrectData));
-        assertTrue(question.get("alternative2").toString().startsWith(incorrectData));
-        assertTrue(question.get("alternative3").toString().startsWith(incorrectData));
+        assertEquals(correctData, ((List<String>) question.get("correctAlternative")).get(0));
+        assertTrue(((List<String>) question.get("alternative1")).get(0).startsWith(incorrectData));
+        assertTrue(((List<String>) question.get("alternative2")).get(0).startsWith(incorrectData));
+        assertTrue(((List<String>) question.get("alternative3")).get(0).startsWith(incorrectData));
     }
 }

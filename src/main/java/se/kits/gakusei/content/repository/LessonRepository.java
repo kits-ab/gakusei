@@ -22,4 +22,6 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
 
     @Query("select l.name from Lesson l where l.description = 'quiz'")
     List<String> findQuizLessonNames();
+
+    List<String> findLessonNamesByUsername(@Param("username") String username);
 }
