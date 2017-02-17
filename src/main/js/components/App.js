@@ -8,6 +8,7 @@ import { Link } from 'react-router';
 import GakuseiNav from './GakuseiNav';
 
 import * as Store from '../Store';
+import * as Test from '../Test';
 
 import GuessPlayPage from './GuessPlayPage';
 import AboutPage from './AboutPage';
@@ -31,6 +32,8 @@ export class App extends React.Component {
     // this.state = { currentPage: <LandingPage /> };
   }
   componentWillMount() {
+    debugger;
+    this.props.increase();
     this.props.fetchLoggedInUser();
   }
   // setLoggedInUser() {
@@ -99,7 +102,7 @@ App.propTypes = {
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (state.reducer),
+    state => (Object.assign({}, state.reducer, state.reducerx)),
     // Selects which action creators are merged into the component's props
-    Store.actionCreators
+    Object.assign({}, Store.actionCreators, Test.actionCreators)
 )(App);

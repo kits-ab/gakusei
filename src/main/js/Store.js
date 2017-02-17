@@ -456,9 +456,9 @@ export function requestLoggedInUser() {
 }
 
 export function fetchLoggedInUser() {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     dispatch(requestLoggedInUser());
-
+    debugger;
     fetch('/username', { credentials: 'same-origin' })
       .then(response => response.text())
       .then(user => dispatch(receiveLoggedInUser(user)));
@@ -505,7 +505,7 @@ export const actionCreators = {
   fetchLoggedInUser,
   requestLoggedInUser,
   receiveLoggedInUser,
-  setLessonNames
+  setLessonNames,
 };
 
 // ----------------
