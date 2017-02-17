@@ -119,10 +119,21 @@ EndScreenPage.defaultProps = {
   answerType: ''
 };
 
+
+// Selects which state properties are merged into the component's props
+function mapStateToProps(state) {
+  return Object.assign({},
+      state.Main);
+}
+
+// Selects which action creators are merged into the component's props
+function mapActionCreatorsToProps() {
+  return Object.assign({},
+      Store.actionCreators);
+}
+
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (state.reducer),
-    // Selects which action creators are merged into the component's props
-    Store.actionCreators
+    mapStateToProps,
+    mapActionCreatorsToProps
 )(EndScreenPage);

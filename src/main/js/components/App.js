@@ -8,6 +8,7 @@ import { Link } from 'react-router';
 import GakuseiNav from './GakuseiNav';
 
 import * as Store from '../Store';
+import * as Test from '../Test';
 
 import GuessPlayPage from './GuessPlayPage';
 import AboutPage from './AboutPage';
@@ -29,6 +30,9 @@ export class App extends React.Component {
     super(props);
   }
   componentWillMount() {
+    debugger;
+    this.props.doAnotherTest();
+    this.props.doThirdTest();
     this.props.fetchLoggedInUser();
   }
 
@@ -53,10 +57,25 @@ App.propTypes = {
   // setPageByName: React.PropTypes.func.isRequired
 };
 
+
+// Selects which state properties are merged into the component's props
+function mapStateToProps(state) {
+  return Object.assign({},
+      state.Main,
+      state.Test);
+}
+
+// Selects which action creators are merged into the component's props
+function mapActionCreatorsToProps() {
+
+  const result = Object.assign({},
+      Store.actionCreators,
+      Test.actionCreators);
+  return result;
+}
+
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (state.reducer),
-    // Selects which action creators are merged into the component's props
-    Store.actionCreators
+    mapStateToProps,
+    mapActionCreatorsToProps
 )(App);
