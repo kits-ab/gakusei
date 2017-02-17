@@ -13,9 +13,11 @@ gamemode VARCHAR(64) NOT NULL,
 user_ref VARCHAR(32) REFERENCES users(username)
 );
 
-CREATE TABLE IF NOT EXISTS users_lessons(
+CREATE TABLE IF NOT EXISTS user_lesson(
+id SERIAL PRIMARY KEY,
 username VARCHAR(32),
-lesson_id SERIAL
+lesson_name VARCHAR(32),
+deadline TIMESTAMP
 );
 
 CREATE SCHEMA IF NOT EXISTS contentschema;

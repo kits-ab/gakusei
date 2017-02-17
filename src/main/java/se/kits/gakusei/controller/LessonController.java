@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.repository.LessonRepository;
-import se.kits.gakusei.user.model.User;
-import se.kits.gakusei.user.repository.UserRepository;
 
 import java.util.List;
 
@@ -20,9 +17,6 @@ public class LessonController {
 
     @Autowired
     private LessonRepository lessonRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @RequestMapping(
             value = "/api/lessonNames",
@@ -38,49 +32,5 @@ public class LessonController {
         } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    @RequestMapping(
-            value = "api/users/lessons",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<List<String>> getUsersLessons(
-            @RequestParam(value = "username") String username) {
-        return new ResponseEntity<List<String>>(lessonRepository.findLessonNamesByUsername(username), HttpStatus.OK);
-    }
-
-    @RequestMapping(
-            value = "api/users/lessons/add",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<Lesson> addUserLesson(
-            @RequestParam(value = "lessonName") String lessonName,
-            @RequestParam(value = "username") String username) {
-        Lesson lesson = lessonRepository.findByName(lessonName);
-        User user = userRepository.findByUsername(username);
-        List<User> users = lesson.getUsers();
-        users.add(user);
-        lesson.setUsers(users);
-        lessonRepository.save(lesson);
-        return new ResponseEntity<Lesson>(lesson, HttpStatus.OK);
-    }
-
-    @RequestMapping(
-            value = "api/users/lessons/remove",
-            method = RequestMethod.DELETE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<Lesson> removeUserLesson(
-            @RequestParam(value = "lessonName") String lessonName,
-            @RequestParam(value = "username") String username) {
-        Lesson lesson = lessonRepository.findByName(lessonName);
-        User user = userRepository.findByUsername(username);
-        List<User> users = lesson.getUsers();
-        users.remove(user);
-        lesson.setUsers(users);
-        lessonRepository.save(lesson);
-        return new ResponseEntity<Lesson>(lesson, HttpStatus.OK);
     }
 }

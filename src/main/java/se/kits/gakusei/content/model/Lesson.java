@@ -1,7 +1,6 @@
 package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import se.kits.gakusei.user.model.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,22 +8,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "lessons", schema = "contentschema")
-@NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "Lesson.findNuggetsByTwoFactTypes",
-                query = "select * from contentschema.nuggets where id in " +
-                        "(select filtered.nugget_id from contentschema.facts " +
-                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
-                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
-                        "on nuggetid = nugget_id " +
-                        "where facts.type IN (:factType1, :factType2) " +
-                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
-                resultClass = Nugget.class),
-        @NamedNativeQuery(
-                name = "Lesson.findLessonNamesByUsername",
-                query = "select name from contentschema.lessons where id in " +
-                        "(select lesson_id from users_lessons where username = :username)")
-})
+@NamedNativeQuery(
+        name = "Lesson.findNuggetsByTwoFactTypes",
+        query = "select * from contentschema.nuggets where id in " +
+                "(select filtered.nugget_id from contentschema.facts " +
+                "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
+                "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
+                "on nuggetid = nugget_id " +
+                "where facts.type IN (:factType1, :factType2) " +
+                "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
+        resultClass = Nugget.class)
 public class Lesson implements Serializable {
 
     @Id
@@ -45,13 +38,9 @@ public class Lesson implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"))
     private List<Nugget> nuggets;
 
-    @ManyToMany
-    @JsonManagedReference
-    @JoinTable(
-            name = "users_lessons",
-            joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "username", referencedColumnName = "username"))
-    private List<User> users;
+    @OneToMany
+    @JoinTable(name = "users_lessons", joinColumns = @JoinColumn(name = "lessonName", referencedColumnName = "name"))
+    private List<UserLesson> userLessons;
 
     public Lesson() {
     }
@@ -88,11 +77,11 @@ public class Lesson implements Serializable {
         this.nuggets = nuggets;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<UserLesson> getUsers() {
+        return userLessons;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUsers(List<UserLesson> userLessons) {
+        this.userLessons = userLessons;
     }
 }
