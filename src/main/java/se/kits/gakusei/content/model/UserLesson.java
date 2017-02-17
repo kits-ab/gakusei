@@ -21,7 +21,10 @@ public class UserLesson {
     private String lessonName;
 
     @Column
-    private Timestamp deadline;
+    private Timestamp firstDeadline;
+
+    @Column
+    private Timestamp secondDeadline;
 
     public UserLesson() {}
 
@@ -54,11 +57,19 @@ public class UserLesson {
         this.lessonName = lessonName;
     }
 
-    public Timestamp getDeadline() {
-        return deadline;
+    public Timestamp getFirstDeadline() {
+        return firstDeadline;
     }
 
-    public void setDeadline(Timestamp deadline) {
-        this.deadline = deadline;
+    public void setFirstDeadline(Timestamp firstDeadline) {
+        this.firstDeadline = firstDeadline;
+    }
+
+    public Timestamp getSecondDeadline() {
+        return secondDeadline;
+    }
+
+    public void setSecondDeadline(Timestamp secondDeadline) {
+        this.secondDeadline = secondDeadline;
     }
 }

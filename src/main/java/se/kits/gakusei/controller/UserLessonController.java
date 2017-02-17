@@ -55,14 +55,27 @@ public class UserLessonController {
     }
 
     @RequestMapping(
-            value = "api/userLessons/setDeadline",
+            value = "api/userLessons/setFirstDeadline",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<UserLesson> setDeadlineToUserLesson(@RequestBody DeadlineDTO deadlineDTO) {
+    public ResponseEntity<UserLesson> setFirstDeadlineToUserLesson(@RequestBody DeadlineDTO deadlineDTO) {
         List<UserLesson> userLessons = userLessonRepository.findDistinctUserLessonByUsernameAndLessonName(deadlineDTO.getUsername(), deadlineDTO.getLessonName());
         UserLesson userLesson = userLessons.get(0);
-        userLesson.setDeadline(new Timestamp(deadlineDTO.getDeadline()));
+        userLesson.setFirstDeadline(new Timestamp(deadlineDTO.getDeadline()));
+        userLessonRepository.save(userLesson);
+        return new ResponseEntity<UserLesson>(HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "api/userLessons/setSecondDeadline",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<UserLesson> setSecondDeadlineToUserLesson(@RequestBody DeadlineDTO deadlineDTO) {
+        List<UserLesson> userLessons = userLessonRepository.findDistinctUserLessonByUsernameAndLessonName(deadlineDTO.getUsername(), deadlineDTO.getLessonName());
+        UserLesson userLesson = userLessons.get(0);
+        userLesson.setSecondDeadline(new Timestamp(deadlineDTO.getDeadline()));
         userLessonRepository.save(userLesson);
         return new ResponseEntity<UserLesson>(HttpStatus.OK);
     }

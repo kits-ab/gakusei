@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS user_lesson(
 id SERIAL PRIMARY KEY,
 username VARCHAR(32),
 lesson_name VARCHAR(32),
-deadline TIMESTAMP
+first_deadline TIMESTAMP,
+second_deadline TIMESTAMP
 );
 
 CREATE SCHEMA IF NOT EXISTS contentschema;
