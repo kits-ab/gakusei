@@ -58,12 +58,22 @@ export class GakuseiNav extends React.Component {
             <NavItem eventKey={2} href="#">Lista ord</NavItem>
             <NavItem eventKey={3} href="#">Om Gakusei</NavItem>
           </Nav>
-          <Nav pullRight>
-            <NavItem eventKey={4} href="#">Inloggad som: {this.props.loggedInUser}</NavItem>
-            <LinkContainer to="/logout">
-              <NavItem eventKey={5}>Logga ut</NavItem>
-            </LinkContainer>
-          </Nav>
+          {this.props.loggedIn === true ?
+            <Nav pullRight>
+              <NavItem eventKey={4} href="#">Inloggad som: {this.props.loggedInUser}</NavItem>
+              <LinkContainer to="/logout">
+                <NavItem eventKey={5}>Logga ut</NavItem>
+              </LinkContainer>
+            </Nav>
+          :
+            <Nav pullRight>
+              <LinkContainer to="/login">
+                <NavItem eventKey={5}>Registrera användare</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/login">
+                <NavItem eventKey={5}>Logga in</NavItem>
+              </LinkContainer>
+            </Nav>}
         </Navbar.Collapse>
       </Navbar>
     );

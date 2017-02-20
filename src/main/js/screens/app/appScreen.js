@@ -22,13 +22,11 @@ export class App extends React.Component {
 
   render() {
     return (
-      <div>
         <div>
           <GakuseiNav />
           {/* <Link to="landing">test</Link>*/}
           { this.props.children }
         </div>
-      </div>
     );
   }
 }

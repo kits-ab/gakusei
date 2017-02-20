@@ -21,6 +21,7 @@ export const RECEIVE_CSRF = 'RECEIVE_CSRF';
 export const REQUEST_CSRF = 'REQUEST_CSRF';
 export const RECEIVE_LOGGED_IN_USER = 'RECEIVE_LOGGED_IN_USER';
 export const REQUEST_LOGGED_IN_USER = 'REQUEST_LOGGED_IN_USER';
+export const RECEIVE_LOGGED_IN_STATUS = 'RECEIVE_LOGGED_IN_STATUS';
 
 // -----------------
 // ACTION (CREATORS) - These are serializable (hence replayable) descriptions of state transitions.
@@ -41,11 +42,22 @@ export function requestCSRF() {
   };
 }
 
-export function receiveLoggedInUser(user) {
+export function receiveLoggedInStatus(loggedIn) {
   return {
-    type: RECEIVE_LOGGED_IN_USER,
-    description: 'Fetching complete',
-    user
+    type: RECEIVE_LOGGED_IN_STATUS,
+    description: 'Get status on whether we are logged in or not',
+    loggedIn
+  };
+}
+
+export function receiveLoggedInUser(user) {
+  return function (dispatch, getState) {
+    dispatch({
+      type: RECEIVE_LOGGED_IN_USER,
+      description: 'Fetching complete',
+      user });
+
+    dispatch(receiveLoggedInStatus(!!user));
   };
 }
 
@@ -59,9 +71,17 @@ export function requestLoggedInUser() {
 export function fetchLoggedInUser() {
   return function (dispatch, getState) {
     dispatch(requestLoggedInUser());
+
     fetch('/username', { credentials: 'same-origin' })
-      .then(response => response.text())
-      .then(user => dispatch(receiveLoggedInUser(user)));
+      .then((response) => {
+        debugger;
+        if (response.status === 200) {
+          dispatch(receiveLoggedInUser(response.text()));
+        } else {
+          // 500 error etc.
+          dispatch(receiveLoggedInUser(null));
+        }
+      });
   };
 }
 
@@ -113,8 +133,12 @@ export const security = (state, action) => {
     case RECEIVE_LOGGED_IN_USER:
       return {
         ...state,
-        loggedIn: true,
         loggedInUser: action.user
+      };
+    case RECEIVE_LOGGED_IN_STATUS:
+      return {
+        ...state,
+        loggedIn: action.loggedIn
       };
   }
 };

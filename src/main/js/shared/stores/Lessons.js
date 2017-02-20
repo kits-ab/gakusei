@@ -53,12 +53,7 @@ export const defaultState = {
   totalAttempts: 0,
   currentQuestionIndex: 0,
   currentProcessedQuestionAnswered: false,
-  currentProcessedQuestionAnsweredCorrectly: false,
-
-  // Security
-  loggedIn: false,
-  loggedInUser: null,
-  csrf: null
+  currentProcessedQuestionAnsweredCorrectly: false
 };
 
 // -----------------
@@ -84,12 +79,6 @@ export const SHOW_ANSWER_BUTTON_STYLES = 'SHOW_ANSWER_BUTTON_STYLES';
 export const RECEIVE_ANSWER_BUTTON_STYLES = 'RECEIVE_ANSWER_BUTTON_STYLES';
 export const SET_LESSON_NAMES = 'SET_LESSON_NAMES';
 export const CLEAR_PROCESSED_QUESTION = 'CLEAR_PROCESSED_QUESTION';
-
-// Security stuff
-export const RECEIVE_CSRF = 'RECEIVE_CSRF';
-export const REQUEST_CSRF = 'REQUEST_CSRF';
-export const RECEIVE_LOGGED_IN_USER = 'RECEIVE_LOGGED_IN_USER';
-export const REQUEST_LOGGED_IN_USER = 'REQUEST_LOGGED_IN_USER';
 
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
@@ -614,28 +603,6 @@ export const lessons = (state, action) => {
         correctAttempts: 0,
         totalAttempts: 0,
         lessonSuccessRate: 0
-      };
-      // Security stuff
-    case RECEIVE_CSRF:
-      return {
-        ...state,
-        csrf: action.csrf
-      };
-    case REQUEST_CSRF:
-      return {
-        ...state,
-        csrf: null
-      };
-    case REQUEST_LOGGED_IN_USER:
-      return {
-        ...state,
-        csrf: null
-      };
-    case RECEIVE_LOGGED_IN_USER:
-      return {
-        ...state,
-        loggedIn: true,
-        loggedInUser: action.user
       };
   }
 };
