@@ -12,10 +12,8 @@
   "scripts": {
     "precompile": "rimraf ./src/main/resources/static/js/*",
     "compile:main": "browserify ./src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
-    "compile:login": "browserify ./src/main/js/login.js --debug -t babelify -o ./src/main/resources/static/js/login_bundle.js",
-    "compile": "npm run compile:login && npm run compile:main",
+    "compile": "npm run compile:main",
     "watch:main": "watchify src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js -dv -v -p livereactload",
-    "watch:login": "watchify src/main/js/login.js --debug -t babelify -o ./src/main/resources/static/js/login_bundle.js -dv -v -p livereactload",
     "start": "npm run watch:main"
   },
   "repository": {
@@ -25,15 +23,19 @@
   "dependencies": {
     "browserify": "^13.1.1",
     "chart.js": "^2.4.0",
+    "form-data": "^2.1.2",
+    "formsy-react": "^0.19.2",
+    "formsy-react-bootstrap": "^1.5.5",
     "formsy-react-components": "^0.10.1",
     "hyphenation.sv": "^0.2.1",
     "hypher": "^0.2.5",
     "odiff": "0.0.2",
-    "react": "^15.4.1",
+    "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-chartjs-2": "^2.0.0",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.2",
+    "react-redux-form": "^1.5.5",
     "react-router": "^3.0.2",
     "react-router-bootstrap": "^0.23.1",
     "react-router-redux": "^4.0.8",

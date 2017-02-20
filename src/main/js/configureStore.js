@@ -10,7 +10,10 @@ import * as Statistics from './shared/stores/Statistics';
 import * as Security from './shared/stores/Security';
 
 function buildRootReducer(allReducers) {
-  return combineReducers(Object.assign({}, allReducers, { routing: routerReducer }));
+  // debugger;
+  const hello = combineReducers(Object.assign({}, allReducers, { routing: routerReducer }));
+  // debugger;
+  return hello;
   // return combineReducers(Object.assign({}, allReducers, { routing: 'test' }));
 }
 
@@ -25,6 +28,7 @@ export default function configureStore(initialState) {
         devToolsExtension ? devToolsExtension() : f => f
     )(createStore);
 
+  // debugger;
   // Combine all reducers and instantiate the app-wide store instance
   const allReducers = buildRootReducer(Object.assign({},
    Test.reducers,

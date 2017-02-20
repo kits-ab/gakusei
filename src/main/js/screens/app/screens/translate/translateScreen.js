@@ -103,6 +103,7 @@ TranslationPlayPage.propTypes = {
   loggedInUser: React.PropTypes.string.isRequired
 };
 
+// Wire up the React component to the Redux store and export it when importing this file
 export default connect(
     // Selects which state properties are merged into the component's props
     state => (state.lessons),

@@ -61,7 +61,7 @@ public class TestTools {
         return lesson;
     }
 
-    public static HashMap<String, Object> generateQuestionDTO() {
+    public static HashMap<String, Object> generateQuestion() {
         List<String> question = new ArrayList<>();
         question.add("question");
         String alt1 = "alternative1";

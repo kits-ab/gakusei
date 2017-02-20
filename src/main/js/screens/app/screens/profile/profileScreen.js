@@ -76,9 +76,11 @@ UserStatisticsPage.propTypes = {
   fetchUserSuccessRate: React.PropTypes.func.isRequired
 };
 
+// Wire up the React component to the Redux store and export it when importing this file
 export default connect(
     // Selects which state properties are merged into the component's props
     state => (state.lessons),
     // Selects which action creators are merged into the component's props
     Lessons.actionCreators
 )(UserStatisticsPage);
+

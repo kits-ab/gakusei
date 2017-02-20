@@ -1,11 +1,23 @@
 // import { combineReducers } from 'redux';
 import 'whatwg-fetch';
 // For temporary page management
-// import React from 'react';
-// import { browserHistory } from 'react-router';
+import React from 'react';
+import { browserHistory } from 'react-router';
 import { push } from 'react-router-redux';
 
-import Utility from '../../shared/util/Utility';
+import Utility from './util/Utility';
+
+// For temporary page management
+// import GuessPlayPage from './components/GuessPlayPage';
+// import AboutPage from './components/AboutPage';
+// import TranslationPlayPage from './components/TranslationPlayPage';
+// import NuggetListPage from './components/NuggetListPage';
+// import LessonSelection from './components/LessonSelection';
+// import LandingPage from './components/LandingPage';
+// import EndScreenPage from './components/EndScreenPage';
+// import UserStatisticPage from './components/UserStatisticsPage';
+// import QuizPlayPage from './components/QuizPlayPage';
+// import QuizSelection from './components/QuizSelection';
 
 // ----------------
 // DEFAULT STATE
@@ -55,11 +67,14 @@ export const defaultState = {
   totalAttempts: 0,
   currentQuestionIndex: 0,
   currentProcessedQuestionAnswered: false,
-  currentProcessedQuestionAnsweredCorrectly: false
+  currentProcessedQuestionAnsweredCorrectly: false,
 };
 
 // -----------------
-// ACTION CONSTANTS - Just used to differentiate the "actions"
+// ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
+// They do not themselves have any side-effects; they just describe something that is going to happen.
+// Use @typeName and isActionType for type detection that works even after serialization/deserialization.
+
 export const RECEIVE_USER_SUCCESS_RATE = 'RECEIVED_USER_SUCCESS_RATE';
 export const REQUEST_USER_SUCCESS_RATE = 'REQUEST_USER_SUCCESS_RATE';
 export const SET_LESSON_SUCCESS_RATE_MESSAGE = 'SET_LESSON_SUCCESS_RATE_MESSAGE';
@@ -82,10 +97,6 @@ export const RECEIVE_ANSWER_BUTTON_STYLES = 'RECEIVE_ANSWER_BUTTON_STYLES';
 export const SET_LESSON_NAMES = 'SET_LESSON_NAMES';
 export const CLEAR_PROCESSED_QUESTION = 'CLEAR_PROCESSED_QUESTION';
 
-// -----------------
-// ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
-// They do not themselves have any side-effects; they just describe something that is going to happen.
-// Use @typeName and isActionType for type detection that works even after serialization/deserialization.
 export function calcLessonSuccessRateMessage(lessonSuccessRate) {
   let lessonSuccessRateMessage = '';
   const emojiFeedback = {
@@ -126,7 +137,7 @@ export function receiveLessonSuccessRate(lessonSuccessRate) {
 
 export function calcLessonSuccessRate() {
   return function (dispatch, getState) {
-    const state = getState().lessons;
+    const state = getState().reducer;
     let lessonSuccessRate = 0;
 
     if (state.totalAttempts > 0) {
@@ -147,7 +158,7 @@ export function receiveCorrectAttempt() {
 
 export function calcAnswerButtonStyles() {
   return function (dispatch, getState) {
-    const state = getState().lessons;
+    const state = getState().reducer;
 
     const userAnswerWord = state
       .processedQuestionsWithAnswer[state.currentQuestionIndex]
@@ -158,11 +169,10 @@ export function calcAnswerButtonStyles() {
     // TODO: Fix the way this evaluates
     newButtonStyles = state.processedQuestion.randomizedAlternatives.map((words) => {
       words.map((word) => {
-        if (word === state.processedQuestion.correctAlternative) {
-          return 'success';
-        }
-        else if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
+        if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
           return 'danger';
+        } else if (word === state.processedQuestion.correctAlternative) {
+          return 'success';
         }
         return 'default';
       });
@@ -185,7 +195,7 @@ export function receiveIncorrectAttempt() {
 
 export function addUserAnswer(userActualAnswer) {
   return function (dispatch, getState) {
-    const state = getState().lessons;
+    const state = getState().reducer;
 
     const processedQuestionWithAnswer = {
       ...state.processedQuestion,
@@ -228,17 +238,17 @@ export function setAllButtonsDisabledState(disabled) {
   };
 }
 
-// To be deprecated
 export function setPageByName(pageName, params = null, _state = null) {
   return function (dispatch) {
-    // dispatch(push({
-    //   pathname: `${pageName}`,
-    //   query: { ...params },
-    //   state: _state
-    // }));
+    // getState().reducer.switchPageRef(pageName);
 
+    // browserHistory.push(pageName, params);
+    // dispatch(push(`${pageName}?test=123`));
+    // dispatch(push(pageName, ...params)); // Bork
     dispatch(push({
-      pathname: `${pageName}`
+      pathname: `${pageName}`,
+      query: { ...params },
+      state: _state
     }));
 
     dispatch({
@@ -274,7 +284,7 @@ export function receiveNextProcessedQuestion(processedQuestion) {
 
 export function calcNextQuestion() {
   return function (dispatch, getState) {
-    const state = getState().lessons;
+    const state = getState().reducer;
     const localQuestionIndex = state.currentQuestionIndex;
 
     const processedQuestion = {
@@ -359,7 +369,7 @@ export function resetLesson() {
 
 export function setLessonNames(lessonNames) {
   return function (dispatch, getState) {
-    const state = getState().lessons;
+    const state = getState().reducer;
 
     const something = dispatch({
       type: SET_LESSON_NAMES,
@@ -402,7 +412,6 @@ export function fetchLesson(lessonType, temporaryCallback) {
         (json) => {
           // sessionStorage.lesson = JSON.stringify(json);
           dispatch(receiveLesson(json));
-          dispatch(resetLesson());
           dispatch(calcNextQuestion());
           temporaryCallback();
           // temporarySwitchpageCallback();
@@ -419,6 +428,70 @@ export function fetchUserSuccessRate(username) {
       .then(response => response.json())
       .then(data => dispatch(receiveUserSuccessRate(data, 'success', data)));
       // .catch(ex => dispatch(receiveUserSuccessRate(0, 'error', ex)));
+  };
+}
+
+export function receiveCSRF(csrf) {
+  return {
+    type: RECEIVE_CSRF,
+    description: 'Fetching complete',
+    csrf
+  };
+}
+
+export function requestCSRF() {
+  return {
+    type: REQUEST_CSRF,
+    description: 'Fetching now in progress'
+  };
+}
+
+export function receiveLoggedInUser(user) {
+  return {
+    type: RECEIVE_LOGGED_IN_USER,
+    description: 'Fetching complete',
+    user
+  };
+}
+
+export function receiveLoggedInStatus(loggedIn) {
+  return {
+    type: RECEIVE_LOGGED_IN_STATUS,
+    description: 'Receive status on whether we are logged in or not',
+    loggedIn
+  };
+}
+
+export function requestLoggedInUser() {
+  return {
+    type: REQUEST_LOGGED_IN_USER,
+    description: 'Fetching now in progress'
+  };
+}
+
+export function fetchLoggedInUser() {
+  return function (dispatch) {
+    dispatch(requestLoggedInUser());
+
+    fetch('/username', { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then((usernameInfo) => {
+        dispatch(receiveLoggedInUser(usernameInfo.username));
+        dispatch(receiveLoggedInStatus(usernameInfo.loggedIn));
+      });
+  };
+}
+
+export function fetchCSRF() {
+  return function (dispatch) {
+    dispatch(requestCSRF());
+
+    const cookies = document.cookie.split('; ');
+    const keys = cookies.map(cookie => cookie.split('=')[0]);
+    const csrfValue = cookies[keys.indexOf('XSRF-TOKEN')].split('=')[1];
+
+    dispatch(receiveCSRF(csrfValue));
+    return csrfValue;
   };
 }
 
@@ -491,23 +564,26 @@ export const actionCreators = {
   resetAttempts,
   calcAnswerButtonStyles,
   resetLesson,
-  setLessonNames
   // Security
-  // fetchCSRF,
-  // requestCSRF,
-  // receiveCSRF,
-  // fetchLoggedInUser,
-  // requestLoggedInUser,
-  // receiveLoggedInUser
+  setLessonNames
 };
 
 // ----------------
 // REDUCER - For a given state and action, returns the new state.
 // To support time travel, this must not mutate the old state.
-export const lessons = (state, action) => {
+export const Main = (state, action) => {
   switch (action.type) {
     default:
       return state || defaultState;
+    case RECEIVE_USER_SUCCESS_RATE:
+      return {
+        ...state,
+        successRate: action.successRate,
+        requestingSuccessRate: false,
+        requestSuccessRateStatus: action.status,
+        requestSuccessRateResponse: action.response,
+        requestSuccessRateLastReceived: action.lastReceived
+      };
     case SET_ALL_BUTTONS_DISABLED_STATE:
       return {
         ...state,
@@ -557,6 +633,11 @@ export const lessons = (state, action) => {
       return {
         ...state,
         lessonNames: action.lessonNames
+      };
+    case REQUEST_USER_SUCCESS_RATE:
+      return {
+        ...state,
+        requestingSuccessRate: true
       };
     case SET_GAMEMODE:
       return {
@@ -618,9 +699,15 @@ export const lessons = (state, action) => {
         totalAttempts: 0,
         lessonSuccessRate: 0
       };
+      // Security stuff
   }
 };
 
 export const reducers = {
-  lessons
+  Main
 };
+
+// Not needed since we only have 1 reducer..?
+// const randomStore = combineReducers({
+//   reducer
+// });

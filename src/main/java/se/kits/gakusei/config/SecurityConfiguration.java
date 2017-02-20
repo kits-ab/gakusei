@@ -39,16 +39,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/registeruser", "/username", "/js/*", "/license/*", "/img/logo/*", "/css/*").permitAll()
-                .antMatchers("/**","/logout").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                    .antMatchers("/registeruser", "/username", "/js/*", "/license/*", "/img/logo/*", "/css/*").permitAll()
+                    .antMatchers("/**","/logout").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/")
-                .loginProcessingUrl("/auth")
-                .failureHandler(new CustomAuthenticationFailureHandler())
-                .successHandler(new CustomAuthenticationSuccessHandler())
-                .permitAll()
-                .and()
+                    .loginPage("/")
+                    .loginProcessingUrl("/auth")
+                    .failureHandler(new CustomAuthenticationFailureHandler())
+                    .successHandler(new CustomAuthenticationSuccessHandler())
+                    .permitAll()
+                    .and()
                 .httpBasic()
                 .and()
                 .headers()
@@ -58,6 +58,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                 .logout()
-                .logoutSuccessUrl("/");
+                    .logoutSuccessUrl("/");
     }
 }

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class UserController {
 
@@ -50,9 +53,20 @@ public class UserController {
 
     @RequestMapping(
             value = "/username",
-            method = RequestMethod.GET)
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
     @ResponseBody
-    public String currentUserName(Authentication authentication) {
-        return authentication.getName();
+    public Map<String, Object> currentUserName(Authentication authentication) {
+        Map<String, Object> values = new HashMap<>();
+        String nameKey = "username";
+        String authenticatedKey = "loggedIn";
+        values.put(nameKey, "");
+        values.put(authenticatedKey, Boolean.FALSE);
+        if (authentication != null && authentication.isAuthenticated()) {
+            values.put(nameKey, authentication.getName());
+            values.put(authenticatedKey, Boolean.TRUE);
+        }
+        return values;
     }
 }
