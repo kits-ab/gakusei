@@ -26,8 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(this.userDetailsService)
-            .passwordEncoder(passwordEncoder());
+                .userDetailsService(this.userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -39,26 +39,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/login", "/registeruser", "/js/*", "/license/*").permitAll()
-                    .antMatchers("/**","/logout").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/registeruser", "/username", "/js/*", "/license/*", "/img/logo/*", "/css/*").permitAll()
+                .antMatchers("/**","/logout").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .loginProcessingUrl("/auth")
-                    .defaultSuccessUrl("/", true)
-                    .permitAll()
-                    .and()
+                .loginPage("/")
+                .loginProcessingUrl("/auth")
+                .failureHandler(new CustomAuthenticationFailureHandler())
+                .successHandler(new CustomAuthenticationSuccessHandler())
+                .permitAll()
+                .and()
                 .httpBasic()
-                    .and()
+                .and()
                 .headers()
-                    .frameOptions().sameOrigin()
-                    .and()
+                .frameOptions().sameOrigin()
+                .and()
                 .csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                    .and()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
                 .logout()
-                    // Remove this and add POST to /logout in frontend
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/");
     }
 }
