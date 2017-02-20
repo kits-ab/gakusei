@@ -2,9 +2,6 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import Hypher from 'hypher';
 import swedish from 'hyphenation.sv';
-import { connect } from 'react-redux';
-import * as Lessons from '../Lessons';
-
 
 function hyphenateSwedish(text) {
   // Threshold to avoid unnecessary hyphenation
@@ -43,9 +40,4 @@ AnswerButton.propTypes = {
   disableButton: React.PropTypes.bool.isRequired
 };
 
-export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (state.lessons),
-    // Selects which action creators are merged into the component's props
-    Lessons.actionCreators
-)(AnswerButton);
+export default AnswerButton;

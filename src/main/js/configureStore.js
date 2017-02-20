@@ -4,10 +4,10 @@ import { browserHistory } from 'react-router';
 import thunkMiddleware from 'redux-thunk';
 
 // Our reducers
-import * as Test from './Test';
-import * as Lessons from './Lessons';
-import * as Statistics from './Statistics';
-import * as Security from './Security';
+import * as Test from './shared/stores/Test';
+import * as Lessons from './shared/stores/Lessons';
+import * as Statistics from './shared/stores/Statistics';
+import * as Security from './shared/stores/Security';
 
 function buildRootReducer(allReducers) {
   return combineReducers(Object.assign({}, allReducers, { routing: routerReducer }));

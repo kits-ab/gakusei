@@ -27,6 +27,7 @@
     "chart.js": "^2.4.0",
     "hyphenation.sv": "^0.2.1",
     "hypher": "^0.2.5",
+    "odiff": "0.0.2",
     "react": "^15.4.1",
     "react-bootstrap": "^0.30.7",
     "react-chartjs-2": "^2.0.0",

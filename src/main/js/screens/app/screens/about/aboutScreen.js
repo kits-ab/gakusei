@@ -5,7 +5,7 @@ import 'whatwg-fetch';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Panel } from 'react-bootstrap';
 import xml2js from 'xml2js';
 
-export default class AboutPage extends React.Component {
+export default class aboutScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -129,8 +129,8 @@ export default class AboutPage extends React.Component {
       .then(response => response.text())
       .then(str => (new window.DOMParser()).parseFromString(str, 'text/xml'))
       .then(xmlobj => new XMLSerializer().serializeToString(xmlobj))
-      .then(xmldoc => this.createBackendLicenses(xmldoc))
-      .catch(ex => console.log('Fel vid hämtning av backend-licenser', ex));
+      .then(xmldoc => this.createBackendLicenses(xmldoc));
+      // .catch(ex => console.log('Fel vid hämtning av backend-licenser', ex));
   }
   render() {
     return (

@@ -3,8 +3,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
-import Utility from '../util/Utility';
-import * as Lessons from '../Lessons';
+import Utility from '../../../../shared/util/Utility';
+import * as Lessons from '../../../../shared/stores/Lessons';
 
 export class EndScreenPage extends React.Component {
   constructor(props) {
@@ -17,22 +17,17 @@ export class EndScreenPage extends React.Component {
   componentDidMount() {
     this.logEvents();
   }
-  // componentWillUnmount() {
 
-  // }
   backtoSelection() {
-    // this.props.resetLesson();
-    this.props.fetchLesson(this.props.location.query.type, () => { this.props.setPageByName('/select', this.props.location.query); });
-    // this.props.setPageByName('/select', this.props.location.query);
+    this.props.fetchLesson(this.props.params.type, () => { this.props.setPageByName(`/select/${this.props.params.type}`); });
   }
   playAgain() {
     // this.props.resetLesson();
-    if (this.props.location.query.type === 'translate') {
-      this.props.fetchLesson(this.props.location.query.type, () => { this.props.setPageByName('/translate', this.props.location.query); });
+    if (this.props.params.type === 'translate') {
+      this.props.fetchLesson(this.props.params.type, () => { this.props.setPageByName(`/translate/${this.props.params.type}`); });
+    } else {
+      this.props.fetchLesson(this.props.params.type, () => { this.props.setPageByName(`/play/${this.props.params.type}`); });
     }
-
-    this.props.fetchLesson(() => { this.props.setPageByName('/play', this.props.location.query); });
-    // this.props.setPageByName('/play', this.props.location.query);
   }
   logEvents() {
     for (let i = 0; i < this.props.results.length; i += 1) {

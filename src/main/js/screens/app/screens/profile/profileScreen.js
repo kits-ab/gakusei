@@ -5,7 +5,7 @@ import { Pie } from 'react-chartjs-2';
 import 'whatwg-fetch';
 
 import { connect } from 'react-redux';
-import * as Lessons from '../Lessons';
+import * as Lessons from '../../../../shared/stores/Lessons';
 
 export class UserStatisticsPage extends React.Component {
   static getChartOptions() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-const LandingPage = () =>
+const homeScreen = () =>
   <Grid>
     <Row>
       <Col xs={12}>
@@ -26,5 +26,5 @@ const LandingPage = () =>
     </Row>
   </Grid>;
 
-export default LandingPage;
+export default homeScreen;
 

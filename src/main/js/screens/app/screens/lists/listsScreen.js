@@ -3,10 +3,10 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import 'whatwg-fetch';
-import NuggetList from './NuggetList';
-import QueryInput from './QueryInput';
+import NuggetList from './components/NuggetList';
+import QueryInput from './components/QueryInput';
 
-export default class NuggetListPage extends React.Component {
+export default class listsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -1,11 +1,11 @@
 // import { combineReducers } from 'redux';
 import 'whatwg-fetch';
 // For temporary page management
-import React from 'react';
-import { browserHistory } from 'react-router';
+// import React from 'react';
+// import { browserHistory } from 'react-router';
 import { push } from 'react-router-redux';
 
-import Utility from './util/Utility';
+import Utility from '../../shared/util/Utility';
 
 // ----------------
 // DEFAULT STATE
@@ -135,7 +135,7 @@ export function receiveLessonSuccessRate(lessonSuccessRate) {
 
 export function calcLessonSuccessRate() {
   return function (dispatch, getState) {
-    const state = getState().reducer;
+    const state = getState().lessons;
     let lessonSuccessRate = 0;
 
     if (state.totalAttempts > 0) {
@@ -156,7 +156,7 @@ export function receiveCorrectAttempt() {
 
 export function calcAnswerButtonStyles() {
   return function (dispatch, getState) {
-    const state = getState().reducer;
+    const state = getState().lessons;
 
     const userAnswerWord = state
       .processedQuestionsWithAnswer[state.currentQuestionIndex]
@@ -165,10 +165,10 @@ export function calcAnswerButtonStyles() {
     let newButtonStyles = [];
 
     newButtonStyles = state.processedQuestion.randomizedAlternatives.map((word) => {
-      if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
-        return 'danger';
-      } else if (word === state.processedQuestion.correctAlternative) {
+      if (word === state.processedQuestion.correctAlternative) {
         return 'success';
+      } else if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
+        return 'danger';
       }
       return 'default';
     });
@@ -190,7 +190,7 @@ export function receiveIncorrectAttempt() {
 
 export function addUserAnswer(userActualAnswer) {
   return function (dispatch, getState) {
-    const state = getState().reducer;
+    const state = getState().lessons;
 
     const processedQuestionWithAnswer = {
       ...state.processedQuestion,
@@ -233,17 +233,17 @@ export function setAllButtonsDisabledState(disabled) {
   };
 }
 
+// To be deprecated
 export function setPageByName(pageName, params = null, _state = null) {
   return function (dispatch) {
-    // getState().reducer.switchPageRef(pageName);
+    // dispatch(push({
+    //   pathname: `${pageName}`,
+    //   query: { ...params },
+    //   state: _state
+    // }));
 
-    // browserHistory.push(pageName, params);
-    // dispatch(push(`${pageName}?test=123`));
-    // dispatch(push(pageName, ...params)); // Bork
     dispatch(push({
-      pathname: `${pageName}`,
-      query: { ...params },
-      state: _state
+      pathname: `${pageName}`
     }));
 
     dispatch({
@@ -279,7 +279,7 @@ export function receiveNextProcessedQuestion(processedQuestion) {
 
 export function calcNextQuestion() {
   return function (dispatch, getState) {
-    const state = getState().reducer;
+    const state = getState().lessons;
     const localQuestionIndex = state.currentQuestionIndex;
 
     const processedQuestion = {
@@ -364,7 +364,7 @@ export function resetLesson() {
 
 export function setLessonNames(lessonNames) {
   return function (dispatch, getState) {
-    const state = getState().reducer;
+    const state = getState().lessons;
 
     const something = dispatch({
       type: SET_LESSON_NAMES,
@@ -388,18 +388,19 @@ export function fetchLesson(lessonType, temporaryCallback) {
   }
 
   return function (dispatch, getState) {
-    const state = getState().reducer;
+    const state = getState().lessons;
     return fetch(`${fetchURL}?lessonName=${state.selectedLesson}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
         (json) => {
           // sessionStorage.lesson = JSON.stringify(json);
           dispatch(receiveLesson(json));
+          dispatch(resetLesson());
           dispatch(calcNextQuestion());
           temporaryCallback();
           // temporarySwitchpageCallback();
-        })
-      .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
+        });
+      // .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
   };
 }
 
@@ -487,7 +488,7 @@ export const actionCreators = {
   resetAttempts,
   calcAnswerButtonStyles,
   resetLesson,
-  setLessonNames,
+  setLessonNames
   // Security
   // fetchCSRF,
   // requestCSRF,

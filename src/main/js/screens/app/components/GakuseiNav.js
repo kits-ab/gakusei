@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavbarBrand, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import * as Security from '../Security';
+import * as Security from '../../../shared/stores/Security';
+import * as Lessons from '../../../shared/stores/Lessons';
 
 export class GakuseiNav extends React.Component {
   constructor(props) {
@@ -16,12 +17,12 @@ export class GakuseiNav extends React.Component {
     switch (eventKey) {
       case 1.1:
         // this.props.setGameMode('/play/guess');
-        this.props.setPageByName('/select', { type: 'guess' }); break;
+        this.props.setPageByName('/select/guess'); break;
       case 1.2:
-        this.props.setPageByName('/select', { type: 'translate' }); break;
+        this.props.setPageByName('/select/translate'); break;
       case 1.3:
         // this.props.setGameMode('/play/quiz');
-        this.props.setPageByName('/select', { type: 'quiz' }); break;
+        this.props.setPageByName('/select/quiz'); break;
       case 2:
         this.props.setPageByName('/lists'); break;
       case 3:
@@ -78,7 +79,7 @@ GakuseiNav.propTypes = {
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (Object.assign({}, state.security)),
+    state => (Object.assign({}, state.security, state.lessons)),
     // Selects which action creators are merged into the component's props
-    Object.assign({}, Security.actionCreators)
+    Object.assign({}, Security.actionCreators, Lessons.actionCreators)
 )(GakuseiNav);

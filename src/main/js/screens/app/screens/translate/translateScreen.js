@@ -3,8 +3,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Row } from 'react-bootstrap';
-import Utility from '../util/Utility';
-import * as Lessons from '../Lessons';
+import Utility from '../../../../shared/util/Utility';
+import * as Lessons from '../../../../shared/stores/Lessons';
 
 export class TranslationPlayPage extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ export class TranslationPlayPage extends React.Component {
     } else {
       setTimeout(
         () => {
-          this.props.setPageByName('finish', this.props.location.query);
+          this.props.setPageByName(`finish/${this.props.params.type}`);
         }, 1000);
     }
   }
@@ -47,38 +47,6 @@ export class TranslationPlayPage extends React.Component {
       </Row>);
     }
     return '';
-  }
-
-  checkAnswerOld() {
-    Utility.logEvent('TranslationPlayPage', 'userAnswer', this.state.answer, this.props.loggedInUser);
-    let answeredCorrectly = false;
-    if (this.state.answer.trim().toUpperCase() === this.state.correctAlt.toUpperCase()) {
-      answeredCorrectly = true;
-      this.setState({ output: 'Rätt!' });
-      sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
-    } else {
-      this.setState({ output: `Fel! Det rätta svaret är: ${this.state.correctAlt}` });
-    }
-    Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.question, this.props.loggedInUser);
-    Utility.logEvent('TranslationPlayPage', 'correctAnswer', this.state.correctAlt, this.props.loggedInUser);
-    Utility.logEvent('TranslationPlayPage', 'answeredCorrectly', answeredCorrectly, this.props.loggedInUser);
-    this.setState({
-      checkDisable: true
-    });
-    sessionStorage.totalAttempts = Number(sessionStorage.totalAttempts) + 1;
-    this.setState({
-      results: this.state.results.concat([[this.state.question, this.state.correctAlt, this.state.answer]])
-    });
-    if (Number(sessionStorage.currentQuestionIndex) < this.state.lessonLength - 1) {
-      setTimeout(() => {
-        this.getNextQuestion();
-      }, 2000);
-    } else {
-      setTimeout(
-        () => this.props.setPageByName('EndScreenPage', { results: this.state.results, gamemode: 'TranslationPlayPage' }),
-        2000
-      );
-    }
   }
 
   displayQuestion() {

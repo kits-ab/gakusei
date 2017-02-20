@@ -3,14 +3,14 @@
 import React from 'react';
 import 'whatwg-fetch';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 
-import GakuseiNav from './GakuseiNav';
+import GakuseiNav from './components/GakuseiNav';
 
-import * as Lessons from '../Lessons';
-import * as Test from '../Test';
-import * as Security from '../Security';
-import * as Statistics from '../Statistics';
+import * as Lessons from '../../shared/stores/Lessons';
+import * as Test from '../../shared/stores/Test';
+import * as Security from '../../shared/stores/Security';
+import * as Statistics from '../../shared/stores/Statistics';
 
 export class App extends React.Component {
   // constructor(props) {

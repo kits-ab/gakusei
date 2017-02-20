@@ -3,10 +3,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
-import AnswerButton from './AnswerButton';
-import Utility from '../util/Utility';
+import AnswerButton from './components/AnswerButton';
+// import Utility from '../../../../shared/util/Utility';
 
-import * as Lessons from '../Lessons';
+import * as Lessons from '../../../../shared/stores/Lessons';
 
 export class FourAlternativeQuestion extends React.Component {
   constructor(props) {
@@ -61,7 +61,7 @@ export class FourAlternativeQuestion extends React.Component {
       setTimeout(
         () => {
           // this.props.setPageByName('EndScreen');
-          this.props.setPageByName('finish', this.props.location.query);
+          this.props.setPageByName(`finish/${this.props.params.type}`);
         }, 1000);
     }
   }
@@ -80,7 +80,7 @@ export class FourAlternativeQuestion extends React.Component {
     if (this.props.resourceRef && this.props.resourceRef.type === 'kanjidrawing') {
       resource = <object height="50em" type="image/svg+xml" data={this.props.resourceRef.location}>SVG error</object>;
     }
-    return resource ? <div>{resource}<br />{questionText[this.props.location.query.type]}</div> : questionText[this.props.location.query.type];
+    return resource ? <div>{resource}<br />{questionText[this.props.params.type]}</div> : questionText[this.props.params.type];
   }
   render() {
     return (

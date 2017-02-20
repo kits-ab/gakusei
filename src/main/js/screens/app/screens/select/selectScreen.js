@@ -2,9 +2,10 @@
 
 import React from 'react';
 import 'whatwg-fetch';
+import odiff from 'odiff';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import * as Lessons from '../Lessons';
+import * as Lessons from '../../../../shared/stores/Lessons';
 
 export class GenericSelection extends React.Component {
   constructor(props) {
@@ -15,13 +16,13 @@ export class GenericSelection extends React.Component {
 
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
-    if (this.props.location.query.type !== nextProps.location.query.type) {
-      this.calcLessonNames(nextProps.location.query.type);
+    if (this.props.params.type !== nextProps.params.type) {
+      this.calcLessonNames(nextProps.params.type);
     }
   }
 
   componentWillMount() {
-    this.calcLessonNames(this.props.location.query.type);
+    this.calcLessonNames(this.props.params.type);
   }
 
   calcLessonNames(lessonType) {
@@ -34,16 +35,21 @@ export class GenericSelection extends React.Component {
     this.props.setLessonNames(lessons);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const diffs = odiff(this.props, nextProps);
+    return true;
+  }
+
   handleChange(event) {
     this.props.setSelectedLesson(event.target.value);
   }
   handleSubmit(event) {
     event.preventDefault();
 
-    if (this.props.location.query.type === 'translate') {
-      this.props.fetchLesson(this.props.location.query.type, () => { this.props.setPageByName('/translate', this.props.location.query); });
+    if (this.props.params.type === 'translate') {
+      this.props.fetchLesson(this.props.params.type, () => { this.props.setPageByName('/translate'); });
     } else {
-      this.props.fetchLesson(this.props.location.query.type, () => { this.props.setPageByName('/play', this.props.location.query); });
+      this.props.fetchLesson(this.props.params.type, () => { this.props.setPageByName(`/play/${this.props.params.type}`); });
     }
   }
   render() {
