@@ -9,46 +9,65 @@ import Utility from './util/Utility';
 // ----------------
 // DEFAULT STATE
 export const defaultState = {
-  test: 0
+  successRate: 0
 };
 
 // -----------------
 // ACTION CONSTANTS - Just used to differentiate the "actions"
-export const INCREASE = 'INCREASE';
+export const RECEIVE_USER_SUCCESS_RATE = 'RECEIVED_USER_SUCCESS_RATE';
+export const REQUEST_USER_SUCCESS_RATE = 'REQUEST_USER_SUCCESS_RATE';
 
 
 // -----------------
 // ACTION (CREATORS) - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
 // Use @typeName and isActionType for type detection that works even after serialization/deserialization.
-export function increase() {
-  return function (dispatch, getState) {
-    dispatch({
-      type: INCREASE,
-      description: 'Set lesson success rate'
-    });
+export function receiveUserSuccessRate(successRate, status, response) {
+  return {
+    type: RECEIVE_USER_SUCCESS_RATE,
+    description: 'Received user success rate',
+    successRate,
+    status,
+    response,
+    lastReceived: Date.now() };
+}
+
+export function requestUserSuccessRate() {
+  return {
+    type: REQUEST_USER_SUCCESS_RATE,
+    description: 'We are requesting success rate'
   };
 }
 
 export const actionCreators = {
-  increase
+  receiveUserSuccessRate,
+  requestUserSuccessRate
 };
 
 // ----------------
 // REDUCER - For a given state and action, returns the new state.
 // To support time travel, this must not mutate the old state.
-export const testing = (state, action) => {
+export const statistics = (state, action) => {
   switch (action.type) {
     default:
       return state || defaultState;
-    case INCREASE:
+    case REQUEST_USER_SUCCESS_RATE:
       return {
         ...state,
-        test: state.test + 1
+        requestingSuccessRate: true
+      };
+    case RECEIVE_USER_SUCCESS_RATE:
+      return {
+        ...state,
+        successRate: action.successRate,
+        requestingSuccessRate: false,
+        requestSuccessRateStatus: action.status,
+        requestSuccessRateResponse: action.response,
+        requestSuccessRateLastReceived: action.lastReceived
       };
   }
 };
 
 export const reducers = {
-  testing
+  statistics
 };

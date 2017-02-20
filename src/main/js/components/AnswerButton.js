@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import Hypher from 'hypher';
 import swedish from 'hyphenation.sv';
 import { connect } from 'react-redux';
-import * as Store from '../Store';
+import * as Lessons from '../Lessons';
 
 
 function hyphenateSwedish(text) {
@@ -45,7 +45,7 @@ AnswerButton.propTypes = {
 
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (state.reducer),
+    state => (state.lessons),
     // Selects which action creators are merged into the component's props
-    Store.actionCreators
+    Lessons.actionCreators
 )(AnswerButton);

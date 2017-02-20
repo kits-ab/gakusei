@@ -5,7 +5,7 @@ import { Pie } from 'react-chartjs-2';
 import 'whatwg-fetch';
 
 import { connect } from 'react-redux';
-import * as Store from '../Store';
+import * as Lessons from '../Lessons';
 
 export class UserStatisticsPage extends React.Component {
   static getChartOptions() {
@@ -78,7 +78,7 @@ UserStatisticsPage.propTypes = {
 
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (state.reducer),
+    state => (state.lessons),
     // Selects which action creators are merged into the component's props
-    Store.actionCreators
+    Lessons.actionCreators
 )(UserStatisticsPage);

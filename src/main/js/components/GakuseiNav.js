@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavbarBrand, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-import * as Store from '../Store';
+import * as Security from '../Security';
 
 export class GakuseiNav extends React.Component {
   constructor(props) {
@@ -78,7 +78,7 @@ GakuseiNav.propTypes = {
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (state.reducer),
+    state => (Object.assign({}, state.security)),
     // Selects which action creators are merged into the component's props
-    Store.actionCreators
+    Object.assign({}, Security.actionCreators)
 )(GakuseiNav);

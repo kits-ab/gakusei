@@ -4,52 +4,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Row } from 'react-bootstrap';
 import Utility from '../util/Utility';
-import * as Store from '../Store';
+import * as Lessons from '../Lessons';
 
 export class TranslationPlayPage extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   answer: '',
-    //   output: '',
-    //   question: [],
-    //   correctAlt: '',
-    //   checkDisable: false,
-    //   results: [],
-    //   lessonLength: JSON.parse(sessionStorage.lesson).length
-    // };
+
     this.checkAnswer = this.checkAnswer.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.displayQuestion = this.displayQuestion.bind(this);
-
-    // sessionStorage.correctAttempts = 0;
-    // sessionStorage.totalAttempts = 0;
-    // sessionStorage.currentQuestionIndex = 0;
   }
   componentWillMount() {
     this.props.resetLesson();
     this.setState({ answer: '' });
   }
-
-  // setQuestion(questionIndex) {
-  //   this.setState({
-  //     answer: '',
-  //     output: '',
-  //     question: JSON.parse(sessionStorage.lesson)[questionIndex].question,
-  //     correctAlt: JSON.parse(sessionStorage.lesson)[questionIndex].correctAlternative,
-  //     checkDisable: false
-  //   }, () => {
-  //     Utility.logEvent('TranslationPlayPage', 'question', this.state.question, this.props.loggedInUser);
-  //   });
-  // }
-  // getNextQuestion() {
-  //   if (Number(sessionStorage.currentQuestionIndex) + 1 < this.state.lessonLength) {
-  //     sessionStorage.currentQuestionIndex = Number(sessionStorage.currentQuestionIndex) + 1;
-  //     this.setQuestion(Number(sessionStorage.currentQuestionIndex));
-  //   } else {
-  //     this.props.setPageByName('EndScreenPage', { gamemode: 'TranslationPlayPage' });
-  //   }
-  // }
 
   handleChange(event) {
     this.setState({ answer: event.target.value });
@@ -169,7 +137,7 @@ TranslationPlayPage.propTypes = {
 
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (state.reducer),
+    state => (state.lessons),
     // Selects which action creators are merged into the component's props
-    Store.actionCreators
+    Lessons.actionCreators
 )(TranslationPlayPage);

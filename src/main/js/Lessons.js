@@ -7,18 +7,6 @@ import { push } from 'react-router-redux';
 
 import Utility from './util/Utility';
 
-// For temporary page management
-// import GuessPlayPage from './components/GuessPlayPage';
-// import AboutPage from './components/AboutPage';
-// import TranslationPlayPage from './components/TranslationPlayPage';
-// import NuggetListPage from './components/NuggetListPage';
-// import LessonSelection from './components/LessonSelection';
-// import LandingPage from './components/LandingPage';
-// import EndScreenPage from './components/EndScreenPage';
-// import UserStatisticPage from './components/UserStatisticsPage';
-// import QuizPlayPage from './components/QuizPlayPage';
-// import QuizSelection from './components/QuizSelection';
-
 // ----------------
 // DEFAULT STATE
 //
@@ -74,10 +62,7 @@ export const defaultState = {
 };
 
 // -----------------
-// ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
-// They do not themselves have any side-effects; they just describe something that is going to happen.
-// Use @typeName and isActionType for type detection that works even after serialization/deserialization.
-
+// ACTION CONSTANTS - Just used to differentiate the "actions"
 export const RECEIVE_USER_SUCCESS_RATE = 'RECEIVED_USER_SUCCESS_RATE';
 export const REQUEST_USER_SUCCESS_RATE = 'REQUEST_USER_SUCCESS_RATE';
 export const SET_LESSON_SUCCESS_RATE_MESSAGE = 'SET_LESSON_SUCCESS_RATE_MESSAGE';
@@ -106,6 +91,10 @@ export const REQUEST_CSRF = 'REQUEST_CSRF';
 export const RECEIVE_LOGGED_IN_USER = 'RECEIVE_LOGGED_IN_USER';
 export const REQUEST_LOGGED_IN_USER = 'REQUEST_LOGGED_IN_USER';
 
+// -----------------
+// ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
+// They do not themselves have any side-effects; they just describe something that is going to happen.
+// Use @typeName and isActionType for type detection that works even after serialization/deserialization.
 export function calcLessonSuccessRateMessage(lessonSuccessRate) {
   let lessonSuccessRateMessage = '';
   const emojiFeedback = {
@@ -425,58 +414,58 @@ export function fetchUserSuccessRate(username) {
   };
 }
 
-export function receiveCSRF(csrf) {
-  return {
-    type: RECEIVE_CSRF,
-    description: 'Fetching complete',
-    csrf
-  };
-}
+// export function receiveCSRF(csrf) {
+//   return {
+//     type: RECEIVE_CSRF,
+//     description: 'Fetching complete',
+//     csrf
+//   };
+// }
 
-export function requestCSRF() {
-  return {
-    type: REQUEST_CSRF,
-    description: 'Fetching now in progress'
-  };
-}
+// export function requestCSRF() {
+//   return {
+//     type: REQUEST_CSRF,
+//     description: 'Fetching now in progress'
+//   };
+// }
 
-export function receiveLoggedInUser(user) {
-  return {
-    type: RECEIVE_LOGGED_IN_USER,
-    description: 'Fetching complete',
-    user
-  };
-}
+// export function receiveLoggedInUser(user) {
+//   return {
+//     type: RECEIVE_LOGGED_IN_USER,
+//     description: 'Fetching complete',
+//     user
+//   };
+// }
 
-export function requestLoggedInUser() {
-  return {
-    type: REQUEST_LOGGED_IN_USER,
-    description: 'Fetching now in progress'
-  };
-}
+// export function requestLoggedInUser() {
+//   return {
+//     type: REQUEST_LOGGED_IN_USER,
+//     description: 'Fetching now in progress'
+//   };
+// }
 
-export function fetchLoggedInUser() {
-  return function (dispatch, getState) {
-    dispatch(requestLoggedInUser());
-    debugger;
-    fetch('/username', { credentials: 'same-origin' })
-      .then(response => response.text())
-      .then(user => dispatch(receiveLoggedInUser(user)));
-  };
-}
+// export function fetchLoggedInUser() {
+//   return function (dispatch, getState) {
+//     dispatch(requestLoggedInUser());
+//     debugger;
+//     fetch('/username', { credentials: 'same-origin' })
+//       .then(response => response.text())
+//       .then(user => dispatch(receiveLoggedInUser(user)));
+//   };
+// }
 
-export function fetchCSRF() {
-  return function (dispatch) {
-    dispatch(requestCSRF());
+// export function fetchCSRF() {
+//   return function (dispatch) {
+//     dispatch(requestCSRF());
 
-    const cookies = document.cookie.split('; ');
-    const keys = cookies.map(cookie => cookie.split('=')[0]);
-    const csrfValue = cookies[keys.indexOf('XSRF-TOKEN')].split('=')[1];
+//     const cookies = document.cookie.split('; ');
+//     const keys = cookies.map(cookie => cookie.split('=')[0]);
+//     const csrfValue = cookies[keys.indexOf('XSRF-TOKEN')].split('=')[1];
 
-    dispatch(receiveCSRF(csrfValue));
-    return csrfValue;
-  };
-}
+//     dispatch(receiveCSRF(csrfValue));
+//     return csrfValue;
+//   };
+// }
 
 export const actionCreators = {
   requestUserSuccessRate,
@@ -498,32 +487,23 @@ export const actionCreators = {
   resetAttempts,
   calcAnswerButtonStyles,
   resetLesson,
-  // Security
-  fetchCSRF,
-  requestCSRF,
-  receiveCSRF,
-  fetchLoggedInUser,
-  requestLoggedInUser,
-  receiveLoggedInUser,
   setLessonNames,
+  // Security
+  // fetchCSRF,
+  // requestCSRF,
+  // receiveCSRF,
+  // fetchLoggedInUser,
+  // requestLoggedInUser,
+  // receiveLoggedInUser
 };
 
 // ----------------
 // REDUCER - For a given state and action, returns the new state.
 // To support time travel, this must not mutate the old state.
-export const reducer = (state, action) => {
+export const lessons = (state, action) => {
   switch (action.type) {
     default:
       return state || defaultState;
-    case RECEIVE_USER_SUCCESS_RATE:
-      return {
-        ...state,
-        successRate: action.successRate,
-        requestingSuccessRate: false,
-        requestSuccessRateStatus: action.status,
-        requestSuccessRateResponse: action.response,
-        requestSuccessRateLastReceived: action.lastReceived
-      };
     case SET_ALL_BUTTONS_DISABLED_STATE:
       return {
         ...state,
@@ -573,11 +553,6 @@ export const reducer = (state, action) => {
       return {
         ...state,
         lessonNames: action.lessonNames
-      };
-    case REQUEST_USER_SUCCESS_RATE:
-      return {
-        ...state,
-        requestingSuccessRate: true
       };
     case SET_GAMEMODE:
       return {
@@ -665,10 +640,5 @@ export const reducer = (state, action) => {
 };
 
 export const reducers = {
-  reducer
+  lessons
 };
-
-// Not needed since we only have 1 reducer..?
-// const randomStore = combineReducers({
-//   reducer
-// });

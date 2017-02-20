@@ -4,7 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Utility from '../util/Utility';
-import * as Store from '../Store';
+import * as Lessons from '../Lessons';
 
 export class EndScreenPage extends React.Component {
   constructor(props) {
@@ -120,7 +120,7 @@ EndScreenPage.defaultProps = {
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (state.reducer),
+    state => (state.lessons),
     // Selects which action creators are merged into the component's props
-    Store.actionCreators
+    Lessons.actionCreators
 )(EndScreenPage);

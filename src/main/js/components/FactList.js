@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import * as Store from '../Store';
+import * as Lessons from '../Lessons';
 
 
 const FactList = (props) => {
@@ -17,7 +17,7 @@ FactList.propTypes = {
 
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (state.reducer),
+    state => (state.lessons),
     // Selects which action creators are merged into the component's props
-    Store.actionCreators
+    Lessons.actionCreators
 )(FactList);

@@ -4,7 +4,7 @@ import React from 'react';
 import 'whatwg-fetch';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import * as Store from '../Store';
+import * as Lessons from '../Lessons';
 
 export class GenericSelection extends React.Component {
   constructor(props) {
@@ -95,7 +95,7 @@ GenericSelection.propTypes = {
 
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (state.reducer),
+    state => (state.lessons),
     // Selects which action creators are merged into the component's props
-    Store.actionCreators
+    Lessons.actionCreators
 )(GenericSelection);

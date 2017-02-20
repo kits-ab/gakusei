@@ -10,16 +10,12 @@ import App from './components/App';
 import configureStore from './configureStore';
 
 
-import GuessPlayPage from './components/GuessPlayPage';
 import AboutPage from './components/AboutPage';
 import TranslationPlayPage from './components/TranslationPlayPage';
 import NuggetListPage from './components/NuggetListPage';
-import LessonSelection from './components/LessonSelection';
 import LandingPage from './components/LandingPage';
 import EndScreenPage from './components/EndScreenPage';
 import UserStatisticsPage from './components/UserStatisticsPage';
-import QuizPlayPage from './components/QuizPlayPage';
-import QuizSelection from './components/QuizSelection';
 
 // New
 import FourAlternativeQuestion from './components/FourAlternativeQuestion';

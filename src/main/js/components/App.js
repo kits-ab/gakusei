@@ -7,71 +7,27 @@ import { Link } from 'react-router';
 
 import GakuseiNav from './GakuseiNav';
 
-import * as Store from '../Store';
+import * as Lessons from '../Lessons';
 import * as Test from '../Test';
-
-import GuessPlayPage from './GuessPlayPage';
-import AboutPage from './AboutPage';
-import TranslationPlayPage from './TranslationPlayPage';
-import NuggetListPage from './NuggetListPage';
-import LessonSelection from './LessonSelection';
-import LandingPage from './LandingPage';
-import EndScreenPage from './EndScreenPage';
-import UserStatisticsPage from './UserStatisticsPage';
-import QuizPlayPage from './QuizPlayPage';
-import QuizSelection from './QuizSelection';
-
-const temporaryStuff = null;
+import * as Security from '../Security';
+import * as Statistics from '../Statistics';
 
 export class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    // this.props.setSwitchPageReference(this.switchPage);
-    // this.switchPage = this.switchPage.bind(this);
-    // this.state = { currentPage: <LandingPage /> };
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
   componentWillMount() {
-    debugger;
-    this.props.increase();
     this.props.fetchLoggedInUser();
   }
-  // setLoggedInUser() {
-  //   // fetch('/username', { credentials: 'same-origin' })
-  //   //   .then(response => response.text())
-  //   //   .then(user => this.setState({ loggedInUser: user }));
-  // }
-  // switchPage(pageName, newProps) {
-  //   const props = Object.assign(
-  //     {
-  //       switchPage: this.switchPage
-  //     },
-  //     newProps);
-  //   const pages = {
-  //     LessonSelection: <LessonSelection {...props} />,
-  //     QuizSelection: <QuizSelection {...props} />,
-  //     GuessPlayPage: <GuessPlayPage {...props} />,
-  //     QuizPlayPage: <QuizPlayPage {...props} />,
-  //     TranslationPlayPage: <TranslationPlayPage {...props} />,
-  //     NuggetListPage: <NuggetListPage />,
-  //     AboutPage: <AboutPage />,
-  //     EndScreenPage: <EndScreenPage {...props} />,
-  //     LandingPage: <LandingPage />,
-  //     UserStatisticsPage: <UserStatisticsPage {...props} />
-  //   };
-  //   this.setState({ currentPage: pages[pageName] });
-  // }
 
   render() {
     return (
       <div>
-        { this.props.loggedIn ?
-          <div>
-            <GakuseiNav />
-            {/* <Link to="landing">test</Link>*/}
-            { this.props.children }
-          </div> :
-          <p>Loading...</p>}
+        <div>
+          <GakuseiNav />
+          {/* <Link to="landing">test</Link>*/}
+          { this.props.children }
+        </div>
       </div>
     );
   }
@@ -79,30 +35,19 @@ export class App extends React.Component {
 
 
 App.propTypes = {
-      /* <div>
-        { this.props.loggedIn ?
-          <div>
-            <GakuseiNav />
-            <a href="guess-play">test</a>
-            { this.props.children }
-            { this.state !== null ? this.state.currentPage : <p>Loading...</p> }
-          </div> :
-          <p>Loading...</p>}
-      </div>*/
-
   // redux props
   // currentPage: React.PropTypes.any.isRequired,
   loggedIn: React.PropTypes.bool.isRequired,
   // loggedInUser: React.PropTypes.string.isRequired,
   // action creators
-  fetchLoggedInUser: React.PropTypes.func.isRequired,
+  fetchLoggedInUser: React.PropTypes.func.isRequired
   // setPageByName: React.PropTypes.func.isRequired
 };
 
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (Object.assign({}, state.reducer, state.reducerx)),
+    state => (Object.assign({}, state.lessons, state.testing, state.security, state.lessons)),
     // Selects which action creators are merged into the component's props
-    Object.assign({}, Store.actionCreators, Test.actionCreators)
+    Object.assign({}, Lessons.actionCreators, Test.actionCreators, Security.actionCreators, Statistics.actionCreators)
 )(App);

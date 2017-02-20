@@ -2,8 +2,12 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { routerReducer, routerMiddleware, push } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import thunkMiddleware from 'redux-thunk';
-import * as Store from './Store';
+
+// Our reducers
 import * as Test from './Test';
+import * as Lessons from './Lessons';
+import * as Statistics from './Statistics';
+import * as Security from './Security';
 
 function buildRootReducer(allReducers) {
   return combineReducers(Object.assign({}, allReducers, { routing: routerReducer }));
@@ -21,10 +25,12 @@ export default function configureStore(initialState) {
         devToolsExtension ? devToolsExtension() : f => f
     )(createStore);
 
-  let something = Object.assign({}, Test.reducers, Store.reducers);
-
   // Combine all reducers and instantiate the app-wide store instance
-  const allReducers = buildRootReducer(something);
+  const allReducers = buildRootReducer(Object.assign({},
+   Test.reducers,
+   Statistics.reducers,
+   Lessons.reducers,
+   Security.reducers));
 
   const store = createStoreWithMiddleware(allReducers, initialState);
   // Enable Webpack hot module replacement for reducers.. But we're not using webpack
