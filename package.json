@@ -25,6 +25,7 @@
   "dependencies": {
     "browserify": "^13.1.1",
     "chart.js": "^2.4.0",
+    "formsy-react-components": "^0.10.1",
     "hyphenation.sv": "^0.2.1",
     "hypher": "^0.2.5",
     "odiff": "0.0.2",

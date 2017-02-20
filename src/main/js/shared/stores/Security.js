@@ -74,7 +74,6 @@ export function fetchLoggedInUser() {
 
     fetch('/username', { credentials: 'same-origin' })
       .then((response) => {
-        debugger;
         if (response.status === 200) {
           dispatch(receiveLoggedInUser(response.text()));
         } else {
@@ -82,6 +81,53 @@ export function fetchLoggedInUser() {
           dispatch(receiveLoggedInUser(null));
         }
       });
+  };
+}
+
+export function requestUserRegister(data) {
+  return function (dispatch, getState) {
+    const formBody = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
+
+    fetch('/registeruser', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+      body: formBody
+    }).then((response) => {
+      if (response.status === 201) {
+        // Registration succeeded
+        dispatch(receiveLoggedInUser(data.username));
+        // dispatch(setPageByName('home'));
+      } else if (response.status === 422) {
+        // User already exists
+      }
+    });
+  };
+}
+
+export function requestUserLogin(data) {
+  return function (dispatch, getState) {
+    const formBody = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
+
+    fetch('/auth', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+      body: formBody
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(receiveLoggedInStatus(true));
+        dispatch(receiveLoggedInUser(data.username));
+        // dispatch(setPageByName('home'));
+      }
+    });
   };
 }
 
@@ -104,7 +150,9 @@ export const actionCreators = {
   receiveCSRF,
   fetchLoggedInUser,
   requestLoggedInUser,
-  receiveLoggedInUser
+  receiveLoggedInUser,
+  requestUserLogin,
+  requestUserRegister
 };
 
 // ----------------
