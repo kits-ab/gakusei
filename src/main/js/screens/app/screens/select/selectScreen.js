@@ -44,15 +44,20 @@ export class GenericSelection extends React.Component {
   //   this.props.setLessonNames(lessons);
   // }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const diffs = odiff(this.props, nextProps);
-    return true;
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const diffs = odiff(this.props, nextProps);
+  //   return true;
+  // }
 
   handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+    // this.setState({
+    //   [event.target.name]: event.target.value
+    // });
+    if (event.target.name === 'questionType') {
+      this.props.setQuestionLanguage(event.target.value);
+    } else if (event.target.name === 'answerType') {
+      this.props.setAnswerLanguage(event.target.value);
+    }
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -64,14 +69,9 @@ export class GenericSelection extends React.Component {
     }
   }
   render() {
-    const title = {
-      GuessPlayPage: 'Gissa ordet',
-      TranslationPlayPage: 'Översätt ordet',
-      QuizPlayPage: 'Quiz'
-    };
     const options = this.props.lessonNames.map(name => <option key={name} value={name}>{name}</option>);
     let languageSelection;
-    if (this.props.gamemode === 'QuizPlayPage') {
+    if (this.props.params.type === 'quiz') {
       languageSelection = <div />;
     } else {
       languageSelection = (
@@ -82,7 +82,7 @@ export class GenericSelection extends React.Component {
             name="questionType"
             id="questionLanguageSelection"
             onChange={this.handleChange}
-            value={this.state.questionType}
+            value={this.props.questionType}
           >
             <option key={'reading'} value={'reading'}>Japanska</option>
             <option key={'swedish'} value={'swedish'}>Svenska</option>
@@ -93,7 +93,7 @@ export class GenericSelection extends React.Component {
             name="answerType"
             id="answerLanguageSelection"
             onChange={this.handleChange}
-            value={this.state.answerType}
+            value={this.props.answerType}
           >
             <option key={'swedish'} value={'swedish'}>Svenska</option>
             <option key={'reading'} value={'reading'}>Japanska</option>

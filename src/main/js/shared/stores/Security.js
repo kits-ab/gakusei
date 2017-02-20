@@ -69,16 +69,20 @@ export function requestLoggedInUser() {
 }
 
 export function fetchLoggedInUser() {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     dispatch(requestLoggedInUser());
 
     fetch('/username', { credentials: 'same-origin' })
       .then((response) => {
         if (response.status === 200) {
-          dispatch(receiveLoggedInUser(response.text()));
+          response.text().then((text) => {
+            const data = JSON.parse(text);
+            dispatch(receiveLoggedInUser(data.username));
+            dispatch(receiveLoggedInStatus(data.loggedIn));
+          });
         } else {
           // 500 error etc.
-          dispatch(receiveLoggedInUser(null));
+          dispatch(receiveLoggedInUser(''));
         }
       });
   };

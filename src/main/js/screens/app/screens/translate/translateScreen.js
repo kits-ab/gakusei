@@ -15,7 +15,7 @@ export class TranslationPlayPage extends React.Component {
     this.displayQuestion = this.displayQuestion.bind(this);
   }
   componentWillMount() {
-    this.props.resetLesson();
+    // this.props.resetLesson();
     this.setState({ answer: '' });
   }
 
@@ -100,7 +100,7 @@ TranslationPlayPage.propTypes = {
   // used action creators
   // fetchLoggedInUser: React.PropTypes.func.isRequired,
   // loggedIn: React.PropTypes.bool.isRequired,
-  loggedInUser: React.PropTypes.string.isRequired
+  // loggedInUser: React.PropTypes.string.isRequired
 };
 
 // Wire up the React component to the Redux store and export it when importing this file

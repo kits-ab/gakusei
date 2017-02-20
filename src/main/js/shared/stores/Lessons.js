@@ -81,6 +81,8 @@ export const SHOW_ANSWER_BUTTON_STYLES = 'SHOW_ANSWER_BUTTON_STYLES';
 export const RECEIVE_ANSWER_BUTTON_STYLES = 'RECEIVE_ANSWER_BUTTON_STYLES';
 export const SET_LESSON_NAMES = 'SET_LESSON_NAMES';
 export const CLEAR_PROCESSED_QUESTION = 'CLEAR_PROCESSED_QUESTION';
+export const SET_QUESTION_LANGUAGE = 'SET_QUESTION_LANGUAGE';
+export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
 
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
@@ -155,18 +157,17 @@ export function calcAnswerButtonStyles() {
 
     let newButtonStyles = [];
 
-    // TODO: Fix the way this evaluates
-    newButtonStyles = state.processedQuestion.randomizedAlternatives.map((words) => {
+    // TODO: Fix the way this evaluates... ?
+    newButtonStyles = state.processedQuestion.randomizedAlternatives.map(words =>
       words.map((word) => {
-        if (word === state.processedQuestion.correctAlternative) {
+        if (state.processedQuestion.correctAlternative.indexOf(word) !== -1) {
           return 'success';
-        }
-        else if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
+        } else if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
           return 'danger';
         }
         return 'default';
-      });
-    });
+      }).pop()
+    );
 
     dispatch({
       type: RECEIVE_ANSWER_BUTTON_STYLES,
@@ -356,7 +357,6 @@ export function resetLesson() {
   };
 }
 
-
 export function setLessonNames(lessonNames) {
   return function (dispatch, getState) {
     const state = getState().lessons;
@@ -371,6 +371,44 @@ export function setLessonNames(lessonNames) {
   };
 }
 
+export function setQuestionLanguage(language) {
+  return function (dispatch, getState) {
+    const state = getState().lessons;
+
+    if (state.answerType === language) {
+      dispatch({
+        type: SET_ANSWER_LANGUAGE,
+        description: 'Set the answer language',
+        language: state.questionType
+      });
+    }
+
+    dispatch({
+      type: SET_QUESTION_LANGUAGE,
+      description: 'Set the question language',
+      language
+    });
+  };
+}
+
+export function setAnswerLanguage(language) {
+  return function (dispatch, getState) {
+    const state = getState().lessons;
+
+    if (state.questionType === language) {
+      dispatch({
+        type: SET_QUESTION_LANGUAGE,
+        description: 'Set the answer language',
+        language: state.answerType
+      });
+    }
+    dispatch({
+      type: SET_ANSWER_LANGUAGE,
+      description: 'Set the question language',
+      language
+    });
+  };
+}
 
 export function fetchLessonNames(type) {
   return function (dispatch) {
@@ -394,16 +432,18 @@ export function fetchLesson(lessonType, temporaryCallback) {
   }
 
   return function (dispatch, getState) {
-    const state = getState().reducer;
+    const state = getState().lessons;
     return fetch(`${fetchURL}?lessonName=${state.selectedLesson}&questionType=${state.questionType}&` +
       `answerType=${state.answerType}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
         (json) => {
           // sessionStorage.lesson = JSON.stringify(json);
-          dispatch(receiveLesson(json));
           dispatch(resetLesson());
+          dispatch(receiveLesson(json));
           dispatch(calcNextQuestion());
+          // TODO: temporaryCallback seems to gain priority over the dispatch calls (#justraceconditionthings)
+          abc
           temporaryCallback();
           // temporarySwitchpageCallback();
         });
@@ -419,54 +459,6 @@ export function fetchUserSuccessRate(username) {
       .then(response => response.json())
       .then(data => dispatch(receiveUserSuccessRate(data, 'success', data)));
       // .catch(ex => dispatch(receiveUserSuccessRate(0, 'error', ex)));
-  };
-}
-
-export function requestUserRegister(data) {
-  return function (dispatch, getState) {
-    const formBody = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
-
-    fetch('/registeruser', {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-      },
-      body: formBody
-    }).then((response) => {
-      if (response.status === 201) {
-        // Registration succeeded
-        dispatch(receiveLoggedInStatus(true));
-        dispatch(receiveLoggedInUser(data.username));
-        dispatch(setPageByName('home'));
-      } else if (response.status === 422) {
-        // User already exists
-      }
-    });
-  };
-}
-
-export function requestUserLogin(data) {
-  return function (dispatch, getState) {
-    const formBody = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
-
-    fetch('/auth', {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-      },
-      body: formBody
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        dispatch(receiveLoggedInStatus(true));
-        dispatch(receiveLoggedInUser(data.username));
-        dispatch(setPageByName('home'));
-      }
-    });
   };
 }
 
@@ -491,14 +483,9 @@ export const actionCreators = {
   resetAttempts,
   calcAnswerButtonStyles,
   resetLesson,
-  setLessonNames
-  // Security
-  // fetchCSRF,
-  // requestCSRF,
-  // receiveCSRF,
-  // fetchLoggedInUser,
-  // requestLoggedInUser,
-  // receiveLoggedInUser
+  setLessonNames,
+  setQuestionLanguage,
+  setAnswerLanguage
 };
 
 // ----------------
@@ -518,7 +505,7 @@ export const lessons = (state, action) => {
         ...state,
         processedQuestion: {
           actualQuestionShapes: [],
-          correctAlternative: null,
+          correctAlternative: [],
           randomizedAlternatives: [],
           buttonStyles: ['default', 'default', 'default', 'default'],
           buttonDisabled: false,
@@ -617,6 +604,16 @@ export const lessons = (state, action) => {
         correctAttempts: 0,
         totalAttempts: 0,
         lessonSuccessRate: 0
+      };
+    case SET_QUESTION_LANGUAGE:
+      return {
+        ...state,
+        questionType: action.language
+      };
+    case SET_ANSWER_LANGUAGE:
+      return {
+        ...state,
+        answerType: action.language
       };
   }
 };

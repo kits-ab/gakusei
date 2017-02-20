@@ -4,6 +4,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './components/AnswerButton';
+import DisplayQuestion from './components/DisplayQuestion';
 // import Utility from '../../../../shared/util/Utility';
 
 import * as Lessons from '../../../../shared/stores/Lessons';
@@ -29,7 +30,7 @@ export class FourAlternativeQuestion extends React.Component {
   }
 
   componentWillMount() {
-    this.props.resetLesson();
+    // this.props.resetLesson();
   }
 
   componentDidMount() {
@@ -66,42 +67,15 @@ export class FourAlternativeQuestion extends React.Component {
     this.props.calcAnswerButtonStyles(answer);
 
     if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
-    // let newButtonStyles = [];
-    // let answeredCorrectly = false;
-    // if (answer === this.state.correctAlt[0]) {
-    //   answeredCorrectly = true;
-    //   newButtonStyles = this.state.randomOrderAlt.map(word => ((word[0] === answer) ? 'success' : 'default'));
-    //   sessionStorage.correctAttempts = Number(sessionStorage.correctAttempts) + 1;
-    // } else {
-    //   newButtonStyles = this.state.randomOrderAlt.map((word) => {
-    //     if (word[0] === answer) {
-    //       return 'danger';
-    //     } else if (word[0] === this.state.correctAlt[0]) {
-    //       return 'success';
-    //     }
-    //     return 'default';
-    //   });
-    // }
-
-    // this.setState({
-    //   buttonDisabled: true,
-    //   buttonStyles: newButtonStyles,
-    //   results: this.state.results.concat([[this.state.question, this.state.correctAlt[0], answer]])
-    // });
-    // Utility.logEvent(this.props.pageName, 'correctAnswer', this.state.question, this.props.username);
-    // Utility.logEvent(this.props.pageName, 'correctAnswer', this.state.correctAlt, this.props.username);
-    // Utility.logEvent(this.props.pageName, 'answeredCorrectly', answeredCorrectly, this.props.username);
-      if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
-        setTimeout(() => {
-          this.props.calcNextQuestion();
-        }, 1000);
-      } else {
-        setTimeout(
+      setTimeout(() => {
+        this.props.calcNextQuestion();
+      }, 1000);
+    } else {
+      setTimeout(
         () => {
           // this.props.setPageByName('EndScreen');
           this.props.setPageByName(`finish/${this.props.params.type}`);
         }, 1000);
-      }
     }
   }
 
@@ -126,13 +100,7 @@ export class FourAlternativeQuestion extends React.Component {
     return (
       <div>
         <Grid className="text-center">
-          {this.displayQuestion()}
-          {/* <DisplayQuestion
-            pageName={this.props.pageName}
-            question={this.state.question}
-            questionType={this.props.questionType}
-            resourceRef={this.state.resourceRef}
-          />*/}
+          <DisplayQuestion type={this.props.params.type} />
           <br />
           <Row>
             <ButtonToolbar>
@@ -210,7 +178,7 @@ FourAlternativeQuestion.propTypes = {
   // requestSuccessRateResponse: React.PropTypes.string.isRequired,
   // requestSuccessRateLastReceived: React.PropTypes.number.isRequired,
 
-  currentPageName: React.PropTypes.string.isRequired,
+  // currentPageName: React.PropTypes.string.isRequired,
   // currentPage: React.PropTypes.string.isRequired,
   // pages: React.PropTypes.object.isRequired,
 
@@ -276,19 +244,6 @@ FourAlternativeQuestion.propTypes = {
   questionType: React.PropTypes.string.isRequired,
   answerType: React.PropTypes.string.isRequired
 };
-
-
-// Selects which state properties are merged into the component's props
-function mapStateToProps(state) {
-  return Object.assign({},
-      state.Main);
-}
-
-// Selects which action creators are merged into the component's props
-function mapActionCreatorsToProps() {
-  return Object.assign({},
-      Store.actionCreators);
-}
 
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
