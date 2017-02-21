@@ -38,6 +38,12 @@ public class Lesson implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"))
     private List<Nugget> nuggets;
 
+
+
+    @OneToMany
+    @JoinTable(name = "users_lessons", joinColumns = @JoinColumn(name = "lessonName", referencedColumnName = "name"))
+    private List<UserLesson> userLessons;
+
     public Lesson() {
     }
 
@@ -71,5 +77,13 @@ public class Lesson implements Serializable {
 
     public void setNuggets(List<Nugget> nuggets) {
         this.nuggets = nuggets;
+    }
+
+    public List<UserLesson> getUserLessons() {
+        return userLessons;
+    }
+
+    public void setUserLessons(List<UserLesson> userLessons) {
+        this.userLessons = userLessons;
     }
 }

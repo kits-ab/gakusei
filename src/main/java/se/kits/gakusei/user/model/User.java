@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import se.kits.gakusei.content.model.UserLesson;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -34,6 +34,10 @@ public class User implements Serializable{
     @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<ProgressTracking> progressTrackingList;
+
+    @OneToMany
+    @JoinTable(name = "users_lessons", joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"))
+    private List<UserLesson> usersLessons;
 
     public User() {
     }
@@ -82,5 +86,13 @@ public class User implements Serializable{
 
     public void setProgressTrackingList(List<ProgressTracking> progressTrackingList) {
         this.progressTrackingList = progressTrackingList;
+    }
+
+    public List<UserLesson> getUsersLessons() {
+        return usersLessons;
+    }
+
+    public void setUsersLessons(List<UserLesson> usersLessons) {
+        this.usersLessons = usersLessons;
     }
 }

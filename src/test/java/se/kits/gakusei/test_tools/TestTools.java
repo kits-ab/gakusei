@@ -64,10 +64,10 @@ public class TestTools {
     public static HashMap<String, Object> generateQuestion() {
         List<String> question = new ArrayList<>();
         question.add("question");
-        String alt1 = "alternative1";
-        String alt2 = "alternative2";
-        String alt3 = "alternative3";
-        String altCorrect = "alternativeCorrect";
+        List<String> alt1 = Arrays.asList("alternative1");
+        List<String> alt2 = Arrays.asList("alternative2");
+        List<String> alt3 = Arrays.asList("alternative3");
+        List<String> altCorrect = Arrays.asList("alternativeCorrect");
         HashMap<String, Object> dto = new HashMap<>();
         dto.put("question", question);
         dto.put("alternative1", alt1);
