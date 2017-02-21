@@ -57,6 +57,58 @@ export default class aboutScreen extends React.Component {
           version: '13.1.1',
           license: 'MIT'
         },
+        { name: 'chart.js',
+          version: '2.4.0',
+          license: 'N/A'
+        },
+        { name: 'form-data',
+          version: '2.1.2',
+          license: 'N/A'
+        },
+        { name: 'formsy-react',
+          version: '0.19.2',
+          license: 'N/A'
+        },
+        { name: 'formsy-react-bootstrap',
+          version: '1.5.5',
+          license: 'N/A'
+        },
+        { name: 'formsy-react-components',
+          version: '0.10.1',
+          license: 'N/A'
+        },
+        { name: 'react-chartjs-2',
+          version: '2.0.0',
+          license: 'N/A'
+        },
+        { name: 'react-redux',
+          version: '5.0.2',
+          license: 'N/A'
+        },
+        { name: 'react-redux-form',
+          version: '1.5.5',
+          license: 'N/A'
+        },
+        { name: 'react-router',
+          version: '3.0.2',
+          license: 'N/A'
+        },
+        { name: 'react-router-bootstrap',
+          version: '0.23.1',
+          license: 'N/A'
+        },
+        { name: 'react-router-redux',
+          version: '4.0.8',
+          license: 'N/A'
+        },
+        { name: 'redux',
+          version: '3.6.0',
+          license: 'N/A'
+        },
+        { name: 'redux-thunk',
+          version: '2.2.0',
+          license: 'N/A'
+        },
         { name: 'hypher',
           version: '0.2.5',
           license: 'BSD-3-Clause'
