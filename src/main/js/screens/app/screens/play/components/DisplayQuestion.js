@@ -29,7 +29,10 @@ export class DisplayQuestion extends React.Component {
   getResource() {
     let resource;
     if (this.props.processedQuestion.resourceRef && this.props.processedQuestion.resourceRef.type === 'kanjidrawing') {
-      resource = <object height="50em" type="image/svg+xml" data={this.props.processedQuestion.resourceRef.location}>SVG error</object>;
+      resource = (<object
+        height="50em" type="image/svg+xml"
+        data={this.props.processedQuestion.resourceRef.location}
+      >SVG error</object>);
     }
     return resource;
   }
