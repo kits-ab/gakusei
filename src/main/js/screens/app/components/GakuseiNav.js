@@ -15,14 +15,16 @@ export class GakuseiNav extends React.Component {
     return (
       <Navbar inverse collapseOnSelect>
         <Navbar.Header>
-          <NavbarBrand>
+          <Navbar.Brand>
             <button className="brandButton">
-              <span>
-                <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
+              <LinkContainer to="/">
+                <span>
+                  <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
               Gakusei
-            </span>
+              </span>
+              </LinkContainer>
             </button>
-          </NavbarBrand>
+          </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>

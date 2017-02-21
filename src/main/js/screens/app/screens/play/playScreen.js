@@ -50,6 +50,8 @@ export class FourAlternativeQuestion extends React.Component {
         this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[2][0]);
       } else if (keyDown === '4') {
         this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[3][0]);
+      } else if (keyDown === '0') {
+        this.checkAnswer(this.props.processedQuestion.correctAlternative[0]);
       }
     }
   }
@@ -57,18 +59,22 @@ export class FourAlternativeQuestion extends React.Component {
   checkAnswer(answer) {
     // Utility.logEvent(this.props.currentPageName, 'userAnswer', answer, this.props.loggedInUser);
 
-    if (answer === this.props.processedQuestion.correctAlternative) {
-      this.props.receiveCorrectAttempt();
-    } else {
-      this.props.receiveIncorrectAttempt();
-    }
+    // if (this.props.processedQuestion.correctAlternative.indexOf(answer) !== -1) {
+    //   this.props.receiveCorrectAttempt();
+    // } else {
+    //   this.props.receiveIncorrectAttempt();
+    // }
+
+    this.props.setAllButtonsDisabledState(true);
 
     this.props.addUserAnswer(answer);
     this.props.calcAnswerButtonStyles(answer);
 
     if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
       setTimeout(() => {
-        this.props.calcNextQuestion();
+        this.props.incrementQuestionIndex();
+        this.props.processCurrentQuestion();
+        this.props.setAllButtonsDisabledState(false);
       }, 1000);
     } else {
       setTimeout(
@@ -109,7 +115,7 @@ export class FourAlternativeQuestion extends React.Component {
                   label={this.props.processedQuestion.randomizedAlternatives[0]}
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.props.processedQuestion.buttonStyles[0]}
-                  disableButton={this.props.processedQuestion.buttonDisabled}
+                  disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
                   answerType={this.props.answerType}
                 />
               </Col>
@@ -118,7 +124,7 @@ export class FourAlternativeQuestion extends React.Component {
                   label={this.props.processedQuestion.randomizedAlternatives[1]}
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.props.processedQuestion.buttonStyles[1]}
-                  disableButton={this.props.processedQuestion.buttonDisabled}
+                  disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
                   answerType={this.props.answerType}
                 />
               </Col>
@@ -132,7 +138,7 @@ export class FourAlternativeQuestion extends React.Component {
                   label={this.props.processedQuestion.randomizedAlternatives[2]}
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.props.processedQuestion.buttonStyles[2]}
-                  disableButton={this.props.processedQuestion.buttonDisabled}
+                  disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
                   answerType={this.props.answerType}
                 />
               </Col>
@@ -141,7 +147,7 @@ export class FourAlternativeQuestion extends React.Component {
                   label={this.props.processedQuestion.randomizedAlternatives[3]}
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.props.processedQuestion.buttonStyles[3]}
-                  disableButton={this.props.processedQuestion.buttonDisabled}
+                  disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
                   answerType={this.props.answerType}
                 />
               </Col>
@@ -232,7 +238,7 @@ FourAlternativeQuestion.propTypes = {
   // setSelectedLesson: React.PropTypes.func.isRequired,
   // setGameMode: React.PropTypes.func.isRequired,
   setPageByName: React.PropTypes.func.isRequired,
-  calcNextQuestion: React.PropTypes.func.isRequired,
+  processCurrentQuestion: React.PropTypes.func.isRequired,
   // setAllButtonsDisabledState: React.PropTypes.func.isRequired,
   addUserAnswer: React.PropTypes.func.isRequired,
   // clearUserAnswers: React.PropTypes.func.isRequired,

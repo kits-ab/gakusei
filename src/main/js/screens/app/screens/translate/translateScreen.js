@@ -29,7 +29,8 @@ export class TranslationPlayPage extends React.Component {
     if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
       setTimeout(() => {
         this.setState({ answer: '' });
-        this.props.calcNextQuestion();
+        this.props.incrementQuestionIndex();
+        this.props.processCurrentQuestion();
       }, 1000);
     } else {
       setTimeout(

@@ -6,6 +6,7 @@ import 'whatwg-fetch';
 
 import { connect } from 'react-redux';
 import * as Lessons from '../../../../shared/stores/Lessons';
+import * as Security from '../../../../shared/stores/Security';
 
 export class UserStatisticsPage extends React.Component {
   static getChartOptions() {
@@ -79,8 +80,8 @@ UserStatisticsPage.propTypes = {
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(
     // Selects which state properties are merged into the component's props
-    state => (state.lessons),
+    state => (Object.assign({}, state.security, state.lessons)),
     // Selects which action creators are merged into the component's props
-    Lessons.actionCreators
+    Object.assign({}, Security.actionCreators, Lessons.actionCreators)
 )(UserStatisticsPage);
 

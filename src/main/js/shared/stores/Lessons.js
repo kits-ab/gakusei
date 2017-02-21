@@ -48,7 +48,7 @@ export const defaultState = {
   },
   resourceRef: null,
   allButtonsDisabled: false,
-  processedQuestionsWithAnswer: [],
+  processedQuestionsWithAnswers: [],
   lessonLength: 0,
   // Things originally in SessionStorage
   correctAttempts: 0,
@@ -70,7 +70,7 @@ export const RESET_ATTEMPTS = 'RESET_ATTEMPTS';
 export const INCREMENT_QUESTION_INDEX = 'INCREMENT_QUESTION_INDEX';
 export const RESET_QUESTION_INDEX = 'RESET_QUESTION_INDEX';
 export const RECEIVE_LESSON = 'RECEIVE_LESSON';
-export const RECEIVE_NEXT_PROCESSED_QUESTION = 'RECEIVE_NEXT_PROCESSED_QUESTION';
+export const RECEIVE_PROCESSED_QUESTION = 'RECEIVE_NEXT_PROCESSED_QUESTION';
 export const SET_SELECTED_LESSON = 'SET_SELECTED_LESSON';
 export const SET_GAMEMODE = 'SET_GAMEMODE';
 export const SET_PAGE = 'SET_PAGE';
@@ -88,33 +88,41 @@ export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
 // Use @typeName and isActionType for type detection that works even after serialization/deserialization.
-export function calcLessonSuccessRateMessage(lessonSuccessRate) {
-  let lessonSuccessRateMessage = '';
-  const emojiFeedback = {
-    veryBad: String.fromCodePoint(0x1F61E),
-    bad: String.fromCodePoint(0x1F615),
-    average: String.fromCodePoint(0x1F610),
-    good: String.fromCodePoint(0x1F642),
-    veryGood: String.fromCodePoint(0x1F600)
-  };
+export function calcLessonSuccessRateMessage() {
+  return function (dispatch, getState) {
+    const state = getState().lessons;
+    const lessonSuccessRate = state.lessonSuccessRate;
 
-  lessonSuccessRateMessage = `${lessonSuccessRate}%`;
-  if (lessonSuccessRate >= 80) {
-    lessonSuccessRateMessage += `, ${lessonSuccessRateMessage} ${emojiFeedback.veryGood}`;
-  } else if (lessonSuccessRate < 80 && lessonSuccessRate >= 60) {
-    lessonSuccessRateMessage += `, ${lessonSuccessRateMessage} ${emojiFeedback.good}`;
-  } else if (lessonSuccessRate < 60 && lessonSuccessRate >= 40) {
-    lessonSuccessRateMessage += `, ${lessonSuccessRateMessage} ${emojiFeedback.average}`;
-  } else if (lessonSuccessRate < 40 && lessonSuccessRate >= 20) {
-    lessonSuccessRateMessage += `, ${lessonSuccessRateMessage} ${emojiFeedback.bad}`;
-  } else if (lessonSuccessRate < 20) {
-    lessonSuccessRateMessage += `, ${lessonSuccessRateMessage} ${emojiFeedback.veryBad}`;
-  }
+    let lessonSuccessRateMessage = '';
 
-  return {
-    type: SET_LESSON_SUCCESS_RATE_MESSAGE,
-    description: 'Set lesson success rate message',
-    lessonSuccessRateMessage
+    if (state.totalAttempts > 0) {
+      const emojiFeedback = {
+        veryBad: String.fromCodePoint(0x1F61E),
+        bad: String.fromCodePoint(0x1F615),
+        average: String.fromCodePoint(0x1F610),
+        good: String.fromCodePoint(0x1F642),
+        veryGood: String.fromCodePoint(0x1F600)
+      };
+
+      lessonSuccessRateMessage = `(${lessonSuccessRate}%)`;
+      if (lessonSuccessRate >= 80) {
+        lessonSuccessRateMessage += ` ${emojiFeedback.veryGood}`;
+      } else if (lessonSuccessRate < 80 && lessonSuccessRate >= 60) {
+        lessonSuccessRateMessage += ` ${emojiFeedback.good}`;
+      } else if (lessonSuccessRate < 60 && lessonSuccessRate >= 40) {
+        lessonSuccessRateMessage += ` ${emojiFeedback.average}`;
+      } else if (lessonSuccessRate < 40 && lessonSuccessRate >= 20) {
+        lessonSuccessRateMessage += ` ${emojiFeedback.bad}`;
+      } else if (lessonSuccessRate < 20) {
+        lessonSuccessRateMessage += ` ${emojiFeedback.veryBad}`;
+      }
+    }
+
+    dispatch({
+      type: SET_LESSON_SUCCESS_RATE_MESSAGE,
+      description: 'Set lesson success rate message',
+      lessonSuccessRateMessage
+    });
   };
 }
 
@@ -136,7 +144,7 @@ export function calcLessonSuccessRate() {
     }
 
     dispatch(receiveLessonSuccessRate(lessonSuccessRate));
-    dispatch(calcLessonSuccessRateMessage(lessonSuccessRate));
+    dispatch(calcLessonSuccessRateMessage());
   };
 }
 
@@ -152,7 +160,7 @@ export function calcAnswerButtonStyles() {
     const state = getState().lessons;
 
     const userAnswerWord = state
-      .processedQuestionsWithAnswer[state.currentQuestionIndex]
+      .processedQuestionsWithAnswers[state.currentQuestionIndex]
       .userAnswer;
 
     let newButtonStyles = [];
@@ -187,6 +195,7 @@ export function receiveIncorrectAttempt() {
 export function addUserAnswer(userActualAnswer) {
   return function (dispatch, getState) {
     const state = getState().lessons;
+    const securityState = getState().security;
 
     const processedQuestionWithAnswer = {
       ...state.processedQuestion,
@@ -200,6 +209,13 @@ export function addUserAnswer(userActualAnswer) {
     } else {
       dispatch(receiveIncorrectAttempt());
     }
+
+    Utility.logEvent('Lessons', 'userAnswer', userActualAnswer, securityState.loggedInUser);
+    Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.actualQuestionShapes, securityState.loggedInUser);
+    Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.correctAlternative, securityState.loggedInUser);
+    Utility.logEvent('Lessons', 'answeredCorrectly', processedQuestionWithAnswer.userCorrect, securityState.loggedInUser);
+
+    dispatch(calcLessonSuccessRate());
 
     dispatch({ type: ADD_USER_ANSWER,
       description: 'Add an answer a user made, along with correct results',
@@ -215,9 +231,13 @@ export function clearUserAnswers() {
 }
 
 export function resetAttempts() {
-  return {
-    type: RESET_ATTEMPTS,
-    description: 'Reset attempts'
+  return function (dispatch) {
+    dispatch({
+      type: RESET_ATTEMPTS,
+      description: 'Reset attempts'
+    });
+
+    dispatch(calcLessonSuccessRate());
   };
 }
 
@@ -265,15 +285,25 @@ export function incrementQuestionIndex() {
   };
 }
 
-export function receiveNextProcessedQuestion(processedQuestion) {
-  return {
-    type: RECEIVE_NEXT_PROCESSED_QUESTION,
-    description: 'We have received the next question, randomized and processed for quiz-time',
-    processedQuestion
+export function receiveProcessedQuestion(processedQuestion) {
+  return function (dispatch, getState) {
+    const lessonsState = getState().lessons;
+    const securityState = getState().security;
+
+    dispatch({
+      type: RECEIVE_PROCESSED_QUESTION,
+      description: 'We have received the next question, randomized and processed for play',
+      processedQuestion
+    });
+
+    Utility.logEvent('lessons', 'question', processedQuestion.actualQuestionShapes, securityState.loggedInUser);
+    for (let i = 0; i < processedQuestion.randomizedAlternatives.length; i += 1) {
+      Utility.logEvent('lessons', 'alternative', processedQuestion.randomizedAlternatives[i], securityState.loggedInUser);
+    }
   };
 }
 
-export function calcNextQuestion() {
+export function processCurrentQuestion() {
   return function (dispatch, getState) {
     const state = getState().lessons;
     const localQuestionIndex = state.currentQuestionIndex;
@@ -291,9 +321,7 @@ export function calcNextQuestion() {
       resourceRef: state.questions[localQuestionIndex].resourceReference || null
     };
 
-    dispatch(incrementQuestionIndex());
-
-    dispatch(receiveNextProcessedQuestion(processedQuestion));
+    dispatch(receiveProcessedQuestion(processedQuestion));
 
     // Utility.logEvent(this.currentPageName, 'question', this.state.question, this.props.loggedInUser);
     // for (let i = 0; i < this.state.randomOrderAlt.length; i += 1) {
@@ -354,6 +382,7 @@ export function resetLesson() {
     dispatch(resetAttempts());
     dispatch(resetQuestionIndex());
     dispatch(clearUserAnswers());
+    dispatch(setAllButtonsDisabledState(false));
   };
 }
 
@@ -420,7 +449,7 @@ export function fetchLessonNames(type) {
   };
 }
 
-export function fetchLesson(lessonType, temporaryCallback) {
+export function fetchLesson(lessonType) {
   let fetchURL;
 
   if (lessonType === 'quiz') {
@@ -441,10 +470,9 @@ export function fetchLesson(lessonType, temporaryCallback) {
           // sessionStorage.lesson = JSON.stringify(json);
           dispatch(resetLesson());
           dispatch(receiveLesson(json));
-          dispatch(calcNextQuestion());
+          dispatch(processCurrentQuestion());
+
           // TODO: temporaryCallback seems to gain priority over the dispatch calls (#justraceconditionthings)
-          abc
-          temporaryCallback();
           // temporarySwitchpageCallback();
         });
       // .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
@@ -469,14 +497,14 @@ export const actionCreators = {
   receiveCorrectAttempt,
   receiveIncorrectAttempt,
   calcLessonSuccessRate,
-  // incrementQuestionIndex,
+  incrementQuestionIndex,
   resetQuestionIndex,
   fetchLesson,
   fetchLessonNames,
   setSelectedLesson,
   setGameMode,
   setPageByName,
-  calcNextQuestion,
+  processCurrentQuestion,
   setAllButtonsDisabledState,
   addUserAnswer,
   clearUserAnswers,
@@ -525,12 +553,12 @@ export const lessons = (state, action) => {
     case ADD_USER_ANSWER:
       return {
         ...state,
-        processedQuestionsWithAnswer: [...state.processedQuestionsWithAnswer, action.processedQuestionWithAnswer]
+        processedQuestionsWithAnswers: [...state.processedQuestionsWithAnswers, action.processedQuestionWithAnswer]
       };
     case CLEAR_USER_ANSWERS:
       return {
         ...state,
-        processedQuestionsWithAnswer: [],
+        processedQuestionsWithAnswers: [],
         currentProcessedQuestionAnswered: false,
         currentProcessedQuestionAnsweredCorrectly: null
       };
@@ -550,7 +578,7 @@ export const lessons = (state, action) => {
         ...state,
         gamemode: action.gamemode
       };
-    case RECEIVE_NEXT_PROCESSED_QUESTION:
+    case RECEIVE_PROCESSED_QUESTION:
       return {
         ...state,
         processedQuestion: action.processedQuestion,

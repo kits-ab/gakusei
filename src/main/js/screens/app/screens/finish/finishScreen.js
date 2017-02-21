@@ -18,26 +18,31 @@ export class EndScreenPage extends React.Component {
     this.logEvents();
   }
 
+  logEvents() {
+    for (let i = 0; i < this.props.processedQuestionsWithAnswers.length; i += 1) {
+      Utility.logEvent('finish', 'correctAnswer', this.props.processedQuestionsWithAnswers[i].correctAlternative, this.props.username);
+      Utility.logEvent('finish', 'correctAnswer', this.props.processedQuestionsWithAnswers[i][1], this.props.username);
+      Utility.logEvent('finish', 'userAnswer', this.props.processedQuestionsWithAnswers[i][2], this.props.username);
+    }
+  }
+
   backtoSelection() {
-    this.props.fetchLesson(this.props.params.type, () => { this.props.setPageByName(`/select/${this.props.params.type}`); });
+    this.props.fetchLesson(this.props.params.type)
+    .then(this.props.setPageByName(`/select/${this.props.params.type}`));
   }
   playAgain() {
     // this.props.resetLesson();
     if (this.props.params.type === 'translate') {
-      this.props.fetchLesson(this.props.params.type, () => { this.props.setPageByName(`/translate/${this.props.params.type}`); });
+      this.props.fetchLesson(this.props.params.type)
+      .then(this.props.setPageByName(`/translate/${this.props.params.type}`));
     } else {
-      this.props.fetchLesson(this.props.params.type, () => { this.props.setPageByName(`/play/${this.props.params.type}`); });
+      this.props.fetchLesson(this.props.params.type)
+      .then(this.props.setPageByName(`/play/${this.props.params.type}`));
     }
   }
-  logEvents() {
-    for (let i = 0; i < this.props.results.length; i += 1) {
-      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][0], this.props.loggedInUser);
-      Utility.logEvent('EndScreenPage', 'correctAnswer', this.props.results[i][1], this.props.loggedInUser);
-      Utility.logEvent('EndScreenPage', 'userAnswer', this.props.results[i][2], this.props.loggedInUser);
-    }
-  }
+
   showResults() {
-    const result = this.props.processedQuestionsWithAnswer.map((qa, index) => (qa.actualQuestionShapes.length > 1 ?
+    const result = this.props.processedQuestionsWithAnswers.map((qa, index) => (qa.actualQuestionShapes.length > 1 ?
       <ListGroupItem key={index} bsStyle={(qa.userAnswer === qa.correctAlternative) ? 'success' : 'danger'}>
         Läsform: {qa.actualQuestionShapes[0]}
         , Skrivform: {qa.actualQuestionShapes[1]}
@@ -68,7 +73,7 @@ export class EndScreenPage extends React.Component {
         <Row>
           <div className="text-center">
             <h2>
-              {this.props.lessonSuccessRate.toFixed(0)}% rätt!
+              {this.props.lessonSuccessRate}% rätt!
             </h2>
             <h3>
               Du svarade rätt på {this.props.correctAttempts} av {this.props.totalAttempts} möjliga frågor
@@ -113,19 +118,6 @@ EndScreenPage.defaultProps = {
   questionType: '',
   answerType: ''
 };
-
-
-// Selects which state properties are merged into the component's props
-function mapStateToProps(state) {
-  return Object.assign({},
-      state.Main);
-}
-
-// Selects which action creators are merged into the component's props
-function mapActionCreatorsToProps() {
-  return Object.assign({},
-      Store.actionCreators);
-}
 
 // Wire up the React component to the Redux store and export it when importing this file
 export default connect(

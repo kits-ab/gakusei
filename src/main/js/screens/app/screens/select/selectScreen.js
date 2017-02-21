@@ -63,9 +63,15 @@ export class GenericSelection extends React.Component {
     event.preventDefault();
 
     if (this.props.params.type === 'translate') {
-      this.props.fetchLesson(this.props.params.type, () => { this.props.setPageByName('/translate'); });
+      this.props.fetchLesson(this.props.params.type)
+      .then(() => {
+        this.props.setPageByName('/translate');
+      });
     } else {
-      this.props.fetchLesson(this.props.params.type, () => { this.props.setPageByName(`/play/${this.props.params.type}`); });
+      this.props.fetchLesson(this.props.params.type)
+      .then(() => {
+        this.props.setPageByName(`/play/${this.props.params.type}`);
+      });
     }
   }
   render() {
