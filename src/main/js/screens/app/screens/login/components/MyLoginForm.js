@@ -5,8 +5,11 @@ import { connect } from 'react-redux';
 // import { Input, Form, Button, ControlLabel, FormControl, FormGroup, Control } from 'formsy-react-components';
 import FRC from 'formsy-react-components';
 
+import Utility from '../../../../../shared/util/Utility';
 import getCSRF from '../../../../../shared/util/getcsrf';
 import * as Security from '../../../../../shared/stores/Security';
+
+export const Reducers = [Security];
 
 const { Checkbox, CheckboxGroup, Input, RadioGroup, Row, Select, File, Textarea } = FRC;
 
@@ -56,16 +59,13 @@ export class MyLoginForm extends React.Component {
   }
 }
 
-MyLoginForm.propTypes = {
-  // id: React.PropTypes.string.isRequired,
-  // handleSubmit: React.PropTypes.func.isRequired,
-  // btnText: React.PropTypes.string.isRequired
-};
+MyLoginForm.defaultProps = Utility.reduxEnabledDefaultProps({
+
+}, Reducers);
+
+MyLoginForm.propTypes = Utility.reduxEnabledPropTypes({
+
+}, Reducers);
 
 // Wire up the React component to the Redux store and export it when importing this file
-export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (state.security),
-    // Selects which action creators are merged into the component's props
-    Security.actionCreators
-)(MyLoginForm);
+export default Utility.superConnect(this, Reducers)(MyLoginForm);

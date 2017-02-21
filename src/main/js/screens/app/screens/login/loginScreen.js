@@ -7,9 +7,12 @@ import { Col, Grid, Row } from 'react-bootstrap';
 import MyLoginForm from './components/MyLoginForm';
 import MyRegistrationForm from './components/MyRegistrationForm';
 
+import Utility from '../../../../shared/util/Utility';
 import * as Security from '../../../../shared/stores/Security';
 
-export class Login extends React.Component {
+export const Reducers = [Security];
+
+export class loginScreen extends React.Component {
   // constructor(props) {
   //   super(props);
   // }
@@ -29,10 +32,13 @@ export class Login extends React.Component {
   }
 }
 
+loginScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+
+}, Reducers);
+
+loginScreen.propTypes = Utility.reduxEnabledPropTypes({
+
+}, Reducers);
+
 // Wire up the React component to the Redux store and export it when importing this file
-export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (state.security),
-    // Selects which action creators are merged into the component's props
-    Security.actionCreators
-)(Login);
+export default Utility.superConnect(this, Reducers)(loginScreen);

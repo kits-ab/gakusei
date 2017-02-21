@@ -5,9 +5,12 @@ import 'whatwg-fetch';
 import odiff from 'odiff';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 
-export class GenericSelection extends React.Component {
+export const Reducers = [Lessons];
+
+export class selectScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -133,25 +136,13 @@ export class GenericSelection extends React.Component {
   }
 }
 
-GenericSelection.propTypes = {
-  // gamemode: React.PropTypes.string.isRequired,
-  // switchPage: React.PropTypes.func.isRequired,
-  location: React.PropTypes.shape({
-    query: React.PropTypes.shape({
-      type: React.PropTypes.string
-    })
-  }).isRequired,
-  lessonNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  // fetchURL: React.PropTypes.string.isRequired,
-  selectedLesson: React.PropTypes.string.isRequired,
-  // Action creators
-  setPageByName: React.PropTypes.func.isRequired
-};
+selectScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+
+}, Reducers);
+
+selectScreen.propTypes = Utility.reduxEnabledPropTypes({
+
+}, Reducers);
 
 // Wire up the React component to the Redux store and export it when importing this file
-export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (state.lessons),
-    // Selects which action creators are merged into the component's props
-    Lessons.actionCreators
-)(GenericSelection);
+export default Utility.superConnect(this, Reducers)(selectScreen);

@@ -1,12 +1,12 @@
-/* global sessionStorage*/
-
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 
-export class EndScreenPage extends React.Component {
+export const Reducers = [Lessons];
+
+export class finishScreen extends React.Component {
   constructor(props) {
     super(props);
     this.playAgain = this.playAgain.bind(this);
@@ -59,15 +59,6 @@ export class EndScreenPage extends React.Component {
     return result;
   }
   render() {
-    // const successRate = (this.props.correctAttempts / this.props.totalAttempts) * 100;
-    /* const results = this.props.results.map(result => ((result[0].length > 1) ?
-      <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
-        Fråga: {result[0][0]}, Fråga: {result[0][1]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
-      </ListGroupItem> :
-      <ListGroupItem key={result[0] + result[1]} bsStyle={(result[1] === result[2]) ? 'success' : 'danger'}>
-        Fråga: {result[0][0]}, Korrekt svar: {result[1]}, Ditt svar: {result[2]}
-      </ListGroupItem>)
-    );*/
     return (
       <Grid>
         <Row>
@@ -102,9 +93,17 @@ export class EndScreenPage extends React.Component {
   }
 }
 
-EndScreenPage.propTypes = {
+finishScreen.propTypes = {
   results: React.PropTypes.arrayOf(React.PropTypes.array),
   // store props
+  processedQuestion: React.PropTypes.shape({
+    length: React.PropTypes.number,
+    actualQuestionShapes: React.PropTypes.array.isRequired,
+    correctAlternative: React.PropTypes.array.isRequired,
+    randomizedAlternatives: React.PropTypes.array.isRequired,
+    buttonStyles: React.PropTypes.array.isRequired,
+    buttonDisabled: React.PropTypes.bool.isRequired,
+    resourceRef: React.PropTypes.object }).isRequired,
   lessonSuccessRate: React.PropTypes.number.isRequired,
   loggedInUser: React.PropTypes.string.isRequired,
   // action creators
@@ -112,17 +111,13 @@ EndScreenPage.propTypes = {
   setPageByName: React.PropTypes.func.isRequired
 };
 
-EndScreenPage.defaultProps = {
-  results: [],
-  gamemode: '',
-  questionType: '',
-  answerType: ''
-};
+finishScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+
+}, Reducers);
+
+finishScreen.propTypes = Utility.reduxEnabledPropTypes({
+
+}, Reducers);
 
 // Wire up the React component to the Redux store and export it when importing this file
-export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (state.lessons),
-    // Selects which action creators are merged into the component's props
-    Lessons.actionCreators
-)(EndScreenPage);
+export default Utility.superConnect(this, Reducers)(finishScreen);

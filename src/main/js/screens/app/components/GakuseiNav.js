@@ -3,12 +3,19 @@ import { connect } from 'react-redux';
 import { Navbar, Nav, NavItem, NavbarBrand, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
+import Utility from '../../../shared/util/Utility';
 import * as Security from '../../../shared/stores/Security';
 import * as Lessons from '../../../shared/stores/Lessons';
+
+export const Reducers = [Lessons, Security];
 
 export class GakuseiNav extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    // debugger;
   }
 
   render() {
@@ -71,16 +78,13 @@ export class GakuseiNav extends React.Component {
   }
 }
 
-GakuseiNav.propTypes = {
-  // action creators
-  setPageByName: React.PropTypes.func.isRequired,
-  loggedInUser: React.PropTypes.string.isRequired
-};
+GakuseiNav.defaultProps = Utility.reduxEnabledDefaultProps({
+
+}, Reducers);
+
+GakuseiNav.propTypes = Utility.reduxEnabledPropTypes({
+
+}, Reducers);
 
 // Wire up the React component to the Redux store and export it when importing this file
-export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (Object.assign({}, state.security, state.lessons)),
-    // Selects which action creators are merged into the component's props
-    Object.assign({}, Security.actionCreators, Lessons.actionCreators)
-)(GakuseiNav);
+export default Utility.superConnect(this, Reducers)(GakuseiNav);

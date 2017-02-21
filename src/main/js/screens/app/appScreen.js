@@ -7,12 +7,12 @@ import { connect } from 'react-redux';
 
 import GakuseiNav from './components/GakuseiNav';
 
-import * as Lessons from '../../shared/stores/Lessons';
-import * as Test from '../../shared/stores/Test';
+import Utility from '../../shared/util/Utility';
 import * as Security from '../../shared/stores/Security';
-import * as Statistics from '../../shared/stores/Statistics';
 
-export class App extends React.Component {
+export const Reducers = [Security];
+
+export class appScreen extends React.Component {
   // constructor(props) {
   //   super(props);
   // }
@@ -22,30 +22,37 @@ export class App extends React.Component {
 
   render() {
     return (
-        <div>
-          <GakuseiNav />
-          {/* <Link to="landing">test</Link>*/}
-          { this.props.children }
-        </div>
+      <div>
+        <GakuseiNav />
+        {/* <Link to="landing">test</Link>*/}
+        { this.props.children }
+      </div>
     );
   }
 }
 
 
-App.propTypes = {
-  // redux props
-  // currentPage: React.PropTypes.any.isRequired,
-  loggedIn: React.PropTypes.bool.isRequired,
-  // loggedInUser: React.PropTypes.string.isRequired,
-  // action creators
-  fetchLoggedInUser: React.PropTypes.func.isRequired
-  // setPageByName: React.PropTypes.func.isRequired
-};
+function generatePropsFromReducer(reducers) {
+  let result = [];
+  reducers.forEach(reducer => (result.push({
+    ...() => {
+      const dynamicPropTypes = {};
+      Object.keys(reducer.actionCreators).forEach((x) => {
+        dynamicPropTypes[x] = React.PropTypes.func.isRequired;
+      });
+      return dynamicPropTypes;
+    },
+    ...reducer.propTypes
+  })));
+}
+
+appScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+
+}, Reducers);
+
+appScreen.propTypes = Utility.reduxEnabledPropTypes({
+
+}, Reducers);
 
 // Wire up the React component to the Redux store and export it when importing this file
-export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (Object.assign({}, state.lessons, state.testing, state.security, state.lessons)),
-    // Selects which action creators are merged into the component's props
-    Object.assign({}, Lessons.actionCreators, Test.actionCreators, Security.actionCreators, Statistics.actionCreators)
-)(App);
+export default Utility.superConnect(this, Reducers)(appScreen);

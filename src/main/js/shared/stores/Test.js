@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 // For temporary page management
-// import React from 'react';
+import React from 'react';
 // import { browserHistory } from 'react-router';
 // import { push } from 'react-router-redux';
 
@@ -10,6 +10,12 @@ import 'whatwg-fetch';
 // DEFAULT STATE
 export const defaultState = {
   test: 0
+};
+
+// ----------------
+// PROPTYPES
+export const propTypes = {
+  test: React.PropTypes.number.isRequired
 };
 
 // -----------------

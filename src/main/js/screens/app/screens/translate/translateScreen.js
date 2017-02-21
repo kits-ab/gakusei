@@ -6,7 +6,9 @@ import { Button, Grid, Row } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 
-export class TranslationPlayPage extends React.Component {
+export const Reducers = [Lessons];
+
+export class translateScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -96,18 +98,13 @@ export class TranslationPlayPage extends React.Component {
   }
 }
 
-TranslationPlayPage.propTypes = {
-  // username: React.PropTypes.string.isRequired,
-  // used action creators
-  // fetchLoggedInUser: React.PropTypes.func.isRequired,
-  // loggedIn: React.PropTypes.bool.isRequired,
-  // loggedInUser: React.PropTypes.string.isRequired
-};
+translateScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+
+}, Reducers);
+
+translateScreen.propTypes = Utility.reduxEnabledPropTypes({
+
+}, Reducers);
 
 // Wire up the React component to the Redux store and export it when importing this file
-export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (state.lessons),
-    // Selects which action creators are merged into the component's props
-    Lessons.actionCreators
-)(TranslationPlayPage);
+export default Utility.superConnect(this, Reducers)(translateScreen);

@@ -4,6 +4,7 @@ import 'whatwg-fetch';
 // import React from 'react';
 // import { browserHistory } from 'react-router';
 import { push } from 'react-router-redux';
+import React from 'react';
 
 import Utility from '../../shared/util/Utility';
 
@@ -40,13 +41,13 @@ export const defaultState = {
   questions: [],
   processedQuestion: {
     actualQuestionShapes: [],
-    correctAlternative: null,
+    correctAlternative: [],
     randomizedAlternatives: [],
     buttonStyles: ['default', 'default', 'default', 'default'],
     buttonDisabled: false,
-    resourceRef: []
+    resourceRef: {}
   },
-  resourceRef: null,
+  // resourceRef: null,
   allButtonsDisabled: false,
   processedQuestionsWithAnswers: [],
   lessonLength: 0,
@@ -56,6 +57,87 @@ export const defaultState = {
   currentQuestionIndex: 0,
   currentProcessedQuestionAnswered: false,
   currentProcessedQuestionAnsweredCorrectly: false
+};
+// ----------------
+// PROPTYPES
+export const propTypes = {
+  // username: React.PropTypes.string.isRequired,
+  // switchPage: React.PropTypes.func.isRequired,
+  // pageName: React.PropTypes.string.isRequired,
+  // redux props
+  // successRate: React.PropTypes.number.isRequired,
+  // lessonSuccessRate: React.PropTypes.number.isRequired,
+  lessonSuccessRateMessage: React.PropTypes.string.isRequired,
+  // requestingSuccessRate: React.PropTypes.bool.isRequired,
+  // requestSuccessRateStatus: React.PropTypes.string.isRequired,
+  // requestSuccessRateResponse: React.PropTypes.string.isRequired,
+  // requestSuccessRateLastReceived: React.PropTypes.number.isRequired,
+
+  // currentPageName: React.PropTypes.string.isRequired,
+  // currentPage: React.PropTypes.string.isRequired,
+  // pages: React.PropTypes.object.isRequired,
+
+  // gamemode: React.PropTypes.string.isRequired,
+
+  // lessonNames: React.PropTypes.array.isRequired,
+  // fetchURL: React.PropTypes.string.isRequired,
+
+  // selectedLesson: React.PropTypes.string.isRequired,
+
+  // FourAlternativeQuestion.js
+  // questions: React.PropTypes.arrayOf({
+  //   question: React.PropTypes.arrayOf(React.PropTypes.string.isRequired).isRequired,
+  //   alternative1: React.PropTypes.string.isRequired,
+  //   alternative2: React.PropTypes.string.isRequired,
+  //   alternative3: React.PropTypes.string.isRequired,
+  //   correctAlternative: React.PropTypes.string.isRequired
+  // }).isRequired,
+
+  processedQuestion: React.PropTypes.shape({
+    actualQuestionShapes: React.PropTypes.array.isRequired,
+    correctAlternative: React.PropTypes.array.isRequired,
+    randomizedAlternatives: React.PropTypes.array.isRequired,
+    buttonStyles: React.PropTypes.array.isRequired,
+    buttonDisabled: React.PropTypes.bool.isRequired,
+    resourceRef: React.PropTypes.object }).isRequired,
+  // resourceRef: React.PropTypes.string.isRequired,
+  allButtonsDisabled: React.PropTypes.bool.isRequired,
+  // userAnswers: React.PropTypes.arrayOf(
+  //   React.PropTypes.string.isRequired, // question
+  //   React.PropTypes.string.isRequired, // correctAlternative
+  //   React.PropTypes.string.isRequired, // answer
+  // ).isRequired,
+  lessonLength: React.PropTypes.number.isRequired,
+  correctAttempts: React.PropTypes.number.isRequired,
+  // totalAttempts: React.PropTypes.number.isRequired,
+  currentQuestionIndex: React.PropTypes.number.isRequired,
+  // loggedInUser: React.PropTypes.string.isRequired,
+  // redux action creators
+  // fetchLoggedInUser: React.PropTypes.func.isRequired,
+  // loggedIn: React.PropTypes.bool.isRequired,
+  // requestUserSuccessRate: React.PropTypes.func.isRequired,
+  // fetchUserSuccessRate: React.PropTypes.func.isRequired,
+  // receiveUserSuccessRate: React.PropTypes.func.isRequired,
+  // receiveCorrectAttempt: React.PropTypes.func.isRequired,
+  // receiveIncorrectAttempt: React.PropTypes.func.isRequired,
+  // calcLessonSuccessRate: React.PropTypes.func.isRequired,
+  // incrementQuestionIndex,
+  // resetQuestionIndex: React.PropTypes.func.isRequired,
+  // fetchLesson: React.PropTypes.func.isRequired,
+  // setSelectedLesson: React.PropTypes.func.isRequired,
+  // setGameMode: React.PropTypes.func.isRequired,
+  // setPageByName: React.PropTypes.func.isRequired,
+  // processCurrentQuestion: React.PropTypes.func.isRequired,
+  // setAllButtonsDisabledState: React.PropTypes.func.isRequired,
+  // addUserAnswer: React.PropTypes.func.isRequired,
+  // clearUserAnswers: React.PropTypes.func.isRequired,
+  // resetAttempts: React.PropTypes.func.isRequired,
+  calcAnswerButtonStyles: React.PropTypes.func.isRequired,
+  // resetLesson: React.PropTypes.func.isRequired,
+
+  // pageName: React.PropTypes.string.isRequired,
+  questionType: React.PropTypes.string.isRequired,
+  answerType: React.PropTypes.string.isRequired
 };
 
 // -----------------

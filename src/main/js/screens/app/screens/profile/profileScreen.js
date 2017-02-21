@@ -5,10 +5,13 @@ import { Pie } from 'react-chartjs-2';
 import 'whatwg-fetch';
 
 import { connect } from 'react-redux';
+import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 import * as Security from '../../../../shared/stores/Security';
 
-export class UserStatisticsPage extends React.Component {
+export const Reducers = [Lessons, Security];
+
+export class profileScreen extends React.Component {
   static getChartOptions() {
     return {
       maintainAspectRatio: true,
@@ -61,27 +64,21 @@ export class UserStatisticsPage extends React.Component {
       <div className="text-center">
         <h2>Spelarstatistik</h2>
         { this.props.requestingSuccessRate === false ?
-          <Pie data={this.getChartData()} options={UserStatisticsPage.getChartOptions()} /> :
+          <Pie data={this.getChartData()} options={profileScreen.getChartOptions()} /> :
           <p>Loading...</p> }
       </div>
     );
   }
 }
 
-UserStatisticsPage.propTypes = {
-  // username: React.PropTypes.string.isRequired,
-  successRate: React.PropTypes.number.isRequired,
-  loggedInUser: React.PropTypes.string.isRequired,
-  requestingSuccessRate: React.PropTypes.bool.isRequired,
-  // action creators
-  fetchUserSuccessRate: React.PropTypes.func.isRequired
-};
+profileScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+
+}, Reducers);
+
+profileScreen.propTypes = Utility.reduxEnabledPropTypes({
+
+}, Reducers);
 
 // Wire up the React component to the Redux store and export it when importing this file
-export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (Object.assign({}, state.security, state.lessons)),
-    // Selects which action creators are merged into the component's props
-    Object.assign({}, Security.actionCreators, Lessons.actionCreators)
-)(UserStatisticsPage);
+export default Utility.superConnect(this, Reducers)(profileScreen);
 

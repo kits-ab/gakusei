@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Utility from '../../../../../shared/util/Utility';
 import * as Lessons from '../../../../../shared/stores/Lessons';
+
+export const Reducers = [Lessons];
 
 export class DisplayQuestion extends React.Component {
   getQuestionText(type) {
@@ -40,23 +43,13 @@ export class DisplayQuestion extends React.Component {
   }
 }
 
-DisplayQuestion.propTypes = {
+DisplayQuestion.defaultProps = Utility.reduxEnabledDefaultProps({
 
-  questionType: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string.isRequired,
-  processedQuestion: React.PropTypes.shape({
-    length: React.PropTypes.number,
-    actualQuestionShapes: React.PropTypes.array.isRequired,
-    correctAlternative: React.PropTypes.array.isRequired,
-    randomizedAlternatives: React.PropTypes.array.isRequired,
-    buttonStyles: React.PropTypes.array.isRequired,
-    buttonDisabled: React.PropTypes.bool.isRequired,
-    resourceRef: React.PropTypes.object }).isRequired
-};
+}, Reducers);
 
-export default connect(
-    // Selects which state properties are merged into the component's props
-    state => (state.lessons),
-    // Selects which action creators are merged into the component's props
-    Lessons.actionCreators
-)(DisplayQuestion);
+DisplayQuestion.propTypes = Utility.reduxEnabledPropTypes({
+
+}, Reducers);
+
+// Wire up the React component to the Redux store and export it when importing this file
+export default Utility.superConnect(this, Reducers)(DisplayQuestion);
