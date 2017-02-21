@@ -1,6 +1,7 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router';
 
 import Utility from '../../../shared/util/Utility';
 import * as Security from '../../../shared/stores/Security';
@@ -14,14 +15,12 @@ export class GakuseiNav extends React.Component {
       <Navbar inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <button className="brandButton">
-              <LinkContainer to="/">
-                <span>
-                  <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
+            <Link to="/">
+              <span>
+                <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
               Gakusei
               </span>
-              </LinkContainer>
-            </button>
+            </Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
