@@ -22,8 +22,5 @@ node/
 npm-debug.log
 
 # VS Code
-<<<<<<< HEAD
 .vscode
-=======
-.vscode
->>>>>>> master
+
