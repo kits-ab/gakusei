@@ -4,7 +4,6 @@ import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import 'whatwg-fetch';
 
-import { connect } from 'react-redux';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 import * as Security from '../../../../shared/stores/Security';
@@ -79,6 +78,6 @@ profileScreen.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
 
-// Wire up the React component to the Redux store and export it when importing this file
+
 export default Utility.superConnect(this, Reducers)(profileScreen);
 

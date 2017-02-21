@@ -1,10 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-// import { LocalForm } from 'react-redux-form';
-// import Formsy from 'formsy-react';
-// import { Input, Form, Button, ControlLabel, FormControl, FormGroup, Control } from 'formsy-react-components';
 import FRC from 'formsy-react-components';
-// import FormData from 'form-data';
 import Utility from '../../../../../shared/util/Utility';
 import getCSRF from '../../../../../shared/util/getcsrf';
 import * as Security from '../../../../../shared/stores/Security';
@@ -21,7 +16,6 @@ export class MyRegistrationForm extends React.Component {
 
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.handleSubmitRegistration = this.handleSubmitRegistration.bind(this);
     this.enableButton = this.enableButton.bind(this);
     this.disableButton = this.disableButton.bind(this);
   }
@@ -70,5 +64,5 @@ MyRegistrationForm.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
 
-// Wire up the React component to the Redux store and export it when importing this file
+
 export default Utility.superConnect(this, Reducers)(MyRegistrationForm);

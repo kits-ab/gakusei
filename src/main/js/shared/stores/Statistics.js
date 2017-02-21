@@ -1,10 +1,5 @@
 import 'whatwg-fetch';
-// For temporary page management
 import React from 'react';
-// import { browserHistory } from 'react-router';
-// import { push } from 'react-router-redux';
-
-// import Utility from '../../shared/util/Utility';
 
 // ----------------
 // DEFAULT STATE

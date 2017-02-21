@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Navbar, Nav, NavItem, NavbarBrand, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import Utility from '../../../shared/util/Utility';
@@ -10,14 +9,6 @@ import * as Lessons from '../../../shared/stores/Lessons';
 export const Reducers = [Lessons, Security];
 
 export class GakuseiNav extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    // debugger;
-  }
-
   render() {
     return (
       <Navbar inverse collapseOnSelect>
@@ -86,5 +77,4 @@ GakuseiNav.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
 
-// Wire up the React component to the Redux store and export it when importing this file
 export default Utility.superConnect(this, Reducers)(GakuseiNav);

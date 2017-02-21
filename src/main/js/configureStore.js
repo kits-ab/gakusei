@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import { routerReducer, routerMiddleware, push } from 'react-router-redux';
+import { routerReducer, routerMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import thunkMiddleware from 'redux-thunk';
 
@@ -10,11 +10,7 @@ import * as Statistics from './shared/stores/Statistics';
 import * as Security from './shared/stores/Security';
 
 function buildRootReducer(allReducers) {
-  // debugger;
-  const hello = combineReducers(Object.assign({}, allReducers, { routing: routerReducer }));
-  // debugger;
-  return hello;
-  // return combineReducers(Object.assign({}, allReducers, { routing: 'test' }));
+  return combineReducers(Object.assign({}, allReducers, { routing: routerReducer }));
 }
 
 export default function configureStore(initialState) {
@@ -28,7 +24,6 @@ export default function configureStore(initialState) {
         devToolsExtension ? devToolsExtension() : f => f
     )(createStore);
 
-  // debugger;
   // Combine all reducers and instantiate the app-wide store instance
   const allReducers = buildRootReducer(Object.assign({},
    Test.reducers,
@@ -37,7 +32,7 @@ export default function configureStore(initialState) {
    Security.reducers));
 
   const store = createStoreWithMiddleware(allReducers, initialState);
-  // Enable Webpack hot module replacement for reducers.. But we're not using webpack
+  // Enable Webpack hot module replacement for reducers.. But we're not using webpack.. yet! - William
   //   if (module.hot) {
   //     module.hot.accept('./store', () => {
   //       const nextRootReducer = require('./store');

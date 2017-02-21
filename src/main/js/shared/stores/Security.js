@@ -35,7 +35,7 @@ export function receiveLoggedInStatus(loggedIn) {
 }
 
 export function receiveLoggedInUser(user) {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     dispatch({
       type: RECEIVE_LOGGED_IN_USER,
       description: 'Fetching complete',
@@ -73,7 +73,7 @@ export function fetchLoggedInUser() {
 }
 
 export function requestUserRegister(data) {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     const formBody = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
 
     fetch('/registeruser', {
@@ -88,7 +88,6 @@ export function requestUserRegister(data) {
       if (response.status === 201) {
         // Registration succeeded
         dispatch(receiveLoggedInUser(data.username));
-        // dispatch(setPageByName('home'));
       } else if (response.status === 422) {
         // User already exists
       }
@@ -97,7 +96,7 @@ export function requestUserRegister(data) {
 }
 
 export function requestUserLogin(data) {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     const formBody = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
 
     fetch('/auth', {

@@ -1,11 +1,9 @@
 /* global fetch window sessionStorage */
 
 import React from 'react';
-import { connect } from 'react-redux';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './components/AnswerButton';
 import DisplayQuestion from './components/DisplayQuestion';
-// import Utility from '../../../../shared/util/Utility';
 
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
@@ -16,24 +14,9 @@ export class playScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.state = {
-    //   question: [],
-    //   correctAlt: ['', ''],
-    //   randomOrderAlt: [['', ''], ['', ''], ['', ''], ['', '']],
-    //   buttonStyles: ['default', 'default', 'default', 'default'],
-    //   buttonDisabled: false,
-    //   results: [],
-    //   lessonLength: JSON.parse(sessionStorage.lesson).length,
-    //   resourceRef: ''
-    // };
-
     this.checkAnswer = this.checkAnswer.bind(this);
     this.onKeys = this.onKeys.bind(this);
     this.displayQuestion = this.displayQuestion.bind(this);
-  }
-
-  componentWillMount() {
-    // this.props.resetLesson();
   }
 
   componentDidMount() {
@@ -60,14 +43,6 @@ export class playScreen extends React.Component {
   }
 
   checkAnswer(answer) {
-    // Utility.logEvent(this.props.currentPageName, 'userAnswer', answer, this.props.loggedInUser);
-
-    // if (this.props.processedQuestion.correctAlternative.indexOf(answer) !== -1) {
-    //   this.props.receiveCorrectAttempt();
-    // } else {
-    //   this.props.receiveIncorrectAttempt();
-    // }
-
     this.props.setAllButtonsDisabledState(true);
 
     this.props.addUserAnswer(answer);
@@ -82,7 +57,6 @@ export class playScreen extends React.Component {
     } else {
       setTimeout(
         () => {
-          // this.props.setPageByName('EndScreen');
           this.props.setPageByName(`finish/${this.props.params.type}`);
         }, 1000);
     }
@@ -102,7 +76,9 @@ export class playScreen extends React.Component {
     if (this.props.resourceRef && this.props.resourceRef.type === 'kanjidrawing') {
       resource = <object height="50em" type="image/svg+xml" data={this.props.resourceRef.location}>SVG error</object>;
     }
-    return resource ? <div>{resource}<br />{questionText[this.props.params.type]}</div> : questionText[this.props.params.type];
+    return resource ?
+      <div>{resource}<br />{questionText[this.props.params.type]}</div> :
+    questionText[this.props.params.type];
   }
 
   render() {
@@ -182,5 +158,5 @@ playScreen.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
 
-// Wire up the React component to the Redux store and export it when importing this file
+
 export default Utility.superConnect(this, Reducers)(playScreen);

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Utility from '../../../../../shared/util/Utility';
 import * as Lessons from '../../../../../shared/stores/Lessons';
 
@@ -12,7 +11,9 @@ export class DisplayQuestion extends React.Component {
       guessPlayDisplay = (
         <div>
           <h2>Läsform: {this.props.processedQuestion.actualQuestionShapes[0]}</h2>
-          {this.props.processedQuestion.length > 1 ? <h2>Writing: {this.props.processedQuestion.actualQuestionShapes[1]}</h2> : <div />}
+          {this.props.processedQuestion.length > 1 ?
+            <h2>Writing: {this.props.processedQuestion.actualQuestionShapes[1]}</h2>
+          : <div />}
         </div>);
     } else {
       guessPlayDisplay = <h2>{this.props.processedQuestion.actualQuestionShapes[0]}</h2>;
@@ -51,5 +52,5 @@ DisplayQuestion.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
 
-// Wire up the React component to the Redux store and export it when importing this file
+
 export default Utility.superConnect(this, Reducers)(DisplayQuestion);

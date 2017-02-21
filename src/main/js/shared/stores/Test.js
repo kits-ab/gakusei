@@ -1,10 +1,5 @@
 import 'whatwg-fetch';
-// For temporary page management
 import React from 'react';
-// import { browserHistory } from 'react-router';
-// import { push } from 'react-router-redux';
-
-// import Utility from '../../shared/util/Utility';
 
 // ----------------
 // DEFAULT STATE
@@ -28,7 +23,7 @@ export const INCREASE = 'INCREASE';
 // They do not themselves have any side-effects; they just describe something that is going to happen.
 // Use @typeName and isActionType for type detection that works even after serialization/deserialization.
 export function increase() {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     dispatch({
       type: INCREASE,
       description: 'Set lesson success rate'

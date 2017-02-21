@@ -1,8 +1,4 @@
-// import { combineReducers } from 'redux';
 import 'whatwg-fetch';
-// For temporary page management
-// import React from 'react';
-// import { browserHistory } from 'react-router';
 import { push } from 'react-router-redux';
 import React from 'react';
 
@@ -10,8 +6,6 @@ import Utility from '../../shared/util/Utility';
 
 // ----------------
 // DEFAULT STATE
-//
-
 export const defaultState = {
   successRate: 0,
   lessonSuccessRate: 0,
@@ -61,38 +55,7 @@ export const defaultState = {
 // ----------------
 // PROPTYPES
 export const propTypes = {
-  // username: React.PropTypes.string.isRequired,
-  // switchPage: React.PropTypes.func.isRequired,
-  // pageName: React.PropTypes.string.isRequired,
-  // redux props
-  // successRate: React.PropTypes.number.isRequired,
-  // lessonSuccessRate: React.PropTypes.number.isRequired,
   lessonSuccessRateMessage: React.PropTypes.string.isRequired,
-  // requestingSuccessRate: React.PropTypes.bool.isRequired,
-  // requestSuccessRateStatus: React.PropTypes.string.isRequired,
-  // requestSuccessRateResponse: React.PropTypes.string.isRequired,
-  // requestSuccessRateLastReceived: React.PropTypes.number.isRequired,
-
-  // currentPageName: React.PropTypes.string.isRequired,
-  // currentPage: React.PropTypes.string.isRequired,
-  // pages: React.PropTypes.object.isRequired,
-
-  // gamemode: React.PropTypes.string.isRequired,
-
-  // lessonNames: React.PropTypes.array.isRequired,
-  // fetchURL: React.PropTypes.string.isRequired,
-
-  // selectedLesson: React.PropTypes.string.isRequired,
-
-  // FourAlternativeQuestion.js
-  // questions: React.PropTypes.arrayOf({
-  //   question: React.PropTypes.arrayOf(React.PropTypes.string.isRequired).isRequired,
-  //   alternative1: React.PropTypes.string.isRequired,
-  //   alternative2: React.PropTypes.string.isRequired,
-  //   alternative3: React.PropTypes.string.isRequired,
-  //   correctAlternative: React.PropTypes.string.isRequired
-  // }).isRequired,
-
   processedQuestion: React.PropTypes.shape({
     actualQuestionShapes: React.PropTypes.array.isRequired,
     correctAlternative: React.PropTypes.array.isRequired,
@@ -100,42 +63,11 @@ export const propTypes = {
     buttonStyles: React.PropTypes.array.isRequired,
     buttonDisabled: React.PropTypes.bool.isRequired,
     resourceRef: React.PropTypes.object }).isRequired,
-  // resourceRef: React.PropTypes.string.isRequired,
   allButtonsDisabled: React.PropTypes.bool.isRequired,
-  // userAnswers: React.PropTypes.arrayOf(
-  //   React.PropTypes.string.isRequired, // question
-  //   React.PropTypes.string.isRequired, // correctAlternative
-  //   React.PropTypes.string.isRequired, // answer
-  // ).isRequired,
   lessonLength: React.PropTypes.number.isRequired,
   correctAttempts: React.PropTypes.number.isRequired,
-  // totalAttempts: React.PropTypes.number.isRequired,
   currentQuestionIndex: React.PropTypes.number.isRequired,
-  // loggedInUser: React.PropTypes.string.isRequired,
-  // redux action creators
-  // fetchLoggedInUser: React.PropTypes.func.isRequired,
-  // loggedIn: React.PropTypes.bool.isRequired,
-  // requestUserSuccessRate: React.PropTypes.func.isRequired,
-  // fetchUserSuccessRate: React.PropTypes.func.isRequired,
-  // receiveUserSuccessRate: React.PropTypes.func.isRequired,
-  // receiveCorrectAttempt: React.PropTypes.func.isRequired,
-  // receiveIncorrectAttempt: React.PropTypes.func.isRequired,
-  // calcLessonSuccessRate: React.PropTypes.func.isRequired,
-  // incrementQuestionIndex,
-  // resetQuestionIndex: React.PropTypes.func.isRequired,
-  // fetchLesson: React.PropTypes.func.isRequired,
-  // setSelectedLesson: React.PropTypes.func.isRequired,
-  // setGameMode: React.PropTypes.func.isRequired,
-  // setPageByName: React.PropTypes.func.isRequired,
-  // processCurrentQuestion: React.PropTypes.func.isRequired,
-  // setAllButtonsDisabledState: React.PropTypes.func.isRequired,
-  // addUserAnswer: React.PropTypes.func.isRequired,
-  // clearUserAnswers: React.PropTypes.func.isRequired,
-  // resetAttempts: React.PropTypes.func.isRequired,
   calcAnswerButtonStyles: React.PropTypes.func.isRequired,
-  // resetLesson: React.PropTypes.func.isRequired,
-
-  // pageName: React.PropTypes.string.isRequired,
   questionType: React.PropTypes.string.isRequired,
   answerType: React.PropTypes.string.isRequired
 };
@@ -245,10 +177,7 @@ export function calcAnswerButtonStyles() {
       .processedQuestionsWithAnswers[state.currentQuestionIndex]
       .userAnswer;
 
-    let newButtonStyles = [];
-
-    // TODO: Fix the way this evaluates... ?
-    newButtonStyles = state.processedQuestion.randomizedAlternatives.map(words =>
+    const newButtonStyles = state.processedQuestion.randomizedAlternatives.map(words =>
       words.map((word) => {
         if (state.processedQuestion.correctAlternative.indexOf(word) !== -1) {
           return 'success';
@@ -331,15 +260,8 @@ export function setAllButtonsDisabledState(disabled) {
   };
 }
 
-// To be deprecated
-export function setPageByName(pageName, params = null, _state = null) {
+export function setPageByName(pageName) {
   return function (dispatch) {
-    // dispatch(push({
-    //   pathname: `${pageName}`,
-    //   query: { ...params },
-    //   state: _state
-    // }));
-
     dispatch(push({
       pathname: `${pageName}`
     }));
@@ -369,7 +291,6 @@ export function incrementQuestionIndex() {
 
 export function receiveProcessedQuestion(processedQuestion) {
   return function (dispatch, getState) {
-    const lessonsState = getState().lessons;
     const securityState = getState().security;
 
     dispatch({
@@ -404,11 +325,6 @@ export function processCurrentQuestion() {
     };
 
     dispatch(receiveProcessedQuestion(processedQuestion));
-
-    // Utility.logEvent(this.currentPageName, 'question', this.state.question, this.props.loggedInUser);
-    // for (let i = 0; i < this.state.randomOrderAlt.length; i += 1) {
-    //   Utility.logEvent(this.currentPageName, 'alternative', this.state.randomOrderAlt[i], this.props.loggedInUser);
-    // }
   };
 }
 
@@ -469,16 +385,14 @@ export function resetLesson() {
 }
 
 export function setLessonNames(lessonNames) {
-  return function (dispatch, getState) {
-    const state = getState().lessons;
-
-    const something = dispatch({
+  return function (dispatch) {
+    dispatch({
       type: SET_LESSON_NAMES,
       description: 'Manually set lesson names. Temporary function.',
       lessonNames
     });
 
-    dispatch(setSelectedLesson(something.lessonNames[0]));
+    dispatch(setSelectedLesson(lessonNames[0]));
   };
 }
 
@@ -549,13 +463,9 @@ export function fetchLesson(lessonType) {
       .then(response => response.json())
       .then(
         (json) => {
-          // sessionStorage.lesson = JSON.stringify(json);
           dispatch(resetLesson());
           dispatch(receiveLesson(json));
           dispatch(processCurrentQuestion());
-
-          // TODO: temporaryCallback seems to gain priority over the dispatch calls (#justraceconditionthings)
-          // temporarySwitchpageCallback();
         });
       // .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
   };

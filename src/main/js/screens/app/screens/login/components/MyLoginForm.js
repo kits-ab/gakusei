@@ -1,8 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-// import { LocalForm } from 'react-redux-form';
-// import Formsy from 'formsy-react';
-// import { Input, Form, Button, ControlLabel, FormControl, FormGroup, Control } from 'formsy-react-components';
 import FRC from 'formsy-react-components';
 
 import Utility from '../../../../../shared/util/Utility';
@@ -67,5 +63,5 @@ MyLoginForm.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
 
-// Wire up the React component to the Redux store and export it when importing this file
+
 export default Utility.superConnect(this, Reducers)(MyLoginForm);

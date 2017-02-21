@@ -1,7 +1,6 @@
 /* global sessionStorage*/
 
 import React from 'react';
-import { connect } from 'react-redux';
 import { Button, Grid, Row } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
@@ -17,12 +16,17 @@ export class translateScreen extends React.Component {
     this.displayQuestion = this.displayQuestion.bind(this);
   }
   componentWillMount() {
-    // this.props.resetLesson();
     this.setState({ answer: '' });
   }
 
-  handleChange(event) {
-    this.setState({ answer: event.target.value });
+  getOutput() {
+    if (this.props.currentProcessedQuestionAnswered) {
+      return (<Row>
+        { (this.props.currentProcessedQuestionAnsweredCorrectly ?
+          <h3>Rätt!</h3> : <h3>Fel..</h3>) }
+      </Row>);
+    }
+    return '';
   }
 
   checkAnswer() {
@@ -42,14 +46,8 @@ export class translateScreen extends React.Component {
     }
   }
 
-  getOutput() {
-    if (this.props.currentProcessedQuestionAnswered) {
-      return (<Row>
-        { (this.props.currentProcessedQuestionAnsweredCorrectly ?
-          <h3>Rätt!</h3> : <h3>Fel..</h3>) }
-      </Row>);
-    }
-    return '';
+  handleChange(event) {
+    this.setState({ answer: event.target.value });
   }
 
   displayQuestion() {
@@ -106,5 +104,5 @@ translateScreen.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
 
-// Wire up the React component to the Redux store and export it when importing this file
+
 export default Utility.superConnect(this, Reducers)(translateScreen);

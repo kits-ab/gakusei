@@ -16,8 +16,6 @@ import homeScreen from './screens/app/screens/home';
 import finishScreen from './screens/app/screens/finish';
 import profileScreen from './screens/app/screens/profile';
 import loginScreen from './screens/app/screens/login';
-
-// New
 import playScreen from './screens/app/screens/play';
 import selectScreen from './screens/app/screens/select';
 

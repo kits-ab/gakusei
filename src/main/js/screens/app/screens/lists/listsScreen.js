@@ -45,8 +45,8 @@ export default class listsScreen extends React.Component {
     const fetchUrl = `/api/filter/nuggets?wordType=${this.state.wordType}&factTypes=${this.state.factType1}&factTypes=${this.state.factType2}&factTypes=${this.state.factType3}&factTypes=${this.state.factType4}`;
     fetch(fetchUrl, { credentials: 'same-origin' })
       .then(response => response.json())
-      .then(json => this.setState({ nuggetList: json }))
-      .catch(ex => console.log('json parsing failed', ex));
+      .then(json => this.setState({ nuggetList: json }));
+      // .catch(ex => console.log('json parsing failed', ex));
     event.preventDefault();
   }
   render() {

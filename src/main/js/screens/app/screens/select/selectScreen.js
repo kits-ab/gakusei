@@ -2,9 +2,7 @@
 
 import React from 'react';
 import 'whatwg-fetch';
-import odiff from 'odiff';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import { connect } from 'react-redux';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 
@@ -25,37 +23,17 @@ export class selectScreen extends React.Component {
   }
 
   componentWillMount() {
-    // this.calcLessonNames(this.props.location.query.type);
     this.props.fetchLessonNames(this.props.params.type);
   }
 
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.params.type !== nextProps.params.type) {
-      // this.calcLessonNames(nextProps.params.type);
       this.props.fetchLessonNames(this.props.params.type);
     }
   }
 
-  // calcLessonNames(lessonType) {
-  //   let lessons = [];
-  //   if (lessonType === 'guess' || lessonType === 'translate') {
-  //     lessons = ['JLPT N3', 'JLPT N4', 'JLPT N5', 'GENKI 1', 'GENKI 13', 'GENKI 15'];
-  //   } else if (lessonType === 'quiz') {
-  //     lessons = ['Den japanska floran'];
-  //   }
-  //   this.props.setLessonNames(lessons);
-  // }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const diffs = odiff(this.props, nextProps);
-  //   return true;
-  // }
-
   handleChange(event) {
-    // this.setState({
-    //   [event.target.name]: event.target.value
-    // });
     if (event.target.name === 'questionType') {
       this.props.setQuestionLanguage(event.target.value);
     } else if (event.target.name === 'answerType') {
@@ -121,7 +99,7 @@ export class selectScreen extends React.Component {
                   name="selectedLesson"
                   id="lessonSelection"
                   onChange={this.handleChange}
-                  value={this.props.selectedLesson || ''}
+                  value={this.props.selectedLesson}
                 >
                   {options}
                 </FormControl>
@@ -144,5 +122,5 @@ selectScreen.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
 
-// Wire up the React component to the Redux store and export it when importing this file
+
 export default Utility.superConnect(this, Reducers)(selectScreen);

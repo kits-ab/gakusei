@@ -5,7 +5,7 @@ import getCSRF from './getcsrf';
 export default class Utility {
 
 // ----------------
-// REDUX RELATED - Helps return various redux props
+// REDUX RELATED - Helps return various redux objects
   static generatePropsFromReducer(reducers) {
     let result = {};
     reducers.forEach((reducer) => {
@@ -65,10 +65,14 @@ export default class Utility {
   }
 
   static superConnect(sender, reducerNames) {
-    // Wire up the React component to the Redux store and export it when importing this file
     return connect(
       // Selects which state properties are merged into the component's props
-      state => (Object.assign({}, ...Utility.generateReducerNamesFromReducer(reducerNames).map(reducerStateName => state[reducerStateName]))),
+      state => (
+        Object.assign({},
+          ...Utility.generateReducerNamesFromReducer(reducerNames)
+            .map(reducerStateName => state[reducerStateName])
+        )
+      ),
       // Selects which action creators are merged into the component's props
       (Object.assign({}, ...Utility.generateActionCreatorsFromReducer(reducerNames))),
     );
