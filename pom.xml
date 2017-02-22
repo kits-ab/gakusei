@@ -95,15 +95,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.liquibase</groupId>-->
-                <!--<artifactId>liquibase-maven-plugin</artifactId>-->
-                <!--<version>3.4.1</version>-->
-                <!--<configuration>-->
-                    <!--<propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>-->
-                    <!--<changeLogFile>db/changelog/db.changelog-master.xml</changeLogFile>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 
