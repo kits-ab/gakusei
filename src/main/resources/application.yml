@@ -7,7 +7,7 @@ spring:
 gakusei:
   data-init: false
   event-logging: true
-  questions-quantity: 3
+  questions-quantity: 50
 
 ---
 
