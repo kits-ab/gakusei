@@ -26,8 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(this.userDetailsService)
-            .passwordEncoder(passwordEncoder());
+                .userDetailsService(this.userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -45,17 +45,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("/")
                     .loginProcessingUrl("/auth")
-                    .defaultSuccessUrl("/", true)
+                    .failureHandler(new CustomAuthenticationFailureHandler())
+                    .successHandler(new CustomAuthenticationSuccessHandler())
                     .permitAll()
                     .and()
                 .httpBasic()
-                    .and()
+                .and()
                 .headers()
-                    .frameOptions().sameOrigin()
-                    .and()
+                .frameOptions().sameOrigin()
+                .and()
                 .csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                    .and()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
                 .logout()
                     .logoutSuccessUrl("/");
     }
