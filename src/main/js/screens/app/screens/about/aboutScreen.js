@@ -180,7 +180,6 @@ export default class aboutScreen extends React.Component {
       .then(str => (new window.DOMParser()).parseFromString(str, 'text/xml'))
       .then(xmlobj => new XMLSerializer().serializeToString(xmlobj))
       .then(xmldoc => this.createBackendLicenses(xmldoc));
-      // .catch(ex => console.log('Fel vid hämtning av backend-licenser', ex));
   }
   render() {
     return (

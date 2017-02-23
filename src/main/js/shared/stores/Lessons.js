@@ -441,7 +441,6 @@ export function fetchLessonNames(type) {
     fetch(`/api/lessonNames?lessonType=${lessonType}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(result => dispatch(setLessonNames(result)));
-      // .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
   };
 }
 
@@ -467,7 +466,6 @@ export function fetchLesson(lessonType) {
           dispatch(receiveLesson(json));
           dispatch(processCurrentQuestion());
         });
-      // .catch(ex => console.log('Fel vid hämtning av spelomgång', ex));
   };
 }
 
@@ -478,7 +476,6 @@ export function fetchUserSuccessRate(username) {
     fetch(`api/statistics/${username}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(data => dispatch(receiveUserSuccessRate(data, 'success', data)));
-      // .catch(ex => dispatch(receiveUserSuccessRate(0, 'error', ex)));
   };
 }
 

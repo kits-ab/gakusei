@@ -44,7 +44,6 @@ export default class listsScreen extends React.Component {
     fetch(fetchUrl, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(json => this.setState({ nuggetList: json }));
-      // .catch(ex => console.log('json parsing failed', ex));
     event.preventDefault();
   }
   render() {
