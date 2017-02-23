@@ -1,4 +1,4 @@
-/* global fetch window XMLSerializer*/
+
 
 import React from 'react';
 import 'whatwg-fetch';

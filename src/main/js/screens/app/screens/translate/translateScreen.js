@@ -1,4 +1,4 @@
-/* global sessionStorage*/
+
 
 import React from 'react';
 import { Button, Grid, Row } from 'react-bootstrap';

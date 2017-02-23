@@ -1,4 +1,4 @@
-/* global document fetch */
+
 
 import React from 'react';
 import 'whatwg-fetch';

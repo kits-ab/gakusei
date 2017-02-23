@@ -1,5 +1,3 @@
-/* global fetch window sessionStorage */
-
 import React from 'react';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './components/AnswerButton';

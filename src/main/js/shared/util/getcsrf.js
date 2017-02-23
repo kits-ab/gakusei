@@ -1,4 +1,4 @@
-/* global document */
+
 
 export default function getCSRF() {
   const cookies = document.cookie.split('; ');

@@ -1,4 +1,4 @@
-/* global fetch*/
+
 
 import React from 'react';
 import 'whatwg-fetch';
@@ -19,7 +19,6 @@ export class appScreen extends React.Component {
     return (
       <div>
         <GakuseiNav />
-        {/* <Link to="landing">test</Link>*/}
         { this.props.children }
       </div>
     );

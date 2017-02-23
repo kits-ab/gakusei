@@ -216,6 +216,7 @@
   "globals": {
     "document": true,
     "window": true,
-    "fetch": true
+    "fetch": true,
+    "XMLSerializer": true
   }
 }
