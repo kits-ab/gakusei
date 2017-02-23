@@ -29,17 +29,17 @@ const history = syncHistoryWithStore(browserHistory, store);
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route name="Gakusei" path="/" component={appScreen}>
+      <Route path="/" component={appScreen}>
         <IndexRedirect to="home" />
-        <Route path="/login" component={loginScreen} />
-        <Route path="/home" component={homeScreen} />
-        <Route path="/play/:type" component={playScreen} />
-        <Route path="/select/:type" component={selectScreen} />
-        <Route path="/translate" component={translateScreen} />
-        <Route path="/lists" component={listsScreen} />
-        <Route path="/finish/:type" component={finishScreen} />
-        <Route path="/profile" component={profileScreen} />
-        <Route path="/about" component={aboutScreen} />
+        <Route path="login" component={loginScreen} />
+        <Route path="home" component={homeScreen} />
+        <Route path="play/:type" component={playScreen} />
+        <Route path="select/:type" component={selectScreen} />
+        <Route path="translate" component={translateScreen} />
+        <Route path="lists" component={listsScreen} />
+        <Route path="finish/:type" component={finishScreen} />
+        <Route path="profile" component={profileScreen} />
+        <Route path="about" component={aboutScreen} />
       </Route>
     </Router>
   </Provider>,

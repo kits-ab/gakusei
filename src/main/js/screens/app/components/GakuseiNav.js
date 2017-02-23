@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Link } from 'react-router';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
+import { Link, withRouter } from 'react-router';
 
 import Utility from '../../../shared/util/Utility';
 import * as Security from '../../../shared/stores/Security';
@@ -25,26 +25,37 @@ export class GakuseiNav extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav>
-            <NavDropdown title="Spela" id="basic-nav-dropdown">
-              <LinkContainer to="/select/guess">
-                <MenuItem>Gissa ordet</MenuItem>
-              </LinkContainer>
-              <LinkContainer to="/select/translate">
-                <MenuItem>Översätt ordet</MenuItem>
-              </LinkContainer>
+          {this.props.loggedIn ?
+            <Nav>
+              <NavDropdown title="Glosor" id="basic-nav-dropdown">
+                <LinkContainer to="/select/guess">
+                  <MenuItem>Gissa ordet</MenuItem>
+                </LinkContainer>
+                <LinkContainer to="/select/translate">
+                  <MenuItem>Översätt ordet</MenuItem>
+                </LinkContainer>
+              </NavDropdown>
+              <IndexLinkContainer to="/select/grammar">
+                <NavItem >Grammatik</NavItem>
+              </IndexLinkContainer>
               <LinkContainer to="/select/quiz">
-                <MenuItem>Quiz</MenuItem>
+                <NavItem>Quiz</NavItem>
               </LinkContainer>
-            </NavDropdown>
-            <LinkContainer to="/lists">
-              <NavItem>Lista ord</NavItem>
-            </LinkContainer>
-            <LinkContainer to="/about">
-              <NavItem>Om Gakusei</NavItem>
-            </LinkContainer>
-          </Nav>
-          {this.props.loggedIn === true ?
+              <LinkContainer to="/lists">
+                <NavItem>Lista ord</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/about">
+                <NavItem>Om Gakusei</NavItem>
+              </LinkContainer>
+            </Nav>
+          :
+            <Nav>
+              <LinkContainer to="/about">
+                <NavItem>Om Gakusei</NavItem>
+              </LinkContainer>
+            </Nav>
+          }
+          {this.props.loggedIn ?
             <Nav pullRight>
               <LinkContainer to="/profile">
                 <NavItem>Inloggad som: {this.props.loggedInUser}</NavItem>
@@ -75,5 +86,4 @@ GakuseiNav.defaultProps = Utility.reduxEnabledDefaultProps({
 GakuseiNav.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
-
-export default Utility.superConnect(this, Reducers)(GakuseiNav);
+export default Utility.superConnect(this, Reducers)(withRouter(GakuseiNav));
