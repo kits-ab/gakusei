@@ -74,7 +74,7 @@ export const propTypes = {
 
 // -----------------
 // ACTION CONSTANTS - Just used to differentiate the "actions"
-export const RECEIVE_USER_SUCCESS_RATE = 'RECEIVED_USER_SUCCESS_RATE';
+export const RECEIVE_USER_SUCCESS_RATE = 'RECEIVE_USER_SUCCESS_RATE';
 export const REQUEST_USER_SUCCESS_RATE = 'REQUEST_USER_SUCCESS_RATE';
 export const SET_LESSON_SUCCESS_RATE_MESSAGE = 'SET_LESSON_SUCCESS_RATE_MESSAGE';
 export const SET_LESSON_SUCCESS_RATE = 'SET_LESSON_SUCCESS_RATE';
@@ -631,6 +631,20 @@ export const lessons = (state, action) => {
       return {
         ...state,
         answerType: action.language
+      };
+    case RECEIVE_USER_SUCCESS_RATE:
+      return {
+        ...state,
+        successRate: action.successRate,
+        requestingSuccessRate: false,
+        requestSuccessRateStatus: action.status,
+        requestSuccessRateResponse: action.response,
+        requestSuccessRateLastReceived: action.lastReceived
+      };
+    case REQUEST_USER_SUCCESS_RATE:
+      return {
+        ...state,
+        requestingSuccessRate: true
       };
   }
 };
