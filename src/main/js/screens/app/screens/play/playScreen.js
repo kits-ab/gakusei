@@ -34,8 +34,6 @@ export class playScreen extends React.Component {
         this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[2][0]);
       } else if (keyDown === '4') {
         this.checkAnswer(this.props.processedQuestion.randomizedAlternatives[3][0]);
-      } else if (keyDown === '0') {
-        this.checkAnswer(this.props.processedQuestion.correctAlternative[0]);
       }
     }
   }
