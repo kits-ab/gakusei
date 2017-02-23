@@ -9,10 +9,6 @@
 .answerbutton{
     height: 5em;
 }
-/*.nav li[role='presentation'][class='active'] {
-    if we don't like the dark backgrounds on active navbar buttons ...
-}*/
-
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select,
