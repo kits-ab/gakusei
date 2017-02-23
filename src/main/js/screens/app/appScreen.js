@@ -1,8 +1,4 @@
-
-
 import React from 'react';
-import 'whatwg-fetch';
-
 import GakuseiNav from './components/GakuseiNav';
 
 import Utility from '../../shared/util/Utility';

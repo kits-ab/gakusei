@@ -1,7 +1,4 @@
-
-
 import React from 'react';
-import 'whatwg-fetch';
 import { Col, Grid, Row } from 'react-bootstrap';
 import MyLoginForm from './components/MyLoginForm';
 import MyRegistrationForm from './components/MyRegistrationForm';

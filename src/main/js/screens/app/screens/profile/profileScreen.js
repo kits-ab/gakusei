@@ -1,8 +1,5 @@
-
-
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
-import 'whatwg-fetch';
 
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';

@@ -1,7 +1,4 @@
-
-
 import React from 'react';
-import 'whatwg-fetch';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';

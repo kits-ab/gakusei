@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { Button, Grid, Row } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
