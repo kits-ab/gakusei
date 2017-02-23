@@ -475,7 +475,7 @@ export function fetchUserSuccessRate(username) {
   return function (dispatch) {
     dispatch(requestUserSuccessRate());
 
-    return fetch(`api/statistics/${username}`, { credentials: 'same-origin' })
+    fetch(`api/statistics/${username}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(data => dispatch(receiveUserSuccessRate(data, 'success', data)));
       // .catch(ex => dispatch(receiveUserSuccessRate(0, 'error', ex)));

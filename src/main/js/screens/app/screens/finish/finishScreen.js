@@ -2,8 +2,9 @@ import React from 'react';
 import { Button, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
+import * as Security from '../../../../shared/stores/Security';
 
-export const Reducers = [Lessons];
+export const Reducers = [Lessons, Security];
 
 export class finishScreen extends React.Component {
   constructor(props) {
@@ -18,11 +19,14 @@ export class finishScreen extends React.Component {
   }
 
   logEvents() {
-    for (let i = 0; i < this.props.processedQuestionsWithAnswers.length; i += 1) {
-      Utility.logEvent('finish', 'correctAnswer', this.props.processedQuestionsWithAnswers[i].correctAlternative, this.props.username);
-      Utility.logEvent('finish', 'correctAnswer', this.props.processedQuestionsWithAnswers[i][1], this.props.username);
-      Utility.logEvent('finish', 'userAnswer', this.props.processedQuestionsWithAnswers[i][2], this.props.username);
-    }
+    this.props.processedQuestionsWithAnswers.forEach((processedQuestionWithAnswer) => {
+      // Send in the correct answers
+      processedQuestionWithAnswer.correctAlternative.forEach(correctAlt =>
+      Utility.logEvent('finish', 'correctAnswer', correctAlt, this.props.loggedInUser));
+
+      // Send in the user answer
+      Utility.logEvent('finish', 'userAnswer', processedQuestionWithAnswer.userAnswer, this.props.loggedInUser);
+    });
   }
 
   backtoSelection() {
