@@ -32,9 +32,19 @@ public class QuestionController {
     protected ResponseEntity<List<HashMap<String, Object>>> getQuestionsFromLesson(
             @RequestParam(value = "lessonName") String lessonName,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
-            @RequestParam(name = "answerType", defaultValue = "swedish") String answerType) {
+            @RequestParam(name = "answerType", defaultValue = "swedish") String answerType,
+            @RequestParam(name = "username") String username) {
 
-        List<Nugget> nuggets = lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType, answerType);
+        List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName,
+                questionType, answerType);
+        List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName, questionType,
+                answerType);
+        List<Nugget> allLessonNuggets = lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType,
+                answerType);
+
+        List<Nugget> nuggets = questionHandler.chooseNuggetsByProgress(nuggetsWithLowSuccessrate, unansweredNuggets,
+                allLessonNuggets, quantity);
+
         List<HashMap<String, Object>> questions = questionHandler.createQuestions(nuggets, quantity, questionType,
                 answerType);
 
