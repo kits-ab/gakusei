@@ -1,5 +1,4 @@
 import 'whatwg-fetch';
-import { push } from 'react-router-redux';
 import React from 'react';
 
 import Utility from '../../shared/util/Utility';
@@ -14,13 +13,6 @@ export const defaultState = {
   requestSuccessRateStatus: null,
   requestSuccessRateResponse: null,
   requestSuccessRateLastReceived: null,
-  // App.js
-  currentPageName: null,
-  currentPage: null,
-  switchPageRef: null,
-
-  // GakuseiNav.js
-  gamemode: null,
 
   // LessonSelection.js
   lessonNames: [],
@@ -87,7 +79,6 @@ export const RECEIVE_LESSON = 'RECEIVE_LESSON';
 export const RECEIVE_PROCESSED_QUESTION = 'RECEIVE_NEXT_PROCESSED_QUESTION';
 export const SET_SELECTED_LESSON = 'SET_SELECTED_LESSON';
 export const SET_GAMEMODE = 'SET_GAMEMODE';
-export const SET_PAGE = 'SET_PAGE';
 export const SET_ALL_BUTTONS_DISABLED_STATE = 'SET_ALL_BUTTONS_DISABLED_STATE';
 export const ADD_USER_ANSWER = 'ADD_USER_ANSWER';
 export const CLEAR_USER_ANSWERS = 'CLEAR_USER_ANSWERS';
@@ -257,20 +248,6 @@ export function setAllButtonsDisabledState(disabled) {
     type: SET_ALL_BUTTONS_DISABLED_STATE,
     description: 'Enables or disables all quiz buttons',
     allButtonsDisabled: disabled
-  };
-}
-
-export function setPageByName(pageName) {
-  return function (dispatch) {
-    dispatch(push({
-      pathname: `${pageName}`
-    }));
-
-    dispatch({
-      type: SET_PAGE,
-      description: 'Set name of current page, for supporting deprecated functions',
-      currentPageName: pageName
-    });
   };
 }
 
@@ -492,7 +469,6 @@ export const actionCreators = {
   fetchLessonNames,
   setSelectedLesson,
   setGameMode,
-  setPageByName,
   processCurrentQuestion,
   setAllButtonsDisabledState,
   addUserAnswer,
@@ -533,11 +509,6 @@ export const lessons = (state, action) => {
       return {
         ...state,
         processedQuestion: { ...state.processedQuestion, buttonStyles: action.buttonStyles }
-      };
-    case SET_PAGE:
-      return {
-        ...state,
-        currentPageName: action.currentPageName
       };
     case ADD_USER_ANSWER:
       return {
