@@ -40,7 +40,7 @@ ReactDOM.render(
         <Route path="lists" component={requireAuthentication(listsScreen)} />
         <Route path="finish/:type" component={requireAuthentication(finishScreen)} />
         <Route path="profile" component={requireAuthentication(profileScreen)} />
-        <Route path="about" component={requireAuthentication(aboutScreen)} />
+        <Route path="about" component={aboutScreen} />
       </Route>
     </Router>
   </Provider>,
