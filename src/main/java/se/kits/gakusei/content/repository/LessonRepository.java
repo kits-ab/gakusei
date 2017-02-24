@@ -17,6 +17,19 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
             @Param("factType1") String questionType,
             @Param("factType2") String answerType);
 
+    List<Nugget> findNuggetsBySuccessrate(
+            @Param("username") String username,
+            @Param("lessonName") String lessonName,
+            @Param("factType1") String questionType,
+            @Param("factType2") String answerType);
+
+
+    List<Nugget> findUnansweredNuggets(
+            @Param("username") String username,
+            @Param("lessonName") String lessonName,
+            @Param("factType1") String questionType,
+            @Param("factType2") String answerType);
+
     @Query("select l.name from Lesson l where not l.description = 'quiz'")
     List<String> findVocabularyLessonNames();
 

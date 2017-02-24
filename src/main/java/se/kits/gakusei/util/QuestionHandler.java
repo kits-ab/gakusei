@@ -90,6 +90,31 @@ public class QuestionHandler {
         return questionDTO;
     }
 
+    public List<Nugget> chooseNuggetsByProgress(List<Nugget> nuggetsWithLowSuccessrate,
+                                                List<Nugget> unansweredNuggets,
+                                                List<Nugget> allLessonNuggets,
+                                                int quantity) {
+        List<Nugget> hiddenNuggets = allLessonNuggets.stream().filter(n -> n.isHidden()).collect(Collectors.toList());
+        if (allLessonNuggets.size() <= quantity) {
+            return allLessonNuggets;
+        } else {
+            List<Nugget> duplicatedNuggets = new ArrayList<>();
+            duplicatedNuggets.addAll(nuggetsWithLowSuccessrate);
+            duplicatedNuggets.addAll(unansweredNuggets);
+            duplicatedNuggets.addAll(allLessonNuggets);
+            Collections.shuffle(duplicatedNuggets);
+
+            List<Nugget> nuggets = new ArrayList<>();
+            while (nuggets.size() <= quantity && duplicatedNuggets.size() != 0) {
+                Nugget nugget = duplicatedNuggets.remove(0);
+                if (!nuggets.contains(nugget) && !hiddenNuggets.contains(nugget)) {
+                    nuggets.add(nugget);
+                }
+            }
+            return nuggets;
+        }
+    }
+
     private List<String> createAlternative(Nugget nugget, String type) {
         List<String> alternative = new ArrayList<>();
         alternative.add(nugget.getFacts().stream().filter(f -> f.getType().equals(type)).findFirst().get().getData());
