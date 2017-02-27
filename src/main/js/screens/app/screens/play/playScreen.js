@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './components/AnswerButton';
-import DisplayQuestion from './components/DisplayQuestion';
+import DisplayQuestion from '../../shared/DisplayQuestion';
 
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
