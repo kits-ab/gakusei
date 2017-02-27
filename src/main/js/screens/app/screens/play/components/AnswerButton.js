@@ -11,22 +11,22 @@ export default class AnswerButton extends React.Component {
     };
   }
 
-  getAnswerText() {
-    let text = this.props.primaryText || '';
-
+  getPrimaryText() {
     if (this.props.answerType === 'swedish') {
-      text = this.hyphenateSwedish(this.props.primaryText);
+      return this.hyphenateSwedish(this.props.primaryText);
     }
 
-    if (this.props.secondaryText) {
+    return this.props.primaryText || null;
+  }
+
+  getSecondaryText() {
+    if (this.props.secondaryText && this.props.secondaryText !== this.props.primaryText) {
       if (this.props.japaneseCharacters) {
-        text += ` 「${this.props.secondaryText}」`;
-      } else {
-        text += ` (${this.props.secondaryText})`;
+        return `「${this.props.secondaryText}」`;
       }
+      return `(${this.props.secondaryText})`;
     }
-
-    return text;
+    return null;
   }
 
   hyphenateSwedish(text) {
@@ -42,7 +42,6 @@ export default class AnswerButton extends React.Component {
     return text;
   }
 
-
   render() {
     return (
       <Button
@@ -50,9 +49,11 @@ export default class AnswerButton extends React.Component {
         bsSize="large" block
         onClick={this.state.answerClickFunc}
         disabled={this.props.disableButton}
-        className="btn answerbutton"
+        className="btn answerbutton btn-no-hover"
       >
-        {this.getAnswerText()}
+        {this.getPrimaryText()}
+        <br />
+        {this.getSecondaryText()}
       </Button>
     );
   }
