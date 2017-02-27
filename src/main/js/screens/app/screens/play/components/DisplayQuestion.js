@@ -1,59 +1,55 @@
 import React from 'react';
-import Utility from '../../../../../shared/util/Utility';
-import * as Lessons from '../../../../../shared/stores/Lessons';
-
-export const Reducers = [Lessons];
 
 export class DisplayQuestion extends React.Component {
-  getQuestionText(type) {
-    let guessPlayDisplay;
-    if (this.props.questionType === 'reading') {
-      guessPlayDisplay = (
-        <div>
-          <h2>Läsform: {this.props.processedQuestion.actualQuestionShapes[0]}</h2>
-          {this.props.processedQuestion.length > 1 ?
-            <h2>Writing: {this.props.processedQuestion.actualQuestionShapes[1]}</h2>
-          : <div />}
-        </div>);
-    } else {
-      guessPlayDisplay = <h2>{this.props.processedQuestion.actualQuestionShapes[0]}</h2>;
-    }
-    const questionText = {
-      guess: guessPlayDisplay,
-      quiz: <h2>{this.props.processedQuestion.actualQuestionShapes[0]}</h2>
-    };
+  getQuestionText() {
+    let text = this.props.primaryText || '';
 
-    return questionText[type];
+    if (this.props.secondaryText) {
+      if (this.props.japaneseCharacters) {
+        text += ` 「${this.props.secondaryText}」`;
+      } else {
+        text += ` (${this.props.secondaryText})`;
+      }
+    }
+
+    return text;
   }
 
   getResource() {
-    let resource;
-    if (this.props.processedQuestion.resourceRef && this.props.processedQuestion.resourceRef.type === 'kanjidrawing') {
-      resource = (<object
-        height="50em" type="image/svg+xml"
-        data={this.props.processedQuestion.resourceRef.location}
-      >SVG error</object>);
+    if (this.props.resourceRef && this.props.resourceRef.type === 'kanjidrawing') {
+      return (<object
+        fillOpacity="0.0"
+        width="12%"
+        height="12%"
+        viewBox="-7 -85 534 540"
+        type="image/svg+xml"
+        data={this.props.resourceRef.location}
+      >(SVG fel)</object>);
     }
-    return resource;
+    return (<svg xmlns="http://www.w3.org/2000/svg" fillOpacity="0.0" width="12%" height="12%" viewBox="-7 -85 534 540" />);
   }
 
   render() {
-    const resource = this.getResource();
     return (
-    resource ?
-      <div>{resource}<br />{this.getQuestionText(this.props.type)}</div>
-    : this.getQuestionText(this.props.type)
+      <div>
+        <div>{this.getResource()}</div>
+        <div>
+          <p className="questionText">{this.getQuestionText()}</p>
+        </div>
+      </div>
     );
   }
 }
 
-DisplayQuestion.defaultProps = Utility.reduxEnabledDefaultProps({
+DisplayQuestion.defaultProps = {
+  resourceRef: null
+};
 
-}, Reducers);
+DisplayQuestion.propTypes = {
+  primaryText: React.PropTypes.string.isRequired,
+  secondaryText: React.PropTypes.string.isRequired,
+  japaneseCharacters: React.PropTypes.bool.isRequired,
+  resourceRef: React.PropTypes.string
+};
 
-DisplayQuestion.propTypes = Utility.reduxEnabledPropTypes({
-
-}, Reducers);
-
-
-export default Utility.superConnect(this, Reducers)(DisplayQuestion);
+export default DisplayQuestion;

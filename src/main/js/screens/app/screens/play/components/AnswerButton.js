@@ -3,49 +3,71 @@ import { Button } from 'react-bootstrap';
 import Hypher from 'hypher';
 import swedish from 'hyphenation.sv';
 
-function hyphenateSwedish(text) {
-  // Threshold to avoid unnecessary hyphenation
-  const hyphenateThreshold = 10;
-  const words = text.split(' ');
-  for (let i = 0; i < words.length; i += 1) {
-    if (words[i].length > hyphenateThreshold) {
-      const h = new Hypher(swedish);
-      return h.hyphenateText(text);
-    }
+export default class AnswerButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      answerClickFunc: this.props.onAnswerClick.bind(this, this.props.primaryText)
+    };
   }
-  return text;
+
+  getAnswerText() {
+    let text = this.props.primaryText || '';
+
+    if (this.props.answerType === 'swedish') {
+      text = this.hyphenateSwedish(this.props.primaryText);
+    }
+
+    if (this.props.secondaryText) {
+      if (this.props.japaneseCharacters) {
+        text += ` 「${this.props.secondaryText}」`;
+      } else {
+        text += ` (${this.props.secondaryText})`;
+      }
+    }
+
+    return text;
+  }
+
+  hyphenateSwedish(text) {
+  // Threshold to avoid unnecessary hyphenation
+    const hyphenateThreshold = 10;
+    const words = text.split(' ');
+    for (let i = 0; i < words.length; i += 1) {
+      if (words[i].length > hyphenateThreshold) {
+        const h = new Hypher(swedish);
+        return h.hyphenateText(text);
+      }
+    }
+    return text;
+  }
+
+
+  render() {
+    return (
+      <Button
+        bsStyle={this.props.buttonStyle}
+        bsSize="large" block
+        onClick={this.state.answerClickFunc}
+        disabled={this.props.disableButton}
+        className="btn answerbutton"
+      >
+        {this.getAnswerText()}
+      </Button>
+    );
+  }
 }
 
-const AnswerButton = (props) => {
-  let reading;
-  let writing = '';
-  if (props.answerType === 'swedish') {
-    reading = hyphenateSwedish(props.label[0]);
-  } else {
-    writing = props.label[1] !== '' ? 'Writing: '.concat(props.label[1]) : '';
-    reading = ('Reading: '.concat(props.label[0]));
-  }
-  const answerClickFunc = props.onAnswerClick.bind(this, props.label[0]);
-
-  return (
-    <Button
-      bsStyle={props.buttonStyle}
-      bsSize="large" block
-      onClick={answerClickFunc}
-      disabled={props.disableButton}
-      className="btn answerbutton"
-    >
-      {reading}<br />{writing}
-    </Button>
-  );
+AnswerButton.defaultProps = {
+  secondaryText: null
 };
 
 AnswerButton.propTypes = {
-  label: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  primaryText: React.PropTypes.string.isRequired,
+  secondaryText: React.PropTypes.string,
   buttonStyle: React.PropTypes.string.isRequired,
   onAnswerClick: React.PropTypes.func.isRequired,
   disableButton: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired
+  answerType: React.PropTypes.string.isRequired,
+  japaneseCharacters: React.PropTypes.bool.isRequired
 };
-
-export default AnswerButton;

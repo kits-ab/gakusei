@@ -15,7 +15,6 @@ export class playScreen extends React.Component {
 
     this.checkAnswer = this.checkAnswer.bind(this);
     this.onKeys = this.onKeys.bind(this);
-    this.displayQuestion = this.displayQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -59,36 +58,23 @@ export class playScreen extends React.Component {
     }
   }
 
-  displayQuestion() {
-    const questionText = {
-      guess: (
-        <div>
-          <h2>Läsform: {this.props.processedQuestion.actualQuestionShapes[0]}</h2>
-          {(this.props.processedQuestion.length > 1) ? <h2>Skrivform: {this.props.processedQuestion.actualQuestionShapes[1]} </h2> : ' '}
-        </div>
-      ),
-      quiz: <h2>{this.props.processedQuestion.actualQuestionShapes[0]}</h2>
-    };
-    let resource;
-    if (this.props.resourceRef && this.props.resourceRef.type === 'kanjidrawing') {
-      resource = <object height="50em" type="image/svg+xml" data={this.props.resourceRef.location}>SVG error</object>;
-    }
-    return resource ?
-      <div>{resource}<br />{questionText[this.props.params.type]}</div> :
-    questionText[this.props.params.type];
-  }
-
   render() {
     return (
       <div>
         <Grid className="text-center">
-          <DisplayQuestion type={this.props.params.type} />
-          <br />
+          <DisplayQuestion
+            primaryText={this.props.processedQuestion.actualQuestionShapes[0]}
+            secondaryText={this.props.processedQuestion.actualQuestionShapes[1] || null}
+            resourceRef={this.props.processedQuestion.resourceRef}
+            japaneseCharacters={this.props.questionType === 'reading'}
+          />
           <Row>
             <ButtonToolbar>
               <Col xs={6} sm={4} smOffset={2} md={3} mdOffset={3}>
                 <AnswerButton
-                  label={this.props.processedQuestion.randomizedAlternatives[0]}
+                  primaryText={this.props.processedQuestion.randomizedAlternatives[0][0]}
+                  secondaryText={this.props.processedQuestion.randomizedAlternatives[0][1] || null}
+                  japaneseCharacters={this.props.questionType === 'reading'}
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.props.processedQuestion.buttonStyles[0]}
                   disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
@@ -97,7 +83,9 @@ export class playScreen extends React.Component {
               </Col>
               <Col xs={6} sm={4} md={3}>
                 <AnswerButton
-                  label={this.props.processedQuestion.randomizedAlternatives[1]}
+                  primaryText={this.props.processedQuestion.randomizedAlternatives[1][0]}
+                  secondaryText={this.props.processedQuestion.randomizedAlternatives[1][1] || null}
+                  japaneseCharacters={this.props.questionType === 'reading'}
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.props.processedQuestion.buttonStyles[1]}
                   disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
@@ -111,7 +99,9 @@ export class playScreen extends React.Component {
             <ButtonToolbar>
               <Col xs={6} sm={4} smOffset={2} md={3} mdOffset={3}>
                 <AnswerButton
-                  label={this.props.processedQuestion.randomizedAlternatives[2]}
+                  primaryText={this.props.processedQuestion.randomizedAlternatives[2][0]}
+                  secondaryText={this.props.processedQuestion.randomizedAlternatives[2][1] || null}
+                  japaneseCharacters={this.props.questionType === 'reading'}
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.props.processedQuestion.buttonStyles[2]}
                   disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
@@ -120,7 +110,9 @@ export class playScreen extends React.Component {
               </Col>
               <Col xs={6} sm={4} md={3}>
                 <AnswerButton
-                  label={this.props.processedQuestion.randomizedAlternatives[3]}
+                  primaryText={this.props.processedQuestion.randomizedAlternatives[3][0]}
+                  secondaryText={this.props.processedQuestion.randomizedAlternatives[3][1] || null}
+                  japaneseCharacters={this.props.questionType === 'reading'}
                   onAnswerClick={this.checkAnswer}
                   buttonStyle={this.props.processedQuestion.buttonStyles[3]}
                   disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
