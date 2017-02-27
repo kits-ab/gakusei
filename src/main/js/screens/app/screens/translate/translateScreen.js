@@ -36,12 +36,12 @@ export class translateScreen extends React.Component {
         this.setState({ answer: '' });
         this.props.incrementQuestionIndex();
         this.props.processCurrentQuestion();
-      }, 1000);
+      }, 1500);
     } else {
       setTimeout(
         () => {
           this.props.setPageByName(`finish/${this.props.params.type}`);
-        }, 1000);
+        }, 1500);
     }
   }
 
