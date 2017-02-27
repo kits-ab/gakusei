@@ -176,7 +176,7 @@ export function calcAnswerButtonStyles() {
           return 'danger';
         }
         return 'default';
-      }).pop()
+      }).filter(val => val !== 'default').pop() || 'default'
     );
 
     dispatch({

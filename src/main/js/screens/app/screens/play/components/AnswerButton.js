@@ -3,17 +3,31 @@ import { Button } from 'react-bootstrap';
 import Hypher from 'hypher';
 import swedish from 'hyphenation.sv';
 
+function hyphenateSwedish(text) {
+  // Threshold to avoid unnecessary hyphenation
+  const hyphenateThreshold = 10;
+  const words = text.split(' ');
+  for (let i = 0; i < words.length; i += 1) {
+    if (words[i].length > hyphenateThreshold) {
+      const h = new Hypher(swedish);
+      return h.hyphenateText(text);
+    }
+  }
+  return text;
+}
+
 export default class AnswerButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      answerClickFunc: this.props.onAnswerClick.bind(this, this.props.primaryText)
-    };
+  componentWillMount() {
+    this.updateAnswerText(this.props.primaryText);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updateAnswerText(nextProps.primaryText);
   }
 
   getPrimaryText() {
     if (this.props.answerType === 'swedish') {
-      return this.hyphenateSwedish(this.props.primaryText);
+      return hyphenateSwedish(this.props.primaryText);
     }
 
     return this.props.primaryText || null;
@@ -29,17 +43,10 @@ export default class AnswerButton extends React.Component {
     return null;
   }
 
-  hyphenateSwedish(text) {
-  // Threshold to avoid unnecessary hyphenation
-    const hyphenateThreshold = 10;
-    const words = text.split(' ');
-    for (let i = 0; i < words.length; i += 1) {
-      if (words[i].length > hyphenateThreshold) {
-        const h = new Hypher(swedish);
-        return h.hyphenateText(text);
-      }
-    }
-    return text;
+  updateAnswerText(text) {
+    this.state = {
+      answerClickFunc: this.props.onAnswerClick.bind(this, text)
+    };
   }
 
   render() {

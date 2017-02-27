@@ -2,9 +2,9 @@ import React from 'react';
 
 export class DisplayQuestion extends React.Component {
   getQuestionText() {
-    let text = this.props.primaryText || '';
+    let text = this.props.primaryText || null;
 
-    if (this.props.secondaryText) {
+    if (this.props.secondaryText && this.props.secondaryText !== this.props.primaryText) {
       if (this.props.japaneseCharacters) {
         text += ` 「${this.props.secondaryText}」`;
       } else {
@@ -42,12 +42,13 @@ export class DisplayQuestion extends React.Component {
 }
 
 DisplayQuestion.defaultProps = {
-  resourceRef: null
+  resourceRef: null,
+  secondaryText: null
 };
 
 DisplayQuestion.propTypes = {
   primaryText: React.PropTypes.string.isRequired,
-  secondaryText: React.PropTypes.string.isRequired,
+  secondaryText: React.PropTypes.string,
   japaneseCharacters: React.PropTypes.bool.isRequired,
   resourceRef: React.PropTypes.string
 };
