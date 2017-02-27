@@ -37,7 +37,7 @@ ReactDOM.render(
         <Route path="play/:type" component={requireAuthentication(playScreen)} />
         <Route path="select/:type" component={requireAuthentication(selectScreen)} />
         <Route path="translate" component={requireAuthentication(translateScreen)} />
-        <Route path="lists" component={requireAuthentication(listsScreen)} />
+        {/* <Route path="lists" component={requireAuthentication(listsScreen)} />*/}
         <Route path="finish/:type" component={requireAuthentication(finishScreen)} />
         <Route path="profile" component={requireAuthentication(profileScreen)} />
         <Route path="about" component={aboutScreen} />

@@ -41,9 +41,9 @@ export class GakuseiNav extends React.Component {
               <LinkContainer to="/select/quiz">
                 <NavItem>Quiz</NavItem>
               </LinkContainer>
-              <LinkContainer to="/lists">
+              {/* <LinkContainer to="/lists">
                 <NavItem>Lista ord</NavItem>
-              </LinkContainer>
+              </LinkContainer>*/}
               <LinkContainer to="/about">
                 <NavItem>Om Gakusei</NavItem>
               </LinkContainer>
