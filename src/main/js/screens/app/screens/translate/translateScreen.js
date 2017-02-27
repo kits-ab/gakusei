@@ -22,7 +22,7 @@ export class translateScreen extends React.Component {
     if (this.props.currentProcessedQuestionAnswered) {
       return (<Row>
         { (this.props.currentProcessedQuestionAnsweredCorrectly ?
-          <h3>Rätt!</h3> : <h3>Fel..</h3>) }
+          <h3>Rätt!</h3> : <h3>Fel, rätt svar: {this.props.processedQuestion.correctAlternative[0]}</h3>) }
       </Row>);
     }
     return '';
