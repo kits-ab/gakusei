@@ -5,8 +5,9 @@ import DisplayQuestion from './components/DisplayQuestion';
 
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
+import * as Security from '../../../../shared/stores/Security';
 
-export const Reducers = [Lessons];
+export const Reducers = [Lessons, Security];
 
 export class playScreen extends React.Component {
   constructor(props) {

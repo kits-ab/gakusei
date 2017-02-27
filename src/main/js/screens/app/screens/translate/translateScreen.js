@@ -2,8 +2,9 @@ import React from 'react';
 import { Button, Grid, Row } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
+import * as Security from '../../../../shared/stores/Security';
 
-export const Reducers = [Lessons];
+export const Reducers = [Lessons, Security];
 
 export class translateScreen extends React.Component {
   constructor(props) {

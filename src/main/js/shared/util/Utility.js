@@ -79,7 +79,18 @@ export default class Utility {
   }
 
 // ----------------
-// MISC
+// FORM-RELATED
+
+  static getFormData(form) {
+    return Object.keys(form.target).map(key => (
+      form.target[key].value ?
+      `${encodeURIComponent(form.target[key].name)}=${encodeURIComponent(form.target[key].value)}`
+       : null
+      )).filter(val => val);
+  }
+
+// ----------------
+// LOGGING
   static logEvent(page, eventType, eventData, username) {
     if (Array.isArray(eventData)) {
       for (let i = 0; i < eventData.length; i += 1) {

@@ -58,19 +58,16 @@ export class GakuseiNav extends React.Component {
           {this.props.loggedIn ?
             <Nav pullRight>
               <LinkContainer to="/profile">
-                <NavItem>Inloggad som: {this.props.loggedInUser}</NavItem>
+                <NavItem>Profil: {this.props.loggedInUser}</NavItem>
               </LinkContainer>
-              <LinkContainer to="/logout">
+              <LinkContainer to={{ pathname: '/logout', query: { currentUrl: this.props.location.pathname } }}>
                 <NavItem>Logga ut</NavItem>
               </LinkContainer>
             </Nav>
           :
             <Nav pullRight>
               <LinkContainer to="/login">
-                <NavItem>Registrera användare</NavItem>
-              </LinkContainer>
-              <LinkContainer to="/login">
-                <NavItem>Logga in</NavItem>
+                <NavItem>Logga in / Registrera</NavItem>
               </LinkContainer>
             </Nav>}
         </Navbar.Collapse>
