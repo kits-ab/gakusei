@@ -45,12 +45,20 @@ export class translateScreen extends React.Component {
           answerStyle: null });
         this.props.incrementQuestionIndex();
         this.props.processCurrentQuestion();
+<<<<<<< HEAD
       }, 1500);
+=======
+      }, 2000);
+>>>>>>> 550881db46a1a3348e8f10474b91373be152e3f8
     } else {
       setTimeout(
         () => {
           this.props.setPageByName(`finish/${this.props.params.type}`);
+<<<<<<< HEAD
         }, 1500);
+=======
+        }, 2000);
+>>>>>>> 550881db46a1a3348e8f10474b91373be152e3f8
     }
   }
 
