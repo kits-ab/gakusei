@@ -27,7 +27,7 @@ export class selectScreen extends React.Component {
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.params.type !== nextProps.params.type) {
-      this.props.fetchLessonNames(this.props.params.type);
+      this.props.fetchLessonNames(nextProps.params.type);
     }
   }
 
