@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Row, Grid, Form, Checkbox, CheckboxGroup, FieldGroup, FormGroup, FormControl, Input, HelpBlock } from 'react-bootstrap';
+import { Button, Col, Row, Grid, Form, Checkbox, CheckboxGroup, FieldGroup, FormGroup, FormControl, Input, HelpBlock, ControlLabel } from 'react-bootstrap';
 // import MyLoginForm from './components/MyLoginForm';
 // import MyRegistrationForm from './components/MyRegistrationForm';
 
@@ -32,13 +32,13 @@ export class loginScreen extends React.Component {
   }
 
   getValidationState() {
-    // No validation right now
-    // const length = this.state.username.length;
-    // if (length > 0) {
-    //   return 'success';
-    // }
-    // else if (length > 1) return 'warning';
-    // else if (length > 0) return 'error';
+    // success, warning, error, or null
+    if (this.haveFailedAuth()) {
+      return 'error';
+    } else if (this.haveSucceededAuth()) {
+      return 'success';
+    }
+
     return null;
   }
 
@@ -46,7 +46,7 @@ export class loginScreen extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(formData, event) {
+  handleSubmit(formData) {
     formData.preventDefault();
 
     if (this.state.submitLogin) {
@@ -56,6 +56,28 @@ export class loginScreen extends React.Component {
     }
   }
 
+  haveSucceededAuth() {
+    if (
+    !this.props.loginInProgress &&
+    !this.props.registerInProgress &&
+    this.props.authSuccess &&
+    this.props.authResponse !== '') {
+      return true;
+    }
+    return false;
+  }
+
+  haveFailedAuth() {
+    if (
+    !this.props.loginInProgress &&
+    !this.props.registerInProgress &&
+    !this.props.authSuccess &&
+    this.props.authResponse !== '') {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     return (
       <Grid>
@@ -63,11 +85,14 @@ export class loginScreen extends React.Component {
           <Col mdOffset={2} md={8}>
             <Form onSubmit={this.handleSubmit}>
               <fieldset>
-                <legend>Logga in eller registrera dig</legend>
                 <FormGroup
                   controlId="formBasicText"
                   validationState={this.getValidationState()}
                 >
+                  <legend>Logga in eller registrera dig</legend>
+                  { this.props.authResponse && this.getValidationState() ? <ControlLabel>{this.props.authResponse}</ControlLabel> : null }
+                </FormGroup>
+                <FormGroup>
                   <FormControl
                     type="text"
                     name="username"
