@@ -433,9 +433,10 @@ export function fetchLesson(lessonType) {
   }
 
   return function (dispatch, getState) {
-    const state = getState().lessons;
-    return fetch(`${fetchURL}?lessonName=${state.selectedLesson}&questionType=${state.questionType}&` +
-      `answerType=${state.answerType}`, { credentials: 'same-origin' })
+    const lessonState = getState().lessons;
+    const securityState = getState().security;
+    return fetch(`${fetchURL}?lessonName=${lessonState.selectedLesson}&questionType=${lessonState.questionType}&` +
+      `answerType=${lessonState.answerType}&username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
         (json) => {
