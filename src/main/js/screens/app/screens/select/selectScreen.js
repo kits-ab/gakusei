@@ -32,10 +32,18 @@ export class selectScreen extends React.Component {
   }
 
   handleChange(event) {
-    if (event.target.name === 'questionType') {
-      this.props.setQuestionLanguage(event.target.value);
-    } else if (event.target.name === 'answerType') {
-      this.props.setAnswerLanguage(event.target.value);
+    switch (event.target.name) {
+      case 'selectedLesson':
+        this.props.setSelectedLesson(event.target.value);
+        break;
+      case 'questionType':
+        this.props.setQuestionLanguage(event.target.value);
+        break;
+      case 'answerType':
+        this.props.setAnswerLanguage(event.target.value);
+        break;
+      default:
+        break;
     }
   }
   handleSubmit(event) {

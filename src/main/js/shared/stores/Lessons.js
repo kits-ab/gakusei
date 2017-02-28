@@ -422,20 +422,21 @@ export function fetchLessonNames(type) {
 }
 
 export function fetchLesson(lessonType) {
-  let fetchURL;
-
-  if (lessonType === 'quiz') {
-    fetchURL = '/api/quiz';
-  } else if (lessonType === 'guess') {
-    fetchURL = '/api/questions';
-  } else if (lessonType === 'translate') {
-    fetchURL = '/api/questions';
-  }
-
   return function (dispatch, getState) {
+    let fetchURL;
+
+    if (lessonType === 'quiz') {
+      fetchURL = '/api/quiz';
+    } else if (lessonType === 'guess') {
+      fetchURL = '/api/questions';
+    } else if (lessonType === 'translate') {
+      fetchURL = '/api/questions';
+    }
+
     const lessonState = getState().lessons;
     const securityState = getState().security;
-    return fetch(`${fetchURL}?lessonName=${lessonState.selectedLesson}&questionType=${lessonState.questionType}&` +
+
+    return new Promise(resolve => fetch(`${fetchURL}?lessonName=${lessonState.selectedLesson}&questionType=${lessonState.questionType}&` +
       `answerType=${lessonState.answerType}&username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
@@ -443,7 +444,8 @@ export function fetchLesson(lessonType) {
           dispatch(resetLesson());
           dispatch(receiveLesson(json));
           dispatch(processCurrentQuestion());
-        });
+          resolve();
+        }));
   };
 }
 
