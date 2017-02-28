@@ -10,10 +10,26 @@
     height: 5em;
 }
 
+.btn-no-hover:hover {
+    border-color: #ccc;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     select,
     textarea,
     input {
         font-size: 1.2em !important;
     }
+}
+
+@media screen and (min-width: 992px) {
+.questionText{
+    font-size: 300% !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
+.questionText{
+    font-size: 225% !important;
+  }
 }

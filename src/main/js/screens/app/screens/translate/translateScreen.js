@@ -1,8 +1,10 @@
 import React from 'react';
-import { Button, Grid, Row } from 'react-bootstrap';
+import { Button, Grid, Row, FormControl, FormGroup } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 import * as Security from '../../../../shared/stores/Security';
+
+import DisplayQuestion from '../../shared/DisplayQuestion';
 
 export const Reducers = [Lessons, Security];
 
@@ -22,7 +24,7 @@ export class translateScreen extends React.Component {
     if (this.props.currentProcessedQuestionAnswered) {
       return (<Row>
         { (this.props.currentProcessedQuestionAnsweredCorrectly ?
-          <h3>Rätt!</h3> : <h3>Fel..</h3>) }
+          <h3>Rätt!</h3> : <h3>Fel, rätt svar: {this.props.processedQuestion.correctAlternative[0]}</h3>) }
       </Row>);
     }
     return '';
@@ -31,17 +33,24 @@ export class translateScreen extends React.Component {
   checkAnswer() {
     this.props.addUserAnswer(this.state.answer);
 
+    this.setState({
+      answerStyle: (this.props.processedQuestion.correctAlternative.some(ca => ca === this.state.answer)
+       ? 'success' :
+         'error') });
+
     if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
       setTimeout(() => {
-        this.setState({ answer: '' });
+        this.setState({
+          answer: '',
+          answerStyle: null });
         this.props.incrementQuestionIndex();
         this.props.processCurrentQuestion();
-      }, 1000);
+      }, 1500);
     } else {
       setTimeout(
         () => {
           this.props.setPageByName(`finish/${this.props.params.type}`);
-        }, 1000);
+        }, 1500);
     }
   }
 
@@ -70,22 +79,44 @@ export class translateScreen extends React.Component {
       <div>
         <Grid className="text-center">
           <Row>
-            {this.displayQuestion()}
+            <DisplayQuestion
+              primaryText={this.props.processedQuestion.actualQuestionShapes[0]}
+              secondaryText={this.props.processedQuestion.actualQuestionShapes[1] || null}
+              resourceRef={this.props.processedQuestion.resourceRef}
+              japaneseCharacters={this.props.questionType === 'reading'}
+            />
           </Row>
-          <br />
-          <Row>
-            <input value={this.state.answer} onChange={this.handleChange} placeholder="Skriv in ditt svar här" />
-          </Row>
+          <FormGroup
+            validationState={this.state.answerStyle}
+            controlId="translateTextArea"
+          >
+            <FormControl
+              type="text"
+              name="translateText"
+              placeholder="Ditt svar"
+              value={this.state.answer}
+              onChange={this.handleChange}
+            />
+            <FormControl.Feedback />
+          </FormGroup>
+          {/* <Row>
+            <Input value={this.state.answer} onChange={this.handleChange} placeholder="Skriv in ditt svar här" />
+          </Row>*/}
           <Row>
             <Button type="submit" onClick={this.checkAnswer} disabled={this.state.checkDisable}>
               Kontrollera svar
             </Button>
           </Row>
+          <br />
+          <br />
           <Row>
-            <div className="text-center">
-              Fråga: {this.props.currentQuestionIndex + 1} / {this.props.lessonLength}
-              <br />
-              {this.props.correctAttempts} rätt {this.props.lessonSuccessRateMessage}
+            <div>
+              <p>
+                Fråga: {this.props.currentQuestionIndex + 1} / {this.props.lessonLength}
+              </p>
+              <p>
+                {this.props.correctAttempts} rätt {this.props.lessonSuccessRateMessage}
+              </p>
             </div>
           </Row>
           { this.getOutput() }

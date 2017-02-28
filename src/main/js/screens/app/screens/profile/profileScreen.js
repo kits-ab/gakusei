@@ -1,4 +1,5 @@
 import React from 'react';
+import { Col } from 'react-bootstrap';
 import { Pie } from 'react-chartjs-2';
 
 import Utility from '../../../../shared/util/Utility';
@@ -10,6 +11,7 @@ export const Reducers = [Lessons, Security];
 export class profileScreen extends React.Component {
   static getChartOptions() {
     return {
+      responsive: true,
       maintainAspectRatio: true,
       legend: {
         onClick: () => { /* Do nothing */ }
@@ -59,9 +61,11 @@ export class profileScreen extends React.Component {
     return (
       <div className="text-center">
         <h2>Spelarstatistik</h2>
-        { this.props.requestingSuccessRate === false ?
-          <Pie data={this.getChartData()} options={profileScreen.getChartOptions()} /> :
-          <p>Loading...</p> }
+        <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
+          { this.props.requestingSuccessRate === false ?
+            <Pie data={this.getChartData()} options={profileScreen.getChartOptions()} /> :
+            <p>Loading...</p> }
+        </Col>
       </div>
     );
   }

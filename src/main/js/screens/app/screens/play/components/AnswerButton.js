@@ -16,36 +16,66 @@ function hyphenateSwedish(text) {
   return text;
 }
 
-const AnswerButton = (props) => {
-  let reading;
-  let writing = '';
-  if (props.answerType === 'swedish') {
-    reading = hyphenateSwedish(props.label[0]);
-  } else {
-    writing = props.label[1] !== '' ? 'Writing: '.concat(props.label[1]) : '';
-    reading = ('Reading: '.concat(props.label[0]));
+export default class AnswerButton extends React.Component {
+  componentWillMount() {
+    this.updateAnswerText(this.props.primaryText);
   }
-  const answerClickFunc = props.onAnswerClick.bind(this, props.label[0]);
 
-  return (
-    <Button
-      bsStyle={props.buttonStyle}
-      bsSize="large" block
-      onClick={answerClickFunc}
-      disabled={props.disableButton}
-      className="btn answerbutton"
-    >
-      {reading}<br />{writing}
-    </Button>
-  );
+  componentWillReceiveProps(nextProps) {
+    this.updateAnswerText(nextProps.primaryText);
+  }
+
+  getPrimaryText() {
+    if (this.props.answerType === 'swedish') {
+      return hyphenateSwedish(this.props.primaryText);
+    }
+
+    return this.props.primaryText || null;
+  }
+
+  getSecondaryText() {
+    if (this.props.secondaryText && this.props.secondaryText !== this.props.primaryText) {
+      if (this.props.japaneseCharacters) {
+        return `「${this.props.secondaryText}」`;
+      }
+      return `(${this.props.secondaryText})`;
+    }
+    return null;
+  }
+
+  updateAnswerText(text) {
+    this.state = {
+      answerClickFunc: this.props.onAnswerClick.bind(this, text)
+    };
+  }
+
+  render() {
+    return (
+      <Button
+        bsStyle={this.props.buttonStyle}
+        bsSize="large" block
+        onClick={this.state.answerClickFunc}
+        disabled={this.props.disableButton}
+        className="btn answerbutton btn-no-hover"
+      >
+        {this.getPrimaryText()}
+        <br />
+        {this.getSecondaryText()}
+      </Button>
+    );
+  }
+}
+
+AnswerButton.defaultProps = {
+  secondaryText: null
 };
 
 AnswerButton.propTypes = {
-  label: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  primaryText: React.PropTypes.string.isRequired,
+  secondaryText: React.PropTypes.string,
   buttonStyle: React.PropTypes.string.isRequired,
   onAnswerClick: React.PropTypes.func.isRequired,
   disableButton: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired
+  answerType: React.PropTypes.string.isRequired,
+  japaneseCharacters: React.PropTypes.bool.isRequired
 };
-
-export default AnswerButton;

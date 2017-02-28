@@ -71,7 +71,7 @@ export class loginScreen extends React.Component {
                   <FormControl
                     type="text"
                     name="username"
-                    placeholder="Skriv ditt användarnamn här"
+                    placeholder="Användarnamn"
                     value={this.state.username}
                     onChange={this.handleInputChange}
                   />
@@ -81,7 +81,7 @@ export class loginScreen extends React.Component {
                   <FormControl
                     type="password"
                     name="password"
-                    placeholder="Skriv ditt lösenord här"
+                    placeholder="Lösenord"
                     value={this.state.password}
                     onChange={this.handleInputChange}
                   />
