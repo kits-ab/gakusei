@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col } from 'react-bootstrap';
+import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Pie } from 'react-chartjs-2';
 
 import Utility from '../../../../shared/util/Utility';
@@ -34,6 +34,7 @@ export class profileScreen extends React.Component {
 
   componentWillMount() {
     this.props.fetchUserSuccessRate(this.props.loggedInUser);
+    this.props.fetchUserStarredLessons();
   }
 
   getChartData() {
@@ -58,15 +59,23 @@ export class profileScreen extends React.Component {
   }
 
   render() {
+    const starredLessons = this.props.starredLessons.map(name => <ListGroupItem key={name}>{name}</ListGroupItem>);
     return (
-      <div className="text-center">
-        <h2>Spelarstatistik</h2>
-        <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
-          { this.props.requestingSuccessRate === false ?
-            <Pie data={this.getChartData()} options={profileScreen.getChartOptions()} /> :
-            <p>Loading...</p> }
-        </Col>
-      </div>
+      <Grid className="text-center">
+        <h2>Välkommen till Gakusei {this.props.loggedInUser}!</h2>
+        <h3>Din svarsstatistik:</h3>
+        <Row>
+          <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
+            { this.props.requestingSuccessRate === false ?
+              <Pie data={this.getChartData()} options={profileScreen.getChartOptions()} /> :
+              <p>Loading...</p> }
+          </Col>
+        </Row>
+        <h3>Lektioner du följer:</h3>
+        <ListGroup>
+          {starredLessons}
+        </ListGroup>
+      </Grid>
     );
   }
 }

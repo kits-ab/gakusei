@@ -29,7 +29,8 @@ In the project root directory, perform step 1 followed either step 2.a or 2.b.
 1. Make sure to have a fairly recent installation of PostgreSQL 9
 2. In Postgres, create a user with name/password *gakusei*
 3. In Postgres, create a database with the name *gakusei* with the user *gakusei* as owner (or appropriate privileges)
-4. Run the project with ```mvn spring-boot:run -Drun.profiles=postgres```
+4. In Postgres, create a schema called *contentschema* in database *gakusei*
+5. Run the project with ```mvn spring-boot:run -Drun.profiles=postgres```
 
 ### System overview
 The following picture gives a brief overview of the projects structure:

@@ -187,26 +187,41 @@ export default class aboutScreen extends React.Component {
         <Grid>
           <Row>
             <Col xs={12}>
-              <h2>Om Gakusei</h2>
-              <div>
-                <p>Gakusei är en webbapp för övning/inlärning av japanska.
-                  Utvecklingen sker i form av ett open source-projekt.
-                  Utvecklingen har sponsrats av <a target="_blank" rel="noopener noreferrer" href="https://www.kits.se">Kits</a>.
+              <div className="text-left">
+                <h2>Om Gakusei</h2>
+                <p>
+                  Gakusei är en webbapplikation där du kan öva dig på japanska.
+                  Applikationen har följande tre spellägen:
+                </p>
+                <ol>
+                  <li>
+                    &quot;Gissa ordet&quot; som kan hittas under fliken &quot;Glosor&quot;.
+                    Här ska man välja rätt översättning på ett ord bland fyra alternativ.
+                  </li>
+                  <li>
+                    &quot;Översätt ordet&quot; som även det kan hittas under fliken &quot;Glosor&quot;.
+                    Här gäller det att skriva in rätt översättning på ett ord.
+                  </li>
+                  <li>
+                    &quot;Quiz&quot; och där man kan spela frågesporter kopplade till Japan.
+                  </li>
+                </ol>
+                <p>Utvecklingen av applikationen sker i form av ett open source-projekt och sponsras utav <a target="_blank" rel="noopener noreferrer" href="https://www.kits.se">Kits</a>.
                   Besök gärna projektets <a target="_blank" rel="noopener noreferrer" href="https://github.com/kits-ab/gakusei/">Githubsida.</a>
                 </p>
-              </div>
-              <div>
                 <p> Webbappen Gakusei går under licensen <a target="_blank" rel="noopener noreferrer" href="https://opensource.org/licenses/mit-license.php">MIT</a>.
                   Nedan följer en lista på licenser för de moduler som projektet använder sig av.
                 </p>
               </div>
-              <Panel collapsible header="Licenser">
-                <ListGroup>
-                  {this.state.backend_licenses}
-                  {this.state.frontend_licenses}
-                </ListGroup>
-              </Panel>
             </Col>
+          </Row>
+          <Row>
+            <Panel collapsible header="Licenser">
+              <ListGroup>
+                {this.state.backend_licenses}
+                {this.state.frontend_licenses}
+              </ListGroup>
+            </Panel>
           </Row>
         </Grid>
       </div>
