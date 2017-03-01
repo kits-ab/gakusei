@@ -3,7 +3,6 @@ import React from 'react';
 
 import getCSRF from '../../shared/util/getcsrf';
 import Utility from '../../shared/util/Utility';
-import getCSRF from '../../shared/util/getcsrf';
 
 // ----------------
 // DEFAULT STATE
