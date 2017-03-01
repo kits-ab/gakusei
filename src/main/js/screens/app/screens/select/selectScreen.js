@@ -84,23 +84,20 @@ export class selectScreen extends React.Component {
   render() {
     const options = this.props.lessonNames.map(name =>
       <Row key={name}>
-        <Col xs={10} md={10}>
-          <ListGroupItem
-            onClick={() => this.props.setSelectedLesson(name)}
-            value={name}
-            bsStyle={name === this.props.selectedLesson ? 'info' : null}
-          >
-            {name}
-          </ListGroupItem>
-        </Col>
-        <Col xs={2} md={2}>
+        <ListGroupItem
+          onClick={() => this.props.setSelectedLesson(name)}
+          value={name}
+          bsStyle={name === this.props.selectedLesson ? 'info' : null}
+        >
+          {name}
           <Button
+            className="pull-right"
             bsStyle={this.props.starredLessons.includes(name) ? 'warning' : null}
             onClick={() => this.handleStarredClick(name)}
           >
             <Glyphicon glyph="star" />
           </Button>
-        </Col>
+        </ListGroupItem>
       </Row>);
     let languageSelection;
     if (this.props.params.type === 'quiz') {
@@ -150,6 +147,9 @@ export class selectScreen extends React.Component {
               <Button type="submit">Starta</Button>
             </form>
           </Col>
+        </Row>
+        <Row>
+          <br />
         </Row>
       </Grid>
     );

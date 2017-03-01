@@ -78,7 +78,7 @@ export class translateScreen extends React.Component {
     return (
       <div>
         <Grid className="text-center">
-          <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
+          <Col xs={12} sm={6} smOffset={3}>
             <Row>
               <DisplayQuestion
                 primaryText={this.props.processedQuestion.actualQuestionShapes[0]}
@@ -100,9 +100,6 @@ export class translateScreen extends React.Component {
               />
               <FormControl.Feedback />
             </FormGroup>
-            {/* <Row>
-            <Input value={this.state.answer} onChange={this.handleChange} placeholder="Skriv in ditt svar här" />
-          </Row>*/}
             <Row>
               <Button type="submit" onClick={this.checkAnswer} disabled={this.state.checkDisable}>
               Kontrollera svar
