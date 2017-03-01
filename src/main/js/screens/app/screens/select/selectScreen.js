@@ -22,15 +22,23 @@ export class selectScreen extends React.Component {
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.params.type !== nextProps.params.type) {
-      this.props.fetchLessonNames(this.props.params.type);
+      this.props.fetchLessonNames(nextProps.params.type);
     }
   }
 
   handleChange(event) {
-    if (event.target.name === 'questionType') {
-      this.props.setQuestionLanguage(event.target.value);
-    } else if (event.target.name === 'answerType') {
-      this.props.setAnswerLanguage(event.target.value);
+    switch (event.target.name) {
+      case 'selectedLesson':
+        this.props.setSelectedLesson(event.target.value);
+        break;
+      case 'questionType':
+        this.props.setQuestionLanguage(event.target.value);
+        break;
+      case 'answerType':
+        this.props.setAnswerLanguage(event.target.value);
+        break;
+      default:
+        break;
     }
   }
   handleSubmit(event) {
