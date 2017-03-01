@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
+import getCSRF from '../../../../shared/util/getcsrf';
 import * as Lessons from '../../../../shared/stores/Lessons';
 import * as Security from '../../../../shared/stores/Security';
 
@@ -20,38 +21,49 @@ export class finishScreen extends React.Component {
 
   logEvents() {
     this.props.processedQuestionsWithAnswers.forEach((processedQuestionWithAnswer) => {
-      // Send in the correct answers
-      processedQuestionWithAnswer.correctAlternative.forEach(correctAlt =>
-      Utility.logEvent('finish', 'correctAnswer', correctAlt, this.props.loggedInUser));
-
-      // Send in the user answer
-      Utility.logEvent('finish', 'userAnswer', processedQuestionWithAnswer.userAnswer, this.props.loggedInUser);
+      try {
+        // Send in the correct answers
+        processedQuestionWithAnswer.correctAlternative.forEach(correctAlt =>
+          Utility.logEvent('finish', 'correctAnswer', correctAlt, this.props.loggedInUser));
+        // Send in the user answer
+        Utility.logEvent('finish', 'userAnswer', processedQuestionWithAnswer.userAnswer, this.props.loggedInUser);
+      } catch (err) {
+        this.props.requestUserLogout(this.props.location.query.currentUrl || '/', getCSRF());
+      }
     });
   }
 
   backtoSelection() {
-    this.props.fetchLesson(this.props.params.type)
-    .then(this.props.setPageByName(`/select/${this.props.params.type}`));
+    try {
+      this.props.fetchLesson(this.props.params.type)
+      .then(this.props.setPageByName(`/select/${this.props.params.type}`));
+    } catch (err) {
+      this.props.verifyUserLoggedIn();
+    }
   }
   playAgain() {
-    if (this.props.params.type === 'translate') {
-      this.props.fetchLesson(this.props.params.type)
+    try {
+      if (this.props.params.type === 'translate') {
+        this.props.fetchLesson(this.props.params.type)
       .then(this.props.setPageByName(`/translate/${this.props.params.type}`));
-    } else {
-      this.props.fetchLesson(this.props.params.type)
+      } else {
+        this.props.fetchLesson(this.props.params.type)
       .then(this.props.setPageByName(`/play/${this.props.params.type}`));
+      }
+    } catch (err) {
+      this.props.verifyUserLoggedIn();
     }
   }
 
   showResults() {
     const result = this.props.processedQuestionsWithAnswers.map(qa => (qa.actualQuestionShapes.length > 1 ?
-      <ListGroupItem key={qa.userAnswer + qa.correctAlternative[0]} bsStyle={(qa.userAnswer === qa.correctAlternative) ? 'success' : 'danger'}>
+      <ListGroupItem key={qa.userAnswer + qa.correctAlternative[0]} bsStyle={qa.correctAlternative.indexOf(qa.userAnswer) !== -1 ? 'success' : 'danger'}>
         Läsform: {qa.actualQuestionShapes[0]}
         , Skrivform: {qa.actualQuestionShapes[1]}
         , Korrekt svar: {qa.correctAlternative}
         , Ditt svar: {qa.userAnswer}
       </ListGroupItem> :
-      <ListGroupItem key={qa.userAnswer + qa.correctAlternative[0]} bsStyle={(qa.userAnswer === qa.correctAlternative) ? 'success' : 'danger'}>
+      <ListGroupItem key={qa.userAnswer + qa.correctAlternative[0]} bsStyle={qa.correctAlternative.indexOf(qa.userAnswer) !== -1 ? 'success' : 'danger'}>
         Läsform: {qa.actualQuestionShapes[0]}
         , Korrekt svar: {qa.correctAlternative}
         , Ditt svar: {qa.userAnswer}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 import * as Security from '../../../../shared/stores/Security';
@@ -21,13 +22,15 @@ export class selectScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchLessonNames(this.props.params.type);
+    this.props.fetchLessonNames(this.props.params.type)
+      .catch(() => this.props.verifyUserLoggedIn());
   }
 
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.params.type !== nextProps.params.type) {
-      this.props.fetchLessonNames(nextProps.params.type);
+      this.props.fetchLessonNames(nextProps.params.type)
+      .catch(() => this.props.verifyUserLoggedIn());
     }
   }
 
@@ -48,19 +51,34 @@ export class selectScreen extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-
-    if (this.props.params.type === 'translate') {
-      this.props.fetchLesson(this.props.params.type)
+    try {
+      if (this.props.params.type === 'translate') {
+        this.props.fetchLesson(this.props.params.type)
       .then(() => {
         this.props.setPageByName('/translate');
       });
-    } else {
-      this.props.fetchLesson(this.props.params.type)
+      } else {
+        this.props.fetchLesson(this.props.params.type)
       .then(() => {
         this.props.setPageByName(`/play/${this.props.params.type}`);
       });
+      }
+    } catch (err) {
+      this.props.verifyUserLoggedIn();
     }
   }
+
+  getPageHeader() {
+    if (this.props.params.type === 'quiz') {
+      return <h1>Quiz</h1>;
+    } else if (this.props.params.type === 'guess') {
+      return <h1>Gissa ordet</h1>;
+    } else if (this.props.params.type === 'translate') {
+      return <h1>Översätt ordet</h1>;
+    }
+    return null;
+  }
+
   render() {
     const options = this.props.lessonNames.map(name => <option key={name} value={name}>{name}</option>);
     let languageSelection;
@@ -95,6 +113,9 @@ export class selectScreen extends React.Component {
     }
     return (
       <Grid className="text-center">
+        <Row>
+          {this.getPageHeader()}
+        </Row>
         <Row>
           <Col xs={8} xsOffset={2} lg={4} lgOffset={4}>
             <form href="#" onSubmit={this.handleSubmit}>

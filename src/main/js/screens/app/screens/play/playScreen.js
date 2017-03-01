@@ -3,6 +3,7 @@ import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './components/AnswerButton';
 import DisplayQuestion from '../../shared/DisplayQuestion';
 
+import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 import * as Security from '../../../../shared/stores/Security';
@@ -41,21 +42,25 @@ export class playScreen extends React.Component {
   checkAnswer(answer) {
     this.props.setAllButtonsDisabledState(true);
 
-    this.props.addUserAnswer(answer);
-    this.props.calcAnswerButtonStyles(answer);
-
-    if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
-      setTimeout(() => {
-        this.props.incrementQuestionIndex();
-        this.props.processCurrentQuestion();
-        this.props.setAllButtonsDisabledState(false);
-      }, 1000);
-    } else {
-      setTimeout(
+    this.props.addUserAnswer(answer).then(() => {
+      this.props.calcAnswerButtonStyles(answer);
+      if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
+        setTimeout(() => {
+          this.props.incrementQuestionIndex();
+          this.props.processCurrentQuestion();
+          this.props.setAllButtonsDisabledState(false);
+        }, 1100);
+      } else {
+        setTimeout(
         () => {
           this.props.setPageByName(`finish/${this.props.params.type}`);
-        }, 1000);
-    }
+        }, 1100);
+      }
+    }, () => {
+      // rejection
+      this.props.requestUserLogout('/', getCSRF());
+      this.props.verifyUserLoggedIn();
+    });
   }
 
   render() {

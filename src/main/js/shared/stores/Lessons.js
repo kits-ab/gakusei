@@ -1,6 +1,7 @@
 import 'whatwg-fetch';
 import React from 'react';
 
+import getCSRF from '../../shared/util/getcsrf';
 import Utility from '../../shared/util/Utility';
 
 // ----------------
@@ -196,32 +197,41 @@ export function receiveIncorrectAttempt() {
 
 export function addUserAnswer(userActualAnswer) {
   return function (dispatch, getState) {
-    const state = getState().lessons;
-    const securityState = getState().security;
+    return new Promise((resolve, reject) => {
+      const state = getState().lessons;
+      const securityState = getState().security;
 
-    const processedQuestionWithAnswer = {
-      ...state.processedQuestion,
-      userAnswer: userActualAnswer,
-      userCorrect: state.processedQuestion.correctAlternative
+      const processedQuestionWithAnswer = {
+        ...state.processedQuestion,
+        userAnswer: userActualAnswer,
+        userCorrect: state.processedQuestion.correctAlternative
       .some(s => s.toLowerCase() === userActualAnswer.toLowerCase())
-    };
+      };
 
-    if (processedQuestionWithAnswer.userCorrect) {
-      dispatch(receiveCorrectAttempt());
-    } else {
-      dispatch(receiveIncorrectAttempt());
-    }
+      if (processedQuestionWithAnswer.userCorrect) {
+        dispatch(receiveCorrectAttempt());
+      } else {
+        dispatch(receiveIncorrectAttempt());
+      }
 
-    Utility.logEvent('Lessons', 'userAnswer', userActualAnswer, securityState.loggedInUser);
-    Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.actualQuestionShapes, securityState.loggedInUser);
-    Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.correctAlternative, securityState.loggedInUser);
-    Utility.logEvent('Lessons', 'answeredCorrectly', processedQuestionWithAnswer.userCorrect, securityState.loggedInUser);
+      const eventPromises = [];
+      eventPromises.push(Utility.logEvent('Lessons', 'userAnswer', userActualAnswer, securityState.loggedInUser)
+      .catch((err) => { reject(err); }),
+      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.actualQuestionShapes, securityState.loggedInUser)
+      .catch((err) => { reject(err); }),
+      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.correctAlternative, securityState.loggedInUser)
+      .catch((err) => { reject(err); }),
+      Utility.logEvent('Lessons', 'answeredCorrectly', processedQuestionWithAnswer.userCorrect, securityState.loggedInUser)
+      .catch((err) => { reject(err); }));
 
-    dispatch(calcLessonSuccessRate());
+      dispatch(calcLessonSuccessRate());
 
-    dispatch({ type: ADD_USER_ANSWER,
-      description: 'Add an answer a user made, along with correct results',
-      processedQuestionWithAnswer });
+      dispatch({ type: ADD_USER_ANSWER,
+        description: 'Add an answer a user made, along with correct results',
+        processedQuestionWithAnswer });
+
+      Promise.all(eventPromises).then(() => resolve());
+    });
   };
 }
 
@@ -276,9 +286,13 @@ export function receiveProcessedQuestion(processedQuestion) {
       processedQuestion
     });
 
-    Utility.logEvent('lessons', 'question', processedQuestion.actualQuestionShapes, securityState.loggedInUser);
-    for (let i = 0; i < processedQuestion.randomizedAlternatives.length; i += 1) {
-      Utility.logEvent('lessons', 'alternative', processedQuestion.randomizedAlternatives[i], securityState.loggedInUser);
+    try {
+      Utility.logEvent('lessons', 'question', processedQuestion.actualQuestionShapes, securityState.loggedInUser);
+      for (let i = 0; i < processedQuestion.randomizedAlternatives.length; i += 1) {
+        Utility.logEvent('lessons', 'alternative', processedQuestion.randomizedAlternatives[i], securityState.loggedInUser);
+      }
+    } catch (err) {
+      this.props.requestUserLogout(this.props.location.query.currentUrl || '/', getCSRF());
     }
   };
 }
@@ -415,8 +429,13 @@ export function setAnswerLanguage(language) {
 export function fetchLessonNames(type) {
   return function (dispatch) {
     const lessonType = type === 'quiz' ? 'quiz' : 'vocabulary';
-    fetch(`/api/lessonNames?lessonType=${lessonType}`, { credentials: 'same-origin' })
-      .then(response => response.json())
+    return fetch(`/api/lessonNames?lessonType=${lessonType}`, { credentials: 'same-origin' })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error();
+      })
       .then(result => dispatch(setLessonNames(result)));
   };
 }
