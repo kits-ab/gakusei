@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Grid, Row, FormControl, FormGroup } from 'react-bootstrap';
+import { Button, Grid, Row, Col, FormControl, FormGroup } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 import * as Security from '../../../../shared/stores/Security';
@@ -78,47 +78,49 @@ export class translateScreen extends React.Component {
     return (
       <div>
         <Grid className="text-center">
-          <Row>
-            <DisplayQuestion
-              primaryText={this.props.processedQuestion.actualQuestionShapes[0]}
-              secondaryText={this.props.processedQuestion.actualQuestionShapes[1] || null}
-              resourceRef={this.props.processedQuestion.resourceRef}
-              japaneseCharacters={this.props.questionType === 'reading'}
-            />
-          </Row>
-          <FormGroup
-            validationState={this.state.answerStyle}
-            controlId="translateTextArea"
-          >
-            <FormControl
-              type="text"
-              name="translateText"
-              placeholder="Ditt svar"
-              value={this.state.answer}
-              onChange={this.handleChange}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-          {/* <Row>
+          <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
+            <Row>
+              <DisplayQuestion
+                primaryText={this.props.processedQuestion.actualQuestionShapes[0]}
+                secondaryText={this.props.processedQuestion.actualQuestionShapes[1] || null}
+                resourceRef={this.props.processedQuestion.resourceRef}
+                japaneseCharacters={this.props.questionType === 'reading'}
+              />
+            </Row>
+            <FormGroup
+              validationState={this.state.answerStyle}
+              controlId="translateTextArea"
+            >
+              <FormControl
+                type="text"
+                name="translateText"
+                placeholder="Ditt svar"
+                value={this.state.answer}
+                onChange={this.handleChange}
+              />
+              <FormControl.Feedback />
+            </FormGroup>
+            {/* <Row>
             <Input value={this.state.answer} onChange={this.handleChange} placeholder="Skriv in ditt svar här" />
           </Row>*/}
-          <Row>
-            <Button type="submit" onClick={this.checkAnswer} disabled={this.state.checkDisable}>
+            <Row>
+              <Button type="submit" onClick={this.checkAnswer} disabled={this.state.checkDisable}>
               Kontrollera svar
             </Button>
-          </Row>
-          <br />
-          <br />
-          <Row>
-            <div>
-              <p>
+            </Row>
+            <br />
+            <br />
+            <Row>
+              <div>
+                <p>
                 Fråga: {this.props.currentQuestionIndex + 1} / {this.props.lessonLength}
-              </p>
-              <p>
-                {this.props.correctAttempts} rätt {this.props.lessonSuccessRateMessage}
-              </p>
-            </div>
-          </Row>
+                </p>
+                <p>
+                  {this.props.correctAttempts} rätt {this.props.lessonSuccessRateMessage}
+                </p>
+              </div>
+            </Row>
+          </Col>
           { this.getOutput() }
         </Grid>
       </div>
