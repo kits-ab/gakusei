@@ -11,7 +11,6 @@ import appScreen from './screens/app';
 import aboutScreen from './screens/app/screens/about';
 import translateScreen from './screens/app/screens/translate';
 import listsScreen from './screens/app/screens/lists';
-import homeScreen from './screens/app/screens/home';
 import finishScreen from './screens/app/screens/finish';
 import profileScreen from './screens/app/screens/profile';
 import loginScreen from './screens/app/screens/login';
@@ -30,10 +29,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={appScreen}>
-        <IndexRedirect to="home" />
+        <IndexRedirect to="profile" />
         <Route path="login" component={loginScreen} />
         <Route path="logout" component={logoutScreen} />
-        <Route path="home" component={homeScreen} />
         <Route path="play/:type" component={requireAuthentication(playScreen)} />
         <Route path="select/:type" component={requireAuthentication(selectScreen)} />
         <Route path="translate" component={requireAuthentication(translateScreen)} />

@@ -3,6 +3,7 @@ import React from 'react';
 
 import getCSRF from '../../shared/util/getcsrf';
 import Utility from '../../shared/util/Utility';
+import getCSRF from '../../shared/util/getcsrf';
 
 // ----------------
 // DEFAULT STATE
@@ -20,7 +21,7 @@ export const defaultState = {
   // fetchURL: '/api/questions',
 
   // GenericSelection.js
-  selectedLesson: '',
+  starredLessons: [],
   questionType: 'reading',
   answerType: 'swedish',
 
@@ -68,6 +69,7 @@ export const propTypes = {
 // -----------------
 // ACTION CONSTANTS - Just used to differentiate the "actions"
 export const RECEIVE_USER_SUCCESS_RATE = 'RECEIVE_USER_SUCCESS_RATE';
+export const RECEIVE_USER_STARRED_LESSONS = 'RECEIVE_USER_STARRED_LESSONS';
 export const REQUEST_USER_SUCCESS_RATE = 'REQUEST_USER_SUCCESS_RATE';
 export const SET_LESSON_SUCCESS_RATE_MESSAGE = 'SET_LESSON_SUCCESS_RATE_MESSAGE';
 export const SET_LESSON_SUCCESS_RATE = 'SET_LESSON_SUCCESS_RATE';
@@ -344,6 +346,14 @@ export function receiveUserSuccessRate(successRate, status, response) {
     lastReceived: Date.now() };
 }
 
+export function receiveUserStarredLessons(result) {
+  return {
+    type: RECEIVE_USER_STARRED_LESSONS,
+    description: 'Recieved user starred lessons',
+    result
+  };
+}
+
 export function requestUserSuccessRate() {
   return {
     type: REQUEST_USER_SUCCESS_RATE,
@@ -468,6 +478,47 @@ export function fetchLesson(lessonType) {
   };
 }
 
+export function fetchUserStarredLessons() {
+  return function (dispatch, getState) {
+    const securityState = getState().security;
+    return fetch(`/api/userLessons?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then(result => dispatch(receiveUserStarredLessons(result)));
+  };
+}
+
+export function addStarredLesson(lessonName) {
+  return function (dispatch, getState) {
+    const xsrfTokenValue = getCSRF();
+    const securityState = getState().security;
+    fetch(`/api/userLessons/add?lessonName=${lessonName}&username=${securityState.loggedInUser}`,
+      {
+        credentials: 'same-origin',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-XSRF-TOKEN': xsrfTokenValue
+        }
+      }).then(() => dispatch(fetchUserStarredLessons()));
+  };
+}
+
+export function removeStarredLesson(lessonName) {
+  return function (dispatch, getState) {
+    const xsrfTokenValue = getCSRF();
+    const securityState = getState().security;
+    fetch(`/api/userLessons/remove?lessonName=${lessonName}&username=${securityState.loggedInUser}`,
+      {
+        credentials: 'same-origin',
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-XSRF-TOKEN': xsrfTokenValue
+        }
+      }).then(() => dispatch(fetchUserStarredLessons()));
+  };
+}
+
 export function fetchUserSuccessRate(username) {
   return function (dispatch) {
     dispatch(requestUserSuccessRate());
@@ -500,7 +551,11 @@ export const actionCreators = {
   resetLesson,
   setLessonNames,
   setQuestionLanguage,
-  setAnswerLanguage
+  setAnswerLanguage,
+  fetchUserStarredLessons,
+  receiveUserStarredLessons,
+  addStarredLesson,
+  removeStarredLesson
 };
 
 // ----------------
@@ -633,6 +688,11 @@ export const lessons = (state, action) => {
         requestSuccessRateStatus: action.status,
         requestSuccessRateResponse: action.response,
         requestSuccessRateLastReceived: action.lastReceived
+      };
+    case RECEIVE_USER_STARRED_LESSONS:
+      return {
+        ...state,
+        starredLessons: action.result
       };
     case REQUEST_USER_SUCCESS_RATE:
       return {

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import getCSRF from '../../../../shared/util/getcsrf';
+import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Glyphicon } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
 import * as Security from '../../../../shared/stores/Security';
@@ -10,19 +9,16 @@ export const Reducers = [Lessons, Security];
 export class selectScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      lessonNames: [],
-      questionType: 'reading',
-      answerType: 'swedish',
-      selectedLesson: ''
-    };
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleStarredClick = this.handleStarredClick.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchLessonNames(this.props.params.type)
+      .catch(() => this.props.verifyUserLoggedIn());
+
+    this.props.fetchUserStarredLessons()
       .catch(() => this.props.verifyUserLoggedIn());
   }
 
@@ -32,6 +28,17 @@ export class selectScreen extends React.Component {
       this.props.fetchLessonNames(nextProps.params.type)
       .catch(() => this.props.verifyUserLoggedIn());
     }
+  }
+
+  getPageHeader() {
+    if (this.props.params.type === 'quiz') {
+      return <h1>Quiz</h1>;
+    } else if (this.props.params.type === 'guess') {
+      return <h1>Gissa ordet</h1>;
+    } else if (this.props.params.type === 'translate') {
+      return <h1>Översätt ordet</h1>;
+    }
+    return null;
   }
 
   handleChange(event) {
@@ -68,19 +75,33 @@ export class selectScreen extends React.Component {
     }
   }
 
-  getPageHeader() {
-    if (this.props.params.type === 'quiz') {
-      return <h1>Quiz</h1>;
-    } else if (this.props.params.type === 'guess') {
-      return <h1>Gissa ordet</h1>;
-    } else if (this.props.params.type === 'translate') {
-      return <h1>Översätt ordet</h1>;
-    }
-    return null;
+  handleStarredClick(lessonName) {
+    return this.props.starredLessons.includes(lessonName) ?
+      this.props.removeStarredLesson(lessonName) :
+      this.props.addStarredLesson(lessonName);
   }
 
   render() {
-    const options = this.props.lessonNames.map(name => <option key={name} value={name}>{name}</option>);
+    const options = this.props.lessonNames.map(name =>
+      <Row key={name}>
+        <Col xs={10} md={10}>
+          <ListGroupItem
+            onClick={() => this.props.setSelectedLesson(name)}
+            value={name}
+            bsStyle={name === this.props.selectedLesson ? 'info' : null}
+          >
+            {name}
+          </ListGroupItem>
+        </Col>
+        <Col xs={2} md={2}>
+          <Button
+            bsStyle={this.props.starredLessons.includes(name) ? 'warning' : null}
+            onClick={() => this.handleStarredClick(name)}
+          >
+            <Glyphicon glyph="star" />
+          </Button>
+        </Col>
+      </Row>);
     let languageSelection;
     if (this.props.params.type === 'quiz') {
       languageSelection = <div />;
@@ -121,15 +142,9 @@ export class selectScreen extends React.Component {
             <form href="#" onSubmit={this.handleSubmit}>
               <FormGroup>
                 <ControlLabel>Välj lista av frågor</ControlLabel>
-                <FormControl
-                  componentClass="select"
-                  name="selectedLesson"
-                  id="lessonSelection"
-                  onChange={this.handleChange}
-                  value={this.props.selectedLesson}
-                >
+                <ListGroup>
                   {options}
-                </FormControl>
+                </ListGroup>
                 {languageSelection}
               </FormGroup>
               <Button type="submit">Starta</Button>
