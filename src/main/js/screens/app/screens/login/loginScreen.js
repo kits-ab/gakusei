@@ -1,7 +1,5 @@
 import React from 'react';
-import { Button, Col, Row, Grid, Form, Checkbox, CheckboxGroup, FieldGroup, FormGroup, FormControl, Input, HelpBlock } from 'react-bootstrap';
-// import MyLoginForm from './components/MyLoginForm';
-// import MyRegistrationForm from './components/MyRegistrationForm';
+import { Button, Col, Row, Grid, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
@@ -32,13 +30,13 @@ export class loginScreen extends React.Component {
   }
 
   getValidationState() {
-    // No validation right now
-    // const length = this.state.username.length;
-    // if (length > 0) {
-    //   return 'success';
-    // }
-    // else if (length > 1) return 'warning';
-    // else if (length > 0) return 'error';
+    // success, warning, error, or null
+    if (this.haveFailedAuth()) {
+      return 'error';
+    } else if (this.haveSucceededAuth()) {
+      return 'success';
+    }
+
     return null;
   }
 
@@ -46,7 +44,7 @@ export class loginScreen extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(formData, event) {
+  handleSubmit(formData) {
     formData.preventDefault();
 
     if (this.state.submitLogin) {
@@ -56,6 +54,20 @@ export class loginScreen extends React.Component {
     }
   }
 
+  haveSucceededAuth() {
+    return (
+      !this.props.loginInProgress &&
+      !this.props.registerInProgress &&
+      this.props.authSuccess &&
+      this.props.authResponse !== '');
+  }
+  haveFailedAuth() {
+    return (
+      !this.props.loginInProgress &&
+      !this.props.registerInProgress &&
+      !this.props.authSuccess &&
+      this.props.authResponse !== '');
+  }
   render() {
     return (
       <Grid>
@@ -63,11 +75,17 @@ export class loginScreen extends React.Component {
           <Col mdOffset={2} md={8}>
             <Form onSubmit={this.handleSubmit}>
               <fieldset>
-                <legend>Logga in eller registrera dig</legend>
                 <FormGroup
                   controlId="formBasicText"
                   validationState={this.getValidationState()}
                 >
+                  <legend>Logga in eller registrera dig</legend>
+                  {
+                    this.props.authResponse && this.getValidationState() ?
+                      <ControlLabel>{this.props.authResponse}</ControlLabel> : null
+                  }
+                </FormGroup>
+                <FormGroup>
                   <FormControl
                     type="text"
                     name="username"
@@ -93,13 +111,27 @@ export class loginScreen extends React.Component {
                 />
 
                 <FormGroup>
-                  <Button label="login" onClick={() => this.setLoginSubmitMode(true)} bsStyle="primary" name="login" type="submit" disabled={!this.state.username || !this.state.password}>
-                      Logga in
-                    </Button>
+                  <Button
+                    label="login"
+                    onClick={() => this.setLoginSubmitMode(true)}
+                    bsStyle="primary"
+                    name="login"
+                    type="submit"
+                    disabled={!this.state.username || !this.state.password}
+                  >
+                    Logga in
+                  </Button>
                   {' '}
-                  <Button label="login" onClick={() => this.setLoginSubmitMode(false)} bsStyle="success" name="register" type="submit" disabled={!this.state.username || !this.state.password}>
-                      Registrera
-                    </Button>
+                  <Button
+                    label="login"
+                    onClick={() => this.setLoginSubmitMode(false)}
+                    bsStyle="success"
+                    name="register"
+                    type="submit"
+                    disabled={!this.state.username || !this.state.password}
+                  >
+                    Registrera
+                  </Button>
                 </FormGroup>
               </fieldset>
             </Form>
