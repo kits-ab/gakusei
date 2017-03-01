@@ -18,7 +18,7 @@ export class GakuseiNav extends React.Component {
             <Link to="/">
               <span>
                 <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
-              Gakusei
+                Gakusei
               </span>
             </Link>
           </Navbar.Brand>
@@ -57,9 +57,7 @@ export class GakuseiNav extends React.Component {
           }
           {this.props.loggedIn ?
             <Nav pullRight>
-              <LinkContainer to="/profile">
-                <NavItem>Profil: {this.props.loggedInUser}</NavItem>
-              </LinkContainer>
+              <NavItem>Profil: {this.props.loggedInUser}</NavItem>
               <LinkContainer to={{ pathname: '/logout', query: { currentUrl: this.props.location.pathname } }}>
                 <NavItem>Logga ut</NavItem>
               </LinkContainer>

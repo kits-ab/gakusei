@@ -1,7 +1,5 @@
 import React from 'react';
-import { Button, Col, Row, Grid, Form, Checkbox, CheckboxGroup, FieldGroup, FormGroup, FormControl, Input, HelpBlock, ControlLabel } from 'react-bootstrap';
-// import MyLoginForm from './components/MyLoginForm';
-// import MyRegistrationForm from './components/MyRegistrationForm';
+import { Button, Col, Row, Grid, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
@@ -57,27 +55,19 @@ export class loginScreen extends React.Component {
   }
 
   haveSucceededAuth() {
-    if (
-    !this.props.loginInProgress &&
-    !this.props.registerInProgress &&
-    this.props.authSuccess &&
-    this.props.authResponse !== '') {
-      return true;
-    }
-    return false;
+    return (
+      !this.props.loginInProgress &&
+      !this.props.registerInProgress &&
+      this.props.authSuccess &&
+      this.props.authResponse !== '');
   }
-
   haveFailedAuth() {
-    if (
-    !this.props.loginInProgress &&
-    !this.props.registerInProgress &&
-    !this.props.authSuccess &&
-    this.props.authResponse !== '') {
-      return true;
-    }
-    return false;
+    return (
+      !this.props.loginInProgress &&
+      !this.props.registerInProgress &&
+      !this.props.authSuccess &&
+      this.props.authResponse !== '');
   }
-
   render() {
     return (
       <Grid>
@@ -90,7 +80,10 @@ export class loginScreen extends React.Component {
                   validationState={this.getValidationState()}
                 >
                   <legend>Logga in eller registrera dig</legend>
-                  { this.props.authResponse && this.getValidationState() ? <ControlLabel>{this.props.authResponse}</ControlLabel> : null }
+                  {
+                    this.props.authResponse && this.getValidationState() ?
+                      <ControlLabel>{this.props.authResponse}</ControlLabel> : null
+                  }
                 </FormGroup>
                 <FormGroup>
                   <FormControl
@@ -118,13 +111,27 @@ export class loginScreen extends React.Component {
                 />
 
                 <FormGroup>
-                  <Button label="login" onClick={() => this.setLoginSubmitMode(true)} bsStyle="primary" name="login" type="submit" disabled={!this.state.username || !this.state.password}>
-                      Logga in
-                    </Button>
+                  <Button
+                    label="login"
+                    onClick={() => this.setLoginSubmitMode(true)}
+                    bsStyle="primary"
+                    name="login"
+                    type="submit"
+                    disabled={!this.state.username || !this.state.password}
+                  >
+                    Logga in
+                  </Button>
                   {' '}
-                  <Button label="login" onClick={() => this.setLoginSubmitMode(false)} bsStyle="success" name="register" type="submit" disabled={!this.state.username || !this.state.password}>
-                      Registrera
-                    </Button>
+                  <Button
+                    label="login"
+                    onClick={() => this.setLoginSubmitMode(false)}
+                    bsStyle="success"
+                    name="register"
+                    type="submit"
+                    disabled={!this.state.username || !this.state.password}
+                  >
+                    Registrera
+                  </Button>
                 </FormGroup>
               </fieldset>
             </Form>
