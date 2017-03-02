@@ -283,8 +283,13 @@ export const actionCreators = {
 export const security = (state, action) => {
   // Special case of redux-persist
   if (action.type === REHYDRATE) {
-    const incoming = action.payload.lessons;
-    if (incoming) return { ...state, ...incoming/* , specialKey: processSpecial(incoming.specialKey)*/ };
+    const incoming = action.payload.security;
+    if (incoming) {
+      return {
+        ...state,
+        loggedIn: incoming.loggedIn,
+        loggedInUser: incoming.loggedInUser };
+    }
     return state;
   }
 

@@ -39,24 +39,24 @@ export default class AppProvider extends React.Component {
   }
 
   render() {
-    if (!this.state.rehydrated) {
-      return null;
+    if (this.state.rehydrated) {
+      return (<Provider store={store}>
+        <Router history={history}>
+          <Route path="/" component={appScreen}>
+            <IndexRedirect to="profile" />
+            <Route path="login" component={loginScreen} />
+            <Route path="logout" component={logoutScreen} />
+            <Route path="play/:type" component={requireAuthentication(playScreen)} />
+            <Route path="select/:type" component={requireAuthentication(selectScreen)} />
+            <Route path="translate" component={requireAuthentication(translateScreen)} />
+            {/* <Route path="lists" component={requireAuthentication(listsScreen)} />*/}
+            <Route path="finish/:type" component={requireAuthentication(finishScreen)} />
+            <Route path="profile" component={requireAuthentication(profileScreen)} />
+            <Route path="about" component={aboutScreen} />
+          </Route>
+        </Router>
+      </Provider>);
     }
-    return (<Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={appScreen}>
-          <IndexRedirect to="profile" />
-          <Route path="login" component={loginScreen} />
-          <Route path="logout" component={logoutScreen} />
-          <Route path="play/:type" component={requireAuthentication(playScreen)} />
-          <Route path="select/:type" component={requireAuthentication(selectScreen)} />
-          <Route path="translate" component={requireAuthentication(translateScreen)} />
-          {/* <Route path="lists" component={requireAuthentication(listsScreen)} />*/}
-          <Route path="finish/:type" component={requireAuthentication(finishScreen)} />
-          <Route path="profile" component={requireAuthentication(profileScreen)} />
-          <Route path="about" component={aboutScreen} />
-        </Route>
-      </Router>
-    </Provider>);
+    return null;
   }
 }

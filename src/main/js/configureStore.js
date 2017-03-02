@@ -56,7 +56,6 @@ export function configureStoreOld(initialState) {
   const store = createStoreWithMiddleware(allReducers/* , initialState*/);
   persistStore(store);
 
-  // persistStore(store, { storage: localStorage }, (x) => { debugger; /* done */ });
   // Enable Webpack hot module replacement for reducers.. But we're not using webpack.. yet! - William
   //   if (module.hot) {
   //     module.hot.accept('./store', () => {

@@ -565,7 +565,9 @@ export const lessons = (state, action) => {
   // Special case of redux-persist
   if (action.type === REHYDRATE) {
     const incoming = action.payload.lessons;
-    if (incoming) return { ...state, ...incoming/* , specialKey: processSpecial(incoming.specialKey)*/ };
+    // Don't use the rehydrated state for now
+    if (incoming) return { ...state };
+    // if (incoming) return { ...state, ...incoming/* , specialKey: processSpecial(incoming.specialKey)*/ };
     return state;
   }
 
