@@ -18,6 +18,11 @@ export function requireAuthentication(Component) {
     }
 
     checkAuth(isAuthenticated) {
+      // if(isAuthenticated === null) {
+      //   // Do api call to check logged in state
+      //   // uh, lets use persist instead
+      // }
+
       if (!isAuthenticated) {
         const redirectAfterLogin = this.props.location.pathname;
         this.props.setPageByName('login', { redirectUrl: redirectAfterLogin });
