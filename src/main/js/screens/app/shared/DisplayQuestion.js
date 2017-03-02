@@ -1,4 +1,6 @@
 import React from 'react';
+import { Glyphicon } from 'react-bootstrap';
+import Speech from '../../../shared/util/Speech';
 
 export class DisplayQuestion extends React.Component {
   getQuestionText() {
@@ -30,11 +32,22 @@ export class DisplayQuestion extends React.Component {
   }
 
   render() {
+    const questionText = this.getQuestionText();
     return (
       <div>
         <div>{this.getResource()}</div>
         <div>
-          <p className="questionText">{this.getQuestionText()}</p>
+          <p className="questionText">
+            {questionText}
+            { this.props.japaneseCharacters ?
+              <small>
+                <small>
+                  <Glyphicon glyph="volume-up" onClick={() => Speech.say(this.props.primaryText)} />
+                </small>
+              </small>
+            :
+            null }
+          </p>
         </div>
       </div>
     );
