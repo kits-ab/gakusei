@@ -143,20 +143,22 @@ export function fetchLoggedInUser() {
 }
 
 export function requestUserLogout(redirectUrl, csrf) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    const routing = getState().routing;
+
     fetch('/logout',
       {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
-          'X-XSRF-TOKEN': csrf
+          'X-XSRF-TOKEN': csrf || ''
         }
       })
     .then((response) => {
       if (response.status === 200) {
         dispatch(receiveLoggedInStatus(false));
         dispatch(clearAuthResponse());
-        dispatch(setPageByName(redirectUrl || '/'));
+        dispatch(setPageByName(redirectUrl || routing.locationBeforeTransitions.pathname || '/'));
       }
     });
   };
@@ -240,6 +242,26 @@ export function requestUserRegister(data, redirectUrl) {
   };
 }
 
+export function reloadCurrentRoute() {
+  return function (dispatch, getState) {
+    const routing = getState().routing;
+
+    dispatch(setPageByName(routing.locationBeforeTransitions.pathname));
+  };
+}
+
+export function verifyUserLoggedIn() {
+  return function (dispatch, getState) {
+    const security = getState().security;
+
+    dispatch(fetchLoggedInUser()).then(() => {
+      if (!security.loggedIn) {
+        dispatch(reloadCurrentRoute());
+      }
+    });
+  };
+}
+
 export const actionCreators = {
   fetchLoggedInUser,
   requestLoggedInUser,
@@ -247,7 +269,10 @@ export const actionCreators = {
   requestUserLogout,
   requestUserLogin,
   requestUserRegister,
-  setPageByName
+  setPageByName,
+  reloadCurrentRoute,
+  verifyUserLoggedIn,
+  clearAuthResponse
 };
 
 // ----------------

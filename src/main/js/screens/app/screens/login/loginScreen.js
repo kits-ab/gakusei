@@ -23,6 +23,10 @@ export class loginScreen extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentWillMount() {
+    this.props.clearAuthResponse();
+  }
+
   setLoginSubmitMode(submitLogin) {
     this.setState({
       submitLogin

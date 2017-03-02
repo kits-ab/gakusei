@@ -15,15 +15,30 @@ export class selectScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchLessonNames(this.props.params.type);
-    this.props.fetchUserStarredLessons();
+    this.props.fetchLessonNames(this.props.params.type)
+      .catch(() => this.props.verifyUserLoggedIn());
+
+    this.props.fetchUserStarredLessons()
+      .catch(() => this.props.verifyUserLoggedIn());
   }
 
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.params.type !== nextProps.params.type) {
-      this.props.fetchLessonNames(nextProps.params.type);
+      this.props.fetchLessonNames(nextProps.params.type)
+      .catch(() => this.props.verifyUserLoggedIn());
     }
+  }
+
+  getPageHeader() {
+    if (this.props.params.type === 'quiz') {
+      return <h1>Quiz</h1>;
+    } else if (this.props.params.type === 'guess') {
+      return <h1>Gissa ordet</h1>;
+    } else if (this.props.params.type === 'translate') {
+      return <h1>Översätt ordet</h1>;
+    }
+    return null;
   }
 
   handleChange(event) {
@@ -43,44 +58,46 @@ export class selectScreen extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-
-    if (this.props.params.type === 'translate') {
-      this.props.fetchLesson(this.props.params.type)
+    try {
+      if (this.props.params.type === 'translate') {
+        this.props.fetchLesson(this.props.params.type)
       .then(() => {
         this.props.setPageByName('/translate');
       });
-    } else {
-      this.props.fetchLesson(this.props.params.type)
+      } else {
+        this.props.fetchLesson(this.props.params.type)
       .then(() => {
         this.props.setPageByName(`/play/${this.props.params.type}`);
       });
+      }
+    } catch (err) {
+      this.props.verifyUserLoggedIn();
     }
   }
+
   handleStarredClick(lessonName) {
     return this.props.starredLessons.includes(lessonName) ?
       this.props.removeStarredLesson(lessonName) :
       this.props.addStarredLesson(lessonName);
   }
+
   render() {
     const options = this.props.lessonNames.map(name =>
       <Row key={name}>
-        <Col xs={10} md={10}>
-          <ListGroupItem
-            onClick={() => this.props.setSelectedLesson(name)}
-            value={name}
-            bsStyle={name === this.props.selectedLesson ? 'info' : null}
-          >
-            {name}
-          </ListGroupItem>
-        </Col>
-        <Col xs={2} md={2}>
+        <ListGroupItem
+          onClick={() => this.props.setSelectedLesson(name)}
+          value={name}
+          bsStyle={name === this.props.selectedLesson ? 'info' : null}
+        >
+          {name}
           <Button
+            className="pull-right"
             bsStyle={this.props.starredLessons.includes(name) ? 'warning' : null}
             onClick={() => this.handleStarredClick(name)}
           >
             <Glyphicon glyph="star" />
           </Button>
-        </Col>
+        </ListGroupItem>
       </Row>);
     let languageSelection;
     if (this.props.params.type === 'quiz') {
@@ -115,6 +132,9 @@ export class selectScreen extends React.Component {
     return (
       <Grid className="text-center">
         <Row>
+          {this.getPageHeader()}
+        </Row>
+        <Row>
           <Col xs={8} xsOffset={2} lg={4} lgOffset={4}>
             <form href="#" onSubmit={this.handleSubmit}>
               <FormGroup>
@@ -127,6 +147,9 @@ export class selectScreen extends React.Component {
               <Button type="submit">Starta</Button>
             </form>
           </Col>
+        </Row>
+        <Row>
+          <br />
         </Row>
       </Grid>
     );

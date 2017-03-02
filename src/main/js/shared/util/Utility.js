@@ -92,13 +92,24 @@ export default class Utility {
 // ----------------
 // LOGGING
   static logEvent(page, eventType, eventData, username) {
-    if (Array.isArray(eventData)) {
-      for (let i = 0; i < eventData.length; i += 1) {
-        this.postEvent(page, eventType, eventData[i], username);
+    return new Promise((resolve, reject) => {
+      const promises = [];
+      if (Array.isArray(eventData)) {
+        for (let i = 0; i < eventData.length; i += 1) {
+          promises.push(this.postEvent(page, eventType, eventData[i], username)
+          .catch((err) => { reject(err); }));
+        }
+      } else {
+        promises.push(this.postEvent(page, eventType, eventData, username)
+        .catch((err) => { reject(err); }));
       }
-    } else {
-      this.postEvent(page, eventType, eventData, username);
-    }
+
+      Promise.all(promises).then((values) => {
+        if (values.some(response => !response.ok)) {
+          reject();
+        } else { resolve(); }
+      });
+    });
   }
 
   static postEvent(page, eventType, eventData, username) {
@@ -110,7 +121,7 @@ export default class Utility {
       username
     };
     const xsrfTokenValue = getCSRF();
-    fetch('/api/events',
+    return fetch('/api/events',
       {
         credentials: 'same-origin',
         method: 'POST',
