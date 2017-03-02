@@ -13,7 +13,7 @@ import aboutScreen from './screens/app/screens/about';
 import translateScreen from './screens/app/screens/translate';
 import listsScreen from './screens/app/screens/lists';
 import finishScreen from './screens/app/screens/finish';
-import profileScreen from './screens/app/screens/profile';
+import homeScreen from './screens/app/screens/home';
 import loginScreen from './screens/app/screens/login';
 import logoutScreen from './screens/app/screens/logout';
 import playScreen from './screens/app/screens/play';
@@ -43,7 +43,7 @@ export default class AppProvider extends React.Component {
       return (<Provider store={store}>
         <Router history={history}>
           <Route path="/" component={appScreen}>
-            <IndexRedirect to="profile" />
+            <IndexRedirect to="home" />
             <Route path="login" component={loginScreen} />
             <Route path="logout" component={logoutScreen} />
             <Route path="play/:type" component={requireAuthentication(playScreen)} />
@@ -51,7 +51,7 @@ export default class AppProvider extends React.Component {
             <Route path="translate" component={requireAuthentication(translateScreen)} />
             {/* <Route path="lists" component={requireAuthentication(listsScreen)} />*/}
             <Route path="finish/:type" component={requireAuthentication(finishScreen)} />
-            <Route path="profile" component={requireAuthentication(profileScreen)} />
+            <Route path="home" component={requireAuthentication(homeScreen)} />
             <Route path="about" component={aboutScreen} />
           </Route>
         </Router>
