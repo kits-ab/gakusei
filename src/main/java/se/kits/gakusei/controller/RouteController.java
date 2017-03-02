@@ -31,7 +31,7 @@ public class RouteController {
             "/select/**",
             "/translate",
             "/finish/**",
-            "/profile",
+            "/home",
             "/about"},
             method = RequestMethod.GET)
     public String index() {
