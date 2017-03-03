@@ -1,5 +1,6 @@
 import 'whatwg-fetch';
 import React from 'react';
+import { REHYDRATE } from 'redux-persist/constants';
 
 import getCSRF from '../../shared/util/getcsrf';
 import Utility from '../../shared/util/Utility';
@@ -561,6 +562,15 @@ export const actionCreators = {
 // REDUCER - For a given state and action, returns the new state.
 // To support time travel, this must not mutate the old state.
 export const lessons = (state, action) => {
+  // Special case of redux-persist
+  if (action.type === REHYDRATE) {
+    const incoming = action.payload.lessons;
+    // Don't use the rehydrated state for now
+    if (incoming) return { ...state };
+    // if (incoming) return { ...state, ...incoming/* , specialKey: processSpecial(incoming.specialKey)*/ };
+    return state;
+  }
+
   switch (action.type) {
     default:
       return state || defaultState;

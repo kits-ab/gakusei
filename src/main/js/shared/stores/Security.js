@@ -1,7 +1,9 @@
 import 'whatwg-fetch';
 import { push } from 'react-router-redux';
 import React from 'react';
+import { REHYDRATE } from 'redux-persist/constants';
 import Utility from '../../shared/util/Utility';
+
 
 // ----------------
 // DEFAULT STATE
@@ -279,6 +281,18 @@ export const actionCreators = {
 // REDUCER - For a given state and action, returns the new state.
 // To support time travel, this must not mutate the old state.
 export const security = (state, action) => {
+  // Special case of redux-persist
+  if (action.type === REHYDRATE) {
+    const incoming = action.payload.security;
+    if (incoming) {
+      return {
+        ...state,
+        loggedIn: incoming.loggedIn,
+        loggedInUser: incoming.loggedInUser };
+    }
+    return state;
+  }
+
   switch (action.type) {
     default:
       return state || defaultState;
