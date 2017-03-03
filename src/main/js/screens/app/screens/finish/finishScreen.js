@@ -64,7 +64,7 @@ export class finishScreen extends React.Component {
           secondaryText={this.props.processedQuestion.actualQuestionShapes[1] || null}
           resourceRef={this.props.processedQuestion.resourceRef}
           japaneseCharacters={this.props.questionType === 'reading'}
-          showSpeechButton
+          showSpeechButton={this.props.params.type !== 'quiz'}
           smallerText
         />
         Svar: {qa.correctAlternative}. (Du svarade: {qa.userAnswer})

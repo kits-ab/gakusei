@@ -71,7 +71,7 @@ export class playScreen extends React.Component {
             primaryText={this.props.processedQuestion.actualQuestionShapes[0]}
             secondaryText={this.props.processedQuestion.actualQuestionShapes[1] || null}
             resourceRef={this.props.processedQuestion.resourceRef}
-            japaneseCharacters={this.props.questionType === 'reading'}
+            japaneseCharacters={this.props.questionType === 'reading' && this.props.params.type !== 'quiz'}
             showSpeechButton
             showKanji
           />
