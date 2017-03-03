@@ -10,12 +10,12 @@ export class selectScreen extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchLessonNames(this.props.params.type)
+    this.props.fetchLessons(this.props.params.type)
       .catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchUserStarredLessons()
@@ -25,8 +25,8 @@ export class selectScreen extends React.Component {
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.params.type !== nextProps.params.type) {
-      this.props.fetchLessonNames(nextProps.params.type)
-      .catch(() => this.props.verifyUserLoggedIn());
+      this.props.fetchLessons(nextProps.params.type)
+        .catch(() => this.props.verifyUserLoggedIn());
     }
   }
 
@@ -41,7 +41,7 @@ export class selectScreen extends React.Component {
     return null;
   }
 
-  handleChange(event) {
+  handleLanguageSelection(event) {
     switch (event.target.name) {
       case 'selectedLesson':
         this.props.setSelectedLesson(event.target.value);
@@ -61,43 +61,46 @@ export class selectScreen extends React.Component {
     try {
       if (this.props.params.type === 'translate') {
         this.props.fetchLesson(this.props.params.type)
-      .then(() => {
-        this.props.setPageByName('/translate');
-      });
+          .then(() => {
+            this.props.setPageByName('/translate');
+          });
       } else {
         this.props.fetchLesson(this.props.params.type)
-      .then(() => {
-        this.props.setPageByName(`/play/${this.props.params.type}`);
-      });
+          .then(() => {
+            this.props.setPageByName(`/play/${this.props.params.type}`);
+          });
       }
     } catch (err) {
       this.props.verifyUserLoggedIn();
     }
   }
 
-  handleStarredClick(lessonName) {
-    return this.props.starredLessons.includes(lessonName) ?
-      this.props.removeStarredLesson(lessonName) :
-      this.props.addStarredLesson(lessonName);
+  handleStarredClick(lesson) {
+    return this.props.starredLessons.map(userLesson => userLesson.lessonName).includes(lesson.name) ?
+      this.props.removeStarredLesson(lesson.name) :
+      this.props.addStarredLesson(lesson.name);
   }
-
   render() {
-    const options = this.props.lessonNames.map(name =>
-      <Row key={name}>
-        <ListGroupItem
-          onClick={() => this.props.setSelectedLesson(name)}
-          value={name}
-          bsStyle={name === this.props.selectedLesson ? 'info' : null}
-        >
-          {name}
+    const options = this.props.lessons.map(lesson =>
+      <Row key={lesson.name}>
+        <Col xs={2} md={1} lg={1}>
           <Button
-            className="pull-right"
-            bsStyle={this.props.starredLessons.includes(name) ? 'warning' : null}
-            onClick={() => this.handleStarredClick(name)}
+            bsStyle={this.props.starredLessons.map(userLesson => userLesson.lessonName).includes(lesson.name) ? 'warning' : null}
+            onClick={() => this.handleStarredClick(lesson)}
           >
             <Glyphicon glyph="star" />
           </Button>
-        </ListGroupItem>
+        </Col>
+        <Col xs={10} md={11} lg={11}>
+          <ListGroupItem
+            key={lesson.name}
+            onClick={() => this.props.setSelectedLesson(lesson)}
+            value={lesson.name}
+            header={lesson.name}
+            bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
+          >
+          </ListGroupItem>
+        </Col>
       </Row>);
     let languageSelection;
     if (this.props.params.type === 'quiz') {
@@ -110,7 +113,7 @@ export class selectScreen extends React.Component {
             componentClass="select"
             name="questionType"
             id="questionLanguageSelection"
-            onChange={this.handleChange}
+            onChange={this.handleLanguageSelection}
             value={this.props.questionType}
           >
             <option key={'reading'} value={'reading'}>Japanska</option>
@@ -121,7 +124,7 @@ export class selectScreen extends React.Component {
             componentClass="select"
             name="answerType"
             id="answerLanguageSelection"
-            onChange={this.handleChange}
+            onChange={this.handleLanguageSelection}
             value={this.props.answerType}
           >
             <option key={'swedish'} value={'swedish'}>Svenska</option>

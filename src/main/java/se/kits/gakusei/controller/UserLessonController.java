@@ -23,9 +23,9 @@ public class UserLessonController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<List<String>> getUserLesson(
+    public ResponseEntity<List<UserLesson>> getUserLesson(
             @RequestParam(value = "username") String username) {
-        return new ResponseEntity<List<String>>(userLessonRepository.findUsersStarredLessons(username), HttpStatus.OK);
+        return new ResponseEntity<List<UserLesson>>(userLessonRepository.findUsersStarredLessons(username), HttpStatus.OK);
     }
 
     @RequestMapping(
