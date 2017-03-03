@@ -18,6 +18,7 @@ export const defaultState = {
 
   // LessonSelection.js
   lessons: [],
+  selectedLesson: { name: '' },
   // fetchURL: '/api/questions',
 
   // GenericSelection.js

@@ -1,6 +1,4 @@
 import React from 'react';
-import moment from 'moment';
-import DatePicker from 'react-datepicker';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Glyphicon } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/stores/Lessons';
@@ -11,11 +9,9 @@ export const Reducers = [Lessons, Security];
 export class selectScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { startDate: moment() };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   componentWillMount() {
@@ -84,12 +80,6 @@ export class selectScreen extends React.Component {
       this.props.removeStarredLesson(lesson.name) :
       this.props.addStarredLesson(lesson.name);
   }
-
-  handleDateChange(newMoment) {
-    this.setState({ startDate: newMoment });
-    console.log(newMoment.calendar());
-  }
-
   render() {
     const options = this.props.lessons.map(lesson =>
       <Row key={lesson.name}>
@@ -106,8 +96,8 @@ export class selectScreen extends React.Component {
             key={lesson.name}
             onClick={() => this.props.setSelectedLesson(lesson)}
             value={lesson.name}
-            bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
             header={lesson.name}
+            bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
           >
           </ListGroupItem>
         </Col>
@@ -179,10 +169,3 @@ selectScreen.propTypes = Utility.reduxEnabledPropTypes({
 
 
 export default Utility.superConnect(this, Reducers)(selectScreen);
-
-// <Col xs={2} md={3} lg={4}>
-//   <DatePicker
-//     selected={this.state.startDate}
-//     onChange={this.handleDateChange}
-//   />
-// </Col>
