@@ -8,7 +8,7 @@ import * as Security from '../../../../shared/stores/Security';
 
 export const Reducers = [Lessons, Security];
 
-export class profileScreen extends React.Component {
+export class homeScreen extends React.Component {
   static getChartOptions() {
     return {
       responsive: true,
@@ -67,7 +67,7 @@ export class profileScreen extends React.Component {
         <Row>
           <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
             { this.props.requestingSuccessRate === false ?
-              <Pie data={this.getChartData()} options={profileScreen.getChartOptions()} /> :
+              <Pie data={this.getChartData()} options={homeScreen.getChartOptions()} /> :
               <p>Loading...</p> }
           </Col>
         </Row>
@@ -80,14 +80,14 @@ export class profileScreen extends React.Component {
   }
 }
 
-profileScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+homeScreen.defaultProps = Utility.reduxEnabledDefaultProps({
 
 }, Reducers);
 
-profileScreen.propTypes = Utility.reduxEnabledPropTypes({
+homeScreen.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
 
 
-export default Utility.superConnect(this, Reducers)(profileScreen);
+export default Utility.superConnect(this, Reducers)(homeScreen);
 

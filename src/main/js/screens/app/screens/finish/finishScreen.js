@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Grid, Row, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Button, Grid, Row, ListGroup, ListGroupItem, Col } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import getCSRF from '../../../../shared/util/getcsrf';
+import DisplayQuestion from '../../shared/DisplayQuestion';
 import * as Lessons from '../../../../shared/stores/Lessons';
 import * as Security from '../../../../shared/stores/Security';
 
@@ -56,18 +57,18 @@ export class finishScreen extends React.Component {
   }
 
   showResults() {
-    const result = this.props.processedQuestionsWithAnswers.map(qa => (qa.actualQuestionShapes.length > 1 ?
+    const result = this.props.processedQuestionsWithAnswers.map(qa =>
       <ListGroupItem key={qa.userAnswer + qa.correctAlternative[0]} bsStyle={qa.correctAlternative.indexOf(qa.userAnswer) !== -1 ? 'success' : 'danger'}>
-        Läsform: {qa.actualQuestionShapes[0]}
-        , Skrivform: {qa.actualQuestionShapes[1]}
-        , Korrekt svar: {qa.correctAlternative}
-        , Ditt svar: {qa.userAnswer}
-      </ListGroupItem> :
-      <ListGroupItem key={qa.userAnswer + qa.correctAlternative[0]} bsStyle={qa.correctAlternative.indexOf(qa.userAnswer) !== -1 ? 'success' : 'danger'}>
-        Läsform: {qa.actualQuestionShapes[0]}
-        , Korrekt svar: {qa.correctAlternative}
-        , Ditt svar: {qa.userAnswer}
-      </ListGroupItem>)
+        <DisplayQuestion
+          primaryText={this.props.processedQuestion.actualQuestionShapes[0]}
+          secondaryText={this.props.processedQuestion.actualQuestionShapes[1] || null}
+          resourceRef={this.props.processedQuestion.resourceRef}
+          japaneseCharacters={this.props.questionType === 'reading'}
+          showSpeechButton
+          smallerText
+        />
+        Svar: {qa.correctAlternative}. (Du svarade: {qa.userAnswer})
+      </ListGroupItem>
     );
 
     return result;
@@ -85,11 +86,15 @@ export class finishScreen extends React.Component {
             </h3>
           </div>
         </Row>
-        <ListGroup>
-          <ListGroupItem>
-            {this.showResults()}
-          </ListGroupItem>
-        </ListGroup>
+        <Row>
+          <Col xs={12} md={8} mdOffset={2}>
+            <ListGroup>
+              <ListGroupItem>
+                {this.showResults()}
+              </ListGroupItem>
+            </ListGroup>
+          </Col>
+        </Row>
         <Row>
           <div className="text-center">
             <Button bsStyle="info" onClick={this.playAgain}>Försök igen</Button>

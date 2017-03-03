@@ -1,4 +1,6 @@
 import React from 'react';
+import { Glyphicon, Button } from 'react-bootstrap';
+import Speech from '../../../shared/util/Speech';
 
 export class DisplayQuestion extends React.Component {
   getQuestionText() {
@@ -30,12 +32,31 @@ export class DisplayQuestion extends React.Component {
   }
 
   render() {
+    const questionText = this.getQuestionText();
+    const resource = this.getResource();
+    const speechButtonStyle = {
+      'font-size': (this.props.smallerText ? '1.0em' : '1.6em'),
+      top: '3px'
+    };
+    const generalStyle = {
+      'font-size': (this.props.smallerText ? '0.5em' : '1.0em')
+    };
+
     return (
-      <div>
-        <div>{this.getResource()}</div>
-        <div>
-          <p className="questionText">{this.getQuestionText()}</p>
-        </div>
+      <div style={generalStyle}>
+        { this.props.showKanji ? resource : null }
+        <p className="questionText">
+          {questionText}
+          { this.props.japaneseCharacters && this.props.showSpeechButton ?
+            <span>
+              {' '}
+              <Button bsStyle="info" bsSize="xsmall" onClick={() => Speech.say(this.props.primaryText)} >
+                <Glyphicon style={speechButtonStyle} glyph="volume-up" />
+              </Button>
+            </span>
+            :
+            null }
+        </p>
       </div>
     );
   }
@@ -43,14 +64,18 @@ export class DisplayQuestion extends React.Component {
 
 DisplayQuestion.defaultProps = {
   resourceRef: null,
-  secondaryText: null
+  secondaryText: null,
+  showSpeechButton: false,
+  showKanji: false
 };
 
 DisplayQuestion.propTypes = {
   primaryText: React.PropTypes.string.isRequired,
   secondaryText: React.PropTypes.string,
   japaneseCharacters: React.PropTypes.bool.isRequired,
-  resourceRef: React.PropTypes.string
+  resourceRef: React.PropTypes.string,
+  showSpeechButton: React.PropTypes.bool,
+  showKanji: React.PropTypes.bool
 };
 
 export default DisplayQuestion;
