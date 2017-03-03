@@ -14,7 +14,8 @@
     "compile:main": "browserify ./src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
     "compile": "npm run compile:main",
     "watch:main": "watchify src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js -dv -v -p livereactload",
-    "start": "npm run watch:main"
+    "start": "npm run watch:main",
+    "test": "node ./src/test/js/react-test/test"
   },
   "repository": {
     "type": "git",
@@ -24,9 +25,7 @@
     "browserify": "^13.1.1",
     "chart.js": "^2.4.0",
     "form-data": "^2.1.2",
-    "formsy-react": "^0.19.2",
-    "formsy-react-bootstrap": "^1.5.5",
-    "formsy-react-components": "^0.10.1",
+    "geckodriver": "^1.4.0",
     "hyphenation.sv": "^0.2.1",
     "hypher": "^0.2.5",
     "react": "^15.4.2",
@@ -41,6 +40,7 @@
     "redux": "^3.6.0",
     "redux-persist": "^4.4.2",
     "redux-thunk": "^2.2.0",
+    "selenium-webdriver": "^3.1.0",
     "whatwg-fetch": "^2.0.1",
     "xml2js": "^0.4.17"
   },
@@ -51,14 +51,18 @@
     "babel-preset-stage-2": "^6.18.0",
     "babelify": "^7.2.0",
     "browserify": "^13.1.1",
+    "chai": "^3.5.0",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
     "livereactload": "^3.2.0",
+    "mocha": "^3.2.0",
     "react-proxy": "^1.1.8",
     "rimraf": "^2.5.2",
-    "watchify": "^3.9.0"
+    "selenium-standalone": "^6.0.1",
+    "watchify": "^3.9.0",
+    "webdriverio": "^4.6.2"
   }
 }
