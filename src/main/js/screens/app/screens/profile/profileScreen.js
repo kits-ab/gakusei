@@ -59,7 +59,12 @@ export class profileScreen extends React.Component {
   }
 
   render() {
-    const starredLessons = this.props.starredLessons.map(name => <ListGroupItem key={name}>{name}</ListGroupItem>);
+    const starredLessons = this.props.starredLessons.map(userLesson =>
+      <ListGroupItem
+        key={userLesson.lessonName}
+      >
+        {userLesson.lessonName}
+      </ListGroupItem>);
     return (
       <Grid className="text-center">
         <h2>Välkommen till Gakusei {this.props.loggedInUser}!</h2>

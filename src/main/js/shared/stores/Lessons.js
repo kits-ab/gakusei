@@ -16,7 +16,7 @@ export const defaultState = {
   requestSuccessRateLastReceived: null,
 
   // LessonSelection.js
-  lessonNames: [],
+  lessons: [],
   // fetchURL: '/api/questions',
 
   // GenericSelection.js
@@ -86,7 +86,7 @@ export const ADD_USER_ANSWER = 'ADD_USER_ANSWER';
 export const CLEAR_USER_ANSWERS = 'CLEAR_USER_ANSWERS';
 export const SHOW_ANSWER_BUTTON_STYLES = 'SHOW_ANSWER_BUTTON_STYLES';
 export const RECEIVE_ANSWER_BUTTON_STYLES = 'RECEIVE_ANSWER_BUTTON_STYLES';
-export const SET_LESSON_NAMES = 'SET_LESSON_NAMES';
+export const SET_LESSONS = 'SET_LESSONS';
 export const CLEAR_PROCESSED_QUESTION = 'CLEAR_PROCESSED_QUESTION';
 export const SET_QUESTION_LANGUAGE = 'SET_QUESTION_LANGUAGE';
 export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
@@ -327,11 +327,11 @@ export function resetQuestionIndex() {
   };
 }
 
-export function setSelectedLesson(lessonName) {
+export function setSelectedLesson(lesson) {
   return {
     type: SET_SELECTED_LESSON,
     description: 'Set the selected lesson name',
-    lessonName
+    lesson
   };
 }
 
@@ -384,15 +384,15 @@ export function resetLesson() {
   };
 }
 
-export function setLessonNames(lessonNames) {
+export function setLessons(lessons) {
   return function (dispatch) {
     dispatch({
-      type: SET_LESSON_NAMES,
+      type: SET_LESSONS,
       description: 'Manually set lesson names. Temporary function.',
-      lessonNames
+      lessons
     });
 
-    dispatch(setSelectedLesson(lessonNames[0]));
+    dispatch(setSelectedLesson(lessons[0]));
   };
 }
 
@@ -435,17 +435,17 @@ export function setAnswerLanguage(language) {
   };
 }
 
-export function fetchLessonNames(type) {
+export function fetchLessons(type) {
   return function (dispatch) {
     const lessonType = type === 'quiz' ? 'quiz' : 'vocabulary';
-    return fetch(`/api/lessonNames?lessonType=${lessonType}`, { credentials: 'same-origin' })
+    return fetch(`/api/lessons?lessonType=${lessonType}`, { credentials: 'same-origin' })
       .then((response) => {
         if (response.ok) {
           return response.json();
         }
         throw new Error();
       })
-      .then(result => dispatch(setLessonNames(result)));
+      .then(result => dispatch(setLessons(result)));
   };
 }
 
@@ -464,7 +464,7 @@ export function fetchLesson(lessonType) {
     const lessonState = getState().lessons;
     const securityState = getState().security;
 
-    return new Promise(resolve => fetch(`${fetchURL}?lessonName=${lessonState.selectedLesson}&questionType=${lessonState.questionType}&` +
+    return new Promise(resolve => fetch(`${fetchURL}?lessonName=${lessonState.selectedLesson.name}&questionType=${lessonState.questionType}&` +
       `answerType=${lessonState.answerType}&username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
@@ -538,7 +538,7 @@ export const actionCreators = {
   incrementQuestionIndex,
   resetQuestionIndex,
   fetchLesson,
-  fetchLessonNames,
+  fetchLessons,
   setSelectedLesson,
   setGameMode,
   processCurrentQuestion,
@@ -548,7 +548,7 @@ export const actionCreators = {
   resetAttempts,
   calcAnswerButtonStyles,
   resetLesson,
-  setLessonNames,
+  setLessons,
   setQuestionLanguage,
   setAnswerLanguage,
   fetchUserStarredLessons,
@@ -604,10 +604,10 @@ export const lessons = (state, action) => {
         questions: action.questions,
         lessonLength: action.questions.length
       };
-    case SET_LESSON_NAMES:
+    case SET_LESSONS:
       return {
         ...state,
-        lessonNames: action.lessonNames
+        lessons: action.lessons
       };
     case SET_GAMEMODE:
       return {
@@ -625,7 +625,7 @@ export const lessons = (state, action) => {
     case SET_SELECTED_LESSON:
       return {
         ...state,
-        selectedLesson: action.lessonName
+        selectedLesson: action.lesson
       };
     case SET_LESSON_SUCCESS_RATE:
       return {
