@@ -96,7 +96,7 @@ export class selectScreen extends React.Component {
         <Col xs={2} md={1} lg={1}>
           <Button
             bsStyle={this.props.starredLessons.map(userLesson => userLesson.lessonName).includes(lesson.name) ? 'warning' : null}
-            onClick={() => this.handleStarredClick(lesson.name)}
+            onClick={() => this.handleStarredClick(lesson)}
           >
             <Glyphicon glyph="star" />
           </Button>
@@ -106,10 +106,9 @@ export class selectScreen extends React.Component {
             key={lesson.name}
             onClick={() => this.props.setSelectedLesson(lesson)}
             value={lesson.name}
-            bsStyle={lesson.name === this.props.selectedLesson ? 'info' : null}
+            bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
             header={lesson.name}
           >
-            Deadline at: {lesson.firstDeadline}
           </ListGroupItem>
         </Col>
       </Row>);
