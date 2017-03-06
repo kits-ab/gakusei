@@ -12,6 +12,7 @@ import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.repository.LessonRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class LessonController {
@@ -27,9 +28,13 @@ public class LessonController {
     protected ResponseEntity<List<Lesson>> getLessonNames(
             @RequestParam(value = "lessonType") String lessonType) {
         if (lessonType.equals("quiz")) {
-            return new ResponseEntity<List<Lesson>>(lessonRepository.findQuizLessons(), HttpStatus.OK);
+            List<Lesson> tmpLessons = lessonRepository.findQuizLessons().stream()
+                    .filter(lesson -> lesson.getNuggets().size() >= 4).collect(Collectors.toList());
+            return new ResponseEntity<List<Lesson>>(tmpLessons, HttpStatus.OK);
         } else if (lessonType.equals("vocabulary")){
-            return new ResponseEntity<List<Lesson>>(lessonRepository.findVocabularyLessons(), HttpStatus.OK);
+            List<Lesson> tmpLessons = lessonRepository.findVocabularyLessons().stream()
+                    .filter(lesson -> lesson.getNuggets().size() >= 4).collect(Collectors.toList());
+            return new ResponseEntity<List<Lesson>>(tmpLessons, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
