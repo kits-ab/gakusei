@@ -1,5 +1,9 @@
 {
   "rules": {
+    // AIRBNB RULES BELOW, ALL OVERRIDEN TO "WARN", not "ERROR" our IDE or Text Editor.
+    // Our custom rules are at the bottom
+    // ------------------
+    //
     // Specify whether double or single quotes should be used in JSX attributes
     // http://eslint.org/docs/rules/jsx-quotes
     "jsx-quotes": ["warn", "prefer-double"],
@@ -178,7 +182,16 @@
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-default-props.md
     "react/require-default-props": "warn",
 
-    // Our own rules!
+    // OUR RULES.
+    // ------------------
+    "strict": 0, // babel-eslint related
+    "no-plusplus": "off", // As if people wouldn't understand what it means.
+    "import/no-extraneous-dependencies": ["warn", 
+    {
+      "devDependencies": true, // Because we want devDependencies...
+      "optionalDependencies": false,
+      "peerDependencies": false
+    }],
     "no-underscore-dangle": "warn",
     "no-useless-constructor": "warn",
     "import/no-named-as-default": "off",
@@ -220,6 +233,16 @@
     "fetch": true,
     "XMLSerializer": true,
     "SpeechSynthesisUtterance": true,
-    "SpeechSynthesis": true
+    "SpeechSynthesis": true,
+    // nightwatch globals (testing)
+    "describe": false,
+    "before": false,
+    "beforeEach": false,
+    "it": false,
+    "done": false
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
   }
 }

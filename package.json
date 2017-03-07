@@ -10,27 +10,31 @@
     "url": "https://github.com/kits-ab/gakusei/issues"
   },
   "scripts": {
+    "postinstall": "./node_modules/.bin/selenium-standalone install && node nightwatch.conf.js",
     "precompile": "rimraf ./src/main/resources/static/js/*",
-    "compile:main": "browserify ./src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
-    "compile": "npm run compile:main",
-    "watch:main": "watchify src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js -dv -v -p livereactload",
-    "start": "npm run watch:main",
-    "test": "node ./src/test/js/react-test/test"
+    "compile": "browserify ./src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
+    "watch": "watchify src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js -dv -v -p livereactload",
+    "start": "npm run watch",
+    "test": "./node_modules/.bin/nightwatch --group play"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kits-ab/gakusei.git"
   },
   "dependencies": {
+    "babel-preset-es2016": "^6.22.0",
+    "babel-preset-es2017": "^6.22.0",
     "browserify": "^13.1.1",
     "chart.js": "^2.4.0",
     "form-data": "^2.1.2",
     "geckodriver": "^1.4.0",
     "hyphenation.sv": "^0.2.1",
     "hypher": "^0.2.5",
+    "moment": "2.17.1",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-chartjs-2": "^2.0.0",
+    "react-datepicker": "0.41.1",
     "react-dom": "^15.4.1",
     "react-redux": "^5.0.2",
     "react-redux-form": "^1.5.5",
@@ -42,18 +46,22 @@
     "redux-thunk": "^2.2.0",
     "selenium-webdriver": "^3.1.0",
     "whatwg-fetch": "^2.0.1",
-    "xml2js": "^0.4.17",
-    "react-datepicker": "0.41.1",
-    "moment": "2.17.1"
+    "xml2js": "^0.4.17"
   },
   "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-async-to-generator": "^6.22.0",
+    "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-2": "^6.18.0",
     "babelify": "^7.2.0",
     "browserify": "^13.1.1",
     "chai": "^3.5.0",
+    "env2": "^2.1.1",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
@@ -61,8 +69,10 @@
     "eslint-plugin-react": "^6.9.0",
     "livereactload": "^3.2.0",
     "mocha": "^3.2.0",
+    "nightwatch": "^0.9.12",
     "react-proxy": "^1.1.8",
     "rimraf": "^2.5.2",
+    "selenium-download": "^2.0.9",
     "selenium-standalone": "^6.0.1",
     "watchify": "^3.9.0",
     "webdriverio": "^4.6.2"

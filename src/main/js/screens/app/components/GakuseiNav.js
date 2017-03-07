@@ -29,23 +29,23 @@ export class GakuseiNav extends React.Component {
             <Nav>
               <NavDropdown title="Glosor" id="basic-nav-dropdown">
                 <LinkContainer to="/select/guess">
-                  <MenuItem>Gissa ordet</MenuItem>
+                  <MenuItem className="guessPlay">Gissa ordet</MenuItem>
                 </LinkContainer>
                 <LinkContainer to="/select/translate">
-                  <MenuItem>Översätt ordet</MenuItem>
+                  <MenuItem className="translatePlay">Översätt ordet</MenuItem>
                 </LinkContainer>
               </NavDropdown>
               <IndexLinkContainer to="/select/grammar">
-                <NavItem disabled>Grammatik</NavItem>
+                <NavItem className="grammarPlay" disabled>Grammatik</NavItem>
               </IndexLinkContainer>
               <LinkContainer to="/select/quiz">
-                <NavItem>Quiz</NavItem>
+                <NavItem className="quizPlay">Quiz</NavItem>
               </LinkContainer>
               {/* <LinkContainer to="/lists">
                 <NavItem>Lista ord</NavItem>
               </LinkContainer>*/}
               <LinkContainer to="/about">
-                <NavItem>Om Gakusei</NavItem>
+                <NavItem className="about">Om Gakusei</NavItem>
               </LinkContainer>
             </Nav>
           :
@@ -59,7 +59,7 @@ export class GakuseiNav extends React.Component {
             <Nav pullRight>
               <NavItem className="logged-in-text">Inloggad som: {this.props.loggedInUser}</NavItem>
               <LinkContainer to={{ pathname: '/logout', query: { currentUrl: this.props.location.pathname } }}>
-                <NavItem>Logga ut</NavItem>
+                <NavItem className="logoutButton">Logga ut</NavItem>
               </LinkContainer>
             </Nav>
           :
