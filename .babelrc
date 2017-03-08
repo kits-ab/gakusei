@@ -10,16 +10,15 @@
         [
           "react-transform",
           {
-            "transforms": [
-              {
-                "transform": "livereactload/babel-transform",
-                "imports": [
-                  "react"
-                ]
-              }
-            ]
+            "transforms": [{
+              "transform": "livereactload/babel-transform",
+              "imports": [
+                "react"
+              ]
+            }]
           }
-        ]
+      ],
+        ["transform-async-to-generator"]
       ]
     }
   }

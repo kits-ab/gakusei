@@ -63,18 +63,6 @@ export default class aboutScreen extends React.Component {
           version: '2.1.2',
           license: 'MIT'
         },
-        { name: 'formsy-react',
-          version: '0.19.2',
-          license: 'MIT'
-        },
-        { name: 'formsy-react-bootstrap',
-          version: '1.5.5',
-          license: 'MIT'
-        },
-        { name: 'formsy-react-components',
-          version: '0.10.1',
-          license: 'MIT'
-        },
         { name: 'react-chartjs-2',
           version: '2.0.0',
           license: 'MIT'
