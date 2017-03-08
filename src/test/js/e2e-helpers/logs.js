@@ -16,10 +16,6 @@ export function dumpBrowserLogs(client, done) {
         };
 
         console.log(prettyjson.render(logEntriesArray, options));
-
-        // logEntriesArray.forEach((log) => {
-        //   console.log(`[${log.level}] ${log.timestamp} : ${log.message}`);
-        // });
         done();
       });
     } else {
