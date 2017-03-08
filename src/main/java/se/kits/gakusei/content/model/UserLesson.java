@@ -1,5 +1,9 @@
 package se.kits.gakusei.content.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import se.kits.gakusei.user.model.User;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -12,13 +16,16 @@ public class UserLesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    @NotNull
-    private String username;
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "user_ref")
+    private User user;
 
-    @Column
     @NotNull
-    private String lessonName;
+    @ManyToOne
+    @JsonManagedReference
+    @JoinColumn(name = "lesson_ref")
+    private Lesson lesson;
 
     @Column
     private Timestamp firstDeadline;
@@ -28,9 +35,9 @@ public class UserLesson {
 
     public UserLesson() {}
 
-    public UserLesson(String username, String lessonName) {
-        this.username = username;
-        this.lessonName = lessonName;
+    public UserLesson(User user, Lesson lesson) {
+        this.user = user;
+        this.lesson = lesson;
     }
 
     public Long getId() {
@@ -41,20 +48,20 @@ public class UserLesson {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getLessonName() {
-        return lessonName;
+    public Lesson getLesson() {
+        return lesson;
     }
 
-    public void setLessonName(String lessonName) {
-        this.lessonName = lessonName;
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
 
     public Timestamp getFirstDeadline() {

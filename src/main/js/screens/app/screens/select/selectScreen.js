@@ -76,22 +76,22 @@ export class selectScreen extends React.Component {
   }
 
   handleStarredClick(lesson) {
-    return this.props.starredLessons.map(userLesson => userLesson.lessonName).includes(lesson.name) ?
+    return this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ?
       this.props.removeStarredLesson(lesson.name) :
       this.props.addStarredLesson(lesson.name);
   }
   render() {
     const options = this.props.lessons.map(lesson =>
       <Row key={lesson.name}>
-        <Col xs={2} md={1} lg={1}>
+        <Col xs={2} md={1} lg={2}>
           <Button
-            bsStyle={this.props.starredLessons.map(userLesson => userLesson.lessonName).includes(lesson.name) ? 'warning' : null}
+            bsStyle={this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ? 'warning' : null}
             onClick={() => this.handleStarredClick(lesson)}
           >
             <Glyphicon glyph="star" />
           </Button>
         </Col>
-        <Col xs={10} md={11} lg={11}>
+        <Col xs={10} md={11} lg={10}>
           <ListGroupItem
             key={lesson.name}
             onClick={() => this.props.setSelectedLesson(lesson)}

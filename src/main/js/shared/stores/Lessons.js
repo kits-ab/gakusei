@@ -19,6 +19,7 @@ export const defaultState = {
   // LessonSelection.js
   lessons: [],
   selectedLesson: { name: '' },
+  addressedQuestionsInLessons: null,
   // fetchURL: '/api/questions',
 
   // GenericSelection.js
@@ -92,6 +93,7 @@ export const SET_LESSONS = 'SET_LESSONS';
 export const CLEAR_PROCESSED_QUESTION = 'CLEAR_PROCESSED_QUESTION';
 export const SET_QUESTION_LANGUAGE = 'SET_QUESTION_LANGUAGE';
 export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
+export const SET_ADDRESSED_QUESTIONS = 'SET_ADDRESSED_QUESTIONS';
 
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
@@ -337,6 +339,14 @@ export function setSelectedLesson(lesson) {
   };
 }
 
+export function setAddressedQuestions(response) {
+  return {
+    type: SET_ADDRESSED_QUESTIONS,
+    description: 'Set the addressed questions',
+    response
+  };
+}
+
 export function receiveUserSuccessRate(successRate, status, response) {
   return {
     type: RECEIVE_USER_SUCCESS_RATE,
@@ -451,6 +461,15 @@ export function fetchLessons(type) {
   };
 }
 
+export function fetchaddressedQuestionsInLessons() {
+  return function (dispatch, getState) {
+    const securityState = getState().security;
+    return fetch(`api/lessonInfo?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then(result => dispatch(setAddressedQuestions(result)));
+  };
+}
+
 export function fetchLesson(lessonType) {
   return function (dispatch, getState) {
     let fetchURL;
@@ -541,6 +560,7 @@ export const actionCreators = {
   resetQuestionIndex,
   fetchLesson,
   fetchLessons,
+  fetchaddressedQuestionsInLessons,
   setSelectedLesson,
   setGameMode,
   processCurrentQuestion,
@@ -637,6 +657,11 @@ export const lessons = (state, action) => {
       return {
         ...state,
         selectedLesson: action.lesson
+      };
+    case SET_ADDRESSED_QUESTIONS:
+      return {
+        ...state,
+        addressedQuestionsInLessons: action.response
       };
     case SET_LESSON_SUCCESS_RATE:
       return {

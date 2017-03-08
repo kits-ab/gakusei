@@ -9,8 +9,10 @@ import java.util.List;
 
 public interface UserLessonRepository extends CrudRepository<UserLesson, Long> {
 
-    @Query("select ul from UserLesson ul where ul.username = :username")
+    @Query("select ul from UserLesson ul where ul.user.username = :username")
     List<UserLesson> findUsersStarredLessons(@Param("username") String username);
 
-    List<UserLesson> findDistinctUserLessonByUsernameAndLessonName(String username, String lessonName);
+    @Query("select distinct ul from UserLesson ul where ul.user.username = :username and ul.lesson.name = :lessonName")
+    List<UserLesson> findUserLessonByUsernameAndLessonName(@Param("username") String username,
+                                                           @Param("lessonName") String lessonName);
 }
