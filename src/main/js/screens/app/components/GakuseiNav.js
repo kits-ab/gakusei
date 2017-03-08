@@ -27,7 +27,7 @@ export class GakuseiNav extends React.Component {
         <Navbar.Collapse>
           {this.props.loggedIn ?
             <Nav>
-              <NavDropdown title="Glosor" id="basic-nav-dropdown">
+              <NavDropdown className="glosorDropdown" title="Glosor" id="basic-nav-dropdown">
                 <LinkContainer to="/select/guess">
                   <MenuItem className="guessPlay">Gissa ordet</MenuItem>
                 </LinkContainer>

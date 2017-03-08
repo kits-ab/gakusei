@@ -31,13 +31,23 @@ module.exports = {
         waitForConditionTimeout: 5000 // sometimes internet is slow so wait.
       },
       desiredCapabilities: { // use Chrome as the default browser for tests
-        browserName: 'chrome'
+        browserName: 'chrome',
+        loggingPrefs: {
+          browser: 'ALL',
+          driver: 'ALL',
+          performance: 'ALL'
+        }
       }
     },
     chrome: {
       desiredCapabilities: {
         browserName: 'chrome',
-        javascriptEnabled: true // turn off to test progressive enhancement
+        javascriptEnabled: true, // turn off to test progressive enhancement
+        loggingPrefs: {
+          browser: 'ALL',
+          driver: 'ALL',
+          performance: 'ALL'
+        }
       }
     }
   }

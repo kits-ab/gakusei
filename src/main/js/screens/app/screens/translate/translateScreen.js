@@ -36,21 +36,23 @@ export class translateScreen extends React.Component {
     this.setState({
       answerStyle: (this.props.processedQuestion.correctAlternative.some(ca => ca === this.state.answer)
        ? 'success' :
-         'error') });
+         'error'),
+      disabledButtons: true });
 
     if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
       setTimeout(() => {
         this.setState({
           answer: '',
-          answerStyle: null });
+          answerStyle: null,
+          disabledButtons: false });
         this.props.incrementQuestionIndex();
         this.props.processCurrentQuestion();
-      }, 1500);
+      }, window.customDelay /* not really accessible, just for e2e testing */ || 1500);
     } else {
       setTimeout(
         () => {
           this.props.setPageByName(`finish/${this.props.params.type}`);
-        }, 1500);
+        }, window.customDelay /* not really accessible, just for e2e testing */ || 1500);
     }
   }
 
@@ -99,11 +101,12 @@ export class translateScreen extends React.Component {
                 placeholder="Ditt svar"
                 value={this.state.answer}
                 onChange={this.handleChange}
+                disabled={this.state.disabledButtons}
               />
               <FormControl.Feedback />
             </FormGroup>
             <Row>
-              <Button type="submit" onClick={this.checkAnswer} disabled={this.state.checkDisable}>
+              <Button type="submit" onClick={this.checkAnswer} disabled={this.state.disabledButtons}>
               Kontrollera svar
             </Button>
             </Row>

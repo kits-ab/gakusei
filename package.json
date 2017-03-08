@@ -70,6 +70,7 @@
     "livereactload": "^3.2.0",
     "mocha": "^3.2.0",
     "nightwatch": "^0.9.12",
+    "prettyjson": "^1.2.1",
     "react-proxy": "^1.1.8",
     "rimraf": "^2.5.2",
     "selenium-download": "^2.0.9",

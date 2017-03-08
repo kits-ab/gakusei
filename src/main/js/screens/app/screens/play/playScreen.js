@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonToolbar, Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import AnswerButton from './components/AnswerButton';
 import DisplayQuestion from '../../shared/DisplayQuestion';
 
@@ -49,12 +49,12 @@ export class playScreen extends React.Component {
           this.props.incrementQuestionIndex();
           this.props.processCurrentQuestion();
           this.props.setAllButtonsDisabledState(false);
-        }, 1100);
+        }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
       } else {
         setTimeout(
         () => {
           this.props.setPageByName(`finish/${this.props.params.type}`);
-        }, 1100);
+        }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
       }
     }, () => {
       // rejection
@@ -76,57 +76,57 @@ export class playScreen extends React.Component {
             showKanji
           />
           <Row>
-            <ButtonToolbar>
-              <Col xs={6} sm={4} smOffset={2} md={3} mdOffset={3}>
-                <AnswerButton
-                  primaryText={this.props.processedQuestion.randomizedAlternatives[0][0]}
-                  secondaryText={this.props.processedQuestion.randomizedAlternatives[0][1] || null}
-                  japaneseCharacters={this.props.questionType === 'reading'}
-                  onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.props.processedQuestion.buttonStyles[0]}
-                  disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
-                  answerType={this.props.answerType}
-                />
-              </Col>
-              <Col xs={6} sm={4} md={3}>
-                <AnswerButton
-                  primaryText={this.props.processedQuestion.randomizedAlternatives[1][0]}
-                  secondaryText={this.props.processedQuestion.randomizedAlternatives[1][1] || null}
-                  japaneseCharacters={this.props.questionType === 'reading'}
-                  onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.props.processedQuestion.buttonStyles[1]}
-                  disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
-                  answerType={this.props.answerType}
-                />
-              </Col>
-            </ButtonToolbar>
+            <Col xs={6} sm={4} smOffset={2} md={3} mdOffset={3}>
+              <AnswerButton
+                primaryText={this.props.processedQuestion.randomizedAlternatives[0][0]}
+                secondaryText={this.props.processedQuestion.randomizedAlternatives[0][1] || null}
+                japaneseCharacters={this.props.questionType === 'reading'}
+                onAnswerClick={this.checkAnswer}
+                buttonStyle={this.props.processedQuestion.buttonStyles[0]}
+                disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
+                answerType={this.props.answerType}
+                name="answerbutton-1"
+              />
+            </Col>
+            <Col xs={6} sm={4} md={3}>
+              <AnswerButton
+                primaryText={this.props.processedQuestion.randomizedAlternatives[1][0]}
+                secondaryText={this.props.processedQuestion.randomizedAlternatives[1][1] || null}
+                japaneseCharacters={this.props.questionType === 'reading'}
+                onAnswerClick={this.checkAnswer}
+                buttonStyle={this.props.processedQuestion.buttonStyles[1]}
+                disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
+                answerType={this.props.answerType}
+                name="answerbutton-2"
+              />
+            </Col>
           </Row>
           <br />
           <Row>
-            <ButtonToolbar>
-              <Col xs={6} sm={4} smOffset={2} md={3} mdOffset={3}>
-                <AnswerButton
-                  primaryText={this.props.processedQuestion.randomizedAlternatives[2][0]}
-                  secondaryText={this.props.processedQuestion.randomizedAlternatives[2][1] || null}
-                  japaneseCharacters={this.props.questionType === 'reading'}
-                  onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.props.processedQuestion.buttonStyles[2]}
-                  disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
-                  answerType={this.props.answerType}
-                />
-              </Col>
-              <Col xs={6} sm={4} md={3}>
-                <AnswerButton
-                  primaryText={this.props.processedQuestion.randomizedAlternatives[3][0]}
-                  secondaryText={this.props.processedQuestion.randomizedAlternatives[3][1] || null}
-                  japaneseCharacters={this.props.questionType === 'reading'}
-                  onAnswerClick={this.checkAnswer}
-                  buttonStyle={this.props.processedQuestion.buttonStyles[3]}
-                  disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
-                  answerType={this.props.answerType}
-                />
-              </Col>
-            </ButtonToolbar>
+            <Col xs={6} sm={4} smOffset={2} md={3} mdOffset={3}>
+              <AnswerButton
+                primaryText={this.props.processedQuestion.randomizedAlternatives[2][0]}
+                secondaryText={this.props.processedQuestion.randomizedAlternatives[2][1] || null}
+                japaneseCharacters={this.props.questionType === 'reading'}
+                onAnswerClick={this.checkAnswer}
+                buttonStyle={this.props.processedQuestion.buttonStyles[2]}
+                disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
+                answerType={this.props.answerType}
+                name="answerbutton-3"
+              />
+            </Col>
+            <Col xs={6} sm={4} md={3}>
+              <AnswerButton
+                primaryText={this.props.processedQuestion.randomizedAlternatives[3][0]}
+                secondaryText={this.props.processedQuestion.randomizedAlternatives[3][1] || null}
+                japaneseCharacters={this.props.questionType === 'reading'}
+                onAnswerClick={this.checkAnswer}
+                buttonStyle={this.props.processedQuestion.buttonStyles[3]}
+                disableButton={this.props.processedQuestion.buttonDisabled || this.props.allButtonsDisabled}
+                answerType={this.props.answerType}
+                name="answerbutton-4"
+              />
+            </Col>
           </Row>
           <br />
           <br />
