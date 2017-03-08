@@ -35,11 +35,11 @@ export class DisplayQuestion extends React.Component {
     const questionText = this.getQuestionText();
     const resource = this.getResource();
     const speechButtonStyle = {
-      'font-size': (this.props.smallerText ? '1.0em' : '1.6em'),
+      fontSize: (this.props.smallerText ? '1.0em' : '1.6em'),
       top: '3px'
     };
     const generalStyle = {
-      'font-size': (this.props.smallerText ? '0.5em' : '1.0em')
+      fontSize: (this.props.smallerText ? '0.5em' : '1.0em')
     };
 
     return (
@@ -66,16 +66,18 @@ DisplayQuestion.defaultProps = {
   resourceRef: null,
   secondaryText: null,
   showSpeechButton: false,
-  showKanji: false
+  showKanji: false,
+  smallerText: false
 };
 
 DisplayQuestion.propTypes = {
   primaryText: React.PropTypes.string.isRequired,
   secondaryText: React.PropTypes.string,
   japaneseCharacters: React.PropTypes.bool.isRequired,
-  resourceRef: React.PropTypes.string,
+  resourceRef: React.PropTypes.object,
   showSpeechButton: React.PropTypes.bool,
-  showKanji: React.PropTypes.bool
+  showKanji: React.PropTypes.bool,
+  smallerText: React.PropTypes.bool
 };
 
 export default DisplayQuestion;

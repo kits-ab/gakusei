@@ -8,26 +8,25 @@ import Utility from '../../shared/util/Utility';
 // ----------------
 // DEFAULT STATE
 export const defaultState = {
+  // statistics stuff
   successRate: 0,
-  lessonSuccessRate: 0,
-  lessonSuccessRateMessage: '',
   requestingSuccessRate: false,
   requestSuccessRateStatus: null,
   requestSuccessRateResponse: null,
   requestSuccessRateLastReceived: null,
 
-  // LessonSelection.js
   lessons: [],
   selectedLesson: { name: '' },
   addressedQuestionsInLessons: null,
-  // fetchURL: '/api/questions',
 
-  // GenericSelection.js
+  // select/play stuff
+  lessonSuccessRate: 0,
+  lessonSuccessRateMessage: '',
+
   starredLessons: [],
   questionType: 'reading',
   answerType: 'swedish',
 
-  // FourAlternativeQuestion.js
   questions: [],
   processedQuestion: {
     actualQuestionShapes: [],
@@ -37,10 +36,10 @@ export const defaultState = {
     buttonDisabled: false,
     resourceRef: {}
   },
-  // resourceRef: null,
   allButtonsDisabled: false,
   processedQuestionsWithAnswers: [],
   lessonLength: 0,
+
   // Things originally in SessionStorage
   correctAttempts: 0,
   totalAttempts: 0,

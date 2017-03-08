@@ -24,3 +24,10 @@ npm-debug.log
 # VS Code
 .vscode
 
+# Hide our secret env.json File
+env.json
+
+# Test reports
+reports/**
+selenium-debug.log
+screenshots/**

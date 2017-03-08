@@ -74,7 +74,7 @@ export class homeScreen extends React.Component {
       });
       return (
         <Grid className="text-center">
-          <h2>Välkommen till Gakusei {this.props.loggedInUser}!</h2>
+        <h2 name="greeter">Välkommen till Gakusei {this.props.loggedInUser}!</h2>
           <h3>Din svarsstatistik:</h3>
           <Row>
             <Col xs={12} xsOffset={0} md={6} mdOffset={3}>

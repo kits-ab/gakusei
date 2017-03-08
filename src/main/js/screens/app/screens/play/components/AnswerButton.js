@@ -57,6 +57,7 @@ export default class AnswerButton extends React.Component {
         onClick={this.state.answerClickFunc}
         disabled={this.props.disableButton}
         className="btn answerbutton btn-no-hover"
+        name={this.props.name}
       >
         {this.getPrimaryText()}
         <br />
@@ -71,6 +72,7 @@ AnswerButton.defaultProps = {
 };
 
 AnswerButton.propTypes = {
+  name: React.PropTypes.string.isRequired,
   primaryText: React.PropTypes.string.isRequired,
   secondaryText: React.PropTypes.string,
   buttonStyle: React.PropTypes.string.isRequired,

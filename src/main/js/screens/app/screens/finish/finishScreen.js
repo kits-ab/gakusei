@@ -60,11 +60,11 @@ export class finishScreen extends React.Component {
     const result = this.props.processedQuestionsWithAnswers.map(qa =>
       <ListGroupItem key={qa.userAnswer + qa.correctAlternative[0]} bsStyle={qa.correctAlternative.indexOf(qa.userAnswer) !== -1 ? 'success' : 'danger'}>
         <DisplayQuestion
-          primaryText={this.props.processedQuestion.actualQuestionShapes[0]}
-          secondaryText={this.props.processedQuestion.actualQuestionShapes[1] || null}
-          resourceRef={this.props.processedQuestion.resourceRef}
-          japaneseCharacters={this.props.questionType === 'reading'}
-          showSpeechButton
+          primaryText={qa.actualQuestionShapes[0]}
+          secondaryText={qa.actualQuestionShapes[1] || null}
+          resourceRef={qa.resourceRef}
+          japaneseCharacters={qa.questionType === 'reading'}
+          showSpeechButton={this.props.params.type !== 'quiz'}
           smallerText
         />
         Svar: {qa.correctAlternative}. (Du svarade: {qa.userAnswer})
@@ -96,17 +96,20 @@ export class finishScreen extends React.Component {
           </Col>
         </Row>
         <Row>
-          <div className="text-center">
-            <Button bsStyle="info" onClick={this.playAgain}>Försök igen</Button>
-            {' '}
-            <Button
-              bsStyle="info"
-              onClick={this.backtoSelection}
-            >
+          <Col xs={12} md={8} mdOffset={2}>
+            <div className="text-center">
+              <Button bsStyle="info" onClick={this.playAgain}>Försök igen</Button>
+              {' '}
+              <Button
+                bsStyle="info"
+                onClick={this.backtoSelection}
+              >
               Välj nya frågor
             </Button>
-          </div>
+            </div>
+          </Col>
         </Row>
+        <br />
       </Grid>
     );
   }

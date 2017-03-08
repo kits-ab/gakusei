@@ -86,7 +86,7 @@ export class loginScreen extends React.Component {
                   <legend>Logga in eller registrera dig</legend>
                   {
                     this.props.authResponse && this.getValidationState() ?
-                      <ControlLabel>{this.props.authResponse}</ControlLabel> : null
+                      <ControlLabel name="authFeedback">{this.props.authResponse}</ControlLabel> : null
                   }
                 </FormGroup>
                 <FormGroup>
