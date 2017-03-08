@@ -12,7 +12,8 @@
   "scripts": {
     "postinstall": "./node_modules/.bin/selenium-standalone install && node nightwatch.conf.js",
     "precompile": "rimraf ./src/main/resources/static/js/*",
-    "compile": "browserify ./src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
+    "compile:production": "browserify ./src/main/js/main.js -g [envify --NODE_ENV 'production'] -t babelify -t uglifyify -o ./src/main/resources/static/js/main_bundle.js",
+    "compile": "browserify ./src/main/js/main.js -g [envify --NODE_ENV 'development'] --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
     "watch": "watchify src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js -dv -v -p livereactload",
     "start": "npm run watch",
     "test": "./node_modules/.bin/nightwatch --group play"
@@ -62,6 +63,7 @@
     "browserify": "^13.1.1",
     "chai": "^3.5.0",
     "env2": "^2.1.1",
+    "envify": "^4.0.0",
     "eslint": "^3.13.1",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
@@ -75,6 +77,7 @@
     "rimraf": "^2.5.2",
     "selenium-download": "^2.0.9",
     "selenium-standalone": "^6.0.1",
+    "uglifyify": "^3.0.4",
     "watchify": "^3.9.0",
     "webdriverio": "^4.6.2"
   }
