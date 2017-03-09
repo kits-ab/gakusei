@@ -1,7 +1,12 @@
 language: java
 jdk:
 - oraclejdk8
-script:
+before_install:
+- if [[ `npm -v` != 4* ]]; then npm i -g npm@4.3.0; fi
+install:
 - npm install
+script:
 - npm run compile
-- mvn spring-boot:run
+- mvn package
+
+# deploy to gakusei.daigaku.se via user ec2-user
