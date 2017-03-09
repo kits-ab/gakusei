@@ -21,4 +21,5 @@ deploy:
     repo: kits-ab/gakusei
     tags: true
 after_success:
-- sh set_tags.sh
+- sh scripts/set_master_tag.sh
+- sh scripts/set_develop_tag.sh
