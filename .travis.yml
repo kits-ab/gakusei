@@ -2,7 +2,7 @@ language: java
 jdk:
 - oraclejdk8
 before_install:
-- if [[ `node -v` != v7.4.0 ]]; then sudo apt-get install nodejs; fi
+- apt-get install nodejs
 - if [[ `npm -v` != 4.0.5 ]]; then npm i -g npm@4.3.0; fi
 install:
 - npm install
