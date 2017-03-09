@@ -1,4 +1,6 @@
 branches:
+  except:
+  - "/^*-v[0-9]/"
   only:
   - develop
 
@@ -26,9 +28,7 @@ before_deploy:
 - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
 - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
 - git push https://$TAGPERM@github.com/kits-ab/gakusei --tags
-branches:
-  except:
-  - "/^*-v[0-9]/"
+
 deploy:
   - provider: releases # put the release on github
     api_key:
