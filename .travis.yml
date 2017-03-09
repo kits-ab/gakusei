@@ -11,14 +11,16 @@ install:
 script:
 - npm run compile
 - mvn package
-
 before_deploy:
-  - git config --global user.email "builds@travis-ci.com"
-  - git config --global user.name "Travis CI"
-  - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
-  - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
-  - git push -q https://$TAGPERM@github.com/kits-ab/gakusei --tags
-  - ls -R
+- git config --global user.email "builds@travis-ci.com"
+- git config --global user.name "Travis CI"
+- export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
+- git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+- git push -q https://$TAGPERM@github.com/kits-ab/gakusei --tags
+- ls -R
+branches:
+  except:
+  - "/^*-v[0-9]/"
 
 deploy:
   provider: releases
@@ -30,12 +32,3 @@ deploy:
     repo: kits-ab/gakusei
     tags: false
     branch: develop
-
-branches:
-  except:
-    - /^*-v[0-9]/
-
-# after_success:
-# - bash --verbose scripts/hello.sh
-# - bash --verbose scripts/set_master_tag.sh
-# - bash --verbose scripts/set_develop_tag.sh
