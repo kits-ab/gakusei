@@ -12,6 +12,11 @@ script:
 - npm run compile
 - mvn package -Dmaven.repo.local=.m2
 before_deploy:
+- openssl aes-256-cbc -K $encrypted_3839e494e43c_key -iv $encrypted_3839e494e43c_iv
+  -in deploy_rsa.enc -out deploy_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 /tmp/deploy_rsa
+- ssh-add /tmp/deploy_rsa
 - git config --global user.email "builds@travis-ci.com"
 - git config --global user.name "Travis CI"
 - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
@@ -20,19 +25,26 @@ before_deploy:
 branches:
   except:
   - "/^*-v[0-9]/"
-
 deploy:
-  provider: releases
-  api_key:
-    secure: $TAGPERM
-  file: target/gakusei-0.0.1-SNAPSHOT.jar
-  skip_cleanup: true
-  on:
-    repo: kits-ab/gakusei
-    tags: false
-    branch: develop
-
+  - provider: releases
+    api_key:
+      secure: "$TAGPERM"
+    file: target/gakusei-0.0.1-SNAPSHOT.jar
+    skip_cleanup: true
+    on:
+      repo: kits-ab/gakusei
+      tags: false
+      branch: develop
+  - provider: script
+    skip_cleanup: true
+    script: rsync --delete-after --quiet $TRAVIS_BUILD_DIR/target/gakusei-0.0.1-SNAPSHOT.jar ec2-user@gakusei.daigaku.se:home/ec2-user/gakusei-0.0.1-SNAPSHOT.jar.cool
+    on:
+      repo: kits-ab/gakusei
+      tags: false
+      branch: develop
 cache:
   directories:
-    - node_modules
-    - $HOME/.m2
+  - node_modules
+  - "$HOME/.m2"
+addons:
+  ssh_known_hosts: gakusei.daigaku.se
