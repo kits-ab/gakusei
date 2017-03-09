@@ -61,15 +61,23 @@ export class homeScreen extends React.Component {
   render() {
     if (this.props.addressedQuestionsInLessons) {
       const starredLessons = this.props.starredLessons.map((userLesson) => {
-        const now = (((this.props.addressedQuestionsInLessons[userLesson.lesson.name][1] -
-          this.props.addressedQuestionsInLessons[userLesson.lesson.name][0])
-          / this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]) * 100).toFixed();
+        if (userLesson.lesson.description !== 'quiz') {
+          const now = (((this.props.addressedQuestionsInLessons[userLesson.lesson.name][1] -
+            this.props.addressedQuestionsInLessons[userLesson.lesson.name][0])
+            / this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]) * 100).toFixed();
+          return (
+            <ListGroupItem
+              key={userLesson.lesson.name}
+            >
+              {userLesson.lesson.name} (totalt {this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]} st)
+              <ProgressBar now={parseInt(now, 10)} label={`${now}%`} />
+            </ListGroupItem>);
+        }
         return (
           <ListGroupItem
             key={userLesson.lesson.name}
           >
-            {userLesson.lesson.name} (totalt {this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]} st)
-            <ProgressBar now={parseInt(now, 10)} label={`${now}%`} />
+            {userLesson.lesson.name}
           </ListGroupItem>);
       });
       return (
