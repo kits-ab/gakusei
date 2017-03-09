@@ -33,5 +33,6 @@ deploy:
     branch: develop
 
 cache:
-  - node_modules
-  - $HOME/.m2
+  directories:
+    - node_modules
+    - $HOME/.m2
