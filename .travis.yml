@@ -25,7 +25,7 @@ before_deploy:
 - git config --global user.name "Travis CI"
 - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
 - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
-- git push -q https://$TAGPERM@github.com/kits-ab/gakusei --tags
+- git push https://$TAGPERM@github.com/kits-ab/gakusei --tags
 branches:
   except:
   - "/^*-v[0-9]/"
@@ -47,6 +47,6 @@ deploy:
 cache:
   directories:
   - node_modules
-  - "$HOME/.m2"
+  - $HOME/.m2
 addons:
   ssh_known_hosts: gakusei.daigaku.se
