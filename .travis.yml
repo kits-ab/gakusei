@@ -1,10 +1,17 @@
 language: java
 jdk:
 - oraclejdk8
-addons:
-  apt:
-    packages:
-    - nodejs
+#addons:
+#  apt:
+#    packages:
+#    - nodejs
+env:
+  - NODE_VERSION="7.4.0"
+before_install:
+#  - wget https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh -O ~/.nvm/nvm.sh
+#  - source ~/.nvm/nvm.sh
+  - nvm install $NODE_VERSION
+  - node --version
 install:
 - npm install
 script:
