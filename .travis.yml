@@ -10,7 +10,7 @@ install:
 - npm install
 script:
 - npm run compile
-- mvn package -Dmaven.repo.local=.m2
+- mvn package
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_3839e494e43c_key -iv $encrypted_3839e494e43c_iv
   -in deploy_rsa.enc -out deploy_rsa -d
