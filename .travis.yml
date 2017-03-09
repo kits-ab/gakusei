@@ -23,7 +23,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: Xc+C48lr8pRpfiwewjlnuG0mqyzGxBTg952/yflbwPK4NxyoSuSNMd1UngFeFYeUCnQ75vAYOfh60PE19bv61KE21zKMT9F4394Xag/uuRoLE0/cPLZfK1PUWMKMbYO/WfVBsRA0aGLGPzKLzwASM1I5gVsnBcdWEMbAtlnsvu7Q4qUxwvFMzW6+IVetEKIs3kDwxoDuSjupUr5nVEnm4OiPii1QjfuOtBGQiUunzbcJQHYoOU7Z5pK+yWX/C7xpnl5r908Hj57VYXO0naa0f7rlNgrrw+sEY85+K1JwJFtJEsWhpxzW1erf/s4Y7lYhvB0MWPm9njThsCaRxykTPi3TkBVP94GFly5UCjJgxRR4NVe+zmUnd8yEIwKss9dAJvlppxv4IyKLiEnyHAbfqdHwGUTeDxDz5/6MyAgC5cj+muKG5O5SI6fVLaLSgKpzGPAdNIjrA8TBUuI0RqpAVdTB7eL5qSOuuxfgoN+1hIu3Kta1EKkcYmUOsc0RWZZxbtciIWqYaSyoM7d9vVG/9b4mwOxr9lA5b8ihnnoZegFVPJzDQSYQFoQjkCpH3gmpSuGFGVR8mPJfX1Nsnk8dZknW2hYg9hvIJng8Nte10tpUAneFCeTucDFF5dPEKRS1YuQ4zpz2yBGfMu1dbFy0J1+RQgtw/up+/THvuh/3b90=
+    secure: $TAGPERM
   file: target/gakusei-0.0.1-SNAPSHOT.jar
   skip_cleanup: true
   on:
