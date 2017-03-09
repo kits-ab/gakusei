@@ -38,6 +38,7 @@ public class EventControllerTest {
     private String gamemode;
     private String type;
     private String data;
+    private String nuggetId;
     private long timestamp;
     private User user;
 
@@ -59,6 +60,7 @@ public class EventControllerTest {
         type = "testtype";
         data = "testdata";
         timestamp = 1485267234671L;
+        nuggetId = "testNuggetId";
         user = new User(username, password, role);
 
         eventDTO = new EventDTO();
@@ -66,22 +68,24 @@ public class EventControllerTest {
         eventDTO.setGamemode(gamemode);
         eventDTO.setType(type);
         eventDTO.setData(data);
+        eventDTO.setNuggetid(nuggetId);
         eventDTO.setTimestamp(timestamp);
     }
 
-    public Event createEvent(long timestamp, User user, String gamemode, String type, String data){
+    public Event createEvent(long timestamp, User user, String gamemode, String type, String nuggetId, String data){
         Event event = new Event();
         event.setTimestamp(new Timestamp(timestamp));
         event.setUser(user);
         event.setGamemode(gamemode);
         event.setType(type);
         event.setData(data);
+        event.setNuggetId(nuggetId);
         return event;
     }
 
     @Test
     public void testAddEventOK() throws Exception {
-        Event event = createEvent(timestamp, user, gamemode, type, data);
+        Event event = createEvent(timestamp, user, gamemode, type, nuggetId, data);
         when(userRepository.findByUsername(eventDTO.getUsername())).thenReturn(user);
         when(eventRepository.save(any(Event.class))).thenReturn(event);
 

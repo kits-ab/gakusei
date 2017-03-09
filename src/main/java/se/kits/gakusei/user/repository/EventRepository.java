@@ -16,7 +16,5 @@ public interface EventRepository extends CrudRepository<Event, Long> {
 
     Integer getUserSuccessRate(@Param("username") String username);
 
-    String getLatestQuestionForUser(@Param("username") String username);
-
     Timestamp getLatestAnswerTimestamp(@Param("username") String username);
 }

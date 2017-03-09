@@ -51,6 +51,7 @@ public class QuestionHandler {
             questionMap.put("alternative1", alternatives.get(1));
             questionMap.put("alternative2", alternatives.get(2));
             questionMap.put("alternative3", alternatives.get(3));
+            questionMap.put("questionNuggetId", nugget.getId());
             return questionMap;
         } else {
             return null;

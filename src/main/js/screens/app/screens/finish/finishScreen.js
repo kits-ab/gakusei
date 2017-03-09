@@ -25,9 +25,9 @@ export class finishScreen extends React.Component {
       try {
         // Send in the correct answers
         processedQuestionWithAnswer.correctAlternative.forEach(correctAlt =>
-          Utility.logEvent('finish', 'correctAnswer', correctAlt, this.props.loggedInUser));
+          Utility.logEvent('finish', 'correctAnswer', correctAlt, null, this.props.loggedInUser));
         // Send in the user answer
-        Utility.logEvent('finish', 'userAnswer', processedQuestionWithAnswer.userAnswer, this.props.loggedInUser);
+        Utility.logEvent('finish', 'userAnswer', processedQuestionWithAnswer.userAnswer, null, this.props.loggedInUser);
       } catch (err) {
         this.props.requestUserLogout(this.props.location.query.currentUrl || '/', getCSRF());
       }
@@ -58,7 +58,10 @@ export class finishScreen extends React.Component {
 
   showResults() {
     const result = this.props.processedQuestionsWithAnswers.map(qa =>
-      <ListGroupItem key={qa.userAnswer + qa.correctAlternative[0]} bsStyle={qa.correctAlternative.indexOf(qa.userAnswer) !== -1 ? 'success' : 'danger'}>
+      <ListGroupItem
+        key={qa.userAnswer + qa.correctAlternative[0]}
+        bsStyle={qa.correctAlternative.indexOf(qa.userAnswer) !== -1 ? 'success' : 'danger'}
+      >
         <DisplayQuestion
           primaryText={qa.actualQuestionShapes[0]}
           secondaryText={qa.actualQuestionShapes[1] || null}
@@ -70,7 +73,6 @@ export class finishScreen extends React.Component {
         Svar: {qa.correctAlternative}. (Du svarade: {qa.userAnswer})
       </ListGroupItem>
     );
-
     return result;
   }
   render() {

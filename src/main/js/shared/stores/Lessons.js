@@ -31,6 +31,7 @@ export const defaultState = {
   processedQuestion: {
     actualQuestionShapes: [],
     correctAlternative: [],
+    correctAlternativeNuggetId: '',
     randomizedAlternatives: [],
     buttonStyles: ['default', 'default', 'default', 'default'],
     buttonDisabled: false,
@@ -54,6 +55,7 @@ export const propTypes = {
   processedQuestion: React.PropTypes.shape({
     actualQuestionShapes: React.PropTypes.array.isRequired,
     correctAlternative: React.PropTypes.array.isRequired,
+    correctAlternativeNuggetId: React.PropTypes.string,
     randomizedAlternatives: React.PropTypes.array.isRequired,
     buttonStyles: React.PropTypes.array.isRequired,
     buttonDisabled: React.PropTypes.bool.isRequired,
@@ -219,13 +221,16 @@ export function addUserAnswer(userActualAnswer) {
       }
 
       const eventPromises = [];
-      eventPromises.push(Utility.logEvent('Lessons', 'userAnswer', userActualAnswer, securityState.loggedInUser)
+      eventPromises.push(Utility.logEvent('Lessons', 'userAnswer', userActualAnswer, null, securityState.loggedInUser)
       .catch((err) => { reject(err); }),
-      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.actualQuestionShapes, securityState.loggedInUser)
+      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.actualQuestionShapes, null,
+        securityState.loggedInUser)
       .catch((err) => { reject(err); }),
-      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.correctAlternative, securityState.loggedInUser)
+      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.correctAlternative, null,
+        securityState.loggedInUser)
       .catch((err) => { reject(err); }),
-      Utility.logEvent('Lessons', 'answeredCorrectly', processedQuestionWithAnswer.userCorrect, securityState.loggedInUser)
+      Utility.logEvent('Lessons', 'answeredCorrectly', processedQuestionWithAnswer.userCorrect,
+        state.processedQuestion.correctAlternativeNuggetId, securityState.loggedInUser)
       .catch((err) => { reject(err); }));
 
       dispatch(calcLessonSuccessRate());
@@ -291,9 +296,10 @@ export function receiveProcessedQuestion(processedQuestion) {
     });
 
     try {
-      Utility.logEvent('lessons', 'question', processedQuestion.actualQuestionShapes, securityState.loggedInUser);
+      Utility.logEvent('lessons', 'question', processedQuestion.actualQuestionShapes, null, securityState.loggedInUser);
       for (let i = 0; i < processedQuestion.randomizedAlternatives.length; i += 1) {
-        Utility.logEvent('lessons', 'alternative', processedQuestion.randomizedAlternatives[i], securityState.loggedInUser);
+        Utility.logEvent('lessons', 'alternative', processedQuestion.randomizedAlternatives[i], null,
+          securityState.loggedInUser);
       }
     } catch (err) {
       this.props.requestUserLogout(this.props.location.query.currentUrl || '/', getCSRF());
@@ -309,6 +315,7 @@ export function processCurrentQuestion() {
     const processedQuestion = {
       actualQuestionShapes: state.questions[localQuestionIndex].question.map(s => s.toLowerCase()),
       correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase()),
+      correctAlternativeNuggetId: state.questions[localQuestionIndex].questionNuggetId,
       randomizedAlternatives: Utility.randomizeOrder([
         state.questions[localQuestionIndex].alternative1.map(s => s.toLowerCase()),
         state.questions[localQuestionIndex].alternative2.map(s => s.toLowerCase()),
