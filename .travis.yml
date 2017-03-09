@@ -1,3 +1,7 @@
+branches:
+  only:
+  - develop
+
 language: java
 jdk:
 - oraclejdk8
@@ -33,15 +37,13 @@ deploy:
     skip_cleanup: true
     on:
       repo: kits-ab/gakusei
-      tags: false
-      branch: develop
+      tags: true
   - provider: script
     skip_cleanup: true
     script: rsync --delete-after --quiet $TRAVIS_BUILD_DIR/target/gakusei-0.0.1-SNAPSHOT.jar ec2-user@gakusei.daigaku.se:home/ec2-user/gakusei-0.0.1-SNAPSHOT.jar.cool
     on:
       repo: kits-ab/gakusei
-      tags: false
-      branch: develop
+      tags: true
 cache:
   directories:
   - node_modules
