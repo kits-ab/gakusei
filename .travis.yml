@@ -5,6 +5,7 @@ branches:
   - develop
 
 env:
+  - NODE_VERSION="7.4.0"
   global:
     # Generate these using: https://github.com/dwyl/learn-environment-variables#using-environment-variables-with-travis-ci-
     # 
@@ -18,8 +19,7 @@ env:
 language: java
 jdk:
 - oraclejdk8
-env:
-- NODE_VERSION="7.4.0"
+
 before_install:
 - nvm install $NODE_VERSION
 - node --version
@@ -28,7 +28,7 @@ install:
 script:
 - npm run compile
 - mvn package
-- mvn liquibase:updateSQL -Dliquibase.url=jdbc:postgresql://localhost:5432/gakusei -Dliquibase.username=$DB_USERNAME -Dliquibase.password=$DB_PASSWORD -Dliquibase.changeLogFile=src/main/resources/db/changelog/db.changelog-master.yaml
+- mvn liquibase:updateSQL -Dliquibase.url=$DB_URL -Dliquibase.username=$DB_USERNAME -Dliquibase.password=$DB_PASSWORD -Dliquibase.changeLogFile=src/main/resources/db/changelog/db.changelog-master.yaml
 
 after_success:
 - git config --global user.email "builds@travis-ci.com"
