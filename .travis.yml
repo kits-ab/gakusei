@@ -45,15 +45,15 @@ before_deploy:
 - ssh-add /tmp/deploy_rsa
 
 deploy:
-  - provider: releases # put the release on github
-    api_key:
-      secure: "$TAGPERM"
-    file: 
-      - target/gakusei-0.0.1-SNAPSHOT.jar
-    skip_cleanup: true
-    on:
-      repo: kits-ab/gakusei
-      all_branches: true
+  # - provider: releases # put the release on github
+  #   api_key:
+  #     secure: "$TAGPERM"
+  #   file: 
+  #     - target/gakusei-0.0.1-SNAPSHOT.jar
+  #   skip_cleanup: true
+  #   on:
+  #     repo: kits-ab/gakusei
+  #     all_branches: true
   - provider: script # put the release on our live site
     skip_cleanup: true
     script: rsync --quiet $TRAVIS_BUILD_DIR/target/gakusei-0.0.1-SNAPSHOT.jar ec2-user@gakusei.daigaku.se:gakusei-0.0.1-SNAPSHOT.jar.to.deploy
