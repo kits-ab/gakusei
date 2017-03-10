@@ -17,6 +17,7 @@ install:
 script:
 - npm run compile
 - mvn package
+- mvn liquibase:updateSQL
 
 after_success:
 - git config --global user.email "builds@travis-ci.com"
