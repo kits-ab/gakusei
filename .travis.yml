@@ -10,11 +10,11 @@ env:
     # Generate these using: https://github.com/dwyl/learn-environment-variables#using-environment-variables-with-travis-ci-
     # 
     # $DB_PASSWORD
-    - secure: "BWKjuTodqOBZHS7X6JtFUIWFkredjLGRty+FjxzoYuXe4+ddI+Y8XezBXTx5ecZkE3jaQQ95Cn+gk3U1UNZL5P9LGuMJ+AY71omuKfs6xpt+dJUlh40AE07+7KLMG3Q7YSPHbSFyJKuVi8VvXgjC7YFNTfyg9URVfEQzRGJCQAhI2DPVt3u5j7+tpUwqLW9LjWPYr+sZOSP58htdtcnO4WgDQiJh5cVRF9Tf6EkZ9OjuzzBS7thjkr+8I6icqEwOJnPLFOQv5ky47vYJhwOZiGGwlzHvMYDtEAMeeg6uuD95bRKFWWr2e/lpuZb3Y5LfZSC+BR9R5W1EIJ382EhObRcwsQAPmpWxlM2id0aFNN2+UPO195v6i4wtjZtQy8UKIJrygg/DuxZW8abOBkH96x8UjP0oz3e4CsaeGE+zSYl3f8FfbkAkgH7yfwIxO+fYKAO8/wVBjOZr+LMqjoCm3lmHI0pxIhMU5BOIcU8bQST/Iho124nqk5eLi+i1oC7h4v8D9hDIfDak+CfaGpvvLzqlPjcA8VPbsYscRQrqoZkE6SrBmEuSLducPPaibXjDWo9E8UlDIW8kxBZv5gJUcdM5bshgInNxOMnaRBraNcRP735QEr0K6WAuSPLrCUBN9f7W33eYx4UuRqagMGwuqo2fpKsYcIxAZF1tuwE1TWc="
+    #- secure: "BWKjuTodqOBZHS7X6JtFUIWFkredjLGRty+FjxzoYuXe4+ddI+Y8XezBXTx5ecZkE3jaQQ95Cn+gk3U1UNZL5P9LGuMJ+AY71omuKfs6xpt+dJUlh40AE07+7KLMG3Q7YSPHbSFyJKuVi8VvXgjC7YFNTfyg9URVfEQzRGJCQAhI2DPVt3u5j7+tpUwqLW9LjWPYr+sZOSP58htdtcnO4WgDQiJh5cVRF9Tf6EkZ9OjuzzBS7thjkr+8I6icqEwOJnPLFOQv5ky47vYJhwOZiGGwlzHvMYDtEAMeeg6uuD95bRKFWWr2e/lpuZb3Y5LfZSC+BR9R5W1EIJ382EhObRcwsQAPmpWxlM2id0aFNN2+UPO195v6i4wtjZtQy8UKIJrygg/DuxZW8abOBkH96x8UjP0oz3e4CsaeGE+zSYl3f8FfbkAkgH7yfwIxO+fYKAO8/wVBjOZr+LMqjoCm3lmHI0pxIhMU5BOIcU8bQST/Iho124nqk5eLi+i1oC7h4v8D9hDIfDak+CfaGpvvLzqlPjcA8VPbsYscRQrqoZkE6SrBmEuSLducPPaibXjDWo9E8UlDIW8kxBZv5gJUcdM5bshgInNxOMnaRBraNcRP735QEr0K6WAuSPLrCUBN9f7W33eYx4UuRqagMGwuqo2fpKsYcIxAZF1tuwE1TWc="
     # $DB_USERNAME
-    - secure: "GjMukcVMQYE0aNkuilKDqyGaX0oswl3JGCvXwRmLoipzpCG102gxOfw6viVezNIpHf6MVb7hPO8SYdjj26JHJGKLLRsfTHbkQCLbtJG4l6nEDFK0V/KCJtW9WzMKTxHN9KLyBZUKo8d2x6T7B915of0+kdc+rG/Kzzi5wqoOWNrnsaxpk0tSxIew8h0RnLr1kQ6SjntUD1FgO42nkC2D5yJGTW/v2Ux+TUYEGhqx1x7j5iT5JtZoJ64PaoCGNCAnszqmInRu7ClEeFHYwadCCTWMXD6HNUswLTyRO1Y29066Qr6ledobNfpruNq5xDYa8cPgVUQdGaj+7++ezRQKajilK+83wmqBWL47mMMw+XrQn+QzfO/TTtMtibzQ+kwR0uz/H2baYYADUk2iOnkw+3js3UmxTnRX+iHUOVx381QYReVzPp/377GQA142PeaLzHQEeRl0kiJo9rB1vjHrVMP2wsCSOhkohQB11mVJALGPRD2U0teHchog2aF3S3qt1XjKO5GNDnQDlmkEswDZmCzsTCKII5WBlQB67wlw3M5/h3WpVTI/UvJWbyoprDkRVL0lbnFMO3nfRDUa1FEiG5EOd5LrRiIIHgcqYzMK4LB1O3SNX/9DcFiXIDYl+oGcL1oRReLQww8tUQ0HE6gk3y9WZoqCvbZvbm+dhmdCVPs="
+    #- secure: "GjMukcVMQYE0aNkuilKDqyGaX0oswl3JGCvXwRmLoipzpCG102gxOfw6viVezNIpHf6MVb7hPO8SYdjj26JHJGKLLRsfTHbkQCLbtJG4l6nEDFK0V/KCJtW9WzMKTxHN9KLyBZUKo8d2x6T7B915of0+kdc+rG/Kzzi5wqoOWNrnsaxpk0tSxIew8h0RnLr1kQ6SjntUD1FgO42nkC2D5yJGTW/v2Ux+TUYEGhqx1x7j5iT5JtZoJ64PaoCGNCAnszqmInRu7ClEeFHYwadCCTWMXD6HNUswLTyRO1Y29066Qr6ledobNfpruNq5xDYa8cPgVUQdGaj+7++ezRQKajilK+83wmqBWL47mMMw+XrQn+QzfO/TTtMtibzQ+kwR0uz/H2baYYADUk2iOnkw+3js3UmxTnRX+iHUOVx381QYReVzPp/377GQA142PeaLzHQEeRl0kiJo9rB1vjHrVMP2wsCSOhkohQB11mVJALGPRD2U0teHchog2aF3S3qt1XjKO5GNDnQDlmkEswDZmCzsTCKII5WBlQB67wlw3M5/h3WpVTI/UvJWbyoprDkRVL0lbnFMO3nfRDUa1FEiG5EOd5LrRiIIHgcqYzMK4LB1O3SNX/9DcFiXIDYl+oGcL1oRReLQww8tUQ0HE6gk3y9WZoqCvbZvbm+dhmdCVPs="
     # $DB_URL
-    - secure: "B0vGK4HIZrCIuK0WJBypFskZ1DwxwXTrOhsPQGuEPSpd2hX9Z273fgP23+RGu3TVzlfTcU8mtfc9ZUT5lOFXy23GVuVTyWD9YfefVJfiASPex8zjWQVMJafJ5B6WqiQs7yBYq4Z64DNEg5BVlScqGBI+DIwcHtSMffFbi1D90lp2ZH8zuh9InIOoFE5gyEw1MG5ZaJlNydTrAch0UCWwW2ebqAI4HeN8f5XsXkmQUXC6yERus8r/z37ftK5mLky7YL16vpwEOQuTF39GQ0Q7CXnDBK1S/jc4JMD2IymnmKG6iJ4Awt5ADyz/AuSAoDwfR1q4hbWoZgqsxo863l2JxZqJCfbHgth3aQt3H/zdzUlxuMlGemxOwAm8OEh41BVE1Ai0KYLtE0xxhqXSCEuPxWo2//DMtPSMAPcCP5Hwy5yTzxxgZM+EyZv6d8B325r5mGcZNArV7XcN5OAusbxaLVtDwNG60gwoPjMeQSeQLLeFHy3rYQUFwtDN1gTkNv74xZRnOEZgpmDdd3iIsok4Q5Y+EXjG+DqPTSpA+B2GYU8XzmCJj52Xo2omdwB/hBj+kbA2buAK2kJ3k7f3czVViV+vFA8vloNoNFRnd8ojUUsz0+8MXtkiahuJMi/fKMbYPq/Kzzac0C20f1lGt9HR61TLar2nH3//kpKRriBnSbg="
+    #- secure: "B0vGK4HIZrCIuK0WJBypFskZ1DwxwXTrOhsPQGuEPSpd2hX9Z273fgP23+RGu3TVzlfTcU8mtfc9ZUT5lOFXy23GVuVTyWD9YfefVJfiASPex8zjWQVMJafJ5B6WqiQs7yBYq4Z64DNEg5BVlScqGBI+DIwcHtSMffFbi1D90lp2ZH8zuh9InIOoFE5gyEw1MG5ZaJlNydTrAch0UCWwW2ebqAI4HeN8f5XsXkmQUXC6yERus8r/z37ftK5mLky7YL16vpwEOQuTF39GQ0Q7CXnDBK1S/jc4JMD2IymnmKG6iJ4Awt5ADyz/AuSAoDwfR1q4hbWoZgqsxo863l2JxZqJCfbHgth3aQt3H/zdzUlxuMlGemxOwAm8OEh41BVE1Ai0KYLtE0xxhqXSCEuPxWo2//DMtPSMAPcCP5Hwy5yTzxxgZM+EyZv6d8B325r5mGcZNArV7XcN5OAusbxaLVtDwNG60gwoPjMeQSeQLLeFHy3rYQUFwtDN1gTkNv74xZRnOEZgpmDdd3iIsok4Q5Y+EXjG+DqPTSpA+B2GYU8XzmCJj52Xo2omdwB/hBj+kbA2buAK2kJ3k7f3czVViV+vFA8vloNoNFRnd8ojUUsz0+8MXtkiahuJMi/fKMbYPq/Kzzac0C20f1lGt9HR61TLar2nH3//kpKRriBnSbg="
 
 language: java
 jdk:
@@ -28,7 +28,7 @@ install:
 script:
 - npm run compile
 - mvn package
-- mvn liquibase:updateSQL -Dliquibase.url=$DB_URL -Dliquibase.username=$DB_USERNAME -Dliquibase.password=$DB_PASSWORD -Dliquibase.changeLogFile=src/main/resources/db/changelog/db.changelog-master.yaml
+#- mvn liquibase:updateSQL -Dliquibase.url=$DB_URL -Dliquibase.username=$DB_USERNAME -Dliquibase.password=$DB_PASSWORD -Dliquibase.changeLogFile=src/main/resources/db/changelog/db.changelog-master.yaml
 
 after_success:
 - git config --global user.email "builds@travis-ci.com"
@@ -50,14 +50,13 @@ deploy:
       secure: "$TAGPERM"
     file: 
       - target/gakusei-0.0.1-SNAPSHOT.jar
-      - target/liquibase/migrate.sql
     skip_cleanup: true
     on:
       repo: kits-ab/gakusei
       all_branches: true
   - provider: script # put the release on our live site
     skip_cleanup: true
-    script: rsync --quiet $TRAVIS_BUILD_DIR/target/liquibase/migrate.sql $TRAVIS_BUILD_DIR/target/gakusei-0.0.1-SNAPSHOT.jar ec2-user@gakusei.daigaku.se:/autodeploy
+    script: rsync --quiet $TRAVIS_BUILD_DIR/target/gakusei-0.0.1-SNAPSHOT.jar ec2-user@gakusei.daigaku.se:gakusei-0.0.1-SNAPSHOT.jar.to.deploy
     on:
       repo: kits-ab/gakusei
       all_branches: true
