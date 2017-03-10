@@ -5,8 +5,8 @@ branches:
   - develop
 
 env:
-  - NODE_VERSION="7.4.0"
   global:
+    - NODE_VERSION="7.4.0"
     # Generate these using: https://github.com/dwyl/learn-environment-variables#using-environment-variables-with-travis-ci-
     # 
     # $DB_PASSWORD
