@@ -59,7 +59,7 @@ deploy:
     skip_cleanup: true
     script: >
     scp $TRAVIS_BUILD_DIR/target/gakusei-0.0.1-SNAPSHOT.jar ec2-user@gakusei.daigaku.se:gakusei.production.jar.to.deploy &&
-    ssh ec2-user@gakusei.daigaku.se sh Scripts/deploy.sh
+    ssh ec2-user@gakusei.daigaku.se sh Scripts/deploy_gakusei.sh
     on:
       repo: kits-ab/gakusei
       all_branches: true
