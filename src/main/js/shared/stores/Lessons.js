@@ -17,6 +17,7 @@ export const defaultState = {
 
   lessons: [],
   selectedLesson: { name: '' },
+  addressedQuestionsInLessons: null,
 
   // select/play stuff
   lessonSuccessRate: 0,
@@ -30,6 +31,7 @@ export const defaultState = {
   processedQuestion: {
     actualQuestionShapes: [],
     correctAlternative: [],
+    correctAlternativeNuggetId: '',
     randomizedAlternatives: [],
     buttonStyles: ['default', 'default', 'default', 'default'],
     buttonDisabled: false,
@@ -53,6 +55,7 @@ export const propTypes = {
   processedQuestion: React.PropTypes.shape({
     actualQuestionShapes: React.PropTypes.array.isRequired,
     correctAlternative: React.PropTypes.array.isRequired,
+    correctAlternativeNuggetId: React.PropTypes.string,
     randomizedAlternatives: React.PropTypes.array.isRequired,
     buttonStyles: React.PropTypes.array.isRequired,
     buttonDisabled: React.PropTypes.bool.isRequired,
@@ -91,6 +94,7 @@ export const SET_LESSONS = 'SET_LESSONS';
 export const CLEAR_PROCESSED_QUESTION = 'CLEAR_PROCESSED_QUESTION';
 export const SET_QUESTION_LANGUAGE = 'SET_QUESTION_LANGUAGE';
 export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
+export const SET_ADDRESSED_QUESTIONS = 'SET_ADDRESSED_QUESTIONS';
 
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
@@ -217,13 +221,16 @@ export function addUserAnswer(userActualAnswer) {
       }
 
       const eventPromises = [];
-      eventPromises.push(Utility.logEvent('Lessons', 'userAnswer', userActualAnswer, securityState.loggedInUser)
+      eventPromises.push(Utility.logEvent('Lessons', 'userAnswer', userActualAnswer, null, securityState.loggedInUser)
       .catch((err) => { reject(err); }),
-      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.actualQuestionShapes, securityState.loggedInUser)
+      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.actualQuestionShapes, null,
+        securityState.loggedInUser)
       .catch((err) => { reject(err); }),
-      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.correctAlternative, securityState.loggedInUser)
+      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.correctAlternative, null,
+        securityState.loggedInUser)
       .catch((err) => { reject(err); }),
-      Utility.logEvent('Lessons', 'answeredCorrectly', processedQuestionWithAnswer.userCorrect, securityState.loggedInUser)
+      Utility.logEvent('Lessons', 'answeredCorrectly', processedQuestionWithAnswer.userCorrect,
+        state.processedQuestion.correctAlternativeNuggetId, securityState.loggedInUser)
       .catch((err) => { reject(err); }));
 
       dispatch(calcLessonSuccessRate());
@@ -289,9 +296,10 @@ export function receiveProcessedQuestion(processedQuestion) {
     });
 
     try {
-      Utility.logEvent('lessons', 'question', processedQuestion.actualQuestionShapes, securityState.loggedInUser);
+      Utility.logEvent('lessons', 'question', processedQuestion.actualQuestionShapes, null, securityState.loggedInUser);
       for (let i = 0; i < processedQuestion.randomizedAlternatives.length; i += 1) {
-        Utility.logEvent('lessons', 'alternative', processedQuestion.randomizedAlternatives[i], securityState.loggedInUser);
+        Utility.logEvent('lessons', 'alternative', processedQuestion.randomizedAlternatives[i], null,
+          securityState.loggedInUser);
       }
     } catch (err) {
       this.props.requestUserLogout(this.props.location.query.currentUrl || '/', getCSRF());
@@ -307,6 +315,7 @@ export function processCurrentQuestion() {
     const processedQuestion = {
       actualQuestionShapes: state.questions[localQuestionIndex].question.map(s => s.toLowerCase()),
       correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase()),
+      correctAlternativeNuggetId: state.questions[localQuestionIndex].questionNuggetId,
       randomizedAlternatives: Utility.randomizeOrder([
         state.questions[localQuestionIndex].alternative1.map(s => s.toLowerCase()),
         state.questions[localQuestionIndex].alternative2.map(s => s.toLowerCase()),
@@ -333,6 +342,14 @@ export function setSelectedLesson(lesson) {
     type: SET_SELECTED_LESSON,
     description: 'Set the selected lesson name',
     lesson
+  };
+}
+
+export function setAddressedQuestions(response) {
+  return {
+    type: SET_ADDRESSED_QUESTIONS,
+    description: 'Set the addressed questions',
+    response
   };
 }
 
@@ -450,6 +467,15 @@ export function fetchLessons(type) {
   };
 }
 
+export function fetchaddressedQuestionsInLessons() {
+  return function (dispatch, getState) {
+    const securityState = getState().security;
+    return fetch(`api/lessonInfo?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then(result => dispatch(setAddressedQuestions(result)));
+  };
+}
+
 export function fetchLesson(lessonType) {
   return function (dispatch, getState) {
     let fetchURL;
@@ -540,6 +566,7 @@ export const actionCreators = {
   resetQuestionIndex,
   fetchLesson,
   fetchLessons,
+  fetchaddressedQuestionsInLessons,
   setSelectedLesson,
   setGameMode,
   processCurrentQuestion,
@@ -636,6 +663,11 @@ export const lessons = (state, action) => {
       return {
         ...state,
         selectedLesson: action.lesson
+      };
+    case SET_ADDRESSED_QUESTIONS:
+      return {
+        ...state,
+        addressedQuestionsInLessons: action.response
       };
     case SET_LESSON_SUCCESS_RATE:
       return {

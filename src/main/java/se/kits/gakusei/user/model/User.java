@@ -35,8 +35,9 @@ public class User implements Serializable{
     @Fetch(value = FetchMode.SUBSELECT)
     private List<ProgressTracking> progressTrackingList;
 
-    @OneToMany
-    @JoinTable(name = "users_lessons", joinColumns = @JoinColumn(name = "username", referencedColumnName = "username"))
+    @JsonManagedReference
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<UserLesson> usersLessons;
 
     public User() {

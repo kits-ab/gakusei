@@ -60,11 +60,13 @@ public class EventController {
         event.setGamemode(eventDTO.getGamemode());
         event.setType(eventDTO.getType());
         event.setData(eventDTO.getData());
+        event.setNuggetId(eventDTO.getNuggetid());
         event.setTimestamp(new Timestamp(eventDTO.getTimestamp()));
         System.out.println(event.getTimestamp().toString()
                 + " / " + event.getGamemode()
                 + " / " + event.getType()
                 + " / " + event.getData()
+                + " / " + event.getNuggetId()
                 + " / " + user.getUsername());
         event = eventRepository.save(event);
         if (event.getType().equalsIgnoreCase("answeredCorrectly")) {
