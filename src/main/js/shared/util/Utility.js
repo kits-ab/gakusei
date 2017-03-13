@@ -91,16 +91,16 @@ export default class Utility {
 
 // ----------------
 // LOGGING
-  static logEvent(page, eventType, eventData, username) {
+  static logEvent(page, eventType, eventData, nuggetId, username) {
     return new Promise((resolve, reject) => {
       const promises = [];
       if (Array.isArray(eventData)) {
         for (let i = 0; i < eventData.length; i += 1) {
-          promises.push(this.postEvent(page, eventType, eventData[i], username)
+          promises.push(this.postEvent(page, eventType, eventData[i], nuggetId, username)
           .catch((err) => { reject(err); }));
         }
       } else {
-        promises.push(this.postEvent(page, eventType, eventData, username)
+        promises.push(this.postEvent(page, eventType, eventData, nuggetId, username)
         .catch((err) => { reject(err); }));
       }
 
@@ -112,12 +112,13 @@ export default class Utility {
     });
   }
 
-  static postEvent(page, eventType, eventData, username) {
+  static postEvent(page, eventType, eventData, nuggetId, username) {
     const bodyData = {
       timestamp: Number(new Date()),
       gamemode: page,
       type: eventType,
       data: eventData,
+      nuggetid: nuggetId,
       username
     };
     const xsrfTokenValue = getCSRF();

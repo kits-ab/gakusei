@@ -82,11 +82,11 @@ databaseChangeLog:
             name: id
             type: SERIAL
         - column:
-            name: username
+            name: user_ref
             type: VARCHAR(32)
         - column:
-            name: lesson_name
-            type: VARCHAR(32)
+            name: lesson_ref
+            type: SERIAL
         - column:
             name: first_deadline
             type: TIMESTAMP(6) WITHOUT TIME ZONE
@@ -270,3 +270,42 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: nuggets
         referencedTableSchemaName: contentschema
+- changeSet:
+    id: 1487684523397-7
+    author: joakim
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_ref
+        baseTableName: user_lesson
+        constraintName: user_lesson_user_ref_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: username
+        referencedTableName: users
+- changeSet:
+    id: 1487684523397-8
+    author: joakim
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: lesson_ref
+        baseTableName: user_lesson
+        constraintName: user_lesson_lesson_ref_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: lessons
+        referencedTableSchemaName: contentschema
+- changeSet:
+    id: 1
+    author: joakim
+    changes:
+    - addColumn:
+        tableName: events
+        columns:
+        - column:
+            name: nugget_id
+            type: varchar(16)

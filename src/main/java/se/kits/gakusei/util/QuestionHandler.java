@@ -51,6 +51,7 @@ public class QuestionHandler {
             questionMap.put("alternative1", alternatives.get(1));
             questionMap.put("alternative2", alternatives.get(2));
             questionMap.put("alternative3", alternatives.get(3));
+            questionMap.put("questionNuggetId", nugget.getId());
             return questionMap;
         } else {
             return null;
@@ -98,20 +99,22 @@ public class QuestionHandler {
         if (allLessonNuggets.size() <= quantity) {
             return allLessonNuggets;
         } else {
-            List<Nugget> duplicatedNuggets = new ArrayList<>();
-            duplicatedNuggets.addAll(nuggetsWithLowSuccessrate);
-            duplicatedNuggets.addAll(unansweredNuggets);
-            duplicatedNuggets.addAll(allLessonNuggets);
-            Collections.shuffle(duplicatedNuggets);
-
             List<Nugget> nuggets = new ArrayList<>();
-            while (nuggets.size() <= quantity && duplicatedNuggets.size() != 0) {
-                Nugget nugget = duplicatedNuggets.remove(0);
-                if (!nuggets.contains(nugget) && !hiddenNuggets.contains(nugget)) {
-                    nuggets.add(nugget);
+            Collections.shuffle(unansweredNuggets);
+            Collections.shuffle(nuggetsWithLowSuccessrate);
+            Collections.shuffle(allLessonNuggets);
+            nuggets.addAll(unansweredNuggets);
+            nuggets.addAll(nuggetsWithLowSuccessrate);
+            nuggets.addAll(allLessonNuggets);
+
+            List<Nugget> questionNuggets = new ArrayList<>();
+            while (questionNuggets.size() <= quantity && nuggets.size() != 0) {
+                Nugget nugget = nuggets.remove(0);
+                if (!questionNuggets.contains(nugget) && !hiddenNuggets.contains(nugget)) {
+                    questionNuggets.add(nugget);
                 }
             }
-            return nuggets;
+            return questionNuggets;
         }
     }
 

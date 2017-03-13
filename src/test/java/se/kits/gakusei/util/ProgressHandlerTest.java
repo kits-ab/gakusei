@@ -42,18 +42,6 @@ public class ProgressHandlerTest {
     @Mock
     private ProgressTrackingRepository progressTrackingRepository;
 
-    @Mock
-    private FactRepository factRepository;
-
-    @Mock
-    private ProgressTracking progressTrackingMock;
-
-    @Captor
-    private ArgumentCaptor<User> userCaptor;
-
-    @Captor
-    private ArgumentCaptor<Nugget> nuggetCaptor;
-
     @Captor
     private ArgumentCaptor<Long> correctCountCaptor;
 
@@ -75,9 +63,7 @@ public class ProgressHandlerTest {
     private String gamemode;
     private long timestamp;
     private User user;
-    private String testQuestion;
     private List<Nugget> nuggets;
-    private ProgressTracking progressTracking;
     private long correctCount;
     private long incorrectCount;
 
@@ -89,7 +75,6 @@ public class ProgressHandlerTest {
         username = "testname";
         password = "testpassword";
         role = "testrole";
-        testQuestion = "swe_test1";
         nuggets = generateNuggets();
         correctCount = 10L;
         incorrectCount = 20L;
@@ -100,12 +85,13 @@ public class ProgressHandlerTest {
 
     }
 
-    public Event createEvent(long timestamp, User user, String gamemode, String type, String data){
+    public Event createEvent(long timestamp, User user, String gamemode, String type, String nuggetId, String data){
         Event event = new Event();
         event.setTimestamp(new Timestamp(timestamp));
         event.setUser(user);
         event.setGamemode(gamemode);
         event.setType(type);
+        event.setNuggetId(nuggetId);
         event.setData(data);
         return event;
     }
@@ -133,10 +119,8 @@ public class ProgressHandlerTest {
         ProgressTracking progressTracking =
                 createProgressTracking(user, nuggets.get(1).getId(), correctCount, incorrectCount, timestampSql, true);
         ProgressTracking spyPT = spy(progressTracking);
-        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", "true");
+        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly",nuggets.get(1).getId(), "true");
         when(userRepository.findByUsername(username)).thenReturn(user);
-        when(eventRepository.getLatestQuestionForUser(username)).thenReturn(testQuestion);
-        when(factRepository.findNuggetsByFactData(testQuestion)).thenReturn(nuggets);
         when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(spyPT);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
@@ -155,14 +139,12 @@ public class ProgressHandlerTest {
         ProgressTracking progressTracking =
                 createProgressTracking(user, nuggets.get(1).getId(), correctCount, incorrectCount, timestampSql, true);
         ProgressTracking spyPT = spy(progressTracking);
-        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", "false");
+        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "false");
         when(userRepository.findByUsername(username)).thenReturn(user);
-        when(eventRepository.getLatestQuestionForUser(username)).thenReturn(testQuestion);
         when(nuggetRepository.findAll()).thenReturn(nuggets);
         when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(spyPT);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
-        when(factRepository.findNuggetsByFactData(testQuestion)).thenReturn(nuggets);
         progressHandler.trackProgress(event);
         verify(spyPT).setIncorrectCount(incorrectCountCaptor.capture());
         verify(spyPT).setLatestTimestamp(latestTimestampCaptor.capture());
@@ -175,14 +157,12 @@ public class ProgressHandlerTest {
     @Test
     public void testProgressHandlerNonExistentAndCorrect() throws Exception {
         Timestamp timestampSql = new Timestamp(timestamp);
-        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", "true");
+        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "true");
         when(userRepository.findByUsername(username)).thenReturn(user);
-        when(eventRepository.getLatestQuestionForUser(username)).thenReturn(testQuestion);
         when(nuggetRepository.findAll()).thenReturn(nuggets);
         when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(null);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
-        when(factRepository.findNuggetsByFactData(testQuestion)).thenReturn(nuggets);
         progressHandler.trackProgress(event);
         verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
         ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
@@ -195,14 +175,12 @@ public class ProgressHandlerTest {
     @Test
     public void testProgressHandlerNonExistentAndIncorrect() throws Exception {
         Timestamp timestampSql = new Timestamp(timestamp);
-        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", "false");
+        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "false");
         when(userRepository.findByUsername(username)).thenReturn(user);
-        when(eventRepository.getLatestQuestionForUser(username)).thenReturn(testQuestion);
         when(nuggetRepository.findAll()).thenReturn(nuggets);
         when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(null);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
-        when(factRepository.findNuggetsByFactData(testQuestion)).thenReturn(nuggets);
         progressHandler.trackProgress(event);
         verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
         ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();

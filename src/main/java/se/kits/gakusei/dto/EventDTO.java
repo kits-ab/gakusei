@@ -6,6 +6,7 @@ public class EventDTO {
     private String gamemode;
     private String type;
     private String data;
+    private String nuggetid;
     private String username;
 
     public EventDTO(){}
@@ -48,5 +49,13 @@ public class EventDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getNuggetid() {
+        return nuggetid;
+    }
+
+    public void setNuggetid(String nuggetid) {
+        this.nuggetid = nuggetid;
     }
 }

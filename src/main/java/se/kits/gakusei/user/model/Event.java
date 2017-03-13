@@ -22,15 +22,6 @@ import java.sql.Timestamp;
                 "where user_ref = :username and type = 'answeredCorrectly'"
         ),
         @NamedNativeQuery(
-                name = "Event.getLatestQuestionForUser",
-                query = "SELECT data " +
-                        "FROM events " +
-                        "WHERE user_ref = :username AND type = 'question' " +
-                        "ORDER BY events.timestamp " +
-                        "DESC " +
-                        "LIMIT 1"
-        ),
-        @NamedNativeQuery(
                 name = "Event.getLatestAnswerTimestamp",
                 query = "SELECT timestamp " +
                         "FROM events " +
@@ -58,6 +49,9 @@ public class Event implements Serializable {
 
     @Column(nullable = false)
     private String data;
+
+    @Column
+    private String nuggetId;
 
     @JsonBackReference
     @ManyToOne
@@ -113,5 +107,13 @@ public class Event implements Serializable {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getNuggetId() {
+        return nuggetId;
+    }
+
+    public void setNuggetId(String nuggetId) {
+        this.nuggetId = nuggetId;
     }
 }

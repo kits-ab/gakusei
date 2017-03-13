@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Grid, Row, Col, ListGroup, ListGroupItem, ProgressBar } from 'react-bootstrap';
 import { Pie } from 'react-chartjs-2';
 
 import Utility from '../../../../shared/util/Utility';
@@ -28,13 +28,13 @@ export class homeScreen extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.getChartData = this.getChartData.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchUserSuccessRate(this.props.loggedInUser);
     this.props.fetchUserStarredLessons();
+    this.props.fetchaddressedQuestionsInLessons();
   }
 
   getChartData() {
@@ -59,29 +59,46 @@ export class homeScreen extends React.Component {
   }
 
   render() {
-    const starredLessons = this.props.starredLessons.map(userLesson =>
-      <ListGroupItem
-        key={userLesson.lessonName}
-      >
-        {userLesson.lessonName}
-      </ListGroupItem>);
-    return (
-      <Grid className="text-center">
+    if (this.props.addressedQuestionsInLessons) {
+      const starredLessons = this.props.starredLessons.map((userLesson) => {
+        if (userLesson.lesson.description !== 'quiz') {
+          const now = (((this.props.addressedQuestionsInLessons[userLesson.lesson.name][1] -
+            this.props.addressedQuestionsInLessons[userLesson.lesson.name][0])
+            / this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]) * 100).toFixed();
+          return (
+            <ListGroupItem
+              key={userLesson.lesson.name}
+            >
+              {userLesson.lesson.name} (totalt {this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]} st)
+              <ProgressBar now={parseInt(now, 10)} label={`${now}%`} />
+            </ListGroupItem>);
+        }
+        return (
+          <ListGroupItem
+            key={userLesson.lesson.name}
+          >
+            {userLesson.lesson.name}
+          </ListGroupItem>);
+      });
+      return (
+        <Grid className="text-center">
         <h2 name="greeter">Välkommen till Gakusei {this.props.loggedInUser}!</h2>
-        <h3>Din svarsstatistik:</h3>
-        <Row>
-          <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
-            { this.props.requestingSuccessRate === false ?
-              <Pie data={this.getChartData()} options={homeScreen.getChartOptions()} /> :
-              <p>Loading...</p> }
-          </Col>
-        </Row>
-        <h3>Lektioner du följer:</h3>
-        <ListGroup>
-          {starredLessons}
-        </ListGroup>
-      </Grid>
-    );
+          <h3>Din svarsstatistik:</h3>
+          <Row>
+            <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
+              { this.props.requestingSuccessRate === false ?
+                <Pie data={this.getChartData()} options={homeScreen.getChartOptions()}/> :
+                <p>Loading...</p> }
+            </Col>
+          </Row>
+          <h3>Lektioner du följer och andel behandlade frågor i varje lektion:</h3>
+          <ListGroup>
+            {starredLessons}
+          </ListGroup>
+        </Grid>
+      );
+    }
+    return null;
   }
 }
 

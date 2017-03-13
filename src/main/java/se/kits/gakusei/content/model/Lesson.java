@@ -1,6 +1,9 @@
 package se.kits.gakusei.content.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -71,8 +74,9 @@ public class Lesson implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"))
     private List<Nugget> nuggets;
 
-    @OneToMany
-    @JoinTable(name = "users_lessons", joinColumns = @JoinColumn(name = "lessonName", referencedColumnName = "name"))
+    @JsonBackReference
+    @OneToMany(mappedBy="lesson", fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<UserLesson> userLessons;
 
     public Lesson() {
