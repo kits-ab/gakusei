@@ -82,11 +82,11 @@ databaseChangeLog:
             name: id
             type: SERIAL
         - column:
-            name: user_ref
+            name: username
             type: VARCHAR(32)
         - column:
-            name: lesson_ref
-            type: SERIAL
+            name: lesson_name
+            type: VARCHAR(32)
         - column:
             name: first_deadline
             type: TIMESTAMP(6) WITHOUT TIME ZONE
@@ -270,6 +270,31 @@ databaseChangeLog:
         referencedColumnNames: id
         referencedTableName: nuggets
         referencedTableSchemaName: contentschema
+- changeSet:
+    id: 2
+    author: psandboge
+    changes:
+    - renameColumn:
+        newColumnName: user_ref
+        oldColumnName: username
+        tableName: user_lesson
+- changeSet:
+    id: 3
+    author: psandboge
+    changes:
+    - addColumn:
+        tableName: user_lesson
+        columns:
+        - column:
+            name: lesson_ref
+            type: SERIAL
+- changeSet:
+    id: 4
+    author: psandboge
+    changes:
+    - dropColumn:
+        columnName: lesson_name
+        tableName: user_lesson
 - changeSet:
     id: 1487684523397-7
     author: joakim
