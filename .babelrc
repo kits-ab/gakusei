@@ -1,24 +1,14 @@
 {
   "presets": [
-    "es2015",
-    "react",
-    "stage-2"
+    ["es2015", { "modules": false }],
+    "stage-2",
+    "react"
   ],
   "env": {
     "development": {
       "plugins": [
-        [
-          "react-transform",
-          {
-            "transforms": [{
-              "transform": "livereactload/babel-transform",
-              "imports": [
-                "react"
-              ]
-            }]
-          }
-      ],
-        ["transform-async-to-generator"]
+        "react-hot-loader/babel",
+        "transform-async-to-generator"
       ]
     }
   }

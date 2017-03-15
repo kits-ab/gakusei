@@ -82,12 +82,12 @@ export class homeScreen extends React.Component {
       });
       return (
         <Grid className="text-center">
-        <h2 name="greeter">Välkommen till Gakusei {this.props.loggedInUser}!</h2>
+          <h2 name="greeter">Välkommen till Gakusei {this.props.loggedInUser}!</h2>
           <h3>Din svarsstatistik:</h3>
           <Row>
             <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
               { this.props.requestingSuccessRate === false ?
-                <Pie data={this.getChartData()} options={homeScreen.getChartOptions()}/> :
+                <Pie data={this.getChartData()} options={homeScreen.getChartOptions()} /> :
                 <p>Loading...</p> }
             </Col>
           </Row>
@@ -113,3 +113,6 @@ homeScreen.propTypes = Utility.reduxEnabledPropTypes({
 
 export default Utility.superConnect(this, Reducers)(homeScreen);
 
+if (module.hot) {
+  module.hot.accept();
+}

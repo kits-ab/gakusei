@@ -56,6 +56,20 @@ export function configureStoreOld(initialState) {
   const store = createStoreWithMiddleware(allReducers/* , initialState*/);
   persistStore(store);
 
+  // if (module.hot) {
+  //   // Enable Webpack hot module replacement for reducers
+  //   module.hot.accept('./shared/stores/', () => {
+  //     const nextTest = require('./shared/stores/Test/index').default;
+  //     const nextLessons = require('./shared/stores/Lessons/index').default;
+  //     const nextStatistics = require('./shared/stores/Statistics/index').default;
+  //     const nextSecurity = require('./shared/stores/Security/index').default;
+  //     store.replaceReducer(nextTest);
+  //     store.replaceReducer(nextLessons);
+  //     store.replaceReducer(nextStatistics);
+  //     store.replaceReducer(nextSecurity);
+  //   });
+  // }
+
   // Enable Webpack hot module replacement for reducers.. But we're not using webpack.. yet! - William
   //   if (module.hot) {
   //     module.hot.accept('./store', () => {

@@ -8,6 +8,7 @@ import * as Security from '../../../shared/stores/Security';
 import * as Lessons from '../../../shared/stores/Lessons';
 
 export const Reducers = [Lessons, Security];
+export const hi = "his";
 
 export class GakuseiNav extends React.Component {
   render() {
@@ -51,7 +52,7 @@ export class GakuseiNav extends React.Component {
           :
             <Nav>
               <LinkContainer to="/about">
-                <NavItem>Om Gakusei</NavItem>
+                <NavItem>Om Gakusei!!</NavItem>
               </LinkContainer>
             </Nav>
           }
