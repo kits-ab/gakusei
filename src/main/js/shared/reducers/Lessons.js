@@ -23,7 +23,7 @@ export const defaultState = {
   lessonSuccessRate: 0,
   lessonSuccessRateMessage: '',
 
-  test: 'x',
+  test: 'xx',
   starredLessons: [],
   questionType: 'reading',
   answerType: 'swedish',

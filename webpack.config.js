@@ -6,6 +6,7 @@ const path = require('path');
 // const development = require('./config/development.js');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackShellPlugin = require('webpack-shell-plugin');
 const webpack = require('webpack');
 
 // Object.keys(process.env).forEach((key) => {
@@ -21,24 +22,26 @@ const webpack = require('webpack');
 // }
 
 module.exports = {
-  entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:7777',
-    path.resolve('./src/main/js/main.js')
-  ],
+  entry: {
+    app: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:7777',
+      'webpack/hot/only-dev-server',
+      './src/main/js/main.js'
+    ] },
   output: {
     path: 'target/classes/static',
-    filename: 'main_bundle.js',
+    filename: 'bundle.js',
     publicPath: '/',
       // necessary for HMR to know where to load the hot update chunks
     sourceMapFilename: '[name].map'
       // hotUpdateChunkFilename: '/hot/[hash].hot-update.js',
       // hotUpdateMainFilename: '/hot/[hash].hot-update.json'
   },
-  resolve: {
-    extensions: ['.ts', '.js', '.json'],
-    modules: [path.join(__dirname, 'src'), 'node_modules']
-  },
+  // resolve: {
+  //   extensions: ['.ts', '.js', '.json'],
+  //   modules: [path.join(__dirname, 'src'), 'node_modules']
+  // },
   module: {
     rules: [
       {
@@ -48,6 +51,10 @@ module.exports = {
       }
     ]
   },
+  // watchOptions: {
+  //   aggregateTimeout: 300,
+  //   poll: 1000
+  // },
   devtool: 'source-map',
   devServer: {
     hot: true,
@@ -78,6 +85,9 @@ module.exports = {
     historyApiFallback: true
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    }),
     new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally
 
@@ -85,6 +95,9 @@ module.exports = {
     // prints more readable module names in the browser console on HMR updates
     new HtmlWebpackPlugin({
       template: path.resolve('src/main/resources/templates/webpack_index.html')
+    }),
+    new WebpackShellPlugin({
+      onBuildEnd: ['node scripts/checkWatcherCount.js']
     })
   ]
 };

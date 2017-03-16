@@ -27,11 +27,16 @@ export default function configureStore(initialState, rehydratedDone) {
 
   const store = createStore(rootReducer, initialState, enhancer);
 
+// if (module.hot) module.hot.accept('./AppProvider', () => render(AppProvider));
+
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('./shared/reducers', () => {
-      const nextRootReducer = require('./shared/reducers');
-      store.replaceReducer(nextRootReducer);
+      store.replaceReducer(rootReducer);
+      // console.log('REDUCER FUN');
+      // console.log(this);
+      // const nextRootReducer = require('./shared/reducers');
+      // store.replaceReducer(nextRootReducer);
     });
   }
 
