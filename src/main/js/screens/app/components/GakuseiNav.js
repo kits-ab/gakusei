@@ -4,11 +4,10 @@ import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 import { Link, withRouter } from 'react-router';
 
 import Utility from '../../../shared/util/Utility';
-import * as Security from '../../../shared/stores/Security';
-import * as Lessons from '../../../shared/stores/Lessons';
+import * as Security from '../../../shared/reducers/Security';
+import * as Lessons from '../../../shared/reducers/Lessons';
 
 export const Reducers = [Lessons, Security];
-export const hi = "his";
 
 export class GakuseiNav extends React.Component {
   render() {

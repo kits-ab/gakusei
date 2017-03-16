@@ -15,7 +15,7 @@ export const defaultState = {
   authResponse: null,
   loggedIn: false,
   loggedInUser: '',
-  currentPageName: null,
+  currentPageName: '',
   currentPage: null
 };
 
@@ -280,7 +280,7 @@ export const actionCreators = {
 // ----------------
 // REDUCER - For a given state and action, returns the new state.
 // To support time travel, this must not mutate the old state.
-export const security = (state, action) => {
+export function security(state = defaultState, action) {
   // Special case of redux-persist
   if (action.type === REHYDRATE) {
     const incoming = action.payload.security;
@@ -340,7 +340,7 @@ export const security = (state, action) => {
         authResponse: null
       };
   }
-};
+}
 
 export const reducers = {
   security

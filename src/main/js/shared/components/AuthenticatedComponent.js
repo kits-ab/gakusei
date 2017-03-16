@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Utility from '../../shared/util/Utility';
-import * as Security from '../../shared/stores/Security';
-import * as Lessons from '../../shared/stores/Lessons';
+import * as Security from '../../shared/reducers/Security';
+import * as Lessons from '../../shared/reducers/Lessons';
 
 export const Reducers = [Security, Lessons];
 

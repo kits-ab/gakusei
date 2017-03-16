@@ -3,8 +3,8 @@ import { Grid, Row, Col, ListGroup, ListGroupItem, ProgressBar } from 'react-boo
 import { Pie } from 'react-chartjs-2';
 
 import Utility from '../../../../shared/util/Utility';
-import * as Lessons from '../../../../shared/stores/Lessons';
-import * as Security from '../../../../shared/stores/Security';
+import * as Lessons from '../../../../shared/reducers/Lessons';
+import * as Security from '../../../../shared/reducers/Security';
 
 export const Reducers = [Lessons, Security];
 
@@ -39,7 +39,7 @@ export class homeScreen extends React.Component {
 
   getChartData() {
     const theLabels = [
-      'Andel rätt svar', 'Andel fel svar'
+      'Andel rätt svar!', 'Andel fel svar'
     ];
 
     return {
@@ -113,6 +113,6 @@ homeScreen.propTypes = Utility.reduxEnabledPropTypes({
 
 export default Utility.superConnect(this, Reducers)(homeScreen);
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }

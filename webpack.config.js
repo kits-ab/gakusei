@@ -24,7 +24,7 @@ module.exports = {
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:7777',
-    './src/main/js/main.js'
+    path.resolve('./src/main/js/main.js')
   ],
   output: {
     path: 'target/classes/static',
@@ -41,7 +41,11 @@ module.exports = {
   },
   module: {
     rules: [
-        { test: /\.jsx?$/, use: 'babel-loader', exclude: /node_modules/ }
+      {
+        test: /\.jsx?$/,
+        use: ['babel-loader'],
+        exclude: /node_modules/
+      }
     ]
   },
   devtool: 'source-map',
@@ -50,7 +54,7 @@ module.exports = {
     port: 7777,
     host: 'localhost',
     noInfo: false,
-    stats: 'minimal',
+    stats: 'normal',
       // contentBase: path.join('/target/classes/static/'),
       // publicPath
     proxy: {
@@ -80,7 +84,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     // prints more readable module names in the browser console on HMR updates
     new HtmlWebpackPlugin({
-      template: 'src/main/resources/templates/webpack_index.html'
+      template: path.resolve('src/main/resources/templates/webpack_index.html')
     })
   ]
 };
