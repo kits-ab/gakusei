@@ -1,7 +1,4 @@
-/* global env */
 const path = require('path');
-// const merge = require('webpack-merge');
-// const commonConfig = require('./webpack.config.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const webpack = require('webpack');
