@@ -12,15 +12,4 @@ const rootReducer = combineReducers({
   routing: routerReducer
 });
 
-// const lessons = lessonsReducers.lessons;
-// const security = securityReducers.security;
-// const statistics = statisticsReducers.statistics;
-
-// const rootReducer = combineReducers({
-//   lessons,
-//   security,
-//   statistics,
-//   routing: routerReducer
-// });
-
 export default rootReducer;

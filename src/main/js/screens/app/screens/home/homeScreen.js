@@ -110,9 +110,5 @@ homeScreen.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
 
-
 export default Utility.superConnect(this, Reducers)(homeScreen);
 
-// if (module.hot) {
-//   module.hot.accept();
-// }

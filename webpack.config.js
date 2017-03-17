@@ -9,35 +9,23 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const webpack = require('webpack');
 
-// Object.keys(process.env).forEach((key) => {
-//   console.log(`${key} = ${process.env[key]}`);
-// });
-
-// console.log(`This is env: ${env}`);
-
-// if (env === 'development') {
-//   module.exports = base;
-// } else if (env === 'production') {
-//   module.exports = base;
-// }
-
 module.exports = {
   entry: {
-    app: [
+    'js/main_bundle.js': [
       'react-hot-loader/patch',
       'webpack-dev-server/client?http://localhost:7777',
-      'webpack/hot/only-dev-server',
       './src/main/js/main.js'
     ] },
   output: {
     path: 'target/classes/static',
-    filename: 'bundle.js',
-    publicPath: '/',
-      // necessary for HMR to know where to load the hot update chunks
-    sourceMapFilename: '[name].map'
-      // hotUpdateChunkFilename: '/hot/[hash].hot-update.js',
-      // hotUpdateMainFilename: '/hot/[hash].hot-update.json'
+    filename: '[name]',
+    sourceMapFilename: '[name].map',
+    publicPath: '/'
+    // sometimes necessary for HMR to know where to load the hot update chunks
+    // hotUpdateChunkFilename: '/hot/[hash].hot-update.js',
+    // hotUpdateMainFilename: '/hot/[hash].hot-update.json'
   },
+  // don't need this for now, maybe later
   // resolve: {
   //   extensions: ['.ts', '.js', '.json'],
   //   modules: [path.join(__dirname, 'src'), 'node_modules']
@@ -66,21 +54,18 @@ module.exports = {
       }
     ]
   },
-  // watchOptions: {
-  //   aggregateTimeout: 300,
-  //   poll: 1000
-  // },
+  // Source mapping, to be able to get readable code in the chrome devtools
   devtool: 'source-map',
+  // devServer: For running a local web server on localhost:7777
+  // it will proxy back to localhost:8080 for api requests
   devServer: {
     hot: true,
     port: 7777,
     host: 'localhost',
     noInfo: false,
     stats: 'normal',
-      // contentBase: path.join('/target/classes/static/'),
-      // publicPath
+    historyApiFallback: true,
     proxy: {
-      // '/': 'http://localhost:8080',
       '/css/**': 'http://localhost:8080',
       '/img/**': 'http://localhost:8080',
       '/auth': 'http://localhost:8080',
@@ -89,30 +74,27 @@ module.exports = {
       '/api/*': {
         target: 'http://localhost:8080/',
         secure: false
-          // bypass(req, res, proxyOptions) {
-          //   if (req.headers.accept.indexOf('html') !== -1) {
-          //     console.log('Skipping proxy for browser request.');
-          //     return '/index.html';
-          //   }
-          // }
       }
-    },
-    historyApiFallback: true
+    }
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
     }),
+    // HotModuleReplacementPlugin: Partial page reloads instead of full page refresh
     new webpack.HotModuleReplacementPlugin(),
-    // enable HMR globally
 
+    // NamedModulesPlugin: prints more readable module names in the browser console on HMR updates
     new webpack.NamedModulesPlugin(),
-    // prints more readable module names in the browser console on HMR updates
+
+    // HtmlWebpackPlugin: Generate a html file into memory. Should be identical to the templates/index.html file
     new HtmlWebpackPlugin({
       template: path.resolve('src/main/resources/templates/webpack_index.html')
     }),
+
+    // WebpackShellPlugin: Help us run some checks!
     new WebpackShellPlugin({
-      onBuildEnd: ['node scripts/checkWatcherCount.js']
+      onBuildStart: ['node scripts/checkWatcherCount.js']
     })
   ]
 };

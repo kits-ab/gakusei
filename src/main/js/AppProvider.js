@@ -18,13 +18,6 @@ import logoutScreen from './screens/app/screens/logout';
 import playScreen from './screens/app/screens/play';
 import selectScreen from './screens/app/screens/select';
 
-// Get the application-wide store instance, prepopulating with state from the server where available.
-// ! Don't have server-rendering yet, might add later
-const initialState = window.initialReduxState;
-const store = configureStore(initialState);
-
-const history = syncHistoryWithStore(browserHistory, store);
-
 export default class AppProvider extends React.Component {
   constructor() {
     super();
@@ -32,15 +25,15 @@ export default class AppProvider extends React.Component {
   }
 
   componentWillMount() {
-    persistStore(store, { blacklist: ['someTransientReducer'] }, () => {
+    persistStore(this.props.store, { blacklist: ['someTransientReducer'] }, () => {
       this.setState({ rehydrated: true });
     });
   }
 
   render() {
     if (this.state.rehydrated) {
-      return (<Provider store={store}>
-        <Router history={history}>
+      return (<Provider store={this.props.store}>
+        <Router history={this.props.history}>
           <Route path="/" component={appScreen}>
             <IndexRedirect to="home" />
             <Route path="login" component={loginScreen} />
