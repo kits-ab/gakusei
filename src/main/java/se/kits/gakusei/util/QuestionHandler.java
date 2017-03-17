@@ -40,7 +40,7 @@ public class QuestionHandler {
         List<List<String>> alternatives = new ArrayList<>();
         alternatives.add(createAlternative(nugget, answerType));
 
-        for(int i = 0; optimalNuggets.size() < 3 && i <= allNuggets.size(); i++) {
+        for(int i = 0; optimalNuggets.size() < 3 && i < allNuggets.size(); i++) {
             if(allNuggets.get(i).getType().equals(nugget.getType()))
                 optimalNuggets.push(allNuggets.get(i));
             else if(allNuggets.size() - (i + 1) <= 4 - optimalNuggets.size())
