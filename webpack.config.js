@@ -46,8 +46,23 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
+        enforce: 'pre',
+        exclude: /(node_modules|bower_components|\.spec\.js)/,
+        use: [
+          {
+            loader: 'eslint-loader',
+            options: {
+              failOnWarning: false,
+              failOnError: false,
+              quiet: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.jsx?$/,
         use: ['babel-loader'],
-        exclude: /node_modules/
+        exclude: /(node_modules|bower_components|\.spec\.js)/
       }
     ]
   },
