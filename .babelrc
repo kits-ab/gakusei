@@ -4,11 +4,17 @@
     "stage-2",
     "react"
   ],
-  "env": {
+  "env": {  
     "development": {
       "plugins": [
-        "react-hot-loader/babel",
-        "transform-async-to-generator"
+        "react-hot-loader/babel"
+      ]
+    },
+    "test": {
+      "presets": [
+        ["es2015"],
+        "stage-2",
+        "react"
       ]
     }
   }

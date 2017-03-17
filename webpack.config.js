@@ -14,7 +14,7 @@ module.exports = function (env) {
 
   return merge.smart(partialConfigToUse, {
     output: {
-      path: 'target/classes/static',
+      path: path.resolve(__dirname, 'target/classes/static'),
       filename: '[name]',
       sourceMapFilename: '[name].map',
       publicPath: '/'
