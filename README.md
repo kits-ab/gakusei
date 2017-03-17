@@ -12,10 +12,21 @@ To build the project, it is recommended to use npm and maven.
 In the instructions below, it is assumed that the aforementioned tools are available.
 
 ### Instructions
-Start with cloning the project.
-In the project root directory, perform step 1 followed either step 2.a or 2.b.
+`git clone` this project, or download as zip.
 
-##### 1. Generate frontend JavaScript bundle with npm
+##### Start the back-end
+
+###### 2.a. Using in-memory database (H2)
+
+1. In terminal, ```mvn spring-boot:run```
+
+###### 2.b. Using PostgreSQL
+
+1. Make sure to have a fairly recent installation of PostgreSQL 9
+2. In Postgres, create a user with name/password *gakusei*
+3. In Postgres, create a database with the name *gakusei* with the user *gakusei* as owner (or appropriate privileges)
+4. In Postgres, create a schema called *contentschema* in database *gakusei*
+5. Run the project with ```mvn spring-boot:run -Drun.profiles=postgres```
 
 1. ```npm install```
 2. ```npm run compile```
