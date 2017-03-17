@@ -23,7 +23,7 @@ export const defaultState = {
   lessonSuccessRate: 0,
   lessonSuccessRateMessage: '',
 
-  test: 'xx',
+  test: 'x',
   starredLessons: [],
   questionType: 'reading',
   answerType: 'swedish',
@@ -403,15 +403,15 @@ export function resetLesson() {
   };
 }
 
-export function setLessons(lessons) {
+export function setLessons(newLessons) {
   return function (dispatch) {
     dispatch({
       type: SET_LESSONS,
       description: 'Manually set lesson names. Temporary function.',
-      lessons
+      lessons: newLessons
     });
 
-    dispatch(setSelectedLesson(lessons[0]));
+    dispatch(setSelectedLesson(newLessons[0]));
   };
 }
 

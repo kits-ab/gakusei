@@ -167,7 +167,7 @@ export function requestUserLogout(redirectUrl, csrf) {
 }
 
 export function requestUserLogin(data, redirectUrl) {
-  return function (dispatch, getState) {
+  return function (dispatch) {
     const formBody = (typeof data === 'string' ? data : Utility.getFormData(data).join('&'));
 
     dispatch(setLoggingIn());
@@ -189,7 +189,7 @@ export function requestUserLogin(data, redirectUrl) {
           break;
         case 200:
           dispatch(receiveAuthResponse(true, 'Inloggad, tar dig vidare..'));
-          dispatch(fetchLoggedInUser()).then((value) => {
+          dispatch(fetchLoggedInUser()).then(() => {
             dispatch(setPageByName(redirectUrl || '/'));
           });
           break;
@@ -254,10 +254,10 @@ export function reloadCurrentRoute() {
 
 export function verifyUserLoggedIn() {
   return function (dispatch, getState) {
-    const security = getState().security;
+    const securityState = getState().security;
 
     dispatch(fetchLoggedInUser()).then(() => {
-      if (!security.loggedIn) {
+      if (!securityState.loggedIn) {
         dispatch(reloadCurrentRoute());
       }
     });
