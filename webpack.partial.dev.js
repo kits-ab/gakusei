@@ -14,7 +14,7 @@ module.exports = {
       './src/main/js/main.js'
     ] },
   // Source mapping, to be able to get readable code in the chrome devtools
-  devtool: 'eval',
+  devtool: 'source-map',
   // devServer: For running a local web server on localhost:7777
   // it will proxy back to localhost:8080 for api requests
   devServer: {

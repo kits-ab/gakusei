@@ -16,7 +16,6 @@
     "compile:production": "webpack --env=production --colors --hide-modules",
     "start": "webpack-dev-server",
     "test": "BABEL_ENV=test ./node_modules/.bin/nightwatch --group play",
-    
     "compile:production:browserify": "browserify ./src/main/js/main.js -g [envify --NODE_ENV 'production'] -t babelify -t uglifyify -o ./src/main/resources/static/js/main_bundle.js",
     "compile:browserify": "browserify ./src/main/js/main.js -g [envify --NODE_ENV 'development'] --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
     "watch:browserify": "watchify src/main/js/main.js --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js -dv -v -p livereactload",
@@ -27,6 +26,7 @@
     "url": "git+https://github.com/kits-ab/gakusei.git"
   },
   "dependencies": {
+    "anchorate": "^1.1.0",
     "babel-preset-es2016": "^6.22.0",
     "babel-preset-es2017": "^6.22.0",
     "browserify": "^13.1.1",
@@ -84,6 +84,7 @@
     "path": "^0.12.7",
     "postcss-loader": "^0.9.1",
     "prettyjson": "^1.2.1",
+    "raw-loader": "^0.5.1",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-proxy": "^1.1.8",
     "rimraf": "^2.5.2",
