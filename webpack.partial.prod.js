@@ -1,6 +1,10 @@
 const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
+  output: {
+    path: path.resolve(__dirname, 'src/main/resources/static')
+  },
   entry: {
     'js/main_bundle.js': [
       './src/main/js/main.js'

@@ -8,40 +8,55 @@ Gakusei is governed by [Daigaku Sverige](http://www.daigaku.se), and sponsored b
 A beta version of Gakusei can be tested at [gakusei.daigaku.se](http://gakusei.daigaku.se).
 
 ### Prerequisites
-To build the project, it is recommended to use npm and maven.
+To build the project, it is recommended to use `npm`, a nodejs-based general command line utility, and maven (`mvn`), a command line utility for Java.
 In the instructions below, it is assumed that the aforementioned tools are available.
 
 ### Instructions
-`git clone` this project, or download as zip.
+**Quick Note:** If you are just looking to make the application run ASAP, without a persistent database or anything, do `mvn package -Pproduction` (you still need java 8 and maven)
 
-##### Start the back-end
+`git clone` this project (how to get git: `apt-get install git` using *nix or using [Git for Windows/Mac/Solaris/Linux](https://git-scm.com/downloads)), or just download as zip and unzip it somewhere.
 
-###### 2.a. Using in-memory database (H2)
+#### Get the back-end running in a development environment
+
+* You will need [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+
+##### 2.a. Simple: Using in-memory database (H2)
 
 1. In terminal, ```mvn spring-boot:run```
 
-###### 2.b. Using PostgreSQL
+**Note:** You should also be able to just run as a Java application in your IDE of choice.
+
+##### 2.b. Advanced: Using PostgreSQL
 
 1. Make sure to have a fairly recent installation of PostgreSQL 9
 2. In Postgres, create a user with name/password *gakusei*
 3. In Postgres, create a database with the name *gakusei* with the user *gakusei* as owner (or appropriate privileges)
 4. In Postgres, create a schema called *contentschema* in database *gakusei*
-5. Run the project with ```mvn spring-boot:run -Drun.profiles=postgres```
+5. Start the back-end with ```mvn spring-boot:run -Drun.profiles=postgres``` instead of ```mvn spring-boot:run```
 
-1. ```npm install```
-2. ```npm run compile```
+**Note #1:** Data initialization is set manually to true or false in application.yml. Starting the server twice with data init set to true may put redundant data in your database, so make sure to only do it once. If you need to refresh your database, you will have to wipe and delete/drop all tables as well.
+**Note #2:** You should also be able to just run as a Java application in your IDE of choice, specifying `--spring.profiles.active=postgres` as argument to enable postgres.
 
-##### 2.a. Using in-memory database (H2)
+#### Get the front-end running in a development environment
 
-1. Run ```mvn spring-boot:run```
+Install [nodejs](https://nodejs.org/en/), any version is fine.
 
-##### 2.b. Using PostgreSQL
+1. Navigate to project directory in a terminal (eg. `cd IdeaProjects/gakusei`)
+2. In terminal, write `npm install` to install all needed dependencies
+3. Now you can choose to either
+* Do `npm start` to open a web server at http://localhost:7777. Any changes will automatically update, so no need to run the command again.
+* Do `npm run compile` to simply compile the files, and visit the back-end server on http://localhost:8080 with reduced developer convenience. For every change you make in the front-end, you will need to run the command again.
 
-1. Make sure to have a fairly recent installation of PostgreSQL 9
-2. In Postgres, create a user with name/password *gakusei*
-3. In Postgres, create a database with the name *gakusei* with the user *gakusei* as owner (or appropriate privileges)
-4. In Postgres, create a schema called *contentschema* in database *gakusei*
-5. Run the project with ```mvn spring-boot:run -Drun.profiles=postgres```
+#### Package it up for deployment
+Since we will create a single .jar file with all resources embedded, we will need to compile the front-end to the back-end resources first. We can use the pre-made maven profiles for this purpose.
+
+2. Do `mvn package -Pproduction` to install npm packages, compile the front-end, and package the .jar file to `target/`
+3. After completing these steps, simply just copy the .jar file that contains all the embedded files, to a server of your choice.
+4. Sample commands for starting the server:
+* `nohup java -jar gakusei.jar &> server.log &` for in-memory db, that clears on restart.
+* `nohup java -jar gakusei.jar --spring.profiles.active=postgres &> server.log &` for postgres, with previously mentioned setup needed.
+
+Command `mvn package -Pdevelopment` is also available, should you want to use it.
 
 ### System overview
 The following picture gives a brief overview of the projects structure:
@@ -50,12 +65,12 @@ The following picture gives a brief overview of the projects structure:
 
 #### Frontend
 - React
+- React Redux
+- React Router
 - React Bootstrap
-- Browserify
+- ~~Browserify~~ now Webpack 2!
 
-By using Browserify and Babel the React JSX components are used to create two javascript bundle files, main_bundle.js
-and login_bundle.js which serves as the project's frontend. The frontend communicates with the backend through REST
-requests.
+Webpack packages everything into a bundle file (except for most resource files, they'll get merged in eventually as well), which is served via a single index.html file given either by the back-end in production (thymeleaf, inside `templates/` dir) or by the webpack dev server front-end on port 7777 (`templates/webpack_index.html`).
 
 #### Backend
 - Spring Boot
@@ -65,8 +80,8 @@ The backend is a Spring Boot application. The frontend's REST requests are recei
 request. The controllers uses modules with business logic and repositories with the database connections in order to
 handle the requests and returning a response.
 
-### Options
+### Misc
 In the project's Spring Boot configuration file (src/main/resources/application.yml) the data initialization and event
-logging can be turned on and off. (If the data initialization is turned on the system will add data to the database at
-each start up and will cause redundant data)
+logging can be turned on and off. Data initialization is only for the development environment, as actual data is not shipped in this project.
 
+Any changes to data structure is done via liquibase's changeset file. Make sure your changes are incremental (one changeset for each new change) after you've published your application somewhere, otherwise liquibase will think you've done something wrong modifying existing changesets, and will refuse to continue.

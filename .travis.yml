@@ -4,21 +4,21 @@ branches:
   only:
   - master
 
-env:
-  global:
-    - NODE_VERSION="7.4.0"
+# env:
+#   global:
+    # - NODE_VERSION="7.4.0"
 language: java
 jdk:
 - oraclejdk8
 
 before_install:
-- nvm install $NODE_VERSION
-- node --version
+# - nvm install $NODE_VERSION
+# - node --version
 install:
-- npm install
+# - npm install
 script:
-- npm run compile:production
-- mvn clean package
+# - npm run compile:production
+- mvn clean package -Pproduction
 
 # the below will make each commit tagged. Skip this for now as we are not releasing to github releases currently
 # after_success:

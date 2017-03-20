@@ -14,7 +14,8 @@ module.exports = function (env) {
 
   return merge.smart(partialConfigToUse, {
     output: {
-      path: path.resolve(__dirname, 'target/classes/static'),
+      // 'path' variable should be *target* if development
+      // and *resources* if production (to incorporate into .jar file)
       filename: '[name]',
       sourceMapFilename: '[name].map',
       publicPath: '/'

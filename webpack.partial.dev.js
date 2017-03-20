@@ -4,6 +4,9 @@ const WebpackShellPlugin = require('webpack-shell-plugin');
 const webpack = require('webpack');
 
 module.exports = {
+  output: {
+    path: path.resolve(__dirname, 'target/classes/static')
+  },
   entry: {
     'js/main_bundle.js': [
       'react-hot-loader/patch',
