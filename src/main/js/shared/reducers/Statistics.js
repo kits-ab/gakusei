@@ -47,7 +47,7 @@ export const actionCreators = {
 // ----------------
 // REDUCER - For a given state and action, returns the new state.
 // To support time travel, this must not mutate the old state.
-export const statistics = (state, action) => {
+export function statistics(state = defaultState, action) {
   switch (action.type) {
     default:
       return state || defaultState;
@@ -66,7 +66,7 @@ export const statistics = (state, action) => {
         requestSuccessRateLastReceived: action.lastReceived
       };
   }
-};
+}
 
 export const reducers = {
   statistics

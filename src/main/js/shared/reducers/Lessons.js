@@ -23,6 +23,7 @@ export const defaultState = {
   lessonSuccessRate: 0,
   lessonSuccessRateMessage: '',
 
+  test: 'x',
   starredLessons: [],
   questionType: 'reading',
   answerType: 'swedish',
@@ -402,15 +403,15 @@ export function resetLesson() {
   };
 }
 
-export function setLessons(lessons) {
+export function setLessons(newLessons) {
   return function (dispatch) {
     dispatch({
       type: SET_LESSONS,
       description: 'Manually set lesson names. Temporary function.',
-      lessons
+      lessons: newLessons
     });
 
-    dispatch(setSelectedLesson(lessons[0]));
+    dispatch(setSelectedLesson(newLessons[0]));
   };
 }
 
@@ -588,7 +589,7 @@ export const actionCreators = {
 // ----------------
 // REDUCER - For a given state and action, returns the new state.
 // To support time travel, this must not mutate the old state.
-export const lessons = (state, action) => {
+export function lessons(state = defaultState, action) {
   // Special case of redux-persist
   if (action.type === REHYDRATE) {
     const incoming = action.payload.lessons;
@@ -741,7 +742,7 @@ export const lessons = (state, action) => {
         requestingSuccessRate: true
       };
   }
-};
+}
 
 export const reducers = {
   lessons

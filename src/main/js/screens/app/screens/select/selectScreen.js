@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Glyphicon } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
-import * as Lessons from '../../../../shared/stores/Lessons';
-import * as Security from '../../../../shared/stores/Security';
+import * as Lessons from '../../../../shared/reducers/Lessons';
+import * as Security from '../../../../shared/reducers/Security';
 
 export const Reducers = [Lessons, Security];
 
