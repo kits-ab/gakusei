@@ -51,7 +51,7 @@ export class GakuseiNav extends React.Component {
           :
             <Nav>
               <LinkContainer to="/about">
-                <NavItem>Om Gakusei!!</NavItem>
+                <NavItem>Om Gakusei</NavItem>
               </LinkContainer>
             </Nav>
           }
