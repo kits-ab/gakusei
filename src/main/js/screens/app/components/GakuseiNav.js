@@ -35,8 +35,8 @@ export class GakuseiNav extends React.Component {
                   <MenuItem className="translatePlay">Översätt ordet</MenuItem>
                 </LinkContainer>
               </NavDropdown>
-              <IndexLinkContainer to="/select/grammar">
-                <NavItem className="grammarPlay" disabled>Grammatik</NavItem>
+              <IndexLinkContainer to="/grammar">
+                <NavItem className="grammarHelp">Grammatik</NavItem>
               </IndexLinkContainer>
               <LinkContainer to="/select/quiz">
                 <NavItem className="quizPlay">Quiz</NavItem>
