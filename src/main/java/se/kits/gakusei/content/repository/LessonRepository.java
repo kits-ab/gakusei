@@ -30,9 +30,9 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
             @Param("factType1") String questionType,
             @Param("factType2") String answerType);
 
-    @Query("select l from Lesson l where not l.description = 'quiz'")
+    @Query("select l from Lesson l where not l.description = 'quiz' order by l.name")
     List<Lesson> findVocabularyLessons();
 
-    @Query("select l from Lesson l where l.description = 'quiz'")
+    @Query("select l from Lesson l where l.description = 'quiz' order by l.name")
     List<Lesson> findQuizLessons();
 }
