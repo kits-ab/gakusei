@@ -16,12 +16,11 @@ module.exports = function (env) {
     output: {
       // 'path' variable should be *target* if development
       // and *resources* if production (to incorporate into .jar file)
-      filename: '[name]',
-      sourceMapFilename: '[name].map',
+      filename: 'main_bundle.js',
       publicPath: '/'
     // sometimes necessary for HMR to know where to load the hot update chunks
-    // hotUpdateChunkFilename: '/hot/[hash].hot-update.js',
-    // hotUpdateMainFilename: '/hot/[hash].hot-update.json'
+      // hotUpdateChunkFilename: '/hot/[hash].hot-update.js',
+      // hotUpdateMainFilename: '/hot/[hash].hot-update.json'
     },
   // don't need this for now, maybe later
   // resolve: {
