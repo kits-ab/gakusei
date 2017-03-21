@@ -1,7 +1,7 @@
 import React from 'react';
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
-import * as Security from '../../../../shared/stores/Security';
+import * as Security from '../../../../shared/reducers/Security';
 
 export const Reducers = [Security];
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Grid, Row, Col, FormControl, FormGroup } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
-import * as Lessons from '../../../../shared/stores/Lessons';
-import * as Security from '../../../../shared/stores/Security';
+import * as Lessons from '../../../../shared/reducers/Lessons';
+import * as Security from '../../../../shared/reducers/Security';
 
 import DisplayQuestion from '../../shared/DisplayQuestion';
 

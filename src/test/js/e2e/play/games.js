@@ -50,8 +50,9 @@ export function playQuizGame(browser) {
         // Selected a random lesson, let's go
     browser.click('button[type="submit"]');
     const repeatMash = function (done) {
+      browser.waitForElementVisible('button.answerbutton[name="answerbutton-1"]:not([disabled]):first-of-type', 5000);
       doMash(browser, 'button.answerbutton[name="answerbutton-1"]', 'button.answerbutton:not([disabled])', () => {
-        browser.waitForElementPresent('button.answerbutton[name="answerbutton-1"]:not([disabled]):first-of-type, .list-group', 5000, true)
+        browser.waitForElementPresent('button.answerbutton[name="answerbutton-1"]:not([disabled]):first-of-type, .list-group', 5000)
           .elements('css selector', '.list-group', (result) => {
             if (result.value.length === 0) {
               repeatMash(null);
@@ -69,13 +70,14 @@ export function playQuizGame(browser) {
 export function playGuessGame(browser) {
   browser
     .click('li.glosorDropdown')
-    .waitForElementVisible('li.guessPlay', 2500, true)
+    .waitForElementVisible('li.guessPlay', 2500)
     .click('li.guessPlay', () => doMash(browser, null, 'button.list-group-item', () => {
         // Selected a random lesson, let's go
       browser.click('button[type="submit"]');
       const repeatMash = function (done) {
+        browser.waitForElementVisible('button.answerbutton[name="answerbutton-1"]:not([disabled]):first-of-type', 5000);
         doMash(browser, 'button.answerbutton[name="answerbutton-1"]', 'button.answerbutton:not([disabled])', () => {
-          browser.waitForElementPresent('button.answerbutton[name="answerbutton-1"]:not([disabled]):first-of-type, .list-group', 5000, true)
+          browser.waitForElementPresent('button.answerbutton[name="answerbutton-1"]:not([disabled]):first-of-type, .list-group', 5000)
           .elements('css selector', '.list-group', (result) => {
             if (result.value.length === 0) {
               repeatMash(null);
@@ -94,14 +96,15 @@ export function playGuessGame(browser) {
 export function playTranslateGame(browser) {
   browser
     .click('li.glosorDropdown')
-    .waitForElementVisible('li.translatePlay', 2500, true)
+    .waitForElementVisible('li.translatePlay', 2500)
     .click('li.translatePlay', () => doMash(browser, null, 'button.list-group-item', () => {
         // Selected a random lesson, let's go
       browser.click('button[type="submit"]');
       const repeatMash = function (done) {
-        browser.setValue('input[name="translateText"]', 'wrong answer', () => {
+        browser.waitForElementVisible('input[name="translateText"]:not([disabled])', 5000)
+        .setValue('input[name="translateText"]', 'wrong answer', () => {
           browser.click('button[type="submit"]')
-            .waitForElementPresent('input[name="translateText"]:not([disabled]):nth-of-type(1), .list-group', 5000, true)
+            .waitForElementVisible('input[name="translateText"]:not([disabled]):nth-of-type(1), .list-group', 5000)
               .elements('css selector', '.list-group', (result) => {
                 if (result.value.length === 0) {
                   repeatMash(null);
