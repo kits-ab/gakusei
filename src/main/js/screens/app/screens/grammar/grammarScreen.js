@@ -36,7 +36,7 @@ export class grammarScreen extends React.Component {
         <div>
           <h1>Grammatik jp1200, Text 1</h1>
           <h2 id="gcon_15" style={titleStyle}>~られる、~える - Potentiella verb <a href="#gcon_15">#</a></h2>
-          <p>Verb på potentialform har betydelsen kan, har förmågan, är möjlig. Hur formen bildas varierar: Ru-verb, verbstam + られる, u-verb, verb - u + える. くる blir こられる och する blir できる. På potentialform böjs verbet som ett ru-verb. Partiklar bibehålls, men を kan bli antingen を eller が. För できる ersätts を oftast med が.</p>
+          <p>Verb på potentialform har betydelsen kan, har förmågan, är möjlig. Hur formen bildas varierar: Ru-verb, verbstam + られる, u-verb, verb minus u + える. くる blir こられる och する blir できる. På potentialform böjs verbet som ett ru-verb. Partiklar bibehålls, men を kan bli antingen を eller が. För できる ersätts を oftast med が.</p>
           <DisplayQuestion
             primaryText={'助けてあげられなくてごめんね。'}
             secondaryText={'Sorry I couldn\'t save you.'}
@@ -91,7 +91,7 @@ export class grammarScreen extends React.Component {
           <p>En grov tumregel är att om inte jag blir berikad, direkt eller indirekt, så används あげる. Exemple på detta är om jag ger något, om en främling ger något till en annan främling, om en familjemdlem ger en annan familjemedlem något. Om man tänker sig gåvans väg, så rör den sig ut från mig, eller åtminstone inte in mot mig. Jämför med くれる.</p>
           <p>Textbok kap. 14</p><hr />
           <h2 id="gcon_26" style={titleStyle}>~もらう - Få <a href="#gcon_26">#</a></h2>
-          <p>もらう används i betydelsen att få, men får bara användas i samma situation som くれる (med motsatt subjekt och objekt, förstås).</p>
+          <p>Den här förklaringen är otydlig, läs i textboken tillsvidare. もらう används i betydelsen att få, men får bara användas i samma situation som くれる (med motsatt subjekt och objekt, förstås).</p>
           <p>Textbok kap. 14</p><hr />
           <h2 id="gcon_34" style={titleStyle}>~てあげる - Ge tjänst (pil ut) <a href="#gcon_34">#</a></h2>
           <p>Motsvarigheten till あげる för att göra någon en tjänst är: Verb på て-form + あげる. てあげる ändrar inte grundbetydelsen, det talar bara om att handlingen gjordes som en tjänst (på begäran eller eget initiativ). Jfr med ~あげる.</p>
@@ -114,8 +114,8 @@ export class grammarScreen extends React.Component {
           <h2 id="gcon_30" style={titleStyle}>~おう/~よう - Volitional <a href="#gcon_30">#</a></h2>
           <p>Volitional är en verbform som används för att föreslå något, liknande men mindre formellt än ましょう. Bildas så här: Ru-verb, ta bort ru och lägg på よう. U-verb, ta bort u och lägg på おう. 来る blir こよう och する, しよう. Lägger man på ka, så vill man ha motpartens åsikt.</p>
           <p>Textbok kap. 15</p><hr />
-          <h2 id="gcon_31" style={titleStyle}>~おうと思いっています - Intention <a href="#gcon_31">#</a></h2>
-          <p>Volitionalformen tillsammans med と思いっています indikerar intention. Man har bestämt sig för att göra något. Med と思います indikerarat det också intention, men något man bestämt här och nu.</p>
+          <h2 id="gcon_31" style={titleStyle}>~おうと思っています - Intention <a href="#gcon_31">#</a></h2>
+          <p>Volitionalformen tillsammans med と思っています indikerar intention. Man har bestämt sig för att göra något. Med と思います indikerarat det också intention, men något man bestämt här och nu.</p>
           <p>Textbok kap. 15</p><hr />
           <h2 id="gcon_32" style={titleStyle}>~ておく - Förberedande syfte <a href="#gcon_32">#</a></h2>
           <p>Verb på te-form + hjälpverbet おく beskriver något som görs i förberedande syfte. I talspråk dras ておく ofta ihop till とく.</p>
@@ -205,14 +205,14 @@ export class grammarScreen extends React.Component {
           <DisplayQuestion primaryText={'座りなよ。疲れてるみたいだし。 '} secondaryText={'Take a seat. You look tired.'} japaneseCharacters showSpeechButton smallerText /><br />
           <hr />
           <p>Textbok kap. 17</p><hr />
-          <h2 id="gcon_7" style={titleStyle}>~前に - X före Y <a href="#gcon_7">#</a></h2>
-          <p>Kortform (nutid) + 前に betecknar en händelse som föregår efterföljande huvudsats. "Jag ska bara släcka innan jag går." Dvs X 前に Y, där X (kortform) är en händelse som sker innan händelse Y.</p>
+          <h2 id="gcon_7" style={titleStyle}>~前に - X efter Y <a href="#gcon_7">#</a></h2>
+          <p>Kortform (nutid) + 前に betecknar en händelse som sker efter efterföljande huvudsats. "Jag kommer när jag köpt mat." Dvs X 前に Y, där X (kortform) är en händelse som sker efter händelse Y.</p>
           <DisplayQuestion primaryText={'寝る前に、ビールを飲まないでください。 '} secondaryText={'Please don\'t drink beer before going to bed.'} japaneseCharacters showSpeechButton smallerText /><br />
           <DisplayQuestion primaryText={'旅に行く前に、私は散髪した。'} secondaryText={'Before taking a journey, I got a haircut.'} japaneseCharacters showSpeechButton smallerText /><br />
           <hr />
           <p>Textbok kap. 17</p><hr />
-          <h2 id="gcon_8" style={titleStyle}>~てから - X efter Y <a href="#gcon_8">#</a></h2>
-          <p>Te-form + から betecknar en händelse som sker efter efterföljande huvudsats. "Jag kommer när jag köpt mat." Dvs X から Y, där X (te-form) är en händelse som sker efter händelse Y.</p>
+          <h2 id="gcon_8" style={titleStyle}>~てから - X före Y <a href="#gcon_8">#</a></h2>
+          <p>Te-form + から betecknar en händelse som sker före efterföljande huvudsats. "Jag ska bara släcka innan jag går." Dvs X から Y, där X (te-form) är en händelse som sker före händelse Y.</p>
           <p>Textbok kap. 17</p><hr />
           <h2 id="gcon_9" style={titleStyle}>他動詞 (たどうし) / 自動詞 (じどうし) - Transitiva/intransitiva verb) <a href="#gcon_9">#</a></h2>
           <p>Transitiva verb tar objekt (och subjekt), intransitiva verb tar bara subjekt. En del japanska verb bildar transitiva par. Tyvärr följer de inget bestämt mönster, även om det finns subgrupper med mönster. Det är med andra ord bara att lära sig varje par för sig.</p>
@@ -224,7 +224,7 @@ export class grammarScreen extends React.Component {
           <p>Verb på te-form + しまう indikerar en oavsiktlig händelse, ofta kopplad till ånger. "Jag tappade plånboken på bussen." "Jag glömde att jag hade ett möte med chefen." Obs! Se "Göra klart, fullfölja" för alternativ tolkning!</p>
           <p>Textbok kap. 18</p><hr />
           <h2 id="gcon_47" style={titleStyle}>~ちゃう/~じゃう - Göra klart, oavsiktligt (i tal) <a href="#gcon_47">#</a></h2>
-          <p>I talspråk förkortas ofta てしまう/てしまう till ちゃう/じゃう. I praktiken blir det dåtid och kortform, ちゃった/じゃった. Se "Oavsiktligt", "Göra klart, fullfölja".</p>
+          <p>I talspråk förkortas ofta てしまう/でしまう till ちゃう/じゃう. I praktiken blir det dåtid och kortform, ちゃった/じゃった. Se "Oavsiktligt", "Göra klart, fullfölja".</p>
           <p>Textbok kap. 18</p><hr />
           <h2 id="gcon_12" style={titleStyle}>~と - Orsak och verkan <a href="#gcon_12">#</a></h2>
           <p>Man kan bilda ett uttryck (X) på kortform, icke-dåtid, + と + uttryck (Y). Y är en följd av X, och X måste inträffa före Y. "Jag blir glad när jag hör J-Pop." Konstruktionen kan beskriva orsak och verkan för specifika händelser, "När jag körde för fort blev jag stoppad av polisen." När Y innehåller en adjektivfras används ofta なる, "楽しくなる", "元気になる".</p>
