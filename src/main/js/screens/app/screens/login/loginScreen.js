@@ -24,7 +24,11 @@ export class loginScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.props.clearAuthResponse();
+    if (this.props.loggedIn) {
+      this.props.setPageByName(this.props.location.query.redirectUrl);
+    } else {
+      this.props.clearAuthResponse();
+    }
   }
 
   setLoginSubmitMode(submitLogin) {

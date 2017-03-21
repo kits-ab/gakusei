@@ -14,7 +14,7 @@
     "precompile:production": "rimraf ./src/main/resources/static/js/*",
     "compile": "webpack --env=development --progress --profile --colors --hide-modules",
     "compile:production": "webpack --env=production --colors --hide-modules",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --progress",
     "test": "BABEL_ENV=test ./node_modules/.bin/nightwatch --group play",
     "compile:production:browserify": "browserify ./src/main/js/main.js -g [envify --NODE_ENV 'production'] -t babelify -t uglifyify -o ./src/main/resources/static/js/main_bundle.js",
     "compile:browserify": "browserify ./src/main/js/main.js -g [envify --NODE_ENV 'development'] --debug -t babelify -o ./src/main/resources/static/js/main_bundle.js",
@@ -94,7 +94,7 @@
     "uglifyify": "^3.0.4",
     "watchify": "^3.9.0",
     "webdriverio": "^4.6.2",
-    "webpack": "^2.1.0-beta.25",
+    "webpack": "^2.2.1",
     "webpack-dev-server": "^2.1.0-beta.0",
     "webpack-merge": "^4.0.0",
     "webpack-shell-plugin": "^0.5.0"

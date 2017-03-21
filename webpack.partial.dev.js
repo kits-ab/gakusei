@@ -5,14 +5,13 @@ const webpack = require('webpack');
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, 'target/classes/static')
+    path: path.resolve(__dirname, 'target/classes/static/js')
   },
-  entry: {
-    'js/main_bundle.js': [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:7777',
-      './src/main/js/main.js'
-    ] },
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:7777',
+    './src/main/js/main.js'
+  ],
   // Source mapping, to be able to get readable code in the chrome devtools
   devtool: 'source-map',
   // devServer: For running a local web server on localhost:7777
