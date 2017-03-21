@@ -2,7 +2,7 @@ import React from 'react';
 import GakuseiNav from './components/GakuseiNav';
 
 import Utility from '../../shared/util/Utility';
-import * as Security from '../../shared/stores/Security';
+import * as Security from '../../shared/reducers/Security';
 
 export const Reducers = [Security];
 

@@ -2,7 +2,7 @@ import React from 'react';
 import 'whatwg-fetch';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Panel } from 'react-bootstrap';
 import xml2js from 'xml2js';
-
+  
 export default class aboutScreen extends React.Component {
   constructor(props) {
     super(props);

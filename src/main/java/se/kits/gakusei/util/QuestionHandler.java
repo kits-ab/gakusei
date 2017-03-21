@@ -31,15 +31,25 @@ public class QuestionHandler {
                                                      String questionType,
                                                      String answerType) {
         HashMap<String, Object> questionMap = createQuestionDTOWithResource(nugget);
-        LinkedList<Nugget> shuffledNuggets = new LinkedList<>(nuggets);
-        shuffledNuggets.remove(nugget);
-        Collections.shuffle(shuffledNuggets);
+        LinkedList<Nugget> optimalNuggets = new LinkedList<>();
+
+        LinkedList<Nugget> allNuggets = new LinkedList<>(nuggets);
+        Collections.shuffle(allNuggets);
+        allNuggets.remove(nugget);
+
         List<List<String>> alternatives = new ArrayList<>();
         alternatives.add(createAlternative(nugget, answerType));
 
+        for(int i = 0; optimalNuggets.size() < 3 && i < allNuggets.size(); i++) {
+            if(allNuggets.get(i).getType().equals(nugget.getType()))
+                optimalNuggets.push(allNuggets.get(i));
+            else if(allNuggets.size() - (i + 1) <= 4 - optimalNuggets.size())
+                optimalNuggets.push(allNuggets.get(i));
+        }
+
         //Avoid getting the same alternative from another nugget
-        while (alternatives.size() < 4 && !shuffledNuggets.isEmpty()) {
-            List<String> tempAlternative = createAlternative(shuffledNuggets.poll(), answerType);
+        while (alternatives.size() < 4 && !optimalNuggets.isEmpty()) {
+            List<String> tempAlternative = createAlternative(optimalNuggets.poll(), answerType);
             if (alternatives.stream().noneMatch(l -> l.get(0).equals(tempAlternative.get(0)))) {
                 alternatives.add(tempAlternative);
             }

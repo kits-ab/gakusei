@@ -3,8 +3,8 @@ import { Button, Grid, Row, ListGroup, ListGroupItem, Col } from 'react-bootstra
 import Utility from '../../../../shared/util/Utility';
 import getCSRF from '../../../../shared/util/getcsrf';
 import DisplayQuestion from '../../shared/DisplayQuestion';
-import * as Lessons from '../../../../shared/stores/Lessons';
-import * as Security from '../../../../shared/stores/Security';
+import * as Lessons from '../../../../shared/reducers/Lessons';
+import * as Security from '../../../../shared/reducers/Security';
 
 export const Reducers = [Lessons, Security];
 

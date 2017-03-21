@@ -3,8 +3,8 @@ import { Grid, Row, Col, ListGroup, ListGroupItem, ProgressBar } from 'react-boo
 import { Pie } from 'react-chartjs-2';
 
 import Utility from '../../../../shared/util/Utility';
-import * as Lessons from '../../../../shared/stores/Lessons';
-import * as Security from '../../../../shared/stores/Security';
+import * as Lessons from '../../../../shared/reducers/Lessons';
+import * as Security from '../../../../shared/reducers/Security';
 
 export const Reducers = [Lessons, Security];
 
@@ -39,7 +39,7 @@ export class homeScreen extends React.Component {
 
   getChartData() {
     const theLabels = [
-      'Andel rätt svar', 'Andel fel svar'
+      'Andel rätt svar!', 'Andel fel svar'
     ];
 
     return {
@@ -82,12 +82,12 @@ export class homeScreen extends React.Component {
       });
       return (
         <Grid className="text-center">
-        <h2 name="greeter">Välkommen till Gakusei {this.props.loggedInUser}!</h2>
+          <h2 name="greeter">Välkommen till Gakusei {this.props.loggedInUser}!</h2>
           <h3>Din svarsstatistik:</h3>
           <Row>
             <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
               { this.props.requestingSuccessRate === false ?
-                <Pie data={this.getChartData()} options={homeScreen.getChartOptions()}/> :
+                <Pie data={this.getChartData()} options={homeScreen.getChartOptions()} /> :
                 <p>Loading...</p> }
             </Col>
           </Row>
@@ -109,7 +109,6 @@ homeScreen.defaultProps = Utility.reduxEnabledDefaultProps({
 homeScreen.propTypes = Utility.reduxEnabledPropTypes({
 
 }, Reducers);
-
 
 export default Utility.superConnect(this, Reducers)(homeScreen);
 

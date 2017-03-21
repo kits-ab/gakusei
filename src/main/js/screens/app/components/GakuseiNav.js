@@ -4,8 +4,8 @@ import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 import { Link, withRouter } from 'react-router';
 
 import Utility from '../../../shared/util/Utility';
-import * as Security from '../../../shared/stores/Security';
-import * as Lessons from '../../../shared/stores/Lessons';
+import * as Security from '../../../shared/reducers/Security';
+import * as Lessons from '../../../shared/reducers/Lessons';
 
 export const Reducers = [Lessons, Security];
 
@@ -35,8 +35,8 @@ export class GakuseiNav extends React.Component {
                   <MenuItem className="translatePlay">Översätt ordet</MenuItem>
                 </LinkContainer>
               </NavDropdown>
-              <IndexLinkContainer to="/select/grammar">
-                <NavItem className="grammarPlay" disabled>Grammatik</NavItem>
+              <IndexLinkContainer to="/grammar">
+                <NavItem className="grammarHelp">Grammatik</NavItem>
               </IndexLinkContainer>
               <LinkContainer to="/select/quiz">
                 <NavItem className="quizPlay">Quiz</NavItem>

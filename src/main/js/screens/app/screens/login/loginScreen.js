@@ -3,7 +3,7 @@ import { Button, Col, Row, Grid, Form, FormGroup, FormControl, ControlLabel } fr
 
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
-import * as Security from '../../../../shared/stores/Security';
+import * as Security from '../../../../shared/reducers/Security';
 
 export const Reducers = [Security];
 
@@ -24,7 +24,11 @@ export class loginScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.props.clearAuthResponse();
+    if (this.props.loggedIn) {
+      this.props.setPageByName(this.props.location.query.redirectUrl);
+    } else {
+      this.props.clearAuthResponse();
+    }
   }
 
   setLoginSubmitMode(submitLogin) {
