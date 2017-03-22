@@ -8,6 +8,10 @@ import Utility from '../../shared/util/Utility';
 // ----------------
 // DEFAULT STATE
 export const defaultState = {
+  projectVersion: process.env.PROJECT_VERSION,
+  purgeNeeded: false,
+  test: 'abc',
+
   // Security
   loginInProgress: false,
   registerInProgress: false,
@@ -284,11 +288,14 @@ export function security(state = defaultState, action) {
   // Special case of redux-persist
   if (action.type === REHYDRATE) {
     const incoming = action.payload.security;
+
     if (incoming) {
       return {
         ...state,
+        test: incoming.test,
         loggedIn: incoming.loggedIn,
-        loggedInUser: incoming.loggedInUser };
+        loggedInUser: incoming.loggedInUser,
+        purgeNeeded: (incoming.projectVersion !== state.projectVersion) };
     }
     return state;
   }
