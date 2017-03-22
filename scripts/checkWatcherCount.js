@@ -1,6 +1,4 @@
 const execSync = require('child_process').execSync;
-const fs = require('fs');
-const util = require('util');
 
 const warnString = `!!! WARNING !!!
 You may not have enough watchers for development mode!

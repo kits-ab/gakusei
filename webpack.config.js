@@ -1,32 +1,37 @@
 /* global env */
 const path = require('path');
 const merge = require('webpack-merge');
+const webpack = require('webpack');
 const prodConfig = require('./webpack.partial.prod.js');
 const devConfig = require('./webpack.partial.dev.js');
+const packageJson = require('./package.json');
+const WebpackShellPlugin = require('webpack-shell-plugin');
 
 module.exports = function (env) {
-  let partialConfigToUse;
-  if ((env || 'development') === 'development') {
-    partialConfigToUse = devConfig;
-  } else if (env === 'production') {
-    partialConfigToUse = prodConfig;
+  let partialConfig;
+  const shellScripts = ['node scripts/updateVersionFromMavenPom.js'];
+
+  if (process.env.NODE_ENV === 'production') {
+    console.log('this is production');
+    partialConfig = prodConfig;
+  } else {
+    partialConfig = devConfig;
+    console.log('this is development');
+    // Since we are in development environment
+    // Make sure that we have enough file watchers on current OS
+    shellScripts.push('node scripts/checkWatcherCount.js');
   }
 
-  return merge.smart(partialConfigToUse, {
+  const theConfig = merge(partialConfig, {
+    entry: [
+      './src/main/js/main.js'
+    ],
     output: {
       // 'path' variable should be *target* if development
       // and *resources* if production (to incorporate into .jar file)
       filename: 'main_bundle.js',
       publicPath: '/'
-    // sometimes necessary for HMR to know where to load the hot update chunks
-      // hotUpdateChunkFilename: '/hot/[hash].hot-update.js',
-      // hotUpdateMainFilename: '/hot/[hash].hot-update.json'
     },
-  // don't need this for now, maybe later
-  // resolve: {
-  //   extensions: ['.ts', '.js', '.json'],
-  //   modules: [path.join(__dirname, 'src'), 'node_modules']
-  // },
     module: {
       rules: [
         {
@@ -48,9 +53,32 @@ module.exports = function (env) {
           test: /\.jsx?$/,
           use: ['babel-loader'],
           exclude: /(node_modules|bower_components|\.spec\.js)/
+        },
+        {
+          test: /\.json$/,
+          use: ['json-loader'],
+          exclude: /(node_modules|bower_components|\.spec\.js)/
+        },
+        {
+          test: /\.xml$/,
+          use: ['xml-loader'],
+          exclude: /(node_modules|bower_components|\.spec\.js)/
         }
       ]
-    }
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env': {
+          PROJECT_VERSION: JSON.stringify(packageJson.version),
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
+        }
+      }),
+      new WebpackShellPlugin({
+        onBuildStart: shellScripts
+      })
+    ]
   });
-};
 
+  // console.log(theConfig);
+  return theConfig;
+};

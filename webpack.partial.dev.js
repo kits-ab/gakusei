@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackShellPlugin = require('webpack-shell-plugin');
 const webpack = require('webpack');
 
 module.exports = {
@@ -9,8 +8,7 @@ module.exports = {
   },
   entry: [
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:7777',
-    './src/main/js/main.js'
+    'webpack-dev-server/client?http://localhost:7777'
   ],
   // Source mapping, to be able to get readable code in the chrome devtools
   devtool: 'source-map',
@@ -24,6 +22,7 @@ module.exports = {
     stats: 'normal',
     historyApiFallback: true,
     proxy: {
+      '/icons/**': 'http://localhost:8080',
       '/css/**': 'http://localhost:8080',
       '/img/**': 'http://localhost:8080',
       '/auth': 'http://localhost:8080',
@@ -36,9 +35,6 @@ module.exports = {
     }
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development')
-    }),
     // HotModuleReplacementPlugin: Partial page reloads instead of full page refresh
     new webpack.HotModuleReplacementPlugin(),
 
@@ -48,11 +44,6 @@ module.exports = {
     // HtmlWebpackPlugin: Generate a html file into memory. Should be identical to the templates/index.html file
     new HtmlWebpackPlugin({
       template: path.resolve('src/main/resources/templates/webpack_index.html')
-    }),
-
-    // WebpackShellPlugin: Help us run some checks!
-    new WebpackShellPlugin({
-      onBuildStart: ['node scripts/checkWatcherCount.js']
     })
   ]
 };
