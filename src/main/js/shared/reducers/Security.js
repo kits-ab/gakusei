@@ -10,7 +10,6 @@ import Utility from '../../shared/util/Utility';
 export const defaultState = {
   projectVersion: process.env.PROJECT_VERSION,
   purgeNeeded: false,
-  test: 'abc',
 
   // Security
   loginInProgress: false,
@@ -292,7 +291,6 @@ export function security(state = defaultState, action) {
     if (incoming) {
       return {
         ...state,
-        test: incoming.test,
         loggedIn: incoming.loggedIn,
         loggedInUser: incoming.loggedInUser,
         purgeNeeded: (incoming.projectVersion !== state.projectVersion) };

@@ -59,9 +59,7 @@ export default class Utility {
   }
 
   static reduxEnabledPropTypes(propTypes, reducerNames) {
-    const test = Object.assign({}, propTypes, Utility.generatePropsFromReducer(reducerNames));
-
-    return test;
+    return Object.assign({}, propTypes, Utility.generatePropsFromReducer(reducerNames));
   }
 
   static superConnect(sender, reducerNames) {
