@@ -12,6 +12,14 @@ function doReplace(newVersion) {
     recursive: true,
     silent: true
   });
+
+  replace({
+    regex: /gakusei-\d.\d.\d\.jar/,
+    replacement: `gakusei-${newVersion}.jar`,
+    paths: ['.travis.yml'],
+    recursive: true,
+    silent: true
+  });
 }
 
 xml2js.parseString(pomXmlText, (err, pomJson) => {
