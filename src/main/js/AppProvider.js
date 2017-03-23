@@ -36,7 +36,7 @@ export default class AppProvider extends React.Component {
     // For now, we let security reducer determine purging decision for all reducers
     this.setState({
       persistor: persistStore(this.props.store, { blacklist: [] }, (err, state) => {
-        if (state.security.purgeNeeded) {
+        if (state.security && state.security.purgeNeeded) {
           this.state.persistor.purge().then(this.setState({ rehydrated: true }));
         } else {
           this.setState({ rehydrated: true });
