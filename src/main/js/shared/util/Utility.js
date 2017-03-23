@@ -89,27 +89,68 @@ export default class Utility {
 
 // ----------------
 // LOGGING
-  static logEvent(page, eventType, eventData, nuggetId, username) {
-    return new Promise((resolve, reject) => {
-      const promises = [];
-      if (Array.isArray(eventData)) {
-        for (let i = 0; i < eventData.length; i += 1) {
-          promises.push(this.postEvent(page, eventType, eventData[i], nuggetId, username)
-          .catch((err) => { reject(err); }));
-        }
-      } else {
-        promises.push(this.postEvent(page, eventType, eventData, nuggetId, username)
-        .catch((err) => { reject(err); }));
-      }
+  static collectedEvents = [];
 
-      Promise.all(promises).then((values) => {
-        if (values.some(response => !response.ok)) {
-          reject();
-        } else { resolve(); }
+  static logEvent(page, eventType, eventData, nuggetId, username, sendImmediately = false) {
+    // Because sometimes we log a phonetic and a traditional written version of the same word
+    // We log both of these separately to the back-end using the below evaluation
+    const pushFunc = (eventDataValue) => {
+      this.collectedEvents.push({
+        timestamp: Number(new Date()),
+        gamemode: page,
+        type: eventType,
+        data: eventDataValue,
+        nuggetid: nuggetId,
+        username
       });
-    });
+    };
+
+    if (Array.isArray(eventData)) {
+      eventData.forEach(value => pushFunc(value));
+    } else {
+      pushFunc(eventData);
+    }
+
+    if (sendImmediately) {
+      return this.sendCollectedEvents();
+    }
+    return null;
   }
 
+  static logEvents(logData, sendImmediately) {
+    for (let i = 0; i < logData.data.length; i++) {
+      this.logEvent(
+        logData.page,
+        logData.data[i].eventType,
+        logData.data[i].eventData,
+        logData.data[i].nuggetId,
+        logData.username
+      );
+    }
+
+    if (sendImmediately) {
+      return this.sendCollectedEvents();
+    }
+    return null;
+  }
+
+  static sendCollectedEvents() {
+    const xsrfTokenValue = getCSRF();
+    const body = JSON.stringify(this.collectedEvents);
+    this.collectedEvents = []; // Clear the data
+    return fetch('/api/events2',
+      {
+        credentials: 'same-origin',
+        method: 'POST',
+        body,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-XSRF-TOKEN': xsrfTokenValue
+        }
+      });
+  }
+
+  // Deprecated
   static postEvent(page, eventType, eventData, nuggetId, username) {
     const bodyData = {
       timestamp: Number(new Date()),
