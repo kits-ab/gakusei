@@ -10,17 +10,39 @@ const indexFilename = function () {
   return 'index.html';
 };
 
+const getEntries = function () {
+    // if this env variable stops working, try npm_package_scripts_start instead.
+  if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
+    return {};
+  }
+  return { main: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:7777'
+  ] };
+};
+
+const getPath = function () {
+  if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
+    return path.resolve(__dirname, 'src/main/resources/static/js');
+  }
+  return path.resolve(__dirname, 'src/main/resources/static');
+};
+
+const getPublicPath = function () {
+  if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
+    return '/js';
+  }
+  return '/';
+};
+
 module.exports = {
   output: {
-    publicPath: '/',
+    publicPath: getPublicPath(),
     filename: '[name].bundle.js',
-    path: path.join(__dirname, 'target/classes/static/')
+    path: getPath()
+    // If anything breaks, it's because this "/js" part needs to be removed for dev server, I think.
   },
-  entry: {
-    main: [
-      'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:7777'
-    ] },
+  entry: getEntries,
   // Source mapping, to be able to get readable code in the chrome devtools
   devtool: 'source-map',
   // devServer: For running a local web server on localhost:7777

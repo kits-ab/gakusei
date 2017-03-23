@@ -17,6 +17,9 @@ module.exports = function () {
     console.info('');
   } else {
     partialConfig = devConfig;
+    console.info('');
+    console.info('Development mode: Please make sure to recompile via maven/spring-boot after this!');
+    console.info('');
     // Since we are in development environment
     // Make sure that we have enough file watchers on current OS
     shellScripts.push('node scripts/checkWatcherCount.js');
