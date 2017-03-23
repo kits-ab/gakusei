@@ -1,5 +1,4 @@
 /* global env */
-const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const prodConfig = require('./webpack.partial.prod.js');
@@ -7,30 +6,30 @@ const devConfig = require('./webpack.partial.dev.js');
 const packageJson = require('./package.json');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 
-module.exports = function (env) {
+module.exports = function () {
   let partialConfig;
   const shellScripts = ['node scripts/updateVersionFromMavenPom.js'];
 
   if (process.env.NODE_ENV === 'production') {
-    console.log('this is production');
     partialConfig = prodConfig;
+    console.info('');
+    console.info('Production mode: Please make sure to recompile via maven/spring-boot after this!');
+    console.info('');
   } else {
     partialConfig = devConfig;
-    console.log('this is development');
     // Since we are in development environment
     // Make sure that we have enough file watchers on current OS
     shellScripts.push('node scripts/checkWatcherCount.js');
   }
 
   const theConfig = merge(partialConfig, {
-    entry: [
-      './src/main/js/main.js'
-    ],
+    entry: {
+      main: [
+        './src/main/js/main.js'
+      ] },
     output: {
       // 'path' variable should be *target* if development
       // and *resources* if production (to incorporate into .jar file)
-      filename: 'main_bundle.js',
-      publicPath: '/'
     },
     module: {
       rules: [
@@ -75,10 +74,19 @@ module.exports = function (env) {
       }),
       new WebpackShellPlugin({
         onBuildStart: shellScripts
+      }),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks(module) {
+          return module.context && module.context.indexOf('node_modules') !== -1;
+        }
+      }),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'manifest' // But since there are no more common modules between them we end up with just the runtime code included in the manifest file
       })
     ]
   });
 
-  // console.log(theConfig);
+  console.log(theConfig);
   return theConfig;
 };

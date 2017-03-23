@@ -4,12 +4,15 @@ const webpack = require('webpack');
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, 'target/classes/static/js')
+    publicPath: '/',
+    filename: '[name].bundle.js',
+    path: path.join(__dirname, 'target/classes/static/')
   },
-  entry: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:7777'
-  ],
+  entry: {
+    main: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:7777'
+    ] },
   // Source mapping, to be able to get readable code in the chrome devtools
   devtool: 'source-map',
   // devServer: For running a local web server on localhost:7777
@@ -18,7 +21,6 @@ module.exports = {
     hot: true,
     port: 7777,
     host: 'localhost',
-    noInfo: false,
     stats: 'normal',
     historyApiFallback: true,
     proxy: {
@@ -26,6 +28,7 @@ module.exports = {
       '/css/**': 'http://localhost:8080',
       '/img/**': 'http://localhost:8080',
       '/auth': 'http://localhost:8080',
+      '/logout': 'http://localhost:8080',
       '/username': 'http://localhost:8080',
       '/registeruser': 'http://localhost:8080',
       '/api/*': {
@@ -43,7 +46,8 @@ module.exports = {
 
     // HtmlWebpackPlugin: Generate a html file into memory. Should be identical to the templates/index.html file
     new HtmlWebpackPlugin({
-      template: path.resolve('src/main/resources/templates/webpack_index.html')
+      filename: 'index.html',
+      template: path.resolve('src/main/resources/static/html/webpack_index.html')
     })
   ]
 };
