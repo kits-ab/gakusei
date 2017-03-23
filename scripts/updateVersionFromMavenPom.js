@@ -14,7 +14,7 @@ function doReplace(newVersion) {
   });
 
   replace({
-    regex: /gakusei-\d.\d.\d\.jar/,
+    regex: /gakusei-\d.\d.\d\.jar/g,
     replacement: `gakusei-${newVersion}.jar`,
     paths: ['.travis.yml'],
     recursive: true,
