@@ -23,7 +23,6 @@ export const defaultState = {
   lessonSuccessRate: 0,
   lessonSuccessRateMessage: '',
 
-  test: 'x',
   starredLessons: [],
   questionType: 'reading',
   answerType: 'swedish',
@@ -202,46 +201,51 @@ export function receiveIncorrectAttempt() {
   };
 }
 
-export function addUserAnswer(userActualAnswer) {
+export function addUserAnswer(userAnswerText) {
   return function (dispatch, getState) {
-    return new Promise((resolve, reject) => {
-      const state = getState().lessons;
-      const securityState = getState().security;
+    const state = getState().lessons;
+    const securityState = getState().security;
 
-      const processedQuestionWithAnswer = {
-        ...state.processedQuestion,
-        userAnswer: userActualAnswer,
-        userCorrect: state.processedQuestion.correctAlternative
-      .some(s => s.toLowerCase() === userActualAnswer.toLowerCase())
-      };
+    const processedQuestionWithAnswer = {
+      ...state.processedQuestion,
+      userAnswer: userAnswerText,
+      userCorrect: state.processedQuestion.correctAlternative
+      .some(s => s.toLowerCase() === userAnswerText.toLowerCase())
+    };
 
-      if (processedQuestionWithAnswer.userCorrect) {
-        dispatch(receiveCorrectAttempt());
-      } else {
-        dispatch(receiveIncorrectAttempt());
-      }
+    if (processedQuestionWithAnswer.userCorrect) {
+      dispatch(receiveCorrectAttempt());
+    } else {
+      dispatch(receiveIncorrectAttempt());
+    }
+    const eventData = {
+      page: 'Lessons',
+      username: securityState.loggedInUser,
+      data: [{
+        eventType: 'userAnswer',
+        eventData: userAnswerText,
+        nuggetId: null
+      }, {
+        eventType: 'correctAnswer',
+        eventData: state.processedQuestion.actualQuestionShapes[0],
+        nuggetId: null
+      }, {
+        eventType: 'correctAnswer',
+        eventData: state.processedQuestion.correctAlternative[0],
+        nuggetId: null
+      }, {
+        eventType: 'answeredCorrectly',
+        eventData: processedQuestionWithAnswer.userCorrect,
+        nuggetId: state.processedQuestion.correctAlternativeNuggetId
+      }] };
 
-      const eventPromises = [];
-      eventPromises.push(Utility.logEvent('Lessons', 'userAnswer', userActualAnswer, null, securityState.loggedInUser)
-      .catch((err) => { reject(err); }),
-      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.actualQuestionShapes, null,
-        securityState.loggedInUser)
-      .catch((err) => { reject(err); }),
-      Utility.logEvent('Lessons', 'correctAnswer', state.processedQuestion.correctAlternative, null,
-        securityState.loggedInUser)
-      .catch((err) => { reject(err); }),
-      Utility.logEvent('Lessons', 'answeredCorrectly', processedQuestionWithAnswer.userCorrect,
-        state.processedQuestion.correctAlternativeNuggetId, securityState.loggedInUser)
-      .catch((err) => { reject(err); }));
+    dispatch({ type: ADD_USER_ANSWER,
+      description: 'Add an answer a user made, along with correct results',
+      processedQuestionWithAnswer });
 
-      dispatch(calcLessonSuccessRate());
+    dispatch(calcAnswerButtonStyles(userAnswerText));
 
-      dispatch({ type: ADD_USER_ANSWER,
-        description: 'Add an answer a user made, along with correct results',
-        processedQuestionWithAnswer });
-
-      Promise.all(eventPromises).then(() => resolve());
-    });
+    return Utility.logEvents(eventData, true);
   };
 }
 
@@ -302,6 +306,10 @@ export function receiveProcessedQuestion(processedQuestion) {
         Utility.logEvent('lessons', 'alternative', processedQuestion.randomizedAlternatives[i], null,
           securityState.loggedInUser);
       }
+      Utility.sendCollectedEvents().catch(() => {
+        // Failed to send event data, log us out.
+        this.props.requestUserLogout(this.props.location.query.currentUrl || '/', getCSRF());
+      });
     } catch (err) {
       this.props.requestUserLogout(this.props.location.query.currentUrl || '/', getCSRF());
     }

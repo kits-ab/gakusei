@@ -42,25 +42,23 @@ export class playScreen extends React.Component {
   checkAnswer(answer) {
     this.props.setAllButtonsDisabledState(true);
 
-    this.props.addUserAnswer(answer).then(() => {
-      this.props.calcAnswerButtonStyles(answer);
-      if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
-        setTimeout(() => {
-          this.props.incrementQuestionIndex();
-          this.props.processCurrentQuestion();
-          this.props.setAllButtonsDisabledState(false);
-        }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
-      } else {
-        setTimeout(
-        () => {
-          this.props.setPageByName(`finish/${this.props.params.type}`);
-        }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
-      }
-    }, () => {
-      // rejection
+    this.props.addUserAnswer(answer).catch(() => {
       this.props.requestUserLogout('/', getCSRF());
       this.props.verifyUserLoggedIn();
     });
+
+    if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
+      setTimeout(() => {
+        this.props.incrementQuestionIndex();
+        this.props.processCurrentQuestion();
+        this.props.setAllButtonsDisabledState(false);
+      }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
+    } else {
+      setTimeout(
+        () => {
+          this.props.setPageByName(`finish/${this.props.params.type}`);
+        }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
+    }
   }
 
   render() {

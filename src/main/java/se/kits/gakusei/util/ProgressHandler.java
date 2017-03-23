@@ -24,6 +24,9 @@ public class ProgressHandler {
     private ProgressTrackingRepository progressTrackingRepository;
 
     public void trackProgress(Event event) {
+        if (event.getNuggetId() == null) {
+            return;
+        }
 
         User user = userRepository.findByUsername(event.getUser().getUsername());
         Timestamp latestTS = eventRepository.getLatestAnswerTimestamp(user.getUsername());
