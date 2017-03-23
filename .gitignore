@@ -33,4 +33,4 @@ selenium-debug.log
 screenshots/**
 
 # Don't include auto-generated index.html
-index.html
+src/main/resources/templates/index.html
