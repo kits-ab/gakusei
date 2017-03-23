@@ -1,6 +1,6 @@
 export function registerUser(browser, username, password, done) {
   browser
-    .url('http://localhost:8080/login')
+    .url(`${browser.launchUrl}/login`)
     .waitForElementVisible('button[name="register"]', 2500, true, () => {
       // Consider page loaded
       browser.setValue('input[name="username"]', username)
@@ -23,7 +23,7 @@ export function registerUser(browser, username, password, done) {
 }
 
 export function loginUser(browser, username, password, done) {
-  browser.url('http://localhost:8080/login')
+  browser.url(`${browser.launchUrl}/login`)
     .waitForElementVisible('button[name="login"]', 2500, true, () => {
       browser.setValue('input[name="username"]', username)
         .setValue('input[name="password"]', password)
