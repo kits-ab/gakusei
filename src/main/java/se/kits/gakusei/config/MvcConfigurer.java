@@ -5,25 +5,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.http.CacheControl;
+
+import java.util.concurrent.TimeUnit;
 
 //@EnableWebMvc
 @Configuration
 public class MvcConfigurer extends WebMvcConfigurerAdapter {
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("/css/**").addResourceLocations("static/");
-//    }
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Resources without Spring Security. No cache control response headers.
-        registry.addResourceHandler("/css/**")
-                .addResourceLocations("classpath:/static/css/");
+        CacheControl cacheControl = CacheControl.maxAge(31536000, TimeUnit.SECONDS)
+                .cachePublic();
 
-        // Resources controlled by Spring Security, which
-        // adds "Cache-Control: must-revalidate".
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/")
-                .setCachePeriod(3600*24);
+        // Resources outside Spring Security. Let's cache!
+        registry.addResourceHandler("/js/**")
+                .addResourceLocations("classpath:/static/js/")
+                .setCacheControl(cacheControl);
     }
 }

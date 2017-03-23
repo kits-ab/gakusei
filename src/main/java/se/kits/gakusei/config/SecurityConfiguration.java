@@ -39,15 +39,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/css/**");
+                .antMatchers("/js/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/registeruser", "/username", "/js/*", "/license/*", "/img/logo/*", "/css/*").permitAll()
-                .antMatchers("/**","/logout").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/registeruser", "/username", "/js/*", "/license/*", "/img/logo/*").permitAll()
+                .antMatchers("/logout").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .and()
                 .formLogin()
                     .loginPage("/")
