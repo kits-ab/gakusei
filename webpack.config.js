@@ -87,6 +87,6 @@ module.exports = function () {
     ]
   });
 
-  console.log(theConfig);
+  // console.log(theConfig);
   return theConfig;
 };

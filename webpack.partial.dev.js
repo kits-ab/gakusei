@@ -2,6 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
+const indexFilename = function () {
+    // if this env variable stops working, try npm_package_scripts_start instead.
+  if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
+    return '../../templates/index.html';
+  }
+  return 'index.html';
+};
+
 module.exports = {
   output: {
     publicPath: '/',
@@ -46,7 +54,7 @@ module.exports = {
 
     // HtmlWebpackPlugin: Generate a html file into memory. Should be identical to the templates/index.html file
     new HtmlWebpackPlugin({
-      filename: 'index.html',
+      filename: indexFilename(),
       template: path.resolve('src/main/resources/static/html/webpack_index.html')
     })
   ]
