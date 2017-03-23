@@ -46,6 +46,24 @@ public class EventController {
     }
 
     @RequestMapping(
+            value = "/api/events2",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<Event> addEvents(@RequestBody EventDTO[] eventDTOs) {
+        for (EventDTO eventDTO : eventDTOs) {
+            ResponseEntity<Event> response = this.addEvent(eventDTO);
+            if(!response.getStatusCode().is2xxSuccessful()) {
+                // Stop iterating if we run into errors
+                return response;
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(
             value = "/api/events",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,

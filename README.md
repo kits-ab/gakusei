@@ -50,7 +50,7 @@ Install [nodejs](https://nodejs.org/en/), any version is fine.
 #### Package it up for deployment
 Since we will create a single .jar file with all resources embedded, we will need to compile the front-end to the back-end resources first. We can use the pre-made maven profiles for this purpose.
 
-2. Do `mvn package -Pproduction` to install npm packages, compile the front-end, and package the .jar file to `target/`
+2. Do `mvn package -Pproduction` to install npm packages, compile the front-end, back-end, and finally, package the .jar file to `target/`
 3. After completing these steps, simply just copy the .jar file that contains all the embedded files, to a server of your choice.
 4. Sample commands for starting the server:
 * `nohup java -jar gakusei.jar &> server.log &` for in-memory db, that clears on restart.

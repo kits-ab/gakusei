@@ -50,3 +50,5 @@ cache:
   - $HOME/.m2
 addons:
   ssh_known_hosts: gakusei.daigaku.se
+notifications:
+  slack: kits:sGqgJPVSf7LU8x2am3PF6KQU

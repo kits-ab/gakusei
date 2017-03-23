@@ -92,7 +92,7 @@
 
     // Require stateless functions when not using lifecycle methods, setState or ref
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md
-    "react/prefer-stateless-function": "warn",
+    "react/prefer-stateless-function": "off",
 
     // Prevent missing props validation in a React component definition
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md
@@ -184,19 +184,21 @@
 
     // OUR RULES.
     // ------------------
+    "no-debugger": "warn",
     "strict": 0, // babel-eslint related
     "no-plusplus": "off", // As if people wouldn't understand what it means.
-    "import/no-extraneous-dependencies": ["warn", 
-    {
-      "devDependencies": true, // Because we want devDependencies...
-      "optionalDependencies": false,
-      "peerDependencies": false
-    }],
+    "import/no-extraneous-dependencies": ["warn",
+      {
+        "devDependencies": true, // Because we want devDependencies...
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
     "no-underscore-dangle": "warn",
     "no-useless-constructor": "warn",
     "import/no-named-as-default": "off",
-    "prefer-const":"warn",
-    "no-unused-labels":"warn",
+    "prefer-const": "warn",
+    "no-unused-labels": "warn",
     "no-multi-spaces": "warn",
     "indent": ["warn"],
     "no-trailing-spaces": ["warn"],
@@ -243,6 +245,9 @@
   },
   "parser": "babel-eslint",
   "parserOptions": {
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
   }
 }

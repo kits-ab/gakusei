@@ -1,12 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { browserHistory, Router, Route, IndexRedirect } from 'react-router';
+import { Router, Route, IndexRedirect } from 'react-router';
 import { anchorate } from 'anchorate';
 import { persistStore } from 'redux-persist';
-import { syncHistoryWithStore } from 'react-router-redux';
 
 import { requireAuthentication } from './shared/components/AuthenticatedComponent';
-import configureStore from './configureStore';
 
 import appScreen from './screens/app';
 import aboutScreen from './screens/app/screens/about';
@@ -21,19 +19,29 @@ import playScreen from './screens/app/screens/play';
 import selectScreen from './screens/app/screens/select';
 
 function onUpdate() {
-  anchorate();
+  anchorate(); // To have href's that can scroll to page sections
 }
 
 export default class AppProvider extends React.Component {
-  constructor() {
-    super();
-    this.state = { rehydrated: false };
+  constructor(props) {
+    super(props);
+    this.state = {
+      rehydrated: false,
+      persistor: null
+    };
   }
 
   componentWillMount() {
-    persistStore(this.props.store, { blacklist: ['someTransientReducer'] }, () => {
-      this.setState({ rehydrated: true });
-    });
+    // Redux store purging logic (aka "has project.json version changed?")
+    // For now, we let security reducer determine purging decision for all reducers
+    this.setState({
+      persistor: persistStore(this.props.store, { blacklist: [] }, (err, state) => {
+        if (state.security && state.security.purgeNeeded) {
+          this.state.persistor.purge().then(this.setState({ rehydrated: true }));
+        } else {
+          this.setState({ rehydrated: true });
+        }
+      }) });
   }
 
   render() {
