@@ -2,6 +2,7 @@ branches:
   except:
   - "/^*-v[0-9]/"
   only:
+  - develop
   - master
 
 language: java
@@ -9,6 +10,8 @@ jdk:
 - oraclejdk8
 
 script:
+- if [ "$TRAVIS_BRANCH" = "master" ]; then export DEPLOY_URL="ec2-user@gakusei.daigaku.se"; fi
+- if [ "$TRAVIS_BRANCH" = "develop" ]; then export DEPLOY_URL="ec2-user@staging.daigaku.se"; fi
 - mvn clean package -Pproduction
 
 # the below will make each commit tagged. Skip this for now as we are not releasing to github releases currently
@@ -39,7 +42,8 @@ deploy:
   #     all_branches: true
   - provider: script # put the release on our live site
     skip_cleanup: true
-    script: scp $TRAVIS_BUILD_DIR/target/gakusei-1.0.8.jar ec2-user@gakusei.daigaku.se:gakusei.production.jar.to.deploy && ssh ec2-user@gakusei.daigaku.se sh Scripts/deploy_gakusei.sh
+    script: 
+      - scp $TRAVIS_BUILD_DIR/target/gakusei-1.0.8.jar ${DEPLOY_URL}:gakusei.production.jar.to.deploy && ssh ${DEPLOY_URL} sh Scripts/deploy_gakusei.sh
     on:
       repo: kits-ab/gakusei
       all_branches: true
@@ -49,6 +53,8 @@ cache:
   - node_modules
   - $HOME/.m2
 addons:
-  ssh_known_hosts: gakusei.daigaku.se
+  ssh_known_hosts:
+    - gakusei.daigaku.se
+    - staging.daigaku.se
 notifications:
   slack: kits:sGqgJPVSf7LU8x2am3PF6KQU
