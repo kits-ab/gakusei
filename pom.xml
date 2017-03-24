@@ -148,8 +148,13 @@
         <profile>
             <id>development</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!build_mode</name>
+                </property>
             </activation>
+            <properties>
+                <build_mode>development</build_mode>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -177,6 +182,15 @@
         </profile>
         <profile>
             <id>production</id>
+            <activation>
+                <property>
+                    <name>build_mode</name>
+                    <value>production</value>
+                </property>
+            </activation>
+            <properties>
+                <build_mode>production</build_mode>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
