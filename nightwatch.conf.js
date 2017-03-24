@@ -22,7 +22,7 @@ module.exports = {
   },
   test_settings: {
     default: {
-      launch_url: 'http://localhost:7777/',
+      launch_url: 'http://localhost:7777',
       screenshots: {
         enabled: true, // if you want to keep screenshots
         path: './screenshots' // save screenshots here
