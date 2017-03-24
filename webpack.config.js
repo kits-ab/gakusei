@@ -1,4 +1,6 @@
 /* global env */
+/* eslint-disable no-console */
+
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const prodConfig = require('./webpack.partial.prod.js');
@@ -17,10 +19,12 @@ module.exports = function () {
     console.info('');
   } else {
     partialConfig = devConfig;
-    console.info('');
-    console.info('Development mode: Please make sure to recompile via maven/spring-boot after this!');
-    console.info('');
-    // Since we are in development environment
+    // Don't show any recompile warnings if we run via the dev server
+    if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
+      console.info('');
+      console.info('Development mode: Please make sure to recompile via maven/spring-boot after this!');
+      console.info('');
+    }
     // Make sure that we have enough file watchers on current OS
     shellScripts.push('node scripts/checkWatcherCount.js');
   }
@@ -30,10 +34,6 @@ module.exports = function () {
       main: [
         './src/main/js/main.js'
       ] },
-    output: {
-      // 'path' variable should be *target* if development
-      // and *resources* if production (to incorporate into .jar file)
-    },
     module: {
       rules: [
         {
@@ -60,12 +60,12 @@ module.exports = function () {
           test: /\.json$/,
           use: ['json-loader'],
           exclude: /(node_modules|bower_components|\.spec\.js)/
-        },
-        {
-          test: /\.xml$/,
-          use: ['xml-loader'],
-          exclude: /(node_modules|bower_components|\.spec\.js)/
         }
+        // {
+        //   test: /\.xml$/,
+        //   use: ['xml-loader'],
+        //   exclude: /(node_modules|bower_components|\.spec\.js)/
+        // }
       ]
     },
     plugins: [
