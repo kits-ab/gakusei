@@ -109,6 +109,7 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <phase>generate-resources</phase>
                         <id>download-licenses</id>
                         <goals>
                             <goal>download-licenses</goal>
