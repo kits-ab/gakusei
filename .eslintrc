@@ -184,7 +184,7 @@
 
     // OUR RULES.
     // ------------------
-    "no-debugger": "warn",
+    "no-debugger": "error",
     "strict": 0, // babel-eslint related
     "no-plusplus": "off", // As if people wouldn't understand what it means.
     "import/no-extraneous-dependencies": ["warn",
