@@ -11,7 +11,6 @@
   },
   "scripts": {
     "postinstall": "./node_modules/.bin/selenium-standalone install && node nightwatch.conf.js",
-    "precompile:production": "rimraf ./src/main/resources/static/js/*",
     "compile": "webpack --progress --profile --colors --hide-modules",
     "compile:production": "NODE_ENV=production webpack --colors --hide-modules",
     "start": "webpack-dev-server",
