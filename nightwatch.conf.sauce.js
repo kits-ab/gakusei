@@ -27,10 +27,10 @@ module.exports = {
   test_settings: {
     default: {
       launch_url: 'http://ondemand.saucelabs.com:80',
-      screenshots: {
-        enabled: true, // if you want to keep screenshots
-        path: './screenshots' // save screenshots here
-      },
+      // screenshots: {
+      //   enabled: true, // if you want to keep screenshots
+      //   path: './screenshots' // save screenshots here
+      // },
       globals: {
         waitForConditionTimeout: 5000 // sometimes internet is slow so wait.
       },
@@ -59,14 +59,14 @@ module.exports = {
  /the following code checks for the existence of `selenium.jar` before trying to run our tests.
  */
 
-require('fs').stat(`${BINPATH}selenium.jar`, (err, stat) => { // got it?
-  if (err || !stat || stat.size < 1) {
-    require('selenium-download').ensure(BINPATH, (error) => {
-      if (error) throw new Error(error); // no point continuing so exit!
-      console.log('✔ Selenium & Chromedriver downloaded to:', BINPATH);
-    });
-  }
-});
+// require('fs').stat(`${BINPATH}selenium.jar`, (err, stat) => { // got it?
+//   if (err || !stat || stat.size < 1) {
+//     require('selenium-download').ensure(BINPATH, (error) => {
+//       if (error) throw new Error(error); // no point continuing so exit!
+//       console.log('✔ Selenium & Chromedriver downloaded to:', BINPATH);
+//     });
+//   }
+// });
 
 function padLeft(count) { // theregister.co.uk/2016/03/23/npm_left_pad_chaos/
   return count < 10 ? `0${count}` : count.toString();
