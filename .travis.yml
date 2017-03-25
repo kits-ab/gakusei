@@ -31,7 +31,7 @@ script:
 # integration testing
 - java -jar $TRAVIS_BUILD_DIR/target/gakusei.jar &
 - sleep 30
-- npm test:saucelabs
+- npm run test:saucelabs
 - pkill java
 
 
