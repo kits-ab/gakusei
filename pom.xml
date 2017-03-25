@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>se.kits.gakusei</groupId>
     <artifactId>gakusei</artifactId>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <packaging>jar</packaging>
     <name>gakusei</name>
     <description>Learn japanese</description>
@@ -80,6 +80,7 @@
         </dependency>
     </dependencies>
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.liquibase</groupId>
@@ -149,13 +150,8 @@
         <profile>
             <id>development</id>
             <activation>
-                <property>
-                    <name>!build_mode</name>
-                </property>
+                <activeByDefault>true</activeByDefault>
             </activation>
-            <properties>
-                <build_mode>development</build_mode>
-            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -183,15 +179,6 @@
         </profile>
         <profile>
             <id>production</id>
-            <activation>
-                <property>
-                    <name>build_mode</name>
-                    <value>production</value>
-                </property>
-            </activation>
-            <properties>
-                <build_mode>production</build_mode>
-            </properties>
             <build>
                 <plugins>
                     <plugin>

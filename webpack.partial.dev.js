@@ -51,6 +51,7 @@ module.exports = {
   // it will proxy back to localhost:8080 for api requests
   devServer: {
     hot: true,
+    open: true,
     port: 7777,
     host: 'localhost',
     stats: 'normal',
