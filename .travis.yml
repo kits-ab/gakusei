@@ -21,18 +21,19 @@ before_install:
 install: true # Skip the default travis install phase
 
 before_script:
-# integration testing
-- mvn spring-boot:run -Pproduction &
-- sleep 60
-- node --version
-- ./node_modules/.bin/nightwatch --group play --config nightwatch.conf.sauce.js --env chrome
-- pkill java
+
 
 script:
 # final build for deployment
 - if [ "$TRAVIS_BRANCH" = "master" ]; then export DEPLOY_URL="ec2-user@gakusei.daigaku.se" && export FILENAME_SUFFIX="production"; fi
 - if [ "$TRAVIS_BRANCH" = "develop" ]; then export DEPLOY_URL="ec2-user@staging.daigaku.se" && export FILENAME_SUFFIX="staging"; fi
 - mvn clean package -Pproduction
+# integration testing
+- java -jar $TRAVIS_BUILD_DIR/target/gakusei.jar
+- sleep 30
+- BABEL=true ./node_modules/.bin/nightwatch --group play --config nightwatch.conf.sauce.js --env chrome
+- pkill java
+
 
 # Gives us the ssh key
 before_deploy:
