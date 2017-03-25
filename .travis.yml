@@ -23,7 +23,7 @@ install: true # Skip the default travis install phase
 before_script:
 # integration testing
 - mvn spring-boot:run -Pproduction &
-- sleep 5
+- sleep 60
 - node --version
 - ./node_modules/.bin/nightwatch --group play --config nightwatch.conf.sauce.js --env chrome
 - pkill java
