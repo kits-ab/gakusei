@@ -1,3 +1,5 @@
+/* eslint-disable prefer-template */
+
 require('babel-polyfill');
 require('env2')('env.json'); // optionally store youre Evironment Variables in .env
 require('babel-register')();
@@ -33,14 +35,8 @@ module.exports = {
         waitForConditionTimeout: 5000 // sometimes internet is slow so wait.
       },
       desiredCapabilities: { // use Chrome as the default browser for tests
-        build: `build-${TRAVIS_JOB_NUMBER}`,
-        'tunnel-identifier': TRAVIS_JOB_NUMBER,
-        browserName: 'chrome',
-        loggingPrefs: {
-          browser: 'ALL',
-          driver: 'ALL',
-          performance: 'ALL'
-        }
+        build: 'build-' + TRAVIS_JOB_NUMBER,
+        'tunnel-identifier': TRAVIS_JOB_NUMBER
       }
     },
     chrome: {
