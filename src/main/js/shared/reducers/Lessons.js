@@ -243,6 +243,7 @@ export function addUserAnswer(userAnswerText) {
       description: 'Add an answer a user made, along with correct results',
       processedQuestionWithAnswer });
 
+    dispatch(calcLessonSuccessRate());
     dispatch(calcAnswerButtonStyles(userAnswerText));
 
     return Utility.logEvents(eventData, true);
