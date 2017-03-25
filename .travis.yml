@@ -9,6 +9,8 @@ language: java
 jdk:
 - oraclejdk8
 
+install: true # Skip the default travis install phase
+
 script:
 # integration testing
 - mvn spring-boot:run -Pproduction &
