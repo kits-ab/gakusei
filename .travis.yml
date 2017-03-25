@@ -9,14 +9,21 @@ language: java
 jdk:
 - oraclejdk8
 
+env:
+  global:
+    - env: BABEL=true
+
 install: true # Skip the default travis install phase
 
-script:
+before_script:
 # integration testing
 - mvn spring-boot:run -Pproduction &
-- sleep 40
+- sleep 5
+- node --version
 - BABEL_ENV=test ./node_modules/.bin/nightwatch --group play --config nightwatch.conf.sauce.js --env chrome
 - pkill java
+
+script:
 # final build for deployment
 - if [ "$TRAVIS_BRANCH" = "master" ]; then export DEPLOY_URL="ec2-user@gakusei.daigaku.se" && export FILENAME_SUFFIX="production"; fi
 - if [ "$TRAVIS_BRANCH" = "develop" ]; then export DEPLOY_URL="ec2-user@staging.daigaku.se" && export FILENAME_SUFFIX="staging"; fi
