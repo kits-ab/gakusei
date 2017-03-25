@@ -14,7 +14,7 @@ install: true # Skip the default travis install phase
 script:
 # integration testing
 - mvn spring-boot:run -Pproduction &
-- sleep 20
+- sleep 40
 - BABEL_ENV=test ./node_modules/.bin/nightwatch --group play --config nightwatch.conf.sauce.js --env chrome
 - pkill java
 # final build for deployment
