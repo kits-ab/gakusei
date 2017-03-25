@@ -14,7 +14,8 @@
     "compile": "webpack --progress --profile --colors --hide-modules",
     "compile:production": "NODE_ENV=production webpack --colors --hide-modules",
     "start": "webpack-dev-server",
-    "test": "BABEL_ENV=test ./node_modules/.bin/nightwatch --group play --env chrome"
+    "test": "BABEL_ENV=test ./node_modules/.bin/nightwatch --group play --env chrome",
+    "test:saucelabs": "BABEL=true ./node_modules/.bin/nightwatch --group play --config nightwatch.conf.sauce.js --env chrome"
   },
   "repository": {
     "type": "git",

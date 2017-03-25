@@ -31,7 +31,7 @@ script:
 # integration testing
 - java -jar $TRAVIS_BUILD_DIR/target/gakusei.jar &
 - sleep 30
-- BABEL=true ./node_modules/.bin/nightwatch --group play --config nightwatch.conf.sauce.js --env chrome
+- npm test:saucelabs
 - pkill java
 
 
