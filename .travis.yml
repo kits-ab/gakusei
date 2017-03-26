@@ -13,6 +13,7 @@ env:
   global:
     - BABEL=true
     - NODE_VERSION="7.4.0"
+    - KITS_SLACK=kits:sGqgJPVSf7LU8x2am3PF6KQU
 
 before_install:
 - nvm install $NODE_VERSION
@@ -25,8 +26,15 @@ before_script:
 
 script:
 # final build for deployment
-- if [ "$TRAVIS_BRANCH" = "master" ]; then export DEPLOY_URL="ec2-user@gakusei.daigaku.se" && export FILENAME_SUFFIX="production"; fi
-- if [ "$TRAVIS_BRANCH" = "develop" ]; then export DEPLOY_URL="ec2-user@staging.daigaku.se" && export FILENAME_SUFFIX="staging"; fi
+- 'if [ "$TRAVIS_BRANCH" = "master" ]; then
+    export DEPLOY_URL="ec2-user@gakusei.daigaku.se"
+    export SLACK_PARAMETER=$KITS_SLACK
+    export FILENAME_SUFFIX="production";
+  elif [ "$TRAVIS_BRANCH" = "develop" ]; then
+    export DEPLOY_URL="ec2-user@staging.daigaku.se" 
+    export SLACK_PARAMETER=false
+    export FILENAME_SUFFIX="staging";
+  fi'
 - mvn clean package -Pproduction
 # integration testing
 - java -jar $TRAVIS_BUILD_DIR/target/gakusei.jar &
@@ -62,4 +70,4 @@ addons:
     - staging.daigaku.se
   sauce_connect: true
 notifications:
-  slack: kits:sGqgJPVSf7LU8x2am3PF6KQU
+  slack: $SLACK_PARAMETER
