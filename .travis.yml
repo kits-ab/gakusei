@@ -21,18 +21,19 @@ before_install:
 
 install: true # Skip the default travis install phase
 
-before_script:
-
+#before_script:
 
 script:
 # final build for deployment
 - 'if [ "$TRAVIS_BRANCH" = "master" ]; then
     export DEPLOY_URL="ec2-user@gakusei.daigaku.se"
     export SLACK_PARAMETER=$KITS_SLACK
+    export EMAIL_PARAMETER=true
     export FILENAME_SUFFIX="production";
   elif [ "$TRAVIS_BRANCH" = "develop" ]; then
     export DEPLOY_URL="ec2-user@staging.daigaku.se" 
     export SLACK_PARAMETER=false
+    export EMAIL_PARAMETER=false
     export FILENAME_SUFFIX="staging";
   fi'
 - mvn clean package -Pproduction
@@ -71,3 +72,4 @@ addons:
   sauce_connect: true
 notifications:
   slack: $SLACK_PARAMETER
+  email: $EMAIL_PARAMETER
