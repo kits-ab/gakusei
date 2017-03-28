@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Glyphicon } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
+import devOnly from '../../../../shared/util/devOnly';
+
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import * as Security from '../../../../shared/reducers/Security';
 
@@ -59,17 +61,10 @@ export class selectScreen extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     try {
-      if (this.props.params.type === 'translate') {
-        this.props.fetchLesson(this.props.params.type)
-          .then(() => {
-            this.props.setPageByName('/translate');
-          });
-      } else {
-        this.props.fetchLesson(this.props.params.type)
+      this.props.fetchLesson(this.props.params.type)
           .then(() => {
             this.props.setPageByName(`/play/${this.props.params.type}`);
           });
-      }
     } catch (err) {
       this.props.verifyUserLoggedIn();
     }
@@ -98,10 +93,18 @@ export class selectScreen extends React.Component {
             value={lesson.name}
             header={lesson.name}
             bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
-          >
-          </ListGroupItem>
+          />
         </Col>
       </Row>);
+
+    const languages = [];
+    languages.push(
+      <option key={'reading'} value={'reading'}>Japanska</option>,
+      <option key={'swedish'} value={'swedish'}>Svenska</option>
+    );
+
+    devOnly(this, () => languages.push(<option key={'english'} value={'english'}>Engelska</option>));
+
     let languageSelection;
     if (this.props.params.type === 'quiz') {
       languageSelection = <div />;
@@ -116,8 +119,7 @@ export class selectScreen extends React.Component {
             onChange={this.handleLanguageSelection}
             value={this.props.questionType}
           >
-            <option key={'reading'} value={'reading'}>Japanska</option>
-            <option key={'swedish'} value={'swedish'}>Svenska</option>
+            {languages}
           </FormControl>
           <ControlLabel>Välj svarspråk</ControlLabel>
           <FormControl
@@ -127,8 +129,7 @@ export class selectScreen extends React.Component {
             onChange={this.handleLanguageSelection}
             value={this.props.answerType}
           >
-            <option key={'swedish'} value={'swedish'}>Svenska</option>
-            <option key={'reading'} value={'reading'}>Japanska</option>
+            {languages}
           </FormControl>
         </div>);
     }

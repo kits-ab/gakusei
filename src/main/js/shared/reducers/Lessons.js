@@ -59,7 +59,10 @@ export const propTypes = {
     randomizedAlternatives: React.PropTypes.array.isRequired,
     buttonStyles: React.PropTypes.array.isRequired,
     buttonDisabled: React.PropTypes.bool.isRequired,
-    resourceRef: React.PropTypes.object }).isRequired,
+    resourceRef: React.PropTypes.shape({
+      type: React.PropTypes.string,
+      location: React.PropTypes.string
+    }) }).isRequired,
   allButtonsDisabled: React.PropTypes.bool.isRequired,
   lessonLength: React.PropTypes.number.isRequired,
   correctAttempts: React.PropTypes.number.isRequired,
@@ -643,7 +646,7 @@ export function lessons(state = defaultState, action) {
         ...state,
         processedQuestionsWithAnswers: [],
         currentProcessedQuestionAnswered: false,
-        currentProcessedQuestionAnsweredCorrectly: null
+        currentProcessedQuestionAnsweredCorrectly: false
       };
     case RECEIVE_LESSON:
       return {
@@ -667,7 +670,7 @@ export function lessons(state = defaultState, action) {
         processedQuestion: action.processedQuestion,
         resourceRef: action.processedQuestion.resourceRef,
         currentProcessedQuestionAnswered: false,
-        currentProcessedQuestionAnsweredCorrectly: null
+        currentProcessedQuestionAnsweredCorrectly: false
       };
     case SET_SELECTED_LESSON:
       return {

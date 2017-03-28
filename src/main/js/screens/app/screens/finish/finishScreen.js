@@ -35,25 +35,14 @@ export class finishScreen extends React.Component {
   }
 
   backtoSelection() {
-    try {
-      this.props.fetchLesson(this.props.params.type)
+    this.props.fetchLesson(this.props.params.type)
+      .catch(this.props.verifyUserLoggedIn())
       .then(this.props.setPageByName(`/select/${this.props.params.type}`));
-    } catch (err) {
-      this.props.verifyUserLoggedIn();
-    }
   }
   playAgain() {
-    try {
-      if (this.props.params.type === 'translate') {
-        this.props.fetchLesson(this.props.params.type)
-      .then(this.props.setPageByName(`/translate/${this.props.params.type}`));
-      } else {
-        this.props.fetchLesson(this.props.params.type)
+    this.props.fetchLesson(this.props.params.type)
+      .catch(this.props.verifyUserLoggedIn())
       .then(this.props.setPageByName(`/play/${this.props.params.type}`));
-      }
-    } catch (err) {
-      this.props.verifyUserLoggedIn();
-    }
   }
 
   showResults() {

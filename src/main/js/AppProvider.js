@@ -8,7 +8,6 @@ import { requireAuthentication } from './shared/components/AuthenticatedComponen
 
 import appScreen from './screens/app';
 import aboutScreen from './screens/app/screens/about';
-import translateScreen from './screens/app/screens/translate';
 import listsScreen from './screens/app/screens/lists';
 import grammarScreen from './screens/app/screens/grammar';
 import finishScreen from './screens/app/screens/finish';
@@ -54,7 +53,6 @@ export default class AppProvider extends React.Component {
             <Route path="logout" component={logoutScreen} />
             <Route path="play/:type" component={requireAuthentication(playScreen)} />
             <Route path="select/:type" component={requireAuthentication(selectScreen)} />
-            <Route path="translate" component={requireAuthentication(translateScreen)} />
             <Route path="grammar" component={requireAuthentication(grammarScreen)} />
             {/* <Route path="lists" component={requireAuthentication(listsScreen)} />*/}
             <Route path="finish/:type" component={requireAuthentication(finishScreen)} />

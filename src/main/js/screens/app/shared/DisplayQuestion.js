@@ -74,7 +74,10 @@ DisplayQuestion.propTypes = {
   primaryText: React.PropTypes.string.isRequired,
   secondaryText: React.PropTypes.string,
   japaneseCharacters: React.PropTypes.bool.isRequired,
-  resourceRef: React.PropTypes.object,
+  resourceRef: React.PropTypes.shape({
+    type: React.PropTypes.string.isRequired,
+    location: React.PropTypes.string.isRequired
+  }),
   showSpeechButton: React.PropTypes.bool,
   showKanji: React.PropTypes.bool,
   smallerText: React.PropTypes.bool

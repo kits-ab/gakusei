@@ -34,3 +34,5 @@ screenshots/**
 
 # Don't include auto-generated index.html
 src/main/resources/templates/index.html
+src/main/resources/static/license/frontend_licenses.json
+src/main/resources/static/js/**
