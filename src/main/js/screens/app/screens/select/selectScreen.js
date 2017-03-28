@@ -16,6 +16,10 @@ export class selectScreen extends React.Component {
     this.handleStarredClick = this.handleStarredClick.bind(this);
   }
 
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeys);
+  }
+
   componentWillMount() {
     this.props.fetchLessons(this.props.params.type)
       .catch(() => this.props.verifyUserLoggedIn());
@@ -29,6 +33,17 @@ export class selectScreen extends React.Component {
     if (this.props.params.type !== nextProps.params.type) {
       this.props.fetchLessons(nextProps.params.type)
         .catch(() => this.props.verifyUserLoggedIn());
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.onKeys);
+  }
+
+  onKeys(event) {
+    if (event.key.charCode === 13) {
+      // this.selectform.submit();
+      // TODO: Submit the form
     }
   }
 
@@ -140,7 +155,7 @@ export class selectScreen extends React.Component {
         </Row>
         <Row>
           <Col xs={8} xsOffset={2} lg={4} lgOffset={4}>
-            <form href="#" onSubmit={this.handleSubmit}>
+            <form ref={(c) => { this.selectform = c; }} href="#" onSubmit={this.handleSubmit}>
               <FormGroup>
                 <ControlLabel>Välj lista av frågor</ControlLabel>
                 <ListGroup>
@@ -148,6 +163,10 @@ export class selectScreen extends React.Component {
                 </ListGroup>
                 {languageSelection}
               </FormGroup>
+              <FormControl
+                type="hidden"
+                onKeyPress={this.handleKeyPress}
+              />
               <Button type="submit">Starta</Button>
             </form>
           </Col>

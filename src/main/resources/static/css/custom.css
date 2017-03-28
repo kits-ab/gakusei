@@ -6,9 +6,6 @@
     border: none;
     outline: none;
 }
-.answerbutton{
-    height: 5em;
-}
 
 .btn-no-hover:hover {
     border-color: #ccc;

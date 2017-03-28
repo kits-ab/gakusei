@@ -64,6 +64,11 @@ module.exports = function () {
           test: /\.json$/,
           use: ['json-loader'],
           exclude: /(node_modules|bower_components|\.spec\.js)/
+        },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+          exclude: /(node_modules|bower_components|\.spec\.js)/
         }
         // {
         //   test: /\.xml$/,

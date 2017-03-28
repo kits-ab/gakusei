@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Col } from 'react-bootstrap';
 import ButtonsCard from './components/ButtonsCard';
+import FlashCard from './components/FlashCard';
 import TranslateCard from './components/TranslateCard';
 import LessonStats from './components/LessonStats';
 
@@ -57,6 +58,19 @@ export class playScreen extends React.Component {
         />);
         break;
       case 'guess':
+        // temporary
+        playCard = (<FlashCard
+          question={this.props.processedQuestion}
+          answerType={this.props.answerType}
+          questionType={this.props.questionType}
+          cardType={this.props.params.type}
+          buttonsDisabled={this.props.allButtonsDisabled}
+          clickCallback={this.checkAnswer}
+          correctAlternative={this.props.processedQuestion.correctAlternative}
+          questionAnswered={this.props.currentProcessedQuestionAnswered}
+          questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+        />);
+        break;
       case 'quiz':
       default:
         playCard = (<ButtonsCard

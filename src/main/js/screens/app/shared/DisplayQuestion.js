@@ -36,7 +36,9 @@ export class DisplayQuestion extends React.Component {
     const resource = this.getResource();
     const speechButtonStyle = {
       fontSize: (this.props.smallerText ? '1.0em' : '1.6em'),
-      top: '3px'
+      position: 'inherit',
+      verticalAlign: 'middle',
+      padding: '2px 1px 2px 1px'
     };
     const generalStyle = {
       fontSize: (this.props.smallerText ? '0.5em' : '1.0em')
@@ -48,7 +50,7 @@ export class DisplayQuestion extends React.Component {
         <p className="questionText">
           {questionText}
           { this.props.japaneseCharacters && this.props.showSpeechButton ?
-            <span>
+            <span className="speechButtonContainer">
               {' '}
               <Button bsStyle="info" bsSize="xsmall" onClick={() => Speech.say(this.props.primaryText)} >
                 <Glyphicon style={speechButtonStyle} glyph="volume-up" />

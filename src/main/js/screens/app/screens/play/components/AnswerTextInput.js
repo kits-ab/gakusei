@@ -7,11 +7,11 @@ export default class AnswerButton extends React.Component {
     this.state = {
       answer: ''
     };
-    this.sendAnswer = this.props.clickCallback.bind(this, this.state.answer);
   }
 
   componentWillMount() {
     this.handleChange = this.handleChange.bind(this);
+    this.updateAnswerText();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,6 +24,7 @@ export default class AnswerButton extends React.Component {
       });
     } else {
       this.setState({ answer: '', answerStyle: null });
+      this.updateAnswerText();
     }
   }
 
@@ -35,6 +36,12 @@ export default class AnswerButton extends React.Component {
       </Row>);
     }
     return (<Row><h3>&nbsp;</h3></Row>);
+  }
+
+  updateAnswerText(optionalValue = null) {
+    this.setState({
+      answerClickFunc: this.props.clickCallback.bind(this, optionalValue || this.state.answer || '')
+    });
   }
 
   calcInputStyle() {
@@ -50,6 +57,7 @@ export default class AnswerButton extends React.Component {
 
   handleChange(event) {
     this.setState({ answer: event.target.value });
+    this.updateAnswerText(event.target.value);
   }
 
   render() {
@@ -70,7 +78,7 @@ export default class AnswerButton extends React.Component {
           <FormControl.Feedback />
         </FormGroup>
         <Row>
-          <Button type="submit" onClick={this.sendAnswer} disabled={this.state.buttonsDisabled}>
+          <Button type="submit" onClick={this.state.answerClickFunc} disabled={this.state.buttonsDisabled}>
               Kontrollera svar
             </Button>
         </Row>

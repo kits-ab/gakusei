@@ -59,7 +59,7 @@ export class finishScreen extends React.Component {
           showSpeechButton={this.props.params.type !== 'quiz'}
           smallerText
         />
-        Svar: {qa.correctAlternative}. (Du svarade: {qa.userAnswer})
+        Svar: {qa.correctAlternative}. {qa.userAnswer === '' ? '' : `(Du svarade: ${qa.userAnswer})`}
       </ListGroupItem>
     );
     return result;
