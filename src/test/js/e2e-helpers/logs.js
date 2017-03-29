@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import prettyjson from 'prettyjson';
 
 export function dumpBrowserLogs(client, done) {

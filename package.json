@@ -74,7 +74,7 @@
     "json-loader": "^0.5.4",
     "license-checker": "^8.0.4",
     "mocha": "^3.2.0",
-    "nightwatch": "^0.9.12",
+    "nightwatch": "^0.9.14",
     "path": "^0.12.7",
     "postcss-loader": "^0.9.1",
     "prettyjson": "^1.2.1",
