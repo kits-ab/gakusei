@@ -326,7 +326,7 @@ export function processCurrentQuestion() {
     const localQuestionIndex = state.currentQuestionIndex;
 
     const processedQuestion = {
-      actualQuestionShapes: state.questions[localQuestionIndex].question.map(s => s.toLowerCase()),
+      actualQuestionShapes: state.questions[localQuestionIndex].question.map(s => s),
       correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase()),
       correctAlternativeNuggetId: state.questions[localQuestionIndex].questionNuggetId,
       randomizedAlternatives: Utility.randomizeOrder([
@@ -465,7 +465,8 @@ export function setAnswerLanguage(language) {
 }
 
 export function fetchLessons(type) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    const lessonState = getState().lessons;
     const lessonType = type === 'quiz' ? 'quiz' : 'vocabulary';
     return fetch(`/api/lessons?lessonType=${lessonType}`, { credentials: 'same-origin' })
       .then((response) => {
@@ -476,9 +477,9 @@ export function fetchLessons(type) {
       })
       .then((result) => {
         dispatch(receiveLessons(result));
-        let lesson;
-        if (result.every(element => element.name !== this.selectedLesson.name)) {
-          dispatch(setSelectedLesson());
+        if (!lessonState.selectedLesson.name || lessonState.selectedLesson.name === ''
+          || result.every(element => element.name !== lessonState.selectedLesson.name)) {
+          dispatch(setSelectedLesson(result[0]));
         }
       });
   };
