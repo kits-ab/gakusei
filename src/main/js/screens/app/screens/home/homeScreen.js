@@ -58,6 +58,11 @@ export class homeScreen extends React.Component {
     };
   }
 
+  setLessonAndGo(lesson) {
+    this.props.setSelectedLesson(lesson);
+    this.props.setPageByName('/select/guess');
+  }
+
   render() {
     if (this.props.addressedQuestionsInLessons) {
       const starredLessons = this.props.starredLessons.map((userLesson) => {
@@ -68,6 +73,7 @@ export class homeScreen extends React.Component {
           return (
             <ListGroupItem
               key={userLesson.lesson.name}
+              onClick={() => this.setLessonAndGo(userLesson.lesson)}
             >
               {userLesson.lesson.name} (totalt {this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]} st)
               <ProgressBar now={parseInt(now, 10)} label={`${now}%`} />
