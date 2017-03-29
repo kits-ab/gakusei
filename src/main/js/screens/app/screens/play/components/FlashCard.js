@@ -76,7 +76,15 @@ class FlashCard extends React.Component {
           </div>
           <br />
           <Row>
-            <Button disabled={this.props.buttonsDisabled} bsStyle="primary" bsSize="large" onClick={() => this.flipIt()}>&nbsp;Vänd på kortet&nbsp;</Button>
+            <Button
+              className="flipCardButton"
+              disabled={this.props.buttonsDisabled}
+              bsStyle="primary"
+              bsSize="large"
+              onClick={() => this.flipIt()}
+            >
+            &nbsp;Vänd på kortet&nbsp;
+            </Button>
           </Row>
         </Col>
       </Row>
