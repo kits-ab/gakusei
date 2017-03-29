@@ -415,15 +415,13 @@ export function resetLesson() {
   };
 }
 
-export function setLessons(newLessons) {
+export function receiveLessons(newLessons) {
   return function (dispatch) {
     dispatch({
       type: SET_LESSONS,
       description: 'Manually set lesson names. Temporary function.',
       lessons: newLessons
     });
-
-    dispatch(setSelectedLesson(newLessons[0]));
   };
 }
 
@@ -476,7 +474,13 @@ export function fetchLessons(type) {
         }
         throw new Error();
       })
-      .then(result => dispatch(setLessons(result)));
+      .then((result) => {
+        dispatch(receiveLessons(result));
+        let lesson;
+        if (result.every(element => element.name !== this.selectedLesson.name)) {
+          dispatch(setSelectedLesson());
+        }
+      });
   };
 }
 
@@ -590,7 +594,7 @@ export const actionCreators = {
   resetAttempts,
   calcAnswerButtonStyles,
   resetLesson,
-  setLessons,
+  receiveLessons,
   setQuestionLanguage,
   setAnswerLanguage,
   fetchUserStarredLessons,
@@ -676,7 +680,7 @@ export function lessons(state = defaultState, action) {
     case SET_SELECTED_LESSON:
       return {
         ...state,
-        selectedLesson: action.lesson
+        selectedLesson: action.lesson || { name: '' }
       };
     case SET_ADDRESSED_QUESTIONS:
       return {
