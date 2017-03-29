@@ -493,12 +493,13 @@ export function fetchLesson(lessonType) {
   return function (dispatch, getState) {
     let fetchURL;
 
-    if (lessonType === 'quiz') {
-      fetchURL = '/api/quiz';
-    } else if (lessonType === 'guess') {
-      fetchURL = '/api/questions';
-    } else if (lessonType === 'translate') {
-      fetchURL = '/api/questions';
+    switch (lessonType) {
+      case 'quiz':
+        fetchURL = '/api/quiz';
+        break;
+      default:
+        fetchURL = '/api/questions';
+        break;
     }
 
     const lessonState = getState().lessons;

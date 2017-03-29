@@ -57,8 +57,7 @@ export class playScreen extends React.Component {
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
         />);
         break;
-      case 'guess':
-        // temporary
+      case 'flashcards':
         playCard = (<FlashCard
           question={this.props.processedQuestion}
           answerType={this.props.answerType}
@@ -71,6 +70,7 @@ export class playScreen extends React.Component {
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
         />);
         break;
+      case 'guess':
       case 'quiz':
       default:
         playCard = (<ButtonsCard

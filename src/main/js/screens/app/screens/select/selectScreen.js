@@ -49,14 +49,18 @@ export class selectScreen extends React.Component {
   }
 
   getPageHeader() {
-    if (this.props.params.type === 'quiz') {
-      return <h1>Quiz</h1>;
-    } else if (this.props.params.type === 'guess') {
-      return <h1>Gissa ordet</h1>;
-    } else if (this.props.params.type === 'translate') {
-      return <h1>Översätt ordet</h1>;
+    switch (this.props.params.type) {
+      case 'quiz':
+        return <h1>Quiz</h1>;
+      case 'guess':
+        return <h1>Gissa ordet</h1>;
+      case 'translate':
+        return <h1>Översätt ordet</h1>;
+      case 'flashcards':
+        return <h1>Bildkort</h1>;
+      default:
+        throw new Error('No play type specified');
     }
-    return null;
   }
 
   handleLanguageSelection(event) {
