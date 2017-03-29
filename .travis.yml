@@ -38,10 +38,10 @@ script:
   fi'
 - mvn clean package -Pproduction
 # integration testing
-- java -jar $TRAVIS_BUILD_DIR/target/gakusei.jar &
-- sleep 30
-- npm run test:saucelabs
-- pkill java
+# - java -jar $TRAVIS_BUILD_DIR/target/gakusei.jar &
+# - sleep 30
+# - npm run test:saucelabs
+# - pkill java
 
 
 # Gives us the ssh key
@@ -69,7 +69,7 @@ addons:
   ssh_known_hosts:
     - gakusei.daigaku.se
     - staging.daigaku.se
-  sauce_connect: true
+  # sauce_connect: true
 notifications:
   slack: $SLACK_PARAMETER
   email: $EMAIL_PARAMETER
