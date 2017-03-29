@@ -2,8 +2,9 @@
 
 function devOnly(context, func) {
   if (func) {
-    func.call(context);
+    return func.call(context);
   }
+  return context;
   // If func is undefined/null, we assume that whatever's in context is just a function call that needed to be wrapped.
 }
 
