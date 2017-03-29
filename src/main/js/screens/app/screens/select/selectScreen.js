@@ -14,6 +14,8 @@ export class selectScreen extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
+
+    this.onKeys = this.onKeys.bind(this);
   }
 
   componentDidMount() {
@@ -41,9 +43,8 @@ export class selectScreen extends React.Component {
   }
 
   onKeys(event) {
-    if (event.key.charCode === 13) {
-      // this.selectform.submit();
-      // TODO: Submit the form
+    if (event.keyCode === 13) {
+      this.handleSubmit(event);
     }
   }
 
@@ -155,7 +156,7 @@ export class selectScreen extends React.Component {
         </Row>
         <Row>
           <Col xs={8} xsOffset={2} lg={4} lgOffset={4}>
-            <form ref={(c) => { this.selectform = c; }} href="#" onSubmit={this.handleSubmit}>
+            <form href="#" onSubmit={this.handleSubmit}>
               <FormGroup>
                 <ControlLabel>Välj lista av frågor</ControlLabel>
                 <ListGroup>
