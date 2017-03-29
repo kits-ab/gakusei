@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Glyphicon } from 'react-bootstrap';
+import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Glyphicon, HelpBlock } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import devOnly from '../../../../shared/util/devOnly';
 
@@ -18,16 +18,16 @@ export class selectScreen extends React.Component {
     this.onKeys = this.onKeys.bind(this);
   }
 
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeys);
-  }
-
   componentWillMount() {
     this.props.fetchLessons(this.props.params.type)
       .catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchUserStarredLessons()
       .catch(() => this.props.verifyUserLoggedIn());
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeys);
   }
 
   // Triggers when we change between play types but remain in "selection" page
@@ -58,6 +58,22 @@ export class selectScreen extends React.Component {
         return <h1>Översätt ordet</h1>;
       case 'flashcards':
         return <h1>Bildkort</h1>;
+      default:
+        throw new Error('No play type specified');
+    }
+  }
+
+  getPageDescription() {
+    switch (this.props.params.type) {
+      case 'quiz':
+        return (<span>Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ</span>);
+      case 'guess':
+        return <span>Välj mellan 4 svarsalternativ för den korrekta översättningen.</span>;
+      case 'translate':
+        return <span>Översätt det visade ordet i fritext.</span>;
+      case 'flashcards':
+        return (<span>Träna dig själv genom att använda kort,
+        med frågan på ena sidan och rätta svaret på den andra.</span>);
       default:
         throw new Error('No play type specified');
     }
@@ -130,55 +146,62 @@ export class selectScreen extends React.Component {
       languageSelection = <div />;
     } else {
       languageSelection = (
-        <div>
-          <ControlLabel>Välj frågespråk</ControlLabel>
-          <FormControl
-            componentClass="select"
-            name="questionType"
-            id="questionLanguageSelection"
-            onChange={this.handleLanguageSelection}
-            value={this.props.questionType}
-          >
-            {languages}
-          </FormControl>
-          <ControlLabel>Välj svarspråk</ControlLabel>
-          <FormControl
-            componentClass="select"
-            name="answerType"
-            id="answerLanguageSelection"
-            onChange={this.handleLanguageSelection}
-            value={this.props.answerType}
-          >
-            {languages}
-          </FormControl>
-        </div>);
+        <FormGroup>
+          <Row>
+            <Col xs={6} pullLeft>
+              <HelpBlock>Frågespråk</HelpBlock>
+              <FormControl
+                componentClass="select"
+                name="questionType"
+                id="questionLanguageSelection"
+                onChange={this.handleLanguageSelection}
+                value={this.props.questionType}
+              >
+                {languages}
+              </FormControl>
+            </Col>
+            <Col xs={6}>
+              <HelpBlock>Svarspråk</HelpBlock>
+              <FormControl
+                componentClass="select"
+                name="answerType"
+                id="answerLanguageSelection"
+                onChange={this.handleLanguageSelection}
+                value={this.props.answerType}
+              >
+                {languages}
+              </FormControl>
+
+            </Col>
+          </Row>
+        </FormGroup>);
     }
     return (
       <Grid className="text-center">
-        <Row>
-          {this.getPageHeader()}
-        </Row>
-        <Row>
-          <Col xs={8} xsOffset={2} lg={4} lgOffset={4}>
-            <form href="#" onSubmit={this.handleSubmit}>
-              <FormGroup>
-                <ControlLabel>Välj lista av frågor</ControlLabel>
-                <ListGroup>
-                  {options}
-                </ListGroup>
-                {languageSelection}
-              </FormGroup>
+        <Col xs={8} xsOffset={2} lg={4} lgOffset={4}>
+          <form href="#" onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <ControlLabel>{this.getPageHeader()}</ControlLabel>
+              <ControlLabel>{this.getPageDescription()}</ControlLabel>
+            </FormGroup>
+
+            <FormGroup>
+              <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
+              <ListGroup>
+                {options}
+              </ListGroup>
+              {languageSelection}
+            </FormGroup>
+            <FormGroup>
               <FormControl
                 type="hidden"
                 onKeyPress={this.handleKeyPress}
               />
               <Button type="submit" bsStyle="primary">&nbsp;Starta&nbsp;</Button>
-            </form>
-          </Col>
-        </Row>
-        <Row>
-          <br />
-        </Row>
+            </FormGroup>
+            <br />
+          </form>
+        </Col>
       </Grid>
     );
   }
