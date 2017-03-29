@@ -8,11 +8,33 @@ class FlashCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = { flipped: false };
+
+    this.onKeys = this.onKeys.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeys);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.questionAnswered) {
       this.setState({ flipped: false });
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.onKeys);
+  }
+
+  onKeys(event) {
+    if (event.keyCode === 32 /* space */) {
+      this.flipIt();
+    }
+  }
+
+  flipIt() {
+    if (!this.props.buttonsDisabled) {
+      this.setState({ flipped: !this.state.flipped });
     }
   }
 
@@ -54,7 +76,7 @@ class FlashCard extends React.Component {
           </div>
           <br />
           <Row>
-            <Button bsStyle="primary" bsSize="large" onClick={() => this.setState({ flipped: !this.state.flipped })}>&nbsp;Vänd på kortet&nbsp;</Button>
+            <Button disabled={this.props.buttonsDisabled} bsStyle="primary" bsSize="large" onClick={() => this.flipIt()}>&nbsp;Vänd på kortet&nbsp;</Button>
           </Row>
         </Col>
       </Row>
