@@ -168,7 +168,7 @@ export class selectScreen extends React.Component {
                 type="hidden"
                 onKeyPress={this.handleKeyPress}
               />
-              <Button type="submit">Starta</Button>
+              <Button type="submit" bsStyle="primary">&nbsp;Starta&nbsp;</Button>
             </form>
           </Col>
         </Row>
