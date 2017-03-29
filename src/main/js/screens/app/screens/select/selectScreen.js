@@ -114,14 +114,6 @@ export class selectScreen extends React.Component {
   render() {
     const options = this.props.lessons.map(lesson =>
       <Row key={lesson.name}>
-        <Col xs={2} md={1} lg={2}>
-          <Button
-            bsStyle={this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ? 'warning' : null}
-            onClick={() => this.handleStarredClick(lesson)}
-          >
-            <Glyphicon glyph="star" />
-          </Button>
-        </Col>
         <Col xs={10} md={11} lg={10}>
           <ListGroupItem
             key={lesson.name}
@@ -130,6 +122,14 @@ export class selectScreen extends React.Component {
             header={lesson.name}
             bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
           />
+        </Col>
+        <Col xs={2} md={1} lg={2}>
+          <Button
+            bsStyle={this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ? 'warning' : null}
+            onClick={() => this.handleStarredClick(lesson)}
+          >
+            <Glyphicon glyph="star" />
+          </Button>
         </Col>
       </Row>);
 
@@ -148,7 +148,7 @@ export class selectScreen extends React.Component {
       languageSelection = (
         <FormGroup>
           <Row>
-            <Col xs={6}>
+            <Col xs={12} sm={6}>
               <HelpBlock>Frågespråk</HelpBlock>
               <FormControl
                 componentClass="select"
@@ -160,7 +160,7 @@ export class selectScreen extends React.Component {
                 {languages}
               </FormControl>
             </Col>
-            <Col xs={6}>
+            <Col xs={12} sm={6}>
               <HelpBlock>Svarspråk</HelpBlock>
               <FormControl
                 componentClass="select"
@@ -178,10 +178,11 @@ export class selectScreen extends React.Component {
     }
     return (
       <Grid className="text-center">
-        <Col xs={8} xsOffset={2} lg={4} lgOffset={4}>
+        <Col xs={11} lg={8} lgOffset={2}>
           <form href="#" onSubmit={this.handleSubmit}>
+            <ControlLabel>{this.getPageHeader()}</ControlLabel>
+
             <FormGroup>
-              <ControlLabel>{this.getPageHeader()}</ControlLabel>
               <ControlLabel>{this.getPageDescription()}</ControlLabel>
             </FormGroup>
 
