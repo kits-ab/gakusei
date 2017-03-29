@@ -76,21 +76,20 @@ export class homeScreen extends React.Component {
           const completePercentage = ((completeCount / totalWordCount) * 100).toFixed();
           return (
             <ListGroupItem
-              header={`${userLesson.lesson.name}`}
               key={userLesson.lesson.name}
               onClick={() => this.setLessonAndGo(userLesson.lesson)}
             >
+              <h4>{userLesson.lesson.name}</h4>
               <ProgressBar now={parseInt(completePercentage, 10)} label={`${completePercentage}% avklarat`} srOnly />
               Du har klarat {completeCount} av {totalWordCount} ord
             </ListGroupItem>);
         }
         return (
           <ListGroupItem
-            header={`Quiz: ${userLesson.lesson.name}`}
             key={userLesson.lesson.name}
             onClick={() => this.setLessonAndGo(userLesson.lesson, 'quiz')}
           >
-            <span />
+            <h4>Quiz: {userLesson.lesson.name}</h4>
             <ProgressBar bsStyle="warning" now={100} srOnly />
           </ListGroupItem>);
       });
