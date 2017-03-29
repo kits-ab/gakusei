@@ -148,7 +148,7 @@ export class selectScreen extends React.Component {
       languageSelection = (
         <FormGroup>
           <Row>
-            <Col xs={6} pullLeft>
+            <Col xs={6}>
               <HelpBlock>Frågespråk</HelpBlock>
               <FormControl
                 componentClass="select"
