@@ -23,7 +23,8 @@ if (process.env.NODE_ENV === 'production') {
         newJson[key] = value;
       });
 
-    //   console.log(newJson);
+      //   console.log(newJson);
+      fs.mkdirSync(path.resolve('./src/main/resources/static/license/'));
       fs.writeFile(path.resolve('./src/main/resources/static/license/frontend_licenses.json'), JSON.stringify(newJson), (err2) => {
         if (err2) {
           throw err2;
