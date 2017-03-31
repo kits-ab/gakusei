@@ -89,10 +89,11 @@ export class finishScreen extends React.Component {
         <Row>
           <Col xs={12} md={8} mdOffset={2}>
             <div className="text-center">
-              <Button bsStyle="info" onClick={this.playAgain}>Försök igen</Button>
+              <Button bsStyle="info" className="tryAgainButton" onClick={this.playAgain}>Försök igen</Button>
               {' '}
               <Button
                 bsStyle="info"
+                className="backToSelectScreenButton"
                 onClick={this.backtoSelection}
               >
               Välj nya frågor

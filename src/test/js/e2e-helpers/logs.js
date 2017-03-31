@@ -3,10 +3,10 @@
 import prettyjson from 'prettyjson';
 
 export function dumpBrowserLogs(client, done) {
-  client.getLogTypes((result) => {
-    console.log('Available logTypes');
-    console.log(result); // normally this should print: [ 'browser', 'driver', 'client', 'server' ]
-  });
+  // client.getLogTypes((result) => {
+  //   console.log('Available logTypes');
+  //   console.log(result); // normally this should print: [ 'browser', 'driver', 'client', 'server' ]
+  // });
 
   client.isLogAvailable('browser', (isAvailable) => {
     if (isAvailable) {

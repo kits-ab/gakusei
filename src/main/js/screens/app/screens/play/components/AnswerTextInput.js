@@ -78,7 +78,7 @@ export default class AnswerButton extends React.Component {
           <FormControl.Feedback />
         </FormGroup>
         <Row>
-          <Button type="submit" onClick={this.state.answerClickFunc} disabled={this.state.buttonsDisabled}>
+          <Button type="submit" onClick={this.state.answerClickFunc} disabled={this.props.buttonsDisabled}>
               Kontrollera svar
             </Button>
         </Row>
