@@ -10,6 +10,13 @@ module.exports = {
   src_folders: [
     'src/test/js/e2e'// Where you are storing your Nightwatch e2e tests
   ],
+  custom_commands_path: [
+    'src/test/js/e2e/custom-commands'
+  ],
+  page_objects_path: [
+    'src/test/js/e2e/page-objects',
+    'src/test/js/e2e/page-objects/play'
+  ],
   output_folder: './reports', // reports (test outcome) output by nightwatch
   selenium: { // downloaded by selenium-download module (see readme)
     start_process: true, // tells nightwatch to start/stop the selenium process
@@ -47,6 +54,9 @@ module.exports = {
           browser: 'ALL',
           driver: 'ALL',
           performance: 'ALL'
+        },
+        chromeOptions: {
+          args: ['incognito']
         }
       }
     }

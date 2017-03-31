@@ -10,6 +10,20 @@ module.exports = {
     filename: '[name].[chunkhash].bundle.js',
     path: path.resolve(__dirname, 'src/main/resources/static/js')
   },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        enforce: 'pre',
+        exclude: /(node_modules|bower_components|\.spec\.js)/,
+        use: [
+          {
+            loader: 'strip-loader?strip[]=devOnly'
+          }
+        ]
+      }
+    ]
+  },
 
   // Source mapping, to be able to get readable code in the chrome devtools
   devtool: 'source-map',

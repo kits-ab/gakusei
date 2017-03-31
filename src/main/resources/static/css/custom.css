@@ -6,9 +6,6 @@
     border: none;
     outline: none;
 }
-.answerbutton{
-    height: 5em;
-}
 
 .btn-no-hover:hover {
     border-color: #ccc;
@@ -16,6 +13,11 @@
 
 .logged-in-text {
     pointer-events: none;
+}
+
+/* bootstrap override */
+.progress {
+    margin-bottom: 0.5em;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {

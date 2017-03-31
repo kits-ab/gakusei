@@ -1,18 +1,22 @@
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
-import { persistStore, autoRehydrate } from 'redux-persist';
-import { routerReducer, routerMiddleware } from 'react-router-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { autoRehydrate } from 'redux-persist';
+import { routerMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import thunkMiddleware from 'redux-thunk';
 
+import devOnly from './shared/util/devOnly';
 import rootReducer from './shared/reducers';
 
-export default function configureStore(initialState, rehydratedDone) {
+export default function configureStore(initialState) {
   const windowIfDefined = typeof window === 'undefined' ? null : window;
   const devToolsExtension = windowIfDefined && windowIfDefined.devToolsExtension;
 
+  const devEnhancers = [];
+  devEnhancers.push(devToolsExtension ? devToolsExtension() : f => f);
+
   const enhancer = compose(
         applyMiddleware(thunkMiddleware, routerMiddleware(browserHistory)),
-        devToolsExtension ? devToolsExtension() : f => f,
+        devOnly(devToolsExtension ? devToolsExtension() : f => f),
         autoRehydrate()
     );
 

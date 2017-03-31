@@ -58,47 +58,68 @@ export class homeScreen extends React.Component {
     };
   }
 
-  render() {
-    if (this.props.addressedQuestionsInLessons) {
+  setLessonAndGo(lesson, format = 'guess') {
+    this.props.setSelectedLesson(lesson);
+    this.props.setPageByName(`/select/${format}`);
+  }
+
+  showFavorites() {
+    const headerText = 'Dina favoritlektioner';
+
+    if (this.props.starredLessons.length > 0 && this.props.addressedQuestionsInLessons) {
       const starredLessons = this.props.starredLessons.map((userLesson) => {
         if (userLesson.lesson.description !== 'quiz') {
-          const now = (((this.props.addressedQuestionsInLessons[userLesson.lesson.name][1] -
+          const totalWordCount = this.props.addressedQuestionsInLessons[userLesson.lesson.name][1];
+          const completeCount = ((this.props.addressedQuestionsInLessons[userLesson.lesson.name][1] -
             this.props.addressedQuestionsInLessons[userLesson.lesson.name][0])
-            / this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]) * 100).toFixed();
+            / this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]);
+          const completePercentage = ((completeCount / totalWordCount) * 100).toFixed();
           return (
             <ListGroupItem
               key={userLesson.lesson.name}
+              onClick={() => this.setLessonAndGo(userLesson.lesson)}
             >
-              {userLesson.lesson.name} (totalt {this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]} st)
-              <ProgressBar now={parseInt(now, 10)} label={`${now}%`} />
+              <h4>{userLesson.lesson.name}</h4>
+              <ProgressBar now={parseInt(completePercentage, 10)} label={`${completePercentage}% avklarat`} srOnly />
+              Du har klarat {completeCount} av {totalWordCount} ord
             </ListGroupItem>);
         }
         return (
           <ListGroupItem
             key={userLesson.lesson.name}
+            onClick={() => this.setLessonAndGo(userLesson.lesson, 'quiz')}
           >
-            {userLesson.lesson.name}
+            <h4>Quiz: {userLesson.lesson.name}</h4>
+            <ProgressBar bsStyle="warning" now={100} srOnly />
           </ListGroupItem>);
       });
-      return (
-        <Grid className="text-center">
-          <h2 name="greeter">Välkommen till Gakusei {this.props.loggedInUser}!</h2>
-          <h3>Din svarsstatistik:</h3>
-          <Row>
-            <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
-              { this.props.requestingSuccessRate === false ?
-                <Pie data={this.getChartData()} options={homeScreen.getChartOptions()} /> :
-                <p>Loading...</p> }
-            </Col>
-          </Row>
-          <h3>Lektioner du följer och andel behandlade frågor i varje lektion:</h3>
-          <ListGroup>
-            {starredLessons}
-          </ListGroup>
-        </Grid>
-      );
+
+      return (<div><h3>{headerText}</h3>
+        <ListGroup>
+          {starredLessons}
+        </ListGroup></div>);
     }
-    return null;
+    return (<div>
+      <h3>{headerText}</h3>
+      <p>Navigera till speltyperna i menyn för att lägga till lektioner här.</p>
+    </div>);
+  }
+
+  render() {
+    return (
+      <Grid className="text-center">
+        <h2 name="greeter">Välkommen till Gakusei, {this.props.loggedInUser}!</h2>
+        <h3>Din svarsstatistik:</h3>
+        <Row>
+          <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
+            { this.props.requestingSuccessRate === false ?
+              <Pie data={this.getChartData()} options={homeScreen.getChartOptions()} /> :
+              <p>Loading...</p> }
+          </Col>
+        </Row>
+        {this.showFavorites()}
+      </Grid>
+    );
   }
 }
 

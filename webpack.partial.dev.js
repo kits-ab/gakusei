@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 const indexFilename = function () {
-    // if this env variable stops working, try npm_package_scripts_start instead.
+  // if this env variable stops working, try npm_package_scripts_start instead.
   if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
     return '../../templates/index.html';
   }
@@ -13,7 +13,7 @@ const indexFilename = function () {
 };
 
 const getEntries = function () {
-    // if this env variable stops working, try npm_package_scripts_start instead.
+  // if this env variable stops working, try npm_package_scripts_start instead.
   if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
     return {};
   }
@@ -57,6 +57,7 @@ module.exports = {
     stats: 'normal',
     historyApiFallback: true,
     proxy: {
+      '/license/**': 'http://localhost:8080',
       '/icons/**': 'http://localhost:8080',
       '/css/**': 'http://localhost:8080',
       '/img/**': 'http://localhost:8080',

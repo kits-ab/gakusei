@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 export function registerUser(browser, username, password, done) {
   browser
     .url(`${browser.launchUrl}/login`)

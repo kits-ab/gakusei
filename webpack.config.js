@@ -1,16 +1,20 @@
-/* global env */
 /* eslint-disable no-console */
 
+const path = require('path');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const prodConfig = require('./webpack.partial.prod.js');
 const devConfig = require('./webpack.partial.dev.js');
 const packageJson = require('./package.json');
 const WebpackShellPlugin = require('webpack-shell-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = function () {
   let partialConfig;
-  const shellScripts = ['node scripts/updateVersionFromMavenPom.js'];
+  const shellScripts = [
+    'node scripts/updateVersionFromMavenPom.js',
+    'node scripts/generateFrontendLicenses.js'
+  ];
 
   if (process.env.NODE_ENV === 'production') {
     partialConfig = prodConfig;
@@ -29,7 +33,7 @@ module.exports = function () {
     shellScripts.push('node scripts/checkWatcherCount.js');
   }
 
-  const theConfig = merge(partialConfig, {
+  const theConfig = merge.smart(partialConfig, {
     entry: {
       main: [
         './src/main/js/main.js'
@@ -59,6 +63,11 @@ module.exports = function () {
         {
           test: /\.json$/,
           use: ['json-loader'],
+          exclude: /(node_modules|bower_components|\.spec\.js)/
+        },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
           exclude: /(node_modules|bower_components|\.spec\.js)/
         }
         // {
@@ -90,6 +99,14 @@ module.exports = function () {
     ]
   });
 
-  // console.log(theConfig);
+  if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
+    // Add cleaner
+    theConfig.plugins.push(new CleanWebpackPlugin(['src/main/resources/static/js/*'], {
+      root: path.resolve(),
+      verbose: true
+    }));
+  }
+
+  // console.log(theConfig.module.rules);
   return theConfig;
 };

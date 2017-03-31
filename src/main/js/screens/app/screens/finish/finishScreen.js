@@ -35,25 +35,14 @@ export class finishScreen extends React.Component {
   }
 
   backtoSelection() {
-    try {
-      this.props.fetchLesson(this.props.params.type)
+    this.props.fetchLesson(this.props.params.type)
+      .catch(this.props.verifyUserLoggedIn())
       .then(this.props.setPageByName(`/select/${this.props.params.type}`));
-    } catch (err) {
-      this.props.verifyUserLoggedIn();
-    }
   }
   playAgain() {
-    try {
-      if (this.props.params.type === 'translate') {
-        this.props.fetchLesson(this.props.params.type)
-      .then(this.props.setPageByName(`/translate/${this.props.params.type}`));
-      } else {
-        this.props.fetchLesson(this.props.params.type)
+    this.props.fetchLesson(this.props.params.type)
+      .catch(this.props.verifyUserLoggedIn())
       .then(this.props.setPageByName(`/play/${this.props.params.type}`));
-      }
-    } catch (err) {
-      this.props.verifyUserLoggedIn();
-    }
   }
 
   showResults() {
@@ -70,7 +59,7 @@ export class finishScreen extends React.Component {
           showSpeechButton={this.props.params.type !== 'quiz'}
           smallerText
         />
-        Svar: {qa.correctAlternative}. (Du svarade: {qa.userAnswer})
+        Svar: {qa.correctAlternative}. {qa.userAnswer === '' ? '' : `(Du svarade: ${qa.userAnswer})`}
       </ListGroupItem>
     );
     return result;
@@ -100,10 +89,11 @@ export class finishScreen extends React.Component {
         <Row>
           <Col xs={12} md={8} mdOffset={2}>
             <div className="text-center">
-              <Button bsStyle="info" onClick={this.playAgain}>Försök igen</Button>
+              <Button bsStyle="info" className="tryAgainButton" onClick={this.playAgain}>Försök igen</Button>
               {' '}
               <Button
                 bsStyle="info"
+                className="backToSelectScreenButton"
                 onClick={this.backtoSelection}
               >
               Välj nya frågor
