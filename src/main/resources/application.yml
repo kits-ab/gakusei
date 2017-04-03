@@ -37,6 +37,12 @@ spring:
 ---
 
 spring:
+  profiles: enable-resource-caching
+  caching: true
+
+---
+
+spring:
   profiles: heroku
   datasource:
     url: ${JDBC_DATABASE_URL}
