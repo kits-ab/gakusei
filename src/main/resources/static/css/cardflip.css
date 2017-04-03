@@ -33,7 +33,7 @@
 .card .back {
     /*background: blue;*/
     transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg) translateZ(1px);
     /*transform: rotateX(0deg);*/
 }
 
@@ -46,5 +46,5 @@
 
 .card.flipped {
     transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg) translateZ(1px);
 }
