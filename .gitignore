@@ -20,6 +20,7 @@ target/
 node_modules/
 node/
 npm-debug.log
+npm-debug.log.*
 
 # VS Code
 .vscode
