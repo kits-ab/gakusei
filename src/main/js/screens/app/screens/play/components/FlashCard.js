@@ -2,7 +2,6 @@ import React from 'react';
 import { Jumbotron, Button, Grid, Row, Col } from 'react-bootstrap';
 import FlashButtonSet from './FlashButtonSet';
 import DisplayQuestion from '../../../shared/DisplayQuestion';
-import devOnly from '../../../../../shared/util/devOnly';
 
 class FlashCard extends React.Component {
   constructor(props) {

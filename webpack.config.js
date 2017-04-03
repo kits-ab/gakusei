@@ -107,6 +107,6 @@ module.exports = function () {
     }));
   }
 
-  // console.log(theConfig.module.rules);
+  console.log(theConfig.module.rules[0]);
   return theConfig;
 };

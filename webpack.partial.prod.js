@@ -17,9 +17,7 @@ module.exports = {
         enforce: 'pre',
         exclude: /(node_modules|bower_components|\.spec\.js)/,
         use: [
-          {
-            loader: 'strip-loader?strip[]=devOnly'
-          }
+          'webpack-strip-block?start=devcode:start&end=devcode:end'
         ]
       }
     ]
@@ -28,8 +26,8 @@ module.exports = {
   // Source mapping, to be able to get readable code in the chrome devtools
   devtool: 'source-map',
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.OccurrenceOrderPlugin(),
+    // new webpack.optimize.UglifyJsPlugin(),
+    // new webpack.optimize.OccurrenceOrderPlugin(),
     new HtmlWebpackPlugin({
       filename: '../../templates/index.html',
       template: path.resolve('src/main/resources/static/html/webpack_index.html')

@@ -1,29 +1,33 @@
 import React from 'react';
 import AnswerButtonSet from './AnswerButtonSet';
 import DisplayQuestion from '../../../shared/DisplayQuestion';
-import devOnly from '../../../../../shared/util/devOnly';
 
 class ButtonsCard extends React.Component {
   constructor(props) {
     super(props);
-    devOnly(this.onKeys = function (event) {
-      devOnly(this, () => {
-        const keyDown = event.key;
-        if (!this.props.buttonsDisabled) {
-          if (keyDown === '0') {
-            this.props.clickCallback(this.props.question.correctAlternative[0]);
-          }
+
+    /* devcode:start */
+    this.onKeys = function (event) {
+      const keyDown = event.key;
+      if (!this.props.buttonsDisabled) {
+        if (keyDown === '0') {
+          this.props.clickCallback(this.props.question.correctAlternative[0]);
         }
-      });
-    }.bind(this));
+      }
+    }.bind(this);
+    /* devcode:end */
   }
 
   componentDidMount() {
-    devOnly(window.addEventListener('keydown', this.onKeys));
+    /* devcode:start */
+    window.addEventListener('keydown', this.onKeys);
+    /* devcode:end */
   }
 
   componentWillUnmount() {
-    devOnly(window.removeEventListener('keydown', this.onKeys));
+    /* devcode:start */
+    window.removeEventListener('keydown', this.onKeys);
+    /* devcode:end */
   }
 
   render() {

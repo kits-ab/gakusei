@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Glyphicon, HelpBlock } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
-import devOnly from '../../../../shared/util/devOnly';
 
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import * as Security from '../../../../shared/reducers/Security';
@@ -139,7 +138,9 @@ export class selectScreen extends React.Component {
       <option key={'swedish'} value={'swedish'}>Svenska</option>
     );
 
-    devOnly(this, () => languages.push(<option key={'english'} value={'english'}>Engelska</option>));
+    /* devcode: start */
+    languages.push(<option key={'english'} value={'english'}>Engelska</option>);
+    /* devcode: end */
 
     let languageSelection;
     if (this.props.params.type === 'quiz') {

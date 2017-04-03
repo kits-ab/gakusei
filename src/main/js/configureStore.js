@@ -4,19 +4,18 @@ import { routerMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
 import thunkMiddleware from 'redux-thunk';
 
-import devOnly from './shared/util/devOnly';
 import rootReducer from './shared/reducers';
 
 export default function configureStore(initialState) {
   const windowIfDefined = typeof window === 'undefined' ? null : window;
-  const devToolsExtension = windowIfDefined && windowIfDefined.devToolsExtension;
 
-  const devEnhancers = [];
-  devEnhancers.push(devToolsExtension ? devToolsExtension() : f => f);
+  /* devcode: start */
+  const devToolsExtension = windowIfDefined && windowIfDefined.devToolsExtension;
+  /* devcode: end */
 
   const enhancer = compose(
         applyMiddleware(thunkMiddleware, routerMiddleware(browserHistory)),
-        devOnly(devToolsExtension ? devToolsExtension() : f => f),
+        devToolsExtension ? devToolsExtension() : f => f,
         autoRehydrate()
     );
 
