@@ -16,7 +16,7 @@ If you like to make your limit permanent, use:
 More info available here: https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers
 !!! WARNING !!!`;
 
-if (process.platform === 'linux' || process.platform === 'darwin') {
+if (process.platform === 'linux') {
   const result = execSync('cat /proc/sys/fs/inotify/max_user_watches', [], { stdio: 'inherit' });
   const watcherCount = parseInt(result.toString(), 10);
 
