@@ -54,9 +54,10 @@ Since we will create a single .jar file with all resources embedded, we will nee
 3. After completing these steps, simply just copy the .jar file that contains all the embedded files, to a server of your choice.
 4. Sample commands for starting the server:
 * `nohup java -jar gakusei.jar &> server.log &` for in-memory db, that clears on restart.
-* `nohup java -jar gakusei.jar --spring.profiles.active=postgres &> server.log &` for postgres, with previously mentioned setup needed.
+* `nohup java -jar gakusei.jar --spring.profiles.active="postgres, enable-resource-caching" &> server.log &` for postgres, with previously mentioned setup needed.
 
-Command `mvn package -Pdevelopment` is also available, should you want to use it.
+* Command `mvn package -Pdevelopment` is also available, should you want to use it for troubleshooting.
+* The spring profile "enable-resource-caching" enables some very effective caching methods. You should always want to have this profile active when you deploy in production.
 
 ### System overview
 The following picture gives a brief overview of the projects structure:
