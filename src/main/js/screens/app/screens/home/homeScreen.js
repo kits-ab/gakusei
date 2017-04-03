@@ -72,7 +72,7 @@ export class homeScreen extends React.Component {
           const totalWordCount = this.props.addressedQuestionsInLessons[userLesson.lesson.name][1];
           const completeCount = ((this.props.addressedQuestionsInLessons[userLesson.lesson.name][1] -
             this.props.addressedQuestionsInLessons[userLesson.lesson.name][0])
-            / this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]);
+            / this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]).toFixed();
           const completePercentage = ((completeCount / totalWordCount) * 100).toFixed();
           return (
             <ListGroupItem
