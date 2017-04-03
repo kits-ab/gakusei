@@ -12,6 +12,7 @@
     height: 100%;
     position: relative;
     transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
     transition: transform 0.75s;
 }
 
@@ -21,23 +22,29 @@
     position: absolute;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
 }
 
 .card .front {
     /*background: red;*/
+    transform: rotateX(0deg);
 }
 
 .card .back {
     /*background: blue;*/
     transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    /*transform: rotateX(0deg);*/
 }
 
 .card .glyphicon {
     position: inherit;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
 }
 
 .card.flipped {
     transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
 }
