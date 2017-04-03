@@ -18,16 +18,16 @@ function hyphenateSwedish(text) {
 
 export default class AnswerButton extends React.Component {
   componentWillMount() {
-    this.updateAnswerText(this.props.primaryText);
+    this.updateAnswerText(this.props.answerText || this.props.primaryText);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateAnswerText(nextProps.primaryText);
+    this.updateAnswerText(nextProps.answerText || nextProps.primaryText);
   }
 
   getPrimaryText() {
     if (this.props.answerType === 'swedish') {
-      return hyphenateSwedish(this.props.primaryText);
+      return hyphenateSwedish(this.props.primaryText || this.props.answerText);
     }
 
     return this.props.primaryText || null;
@@ -52,8 +52,9 @@ export default class AnswerButton extends React.Component {
   render() {
     return (
       <Button
+        style={(this.props.buttonSize === 'large' ? { height: '5em' } : { height: '3em' })}
         bsStyle={this.props.buttonStyle}
-        bsSize="large" block
+        bsSize={this.props.buttonSize} block
         onClick={this.state.answerClickFunc}
         disabled={this.props.disableButton}
         className="btn answerbutton btn-no-hover"
@@ -68,16 +69,21 @@ export default class AnswerButton extends React.Component {
 }
 
 AnswerButton.defaultProps = {
-  secondaryText: null
+  secondaryText: null,
+  answerText: null,
+  japaneseCharacters: false,
+  buttonSize: 'large'
 };
 
 AnswerButton.propTypes = {
   name: React.PropTypes.string.isRequired,
+  answerText: React.PropTypes.string,
   primaryText: React.PropTypes.string.isRequired,
   secondaryText: React.PropTypes.string,
   buttonStyle: React.PropTypes.string.isRequired,
   onAnswerClick: React.PropTypes.func.isRequired,
   disableButton: React.PropTypes.bool.isRequired,
   answerType: React.PropTypes.string.isRequired,
-  japaneseCharacters: React.PropTypes.bool.isRequired
+  japaneseCharacters: React.PropTypes.bool,
+  buttonSize: React.PropTypes.string.isRequired
 };

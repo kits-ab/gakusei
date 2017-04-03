@@ -9,19 +9,42 @@ language: java
 jdk:
 - oraclejdk8
 
+env:
+  global:
+    - BABEL=true
+    - NODE_VERSION="7.4.0"
+    - KITS_SLACK=kits:sGqgJPVSf7LU8x2am3PF6KQU
+
+before_install:
+- nvm install $NODE_VERSION
+- node --version
+
+install: true # Skip the default travis install phase
+
+#before_script:
+
 script:
-- if [ "$TRAVIS_BRANCH" = "master" ]; then export DEPLOY_URL="ec2-user@gakusei.daigaku.se" && export FILENAME_SUFFIX="production"; fi
-- if [ "$TRAVIS_BRANCH" = "develop" ]; then export DEPLOY_URL="ec2-user@staging.daigaku.se" && export FILENAME_SUFFIX="staging"; fi
+# final build for deployment
+- 'if [ "$TRAVIS_BRANCH" = "master" ]; then
+    export DEPLOY_URL="ec2-user@gakusei.daigaku.se"
+    export SLACK_PARAMETER=$KITS_SLACK
+    export EMAIL_PARAMETER=true
+    export FILENAME_SUFFIX="production";
+  elif [ "$TRAVIS_BRANCH" = "develop" ]; then
+    export DEPLOY_URL="ec2-user@staging.daigaku.se" 
+    export SLACK_PARAMETER=false
+    export EMAIL_PARAMETER=false
+    export FILENAME_SUFFIX="staging";
+  fi'
 - mvn clean package -Pproduction
+# integration testing
+# - java -jar $TRAVIS_BUILD_DIR/target/gakusei.jar &
+# - sleep 30
+# - npm run test:saucelabs
+# - pkill java
 
-# the below will make each commit tagged. Skip this for now as we are not releasing to github releases currently
-# after_success:
-# - git config --global user.email "builds@travis-ci.com"
-# - git config --global user.name "Travis CI"
-# - export GIT_TAG=build-$TRAVIS_BUILD_NUMBER-$TRAVIS_BRANCH-$(date -u "+%Y-%m-%d-%H-%M-%S")
-# - git tag $GIT_TAG -a -m "Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
-# - git push https://$TAGPERM@github.com/kits-ab/gakusei --tags
 
+# Gives us the ssh key
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_3839e494e43c_key -iv $encrypted_3839e494e43c_iv
   -in deploy_rsa.enc -out /tmp/deploy_rsa -d
@@ -30,16 +53,6 @@ before_deploy:
 - ssh-add /tmp/deploy_rsa
 
 deploy:
-  # 401 unauthorized, skip this for now ...
-  # - provider: releases # put the release on github
-  #   api_key:
-  #     secure: "$TAGPERM"
-  #   file: 
-  #     - target/gakusei.jar
-  #   skip_cleanup: true
-  #   on:
-  #     repo: kits-ab/gakusei
-  #     all_branches: true
   - provider: script # put the release on our live site
     skip_cleanup: true
     script: 
@@ -56,5 +69,7 @@ addons:
   ssh_known_hosts:
     - gakusei.daigaku.se
     - staging.daigaku.se
+  # sauce_connect: true
 notifications:
-  slack: kits:sGqgJPVSf7LU8x2am3PF6KQU
+  slack: $SLACK_PARAMETER
+  email: $EMAIL_PARAMETER

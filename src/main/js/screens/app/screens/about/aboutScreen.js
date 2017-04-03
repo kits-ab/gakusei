@@ -1,8 +1,10 @@
+/* global frontend_global_data */
+
 import React from 'react';
 import 'whatwg-fetch';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Panel } from 'react-bootstrap';
 import xml2js from 'xml2js';
-  
+
 export default class aboutScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -13,119 +15,34 @@ export default class aboutScreen extends React.Component {
         MIT: 'https://opensource.org/licenses/mit-license.php',
         'BSD-3-Clause': 'https://opensource.org/licenses/BSD-3-Clause',
         LGPL: 'https://opensource.org/licenses/LGPL-2.1'
-      },
-      frontend_data: [
-        { name: 'babel-preset-stage-2',
-          version: '6.18.0',
-          license: 'MIT'
-        },
-        { name: 'babel-preset-react',
-          version: '6.16.0',
-          license: 'MIT'
-        },
-        { name: 'babel-preset-es2015',
-          version: '6.18.0',
-          license: 'MIT'
-        },
-        { name: 'babelify',
-          version: '7.2.0',
-          license: 'MIT'
-        },
-        { name: 'whatwg-fetch',
-          version: '2.0.1',
-          license: 'MIT'
-        },
-        { name: 'react-dom',
-          version: '15.4.1',
-          license: 'BSD-3-Clause'
-        },
-        { name: 'react',
-          version: '15.4.1',
-          license: 'BSD-3-Clause'
-        },
-        { name: 'xml2js',
-          version: '0.4.17',
-          license: 'MIT'
-        },
-        { name: 'react-bootstrap',
-          version: '0.30.7',
-          license: 'MIT'
-        },
-        { name: 'browserify',
-          version: '13.1.1',
-          license: 'MIT'
-        },
-        { name: 'chart.js',
-          version: '2.4.0',
-          license: 'MIT'
-        },
-        { name: 'form-data',
-          version: '2.1.2',
-          license: 'MIT'
-        },
-        { name: 'react-chartjs-2',
-          version: '2.0.0',
-          license: 'MIT'
-        },
-        { name: 'react-redux',
-          version: '5.0.2',
-          license: 'MIT'
-        },
-        { name: 'react-redux-form',
-          version: '1.5.5',
-          license: 'MIT'
-        },
-        { name: 'react-router',
-          version: '3.0.2',
-          license: 'MIT'
-        },
-        { name: 'react-router-bootstrap',
-          version: '0.23.1',
-          license: 'MIT'
-        },
-        { name: 'react-router-redux',
-          version: '4.0.8',
-          license: 'MIT'
-        },
-        { name: 'redux',
-          version: '3.6.0',
-          license: 'MIT'
-        },
-        { name: 'redux-thunk',
-          version: '2.2.0',
-          license: 'MIT'
-        },
-        { name: 'hypher',
-          version: '0.2.5',
-          license: 'BSD-3-Clause'
-        },
-        { name: 'hyphenation.sv',
-          version: '0.2.1',
-          license: 'LGPL'
-        }
-      ]
+      }
     };
+    // debugger;
   }
   componentDidMount() {
     this.fetchBackendLicenses();
-    this.setFrontendLicenses();
+    this.fetchFrontendLicenses();
   }
-  setFrontendLicenses() {
-    this.setState({ frontend_licenses: this.state.frontend_data.map(d =>
-      <ListGroupItem key={d.name + d.version}>
-        Modul: {d.name}
+
+  createFrontendLicenses(licenses) {
+    this.setState({ frontend_licenses: Object.keys(licenses).map(licenseName =>
+      <ListGroupItem key={licenseName}>
+        Modul: {licenseName.split('@')[0]}
         <br />
-        Version: {d.version}
+        Version: {licenseName.split('@')[1]}
+        <br />
+        Repository: {licenses[licenseName].repository}
         <br />
         Licens(er):
-        <div key={this.state.license_url[d.license] + d.license}>
-          <a target="_blank" rel="noopener noreferrer" href={this.state.license_url[d.license]}>
-            {d.license}
+        <div key={this.state.license_url[licenses[licenseName].licenses] + licenses[licenseName].licenses}>
+          <a target="_blank" rel="noopener noreferrer" href={this.state.license_url[licenses[licenseName].licenses] || `http://www.google.com/search?q=${licenses[licenseName].licenses}`}>
+            {licenses[licenseName].licenses}
           </a>
         </div>
       </ListGroupItem>)
     });
   }
+
   createBackendLicenses(xmldoc) {
     let dep = '';
     xml2js.parseString(xmldoc, (err, result) => {
@@ -168,6 +85,11 @@ export default class aboutScreen extends React.Component {
       .then(str => (new window.DOMParser()).parseFromString(str, 'text/xml'))
       .then(xmlobj => new XMLSerializer().serializeToString(xmlobj))
       .then(xmldoc => this.createBackendLicenses(xmldoc));
+  }
+  fetchFrontendLicenses() {
+    fetch('license/frontend_licenses.json')
+      .then(response => response.json())
+      .then(json => this.createFrontendLicenses(json));
   }
   render() {
     return (

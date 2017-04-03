@@ -34,6 +34,9 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/select/translate">
                   <MenuItem className="translatePlay">Översätt ordet</MenuItem>
                 </LinkContainer>
+                <LinkContainer to="/select/flashcards">
+                  <MenuItem className="flashcardPlay">Bildkort</MenuItem>
+                </LinkContainer>
               </NavDropdown>
               <IndexLinkContainer to="/grammar">
                 <NavItem className="grammarHelp">Grammatik</NavItem>

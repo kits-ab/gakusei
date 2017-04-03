@@ -59,7 +59,10 @@ export const propTypes = {
     randomizedAlternatives: React.PropTypes.array.isRequired,
     buttonStyles: React.PropTypes.array.isRequired,
     buttonDisabled: React.PropTypes.bool.isRequired,
-    resourceRef: React.PropTypes.object }).isRequired,
+    resourceRef: React.PropTypes.shape({
+      type: React.PropTypes.string,
+      location: React.PropTypes.string
+    }) }).isRequired,
   allButtonsDisabled: React.PropTypes.bool.isRequired,
   lessonLength: React.PropTypes.number.isRequired,
   correctAttempts: React.PropTypes.number.isRequired,
@@ -323,7 +326,7 @@ export function processCurrentQuestion() {
     const localQuestionIndex = state.currentQuestionIndex;
 
     const processedQuestion = {
-      actualQuestionShapes: state.questions[localQuestionIndex].question.map(s => s.toLowerCase()),
+      actualQuestionShapes: state.questions[localQuestionIndex].question.map(s => s),
       correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase()),
       correctAlternativeNuggetId: state.questions[localQuestionIndex].questionNuggetId,
       randomizedAlternatives: Utility.randomizeOrder([
@@ -412,15 +415,13 @@ export function resetLesson() {
   };
 }
 
-export function setLessons(newLessons) {
+export function receiveLessons(newLessons) {
   return function (dispatch) {
     dispatch({
       type: SET_LESSONS,
       description: 'Manually set lesson names. Temporary function.',
       lessons: newLessons
     });
-
-    dispatch(setSelectedLesson(newLessons[0]));
   };
 }
 
@@ -464,7 +465,8 @@ export function setAnswerLanguage(language) {
 }
 
 export function fetchLessons(type) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    const lessonState = getState().lessons;
     const lessonType = type === 'quiz' ? 'quiz' : 'vocabulary';
     return fetch(`/api/lessons?lessonType=${lessonType}`, { credentials: 'same-origin' })
       .then((response) => {
@@ -473,7 +475,13 @@ export function fetchLessons(type) {
         }
         throw new Error();
       })
-      .then(result => dispatch(setLessons(result)));
+      .then((result) => {
+        dispatch(receiveLessons(result));
+        if (!lessonState.selectedLesson.name || lessonState.selectedLesson.name === ''
+          || result.every(element => element.name !== lessonState.selectedLesson.name)) {
+          dispatch(setSelectedLesson(result[0]));
+        }
+      });
   };
 }
 
@@ -490,12 +498,13 @@ export function fetchLesson(lessonType) {
   return function (dispatch, getState) {
     let fetchURL;
 
-    if (lessonType === 'quiz') {
-      fetchURL = '/api/quiz';
-    } else if (lessonType === 'guess') {
-      fetchURL = '/api/questions';
-    } else if (lessonType === 'translate') {
-      fetchURL = '/api/questions';
+    switch (lessonType) {
+      case 'quiz':
+        fetchURL = '/api/quiz';
+        break;
+      default:
+        fetchURL = '/api/questions';
+        break;
     }
 
     const lessonState = getState().lessons;
@@ -586,7 +595,7 @@ export const actionCreators = {
   resetAttempts,
   calcAnswerButtonStyles,
   resetLesson,
-  setLessons,
+  receiveLessons,
   setQuestionLanguage,
   setAnswerLanguage,
   fetchUserStarredLessons,
@@ -643,7 +652,7 @@ export function lessons(state = defaultState, action) {
         ...state,
         processedQuestionsWithAnswers: [],
         currentProcessedQuestionAnswered: false,
-        currentProcessedQuestionAnsweredCorrectly: null
+        currentProcessedQuestionAnsweredCorrectly: false
       };
     case RECEIVE_LESSON:
       return {
@@ -667,12 +676,12 @@ export function lessons(state = defaultState, action) {
         processedQuestion: action.processedQuestion,
         resourceRef: action.processedQuestion.resourceRef,
         currentProcessedQuestionAnswered: false,
-        currentProcessedQuestionAnsweredCorrectly: null
+        currentProcessedQuestionAnsweredCorrectly: false
       };
     case SET_SELECTED_LESSON:
       return {
         ...state,
-        selectedLesson: action.lesson
+        selectedLesson: action.lesson || { name: '' }
       };
     case SET_ADDRESSED_QUESTIONS:
       return {

@@ -10,32 +10,25 @@ module.exports = {
   src_folders: [
     'src/test/js/e2e'// Where you are storing your Nightwatch e2e tests
   ],
-  custom_commands_path: [
-    'src/test/js/e2e/custom-commands'
-  ],
-  page_objects_path: [
-    'src/test/js/e2e/page-objects',
-    'src/test/js/e2e/page-objects/play'
-  ],
   output_folder: './reports', // reports (test outcome) output by nightwatch
   selenium: { // downloaded by selenium-download module (see readme)
-    start_process: true, // tells nightwatch to start/stop the selenium process
+    start_process: false, // tells nightwatch to start/stop the selenium process
     server_path: './node_modules/nightwatch/bin/selenium.jar',
-    host: '127.0.0.1',
-    port: 4444, // standard selenium port
+    host: 'ondemand.saucelabs.com',
+    port: 80, // standard selenium port
     cli_args: { // chromedriver is downloaded by selenium-download (see readme)
       'webdriver.chrome.driver': './node_modules/nightwatch/bin/chromedriver'
     }
   },
   test_settings: {
     default: {
-      launch_url: 'http://localhost:7777',
+      launch_url: 'http://ondemand.saucelabs.com:80',
       screenshots: {
         enabled: true, // if you want to keep screenshots
         path: './screenshots' // save screenshots here
       },
       globals: {
-        waitForConditionTimeout: 5000 // sometimes internet is slow so wait.
+        waitForConditionTimeout: 10000 // expect saucelabs to be even slower
       },
       desiredCapabilities: { // use Chrome as the default browser for tests
         browserName: 'chrome',
@@ -54,9 +47,6 @@ module.exports = {
           browser: 'ALL',
           driver: 'ALL',
           performance: 'ALL'
-        },
-        chromeOptions: {
-          args: ['incognito']
         }
       }
     }
@@ -69,14 +59,14 @@ module.exports = {
  /the following code checks for the existence of `selenium.jar` before trying to run our tests.
  */
 
-require('fs').stat(`${BINPATH}selenium.jar`, (err, stat) => { // got it?
-  if (err || !stat || stat.size < 1) {
-    require('selenium-download').ensure(BINPATH, (error) => {
-      if (error) throw new Error(error); // no point continuing so exit!
-      console.log('✔ Selenium & Chromedriver downloaded to:', BINPATH);
-    });
-  }
-});
+// require('fs').stat(`${BINPATH}selenium.jar`, (err, stat) => { // got it?
+//   if (err || !stat || stat.size < 1) {
+//     require('selenium-download').ensure(BINPATH, (error) => {
+//       if (error) throw new Error(error); // no point continuing so exit!
+//       console.log('✔ Selenium & Chromedriver downloaded to:', BINPATH);
+//     });
+//   }
+// });
 
 function padLeft(count) { // theregister.co.uk/2016/03/23/npm_left_pad_chaos/
   return count < 10 ? `0${count}` : count.toString();

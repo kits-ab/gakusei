@@ -1,0 +1,50 @@
+.flip-container {
+    perspective: 250vw;
+    width: 100%;
+    height: 22rem;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.card {
+    padding: 1em 0 0 0 !important;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transition: transform 0.75s;
+}
+
+.card figure {
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+}
+
+.card .front {
+    /*background: red;*/
+    transform: rotateX(0deg);
+}
+
+.card .back {
+    /*background: blue;*/
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg) translateZ(1px);
+    /*transform: rotateX(0deg);*/
+}
+
+.card .glyphicon {
+    position: inherit;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg) translateZ(1px);
+}
