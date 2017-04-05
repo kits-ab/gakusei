@@ -69,12 +69,11 @@ public class LessonController {
         long mark = System.currentTimeMillis();
 
         HashMap<String, HashMap<String, Integer>> values = new HashMap<>();
-
+        
         List<Lesson> tmpLessons = getLessons();
 
         logger.info("Getting vocabulary lessons took {} ms.", System.currentTimeMillis() - mark);
         mark = System.currentTimeMillis();
-
         for (Lesson tmpLesson : tmpLessons) {
             List<Nugget> correctlyAnsweredNuggets = lessonRepository.findCorrectlyAnsweredNuggets(username, tmpLesson.getName())
                     .stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
@@ -91,6 +90,7 @@ public class LessonController {
                 logger.debug("un:" + n.getId());
             }
             logger.info("Un count for {}: {}", tmpLesson.getName(), unansweredNuggets.size());
+
             HashMap<String, Integer> lessonData = new HashMap<>();
             lessonData.put("unanswered", unansweredNuggets.size());
             lessonData.put("correctlyAnswered", correctlyAnsweredNuggets.size());
