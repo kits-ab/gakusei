@@ -23,8 +23,13 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
             @Param("factType1") String questionType,
             @Param("factType2") String answerType);
 
-
     List<Nugget> findUnansweredNuggets(
+            @Param("username") String username,
+            @Param("lessonName") String lessonName,
+            @Param("factType1") String questionType,
+            @Param("factType2") String answerType);
+
+    List<Nugget> findCorrectlyAnsweredNuggets(
             @Param("username") String username,
             @Param("lessonName") String lessonName,
             @Param("factType1") String questionType,
