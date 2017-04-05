@@ -69,19 +69,17 @@ export class homeScreen extends React.Component {
     if (this.props.starredLessons.length > 0 && this.props.addressedQuestionsInLessons) {
       const starredLessons = this.props.starredLessons.map((userLesson) => {
         if (userLesson.lesson.description !== 'quiz') {
-          const totalWordCount = this.props.addressedQuestionsInLessons[userLesson.lesson.name][1];
-          const completeCount = ((this.props.addressedQuestionsInLessons[userLesson.lesson.name][1] -
-            this.props.addressedQuestionsInLessons[userLesson.lesson.name][0])
-            / this.props.addressedQuestionsInLessons[userLesson.lesson.name][1]).toFixed();
-          const completePercentage = ((completeCount / totalWordCount) * 100).toFixed();
+          const totalNuggetCount = this.props.addressedQuestionsInLessons[userLesson.lesson.name].all;
+          const completeNuggetCount = this.props.addressedQuestionsInLessons[userLesson.lesson.name].correctlyAnswered;
+          const completeNuggetPercentage = ((completeNuggetCount / totalNuggetCount) * 100).toFixed();
           return (
             <ListGroupItem
               key={userLesson.lesson.name}
               onClick={() => this.setLessonAndGo(userLesson.lesson)}
             >
               <h4>{userLesson.lesson.name}</h4>
-              <ProgressBar now={parseInt(completePercentage, 10)} label={`${completePercentage}% avklarat`} srOnly />
-              Du har klarat {completeCount} av {totalWordCount} ord
+              <ProgressBar now={parseInt(completeNuggetPercentage, 10)} label={`${completeNuggetPercentage}% avklarat`} srOnly />
+              Du har klarat {completeNuggetCount} av {totalNuggetCount} ord
             </ListGroupItem>);
         }
         return (
