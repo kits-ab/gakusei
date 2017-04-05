@@ -12,9 +12,7 @@ import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.LessonRepository;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -48,27 +46,38 @@ public class LessonController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    protected ResponseEntity<HashMap<String, List<Integer>>> getQuestionInfo(
+    protected ResponseEntity<
+            HashMap<String,
+                    HashMap<String, Integer>
+                    >> getQuestionInfo(
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType,
             @RequestParam(name = "username") String username) {
 
-        HashMap<String, List<Integer>> values = new HashMap<>();
+        HashMap<String,
+                HashMap<String, Integer>
+                > values = new HashMap<>();
 
         List<Lesson> tmpLessons = lessonRepository.findVocabularyLessons().stream()
                 .filter(lesson -> lesson.getNuggets().size() >= 4).collect(Collectors.toList());
 
         for (Lesson tmpLesson : tmpLessons) {
+            List<Nugget> correctlyAnsweredNuggets = lessonRepository.findCorrectlyAnsweredNuggets(username, tmpLesson.getName(),
+                    questionType, answerType).stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
             List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, tmpLesson.getName(),
                     questionType, answerType).stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
             List<Nugget> allLessonNuggets = lessonRepository.findNuggetsByTwoFactTypes(tmpLesson.getName(),
                     questionType, answerType).stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
 
-            List<Integer> tmpList = Arrays.asList(unansweredNuggets.size(), allLessonNuggets.size());
-            values.put(tmpLesson.getName(), tmpList);
+            HashMap<String, Integer> lessonData = new HashMap<>();
+            lessonData.put("unanswered", unansweredNuggets.size());
+            lessonData.put("correctlyAnswered", correctlyAnsweredNuggets.size());
+            lessonData.put("all", allLessonNuggets.size());
+
+            values.put(tmpLesson.getName(), lessonData);
 
         }
 
-        return new ResponseEntity<HashMap<String, List<Integer>>>(values, HttpStatus.OK);
+        return new ResponseEntity<>(values, HttpStatus.OK);
     }
 }
