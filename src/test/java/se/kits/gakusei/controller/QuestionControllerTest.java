@@ -42,7 +42,7 @@ public class QuestionControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        questionController = new QuestionController();
+        questionController = new QuestionController(lessonRepository, questionHandler);
         MockitoAnnotations.initMocks(this);
         questionType = "reading";
         answerType = "swedish";
@@ -57,8 +57,8 @@ public class QuestionControllerTest {
     public void testGetQuestionsFromLessonOK() throws Exception {
         List<HashMap<String, Object>> questionList = Collections.singletonList(TestTools.generateQuestion());
 
-        Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName, questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName, questionType, answerType)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType, answerType)).thenReturn(nuggets);
         Mockito.when(questionHandler.chooseNuggetsByProgress(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, quantity, questionType, answerType))
@@ -75,8 +75,8 @@ public class QuestionControllerTest {
     public void testGetQuestionsFromLessonInternalServerError() throws Exception {
         List<HashMap<String, Object>> emptyList = Collections.EMPTY_LIST;
 
-        Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName, questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName, questionType, answerType)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType, answerType)).thenReturn(nuggets);
         Mockito.when(questionHandler.chooseNuggetsByProgress(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, quantity, questionType, answerType))
