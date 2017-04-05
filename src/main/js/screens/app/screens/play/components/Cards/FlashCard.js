@@ -1,7 +1,7 @@
 import React from 'react';
 import { Jumbotron, Button, Grid, Row, Col } from 'react-bootstrap';
-import FlashButtonSet from './FlashButtonSet';
-import DisplayQuestion from '../../../shared/DisplayQuestion';
+import FlashButtonSet from '../FlashButtonSet';
+import DisplayQuestion from '../../../../shared/DisplayQuestion';
 
 class FlashCard extends React.Component {
   constructor(props) {

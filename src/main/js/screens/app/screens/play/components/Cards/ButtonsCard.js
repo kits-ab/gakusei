@@ -1,6 +1,6 @@
 import React from 'react';
-import AnswerButtonSet from './AnswerButtonSet';
-import DisplayQuestion from '../../../shared/DisplayQuestion';
+import AnswerButtonSet from '../AnswerButtonSet';
+import DisplayQuestion from '../../../../shared/DisplayQuestion';
 
 class ButtonsCard extends React.Component {
   constructor(props) {

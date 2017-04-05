@@ -57,6 +57,8 @@ export class selectScreen extends React.Component {
         return <h1>Översätt ordet</h1>;
       case 'flashcards':
         return <h1>Bildkort</h1>;
+      case 'write':
+        return <h1>Skriv Kanji</h1>;
       default:
         throw new Error('No play type specified');
     }
@@ -73,6 +75,8 @@ export class selectScreen extends React.Component {
       case 'flashcards':
         return (<span>Träna dig själv genom att använda kort,
         med frågan på ena sidan och rätta svaret på den andra.</span>);
+      case 'write':
+        return (<span>Försök rita kanji-tecken med korrekta drag och i rätt ordning.</span>);
       default:
         throw new Error('No play type specified');
     }

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Grid, Col } from 'react-bootstrap';
-import ButtonsCard from './components/ButtonsCard';
-import FlashCard from './components/FlashCard';
-import TranslateCard from './components/TranslateCard';
+import ButtonsCard from './components/Cards/ButtonsCard';
+import FlashCard from './components/Cards/FlashCard';
+import WriteCard from './components/Cards/WriteCard';
+import TranslateCard from './components/Cards/TranslateCard';
 import LessonStats from './components/LessonStats';
 
 import getCSRF from '../../../../shared/util/getcsrf';
@@ -46,6 +47,19 @@ export class playScreen extends React.Component {
     switch (this.props.params.type) {
       case 'translate':
         playCard = (<TranslateCard
+          question={this.props.processedQuestion}
+          answerType={this.props.answerType}
+          questionType={this.props.questionType}
+          cardType={this.props.params.type}
+          buttonsDisabled={this.props.allButtonsDisabled}
+          clickCallback={this.checkAnswer}
+          correctAlternative={this.props.processedQuestion.correctAlternative}
+          questionAnswered={this.props.currentProcessedQuestionAnswered}
+          questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+        />);
+        break;
+      case 'write':
+        playCard = (<WriteCard
           question={this.props.processedQuestion}
           answerType={this.props.answerType}
           questionType={this.props.questionType}

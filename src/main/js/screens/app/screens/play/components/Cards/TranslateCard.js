@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, Row } from 'react-bootstrap';
-import AnswerButtonSet from './AnswerButtonSet';
-import AnswerTextInput from './AnswerTextInput';
-import DisplayQuestion from '../../../shared/DisplayQuestion';
+import AnswerButtonSet from '../AnswerButtonSet';
+import AnswerTextInput from '../AnswerTextInput';
+import DisplayQuestion from '../../../../shared/DisplayQuestion';
 
 class ButtonsCard extends React.Component {
   render() {
