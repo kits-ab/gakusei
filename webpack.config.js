@@ -36,6 +36,7 @@ module.exports = function () {
   const theConfig = merge.smart(partialConfig, {
     entry: {
       main: [
+        'babel-regenerator-runtime',
         './src/main/js/main.js'
       ] },
     module: {

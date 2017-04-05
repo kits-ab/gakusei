@@ -41,7 +41,7 @@
       // Take the SVG data for the current path, cut off the M at the
       // beginning, and then explode the string into an array, split at
       // the "L" character.  This is the format from Raphael SketchPad
-      splitPath = json[i].path.slice(1).split('L');
+      splitPath = json[i].path.slice(1).split(/[A-z]/);
       paths[i] = [];
       for (j = 0; j < splitPath.length; j++) {
         point = splitPath[j].split(',');
@@ -91,7 +91,7 @@
     if (!parsed) { json = JSON.parse(json); }
     for (i = 0; i < json.length; i++) {
       svgXML += '\n<path fill="none" stroke-opacity="1" stroke="#000000" stroke-linecap="round" stroke-width="5" stroke-linejoin="round" type="path" d="M ';
-      splitPath = json[i].path.slice(1).split('L');
+      splitPath = json[i].path.slice(1).split(/(?=[L])/);
       for (j = 0; j < splitPath.length; j++) {
         point = splitPath[j].split(',');
         svgXML += `${point[0]} ${point[1]} `;
@@ -103,8 +103,8 @@
   };
 
   // shape1 and shape2 should be stringified JSON data from Raphael SketchPad
-  Sketchy.shapeContextMatch = function (shape1, shape2) {
-    let pointsPerShape = 25, // constant... 25 is pretty fast... 50 is probably best
+  Sketchy.shapeContextMatch = function (shape1, shape2, convertToPoints = true) {
+    let pointsPerShape = 50, // constant... 25 is pretty fast... 50 is probably best
       points1,
       points2,
 
@@ -133,6 +133,8 @@
       angleBinNumber2,
       ksum,
       compare,
+      logr,
+      theta,
       i,
       j,
       k,
@@ -141,8 +143,13 @@
     // Scatter points around each of the paths.  The algorithm
     // will only be using these points (as feature descriptors),
     // not the shapes.
-    points1 = Sketchy.scatterPoints(Sketchy.convertSVGtoPointArrays(shape1), pointsPerShape);
-    points2 = Sketchy.scatterPoints(Sketchy.convertSVGtoPointArrays(shape2), pointsPerShape);
+    if(convertToPoints) {
+      points1 = Sketchy.scatterPoints(Sketchy.convertSVGtoPointArrays(shape1), pointsPerShape);
+      points2 = Sketchy.scatterPoints(Sketchy.convertSVGtoPointArrays(shape2), pointsPerShape);
+    } else {
+      points1 = Sketchy.scatterPoints(shape1, pointsPerShape);
+      points2 = Sketchy.scatterPoints(shape2, pointsPerShape);
+    }
 
     // Create a square 2D array and initialize it with 0s in the diagonal
     distanceMatrix1 = [];
@@ -267,8 +274,8 @@
         for (logr = 1; logr <= distanceBinCount; logr++) {
           for (theta = 1; theta <= angleBinCount; theta++) {
             // calculate hik and hjk
-            hik = Sketchy.shapeContextHistogram(i, logr, theta, distanceBins1, angleBins1);
-            hjk = Sketchy.shapeContextHistogram(j, logr, theta, distanceBins2, angleBins2);
+            let hik = Sketchy.shapeContextHistogram(i, logr, theta, distanceBins1, angleBins1);
+            let hjk = Sketchy.shapeContextHistogram(j, logr, theta, distanceBins2, angleBins2);
             compare = (hik + hjk === 0) ? 0 : (Math.pow(hik - hjk, 2) / (hik + hjk));
             ksum += compare;
           }
@@ -356,7 +363,8 @@
       numberOfPointsForPath,
       path,
       point,
-      i;
+      i,
+      j;
 
     // Compute the length of all paths
     lengthNotCovered = 0;

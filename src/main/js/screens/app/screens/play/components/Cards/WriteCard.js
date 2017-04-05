@@ -1,8 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
-import Sketchy from '../../../../../../shared/util/Sketchy';
-
 import DrawArea from '../DrawArea';
 
 const xml2js = require('xml2js');

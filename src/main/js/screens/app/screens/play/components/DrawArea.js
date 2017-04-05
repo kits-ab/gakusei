@@ -4,8 +4,10 @@ eslint-disable no-console
 */
 
 import React from 'react';
-
 import simplify from 'simplify-js';
+import xml2js from 'xml2js';
+
+import Sketchy from '../../../../../shared/util/Sketchy';
 
 export class DrawArea extends React.Component {
   constructor(props) {
@@ -94,7 +96,6 @@ export class DrawArea extends React.Component {
 
   mousemove(event) {
     if (this.state.isDrawing) {
-      console.log('mousemove');
       const coords = this.getMousePos(event);
       this.totalDistance += Math.abs(this.lastSeenAt.x - coords.x) + Math.abs(this.lastSeenAt.y - coords.y);
       this.lastSeenAt = coords;
@@ -153,6 +154,98 @@ export class DrawArea extends React.Component {
     }
   }
 
+  * processData(data) {
+    if (!data) { return; }
+
+    const keys = Object.keys(data);
+    for (let i = 0; i < keys.length; i++) {
+      const val = data[keys[i]];
+
+      if (val && Array.isArray(val)) {
+        yield* this.processData(val);
+      } else if (val && typeof val === 'object') {
+        if (val.$ && val.$.d) {
+          yield val.$.d;
+        }
+
+        if (val.g) {
+          yield* this.processData(val.g);
+        }
+
+        if (val.path) {
+          yield* this.processData(val.path);
+        }
+      }
+    }
+  }
+
+  compare() {
+    fetch('/img/kanji/write.svg')
+      .then(response => response.text())
+      .then((text) => {
+        xml2js.parseString(text, (err, result) => {
+          this.setState({ svg: result });
+
+          const sketchy = Sketchy;
+          const paths = [];
+
+          const it = this.processData(result.svg);
+          let res = it.next();
+
+          while (!res.done) {
+            paths.push({ path: res.value });
+            res = it.next();
+          }
+
+          const convertToSVG = Sketchy.convertPointArraysToSVG([
+            [{ x: 0, y: 20 }, { x: 0, y: 25 }],
+            [{ x: 0, y: 25 }, { x: 0, y: 40 }],
+            [{ x: 0, y: 40 }, { x: 25, y: 100 }]
+          ]);
+
+          const convertResult = Sketchy.convertSVGtoPointArrays(JSON.stringify(paths));
+          // Testing
+          // const convertResult = Sketchy.convertSVGtoPointArrays(JSON.stringify(
+          //   [{
+          //     path: 'M42.5,14.38c4.89,1.83,12.09,6.99,13.31,9.84'
+          //   },
+          //   {
+          //     path: 'M42.5,14.38c4.89,1.83,12.09,6.99,13.31,9.84'
+          //   }]));
+
+          // const convertResult = Sketchy.convertSVGtoPointArrays(JSON.stringify(result.svg));
+
+          const match = Sketchy.shapeContextMatch([convertResult[0]], [
+            this.points
+          ], false);
+
+          console.log(match);
+
+          // Testing
+          // const match = Sketchy.shapeContextMatch([
+          //   [{ x: 0, y: 20 }, { x: 0, y: 25 }],
+          //   [{ x: 0, y: 25 }, { x: 0, y: 40 }],
+          //   [{ x: 0, y: 40 }, { x: 25, y: 100 }]
+          // ], [
+          //   [{ x: 10, y: 20 }, { x: 10, y: 25 }],
+          //   [{ x: 10, y: 25 }, { x: 10, y: 40 }],
+          //   [{ x: 10, y: 40 }, { x: 25, y: 100 }]
+          // ], false);
+        });
+      });
+
+    // const result = Sketchy.shapeContextMatch([
+    //   [{ x: 0, y: 20 }, { x: 0, y: 25 }],
+    //   [{ x: 0, y: 25 }, { x: 0, y: 40 }],
+    //   [{ x: 0, y: 40 }, { x: 25, y: 100 }]
+    // ], [
+    //   [{ x: 10, y: 20 }, { x: 10, y: 25 }],
+    //   [{ x: 10, y: 25 }, { x: 10, y: 40 }],
+    //   [{ x: 10, y: 40 }, { x: 25, y: 100 }]
+    // ], false);
+    // console.log(result);
+  }
+
   render() {
     const canvasStyle = {
       border: '1px solid blue',
@@ -161,7 +254,10 @@ export class DrawArea extends React.Component {
     };
 
     return (
-      <canvas id="drawing" style={canvasStyle} ref={(c) => { this.canvas = c; }} height={this.canvasResolutionHeight} width={this.canvasResolutionWidth} />
+      <div>
+        <canvas id="drawing" style={canvasStyle} ref={(c) => { this.canvas = c; }} height={this.canvasResolutionHeight} width={this.canvasResolutionWidth} />
+        <button onClick={() => { this.compare(); }}>Test</button>
+      </div>
     );
   }
 }
