@@ -39,7 +39,7 @@ class WriteCard extends React.Component {
           <Row>
             <DrawArea />
           </Row>
-          {/*<Row>
+          {/* <Row>
             {this.state && JSON.stringify(this.state.svg)}
           </Row>*/}
         </Col>
@@ -58,7 +58,7 @@ WriteCard.propTypes = {
     actualQuestionShapes: React.PropTypes.arrayOf(React.PropTypes.string),
     randomizedAlternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
     buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    resourceRef: React.PropTypes.string
+    resourceRef: React.PropTypes.any
   }).isRequired,
   buttonsDisabled: React.PropTypes.bool.isRequired,
   answerType: React.PropTypes.string.isRequired,

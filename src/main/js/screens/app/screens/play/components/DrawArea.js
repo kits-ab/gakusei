@@ -1,5 +1,7 @@
-/* globals MouseEvent */
-/* eslint-disable no-console */
+/*
+globals MouseEvent
+eslint-disable no-console
+*/
 
 import React from 'react';
 
@@ -60,7 +62,9 @@ export class DrawArea extends React.Component {
 
     this.updateCanvas();
   }
+
   componentDidUpdate() {
+    this.canvasRect = this.canvas.getBoundingClientRect();
     this.updateCanvas();
   }
 
@@ -69,17 +73,9 @@ export class DrawArea extends React.Component {
   }
 
   getMousePos(e) {
-    const rect = this.canvas.getBoundingClientRect();
-
-    // const computedCanvasWidth = parseInt(window.getComputedStyle(this.canvas).getPropertyValue('width'), 10);
-    // const computedCanvasHeight = parseInt(window.getComputedStyle(this.canvas).getPropertyValue('height'), 10);
-
-    // console.log(`Width Scale is ${(rect.width) / this.canvasResolutionWidth}`);
-    // console.log(`Width Scale is ${(rect.height) / this.canvasResolutionHeight}`);
-
     return {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
+      x: e.clientX - this.canvasRect.left,
+      y: e.clientY - this.canvasRect.top
     };
   }
 
@@ -98,11 +94,12 @@ export class DrawArea extends React.Component {
 
   mousemove(event) {
     if (this.state.isDrawing) {
+      console.log('mousemove');
       const coords = this.getMousePos(event);
       this.totalDistance += Math.abs(this.lastSeenAt.x - coords.x) + Math.abs(this.lastSeenAt.y - coords.y);
       this.lastSeenAt = coords;
 
-      if (this.totalDistance > 10) {
+      if (this.totalDistance > 5) {
         this.totalDistance = 0;
         this.addPoint(coords.x, coords.y);
         this.updateCanvas();
@@ -137,17 +134,22 @@ export class DrawArea extends React.Component {
   updateCanvas() {
     this.clearCanvas();
     const context = this.canvas.getContext('2d');
-    const rect = this.canvas.getBoundingClientRect();
 
     if (this.points && this.points.length > 0) {
       context.beginPath();
       for (let i = 0; i < this.points.length; i++) {
         const lastX = this.points[Math.max(i - 1, 0)].x;
         const lastY = this.points[Math.max(i - 1, 0)].y;
-        context.moveTo(lastX / (rect.height / this.canvasResolutionWidth), lastY / (rect.height / this.canvasResolutionHeight));
-        context.lineTo(this.points[i].x / (rect.height / this.canvasResolutionWidth), this.points[i].y / (rect.height / this.canvasResolutionHeight));
-        context.stroke();
+        context.moveTo(
+          lastX / (this.canvasRect.height / this.canvasResolutionWidth),
+          lastY / (this.canvasRect.height / this.canvasResolutionHeight)
+        );
+        context.lineTo(
+          this.points[i].x / (this.canvasRect.height / this.canvasResolutionWidth),
+          this.points[i].y / (this.canvasRect.height / this.canvasResolutionHeight)
+        );
       }
+      context.stroke();
     }
   }
 
