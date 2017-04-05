@@ -90,7 +90,6 @@ public class LessonController {
                 logger.debug("un:" + n.getId());
             }
             logger.info("Un count for {}: {}", tmpLesson.getName(), unansweredNuggets.size());
-
             HashMap<String, Integer> lessonData = new HashMap<>();
             lessonData.put("unanswered", unansweredNuggets.size());
             lessonData.put("correctlyAnswered", correctlyAnsweredNuggets.size());
