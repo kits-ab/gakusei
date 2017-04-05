@@ -14,7 +14,30 @@ import java.util.List;
 @NamedNativeQueries({
         @NamedNativeQuery(
                 name = "Lesson.findNuggetsByTwoFactTypes",
-                query = "select * from contentschema.nuggets where id in " +
+                query = "select * from contentschema.nuggets n " +
+                        "where n.id in " +
+                        "(select filtered.nugget_id from contentschema.facts " +
+                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
+                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
+                        "on nuggetid = nugget_id " +
+                        "where facts.type IN (:factType1, :factType2) " +
+                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
+                resultClass = Nugget.class),
+        @NamedNativeQuery(
+                name = "Lesson.findKanjiLessNuggetsByFactType",
+                query = "select * from contentschema.nuggets n " +
+                        "where n.type  <> 'kanji' and n.id in " +
+                        "(select filtered.nugget_id from contentschema.facts " +
+                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
+                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
+                        "on nuggetid = nugget_id " +
+                        "where facts.type IN (:factType1, :factType2) " +
+                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
+                resultClass = Nugget.class),
+        @NamedNativeQuery(
+                name = "Lesson.findKanjiNuggetsByFactType",
+                query = "select * from contentschema.nuggets n " +
+                        "where n.type  = 'kanji' and n.id in " +
                         "(select filtered.nugget_id from contentschema.facts " +
                         "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
                         "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +

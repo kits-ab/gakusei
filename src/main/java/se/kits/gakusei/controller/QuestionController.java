@@ -41,7 +41,7 @@ public class QuestionController {
 
         List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName);
         List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName);
-        List<Nugget> allLessonNuggets = lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType,
+        List<Nugget> allLessonNuggets = lessonRepository.findKanjiLessNuggetsByFactType(lessonName, questionType,
                 answerType);
 
         List<Nugget> nuggets = questionHandler.chooseNuggetsByProgress(nuggetsWithLowSuccessrate, unansweredNuggets,
