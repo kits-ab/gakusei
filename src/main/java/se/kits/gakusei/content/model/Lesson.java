@@ -52,6 +52,21 @@ import java.util.List;
                         "on nuggetid = nugget_id " +
                         "where facts.type IN (:factType1, :factType2) " +
                         "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
+                resultClass = Nugget.class),
+        @NamedNativeQuery(
+                name = "Lesson.findCorrectlyAnsweredNuggets",
+                query = "select * from contentschema.nuggets where id in " +
+                        "(select nugget_id from progresstrackinglist where user_ref = :username and correct_count > 0)" +
+                        "and id in " +
+                        "(select nugget_id from contentschema.lessons inner join contentschema.lessons_nuggets on " +
+                        "contentschema.lessons.id=contentschema.lessons_nuggets.lesson_id where name = :lessonName)" +
+                        "and id in " +
+                        "(select filtered.nugget_id from contentschema.facts " +
+                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
+                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
+                        "on nuggetid = nugget_id " +
+                        "where facts.type IN (:factType1, :factType2) " +
+                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
                 resultClass = Nugget.class)
 })
 public class Lesson implements Serializable {
