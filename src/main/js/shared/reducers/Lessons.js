@@ -511,7 +511,7 @@ export function fetchLesson(lessonType) {
     const securityState = getState().security;
 
     return new Promise(resolve => fetch(`${fetchURL}?lessonName=${lessonState.selectedLesson.name}&questionType=${lessonState.questionType}&` +
-      `answerType=${lessonState.answerType}&username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+      `answerType=${lessonState.answerType}&lessonType=${lessonType}&username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
         (json) => {

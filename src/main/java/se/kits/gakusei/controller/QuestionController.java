@@ -35,14 +35,23 @@ public class QuestionController {
     )
     ResponseEntity<List<HashMap<String, Object>>> getQuestionsFromLesson(
             @RequestParam(value = "lessonName") String lessonName,
+            @RequestParam(value = "lessonType", defaultValue = "vocabulary") String lessonType,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType,
             @RequestParam(name = "username") String username) {
 
         List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName);
         List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName);
-        List<Nugget> allLessonNuggets = lessonRepository.findKanjiLessNuggetsByFactType(lessonName, questionType,
-                answerType);
+
+        List<Nugget> allLessonNuggets;
+        if (lessonType.equals("kanji")) {
+            allLessonNuggets = lessonRepository.findKanjiNuggetsByFactType(lessonName, questionType,
+                    answerType);
+
+        } else {
+            allLessonNuggets = lessonRepository.findKanjiLessNuggetsByFactType(lessonName, questionType,
+                    answerType);
+        }
 
         List<Nugget> nuggets = questionHandler.chooseNuggetsByProgress(nuggetsWithLowSuccessrate, unansweredNuggets,
                 allLessonNuggets, quantity);
