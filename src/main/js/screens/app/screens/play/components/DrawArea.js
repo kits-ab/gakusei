@@ -1,13 +1,13 @@
 /*
-globals MouseEvent
+globals MouseEvent SVG
 eslint-disable no-console
 */
 
 import React from 'react';
 import simplify from 'simplify-js';
-import xml2js from 'xml2js';
+import { Row, Col, Button } from 'react-bootstrap';
 
-import Sketchy from '../../../../../shared/util/Sketchy';
+import Geometry from '../../../../../shared/util/Geometry';
 
 export class DrawArea extends React.Component {
   constructor(props) {
@@ -15,15 +15,27 @@ export class DrawArea extends React.Component {
 
     this.handleMouseEvent = this.handleMouseEvent.bind(this);
 
+    // Useful variables, but shouldn't affect component updates
     this.totalDistance = 0;
+    this.distanceThreshhold = 3;
     this.lastSeenAt = { x: null, y: null };
-
     this.canvasResolutionWidth = 600;
     this.canvasResolutionHeight = 600;
 
+    // Defaults
     this.state = {
-      isDrawing: false
+      answerKanjiPaths: [],
+      points: [],
+      comparedPoints: [],
+      isDrawing: false,
+      accuracy: null,
+      totalAccuracy: null,
+      resultColor: 'black'
     };
+  }
+
+  componentWillMount() {
+    this.preparePlaceholderSvg();
   }
 
   componentDidMount() {
@@ -32,6 +44,7 @@ export class DrawArea extends React.Component {
     context.lineCap = 'round';
     context.strokeStyle = '#000000';
     context.lineWidth = 10;
+
     this.canvas.addEventListener('mousedown', this.handleMouseEvent, false);
     this.canvas.addEventListener('mouseup', this.handleMouseEvent, false);
     this.canvas.addEventListener('mousemove', this.handleMouseEvent, false);
@@ -61,17 +74,17 @@ export class DrawArea extends React.Component {
 
       this.canvas.dispatchEvent(mouseEvent);
     }, false);
-
-    this.updateCanvas();
   }
 
   componentDidUpdate() {
+    // In case component has been resized
     this.canvasRect = this.canvas.getBoundingClientRect();
-    this.updateCanvas();
   }
 
   componentWillUnmount() {
-    // TODO: Remove listeners
+    window.removeEventListener('mousedown', this.handleMouseEvent);
+    window.removeEventListener('mouseup', this.handleMouseEvent);
+    window.removeEventListener('mousemove', this.handleMouseEvent);
   }
 
   getMousePos(e) {
@@ -81,31 +94,12 @@ export class DrawArea extends React.Component {
     };
   }
 
-  mousedown() {
-    this.totalDistance = 0;
-    this.points = [];
-    this.setState({ isDrawing: true });
-  }
-
-  mouseup() {
-    if (this.state.isDrawing) {
-      this.simplifyPoints();
-      this.setState({ isDrawing: false });
-    }
-  }
-
-  mousemove(event) {
-    if (this.state.isDrawing) {
-      const coords = this.getMousePos(event);
-      this.totalDistance += Math.abs(this.lastSeenAt.x - coords.x) + Math.abs(this.lastSeenAt.y - coords.y);
-      this.lastSeenAt = coords;
-
-      if (this.totalDistance > 5) {
-        this.totalDistance = 0;
-        this.addPoint(coords.x, coords.y);
-        this.updateCanvas();
-      }
-    }
+  preparePlaceholderSvg() {
+    fetch('/img/kanji/write.svg')
+      .then(response => response.text())
+      .then((text) => {
+        this.svgPointPaths = Geometry.extractPathsFromSVG(text);
+      });
   }
 
   handleMouseEvent(e) {
@@ -114,136 +108,148 @@ export class DrawArea extends React.Component {
     }
   }
 
-  addPoint(xPos, yPos) {
-    this.points.push({ x: xPos, y: yPos });
+  mousedown() {
+    this.totalDistance = 0;
+
+    let comparedPoints = [];
+
+    if (this.state.points.length > 0) {
+      comparedPoints = [...this.state.comparedPoints, this.state.points];
+    }
+
+    this.setState({
+      comparedPoints,
+      points: [],
+      isDrawing: true
+    });
   }
 
-  simplifyPoints() {
-    const newPoints = simplify(this.points, 2, true);
-    this.points = newPoints;
-  }
-
-  clearPoints() {
-    this.points = [];
-  }
-
-  clearCanvas() {
-    const context = this.canvas.getContext('2d');
-    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  }
-
-  updateCanvas() {
-    this.clearCanvas();
-    const context = this.canvas.getContext('2d');
-
-    if (this.points && this.points.length > 0) {
-      context.beginPath();
-      for (let i = 0; i < this.points.length; i++) {
-        const lastX = this.points[Math.max(i - 1, 0)].x;
-        const lastY = this.points[Math.max(i - 1, 0)].y;
-        context.moveTo(
-          lastX / (this.canvasRect.height / this.canvasResolutionWidth),
-          lastY / (this.canvasRect.height / this.canvasResolutionHeight)
-        );
-        context.lineTo(
-          this.points[i].x / (this.canvasRect.height / this.canvasResolutionWidth),
-          this.points[i].y / (this.canvasRect.height / this.canvasResolutionHeight)
-        );
-      }
-      context.stroke();
+  mouseup() {
+    if (this.state.isDrawing) {
+      this.setState({
+        points: simplify(this.state.points, 1, true),
+        isDrawing: false
+      }, this.compare());
     }
   }
 
-  * processData(data) {
-    if (!data) { return; }
+  mousemove(event) {
+    if (this.state.isDrawing) {
+      const coords = this.getMousePos(event);
 
-    const keys = Object.keys(data);
-    for (let i = 0; i < keys.length; i++) {
-      const val = data[keys[i]];
+      this.totalDistance += Math.abs(
+        this.lastSeenAt.x - coords.x) +
+        Math.abs(this.lastSeenAt.y - coords.y
+      );
 
-      if (val && Array.isArray(val)) {
-        yield* this.processData(val);
-      } else if (val && typeof val === 'object') {
-        if (val.$ && val.$.d) {
-          yield val.$.d;
-        }
+      this.lastSeenAt = coords;
 
-        if (val.g) {
-          yield* this.processData(val.g);
-        }
+      if (this.totalDistance > this.distanceThreshhold) {
+        this.totalDistance = 0;
+        this.addPoint(coords.x, coords.y);
+      }
+    }
+  }
 
-        if (val.path) {
-          yield* this.processData(val.path);
-        }
+  addPoint(x, y) {
+    this.setState({ points: [...this.state.points, { x, y }] });
+  }
+
+  drawPoints(points) {
+    const context = this.canvas.getContext('2d');
+    context.beginPath();
+    for (let i = 0; i < points.length; i++) {
+      const lastX = points[Math.max(i - 1, 0)].x;
+      const lastY = points[Math.max(i - 1, 0)].y;
+      context.moveTo(
+          lastX / (this.canvasRect.height / this.canvasResolutionWidth),
+          lastY / (this.canvasRect.height / this.canvasResolutionHeight)
+        );
+      context.lineTo(
+          points[i].x / (this.canvasRect.height / this.canvasResolutionWidth),
+          points[i].y / (this.canvasRect.height / this.canvasResolutionHeight)
+        );
+    }
+    context.stroke();
+  }
+
+  drawPath(path) {
+    for (let i = 0; i < path.length; i++) {
+      this.drawPoints(path[i]);
+    }
+  }
+
+  updateCanvas() {
+    if (this.canvas) {
+      const context = this.canvas.getContext('2d');
+      context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      // context.strokeStyle = this.state.resultColor;
+
+      // Draw the user's current path/line
+      if (this.state.points.length > 0) {
+        this.drawPoints(this.state.points, context);
+      }
+
+      // Then draw the answer lines
+      if (this.state.answerKanjiPaths.length > 0) {
+        this.drawPath(this.state.answerKanjiPaths, context);
+      }
+
+      // Draw old user paths
+      if (this.state.comparedPoints.length > 0) {
+        this.drawPath(this.state.comparedPoints, context);
       }
     }
   }
 
   compare() {
-    fetch('/img/kanji/write.svg')
-      .then(response => response.text())
-      .then((text) => {
-        xml2js.parseString(text, (err, result) => {
-          this.setState({ svg: result });
+    if ((this.state.points && this.state.points.length > 1) && (this.svgPointPaths)) {
+      const match = Geometry.compareShapes([
+        this.svgPointPaths[this.state.answerKanjiPaths.length]
+      ], [
+        this.state.points
+      ]);
 
-          const sketchy = Sketchy;
-          const paths = [];
+      let totalMatch = null;
+      if (this.state.comparedPoints.length > 1) {
+        totalMatch = Geometry.compareShapes([
+          this.svgPointPaths[this.state.answerKanjiPaths.length]
+        ], [
+          this.state.points, ...this.state.comparedPoints
+        ]);
+      } else {
+        totalMatch = match;
+      }
 
-          const it = this.processData(result.svg);
-          let res = it.next();
+      const accuracy = parseFloat(match * 100).toFixed(2);
+      const totalAccuracy = parseFloat(totalMatch * 100).toFixed(2);
 
-          while (!res.done) {
-            paths.push({ path: res.value });
-            res = it.next();
-          }
-
-          const convertToSVG = Sketchy.convertPointArraysToSVG([
-            [{ x: 0, y: 20 }, { x: 0, y: 25 }],
-            [{ x: 0, y: 25 }, { x: 0, y: 40 }],
-            [{ x: 0, y: 40 }, { x: 25, y: 100 }]
-          ]);
-
-          const convertResult = Sketchy.convertSVGtoPointArrays(JSON.stringify(paths));
-          // Testing
-          // const convertResult = Sketchy.convertSVGtoPointArrays(JSON.stringify(
-          //   [{
-          //     path: 'M42.5,14.38c4.89,1.83,12.09,6.99,13.31,9.84'
-          //   },
-          //   {
-          //     path: 'M42.5,14.38c4.89,1.83,12.09,6.99,13.31,9.84'
-          //   }]));
-
-          // const convertResult = Sketchy.convertSVGtoPointArrays(JSON.stringify(result.svg));
-
-          const match = Sketchy.shapeContextMatch([convertResult[0]], [
-            this.points
-          ], false);
-
-          console.log(match);
-
-          // Testing
-          // const match = Sketchy.shapeContextMatch([
-          //   [{ x: 0, y: 20 }, { x: 0, y: 25 }],
-          //   [{ x: 0, y: 25 }, { x: 0, y: 40 }],
-          //   [{ x: 0, y: 40 }, { x: 25, y: 100 }]
-          // ], [
-          //   [{ x: 10, y: 20 }, { x: 10, y: 25 }],
-          //   [{ x: 10, y: 25 }, { x: 10, y: 40 }],
-          //   [{ x: 10, y: 40 }, { x: 25, y: 100 }]
-          // ], false);
-        });
+      // Extend answer paths
+      this.setState({
+        answerKanjiPaths: [
+          ...this.state.answerKanjiPaths,
+          this.svgPointPaths[this.state.answerKanjiPaths.length]
+        ],
+        accuracy,
+        totalAccuracy
       });
 
-    // const result = Sketchy.shapeContextMatch([
-    //   [{ x: 0, y: 20 }, { x: 0, y: 25 }],
-    //   [{ x: 0, y: 25 }, { x: 0, y: 40 }],
-    //   [{ x: 0, y: 40 }, { x: 25, y: 100 }]
-    // ], [
-    //   [{ x: 10, y: 20 }, { x: 10, y: 25 }],
-    //   [{ x: 10, y: 25 }, { x: 10, y: 40 }],
-    //   [{ x: 10, y: 40 }, { x: 25, y: 100 }]
-    // ], false);
-    // console.log(result);
+      let resultColor;
+
+      if (accuracy > 85) {
+        resultColor = 'DarkOliveGreen';
+      } else if (accuracy > 65) {
+        resultColor = 'DarkGoldenRod ';
+      } else if (accuracy > 45) {
+        resultColor = 'Chocolate';
+      } else if (accuracy > 25) {
+        resultColor = 'SaddleBrown';
+      } else if (accuracy >= 0) {
+        resultColor = 'DarkRed';
+      } else {
+        resultColor = 'Black';
+      }
+    }
   }
 
   render() {
@@ -253,12 +259,20 @@ export class DrawArea extends React.Component {
       height: 'auto'
     };
 
+    this.updateCanvas();
+
     return (
       <div>
         <canvas id="drawing" style={canvasStyle} ref={(c) => { this.canvas = c; }} height={this.canvasResolutionHeight} width={this.canvasResolutionWidth} />
-        <button onClick={() => { this.compare(); }}>Test</button>
-      </div>
-    );
+        <Row>
+          <h2>
+            {(this.state.accuracy ? `Accuracy: ${this.state.accuracy}%` : null)}
+          </h2>
+          <h4>
+            {(this.state.accuracy ? `Total Accuracy: ${this.state.totalAccuracy}%` : null)}
+          </h4>
+        </Row>
+      </div>);
   }
 }
 

@@ -41,7 +41,12 @@
       // Take the SVG data for the current path, cut off the M at the
       // beginning, and then explode the string into an array, split at
       // the "L" character.  This is the format from Raphael SketchPad
-      splitPath = json[i].path.slice(1).split(/[A-z]/);
+      let splitPath = null;
+      if(typeof json[i] === 'string') {
+        splitPath = json[i].slice(1).split(/[A-z]/);
+      } else {
+        splitPath = json[i].path.slice(1).split(/[A-z]/);
+      }
       paths[i] = [];
       for (j = 0; j < splitPath.length; j++) {
         point = splitPath[j].split(',');
@@ -103,8 +108,8 @@
   };
 
   // shape1 and shape2 should be stringified JSON data from Raphael SketchPad
-  Sketchy.shapeContextMatch = function (shape1, shape2, convertToPoints = true) {
-    let pointsPerShape = 50, // constant... 25 is pretty fast... 50 is probably best
+  Sketchy.shapeContextMatch = function (shape1, shape2, convertToPoints = true, accuracyPercentage = 10) {
+    let pointsPerShape = parseInt(accuracyPercentage / 2, 10), // constant... 25 is pretty fast... 50 is probably best
       points1,
       points2,
 

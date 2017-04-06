@@ -24,15 +24,18 @@ class WriteCard extends React.Component {
     return (
       <Row>
         <Col xs={10} xsOffset={1} sm={10} smOffset={1}>
-          <Row>
+          {/* <Row>
             <object
               fillOpacity="0.0"
-              width="12%"
-              height="12%"
+              width="50%"
+              height="50%"
               viewBox="-7 -85 534 540"
               type="image/svg+xml"
               data="/img/kanji/write.svg"
             >(SVG Fel)</object>
+          </Row>*/}
+          <Row>
+            Rita ovan objekt
           </Row>
           <Row>
             <DrawArea />
