@@ -34,9 +34,9 @@ class WriteCard extends React.Component {
               data="/img/kanji/write.svg"
             >(SVG Fel)</object>
           </Row>*/}
-          <Row>
+          {/* <Row>
             Rita ovan objekt
-          </Row>
+          </Row>*/}
           <Row>
             <DrawArea />
           </Row>
