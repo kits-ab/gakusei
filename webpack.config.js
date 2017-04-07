@@ -55,13 +55,6 @@ module.exports = function () {
             }
           ]
         },
-      //   {
-      //     test: require.resolve('svg.js'),
-      //     use: 'exports-loader?file,parse=helpers.parse'
-      // // adds below code the file's source:
-      // //  exports["file"] = file;
-      // //  exports["parse"] = helpers.parse;
-      //   },
         {
           test: /\.jsx?$/,
           use: ['babel-loader'],
