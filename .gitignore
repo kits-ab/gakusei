@@ -37,3 +37,6 @@ screenshots/**
 src/main/resources/templates/index.html
 src/main/resources/static/license/frontend_licenses.json
 src/main/resources/static/js/**
+
+# Don't include java log directory
+logs/

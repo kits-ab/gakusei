@@ -76,14 +76,13 @@ public class DataInit implements ApplicationRunner {
     private Set<Map<String, Object>> readTestDataFromFile(String testDataFile) {
                 ObjectMapper mapper = new ObjectMapper();
         Resource resource = resourceLoader.getResource("classpath:" + testDataFile);
-        logger.info("Loaded resource");
+        logger.info("Loaded resource: " + testDataFile);
         try (InputStream json = resource.getInputStream()) {
             Set<Map<String, Object>> dataHolders = mapper.readValue(json,new TypeReference<Set<Map<String, Object>>>(){});
-            logger.info(dataHolders.toString());
+            logger.debug(dataHolders.toString());
             return dataHolders;
         } catch (IOException e) {
-            logger.error("Unable to parse " + testDataFile);
-            e.printStackTrace();
+            logger.error("Unable to parse " + testDataFile, e);
             return null;
         }
     }

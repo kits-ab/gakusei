@@ -15,32 +15,43 @@ import java.util.*;
 @RestController
 public class QuestionController {
 
-    @Autowired
     private LessonRepository lessonRepository;
 
-    @Autowired
     private QuestionHandler questionHandler;
 
     @Value("${gakusei.questions-quantity}")
     private int quantity;
+
+    @Autowired
+    public QuestionController(LessonRepository lessonRepository, QuestionHandler questionHandler) {
+        this.lessonRepository = lessonRepository;
+        this.questionHandler = questionHandler;
+    }
 
     @RequestMapping(
             value = "/api/questions",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    protected ResponseEntity<List<HashMap<String, Object>>> getQuestionsFromLesson(
+    ResponseEntity<List<HashMap<String, Object>>> getQuestionsFromLesson(
             @RequestParam(value = "lessonName") String lessonName,
+            @RequestParam(value = "lessonType", defaultValue = "vocabulary") String lessonType,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType,
             @RequestParam(name = "username") String username) {
 
-        List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName,
-                questionType, answerType);
-        List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName, questionType,
-                answerType);
-        List<Nugget> allLessonNuggets = lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType,
-                answerType);
+        List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName);
+        List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName);
+
+        List<Nugget> allLessonNuggets;
+        if (lessonType.equals("kanji")) {
+            allLessonNuggets = lessonRepository.findKanjiNuggetsByFactType(lessonName, questionType,
+                    answerType);
+
+        } else {
+            allLessonNuggets = lessonRepository.findKanjiLessNuggetsByFactType(lessonName, questionType,
+                    answerType);
+        }
 
         List<Nugget> nuggets = questionHandler.chooseNuggetsByProgress(nuggetsWithLowSuccessrate, unansweredNuggets,
                 allLessonNuggets, quantity);
@@ -49,7 +60,7 @@ public class QuestionController {
                 answerType);
 
         return questions.isEmpty() ?
-                new ResponseEntity<List<HashMap<String, Object>>>(HttpStatus.INTERNAL_SERVER_ERROR) :
-                new ResponseEntity<List<HashMap<String, Object>>>(questions, HttpStatus.OK);
+                new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) :
+                new ResponseEntity<>(questions, HttpStatus.OK);
     }
 }
