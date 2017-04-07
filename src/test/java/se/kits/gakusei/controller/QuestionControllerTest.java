@@ -60,6 +60,8 @@ public class QuestionControllerTest {
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType, answerType)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findKanjiLessNuggetsByFactType(lessonName, questionType, answerType)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findKanjiNuggetsByFactType(lessonName, questionType, answerType)).thenReturn(nuggets);
         Mockito.when(questionHandler.chooseNuggetsByProgress(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, quantity, questionType, answerType))
                 .thenReturn(questionList);
