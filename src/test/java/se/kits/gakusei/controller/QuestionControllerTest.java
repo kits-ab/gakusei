@@ -65,7 +65,7 @@ public class QuestionControllerTest {
                 .thenReturn(questionList);
 
         ResponseEntity<List<HashMap<String, Object>>> re = questionController.getQuestionsFromLesson(lessonName,
-                questionType, answerType, userName);
+                "vocabulary", questionType, answerType, userName);
 
         assertEquals(questionList, re.getBody());
         assertEquals(200, re.getStatusCodeValue());
@@ -83,7 +83,7 @@ public class QuestionControllerTest {
                 .thenReturn(emptyList);
 
         ResponseEntity<List<HashMap<String, Object>>> re = questionController.getQuestionsFromLesson(lessonName,
-                questionType, answerType, userName);
+                "vocabulary", questionType, answerType, userName);
 
         assertNull(re.getBody());
         assertEquals(500, re.getStatusCodeValue());
