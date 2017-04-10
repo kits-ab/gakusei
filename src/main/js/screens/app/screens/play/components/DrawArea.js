@@ -180,7 +180,6 @@ export class DrawArea extends React.Component {
     const context = this.canvas.getContext('2d');
     const bounds = this.canvas.getBoundingClientRect();
     context.beginPath();
-
     for (let i = 0; i < points.length; i++) {
       const lastX = points[Math.max(i - 1, 0)].x;
       const lastY = points[Math.max(i - 1, 0)].y;
@@ -196,7 +195,7 @@ export class DrawArea extends React.Component {
     context.stroke();
   }
 
-  drawObject(path) {
+  drawPath(path) {
     for (let i = 0; i < path.length; i++) {
       this.drawPoints(path[i]);
     }
@@ -210,26 +209,22 @@ export class DrawArea extends React.Component {
 
       // Draw the user's current path/line
       if (this.state.userPoints.length > 0) {
-        if (this.state.userPoints.length > 3) {
-          debugger;
-        }
-
-        this.drawObject(this.state.userPoints, context);
+        this.drawPoints(this.state.userPoints, context);
       }
 
       // Then draw the corner answer lines
       if (this.state.shownAnswerSvgPoints.length > 0) {
-        this.drawObject(this.state.shownAnswerSvgPoints, context);
+        this.drawPath(this.state.shownAnswerSvgPoints, context);
       }
 
       // Then draw the answer lines
       if (this.state.answerSvgPoints.length > 0) {
-        this.drawObject(this.state.answerSvgPoints, context);
+        this.drawPath(this.state.answerSvgPoints, context);
       }
 
       // Draw old user paths
       if (this.state.existingUserPoints.length > 0) {
-        this.drawObject(this.state.existingUserPoints, context);
+        this.drawPath(this.state.existingUserPoints, context);
       }
     }
   }
@@ -272,7 +267,7 @@ export class DrawArea extends React.Component {
 
       // Extend answer paths
       this.setState({
-        answerKanjiPaths: [
+        shownAnswerSvgPoints: [
           ...this.state.shownAnswerSvgPoints,
           this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length]
         ],
