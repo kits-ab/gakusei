@@ -24,10 +24,13 @@ export class DrawArea extends React.Component {
 
     // Defaults
     this.state = {
-      answerKanjiPaths: [],
-      points: [],
-      comparedPoints: [],
+      shownAnswerSvgPoints: [],
+      answerSvgPoints: [],
+      userPoints: [],
+      existingUserPoints: [],
+
       isDrawing: false,
+
       accuracy: null,
       totalAccuracy: null,
       resultColor: 'black'
@@ -77,8 +80,7 @@ export class DrawArea extends React.Component {
   }
 
   componentDidUpdate() {
-    // In case component has been resized
-    this.canvasRect = this.canvas.getBoundingClientRect();
+
   }
 
   componentWillUnmount() {
@@ -88,9 +90,10 @@ export class DrawArea extends React.Component {
   }
 
   getMousePos(e) {
+    const bounds = this.canvas.getBoundingClientRect();
     return {
-      x: e.clientX - this.canvasRect.left,
-      y: e.clientY - this.canvasRect.top
+      x: e.clientX - bounds.left,
+      y: e.clientY - bounds.top
     };
   }
 
@@ -98,8 +101,26 @@ export class DrawArea extends React.Component {
     fetch('/img/kanji/write.svg')
       .then(response => response.text())
       .then((text) => {
-        this.svgPointPaths = Geometry.extractPathsFromSVG(text);
+        this.setState({
+          answerSvgPoints: Geometry.extractPathsFromSVG(text)
+        });
       });
+  }
+
+  prepareAnswerSvg() {
+    if (this.props.question.actualQuestionShapes.length > 0) {
+      const kanjiCharacter = this.props.question.actualQuestionShapes[this.props.question.actualQuestionShapes.length - 1];
+      const kanjiHexCharCode = kanjiCharacter.charCodeAt(0).toString(16);
+      const svgUrl = `/img/kanji/kanjivg/0${kanjiHexCharCode}.svg`;
+
+      fetch(svgUrl)
+        .then(response => response.text())
+        .then((text) => {
+          this.setState({
+            answerSvgPoints: Geometry.extractPathsFromSVG(text)
+          });
+        });
+    }
   }
 
   handleMouseEvent(e) {
@@ -111,15 +132,15 @@ export class DrawArea extends React.Component {
   mousedown() {
     this.totalDistance = 0;
 
-    let comparedPoints = [];
+    let existingUserPoints = [];
 
-    if (this.state.points.length > 0) {
-      comparedPoints = [...this.state.comparedPoints, this.state.points];
+    if (this.state.userPoints.length > 0) {
+      existingUserPoints = [...this.state.existingUserPoints, this.state.userPoints];
     }
 
     this.setState({
-      comparedPoints,
-      points: [],
+      existingUserPoints,
+      userPoints: [],
       isDrawing: true
     });
   }
@@ -127,7 +148,7 @@ export class DrawArea extends React.Component {
   mouseup() {
     if (this.state.isDrawing) {
       this.setState({
-        points: simplify(this.state.points, 1, true),
+        userPoints: simplify(this.state.userPoints, 1, true),
         isDrawing: false
       }, this.compare());
     }
@@ -152,28 +173,30 @@ export class DrawArea extends React.Component {
   }
 
   addPoint(x, y) {
-    this.setState({ points: [...this.state.points, { x, y }] });
+    this.setState({ userPoints: [...this.state.userPoints, { x, y }] });
   }
 
   drawPoints(points) {
     const context = this.canvas.getContext('2d');
+    const bounds = this.canvas.getBoundingClientRect();
     context.beginPath();
+
     for (let i = 0; i < points.length; i++) {
       const lastX = points[Math.max(i - 1, 0)].x;
       const lastY = points[Math.max(i - 1, 0)].y;
       context.moveTo(
-          lastX / (this.canvasRect.height / this.canvasResolutionWidth),
-          lastY / (this.canvasRect.height / this.canvasResolutionHeight)
+          lastX / (bounds.width / this.canvasResolutionWidth),
+          lastY / (bounds.height / this.canvasResolutionHeight)
         );
       context.lineTo(
-          points[i].x / (this.canvasRect.height / this.canvasResolutionWidth),
-          points[i].y / (this.canvasRect.height / this.canvasResolutionHeight)
+          points[i].x / (bounds.width / this.canvasResolutionWidth),
+          points[i].y / (bounds.height / this.canvasResolutionHeight)
         );
     }
     context.stroke();
   }
 
-  drawPath(path) {
+  drawObject(path) {
     for (let i = 0; i < path.length; i++) {
       this.drawPoints(path[i]);
     }
@@ -186,50 +209,59 @@ export class DrawArea extends React.Component {
       // context.strokeStyle = this.state.resultColor;
 
       // Draw the user's current path/line
-      if (this.state.points.length > 0) {
-        this.drawPoints(this.state.points, context);
+      if (this.state.userPoints.length > 0) {
+        if (this.state.userPoints.length > 3) {
+          debugger;
+        }
+
+        this.drawObject(this.state.userPoints, context);
+      }
+
+      // Then draw the corner answer lines
+      if (this.state.shownAnswerSvgPoints.length > 0) {
+        this.drawObject(this.state.shownAnswerSvgPoints, context);
       }
 
       // Then draw the answer lines
-      if (this.state.answerKanjiPaths.length > 0) {
-        this.drawPath(this.state.answerKanjiPaths, context);
+      if (this.state.answerSvgPoints.length > 0) {
+        this.drawObject(this.state.answerSvgPoints, context);
       }
 
       // Draw old user paths
-      if (this.state.comparedPoints.length > 0) {
-        this.drawPath(this.state.comparedPoints, context);
+      if (this.state.existingUserPoints.length > 0) {
+        this.drawObject(this.state.existingUserPoints, context);
       }
     }
   }
 
   compare() {
-    if ((this.state.points && this.state.points.length > 1) && (this.svgPointPaths)) {
+    if ((this.state.userPoints && this.state.userPoints.length > 1) && (this.state.answerSvgPoints)) {
       // Calculate accuracy for this shape
       const match = Geometry.compareShapes([
-        this.svgPointPaths[this.state.answerKanjiPaths.length]
+        this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length]
       ], [
-        this.state.points
+        this.state.userPoints
       ]);
 
       // Calculate accuracy for total shapes
       let totalMatch = null;
-      if (this.state.comparedPoints.length > 1) {
+      if (this.state.existingUserPoints.length > 1) {
         totalMatch = Geometry.compareShapes([
-          this.svgPointPaths[this.state.answerKanjiPaths.length]
+          this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length]
         ], [
-          this.state.points, ...this.state.comparedPoints
+          this.state.userPoints, ...this.state.existingUserPoints
         ]);
       } else {
         totalMatch = match;
       }
 
       // Get starting angle of drawn path
-      const startAngle = Geometry.getAngle(this.state.points[0], this.state.points[this.state.points.length - 1]);
+      const startAngle = Geometry.getAngle(this.state.userPoints[0], this.state.userPoints[this.state.userPoints.length - 1]);
 
       // Get starting angle of correct answer
       const answerStartAngle = Geometry.getAngle(
-        this.svgPointPaths[this.state.answerKanjiPaths.length][0],
-        this.svgPointPaths[this.state.answerKanjiPaths.length][this.svgPointPaths[this.state.answerKanjiPaths.length].length - 1]
+        this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length][0],
+        this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length][this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length].length - 1]
       );
 
       const correctDirection = (answerStartAngle - 90 < startAngle) && (answerStartAngle + 90 > startAngle);
@@ -241,8 +273,8 @@ export class DrawArea extends React.Component {
       // Extend answer paths
       this.setState({
         answerKanjiPaths: [
-          ...this.state.answerKanjiPaths,
-          this.svgPointPaths[this.state.answerKanjiPaths.length]
+          ...this.state.shownAnswerSvgPoints,
+          this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length]
         ],
         accuracy,
         totalAccuracy,
@@ -268,12 +300,6 @@ export class DrawArea extends React.Component {
   }
 
   render() {
-    if (this.props.question.actualQuestionShapes.length > 0) {
-      const kanjiCharacter = this.props.question.actualQuestionShapes[this.props.question.actualQuestionShapes.length - 1];
-      const kanjiHexCharCode = kanjiCharacter.charCodeAt(0).toString(16);
-      const svgUrl = `svg/0${kanjiHexCharCode}.svg`;
-    }
-
     const canvasStyle = {
       border: '1px solid blue',
       width: '100%',
