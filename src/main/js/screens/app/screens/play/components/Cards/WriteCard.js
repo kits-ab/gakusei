@@ -38,7 +38,9 @@ class WriteCard extends React.Component {
             Rita ovan objekt
           </Row>*/}
           <Row>
-            <DrawArea />
+            <DrawArea
+              question={this.props.question}
+            />
           </Row>
           {/* <Row>
             {this.state && JSON.stringify(this.state.svg)}

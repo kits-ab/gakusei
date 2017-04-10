@@ -22,7 +22,8 @@ export class playScreen extends React.Component {
   checkAnswer(answer) {
     this.props.setAllButtonsDisabledState(true);
 
-    this.props.addUserAnswer(answer).catch(() => {
+    this.props.addUserAnswer(answer)
+    .catch(() => {
       this.props.requestUserLogout('/', getCSRF());
       this.props.verifyUserLoggedIn();
     });
@@ -58,7 +59,7 @@ export class playScreen extends React.Component {
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
         />);
         break;
-      case 'write':
+      case 'kanji':
         playCard = (<WriteCard
           question={this.props.processedQuestion}
           answerType={this.props.answerType}

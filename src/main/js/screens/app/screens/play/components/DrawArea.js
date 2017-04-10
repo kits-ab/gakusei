@@ -268,6 +268,12 @@ export class DrawArea extends React.Component {
   }
 
   render() {
+    if (this.props.question.actualQuestionShapes.length > 0) {
+      const kanjiCharacter = this.props.question.actualQuestionShapes[this.props.question.actualQuestionShapes.length - 1];
+      const kanjiHexCharCode = kanjiCharacter.charCodeAt(0).toString(16);
+      const svgUrl = `svg/0${kanjiHexCharCode}.svg`;
+    }
+
     const canvasStyle = {
       border: '1px solid blue',
       width: '100%',

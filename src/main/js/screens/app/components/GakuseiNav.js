@@ -37,8 +37,8 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/select/flashcards">
                   <MenuItem className="flashcardPlay">Bildkort</MenuItem>
                 </LinkContainer>
-                <LinkContainer to="/select/write">
-                  <MenuItem className="writePlay">Skriv Kanji</MenuItem>
+                <LinkContainer to="/select/kanji">
+                  <MenuItem className="kanjiPlay">Skriv Kanji</MenuItem>
                 </LinkContainer>
               </NavDropdown>
               <IndexLinkContainer to="/grammar">

@@ -502,6 +502,9 @@ export function fetchLesson(lessonType) {
       case 'quiz':
         fetchURL = '/api/quiz';
         break;
+      case 'kanji':
+        fetchURL = '/api/questions';
+        break;
       default:
         fetchURL = '/api/questions';
         break;
