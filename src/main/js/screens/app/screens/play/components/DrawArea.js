@@ -17,7 +17,7 @@ export class DrawArea extends React.Component {
 
     // Useful variables, but shouldn't affect component updates
     this.totalDistance = 0;
-    this.distanceThreshhold = 3;
+    this.distanceThreshhold = 5;
     this.lastSeenAt = { x: null, y: null };
     this.canvasResolutionWidth = 600;
     this.canvasResolutionHeight = 600;
@@ -25,7 +25,8 @@ export class DrawArea extends React.Component {
     // Defaults
     this.state = {
       shownAnswerSvgPoints: [],
-      answerSvgPoints: [],
+      answerSvgNumberPoints: [], // The numbers displayed in the kanji svg
+      answerSvgPoints: [], // The kanji svg paths
       userPoints: [],
       existingUserPoints: [],
 
@@ -37,17 +38,18 @@ export class DrawArea extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.preparePlaceholderSvg();
-  }
-
   componentDidMount() {
+    // Get answer svg
+    this.prepareAnswerSvg();
+
+    // Configure graphics
     const context = this.canvas.getContext('2d');
     context.lineJoin = 'round';
     context.lineCap = 'round';
     context.strokeStyle = '#000000';
     context.lineWidth = 10;
 
+    // Add mouse events
     this.canvas.addEventListener('mousedown', this.handleMouseEvent, false);
     this.canvas.addEventListener('mouseup', this.handleMouseEvent, false);
     this.canvas.addEventListener('mousemove', this.handleMouseEvent, false);
@@ -79,10 +81,6 @@ export class DrawArea extends React.Component {
     }, false);
   }
 
-  componentDidUpdate() {
-
-  }
-
   componentWillUnmount() {
     window.removeEventListener('mousedown', this.handleMouseEvent);
     window.removeEventListener('mouseup', this.handleMouseEvent);
@@ -97,18 +95,10 @@ export class DrawArea extends React.Component {
     };
   }
 
-  preparePlaceholderSvg() {
-    fetch('/img/kanji/write.svg')
-      .then(response => response.text())
-      .then((text) => {
-        this.setState({
-          answerSvgPoints: Geometry.extractPathsFromSVG(text)
-        });
-      });
-  }
-
   prepareAnswerSvg() {
     if (this.props.question.actualQuestionShapes.length > 0) {
+      const bounds = this.canvas.getBoundingClientRect();
+
       const kanjiCharacter = this.props.question.actualQuestionShapes[this.props.question.actualQuestionShapes.length - 1];
       const kanjiHexCharCode = kanjiCharacter.charCodeAt(0).toString(16);
       const svgUrl = `/img/kanji/kanjivg/0${kanjiHexCharCode}.svg`;
@@ -116,8 +106,10 @@ export class DrawArea extends React.Component {
       fetch(svgUrl)
         .then(response => response.text())
         .then((text) => {
+          const data = Geometry.extractDataFromSVG(text, bounds.width, bounds.height);
           this.setState({
-            answerSvgPoints: Geometry.extractPathsFromSVG(text)
+            answerSvgPoints: data.paths,
+            answerSvgNumberPoints: data.numbers
           });
         });
     }
@@ -148,7 +140,7 @@ export class DrawArea extends React.Component {
   mouseup() {
     if (this.state.isDrawing) {
       this.setState({
-        userPoints: simplify(this.state.userPoints, 1, true),
+        userPoints: simplify(this.state.userPoints, 2, true),
         isDrawing: false
       }, this.compare());
     }
