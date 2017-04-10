@@ -1,4 +1,4 @@
-import Sketchy from './Sketchy';
+import Sketchy from 'moresketchy';
 
 export default class Geometry {
   static extractPathsFromSVG(svgText, pixelsPerPoint = 1) {
@@ -22,6 +22,10 @@ export default class Geometry {
     }
 
     return pathArray;
+  }
+
+  static getAngle(startPoint, endPoint) {
+    return (Math.atan2(endPoint.y - startPoint.y, endPoint.x - startPoint.x) * 180) / Math.PI;
   }
 
   static compareShapes(pointPath1, pointPath2, convertToPoints = false) {
