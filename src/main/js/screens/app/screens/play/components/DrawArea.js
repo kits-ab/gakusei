@@ -204,12 +204,14 @@ export class DrawArea extends React.Component {
 
   compare() {
     if ((this.state.points && this.state.points.length > 1) && (this.svgPointPaths)) {
+      // Calculate accuracy for this shape
       const match = Geometry.compareShapes([
         this.svgPointPaths[this.state.answerKanjiPaths.length]
       ], [
         this.state.points
       ]);
 
+      // Calculate accuracy for total shapes
       let totalMatch = null;
       if (this.state.comparedPoints.length > 1) {
         totalMatch = Geometry.compareShapes([
@@ -221,6 +223,18 @@ export class DrawArea extends React.Component {
         totalMatch = match;
       }
 
+      // Get starting angle of drawn path
+      const startAngle = Geometry.getAngle(this.state.points[0], this.state.points[this.state.points.length - 1]);
+
+      // Get starting angle of correct answer
+      const answerStartAngle = Geometry.getAngle(
+        this.svgPointPaths[this.state.answerKanjiPaths.length][0],
+        this.svgPointPaths[this.state.answerKanjiPaths.length][this.svgPointPaths[this.state.answerKanjiPaths.length].length - 1]
+      );
+
+      const correctDirection = (answerStartAngle - 90 < startAngle) && (answerStartAngle + 90 > startAngle);
+
+      // Normalize
       const accuracy = parseFloat(match * 100).toFixed(2);
       const totalAccuracy = parseFloat(totalMatch * 100).toFixed(2);
 
@@ -231,24 +245,25 @@ export class DrawArea extends React.Component {
           this.svgPointPaths[this.state.answerKanjiPaths.length]
         ],
         accuracy,
-        totalAccuracy
+        totalAccuracy,
+        correctDirection
       });
 
-      let resultColor;
+      // let resultColor;
 
-      if (accuracy > 85) {
-        resultColor = 'DarkOliveGreen';
-      } else if (accuracy > 65) {
-        resultColor = 'DarkGoldenRod ';
-      } else if (accuracy > 45) {
-        resultColor = 'Chocolate';
-      } else if (accuracy > 25) {
-        resultColor = 'SaddleBrown';
-      } else if (accuracy >= 0) {
-        resultColor = 'DarkRed';
-      } else {
-        resultColor = 'Black';
-      }
+      // if (accuracy > 85) {
+      //   resultColor = 'DarkOliveGreen';
+      // } else if (accuracy > 65) {
+      //   resultColor = 'DarkGoldenRod ';
+      // } else if (accuracy > 45) {
+      //   resultColor = 'Chocolate';
+      // } else if (accuracy > 25) {
+      //   resultColor = 'SaddleBrown';
+      // } else if (accuracy >= 0) {
+      //   resultColor = 'DarkRed';
+      // } else {
+      //   resultColor = 'Black';
+      // }
     }
   }
 
@@ -270,6 +285,9 @@ export class DrawArea extends React.Component {
           </h2>
           <h4>
             {(this.state.accuracy ? `Total Accuracy: ${this.state.totalAccuracy}%` : null)}
+          </h4>
+          <h4>
+            {(this.state.accuracy ? `Correct Starting Position: ${this.state.correctDirection}` : null)}
           </h4>
         </Row>
       </div>);
