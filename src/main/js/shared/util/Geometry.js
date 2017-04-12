@@ -28,13 +28,15 @@ export default class Geometry {
     // Get numbers
     const texts = object.getElementsByTagName('text');
     const numberArray = [];
-    for (let i = 0; i < texts.length; i++) {
-      const matrixData = texts[i].getAttribute('transform').split(' ');
-      const numberValue = parseInt(texts[i].textContent, 10);
-      const x = (parseInt(matrixData[4], 10) / 109) * width;
-      const y = (parseInt(matrixData[5], 10) / 109) * height;
+    for (let k = 0; k < texts.length; k++) {
+      // matrix(1 0 0 1 20.25 13.63)
+      const xyMatches = texts[k].getAttribute('transform')
+      .match(/matrix\([(\d\s)]{8}([^(\s)]*)\s([^(\s)]*)\)/).slice(1);
+      const text = parseInt(texts[k].textContent, 10);
+      const x = parseInt((parseFloat(xyMatches[0]) / 109) * width, 10);
+      const y = parseInt((parseFloat(xyMatches[1]) / 109) * height, 10);
 
-      numberArray.push({ numberValue, x, y });
+      numberArray.push({ text, x, y });
     }
 
     return {
@@ -47,7 +49,7 @@ export default class Geometry {
     return (Math.atan2(endPoint.y - startPoint.y, endPoint.x - startPoint.x) * 180) / Math.PI;
   }
 
-  static compareShapes(pointPath1, pointPath2, convertToPoints = false) {
-    return Sketchy.shapeContextMatch(pointPath1, pointPath2, convertToPoints);
+  static compareShapes(pointPath1, pointPath2, convertToPoints = false, accuracyPercentage = 10) {
+    return Sketchy.shapeContextMatch(pointPath1, pointPath2, convertToPoints, accuracyPercentage);
   }
 }

@@ -9,36 +9,68 @@ import { Row, Col, Button } from 'react-bootstrap';
 
 import Geometry from '../../../../../shared/util/Geometry';
 
-export class DrawArea extends React.Component {
+import Canvas from './Canvas';
+
+export default class DrawArea extends React.Component {
   constructor(props) {
     super(props);
 
     this.handleMouseEvent = this.handleMouseEvent.bind(this);
 
+    /* devcode:start */
+    this.onKeys = function (event) {
+      const keyDown = event.key;
+      if (keyDown === '0') {
+        this.mousedown();
+        setTimeout(() => {
+          this.setState({
+            userAnswer: {
+              ...this.state.userAnswer,
+              draftPoints: this.state.correctAnswer.pathPoints[this.state.userAnswer.existingPoints.length]
+            }
+          }, () => setTimeout(() => { this.mouseup(); }, 100));
+        }, 200);
+      }
+    }.bind(this);
+    /* devcode:end */
+
     // Useful variables, but shouldn't affect component updates
     this.totalDistance = 0;
-    this.distanceThreshhold = 5;
+    this.distanceThreshhold = 2;
     this.lastSeenAt = { x: null, y: null };
     this.canvasResolutionWidth = 600;
     this.canvasResolutionHeight = 600;
 
     // Defaults
     this.state = {
-      shownAnswerSvgPoints: [],
-      answerSvgNumberPoints: [], // The numbers displayed in the kanji svg
-      answerSvgPoints: [], // The kanji svg paths
-      userPoints: [],
-      existingUserPoints: [],
+      // answerSvgNumberPoints: [], // The numbers displayed in the kanji svg
+      // answerSvgPoints: [], // The kanji svg paths
+      // userPoints: [],
+      // existingUserPoints: [],
+
+      correctAnswer: {
+        numberPoints: [], // answerSvgNumberPoints
+        pathPoints: [] // answerSvgPoints
+      },
+
+      userAnswer: {
+        draftPoints: [],
+        existingPoints: []
+      },
 
       isDrawing: false,
 
       accuracy: null,
-      totalAccuracy: null,
-      resultColor: 'black'
+      totalAccuracy: null
     };
   }
 
   componentDidMount() {
+    /* devcode:start */
+    // Cheating is fun!
+    window.addEventListener('keydown', this.onKeys);
+    /* devcode:end */
+
     // Get answer svg
     this.prepareAnswerSvg();
 
@@ -48,6 +80,7 @@ export class DrawArea extends React.Component {
     context.lineCap = 'round';
     context.strokeStyle = '#000000';
     context.lineWidth = 10;
+    context.font = '28px Helvetica Neue,Helvetica,Arial,sans-serif';
 
     // Add mouse events
     this.canvas.addEventListener('mousedown', this.handleMouseEvent, false);
@@ -81,7 +114,17 @@ export class DrawArea extends React.Component {
     }, false);
   }
 
+  componentDidUpdate() {
+    if (!this.state.isDrawing && this.state.userAnswer.draftPoints.length > 0) {
+      // New line has finished drawing
+      this.compare();
+    }
+  }
+
   componentWillUnmount() {
+    /* devcode:start */
+    window.removeEventListener('keydown', this.onKeys);
+    /* devcode:end */
     window.removeEventListener('mousedown', this.handleMouseEvent);
     window.removeEventListener('mouseup', this.handleMouseEvent);
     window.removeEventListener('mousemove', this.handleMouseEvent);
@@ -96,10 +139,11 @@ export class DrawArea extends React.Component {
   }
 
   prepareAnswerSvg() {
-    if (this.props.question.actualQuestionShapes.length > 0) {
+    if (this.props.signToDraw) {
       const bounds = this.canvas.getBoundingClientRect();
 
-      const kanjiCharacter = this.props.question.actualQuestionShapes[this.props.question.actualQuestionShapes.length - 1];
+      // Convert the character to hex charcode
+      const kanjiCharacter = this.props.signToDraw;
       const kanjiHexCharCode = kanjiCharacter.charCodeAt(0).toString(16);
       const svgUrl = `/img/kanji/kanjivg/0${kanjiHexCharCode}.svg`;
 
@@ -108,8 +152,10 @@ export class DrawArea extends React.Component {
         .then((text) => {
           const data = Geometry.extractDataFromSVG(text, bounds.width, bounds.height);
           this.setState({
-            answerSvgPoints: data.paths,
-            answerSvgNumberPoints: data.numbers
+            correctAnswer: {
+              pathPoints: data.paths,
+              numberPoints: data.numbers
+            }
           });
         });
     }
@@ -124,15 +170,7 @@ export class DrawArea extends React.Component {
   mousedown() {
     this.totalDistance = 0;
 
-    let existingUserPoints = [];
-
-    if (this.state.userPoints.length > 0) {
-      existingUserPoints = [...this.state.existingUserPoints, this.state.userPoints];
-    }
-
     this.setState({
-      existingUserPoints,
-      userPoints: [],
       isDrawing: true
     });
   }
@@ -140,9 +178,12 @@ export class DrawArea extends React.Component {
   mouseup() {
     if (this.state.isDrawing) {
       this.setState({
-        userPoints: simplify(this.state.userPoints, 2, true),
+        userAnswer: {
+          ...this.state.userAnswer,
+          existingPoints: [...this.state.userAnswer.existingPoints, simplify(this.state.userAnswer.draftPoints, 2, true)]
+        },
         isDrawing: false
-      }, this.compare());
+      });
     }
   }
 
@@ -165,13 +206,19 @@ export class DrawArea extends React.Component {
   }
 
   addPoint(x, y) {
-    this.setState({ userPoints: [...this.state.userPoints, { x, y }] });
+    this.setState({
+      userAnswer: {
+        ...this.state.userAnswer,
+        draftPoints: [...this.state.userAnswer.draftPoints, { x, y }]
+      }
+    });
   }
 
   drawPoints(points) {
     const context = this.canvas.getContext('2d');
     const bounds = this.canvas.getBoundingClientRect();
     context.beginPath();
+
     for (let i = 0; i < points.length; i++) {
       const lastX = points[Math.max(i - 1, 0)].x;
       const lastY = points[Math.max(i - 1, 0)].y;
@@ -187,9 +234,29 @@ export class DrawArea extends React.Component {
     context.stroke();
   }
 
-  drawPath(path) {
-    for (let i = 0; i < path.length; i++) {
-      this.drawPoints(path[i]);
+  drawTexts(numberPoints) {
+    const context = this.canvas.getContext('2d');
+    const bounds = this.canvas.getBoundingClientRect();
+
+    for (let i = 0; i < numberPoints.length; i++) {
+      let offset = 0;
+      if (this.state.userAnswer.draftPoints.length > 0 && !this.state.isDrawing) {
+        offset = 1;
+      }
+
+      const currentNumber = parseInt(numberPoints[i].text, 10);
+      if (currentNumber === this.state.userAnswer.existingPoints.length + 1 + offset) {
+        context.fillStyle = 'orange';
+      } else if (currentNumber < this.state.userAnswer.existingPoints.length + 1 + offset) {
+        context.fillStyle = 'lightgray';
+      } else {
+        context.fillStyle = 'lightgreen';
+      }
+
+      context.fillText(
+        numberPoints[i].text,
+        numberPoints[i].x / (bounds.width / this.canvasResolutionWidth),
+        numberPoints[i].y / (bounds.width / this.canvasResolutionWidth));
     }
   }
 
@@ -197,92 +264,94 @@ export class DrawArea extends React.Component {
     if (this.canvas) {
       const context = this.canvas.getContext('2d');
       context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      // context.strokeStyle = this.state.resultColor;
 
-      // Draw the user's current path/line
-      if (this.state.userPoints.length > 0) {
-        this.drawPoints(this.state.userPoints, context);
+      // Answer lines
+      for (let i = 0; i < this.state.correctAnswer.pathPoints.length; i++) {
+        if (i >= this.state.userAnswer.existingPoints.length) {
+          context.strokeStyle = 'lightgreen';
+        } else {
+          context.strokeStyle = 'lightgray';
+        }
+        this.drawPoints(this.state.correctAnswer.pathPoints[i]);
       }
 
-      // Then draw the corner answer lines
-      if (this.state.shownAnswerSvgPoints.length > 0) {
-        this.drawPath(this.state.shownAnswerSvgPoints, context);
+      // Existing user paths
+      context.strokeStyle = 'darkgray';
+      for (let i = 0; i < this.state.userAnswer.existingPoints.length; i++) {
+        this.drawPoints(this.state.userAnswer.existingPoints[i]);
       }
 
-      // Then draw the answer lines
-      if (this.state.answerSvgPoints.length > 0) {
-        this.drawPath(this.state.answerSvgPoints, context);
+      // Answer numbers
+      if (this.state.correctAnswer.numberPoints.length > 0) {
+        this.drawTexts(this.state.correctAnswer.numberPoints);
       }
 
-      // Draw old user paths
-      if (this.state.existingUserPoints.length > 0) {
-        this.drawPath(this.state.existingUserPoints, context);
+      // User's current path/line
+      if (this.state.userAnswer.draftPoints.length > 0) {
+        context.strokeStyle = 'black';
+        this.drawPoints(this.state.userAnswer.draftPoints, context);
       }
     }
   }
 
   compare() {
-    if ((this.state.userPoints && this.state.userPoints.length > 1) && (this.state.answerSvgPoints)) {
+    if (!this.isDrawing && this.state.correctAnswer.pathPoints && this.state.userAnswer.draftPoints.length > 0) {
+      const relevantAnswerPoints = this.state.correctAnswer.pathPoints[this.state.userAnswer.existingPoints.length - 1];
+      const latestUserPoints = this.state.userAnswer.existingPoints[this.state.userAnswer.existingPoints.length - 1];
+
+      const lessStrict = 10;
+      const veryStrict = 50;
+
+      const roundIt = (value, decimals) => Number(`${Math.round(`${value}e${decimals}`)}e-${decimals}`);
+
       // Calculate accuracy for this shape
-      const match = Geometry.compareShapes([
-        this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length]
-      ], [
-        this.state.userPoints
-      ]);
+      let match = Geometry.compareShapes([relevantAnswerPoints], [latestUserPoints], undefined, lessStrict);
+      if (match > 0.9) {
+        match = 0.9 + (roundIt(
+          Geometry.compareShapes([relevantAnswerPoints], [latestUserPoints], undefined, veryStrict), 2) - 0.9);
+      }
 
       // Calculate accuracy for total shapes
-      let totalMatch = null;
-      if (this.state.existingUserPoints.length > 1) {
-        totalMatch = Geometry.compareShapes([
-          this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length]
-        ], [
-          this.state.userPoints, ...this.state.existingUserPoints
-        ]);
-      } else {
-        totalMatch = match;
+      let totalMatch = Geometry.compareShapes(
+        this.state.correctAnswer.pathPoints.slice(0, this.state.userAnswer.existingPoints.length),
+        this.state.userAnswer.existingPoints
+        , undefined, lessStrict
+      );
+
+      if (totalMatch > 0.9) {
+        totalMatch = 0.9 + (roundIt(Geometry.compareShapes(
+        this.state.correctAnswer.pathPoints.slice(0, this.state.userAnswer.existingPoints.length),
+        this.state.userAnswer.existingPoints
+        , undefined, veryStrict
+      ), 2) - 0.9);
       }
 
       // Get starting angle of drawn path
-      const startAngle = Geometry.getAngle(this.state.userPoints[0], this.state.userPoints[this.state.userPoints.length - 1]);
+      const startAngle = Geometry
+      .getAngle(latestUserPoints[0], latestUserPoints[latestUserPoints.length - 1]);
 
       // Get starting angle of correct answer
       const answerStartAngle = Geometry.getAngle(
-        this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length][0],
-        this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length][this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length].length - 1]
+        relevantAnswerPoints[0],
+        relevantAnswerPoints[relevantAnswerPoints.length - 1]
       );
 
       const correctDirection = (answerStartAngle - 90 < startAngle) && (answerStartAngle + 90 > startAngle);
 
-      // Normalize
+      // Normalize to percentage values
       const accuracy = parseFloat(match * 100).toFixed(2);
       const totalAccuracy = parseFloat(totalMatch * 100).toFixed(2);
 
       // Extend answer paths
       this.setState({
-        shownAnswerSvgPoints: [
-          ...this.state.shownAnswerSvgPoints,
-          this.state.answerSvgPoints[this.state.shownAnswerSvgPoints.length]
-        ],
+        userAnswer: {
+          ...this.state.userAnswer,
+          draftPoints: []
+        },
         accuracy,
         totalAccuracy,
         correctDirection
       });
-
-      // let resultColor;
-
-      // if (accuracy > 85) {
-      //   resultColor = 'DarkOliveGreen';
-      // } else if (accuracy > 65) {
-      //   resultColor = 'DarkGoldenRod ';
-      // } else if (accuracy > 45) {
-      //   resultColor = 'Chocolate';
-      // } else if (accuracy > 25) {
-      //   resultColor = 'SaddleBrown';
-      // } else if (accuracy >= 0) {
-      //   resultColor = 'DarkRed';
-      // } else {
-      //   resultColor = 'Black';
-      // }
     }
   }
 
@@ -297,7 +366,7 @@ export class DrawArea extends React.Component {
 
     return (
       <div>
-        <canvas id="drawing" style={canvasStyle} ref={(c) => { this.canvas = c; }} height={this.canvasResolutionHeight} width={this.canvasResolutionWidth} />
+        <Canvas id="drawing" style={canvasStyle} ref={(c) => { this.canvas = c; }} height={this.canvasResolutionHeight} width={this.canvasResolutionWidth} />
         <Row>
           <h2>
             {(this.state.accuracy ? `Accuracy: ${this.state.accuracy}%` : null)}
@@ -312,5 +381,3 @@ export class DrawArea extends React.Component {
       </div>);
   }
 }
-
-export default DrawArea;
