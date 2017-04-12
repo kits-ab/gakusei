@@ -46,8 +46,8 @@ class FlashCard extends React.Component {
               <figure className="front">
                 <DisplayQuestion
                   style={{ verticalAlign: 'center' }}
-                  primaryText={this.props.question.actualQuestionShapes[0]}
-                  secondaryText={this.props.question.actualQuestionShapes[1] || null}
+                  primaryText={this.props.question.shapes[0]}
+                  secondaryText={this.props.question.shapes[1] || null}
                   resourceRef={this.props.question.resourceRef}
                   japaneseCharacters={this.props.questionType === 'reading' && this.props.cardType !== 'quiz'}
                   showSpeechButton
@@ -98,7 +98,7 @@ FlashCard.defaultProps = {
 FlashCard.propTypes = {
   question: React.PropTypes.shape({
     correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string),
-    actualQuestionShapes: React.PropTypes.arrayOf(React.PropTypes.string),
+    shapes: React.PropTypes.arrayOf(React.PropTypes.string),
     randomizedAlternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
     buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
     resourceRef: React.PropTypes.string

@@ -19,10 +19,10 @@ export class playScreen extends React.Component {
     this.checkAnswer = this.checkAnswer.bind(this);
   }
 
-  checkAnswer(answer) {
+  checkAnswer(answer, cardData) {
     this.props.setAllButtonsDisabledState(true);
 
-    this.props.addUserAnswer(answer)
+    this.props.addUserAnswer(answer, cardData)
     .catch(() => {
       this.props.requestUserLogout('/', getCSRF());
       this.props.verifyUserLoggedIn();
@@ -48,39 +48,39 @@ export class playScreen extends React.Component {
     switch (this.props.params.type) {
       case 'translate':
         playCard = (<TranslateCard
-          question={this.props.processedQuestion}
+          question={this.props.currentQuestion}
           answerType={this.props.answerType}
           questionType={this.props.questionType}
           cardType={this.props.params.type}
           buttonsDisabled={this.props.allButtonsDisabled}
           clickCallback={this.checkAnswer}
-          correctAlternative={this.props.processedQuestion.correctAlternative}
+          correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
         />);
         break;
       case 'kanji':
         playCard = (<WriteCard
-          question={this.props.processedQuestion}
+          question={this.props.currentQuestion}
           answerType={this.props.answerType}
           questionType={this.props.questionType}
           cardType={this.props.params.type}
           buttonsDisabled={this.props.allButtonsDisabled}
           clickCallback={this.checkAnswer}
-          correctAlternative={this.props.processedQuestion.correctAlternative}
+          correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
         />);
         break;
       case 'flashcards':
         playCard = (<FlashCard
-          question={this.props.processedQuestion}
+          question={this.props.currentQuestion}
           answerType={this.props.answerType}
           questionType={this.props.questionType}
           cardType={this.props.params.type}
           buttonsDisabled={this.props.allButtonsDisabled}
           clickCallback={this.checkAnswer}
-          correctAlternative={this.props.processedQuestion.correctAlternative}
+          correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
         />);
@@ -89,13 +89,13 @@ export class playScreen extends React.Component {
       case 'quiz':
       default:
         playCard = (<ButtonsCard
-          question={this.props.processedQuestion}
+          question={this.props.currentQuestion}
           answerType={this.props.answerType}
           questionType={this.props.questionType}
           cardType={this.props.params.type}
           buttonsDisabled={this.props.allButtonsDisabled}
           clickCallback={this.checkAnswer}
-          correctAlternative={this.props.processedQuestion.correctAlternative}
+          correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
         />);

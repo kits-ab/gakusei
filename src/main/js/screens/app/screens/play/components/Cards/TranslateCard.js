@@ -9,8 +9,8 @@ class ButtonsCard extends React.Component {
     return (
       <div>
         <DisplayQuestion
-          primaryText={this.props.question.actualQuestionShapes[0]}
-          secondaryText={this.props.question.actualQuestionShapes[1] || null}
+          primaryText={this.props.question.shapes[0]}
+          secondaryText={this.props.question.shapes[1] || null}
           resourceRef={this.props.question.resourceRef}
           japaneseCharacters={this.props.questionType === 'reading' && this.props.cardType !== 'quiz'}
           showSpeechButton
@@ -34,7 +34,7 @@ ButtonsCard.defaultProps = {
 
 ButtonsCard.propTypes = {
   question: React.PropTypes.shape({
-    actualQuestionShapes: React.PropTypes.arrayOf(React.PropTypes.string),
+    shapes: React.PropTypes.arrayOf(React.PropTypes.string),
     randomizedAlternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
     buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
     resourceRef: React.PropTypes.string
