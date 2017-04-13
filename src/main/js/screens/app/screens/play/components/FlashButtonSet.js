@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
 
 export default class FlashButtonSet extends React.Component {
@@ -64,7 +64,6 @@ FlashButtonSet.defaultProps = {
 
 FlashButtonSet.propTypes = {
   correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   buttonsDisabled: React.PropTypes.bool.isRequired,
   answerType: React.PropTypes.string.isRequired,
   clickCallback: React.PropTypes.func.isRequired

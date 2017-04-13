@@ -70,11 +70,6 @@ module.exports = function () {
           use: ['style-loader', 'css-loader'],
           exclude: /(node_modules|bower_components|\.spec\.js)/
         }
-        // {
-        //   test: /\.xml$/,
-        //   use: ['xml-loader'],
-        //   exclude: /(node_modules|bower_components|\.spec\.js)/
-        // }
       ]
     },
     plugins: [
@@ -107,6 +102,5 @@ module.exports = function () {
     }));
   }
 
-  console.log(theConfig.module.rules[0]);
   return theConfig;
 };

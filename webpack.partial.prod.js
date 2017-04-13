@@ -10,6 +10,7 @@ module.exports = {
     filename: '[name].[chunkhash].bundle.js',
     path: path.resolve(__dirname, 'src/main/resources/static/js')
   },
+  stats: 'errors-only',
   module: {
     rules: [
       {
