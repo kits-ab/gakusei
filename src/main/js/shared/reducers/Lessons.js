@@ -188,7 +188,7 @@ export function calcAnswerButtonStyles() {
       words.map((word) => {
         if (state.currentQuestion.correctAlternative.indexOf(word) !== -1) {
           return 'success';
-        } else if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
+        } else if (!userAnswerWord || word.toLowerCase() === userAnswerWord.toLowerCase()) {
           return 'danger';
         }
         return 'default';
@@ -216,20 +216,20 @@ export function addUserAnswer(userAnswerText, cardData) {
     const securityState = getState().security;
 
     let userAnswerTextFinalized = userAnswerText;
+    let userCorrectFinalized = null;
     if (typeof userAnswerText === 'boolean') {
-      if (userAnswerText) {
-        userAnswerTextFinalized = state.currentQuestion.correctAlternative[0];
-      } else {
-        userAnswerTextFinalized = '';
-      }
+      userAnswerTextFinalized = null;
+      userCorrectFinalized = userAnswerText;
+    } else {
+      userCorrectFinalized = state.currentQuestion.correctAlternative
+      .some(s => s.toLowerCase() === userAnswerTextFinalized.toLowerCase());
     }
 
     const answeredQuestion = {
       ...state.currentQuestion,
       cardData,
       userAnswer: userAnswerTextFinalized,
-      userCorrect: userAnswerText === true || state.currentQuestion.correctAlternative
-      .some(s => s.toLowerCase() === userAnswerTextFinalized.toLowerCase())
+      userCorrect: userCorrectFinalized
     };
 
     if (answeredQuestion.userCorrect) {
@@ -664,7 +664,7 @@ export function lessons(state = defaultState, action) {
     case ADD_USER_ANSWER:
       return {
         ...state,
-        answeredQuestions: [...state.answeredQuestions, action.processedQuestionWithAnswer]
+        answeredQuestions: [...state.answeredQuestions, action.answeredQuestion]
       };
     case CLEAR_USER_ANSWERS:
       return {

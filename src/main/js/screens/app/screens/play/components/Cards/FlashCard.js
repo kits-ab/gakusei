@@ -1,5 +1,5 @@
 import React from 'react';
-import { Jumbotron, Button, Grid, Row, Col } from 'react-bootstrap';
+import { Jumbotron, Button, Row, Col } from 'react-bootstrap';
 import FlashButtonSet from '../FlashButtonSet';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 
@@ -109,8 +109,8 @@ FlashCard.propTypes = {
   clickCallback: React.PropTypes.func.isRequired,
   cardType: React.PropTypes.string.isRequired,
   correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  questionAnswered: React.PropTypes.bool.isRequired,
-  questionAnsweredCorrectly: React.PropTypes.bool.isRequired
+  /* eslint-disable react/no-unused-prop-types */
+  questionAnswered: React.PropTypes.bool.isRequired
 };
 
 export default FlashCard;

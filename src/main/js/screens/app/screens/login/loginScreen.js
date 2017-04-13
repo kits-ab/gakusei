@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import React from 'react';
 import { Button, Col, Row, Grid, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 

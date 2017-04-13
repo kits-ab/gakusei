@@ -1,8 +1,8 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
-import Geometry from '../../../../../../shared/util/Geometry';
 import DrawArea from '../DrawArea';
+import DisplayQuestion from '../../../../shared/DisplayQuestion';
 
 class WriteCard extends React.Component {
   constructor(props) {
@@ -10,102 +10,140 @@ class WriteCard extends React.Component {
 
     this.onMatch = this.onMatch.bind(this);
 
-    this.state = {
-      matchRecords: {
-        percentage: [],
-        wording: [],
-        scoreLevel: []
+    this.accuracyLevels =
+    [
+      {
+        level: 1,
+        minPercent: 0,
+        maxPercent: 15,
+        acceptable: false,
+        wording: 'inte alls bra'
       },
-      totalMatchRecords: {
-        percentage: [],
-        wording: [],
-        scoreLevel: []
+      {
+        level: 2,
+        minPercent: 15,
+        maxPercent: 40,
+        acceptable: false,
+        wording: 'inte så bra'
+      },
+      {
+        level: 3,
+        minPercent: 40,
+        maxPercent: 60,
+        acceptable: true,
+        wording: 'OK'
+      },
+      {
+        level: 4,
+        minPercent: 60,
+        maxPercent: 90,
+        acceptable: true,
+        wording: 'bra'
+      },
+      {
+        level: 5,
+        minPercent: 90,
+        maxPercent: 95,
+        acceptable: true,
+        wording: 'väldigt bra'
+      },
+      {
+        level: 6,
+        minPercent: 95,
+        maxPercent: 100,
+        acceptable: true,
+        wording: 'perfekt'
       }
+    ];
+
+    this.defaultState = {
+      matchingDone: false,
+      matches: []
     };
+
+    this.state = this.defaultState;
   }
 
-// accuracyLevels={
-//               [
-//                 {
-//                   level: 1,
-//                   minPercent: 0,
-//                   maxPercent: 15,
-//                   acceptable: false,
-//                   wording: 'Inte ens nära'
-//                 },
-//                 {
-//                   level: 2,
-//                   minPercent: 15,
-//                   maxPercent: 40,
-//                   acceptable: false,
-//                   wording: 'Ej godkänt'
-//                 },
-//                 {
-//                   level: 3,
-//                   minPercent: 40,
-//                   maxPercent: 60,
-//                   wording: 'OK'
-//                 },
-//                 {
-//                   level: 4,
-//                   minPercent: 60,
-//                   maxPercent: 80,
-//                   wording: 'Bra'
-//                 },
-//                 {
-//                   level: 5,
-//                   minPercent: 80,
-//                   maxPercent: 90,
-//                   wording: 'Mycket Bra'
-//                 },
-//                 {
-//                   level: 6,
-//                   minPercent: 90,
-//                   maxPercent: 100,
-//                   wording: 'Perfekt'
-//                 }
-//               ]}
+  componentWillReceiveProps(nextProps) {
+    const lastShapeIndex = this.props.question.shapes.length - 1;
 
-  onMatch(data) {
-    // lineIndex: newestUserPointIndex,
-    // accuracy,
-    // totalAccuracy,
-    // correctDirection
-    this.state = {
-      matchRecords: {
-        percentage: [],
-        wording: [],
-        scoreLevel: []
-      },
-      totalMatchRecords: {
-        percentage: [],
-        wording: [],
-        scoreLevel: []
+    if (nextProps.question.shapes[lastShapeIndex] !== this.props.question.shapes[lastShapeIndex]) {
+      // New sign to draw!
+      this.setState(this.defaultState);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.matchingDone && this.state.matchingDone) {
+      // Only call this when we have the entire sign
+      const passed = this.state.matches.every(matchObj => matchObj.match.userCorrect);
+
+      this.props.clickCallback(passed, this.state.matches);
+    }
+  }
+
+  onMatch(match) {
+    // Check if this line-match has been recorded already
+    if (typeof this.state.matches[match.lineIndex] === 'undefined') {
+      let accuracyLevel;
+      let totalAccuracyLevel;
+
+      for (let i = 0; i < this.accuracyLevels.length; i++) {
+        if (this.accuracyLevels[i].minPercent <= match.accuracy &&
+        this.accuracyLevels[i].maxPercent >= match.accuracy) {
+          accuracyLevel = this.accuracyLevels[i];
+        }
+
+        if (this.accuracyLevels[i].minPercent <= match.totalAccuracy &&
+        this.accuracyLevels[i].maxPercent >= match.totalAccuracy) {
+          totalAccuracyLevel = this.accuracyLevels[i];
+        }
       }
-    };
+
+      this.setState({
+        matchingDone: match.linesLeft === 0,
+        matches: [
+          ...this.state.matches, {
+            match: {
+              percentage: match.accuracy,
+              userCorrectDirection: match.userCorrectDirection,
+              wording: accuracyLevel.wording,
+              scoreLevel: accuracyLevel.level,
+              userCorrectDrawStyle: accuracyLevel.acceptable,
+              userCorrect: accuracyLevel.acceptable && match.userCorrectDirection
+            },
+            totalMatch: {
+              percentage: match.totalAccuracy,
+              wording: totalAccuracyLevel.wording,
+              scoreLevel: totalAccuracyLevel.level,
+              userCorrect: accuracyLevel.acceptable
+            }
+          }]
+      });
+
+      // No button to end voluntarily for now (should be the only option in harder modes)
+    }
   }
 
   render() {
     return (
       <Row>
         <Col xs={10} xsOffset={1} sm={10} smOffset={1}>
-          {/* <Row>
-            <object
-              fillOpacity="0.0"
-              width="50%"
-              height="50%"
-              viewBox="-7 -85 534 540"
-              type="image/svg+xml"
-              data="/img/kanji/write.svg"
-            >(SVG Fel)</object>
-          </Row>*/}
-          {/* <Row>
-            Rita ovan objekt
-          </Row>*/}
+          <Row>
+            <DisplayQuestion
+              style={{ verticalAlign: 'center' }}
+              primaryText={this.props.question.shapes[0]}
+              secondaryText={this.props.question.shapes[1] || null}
+              japaneseCharacters={false}
+            />
+          </Row>
           <Row>
             <DrawArea
-              signToDraw={this.props.question.shapes[this.props.question.shapes.length - 1]}
+              signToDraw={this.props.question.correctAlternative[this.props.question.correctAlternative.length - 1]}
               newMatch={this.onMatch}
+              matches={this.state.matches}
+              highlightErrors={this.state.matchingDone}
+              buttonsDisabled={this.props.buttonsDisabled}
             />
           </Row>
         </Col>
@@ -127,13 +165,8 @@ WriteCard.propTypes = {
     resourceRef: React.PropTypes.any
   }).isRequired,
   buttonsDisabled: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired,
-  questionType: React.PropTypes.string.isRequired,
   clickCallback: React.PropTypes.func.isRequired,
-  cardType: React.PropTypes.string.isRequired,
-  correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  questionAnswered: React.PropTypes.bool.isRequired,
-  questionAnsweredCorrectly: React.PropTypes.bool.isRequired
+  correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
 };
 
 export default WriteCard;

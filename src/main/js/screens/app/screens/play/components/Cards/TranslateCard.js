@@ -1,6 +1,4 @@
 import React from 'react';
-import { Grid, Row } from 'react-bootstrap';
-import AnswerButtonSet from '../AnswerButtonSet';
 import AnswerTextInput from '../AnswerTextInput';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 
@@ -40,7 +38,6 @@ ButtonsCard.propTypes = {
     resourceRef: React.PropTypes.string
   }).isRequired,
   buttonsDisabled: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired,
   questionType: React.PropTypes.string.isRequired,
   clickCallback: React.PropTypes.func.isRequired,
   cardType: React.PropTypes.string.isRequired,

@@ -66,15 +66,14 @@ ButtonsCard.propTypes = {
     resourceRef: React.PropTypes.shape({
       type: React.PropTypes.string.isRequired,
       location: React.PropTypes.string.isRequired
-    })
+    }),
+    correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string)
   }).isRequired,
   buttonsDisabled: React.PropTypes.bool.isRequired,
   answerType: React.PropTypes.string.isRequired,
   questionType: React.PropTypes.string.isRequired,
   clickCallback: React.PropTypes.func.isRequired,
-  cardType: React.PropTypes.string.isRequired,
-  questionAnswered: React.PropTypes.bool.isRequired,
-  questionAnsweredCorrectly: React.PropTypes.bool.isRequired
+  cardType: React.PropTypes.string.isRequired
 };
 
 export default ButtonsCard;

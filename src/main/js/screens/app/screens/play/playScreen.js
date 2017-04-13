@@ -19,6 +19,17 @@ export class playScreen extends React.Component {
     this.checkAnswer = this.checkAnswer.bind(this);
   }
 
+  componentDidMount() {
+    // Kick user out if data is missing
+    if (!this.props.questions || this.props.questions.length === 0) {
+      if (this.props.params.type) {
+        this.props.setPageByName(`/select/${this.props.params.type}`);
+      } else {
+        this.props.setPageByName('/home');
+      }
+    }
+  }
+
   checkAnswer(answer, cardData) {
     this.props.setAllButtonsDisabledState(true);
 
@@ -37,7 +48,7 @@ export class playScreen extends React.Component {
     } else {
       setTimeout(
         () => {
-          this.props.setPageByName(`finish/${this.props.params.type}`);
+          this.props.setPageByName(`/finish/${this.props.params.type}`);
         }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
     }
   }
@@ -107,12 +118,17 @@ export class playScreen extends React.Component {
         <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
           {playCard}
           <br />
-          <br />
           <LessonStats
             currentQuestionNumber={this.props.currentQuestionIndex + 1}
             totalQuestionsNumber={this.props.lessonLength}
             correctAttempts={this.props.correctAttempts}
             lessonSuccessRateMessage={this.props.lessonSuccessRateMessage}
+            feedbackItems={this.props.answeredQuestions.map(answeredQuestion => ({
+              correct: answeredQuestion.userCorrect,
+              errorCount: answeredQuestion.cardData.filter(line => !line.match.userCorrect).length,
+              text: answeredQuestion.cardData[answeredQuestion.cardData.length - 1]
+                      .totalMatch.wording
+            }))}
           />
         </Col>
       </Grid>

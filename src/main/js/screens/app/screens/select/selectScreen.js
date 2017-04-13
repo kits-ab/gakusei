@@ -23,6 +23,10 @@ export class selectScreen extends React.Component {
 
     this.props.fetchUserStarredLessons()
       .catch(() => this.props.verifyUserLoggedIn());
+
+    if (this.props.params.type === 'kanji') {
+      this.props.setAnswerLanguage('reading');
+    }
   }
 
   componentDidMount() {
@@ -136,15 +140,19 @@ export class selectScreen extends React.Component {
         </Col>
       </Row>);
 
-    const languages = [];
-    languages.push(
-      <option key={'reading'} value={'reading'}>Japanska</option>,
-      <option key={'swedish'} value={'swedish'}>Svenska</option>
-    );
-
+    const answerLanguages = [];
+    let questionLanguages = [];
+    answerLanguages.push(<option key={'reading'} value={'reading'}>Japanska</option>);
+    answerLanguages.push(<option key={'swedish'} value={'swedish'}>Svenska</option>);
     /* devcode: start */
-    languages.push(<option key={'english'} value={'english'}>Engelska</option>);
+    answerLanguages.push(<option key={'english'} value={'english'}>Engelska</option>);
     /* devcode: end */
+
+    if (this.props.params.type === 'kanji') {
+      questionLanguages = answerLanguages.shift();
+    } else {
+      questionLanguages = answerLanguages;
+    }
 
     let languageSelection;
     if (this.props.params.type === 'quiz') {
@@ -161,8 +169,9 @@ export class selectScreen extends React.Component {
                 id="questionLanguageSelection"
                 onChange={this.handleLanguageSelection}
                 value={this.props.questionType}
+                disabled={this.props.params.type === 'kanji'}
               >
-                {languages}
+                {questionLanguages}
               </FormControl>
             </Col>
             <Col xs={12} sm={6}>
@@ -174,7 +183,7 @@ export class selectScreen extends React.Component {
                 onChange={this.handleLanguageSelection}
                 value={this.props.answerType}
               >
-                {languages}
+                {answerLanguages}
               </FormControl>
 
             </Col>
