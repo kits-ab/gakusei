@@ -95,11 +95,11 @@ export default class DrawArea extends React.Component {
           existingPoints: this.state.userAnswer.existingPoints
         },
         action(canvas, data) {
-          let lineColor = 'LightGreen';
+          let lineColor = 'LightGray';
 
           for (let i = 0; i < data.answerPoints.length; i++) {
             if (i >= data.existingPoints.length) {
-              lineColor = 'LightGreen';
+              lineColor = 'LightGray';
             } else {
               lineColor = 'LightGray';
             }
