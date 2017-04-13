@@ -504,7 +504,7 @@ export function fetchLessons(type) {
 export function fetchaddressedQuestionsInLessons() {
   return function (dispatch, getState) {
     const securityState = getState().security;
-    return fetch(`api/lessonInfo?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+    return fetch(`/api/lessonInfo?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(result => dispatch(setAddressedQuestions(result)));
   };
@@ -587,7 +587,7 @@ export function fetchUserSuccessRate(username) {
   return function (dispatch) {
     dispatch(requestUserSuccessRate());
 
-    fetch(`api/statistics/${username}`, { credentials: 'same-origin' })
+    fetch(`/api/statistics/${username}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(data => dispatch(receiveUserSuccessRate(data, 'success', data)));
   };
