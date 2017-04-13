@@ -2,6 +2,7 @@ package se.kits.gakusei.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,27 +41,39 @@ public class QuestionController {
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType,
             @RequestParam(name = "username") String username) {
 
+        List<HashMap<String, Object>> questions = getCachedQuestionsFromLesson(lessonName, lessonType, questionType, answerType, username);
+
+        return questions.isEmpty() ?
+                new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) :
+                new ResponseEntity<>(questions, HttpStatus.OK);
+    }
+
+    private List<HashMap<String, Object>> getCachedQuestionsFromLesson(String lessonName, String lessonType, String questionType, String answerType, String username) {
         List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName);
         List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName);
 
         List<Nugget> allLessonNuggets;
         if (lessonType.equals("kanji")) {
-            allLessonNuggets = lessonRepository.findKanjiNuggetsByFactType(lessonName, questionType,
-                    answerType);
+            allLessonNuggets = cachedFindKanjiNuggetsByFactType(lessonName, questionType, answerType);
 
         } else {
-            allLessonNuggets = lessonRepository.findKanjiLessNuggetsByFactType(lessonName, questionType,
-                    answerType);
+            allLessonNuggets = cachedFindKanjiLessNuggetsByFactType(lessonName, questionType, answerType);
         }
 
         List<Nugget> nuggets = questionHandler.chooseNuggetsByProgress(nuggetsWithLowSuccessrate, unansweredNuggets,
                 allLessonNuggets, quantity);
 
-        List<HashMap<String, Object>> questions = questionHandler.createQuestions(nuggets, quantity, questionType,
+        return questionHandler.createQuestions(nuggets, quantity, questionType,
                 answerType);
+    }
 
-        return questions.isEmpty() ?
-                new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) :
-                new ResponseEntity<>(questions, HttpStatus.OK);
+    @Cacheable("kanjiNuggets")
+    public List<Nugget> cachedFindKanjiNuggetsByFactType(String lessonName, String questionType, String answerType) {
+        return lessonRepository.findKanjiNuggetsByFactType(lessonName, questionType, answerType);
+    }
+
+    @Cacheable("otherNuggets")
+    public List<Nugget> cachedFindKanjiLessNuggetsByFactType(String lessonName, String questionType, String answerType) {
+        return lessonRepository.findKanjiLessNuggetsByFactType(lessonName, questionType, answerType);
     }
 }

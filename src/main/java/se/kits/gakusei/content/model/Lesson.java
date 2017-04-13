@@ -15,7 +15,7 @@ import java.util.List;
         @NamedNativeQuery(
                 name = "Lesson.findNuggetsByTwoFactTypes",
                 query = "select * from contentschema.nuggets n " +
-                        "where n.id in " +
+                        "where n.hidden = FALSE AND n.id in " +
                         "(select filtered.nugget_id from contentschema.facts " +
                         "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
                         "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
@@ -93,7 +93,7 @@ public class Lesson implements Serializable {
     private List<Nugget> nuggets;
 
     @JsonBackReference
-    @OneToMany(mappedBy="lesson", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="lesson", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<UserLesson> userLessons;
 

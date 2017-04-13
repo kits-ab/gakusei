@@ -40,7 +40,7 @@ public class NuggetControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        nuggetController = new NuggetController();
+        nuggetController = new NuggetController(nuggetRepository, factRepository);
         MockitoAnnotations.initMocks(this);
 
         wordType = "verb";
@@ -52,7 +52,7 @@ public class NuggetControllerTest {
     public void testFindNuggetByFilterWithFactTypes() {
         Long lengthOfFacts = 2L;
 
-        Mockito.when(nuggetRepository.getNuggetsbyFilter(wordType, factTypes, lengthOfFacts)).thenReturn(nuggets);
+        Mockito.when(nuggetController.cachingGetNuggetsByFilter(wordType, factTypes, lengthOfFacts)).thenReturn(nuggets);
 
         ResponseEntity<List<Nugget>> re = nuggetController.findNuggetsByFilter(wordType, factTypes);
 
@@ -66,7 +66,9 @@ public class NuggetControllerTest {
         List<String> emptyFactTypes = Collections.EMPTY_LIST;
 
         Mockito.when(factRepository.getAllFactTypes()).thenReturn(factTypes);
+        Mockito.when(nuggetController.cachingGetAllFactTypes()).thenReturn(factTypes);
         Mockito.when(nuggetRepository.getNuggetsbyFilter(wordType, factTypes, lengthOfFacts)).thenReturn(nuggets);
+        Mockito.when(nuggetController.cachingGetNuggetsByFilter(wordType, factTypes, lengthOfFacts)).thenReturn(nuggets);
 
         ResponseEntity<List<Nugget>> re = nuggetController.findNuggetsByFilter(wordType, emptyFactTypes);
 
