@@ -54,7 +54,7 @@ export default class AppProvider extends React.Component {
             <Route path="play/:type" component={requireAuthentication(playScreen)} />
             <Route path="select/:type" component={requireAuthentication(selectScreen)} />
             <Route path="grammar" component={requireAuthentication(grammarScreen)} />
-            {/* <Route path="lists" component={requireAuthentication(listsScreen)} />*/}
+            {/* <Route path="lists" component={requireAuthentication(listsScreen)} /> */}
             <Route path="finish/:type" component={requireAuthentication(finishScreen)} />
             <Route path="home" component={requireAuthentication(homeScreen)} />
             <Route path="about" component={aboutScreen} />
