@@ -98,6 +98,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <layout>MODULE</layout>
                     <addResources>true</addResources>
                 </configuration>
             </plugin>
