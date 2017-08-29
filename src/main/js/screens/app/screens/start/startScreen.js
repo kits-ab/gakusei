@@ -27,32 +27,32 @@ export default class startScreen extends React.Component {
                     </div>
                     <Row className="features_prev">
                         <Col xs={6} md={4} className="text-center">
-                            <img src="/img/front_page/svja.svg"/>
+                            <img src="/img/front_page/svja.svg" alt=""/>
                             <h2>Ett stort utbud</h2>
                             <p>Vi har ett stort utbud av inlärningsmaterial skapad av våra experter, som du kan ta del av.</p>
                         </Col>
                         <Col xs={6} md={4} className="text-center">
-                            <img src="/img/front_page/devices.svg"/>
+                            <img src="/img/front_page/devices.svg" alt=""/>
                             <h2>Gakusei överallt</h2>
                             <p>Öva med Gakusei på mobilen! Fungerar lika på mobila enheter som på laptops.</p>
                         </Col>
                         <Col xs={6} md={4} className="text-center">
-                            <img src="/img/front_page/anonymous.svg"/>
+                            <img src="/img/front_page/anonymous.svg" alt=""/>
                             <h2>Anonymitet</h2>
                             <p>Gakusei lagrar ingen personlig data om sina användare, det enda som behövs för att ta del utav vårt utbud är ett användarnamn.</p>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={6} md={4} className="text-center">
-                            <img src="/img/front_page/quiz.svg"/>
+                            <img src="/img/front_page/quiz.svg" alt=""/>
                             <h2>Över <strong>XX</strong> quiz-ar</h2>
                             <p>Med våra quiz-ar kan du lätt testa dig själv och se hur mycket du har lärt dig.</p>
                         </Col>
                         <Col xs={6} md={4} className="text-center">
-                            <br/><br/><br/><br/><img src="/img/logo/temp_gakusei_logo.png"/>
+                            <br/><br/><br/><br/><img src="/img/logo/temp_gakusei_logo.png" alt=""/>
                         </Col>
                         <Col xs={6} md={4} className="text-center">
-                            <img src="/img/front_page/brain.svg"/>
+                            <img src="/img/front_page/brain.svg" alt=""/>
                             <h2>Smart inlärningsteknologi</h2>
                             <p>Vårt system kommer ihåg hur du har svarat på frågor, på så sätt kan vi anpassa inlärningsmaterialet efter dig.</p>
                         </Col>
@@ -70,7 +70,7 @@ export default class startScreen extends React.Component {
                                 <p><Button bsStyle="success" href="http://daigaku.se/">Läs mer</Button></p>
                             </Col>
                             <Col xs={6} md={4} className="text-center">
-                                <img src="/img/front_page/daigaku.svg"/>
+                                <img src="/img/front_page/daigaku.svg" alt=""/>
                             </Col>
                         </Row>
                     </Grid>
@@ -92,7 +92,7 @@ export default class startScreen extends React.Component {
                     <Grid>
                         <Row>
                             <Col xs={6} md={4}>
-                            <img src="/img/logo/temp_gakusei_logo2.png"/>
+                            <img src="/img/logo/temp_gakusei_logo2.png" alt=""/>
                             <br/><span>© Gakusei 2017 - Alla rättigheter reserverade.</span>
                             </Col>
                             <Col xs={6} md={4}>
