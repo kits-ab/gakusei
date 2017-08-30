@@ -16,6 +16,7 @@ import loginScreen from './screens/app/screens/login';
 import logoutScreen from './screens/app/screens/logout';
 import playScreen from './screens/app/screens/play';
 import selectScreen from './screens/app/screens/select';
+import startScreen from './screens/app/screens/start';
 
 function onUpdate() {
   anchorate(); // To have href's that can scroll to page sections
@@ -58,6 +59,7 @@ export default class AppProvider extends React.Component {
             <Route path="finish/:type" component={requireAuthentication(finishScreen)} />
             <Route path="home" component={requireAuthentication(homeScreen)} />
             <Route path="about" component={aboutScreen} />
+            <Route path="start" component={startScreen} />
           </Route>
         </Router>
       </Provider>);
