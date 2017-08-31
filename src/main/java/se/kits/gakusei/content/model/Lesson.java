@@ -97,8 +97,10 @@ public class Lesson implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<UserLesson> userLessons;
 
-    @OneToMany
-    private List<Course> courses;
+    @ManyToOne
+    @JsonManagedReference
+    @JoinColumn(name="course_id")
+    private Course course;
 
     public Lesson() {
     }
@@ -143,11 +145,11 @@ public class Lesson implements Serializable {
         this.userLessons = userLessons;
     }
 
-    public List<Course> getCourses() {
-        return courses;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }
