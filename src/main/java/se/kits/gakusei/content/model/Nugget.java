@@ -16,6 +16,7 @@ public class Nugget implements Serializable{
     @Id
     private String id;
 
+    //Remove when migrating, along with getter and setter
     @Column(nullable = false)
     private String type;
 
@@ -23,14 +24,32 @@ public class Nugget implements Serializable{
 
     private boolean hidden = false;
 
+    //Remove when migrating, along with getter and setter
     @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
     @JsonManagedReference
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Fact> facts;
 
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name="word_type")
+    private WordType wordType;
+
     @ManyToMany(mappedBy = "nuggets")
     @JsonBackReference
     private List<Lesson> lessons;
+
+    @Column(nullable = false)
+    private String swedish;
+
+    @Column(nullable = false)
+    private String english;
+
+    @Column(nullable = false)
+    private String jpRead;
+
+    @Column(nullable = false)
+    private String jpWrite;
 
     public Nugget(){}
 
@@ -84,5 +103,45 @@ public class Nugget implements Serializable{
 
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
+    }
+
+    public String getSwedish() {
+        return swedish;
+    }
+
+    public void setSwedish(String swedish) {
+        this.swedish = swedish;
+    }
+
+    public String getEnglish() {
+        return english;
+    }
+
+    public void setEnglish(String english) {
+        this.english = english;
+    }
+
+    public String getJpRead() {
+        return jpRead;
+    }
+
+    public void setJpRead(String jpRead) {
+        this.jpRead = jpRead;
+    }
+
+    public String getJpWrite() {
+        return jpWrite;
+    }
+
+    public void setJpWrite(String jpWrite) {
+        this.jpWrite = jpWrite;
+    }
+
+    public WordType getWordType() {
+        return wordType;
+    }
+
+    public void setWordType(WordType wordType) {
+        this.wordType = wordType;
     }
 }
