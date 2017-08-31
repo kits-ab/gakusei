@@ -98,7 +98,7 @@ public class Lesson implements Serializable {
     private List<UserLesson> userLessons;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonBackReference
     @JoinColumn(name="course_id")
     private Course course;
 
