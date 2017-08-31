@@ -1,5 +1,11 @@
 package se.kits.gakusei.content.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -14,8 +20,13 @@ public class Course implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
+    private String description;
+
     @ManyToOne
     private Course parent;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Course> partCourses;
 
     @ManyToMany
     @JoinTable(
@@ -24,14 +35,14 @@ public class Course implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "prerequisite_id", referencedColumnName = "id"))
     private List<Course> prerequisites;
 
-    private String description;
-
     private int order;
 
     @Column(nullable = false, unique = true)
     private String courseCode;
 
-    @OneToMany
+    @OneToMany(mappedBy="course", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Lesson> lessons;
 
     public Course(){
@@ -65,6 +76,22 @@ public class Course implements Serializable {
         this.parent = parent;
     }
 
+    public List<Course> getPartCourses() {
+        return partCourses;
+    }
+
+    public void setPartCourses(List<Course> partCourses) {
+        this.partCourses = partCourses;
+    }
+
+    public List<Course> getPrerequisites() {
+        return prerequisites;
+    }
+
+    public void setPrerequisites(List<Course> prerequisites) {
+        this.prerequisites = prerequisites;
+    }
+
     public int getOrder() {
         return order;
     }
@@ -79,14 +106,6 @@ public class Course implements Serializable {
 
     public void setCourseCode(String courseCode) {
         this.courseCode = courseCode;
-    }
-
-    public List<Course> getPrerequisites() {
-        return prerequisites;
-    }
-
-    public void setPrerequisites(List<Course> prerequisites) {
-        this.prerequisites = prerequisites;
     }
 
     public List<Lesson> getLessons() {
