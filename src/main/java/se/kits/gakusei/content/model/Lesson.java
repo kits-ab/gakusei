@@ -97,6 +97,9 @@ public class Lesson implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<UserLesson> userLessons;
 
+    @OneToMany
+    private List<Course> courses;
+
     public Lesson() {
     }
 
@@ -138,5 +141,13 @@ public class Lesson implements Serializable {
 
     public void setUserLessons(List<UserLesson> userLessons) {
         this.userLessons = userLessons;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 }
