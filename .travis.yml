@@ -21,7 +21,8 @@ before_install:
 
 install: true # Skip the default travis install phase
 
-#before_script:
+before_script:
+- npm install
 
 script:
 # final build for deployment
@@ -36,7 +37,6 @@ script:
     export EMAIL_PARAMETER=false
     export FILENAME_SUFFIX="staging";
   fi'
-- npm install
 - mvn clean package -Pproduction
 # integration testing
 # - java -jar $TRAVIS_BUILD_DIR/target/gakusei.jar &
