@@ -31,6 +31,9 @@ public class Course implements Serializable {
     @Column(nullable = false, unique = true)
     private String courseCode;
 
+    @OneToMany
+    private List<Lesson> lessons;
+
     public Course(){
     }
 
@@ -84,5 +87,13 @@ public class Course implements Serializable {
 
     public void setPrerequisites(List<Course> prerequisites) {
         this.prerequisites = prerequisites;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
     }
 }
