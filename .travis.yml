@@ -12,7 +12,7 @@ jdk:
 env:
   global:
     - BABEL=true
-    - NODE_VERSION="7.4.0"
+    - NODE_VERSION="8.4.0"
     - KITS_SLACK=kits:sGqgJPVSf7LU8x2am3PF6KQU
 
 before_install:
