@@ -6,6 +6,7 @@ databaseChangeLog:
         - onFail: MARK_RAN
         - not:
             - columnExists:
+                tableName: user_lesson
                 columnName: lesson_ref
     changes:
     - addColumn:

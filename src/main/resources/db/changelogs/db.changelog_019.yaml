@@ -6,6 +6,7 @@ databaseChangeLog:
         - onFail: MARK_RAN
         - not:
             - columnExists:
+                tableName: events
                 columnName: nugget_id
     changes:
     - addColumn:
