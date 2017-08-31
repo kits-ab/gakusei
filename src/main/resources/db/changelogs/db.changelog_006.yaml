@@ -2,6 +2,11 @@ databaseChangeLog:
 - changeSet:
     id: 1487684531133-6
     author: joakim (generated)
+    preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count (*) from pg_constraint where conname='events_user_ref_fkey'
     changes:
     - addForeignKeyConstraint:
         baseColumnNames: user_ref

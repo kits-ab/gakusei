@@ -2,6 +2,12 @@ databaseChangeLog:
 - changeSet:
     id: 1487684523397-5
     author: joakim (generated)
+    preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - primaryKeyExists:
+                schemaName: contentschema
+                primaryKeyName: nuggets_pkey
     changes:
     - addPrimaryKey:
         columnNames: id

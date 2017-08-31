@@ -2,6 +2,12 @@ databaseChangeLog:
 - changeSet:
     id: 1487684523397-8
     author: joakim
+    preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            schemaName: contentschema
+            expectedResult: 0
+            sql: select count (*) from pg_constraint where conname='user_lesson_lesson_ref_fkey'
     changes:
     - addForeignKeyConstraint:
         baseColumnNames: lesson_ref

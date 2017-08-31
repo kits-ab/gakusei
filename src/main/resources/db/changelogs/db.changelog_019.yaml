@@ -2,6 +2,11 @@ databaseChangeLog:
 - changeSet:
     id: 1
     author: joakim
+    preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                columnName: nugget_id
     changes:
     - addColumn:
         tableName: events
