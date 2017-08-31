@@ -36,6 +36,7 @@ script:
     export EMAIL_PARAMETER=false
     export FILENAME_SUFFIX="staging";
   fi'
+- npm install
 - mvn clean package -Pproduction
 # integration testing
 # - java -jar $TRAVIS_BUILD_DIR/target/gakusei.jar &
