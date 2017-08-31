@@ -18,6 +18,10 @@ public class Course implements Serializable {
     private Course parent;
 
     @ManyToMany
+    @JoinTable(
+            name = "prerequisites",
+            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "prerequisite_id", referencedColumnName = "id"))
     private List<Course> prerequisites;
 
     private String description;
