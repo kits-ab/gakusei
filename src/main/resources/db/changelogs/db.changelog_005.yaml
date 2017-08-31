@@ -1,0 +1,9 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684531133-5
+    author: joakim (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: username
+        constraintName: users_pkey
+        tableName: users

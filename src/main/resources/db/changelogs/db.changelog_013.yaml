@@ -1,0 +1,17 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684523397-6
+    author: joakim (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: nuggetid
+        baseTableName: facts
+        baseTableSchemaName: contentschema
+        constraintName: facts_nuggetid_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: nuggets
+        referencedTableSchemaName: contentschema

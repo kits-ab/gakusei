@@ -1,0 +1,8 @@
+databaseChangeLog:
+- changeSet:
+    id: 4
+    author: psandboge
+    changes:
+    - dropColumn:
+        columnName: lesson_name
+        tableName: user_lesson

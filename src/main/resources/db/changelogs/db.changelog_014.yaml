@@ -1,0 +1,9 @@
+databaseChangeLog:
+- changeSet:
+    id: 2
+    author: psandboge
+    changes:
+    - renameColumn:
+        newColumnName: user_ref
+        oldColumnName: username
+        tableName: user_lesson

@@ -1,0 +1,10 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684523397-5
+    author: joakim (generated)
+    changes:
+    - addPrimaryKey:
+        columnNames: id
+        constraintName: nuggets_pkey
+        tableName: nuggets
+        schemaName: contentschema

@@ -1,0 +1,11 @@
+databaseChangeLog:
+- changeSet:
+    id: 1
+    author: joakim
+    changes:
+    - addColumn:
+        tableName: events
+        columns:
+        - column:
+            name: nugget_id
+            type: varchar(16)

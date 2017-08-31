@@ -1,0 +1,30 @@
+databaseChangeLog:
+- changeSet:
+    id: 20
+    author: Michael Dubell
+    preConditions:
+      - onFail: MARK_RAN
+      - not:
+        - tableExists:
+            schemaName: contentschema
+            tableName: quiz
+    changes:
+    - createTable:
+        tableName: quiz
+        schemaName: contentschema
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: quiz_pkey
+            name: id
+            type: SERIAL
+        - column:
+            name: name
+            type: VARCHAR(64)
+            constraints:
+              nullable: false
+        - column:
+            name: description
+            type: VARCHAR(120)

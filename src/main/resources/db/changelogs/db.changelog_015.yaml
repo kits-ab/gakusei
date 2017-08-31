@@ -1,0 +1,11 @@
+databaseChangeLog:
+- changeSet:
+    id: 3
+    author: psandboge
+    changes:
+    - addColumn:
+        tableName: user_lesson
+        columns:
+        - column:
+            name: lesson_ref
+            type: SERIAL

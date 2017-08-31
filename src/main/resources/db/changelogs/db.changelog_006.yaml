@@ -1,0 +1,15 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684531133-6
+    author: joakim (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_ref
+        baseTableName: events
+        constraintName: events_user_ref_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: username
+        referencedTableName: users

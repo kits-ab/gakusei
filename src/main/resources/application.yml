@@ -34,6 +34,9 @@ spring:
     password: gakusei
     driver-class-name: org.postgresql.Driver
 
+liquibase:
+      change-log: classpath:/db/db.changelog-master.yaml
+      enabled: true
 ---
 
 spring:
