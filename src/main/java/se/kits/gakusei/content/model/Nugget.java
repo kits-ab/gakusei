@@ -32,7 +32,12 @@ public class Nugget implements Serializable{
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name="word_type")
+    @JoinColumn(name = "book_title")
+    private Book title;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "word_type")
     private WordType wordType;
 
     @ManyToMany(mappedBy = "nuggets")
@@ -143,5 +148,13 @@ public class Nugget implements Serializable{
 
     public void setWordType(WordType wordType) {
         this.wordType = wordType;
+    }
+
+    public Book getTitle() {
+        return title;
+    }
+
+    public void setTitle(Book title) {
+        this.title = title;
     }
 }
