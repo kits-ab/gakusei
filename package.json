@@ -12,7 +12,7 @@
   "scripts": {
     "postinstall": "./node_modules/.bin/selenium-standalone install && node nightwatch.conf.js",
     "compile": "webpack --progress --profile --colors --hide-modules",
-    "compile:production": "cross-env NODE_ENV=production webpack --colors --hide-modules",
+    "compile:production": "env NODE_ENV=production webpack --colors --hide-modules",
     "start": "webpack-dev-server",
     "test": "BABEL_ENV=es2015 ./node_modules/.bin/nightwatch --group play --env chrome",
     "test:saucelabs": "BABEL=true BABEL_ENV=es2015 ./node_modules/.bin/nightwatch --group play --config nightwatch.conf.sauce.js --env chrome"
@@ -85,7 +85,7 @@
     "replace": "^0.3.0",
     "rimraf": "^2.5.2",
     "selenium-download": "^2.0.9",
-    "selenium-standalone": "^6.0.1",
+    "selenium-standalone": "^6.8.0",
     "strip-loader": "^0.1.2",
     "style-loader": "^0.13.1",
     "webdriverio": "^4.6.2",
