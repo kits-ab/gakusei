@@ -1,0 +1,40 @@
+- changeSet:
+    id: 26
+    author: Sofia Edström
+    changes:
+    - addColumn:
+        tableName: nuggets
+        columns:
+        - column:
+            name: swedish
+            type: VARCHAR(32)
+            constraints:
+              nullable: false
+        - column:
+            name: english
+            type: VARCHAR(32)
+            constraints:
+              nullable: false
+        - column:
+            name: jp_read
+            type: VARCHAR(32)
+            constraints:
+              nullable: false
+        - column:
+            name: jp_write
+            type: VARCHAR(32)
+            constraints:
+              nullable: false
+        - column:
+            name: word_type_ref
+            type: INTEGER
+            constraints:
+                nullable: false
+                foreignKeyName: nugget_word_type_ref_key
+                references: contentschema.word_types(id)
+        - column:
+            name: book_ref
+            type: INTEGER
+            constraints:
+                foreignKeyName: nugget_book_ref_key
+                references: contentschema.books(id)
