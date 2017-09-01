@@ -7,7 +7,8 @@
     // Specify whether double or single quotes should be used in JSX attributes
     // http://eslint.org/docs/rules/jsx-quotes
     "jsx-quotes": ["warn", "prefer-double"],
-
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }],
     "class-methods-use-this": ["warn"],
 
     // Forbid certain propTypes (any, array, object)
@@ -125,6 +126,8 @@
     // Require that the first prop in a JSX element be on a new line when the element is multiline
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md
     "react/jsx-first-prop-new-line": ["warn"],
+    "react/jsx-max-props-per-line": ["warn"],
+    "padded-blocks": ["warn", "always"],
 
     // Enforce spacing around jsx equals signs
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-equals-spacing.md
