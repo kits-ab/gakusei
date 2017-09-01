@@ -21,10 +21,8 @@ public class Course implements Serializable {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "parent_ref")
     private Course parent;
-
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Course> partCourses;
 
     @ManyToMany
     @JoinTable(
@@ -72,14 +70,6 @@ public class Course implements Serializable {
 
     public void setParent(Course parent) {
         this.parent = parent;
-    }
-
-    public List<Course> getPartCourses() {
-        return partCourses;
-    }
-
-    public void setPartCourses(List<Course> partCourses) {
-        this.partCourses = partCourses;
     }
 
     public List<Course> getPrerequisites() {

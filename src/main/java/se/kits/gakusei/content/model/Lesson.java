@@ -99,7 +99,7 @@ public class Lesson implements Serializable {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name="course_id")
+    @JoinColumn(name="course_ref")
     private Course course;
 
     public Lesson() {

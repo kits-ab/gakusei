@@ -25,7 +25,7 @@ public class Book implements Serializable{
         return title;
     }
 
-    public void setType(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 

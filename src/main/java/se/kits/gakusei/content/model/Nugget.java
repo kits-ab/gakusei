@@ -32,12 +32,12 @@ public class Nugget implements Serializable{
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "book_title")
+    @JoinColumn(name = "book_ref")
     private Book title;
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "word_type")
+    @JoinColumn(name = "word_type_ref")
     private WordType wordType;
 
     @ManyToMany(mappedBy = "nuggets")
