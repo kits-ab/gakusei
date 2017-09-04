@@ -23,6 +23,10 @@ export class selectScreen extends React.Component {
 
     this.props.fetchUserStarredLessons()
       .catch(() => this.props.verifyUserLoggedIn());
+
+    if (this.props.params.type === 'kanji') {
+      this.props.setAnswerLanguage('reading');
+    }
   }
 
   componentDidMount() {
@@ -57,6 +61,8 @@ export class selectScreen extends React.Component {
         return <h1>Översätt ordet</h1>;
       case 'flashcards':
         return <h1>Bildkort</h1>;
+      case 'kanji':
+        return <h1>Skriv Kanji</h1>;
       default:
         throw new Error('No play type specified');
     }
@@ -73,6 +79,8 @@ export class selectScreen extends React.Component {
       case 'flashcards':
         return (<span>Träna dig själv genom att använda kort,
         med frågan på ena sidan och rätta svaret på den andra.</span>);
+      case 'kanji':
+        return (<span>Försök rita kanji-tecken med korrekta drag och i rätt ordning.</span>);
       default:
         throw new Error('No play type specified');
     }
@@ -132,15 +140,19 @@ export class selectScreen extends React.Component {
         </Col>
       </Row>);
 
-    const languages = [];
-    languages.push(
-      <option key={'reading'} value={'reading'}>Japanska</option>,
-      <option key={'swedish'} value={'swedish'}>Svenska</option>
-    );
-
+    const answerLanguages = [];
+    let questionLanguages = [];
+    answerLanguages.push(<option key={'reading'} value={'reading'}>Japanska</option>);
+    answerLanguages.push(<option key={'swedish'} value={'swedish'}>Svenska</option>);
     /* devcode: start */
-    languages.push(<option key={'english'} value={'english'}>Engelska</option>);
+    answerLanguages.push(<option key={'english'} value={'english'}>Engelska</option>);
     /* devcode: end */
+
+    if (this.props.params.type === 'kanji') {
+      questionLanguages = answerLanguages.shift();
+    } else {
+      questionLanguages = answerLanguages;
+    }
 
     let languageSelection;
     if (this.props.params.type === 'quiz') {
@@ -157,8 +169,9 @@ export class selectScreen extends React.Component {
                 id="questionLanguageSelection"
                 onChange={this.handleLanguageSelection}
                 value={this.props.questionType}
+                disabled={this.props.params.type === 'kanji'}
               >
-                {languages}
+                {questionLanguages}
               </FormControl>
             </Col>
             <Col xs={12} sm={6}>
@@ -170,7 +183,7 @@ export class selectScreen extends React.Component {
                 onChange={this.handleLanguageSelection}
                 value={this.props.answerType}
               >
-                {languages}
+                {answerLanguages}
               </FormControl>
 
             </Col>

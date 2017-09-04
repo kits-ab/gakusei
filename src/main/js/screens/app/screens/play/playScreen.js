@@ -1,8 +1,9 @@
 import React from 'react';
 import { Grid, Col } from 'react-bootstrap';
-import ButtonsCard from './components/ButtonsCard';
-import FlashCard from './components/FlashCard';
-import TranslateCard from './components/TranslateCard';
+import ButtonsCard from './components/Cards/ButtonsCard';
+import FlashCard from './components/Cards/FlashCard';
+import WriteCard from './components/Cards/WriteCard';
+import TranslateCard from './components/Cards/TranslateCard';
 import LessonStats from './components/LessonStats';
 
 import getCSRF from '../../../../shared/util/getcsrf';
@@ -18,10 +19,22 @@ export class playScreen extends React.Component {
     this.checkAnswer = this.checkAnswer.bind(this);
   }
 
-  checkAnswer(answer) {
+  componentDidMount() {
+    // Kick user out if data is missing
+    if (!this.props.questions || this.props.questions.length === 0) {
+      if (this.props.params.type) {
+        this.props.setPageByName(`/select/${this.props.params.type}`);
+      } else {
+        this.props.setPageByName('/home');
+      }
+    }
+  }
+
+  checkAnswer(answer, cardData) {
     this.props.setAllButtonsDisabledState(true);
 
-    this.props.addUserAnswer(answer).catch(() => {
+    this.props.addUserAnswer(answer, cardData)
+    .catch(() => {
       this.props.requestUserLogout('/', getCSRF());
       this.props.verifyUserLoggedIn();
     });
@@ -35,7 +48,7 @@ export class playScreen extends React.Component {
     } else {
       setTimeout(
         () => {
-          this.props.setPageByName(`finish/${this.props.params.type}`);
+          this.props.setPageByName(`/finish/${this.props.params.type}`);
         }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
     }
   }
@@ -46,26 +59,39 @@ export class playScreen extends React.Component {
     switch (this.props.params.type) {
       case 'translate':
         playCard = (<TranslateCard
-          question={this.props.processedQuestion}
+          question={this.props.currentQuestion}
           answerType={this.props.answerType}
           questionType={this.props.questionType}
           cardType={this.props.params.type}
           buttonsDisabled={this.props.allButtonsDisabled}
           clickCallback={this.checkAnswer}
-          correctAlternative={this.props.processedQuestion.correctAlternative}
+          correctAlternative={this.props.currentQuestion.correctAlternative}
+          questionAnswered={this.props.currentProcessedQuestionAnswered}
+          questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+        />);
+        break;
+      case 'kanji':
+        playCard = (<WriteCard
+          question={this.props.currentQuestion}
+          answerType={this.props.answerType}
+          questionType={this.props.questionType}
+          cardType={this.props.params.type}
+          buttonsDisabled={this.props.allButtonsDisabled}
+          clickCallback={this.checkAnswer}
+          correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
         />);
         break;
       case 'flashcards':
         playCard = (<FlashCard
-          question={this.props.processedQuestion}
+          question={this.props.currentQuestion}
           answerType={this.props.answerType}
           questionType={this.props.questionType}
           cardType={this.props.params.type}
           buttonsDisabled={this.props.allButtonsDisabled}
           clickCallback={this.checkAnswer}
-          correctAlternative={this.props.processedQuestion.correctAlternative}
+          correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
         />);
@@ -74,13 +100,13 @@ export class playScreen extends React.Component {
       case 'quiz':
       default:
         playCard = (<ButtonsCard
-          question={this.props.processedQuestion}
+          question={this.props.currentQuestion}
           answerType={this.props.answerType}
           questionType={this.props.questionType}
           cardType={this.props.params.type}
           buttonsDisabled={this.props.allButtonsDisabled}
           clickCallback={this.checkAnswer}
-          correctAlternative={this.props.processedQuestion.correctAlternative}
+          correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
         />);
@@ -92,12 +118,17 @@ export class playScreen extends React.Component {
         <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
           {playCard}
           <br />
-          <br />
           <LessonStats
             currentQuestionNumber={this.props.currentQuestionIndex + 1}
             totalQuestionsNumber={this.props.lessonLength}
             correctAttempts={this.props.correctAttempts}
             lessonSuccessRateMessage={this.props.lessonSuccessRateMessage}
+            feedbackItems={this.props.answeredQuestions.map(answeredQuestion => ({
+              correct: answeredQuestion.userCorrect,
+              errorCount: answeredQuestion.cardData.filter(line => !line.match.userCorrect).length,
+              text: answeredQuestion.cardData[answeredQuestion.cardData.length - 1]
+                      .totalMatch.wording
+            }))}
           />
         </Col>
       </Grid>
