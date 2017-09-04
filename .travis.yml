@@ -21,8 +21,7 @@ before_install:
 
 install: true # Skip the default travis install phase
 
-before_script:
-- npm install
+#before_script:
 
 script:
 # final build for deployment
@@ -32,12 +31,11 @@ script:
     export EMAIL_PARAMETER=true
     export FILENAME_SUFFIX="production";
   elif [ "$TRAVIS_BRANCH" = "develop" ]; then
-    export DEPLOY_URL="ec2-user@staging.daigaku.se" 
+    export DEPLOY_URL="ec2-user@staging.daigaku.se"
     export SLACK_PARAMETER=false
     export EMAIL_PARAMETER=false
     export FILENAME_SUFFIX="staging";
   fi'
-- npm install
 - mvn clean package -Pproduction
 # integration testing
 # - java -jar $TRAVIS_BUILD_DIR/target/gakusei.jar &
@@ -57,7 +55,7 @@ before_deploy:
 deploy:
   - provider: script # put the release on our live site
     skip_cleanup: true
-    script: 
+    script:
       - scp $TRAVIS_BUILD_DIR/target/gakusei.jar ${DEPLOY_URL}:gakusei.${FILENAME_SUFFIX}.jar.to.deploy && ssh ${DEPLOY_URL} sh Scripts/deploy_gakusei.sh
     on:
       repo: kits-ab/gakusei
