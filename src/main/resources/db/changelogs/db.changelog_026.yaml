@@ -1,4 +1,5 @@
-- changeSet:
+databaseChangeLog:
+  - changeSet:
     id: 26
     author: Sofia Edström
     changes:
