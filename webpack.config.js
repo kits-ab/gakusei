@@ -36,6 +36,7 @@ module.exports = function () {
   const theConfig = merge.smart(partialConfig, {
     entry: {
       main: [
+        'react-hot-loader/patch', 
         './src/main/js/main.js'
       ] },
     module: {

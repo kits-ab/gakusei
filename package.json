@@ -12,7 +12,7 @@
   "scripts": {
     "postinstall": "./node_modules/.bin/selenium-standalone install && node nightwatch.conf.js",
     "compile": "webpack --progress --profile --colors --hide-modules",
-    "compile:production": "NODE_ENV=production webpack --colors --hide-modules",
+    "compile:production": "cross-env NODE_ENV=production webpack --colors --hide-modules",
     "start": "webpack-dev-server",
     "test": "BABEL_ENV=es2015 ./node_modules/.bin/nightwatch --group play --env chrome",
     "test:saucelabs": "BABEL=true BABEL_ENV=es2015 ./node_modules/.bin/nightwatch --group play --config nightwatch.conf.sauce.js --env chrome"
@@ -26,9 +26,10 @@
     "babel-preset-es2016": "^6.22.0",
     "babel-preset-es2017": "^6.22.0",
     "chart.js": "^2.4.0",
+    "cross-env": "^5.0.5",
     "eslint-loader": "^1.6.3",
     "form-data": "^2.1.2",
-    "geckodriver": "^1.4.0",
+    "geckodriver": "^1.4.1",
     "hyphenation.sv": "^0.2.1",
     "hypher": "^0.2.5",
     "moment": "2.17.1",
@@ -50,7 +51,7 @@
     "selenium-webdriver": "^3.1.0",
     "simplify-js": "^1.2.1",
     "whatwg-fetch": "^2.0.1",
-    "xml2js": "^0.4.17"
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",

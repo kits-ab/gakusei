@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 4
+    author: psandboge
+    preConditions:
+        - onFail: MARK_RAN
+        - columnExists:
+            columnName: lesson_name
+    changes:
+    - dropColumn:
+        columnName: lesson_name
+        tableName: user_lesson
