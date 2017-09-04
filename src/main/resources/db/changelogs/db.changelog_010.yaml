@@ -1,0 +1,24 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684523397-3
+    author: joakim (generated)
+    preConditions:
+      - onFail: MARK_RAN
+      - not:
+        - tableExists:
+            schemaName: contentschema
+            tableName: lessons_nuggets
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+            name: lesson_id
+            type: SERIAL
+        - column:
+            name: nugget_id
+            type: VARCHAR(16)
+        tableName: lessons_nuggets
+        schemaName: contentschema

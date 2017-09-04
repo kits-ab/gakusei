@@ -1,0 +1,13 @@
+databaseChangeLog:
+- changeSet:
+    id: 2
+    author: psandboge
+    preConditions:
+        - onFail: MARK_RAN
+        - columnExists:
+            columnName: username
+    changes:
+    - renameColumn:
+        newColumnName: user_ref
+        oldColumnName: username
+        tableName: user_lesson

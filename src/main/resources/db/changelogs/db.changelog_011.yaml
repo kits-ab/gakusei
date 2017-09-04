@@ -1,0 +1,31 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684523397-4
+    author: joakim (generated)
+    preConditions:
+      - onFail: MARK_RAN
+      - not:
+        - tableExists:
+            schemaName: contentschema
+            tableName: nuggets
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: id
+            type: VARCHAR(16)
+        - column:
+            constraints:
+              nullable: false
+            name: type
+            type: VARCHAR(32)
+        - column:
+            name: description
+            type: VARCHAR(256)
+        - column:
+            name: hidden
+            type: BOOLEAN
+        tableName: nuggets
+        schemaName: contentschema

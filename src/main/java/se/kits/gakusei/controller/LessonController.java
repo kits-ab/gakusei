@@ -69,12 +69,11 @@ public class LessonController {
         long mark = System.currentTimeMillis();
 
         HashMap<String, HashMap<String, Integer>> values = new HashMap<>();
-
+        
         List<Lesson> tmpLessons = getLessons();
 
         logger.info("Getting vocabulary lessons took {} ms.", System.currentTimeMillis() - mark);
         mark = System.currentTimeMillis();
-
         for (Lesson tmpLesson : tmpLessons) {
             List<Nugget> correctlyAnsweredNuggets = lessonRepository.findCorrectlyAnsweredNuggets(username, tmpLesson.getName())
                     .stream().filter(n -> !n.isHidden()).collect(Collectors.toList());

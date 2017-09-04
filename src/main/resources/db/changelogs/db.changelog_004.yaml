@@ -1,0 +1,25 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684531133-4
+    author: joakim (generated)
+    preConditions:
+      - onFail: MARK_RAN
+      - not:
+        - tableExists:
+            schemaName: public
+            tableName: users
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: username
+            type: VARCHAR(32)
+        - column:
+            name: password
+            type: VARCHAR(64)
+        - column:
+            name: userrole
+            type: VARCHAR(64)
+        tableName: users

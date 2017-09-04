@@ -51,7 +51,6 @@ public class QuestionController {
     private List<HashMap<String, Object>> getCachedQuestionsFromLesson(String lessonName, String lessonType, String questionType, String answerType, String username) {
         List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName);
         List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName);
-
         List<Nugget> allLessonNuggets;
         if (lessonType.equals("kanji")) {
             allLessonNuggets = cachedFindKanjiNuggetsByFactType(lessonName, questionType, answerType);

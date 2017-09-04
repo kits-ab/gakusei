@@ -27,7 +27,7 @@ module.exports = {
   // Source mapping, to be able to get readable code in the chrome devtools
   devtool: 'source-map',
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
+    //new webpack.optimize.UglifyJsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new HtmlWebpackPlugin({
       filename: '../../templates/index.html',
