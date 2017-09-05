@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 26
+      author: Sofia Edström
+      changes:
+      - addColumn:
+          tableName: nuggets
+          schemaName: contentschema
+          columns:
+          - column:
+              name: swedish
+              type: VARCHAR(32)
+          - column:
+              name: english
+              type: VARCHAR(32)
+          - column:
+              name: jp_read
+              type: VARCHAR(32)
+          - column:
+              name: jp_write
+              type: VARCHAR(32)
+          - column:
+              name: word_type_ref
+              type: INTEGER
+              constraints:
+                  foreignKeyName: nugget_word_type_ref_key
+                  references: contentschema.word_types(id)

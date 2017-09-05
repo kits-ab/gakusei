@@ -97,6 +97,11 @@ public class Lesson implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<UserLesson> userLessons;
 
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name="course_ref")
+    private Course course;
+
     public Lesson() {
     }
 
@@ -138,5 +143,13 @@ public class Lesson implements Serializable {
 
     public void setUserLessons(List<UserLesson> userLessons) {
         this.userLessons = userLessons;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

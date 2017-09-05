@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 25
+      author: Sofia Edström
+      changes:
+      - createTable:
+          tableName: word_types
+          schemaName: contentschema
+          columns:
+          - column:
+              name: id
+              type: SERIAL
+              autoIncrement: true
+              constraints:
+                  primaryKey: true
+                  primaryKeyName: type_pkey
+          - column:
+              name: type
+              type: VARCHAR(32)
+              constraints:
+                  nullable: false
+                  unique: true
