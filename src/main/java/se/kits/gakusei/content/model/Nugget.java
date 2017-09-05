@@ -44,16 +44,12 @@ public class Nugget implements Serializable{
     @JsonBackReference
     private List<Lesson> lessons;
 
-    @Column(nullable = false)
     private String swedish;
 
-    @Column(nullable = false)
     private String english;
 
-    @Column(nullable = false)
     private String jpRead;
 
-    @Column(nullable = false)
     private String jpWrite;
 
     public Nugget(){}
