@@ -5,6 +5,7 @@ databaseChangeLog:
     changes:
     - addColumn:
         tableName: nuggets
+        schemaName: contentschema
         columns:
         - column:
             name: swedish

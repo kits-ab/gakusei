@@ -12,11 +12,11 @@ databaseChangeLog:
               type: SERIAL
               autoIncrement: true
               constraints:
-                primaryKey: true
-                primaryKeyName: type_pkey
+                  primaryKey: true
+                  primaryKeyName: type_pkey
           - column:
               name: type
               type: VARCHAR(32)
               constraints:
-                nullable: false
-                unique: true
+                  nullable: false
+                  unique: true
