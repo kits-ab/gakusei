@@ -1,0 +1,30 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684523397-2
+    author: joakim (generated)
+    preConditions:
+      - onFail: MARK_RAN
+      - not:
+        - tableExists:
+            schemaName: contentschema
+            tableName: lessons
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: lessons_pkey
+            name: id
+            type: SERIAL
+        - column:
+            constraints:
+              nullable: false
+            name: name
+            type: VARCHAR(64)
+        - column:
+            name: description
+            type: VARCHAR(1024)
+        tableName: lessons
+        schemaName: contentschema

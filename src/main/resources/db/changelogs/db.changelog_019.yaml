@@ -1,0 +1,17 @@
+databaseChangeLog:
+- changeSet:
+    id: 1
+    author: joakim
+    preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: events
+                columnName: nugget_id
+    changes:
+    - addColumn:
+        tableName: events
+        columns:
+        - column:
+            name: nugget_id
+            type: varchar(16)
