@@ -3,13 +3,13 @@ databaseChangeLog:
       id: 24
       author: Sofia Edström
       changes:
-          - addColumn:
-              tableName: lessons
-              schemaName: contentschema
-              columns:
-                  - column:
-                      name: course_ref
-                      type: INTEGER
-                      constraints:
-                          foreginKeyName: lesson_course_ref_key
-                          reference: contentschema.courses(id)
+      - addColumn:
+          tableName: lessons
+          schemaName: contentschema
+          columns:
+              - column:
+                  name: course_ref
+                  type: INTEGER
+                  constraints:
+                      foreginKeyName: lesson_course_ref_key
+                      reference: contentschema.courses(id)
