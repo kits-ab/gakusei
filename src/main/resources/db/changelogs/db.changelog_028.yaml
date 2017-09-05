@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 28
+      author: Sofia Edström
+      changes:
+      - addColumn:
+          tableName: nuggets
+          schemaName: contentschema
+          columns:
+          - column:
+              name: book_ref
+              type: INTEGER
+              constraints:
+                  foreignKeyName: nugget_book_ref_key
+                  references: contentschema.books(id)

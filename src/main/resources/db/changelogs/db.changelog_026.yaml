@@ -25,9 +25,3 @@ databaseChangeLog:
               constraints:
                   foreignKeyName: nugget_word_type_ref_key
                   references: contentschema.word_types(id)
-          - column:
-              name: book_ref
-              type: INTEGER
-              constraints:
-                  foreignKeyName: nugget_book_ref_key
-                  references: contentschema.books(id)
