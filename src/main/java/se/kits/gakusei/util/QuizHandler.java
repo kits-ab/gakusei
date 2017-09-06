@@ -81,12 +81,12 @@ public class QuizHandler {
     }
 
     public HashMap<String, Object> createAndValidateQuizNugget(HashMap<String, Object> myQuizNugget) throws Exception {
-        this.validateQuizNugget(myQuizNugget);
-        this.validateIncorrectAnswers((List<?>) myQuizNugget.get(this.QN_INCORRECT_ANSWERS));
+        this.validateQuizNugget(myQuizNugget, false);
+        this.validateIncorrectAnswers((List<?>) myQuizNugget.get(this.QN_INCORRECT_ANSWERS), false, null);
         return this.createQuizNugget(myQuizNugget);
     }
 
-    private HashMap<String, Object> createQuizNugget(HashMap<String, Object> myQuizNugget) throws Exception {
+    private HashMap<String, Object> createQuizNugget(HashMap<String, Object> myQuizNugget) {
         QuizNugget quizNugget = new QuizNugget();
         quizNugget.setQuestion((String) myQuizNugget.get(this.QN_QUESTION));
         quizNugget.setCorrectAnswer((String) myQuizNugget.get(this.QN_CORRECT_ANSWER));
@@ -94,20 +94,56 @@ public class QuizHandler {
         HashMap<String, Object> newMyQuizNugget = this.convertQuizNugget(quizNuggetRepository.save(quizNugget));
 
         for (Object myIncorrectAnswer : (List) myQuizNugget.get(this.QN_INCORRECT_ANSWERS)) {
-            IncorrectAnswers incorrectAnswer = new IncorrectAnswers();
-            incorrectAnswer.setIncorrectAnswer((String) ((HashMap) myIncorrectAnswer)
-                                                         .get(this.IA_INCORRECT_ANSWERS));
-            incorrectAnswer.setQuizNugget(quizNugget);
-            incorrectAnswerRepository.save(incorrectAnswer);
+            this.createIncorrectAnswer((HashMap) myIncorrectAnswer, quizNugget);
         }
         return newMyQuizNugget;
+    }
+
+    private void createIncorrectAnswer(HashMap<String, Object> myIncorrectAnswer, QuizNugget quizNugget) {
+        IncorrectAnswers incorrectAnswer = new IncorrectAnswers();
+        incorrectAnswer.setIncorrectAnswer((String) myIncorrectAnswer.get(this.IA_INCORRECT_ANSWERS));
+        incorrectAnswer.setQuizNugget(quizNugget);
+        incorrectAnswerRepository.save(incorrectAnswer);
+    }
+
+    public void updateAndValidateQuizNugget(HashMap<String, Object> myQuizNugget) throws Exception {
+        this.validateQuizNugget(myQuizNugget, true);
+        this.validateIncorrectAnswers((List<?>) myQuizNugget.get(this.QN_INCORRECT_ANSWERS), true,
+                new Long((int) myQuizNugget.get(this.QN_ID)));
+
+        this.updateQuizNugget(myQuizNugget);
+
+        int i = 0;
+        for (Object myIncorrectAnswer : (List) myQuizNugget.get(this.QN_INCORRECT_ANSWERS)) {
+            this.updateIncorrectAnswer((HashMap<String, Object>) myIncorrectAnswer);
+            i++;
+        }
+    }
+
+    private void updateQuizNugget(HashMap<String, Object> myQuizNugget) {
+        QuizNugget quizNugget = this.quizNuggetRepository.findOne(new Long((int) myQuizNugget.get(this.QN_ID)));
+        quizNugget.setQuestion((String) myQuizNugget.get(this.QN_QUESTION));
+        quizNugget.setCorrectAnswer((String) myQuizNugget.get(this.QN_CORRECT_ANSWER));
+
+        Quiz quizRef = this.quizRepository.findOne(new Long((int) myQuizNugget.get(this.QN_QUIZ_REF)));
+        quizNugget.setQuiz(quizRef);
+
+        this.quizNuggetRepository.save(quizNugget);
+    }
+
+    private void updateIncorrectAnswer(HashMap<String, Object> myIncorrectAnswer) {
+        IncorrectAnswers incorrectAnswer = this.incorrectAnswerRepository.findOne(
+                new Long((int) myIncorrectAnswer.get(this.IA_ID)));
+        incorrectAnswer.setIncorrectAnswer((String) myIncorrectAnswer.get(this.IA_INCORRECT_ANSWERS));
+
+        this.incorrectAnswerRepository.save(incorrectAnswer);
     }
 
     // ----------------------------
     // -- VALIDATORS
     // ----------------------------
 
-    private void validateQuizNugget(HashMap<String, Object> myQuizNugget) throws Exception {
+    private void validateQuizNugget(HashMap<String, Object> myQuizNugget, boolean onUpdate) throws Exception {
         if (!myQuizNugget.containsKey(this.QN_QUIZ_REF))
             throw new Exception("No quiz ref");
         if (!myQuizNugget.containsKey(this.QN_QUESTION))
@@ -129,31 +165,48 @@ public class QuizHandler {
         if (!this.quizRepository.exists(new Long((Integer) myQuizNugget.get(this.QN_QUIZ_REF))))
             throw new Exception("Quiz ref does not exist");
 
-        return;
+        if (onUpdate) {
+            if (!myQuizNugget.containsKey(this.QN_ID))
+                throw new Exception("No quiz nugget id");
+            if(!(myQuizNugget.get(this.QN_ID) instanceof Integer))
+                throw new Exception("Quiz nugget id has wrong type");
+            if (!this.quizNuggetRepository.exists(new Long((int) myQuizNugget.get(this.QN_ID))))
+                throw new Exception("The quiz nugget does not exist");
+        }
     }
 
-    private void validateIncorrectAnswers(List<?> myIncorrectAnswers) throws Exception {
+    private void validateIncorrectAnswers(List<?> myIncorrectAnswers, boolean onUpdate,
+                                          Long quizNuggetId) throws Exception {
         int i = 0;
         for (Object myIncorrectAnswer : myIncorrectAnswers) {
             if (! (myIncorrectAnswer instanceof HashMap<?, ?>)) {
                 throw new Exception("Incorrect answer on pos "+i+" has wrong type");
             }
-            this.validateIncorrectAnswer((HashMap<String, Object>) myIncorrectAnswer);
+            this.validateIncorrectAnswer((HashMap<String, Object>) myIncorrectAnswer, onUpdate, quizNuggetId);
             i++;
         }
 
         if (i!=3)
             throw new Exception("3 incorrect answers should be provided");
-
-        return;
     }
 
-    private void validateIncorrectAnswer(HashMap<String, Object> myIncorrectAnswer) throws Exception {
+    private void validateIncorrectAnswer(HashMap<String, Object> myIncorrectAnswer, boolean onUpdate,
+                                         Long quizNuggetId) throws Exception {
         if (!myIncorrectAnswer.containsKey(this.IA_INCORRECT_ANSWERS))
             throw new Exception("No incorrect answer");
         if(!(myIncorrectAnswer.get(this.IA_INCORRECT_ANSWERS) instanceof String))
             throw new Exception("Incorrect answer has wrong type");
 
-        return;
+        QuizNugget quizNugget = this.quizNuggetRepository.findOne(new Long(2));
+        if (onUpdate) {
+            if (!myIncorrectAnswer.containsKey(this.IA_ID))
+                throw new Exception("No incorrect-answer id");
+            if(!(myIncorrectAnswer.get(this.QN_ID) instanceof Integer))
+                throw new Exception("Incorrect-answer id has wrong type");
+            if (!this.incorrectAnswerRepository.existsByIdAndQuizNuggetId(
+                    new Long((int) myIncorrectAnswer.get(this.QN_ID)), quizNuggetId))
+                throw new Exception(String.format("The incorrect-answer with id: %d does not exist",
+                        (int) myIncorrectAnswer.get(this.QN_ID)));
+        }
     }
 }

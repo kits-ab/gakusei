@@ -98,7 +98,7 @@ public class QuizController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public HashMap<String, Object> createQuizNugget(@RequestBody HashMap<String, Object> myQuizNugget) {
+    public ResponseEntity<HashMap<String, Object>> createQuizNugget(@RequestBody HashMap<String, Object> myQuizNugget) {
         // TODO: add isAdmin
         HashMap<String, Object> newMyQuizNugget = null;
         try {
@@ -106,8 +106,26 @@ public class QuizController {
         } catch (Exception exc) {
             newMyQuizNugget = new HashMap<>();
             newMyQuizNugget.put("error", exc.toString());
-            // TODO: change http status
+            return new ResponseEntity(newMyQuizNugget, HttpStatus.BAD_REQUEST);
         }
-        return newMyQuizNugget;
+        return new ResponseEntity(newMyQuizNugget, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/api/quiz/nugget/update",
+            method = RequestMethod.PUT,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<HashMap<String, Object>> updateQuizNugget(@RequestBody HashMap<String, Object> myQuizNugget) {
+        // TODO: add isAdmin
+        HashMap<String, Object> newMyQuizNugget = null;
+        try {
+            quizHandler.updateAndValidateQuizNugget(myQuizNugget);
+        } catch (Exception exc) {
+            newMyQuizNugget = new HashMap<>();
+            newMyQuizNugget.put("error", exc.toString());
+            return new ResponseEntity(newMyQuizNugget, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity(newMyQuizNugget, HttpStatus.OK);
     }
 }
