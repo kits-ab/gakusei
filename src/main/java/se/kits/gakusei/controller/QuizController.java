@@ -4,14 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Quiz;
 import se.kits.gakusei.content.repository.LessonRepository;
+import se.kits.gakusei.content.repository.QuizNuggetRepository;
 import se.kits.gakusei.content.repository.QuizRepository;
 import se.kits.gakusei.util.QuestionHandler;
 import se.kits.gakusei.util.QuizHandler;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.ws.Response;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +33,9 @@ public class QuizController {
 
     @Autowired
     QuizHandler quizHandler;
+
+    @Autowired
+    QuizNuggetRepository quizNuggetRepository;
 
     @RequestMapping(
             value = "/api/quiz",
@@ -56,8 +63,9 @@ public class QuizController {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<Quiz> createQuiz(@RequestBody Quiz quiz) {
-        // TODO: add isAdmin
+    public ResponseEntity<Quiz> createQuiz(HttpServletRequest request, @RequestBody Quiz quiz) {
+        if (!request.isUserInRole("ROLE_ADMIN"))
+            return new ResponseEntity(null, HttpStatus.FORBIDDEN);
         return ResponseEntity.ok(quizRepository.save(quiz));
     }
 
@@ -65,11 +73,11 @@ public class QuizController {
         value = "/api/quiz/{quizId}/delete",
         method = RequestMethod.DELETE
     )
-    @ResponseStatus( value = HttpStatus.OK )
-    public void deleteQuiz(@PathVariable(value="quizId") Long quizId) {
-        // TODO: add isAdmin
+    public ResponseEntity deleteQuiz(HttpServletRequest request, @PathVariable(value="quizId") Long quizId) {
+        if (!request.isUserInRole("ROLE_ADMIN"))
+            return new ResponseEntity(null, HttpStatus.FORBIDDEN);
         quizRepository.delete(quizId);
-        return;
+        return new ResponseEntity(null, HttpStatus.OK);
     }
 
     @RequestMapping(
@@ -77,11 +85,16 @@ public class QuizController {
         method = RequestMethod.PUT
     )
     @ResponseStatus( value = HttpStatus.OK )
-    public void updateQuiz(@RequestBody Quiz quiz) {
-        // TODO: add isAdmin
-        if (quizRepository.exists(quiz.getId()))
+    public ResponseEntity<HashMap<String, Object>> updateQuiz(HttpServletRequest request, @RequestBody Quiz quiz) {
+        if (!request.isUserInRole("ROLE_ADMIN"))
+            return new ResponseEntity(null, HttpStatus.FORBIDDEN);
+        if (quizRepository.exists(quiz.getId())) {
             quizRepository.save(quiz);
-        return;
+            return new ResponseEntity(null, HttpStatus.OK);
+        }
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("error", "Quiz does not exist");
+        return new ResponseEntity(hashMap, HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(
@@ -98,12 +111,14 @@ public class QuizController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<HashMap<String, Object>> createQuizNugget(@RequestBody HashMap<String, Object> myQuizNugget) {
-        // TODO: add isAdmin
+    public ResponseEntity<HashMap<String, Object>> createQuizNugget(HttpServletRequest request,
+                                                                    @RequestBody HashMap<String, Object> myQuizNugget) {
+        if (!request.isUserInRole("ROLE_ADMIN"))
+            return new ResponseEntity(null, HttpStatus.FORBIDDEN);
         HashMap<String, Object> newMyQuizNugget = null;
         try {
             newMyQuizNugget = quizHandler.createAndValidateQuizNugget(myQuizNugget);
-        } catch (Exception exc) {
+        } catch (QuizHandler.QuizException exc) {
             newMyQuizNugget = new HashMap<>();
             newMyQuizNugget.put("error", exc.toString());
             return new ResponseEntity(newMyQuizNugget, HttpStatus.BAD_REQUEST);
@@ -116,16 +131,34 @@ public class QuizController {
             method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<HashMap<String, Object>> updateQuizNugget(@RequestBody HashMap<String, Object> myQuizNugget) {
-        // TODO: add isAdmin
+    public ResponseEntity<HashMap<String, Object>> updateQuizNugget(HttpServletRequest request,
+                                                                    @RequestBody HashMap<String, Object> myQuizNugget) {
+        if (!request.isUserInRole("ROLE_ADMIN"))
+            return new ResponseEntity(null, HttpStatus.FORBIDDEN);
+
         HashMap<String, Object> newMyQuizNugget = null;
         try {
             quizHandler.updateAndValidateQuizNugget(myQuizNugget);
-        } catch (Exception exc) {
+        } catch (QuizHandler.QuizException exc) {
             newMyQuizNugget = new HashMap<>();
             newMyQuizNugget.put("error", exc.toString());
             return new ResponseEntity(newMyQuizNugget, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity(newMyQuizNugget, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/api/quiz/nugget/{quizNuggetId}/delete",
+            method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<HashMap<String, Object>> deleteQuizNugget(HttpServletRequest request,
+                                                                    @PathVariable(value="quizNuggetId") Long quizNuggetId) {
+        if (!request.isUserInRole("ROLE_ADMIN"))
+            return new ResponseEntity(null, HttpStatus.FORBIDDEN);
+
+        HashMap<String, Object> newMyQuizNugget = null;
+        this.quizNuggetRepository.delete(quizNuggetId);
+        return new ResponseEntity(null, HttpStatus.OK);
     }
 }
