@@ -4,8 +4,11 @@ databaseChangeLog:
     author: psandboge
     preConditions:
         - onFail: MARK_RAN
-        - columnExists:
-            columnName: username
+        - not:
+            - columnExists:
+                columnName: user_ref
+                schemaName: public
+                tableName: user_lesson
     changes:
     - renameColumn:
         newColumnName: user_ref
