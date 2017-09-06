@@ -2,6 +2,12 @@ databaseChangeLog:
   - changeSet:
       id: 27
       author: Sofia Edström
+      preConditions:
+          - onFail: MARK_RAN
+          - not:
+              - tableExists:
+                  tableName: books
+                  schemaName: contentschema
       changes:
       - createTable:
           tableName: books

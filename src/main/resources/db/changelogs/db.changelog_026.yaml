@@ -2,6 +2,30 @@ databaseChangeLog:
   - changeSet:
       id: 26
       author: Sofia Edström
+      preConditions:
+          - onFail: MARK_RAN
+          - not:
+              - and:
+                  - columnExists:
+                      columnName: swedish
+                      tableName: nuggets
+                      schemaName: contentschema
+                  - columnExists:
+                      columnName: english
+                      tableName: nuggets
+                      schemaName: contentschema
+                  - columnExists:
+                      columnName: jp_read
+                      tableName: nuggets
+                      schemaName: contentschema
+                  - columnExists:
+                      columnName: jp_write
+                      tableName: nuggets
+                      schemaName: contentschema
+                  - columnExists:
+                      columnName: word_type_ref
+                      tableName: nuggets
+                      schemaName: contentschema
       changes:
       - addColumn:
           tableName: nuggets
