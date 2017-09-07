@@ -2,6 +2,13 @@ databaseChangeLog:
   - changeSet:
       id: 24
       author: Sofia Edström
+      preConditions:
+          - onFail: MARK_RAN
+          - not:
+              - columnExists:
+                  columnName: course_ref
+                  tableName: lessons
+                  schemaName: contentschema
       changes:
       - addColumn:
           tableName: lessons

@@ -6,6 +6,8 @@ databaseChangeLog:
         - onFail: MARK_RAN
         - columnExists:
             columnName: lesson_name
+            tableName: user_lesson
+            schemaName: public
     changes:
     - dropColumn:
         columnName: lesson_name

@@ -2,6 +2,16 @@ databaseChangeLog:
   - changeSet:
       id: 23
       author: Sofia Edström
+      preConditions:
+          - onFail: MARK_RAN
+          - not:
+              - and:
+                  - tableExists:
+                      tableName: courses
+                      schemaName: contentschema
+                  - tableExists:
+                      tableName: prerequisites
+                      schemaName: contentschema
       changes:
       - createTable:
           tableName: courses
