@@ -1,0 +1,18 @@
+databaseChangeLog:
+    - changeSet:
+        id: 30
+        author: Dzeno
+        changes:
+        - dropForeignKeyConstraint:
+            baseTableName: incorrect_answers
+            baseTableSchemaName: contentschema
+            constraintName: incorrect_answers_quiz_nugget_ref_key
+        - addForeignKeyConstraint:
+            baseColumnNames: quiz_nugget_ref
+            baseTableName: incorrect_answers
+            baseTableSchemaName: contentschema
+            constraintName: incorrect_answers_quiz_nugget_ref_key
+            onDelete: CASCADE
+            referencedColumnNames: id
+            referencedTableName: quiz_nugget
+            referencedTableSchemaName: contentschema

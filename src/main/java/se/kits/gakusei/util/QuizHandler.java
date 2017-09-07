@@ -177,6 +177,8 @@ public class QuizHandler {
 
     private void validateIncorrectAnswers(List<?> myIncorrectAnswers, boolean onUpdate,
                                           Long quizNuggetId) throws QuizException {
+        if (myIncorrectAnswers.size()<3)
+            throw new QuizException("At least 3 incorrect answers should be provided");
         int i = 0;
         for (Object myIncorrectAnswer : myIncorrectAnswers) {
             if (! (myIncorrectAnswer instanceof HashMap<?, ?>)) {
@@ -185,9 +187,6 @@ public class QuizHandler {
             this.validateIncorrectAnswer((HashMap<String, Object>) myIncorrectAnswer, onUpdate, quizNuggetId);
             i++;
         }
-
-        if (i>2)
-            throw new QuizException("At least 3 incorrect answers should be provided");
     }
 
     private void validateIncorrectAnswer(HashMap<String, Object> myIncorrectAnswer, boolean onUpdate,

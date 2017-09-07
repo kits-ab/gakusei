@@ -76,6 +76,9 @@ public class QuizController {
     public ResponseEntity deleteQuiz(HttpServletRequest request, @PathVariable(value="quizId") Long quizId) {
         if (!request.isUserInRole("ROLE_ADMIN"))
             return new ResponseEntity(null, HttpStatus.FORBIDDEN);
+        if (!this.quizRepository.exists(quizId))
+            return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+
         quizRepository.delete(quizId);
         return new ResponseEntity(null, HttpStatus.OK);
     }
@@ -156,6 +159,8 @@ public class QuizController {
                                                                     @PathVariable(value="quizNuggetId") Long quizNuggetId) {
         if (!request.isUserInRole("ROLE_ADMIN"))
             return new ResponseEntity(null, HttpStatus.FORBIDDEN);
+        if (!this.quizNuggetRepository.exists(quizNuggetId))
+            return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
 
         HashMap<String, Object> newMyQuizNugget = null;
         this.quizNuggetRepository.delete(quizNuggetId);
