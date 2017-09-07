@@ -31,7 +31,7 @@ public class Course implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "prerequisite_id", referencedColumnName = "id"))
     private List<Course> prerequisites;
 
-    private int CourseOrder;
+    private int courseOrder;
 
     @Column(nullable = false, unique = true)
     private String courseCode;
@@ -81,11 +81,11 @@ public class Course implements Serializable {
     }
 
     public int getCourseOrder() {
-        return CourseOrder;
+        return courseOrder;
     }
 
     public void setCourseOrder(int courseOrder) {
-        CourseOrder = courseOrder;
+        courseOrder = courseOrder;
     }
 
     public String getCourseCode() {
