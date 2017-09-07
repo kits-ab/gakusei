@@ -24,12 +24,13 @@ class LessonStats extends React.Component {
           <p>
             {this.props.correctAttempts} rätt {this.props.lessonSuccessRateMessage}
           </p>
-          {feedbackList.reverse().map((item, index) => {
+          {this.props.lessonType === 'kanji' ?
+            feedbackList.reverse().map((item, index) => {
             if (index === 0) {
               return (<h2 key={item}>{item}</h2>);
             }
             return (<p>{item}</p>);
-          })}
+          }) : null}
         </div>
       </Row>
     );
@@ -50,7 +51,8 @@ LessonStats.propTypes = {
   currentQuestionNumber: React.PropTypes.number.isRequired, // Deprecated
   totalQuestionsNumber: React.PropTypes.number.isRequired,
   correctAttempts: React.PropTypes.number.isRequired, // Deprecated
-  lessonSuccessRateMessage: React.PropTypes.string.isRequired
+  lessonSuccessRateMessage: React.PropTypes.string.isRequired,
+  lessonType: React.PropTypes.string.isRequired
 };
 
 export default LessonStats;

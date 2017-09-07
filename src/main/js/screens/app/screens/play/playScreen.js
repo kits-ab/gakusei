@@ -124,12 +124,12 @@ export class playScreen extends React.Component {
             totalQuestionsNumber={this.props.lessonLength}
             correctAttempts={this.props.correctAttempts}
             lessonSuccessRateMessage={this.props.lessonSuccessRateMessage}
+            lessonType={this.props.params.type}
             feedbackItems={this.props.answeredQuestions.map((answeredQuestion) => {
                   if (this.props.params.type !== 'kanji') {
-                    console.log('not kanji');
                     return ({
                         correct: answeredQuestion.userCorrect,
-                        errorCount: answeredQuestion.userCorrect? 1 : 0,
+                        errorCount: answeredQuestion.userCorrect ? 1 : 0,
                         text: ''
                     });
                   }
