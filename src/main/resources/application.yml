@@ -26,6 +26,9 @@ spring:
 gakusei:
   data-init: true
 
+liquibase:
+  enabled: false
+
 ---
 
 spring:
