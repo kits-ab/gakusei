@@ -16,14 +16,14 @@ import java.util.List;
 @Component
 public class QuizHandler {
 
-    private final String QN_ID = "id";
-    private final String QN_QUIZ_REF = "quizRef";
-    private final String QN_QUESTION = "question";
-    private final String QN_CORRECT_ANSWER = "correctAnswer";
-    private final String QN_INCORRECT_ANSWERS = "incorrectAnswers";
+    public final String QN_ID = "id";
+    public final String QN_QUIZ_REF = "quizRef";
+    public final String QN_QUESTION = "question";
+    public final String QN_CORRECT_ANSWER = "correctAnswer";
+    public final String QN_INCORRECT_ANSWERS = "incorrectAnswers";
 
-    private final String IA_INCORRECT_ANSWERS = "incorrectAnswer";
-    private final String IA_ID = "id";
+    public final String IA_INCORRECT_ANSWERS = "incorrectAnswer";
+    public final String IA_ID = "id";
 
     @Autowired
     private QuizRepository quizRepository;
@@ -52,7 +52,7 @@ public class QuizHandler {
         return myQuizNugget;
     }
 
-    private HashMap<String, Object> convertQuizNugget(QuizNugget quizNugget) {
+    public HashMap<String, Object> convertQuizNugget(QuizNugget quizNugget) {
         HashMap<String, Object> myQuizNugget = new HashMap<>();
         myQuizNugget.put(this.QN_ID, quizNugget.getId());
         myQuizNugget.put(this.QN_QUIZ_REF, quizNugget.getQuiz().getId());
@@ -143,7 +143,7 @@ public class QuizHandler {
     // -- VALIDATORS
     // ----------------------------
 
-    private void validateQuizNugget(HashMap<String, Object> myQuizNugget, boolean onUpdate) throws QuizException {
+    public void validateQuizNugget(HashMap<String, Object> myQuizNugget, boolean onUpdate) throws QuizException {
         if (!myQuizNugget.containsKey(this.QN_QUIZ_REF))
             throw new QuizException("No quiz ref");
         if (!myQuizNugget.containsKey(this.QN_QUESTION))
@@ -189,7 +189,7 @@ public class QuizHandler {
         }
     }
 
-    private void validateIncorrectAnswer(HashMap<String, Object> myIncorrectAnswer, boolean onUpdate,
+    public void validateIncorrectAnswer(HashMap<String, Object> myIncorrectAnswer, boolean onUpdate,
                                          Long quizNuggetId) throws QuizException {
         if (!myIncorrectAnswer.containsKey(this.IA_INCORRECT_ANSWERS))
             throw new QuizException("No incorrect answer");
