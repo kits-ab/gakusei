@@ -2,6 +2,12 @@ databaseChangeLog:
   - changeSet:
       id: 25
       author: Sofia Edström
+      preConditions:
+          - onFail: MARK_RAN
+          - not:
+              - tableExists:
+                  tableName: word_types
+                  schemaName: contentschema
       changes:
       - createTable:
           tableName: word_types
