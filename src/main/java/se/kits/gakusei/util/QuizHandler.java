@@ -2,6 +2,7 @@ package se.kits.gakusei.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.util.ArrayUtils;
 import se.kits.gakusei.content.model.IncorrectAnswers;
 import se.kits.gakusei.content.model.Quiz;
 import se.kits.gakusei.content.model.QuizNugget;
@@ -144,49 +145,67 @@ public class QuizHandler {
     // ----------------------------
 
     public void validateQuizNugget(HashMap<String, Object> myQuizNugget, boolean onUpdate) throws QuizException {
-        if (!myQuizNugget.containsKey(this.QN_QUIZ_REF))
-            throw new QuizException("No quiz ref");
-        if (!myQuizNugget.containsKey(this.QN_QUESTION))
-            throw new QuizException("No question");
-        if (!myQuizNugget.containsKey(this.QN_CORRECT_ANSWER))
-            throw new QuizException("No correct answer");
-        if (!myQuizNugget.containsKey(this.QN_INCORRECT_ANSWERS))
-            throw new QuizException("No incorrect answers");
+        HashMap<String, String> errors = new HashMap<>();
+        String[] keys = {this.QN_QUIZ_REF, this.QN_QUESTION, this.QN_CORRECT_ANSWER, this.QN_INCORRECT_ANSWERS};
 
-        if(!(myQuizNugget.get(this.QN_QUIZ_REF) instanceof Integer))
-            throw new QuizException("Quiz ref has wrong type");
-        if(!(myQuizNugget.get(this.QN_QUESTION) instanceof String))
-            throw new QuizException("Question has wrong type");
-        if(!(myQuizNugget.get(this.QN_CORRECT_ANSWER) instanceof String))
-            throw new QuizException("Correct answer has wrong type");
-        if(!(myQuizNugget.get(this.QN_INCORRECT_ANSWERS) instanceof List<?>))
-            throw new QuizException("Correct answers have wrong type");
+        for (String key : keys) {
+            if (!myQuizNugget.containsKey(key))
+                errors.put(key, "Missing");
+        }
 
-        if (!this.quizRepository.exists(new Long((Integer) myQuizNugget.get(this.QN_QUIZ_REF))))
-            throw new QuizException("Quiz ref does not exist");
+        for (String key : keys) {
+            if (!errors.containsKey(key)) {
+                if (key == this.QN_QUIZ_REF) {
+                    if (!(myQuizNugget.get(key) instanceof Integer))
+                        errors.put(key, "Wrong type, should be a int");
+                } else if (key == this.QN_INCORRECT_ANSWERS) {
+                    if (!(myQuizNugget.get(key) instanceof List<?>))
+                        errors.put(key, "Wrong type, should be a list");
+                } else {
+                    if (!(myQuizNugget.get(key) instanceof String))
+                        errors.put(key, "Wrong type, should be a string");
+                }
+            }
+        }
+
+        if (!errors.containsKey(this.QN_QUIZ_REF)) {
+            if (!this.quizRepository.exists(new Long((Integer) myQuizNugget.get(this.QN_QUIZ_REF))))
+                errors.put(this.QN_QUIZ_REF, "Does not exist");
+        }
 
         if (onUpdate) {
             if (!myQuizNugget.containsKey(this.QN_ID))
-                throw new QuizException("No quiz nugget id");
-            if(!(myQuizNugget.get(this.QN_ID) instanceof Integer))
-                throw new QuizException("Quiz nugget id has wrong type");
-            if (!this.quizNuggetRepository.exists(new Long((int) myQuizNugget.get(this.QN_ID))))
-                throw new QuizException("The quiz nugget does not exist");
+                errors.put(this.QN_ID, "Missing");
+            else if(!(myQuizNugget.get(this.QN_ID) instanceof Integer))
+                errors.put(this.QN_ID, "Wrong type, should be int");
+            else if (!this.quizNuggetRepository.exists(new Long((int) myQuizNugget.get(this.QN_ID))))
+                errors.put(this.QN_ID, "Does not exist");
         }
+
+        if (!errors.isEmpty())
+            throw new QuizException(errors.toString());
     }
 
     private void validateIncorrectAnswers(List<?> myIncorrectAnswers, boolean onUpdate,
                                           Long quizNuggetId) throws QuizException {
+        HashMap<String, String> errors = new HashMap<>();
         if (myIncorrectAnswers.size()<3)
-            throw new QuizException("At least 3 incorrect answers should be provided");
+            errors.put("Size", "At least 3 incorrect answers should be provided");
         int i = 0;
         for (Object myIncorrectAnswer : myIncorrectAnswers) {
             if (! (myIncorrectAnswer instanceof HashMap<?, ?>)) {
-                throw new QuizException(String.format("Incorrect answer on pos %d has wrong type", i));
+                errors.put("IncorrectAnswer", String.format("Incorrect answer on pos %d has wrong type", i));
+                throw new QuizException(errors.toString());
             }
-            this.validateIncorrectAnswer((HashMap<String, Object>) myIncorrectAnswer, onUpdate, quizNuggetId);
+            try {
+                this.validateIncorrectAnswer((HashMap<String, Object>) myIncorrectAnswer, onUpdate, quizNuggetId);
+            }catch (QuizHandler.QuizException exc) {
+                errors.put(String.format("IncorrectAnswer%d", i),exc.getMessage());
+            }
             i++;
         }
+        if (!errors.isEmpty())
+            throw new QuizException(errors.toString());
     }
 
     public void validateIncorrectAnswer(HashMap<String, Object> myIncorrectAnswer, boolean onUpdate,
@@ -203,7 +222,7 @@ public class QuizHandler {
                 throw new QuizException("Incorrect-answer id has wrong type");
             if (!this.incorrectAnswerRepository.existsByIdAndQuizNuggetId(
                     new Long((int) myIncorrectAnswer.get(this.QN_ID)), quizNuggetId))
-                throw new QuizException(String.format("The incorrect-answer with id: %d does not exist",
+                throw new QuizException(String.format("Incorrect-answer with id: %d does not exist",
                         (int) myIncorrectAnswer.get(this.QN_ID)));
         }
     }
@@ -213,8 +232,6 @@ public class QuizHandler {
         public QuizException(String message) { super(message); }
 
         @Override
-        public String toString() {
-            return String.format("QuizException: %s", this.getMessage());
-        }
+        public String toString() { return String.format("QuizException: %s", this.getMessage()); }
     }
 }
