@@ -27,7 +27,8 @@ gakusei:
   data-init: true
 
 liquibase:
-  enabled: false
+      change-log: classpath:/db/db.changelog-master.yaml
+      enabled: false
 
 ---
 

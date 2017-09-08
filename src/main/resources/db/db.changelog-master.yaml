@@ -1,5 +1,65 @@
 databaseChangeLog:
-- includeAll:
-     context: default
-     path: changelogs
-     relativeToChangelogFile: true
+- include:
+    file: classpath:db/changelogs/db.changelog_001.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_002.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_003.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_004.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_005.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_006.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_007.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_008.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_009.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_010.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_011.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_012.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_013.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_014.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_015.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_016.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_017.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_018.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_019.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_020.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_021.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_022.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_023.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_024.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_025.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_026.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_027.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_028.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_029.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_030.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_031.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_032.yaml
