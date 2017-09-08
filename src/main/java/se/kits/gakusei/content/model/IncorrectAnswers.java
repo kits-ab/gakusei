@@ -14,7 +14,7 @@ public class IncorrectAnswers implements Serializable{
     @Column(nullable = false)
     private String incorrectAnswer;
 
-    @ManyToOne
+    @ManyToOne( cascade = CascadeType.REMOVE )
     @JoinColumn(name="quiz_nugget_ref")
     private QuizNugget quizNugget;
 

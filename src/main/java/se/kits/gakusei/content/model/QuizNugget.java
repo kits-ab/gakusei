@@ -16,7 +16,7 @@ public class QuizNugget implements Serializable{
 
     private String correctAnswer;
 
-    @ManyToOne
+    @ManyToOne( cascade = CascadeType.REMOVE )
     @JoinColumn(name="quiz_ref")
     private Quiz quiz;
 
