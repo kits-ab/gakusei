@@ -31,9 +31,12 @@ export class playScreen extends React.Component {
   }
 
   checkAnswer(answer, cardData) {
+    let cloneCard = 'undefined';
+    if (typeof cardData !== 'undefined') {
+      cloneCard = React.cloneElement(cardData);
+    }
     this.props.setAllButtonsDisabledState(true);
-
-    this.props.addUserAnswer(answer, cardData)
+    this.props.addUserAnswer(answer, cloneCard)
     .catch(() => {
       this.props.requestUserLogout('/', getCSRF());
       this.props.verifyUserLoggedIn();
@@ -55,7 +58,6 @@ export class playScreen extends React.Component {
 
   render() {
     let playCard = null;
-
     switch (this.props.params.type) {
       case 'translate':
         playCard = (<TranslateCard
@@ -112,7 +114,6 @@ export class playScreen extends React.Component {
         />);
         break;
     }
-
     return (
       <Grid className="text-center">
         <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
@@ -123,12 +124,25 @@ export class playScreen extends React.Component {
             totalQuestionsNumber={this.props.lessonLength}
             correctAttempts={this.props.correctAttempts}
             lessonSuccessRateMessage={this.props.lessonSuccessRateMessage}
-            feedbackItems={this.props.answeredQuestions.map(answeredQuestion => ({
-              correct: answeredQuestion.userCorrect,
-              errorCount: answeredQuestion.cardData.filter(line => !line.match.userCorrect).length,
-              text: answeredQuestion.cardData[answeredQuestion.cardData.length - 1]
-                      .totalMatch.wording
-            }))}
+            lessonType={this.props.params.type}
+            feedbackItems={this.props.answeredQuestions.map((answeredQuestion) => {
+                  if (this.props.params.type !== 'kanji') {
+                    return ({
+                        correct: answeredQuestion.userCorrect,
+                        errorCount: answeredQuestion.userCorrect ? 1 : 0,
+                        text: ''
+                    });
+                  }
+                  return (
+                    {
+                        correct: answeredQuestion.userCorrect,
+                        errorCount: answeredQuestion.cardData.filter(line => !line.match.userCorrect).length,
+                        text: answeredQuestion.cardData[answeredQuestion.cardData.length - 1]
+                            .totalMatch.wording
+                    }
+                  );
+                }
+            )}
           />
         </Col>
       </Grid>
