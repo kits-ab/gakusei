@@ -43,7 +43,7 @@ public class BookController {
         if(book != null){
             return new ResponseEntity<>(book, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
@@ -57,7 +57,7 @@ public class BookController {
         if(book != null){
             return new ResponseEntity<>(book, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
