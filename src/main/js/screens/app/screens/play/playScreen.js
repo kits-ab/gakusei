@@ -32,7 +32,9 @@ export class playScreen extends React.Component {
 
   checkAnswer(answer, cardData) {
     let cloneCard = 'undefined';
-    if (typeof cardData !== 'undefined') {
+    if (cardData.type === undefined && Array.isArray(cardData)) {
+      cloneCard = cardData.slice(0);
+    } else if (typeof cardData !== 'undefined') {
       cloneCard = React.cloneElement(cardData);
     }
     this.props.setAllButtonsDisabledState(true);
