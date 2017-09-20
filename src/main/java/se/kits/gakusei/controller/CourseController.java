@@ -32,7 +32,13 @@ public class CourseController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<Course> getCourseByID(@PathVariable(value = "courseID") Long courseID){
-        return null;
+        Course course = courseRepository.findOne(courseID);
+
+        if(course != null){
+            return new ResponseEntity<>(course, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(
