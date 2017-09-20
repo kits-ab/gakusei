@@ -39,11 +39,7 @@ public class CourseController {
     public ResponseEntity<Course> getCourseByID(@PathVariable(value = "courseID") Long courseID){
         Course course = courseRepository.findOne(courseID);
 
-        if(course != null){
-            return new ResponseEntity<>(course, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return createResponseEntity(course);
     }
 
     @RequestMapping(
@@ -54,11 +50,7 @@ public class CourseController {
     public ResponseEntity<Course> getCourseByName(@PathVariable(value = "courseName") String courseName){
         Course course = courseRepository.findByName(courseName);
 
-        if(course != null){
-            return new ResponseEntity<>(course, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return createResponseEntity(course);
     }
 
     @RequestMapping(
@@ -69,8 +61,12 @@ public class CourseController {
     public ResponseEntity<Course> getCourseByCode(@PathVariable(value = "courseCode") String courseCode){
         Course course = courseRepository.findByCourseCode(courseCode);
 
-        if(course != null){
-            return new ResponseEntity<>(course, HttpStatus.OK);
+        return createResponseEntity(course);
+    }
+
+    private ResponseEntity<Course> createResponseEntity(Course toReturn){
+        if(toReturn != null){
+            return new ResponseEntity<>(toReturn, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
