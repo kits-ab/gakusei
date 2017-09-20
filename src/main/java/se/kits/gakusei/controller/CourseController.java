@@ -41,7 +41,13 @@ public class CourseController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<Course> getCourseByName(@PathVariable(value = "courseName") String courseName){
-        return null;
+        Course course = courseRepository.findByName(courseName);
+
+        if(course != null){
+            return new ResponseEntity<>(course, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(
