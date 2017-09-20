@@ -23,8 +23,13 @@ public class CourseController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<Iterable<Course>> getAllCourses(){
-        return null;
-    }
+        Iterable courses = courseRepository.findAll();
+
+        if(courses != null){
+            return new ResponseEntity<Iterable<Course>>(courses, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }    }
 
     @RequestMapping(
             value = "api/courses/{courseID}",
