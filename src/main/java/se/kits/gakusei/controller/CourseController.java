@@ -3,6 +3,7 @@ package se.kits.gakusei.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class CourseController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<Course> getCourseByID(){
+    public ResponseEntity<Course> getCourseByID(@PathVariable(value = "courseID") Long courseID){
         return null;
     }
 
@@ -38,7 +39,7 @@ public class CourseController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<Course> getCourseByName(){
+    public ResponseEntity<Course> getCourseByName(@PathVariable(value = "courseName") String courseName){
         return null;
     }
 
@@ -47,7 +48,7 @@ public class CourseController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<Course> getCourseByCode(){
+    public ResponseEntity<Course> getCourseByCode(@PathVariable(value = "courseCode") String courseCode){
         return null;
     }
 
