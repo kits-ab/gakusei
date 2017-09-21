@@ -49,6 +49,11 @@ public class CourseControllerTest {
     }
 
     @Test
+    public void testGetCourseByIDNotFound() {
+
+    }
+
+    @Test
     public void testGetCourseByNameOK() throws Exception {
         Mockito.when(courseRepository.findByName(testCourse.getName())).thenReturn(testCourse);
 
@@ -59,6 +64,11 @@ public class CourseControllerTest {
     }
 
     @Test
+    public void testGetCourseByNameNotFound() {
+
+    }
+
+    @Test
     public void testGetCourseByCodeOK() throws Exception {
         Mockito.when(courseRepository.findByCourseCode(testCourse.getCourseCode())).thenReturn(testCourse);
 
@@ -66,6 +76,11 @@ public class CourseControllerTest {
 
         assertEquals(HttpStatus.OK, re.getStatusCode());
         assertEquals(testCourse, re.getBody());
+    }
+
+    @Test
+    public void testGetCourseByCodeNotFound() {
+        
     }
 
 }
