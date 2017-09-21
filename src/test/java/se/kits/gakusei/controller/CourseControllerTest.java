@@ -5,8 +5,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import se.kits.gakusei.content.model.Course;
 import se.kits.gakusei.content.repository.CourseRepository;
 import se.kits.gakusei.test_tools.TestTools;
@@ -37,6 +40,12 @@ public class CourseControllerTest {
 
     @Test
     public void getCourseByID() throws Exception {
+        Mockito.when(courseRepository.findOne(testCourse.getId())).thenReturn(testCourse);
+
+        ResponseEntity<Course> re = courseController.getCourseByID(testCourse.getId());
+
+        assertEquals(HttpStatus.OK, re.getStatusCode());
+        assertEquals(testCourse, re.getBody());
     }
 
     @Test
