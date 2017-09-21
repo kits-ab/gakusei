@@ -49,6 +49,15 @@ public class CourseControllerTest {
     }
 
     @Test
+    public void testGetAllCoursesServerError() {
+        Mockito.when(courseRepository.findAll()).thenReturn(null);
+
+        ResponseEntity<Iterable<Course>> re = courseController.getAllCourses();
+
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());
+    }
+
+    @Test
     public void testGetCourseByIDOK() throws Exception {
         Mockito.when(courseRepository.findOne(testCourse.getId())).thenReturn(testCourse);
 
