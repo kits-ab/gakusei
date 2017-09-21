@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import se.kits.gakusei.content.model.Course;
 import se.kits.gakusei.content.repository.CourseRepository;
+import se.kits.gakusei.test_tools.TestTools;
 
 import static org.junit.Assert.*;
 
@@ -26,6 +27,8 @@ public class CourseControllerTest {
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
+
+        testCourse = TestTools.generateCourse();
     }
 
     @Test
