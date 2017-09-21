@@ -50,6 +50,12 @@ public class CourseControllerTest {
 
     @Test
     public void tetGetCourseByNameOK() throws Exception {
+        Mockito.when(courseRepository.findByName(testCourse.getName())).thenReturn(testCourse);
+
+        ResponseEntity<Course> re = courseController.getCourseByName(testCourse.getName());
+
+        assertEquals(HttpStatus.OK, re.getStatusCode());
+        assertEquals(testCourse, re.getBody());
     }
 
     @Test
