@@ -88,7 +88,11 @@ public class CourseControllerTest {
 
     @Test
     public void testGetCourseByCodeNotFound() {
+        Mockito.when(courseRepository.findByCourseCode(testCourse.getCourseCode())).thenReturn(null);
 
+        ResponseEntity<Course> re = courseController.getCourseByCode(testCourse.getCourseCode());
+
+        assertEquals(HttpStatus.NOT_FOUND, re.getStatusCode());
     }
 
 }
