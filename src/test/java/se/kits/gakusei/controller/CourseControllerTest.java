@@ -35,11 +35,11 @@ public class CourseControllerTest {
     }
 
     @Test
-    public void getAllCourses() throws Exception {
+    public void testGetAllCoursesOK() throws Exception {
     }
 
     @Test
-    public void getCourseByID() throws Exception {
+    public void testGetCourseByIDOK() throws Exception {
         Mockito.when(courseRepository.findOne(testCourse.getId())).thenReturn(testCourse);
 
         ResponseEntity<Course> re = courseController.getCourseByID(testCourse.getId());
@@ -49,11 +49,11 @@ public class CourseControllerTest {
     }
 
     @Test
-    public void getCourseByName() throws Exception {
+    public void tetGetCourseByNameOK() throws Exception {
     }
 
     @Test
-    public void getCourseByCode() throws Exception {
+    public void tetsGetCourseByCodeOK() throws Exception {
     }
 
 }
