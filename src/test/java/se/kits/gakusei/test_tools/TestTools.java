@@ -1,5 +1,6 @@
 package se.kits.gakusei.test_tools;
 
+import se.kits.gakusei.content.model.Course;
 import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
@@ -75,5 +76,11 @@ public class TestTools {
         dto.put("alternative3", alt3);
         dto.put("correctAlternative", altCorrect);
         return dto;
+    }
+
+    public static Course generateCourse(){
+        Course course = new Course();
+        course.setName("Test course");
+        return course;
     }
 }
