@@ -69,7 +69,11 @@ public class CourseControllerTest {
 
     @Test
     public void testGetCourseByNameNotFound() {
+        Mockito.when(courseRepository.findByName(testCourse.getName())).thenReturn(null);
 
+        ResponseEntity<Course> re = courseController.getCourseByName(testCourse.getName());
+
+        assertEquals(HttpStatus.NOT_FOUND, re.getStatusCode());
     }
 
     @Test
