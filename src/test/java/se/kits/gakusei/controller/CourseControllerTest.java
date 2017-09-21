@@ -14,6 +14,8 @@ import se.kits.gakusei.content.model.Course;
 import se.kits.gakusei.content.repository.CourseRepository;
 import se.kits.gakusei.test_tools.TestTools;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,16 +28,24 @@ public class CourseControllerTest {
     private CourseRepository courseRepository;
 
     private Course testCourse;
+    private List testCourses;
 
     @Before
     public void setUp(){
         MockitoAnnotations.initMocks(this);
 
         testCourse = TestTools.generateCourse();
+        testCourses = TestTools.generateCourses();
     }
 
     @Test
     public void testGetAllCoursesOK() throws Exception {
+        Mockito.when(courseRepository.findAll()).thenReturn(testCourses);
+
+        ResponseEntity<Iterable<Course>> re = courseController.getAllCourses();
+
+        assertEquals(HttpStatus.OK, re.getStatusCode());
+        assertEquals(testCourses, re.getBody());
     }
 
     @Test
