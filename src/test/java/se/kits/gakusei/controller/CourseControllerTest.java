@@ -50,7 +50,11 @@ public class CourseControllerTest {
 
     @Test
     public void testGetCourseByIDNotFound() {
+        Mockito.when(courseRepository.findOne(testCourse.getId())).thenReturn(null);
 
+        ResponseEntity<Course> re = courseController.getCourseByID(testCourse.getId());
+
+        assertEquals(HttpStatus.NOT_FOUND, re.getStatusCode());
     }
 
     @Test
@@ -80,7 +84,7 @@ public class CourseControllerTest {
 
     @Test
     public void testGetCourseByCodeNotFound() {
-        
+
     }
 
 }
