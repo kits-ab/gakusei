@@ -49,7 +49,7 @@ public class CourseControllerTest {
     }
 
     @Test
-    public void tetGetCourseByNameOK() throws Exception {
+    public void testGetCourseByNameOK() throws Exception {
         Mockito.when(courseRepository.findByName(testCourse.getName())).thenReturn(testCourse);
 
         ResponseEntity<Course> re = courseController.getCourseByName(testCourse.getName());
@@ -59,7 +59,7 @@ public class CourseControllerTest {
     }
 
     @Test
-    public void tetsGetCourseByCodeOK() throws Exception {
+    public void testGetCourseByCodeOK() throws Exception {
         Mockito.when(courseRepository.findByCourseCode(testCourse.getCourseCode())).thenReturn(testCourse);
 
         ResponseEntity<Course> re = courseController.getCourseByCode(testCourse.getCourseCode());
