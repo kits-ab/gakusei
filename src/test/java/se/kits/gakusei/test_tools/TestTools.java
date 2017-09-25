@@ -1,5 +1,6 @@
 package se.kits.gakusei.test_tools;
 
+import se.kits.gakusei.content.model.Course;
 import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
@@ -75,5 +76,26 @@ public class TestTools {
         dto.put("alternative3", alt3);
         dto.put("correctAlternative", altCorrect);
         return dto;
+    }
+
+    public static List<Course> generateCourses(){
+        List<Course> courses = new ArrayList<>();
+
+        for(int i = 1; i <= 10; i++){
+            courses.add(createCourse(Integer.toString(i)));
+        }
+
+        return courses;
+    }
+
+    public static Course generateCourse(){
+        return createCourse("");
+    }
+
+    private static Course createCourse(String suffix){
+        Course course = new Course();
+        course.setName("Test course" + suffix);
+        course.setCourseCode("TC");
+        return course;
     }
 }
