@@ -1,6 +1,8 @@
 package se.kits.gakusei.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,12 +49,39 @@ public class QuizController {
     }
 
     @RequestMapping(
+            value = "/api/quizes",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<Iterable<Quiz>> getQuizes() {
+        return new ResponseEntity<>(quizRepository.findAll(), HttpStatus.OK);
+    }
+
+    @RequestMapping(
         value = "/api/quiz/{quizId}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<Quiz> getQuiz(@PathVariable(value="quizId") Long quizId) {
         return ResponseEntity.ok(quizRepository.findOne(quizId));
+    }
+
+    @RequestMapping(
+
+    @RequestMapping(
+            value = "/api/quizes/{offset}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<List<Quiz>> getQuizesPage(@PathVariable(value="offset") int
+            offset) {
+        Pageable pageRequest;
+        if (offset < 0)
+            pageRequest = new PageRequest(0, 10);
+        else
+            pageRequest = new PageRequest(offset, 10);
+
+        return new ResponseEntity<>(quizRepository.findAll(pageRequest).getContent(), HttpStatus.OK);
     }
 
     @RequestMapping(
