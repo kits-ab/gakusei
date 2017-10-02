@@ -6,18 +6,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Quiz;
 import se.kits.gakusei.content.repository.LessonRepository;
-import se.kits.gakusei.content.repository.QuizNuggetRepository;
 import se.kits.gakusei.content.repository.QuizRepository;
 import se.kits.gakusei.util.QuestionHandler;
 import se.kits.gakusei.util.QuizHandler;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.ws.Response;
 import java.util.HashMap;
 import java.util.List;
 
