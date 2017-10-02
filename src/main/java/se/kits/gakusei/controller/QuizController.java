@@ -67,6 +67,20 @@ public class QuizController {
     }
 
     @RequestMapping(
+            value = "/api/quizes/{offset}/{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<List<Quiz>> getQuizesByName(@PathVariable(value="name") String name,
+                                                      @PathVariable(value="offset") int offset) {
+        Pageable pageRequest;
+        if (offset < 0)
+            pageRequest = new PageRequest(0, 10);
+        else
+            pageRequest = new PageRequest(offset, 10);
+
+        return new ResponseEntity<>(quizRepository.findByNameContainingIgnoreCase(name, pageRequest), HttpStatus.OK);
+    }
 
     @RequestMapping(
             value = "/api/quizes/{offset}",
