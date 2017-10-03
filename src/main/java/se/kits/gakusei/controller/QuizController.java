@@ -49,7 +49,7 @@ public class QuizController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<Iterable<Quiz>> getQuizes() {
+    public ResponseEntity<Iterable<Quiz>> getQuizzes() {
         return new ResponseEntity<>(quizRepository.findAll(), HttpStatus.OK);
     }
 
@@ -67,7 +67,7 @@ public class QuizController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<List<Quiz>> getQuizesByName(@PathVariable(value="name") String name,
+    public ResponseEntity<Iterable<Quiz>> getQuizzesByName(@PathVariable(value="name") String name,
                                                       @PathVariable(value="offset") int offset) {
         Pageable pageRequest;
         if (offset < 0)
@@ -83,7 +83,7 @@ public class QuizController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<List<Quiz>> getQuizesPage(@PathVariable(value="offset") int
+    public ResponseEntity<Iterable<Quiz>> getQuizzesPage(@PathVariable(value="offset") int
             offset) {
         Pageable pageRequest;
         if (offset < 0)
