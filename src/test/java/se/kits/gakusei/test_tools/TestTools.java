@@ -109,10 +109,6 @@ public class TestTools {
        return quizzes;
     }
 
-    public static Quiz generateQuiz() {
-        return createQuiz("", "Test", "Beskrivning");
-    }
-
     private static Quiz createQuiz(String suffix, String namePrefix, String descrPrefix) {
         Quiz quiz = new Quiz();
         quiz.setName(namePrefix + suffix);
