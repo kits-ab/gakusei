@@ -1,9 +1,10 @@
 package se.kits.gakusei.test_tools;
 
-import se.kits.gakusei.content.model.Course;
-import se.kits.gakusei.content.model.Fact;
-import se.kits.gakusei.content.model.Lesson;
-import se.kits.gakusei.content.model.Nugget;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import se.kits.gakusei.content.model.*;
+
 import java.util.*;
 
 public class TestTools {
@@ -97,5 +98,26 @@ public class TestTools {
         course.setName("Test course" + suffix);
         course.setCourseCode("TC");
         return course;
+    }
+
+    public static List<Quiz> generateQuizzes(int nbrOfQuizzes, String namePrefix, String descrPrefix) {
+        List<Quiz> quizzes = new ArrayList<>();
+       for (int i = 0; i <= nbrOfQuizzes; i++ ) {
+           quizzes.add(createQuiz(Integer.toString(i), namePrefix, descrPrefix));
+       }
+
+       return quizzes;
+    }
+
+    private static Quiz createQuiz(String suffix, String namePrefix, String descrPrefix) {
+        Quiz quiz = new Quiz();
+        quiz.setName(namePrefix + suffix);
+        quiz.setDescription(descrPrefix + suffix);
+        return quiz;
+    }
+
+    public static Page<Quiz> generateQuizzesPage(List<Quiz> quizzes, Pageable pageRequest) {
+        Page<Quiz> page = new PageImpl<>(quizzes, pageRequest, quizzes.size());
+        return page;
     }
 }
