@@ -1,7 +1,6 @@
 package se.kits.gakusei.content.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -11,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name="nuggets", schema = "contentschema")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Nugget implements Serializable{
 
     @Id
@@ -26,22 +26,23 @@ public class Nugget implements Serializable{
 
     //Remove when migrating, along with getter and setter
     @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
-    @JsonManagedReference
+    @JsonManagedReference(value = "fact")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Fact> facts;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "book")
     @JoinColumn(name = "book_ref")
     private Book title;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "wordtype")
     @JoinColumn(name = "word_type_ref")
     private WordType wordType;
 
     @ManyToMany(mappedBy = "nuggets")
-    @JsonBackReference
+    // @JsonBackReference(value = "lessonnugget")
+    @JsonIgnore
     private List<Lesson> lessons;
 
     private String swedish;

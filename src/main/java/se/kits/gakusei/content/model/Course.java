@@ -37,7 +37,7 @@ public class Course implements Serializable {
     private String courseCode;
 
     @OneToMany(mappedBy="course", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonManagedReference(value = "courselesson")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Lesson> lessons;
 

@@ -53,7 +53,7 @@ public class Event implements Serializable {
     @Column
     private String nuggetId;
 
-    @JsonBackReference
+    @JsonBackReference(value = "events")
     @ManyToOne
     @JoinColumn(name = "user_ref")
     private User user;
