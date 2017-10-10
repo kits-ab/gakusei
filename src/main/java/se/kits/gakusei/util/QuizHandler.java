@@ -35,8 +35,8 @@ public class QuizHandler {
     @Autowired
     protected IncorrectAnswerRepository incorrectAnswerRepository;
 
-    public List<HashMap<String, Object>> getQuizNuggets(Quiz quiz) {
-        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuiz_Id(quiz.getId());
+    public List<HashMap<String, Object>> getQuizNuggets(Long quizId) {
+        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuiz_Id(quizId);
         List<HashMap<String, Object>> myQuizNuggets = new ArrayList<>();
 
         for (QuizNugget quizNugget : quizNuggets) {
