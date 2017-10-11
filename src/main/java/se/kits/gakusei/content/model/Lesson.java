@@ -1,7 +1,6 @@
 package se.kits.gakusei.content.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -72,6 +71,7 @@ import java.util.List;
                         "contentschema.lessons.id=contentschema.lessons_nuggets.lesson_id where name = :lessonName)",
                 resultClass = Nugget.class)
 })
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Lesson implements Serializable {
 
     @Id
@@ -84,7 +84,7 @@ public class Lesson implements Serializable {
     private String description;
 
     @ManyToMany
-    @JsonManagedReference
+    //@JsonManagedReference(value = "lessonnugget")
     @JoinTable(
             name = "lessons_nuggets",
             schema = "contentschema",
@@ -92,13 +92,14 @@ public class Lesson implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"))
     private List<Nugget> nuggets;
 
-    @JsonBackReference
+    //@JsonBackReference(value = "ullessons")
+    @JsonIgnore
     @OneToMany(mappedBy="lesson", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<UserLesson> userLessons;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "courselesson")
     @JoinColumn(name="course_ref")
     private Course course;
 

@@ -15,7 +15,7 @@ public class ProgressTracking implements Serializable{
     private long id;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "progress")
     @JoinColumn(name = "user_ref")
     private User user;
 
