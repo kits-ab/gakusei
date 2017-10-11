@@ -101,9 +101,6 @@ public class QuizController {
     )
     public ResponseEntity<List<HashMap<String, Object>>> getQuizNuggets(@PathVariable(value="quizId") Long quizId) {
         List<HashMap<String, Object>> quizNuggets = quizHandler.getQuizNuggets(quizId);
-        if (quizNuggets.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<>(quizNuggets, HttpStatus.OK);
     }
 
