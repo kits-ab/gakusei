@@ -102,7 +102,7 @@ public class TestTools {
 
     public static List<Quiz> generateQuizzes(int nbrOfQuizzes, String namePrefix, String descrPrefix) {
         List<Quiz> quizzes = new ArrayList<>();
-       for (int i = 0; i <= nbrOfQuizzes; i++ ) {
+       for (int i = 1; i <= nbrOfQuizzes; i++ ) {
            quizzes.add(createQuiz(Integer.toString(i), namePrefix, descrPrefix));
        }
 
