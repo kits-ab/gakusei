@@ -95,6 +95,16 @@ public class QuizController {
     }
 
     @RequestMapping(
+            value = "/api/quizes/{quizId}/nuggets",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<List<HashMap<String, Object>>> getQuizNuggets(@PathVariable(value="quizId") Long quizId) {
+        List<HashMap<String, Object>> quizNuggets = quizHandler.getQuizNuggets(quizId);
+        return new ResponseEntity<>(quizNuggets, HttpStatus.OK);
+    }
+
+    @RequestMapping(
         value = "/api/quiz/nugget/{quizNuggetId}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE

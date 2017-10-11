@@ -17,14 +17,14 @@ import java.util.List;
 @Component
 public class QuizHandler {
 
-    public final String QN_ID = "id";
-    public final String QN_QUIZ_REF = "quizRef";
-    public final String QN_QUESTION = "question";
-    public final String QN_CORRECT_ANSWER = "correctAnswer";
-    public final String QN_INCORRECT_ANSWERS = "incorrectAnswers";
+    public final static String QN_ID = "id";
+    public final static String QN_QUIZ_REF = "quizRef";
+    public final static String QN_QUESTION = "question";
+    public final static String QN_CORRECT_ANSWER = "correctAnswer";
+    public final static String QN_INCORRECT_ANSWERS = "incorrectAnswers";
 
-    public final String IA_INCORRECT_ANSWERS = "incorrectAnswer";
-    public final String IA_ID = "id";
+    public final static String IA_INCORRECT_ANSWERS = "incorrectAnswer";
+    public final static String IA_ID = "id";
 
     @Autowired
     protected QuizRepository quizRepository;
@@ -35,31 +35,31 @@ public class QuizHandler {
     @Autowired
     protected IncorrectAnswerRepository incorrectAnswerRepository;
 
-    public List<HashMap<String, Object>> getQuizNuggets(Quiz quiz) {
-        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuiz_Id(quiz.getId());
+    public List<HashMap<String, Object>> getQuizNuggets(Long quizId) {
+        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuiz_Id(quizId);
         List<HashMap<String, Object>> myQuizNuggets = new ArrayList<>();
 
         for (QuizNugget quizNugget : quizNuggets) {
-            HashMap<String, Object> myQuizNugget = this.convertQuizNugget(quizNugget);
+            HashMap<String, Object> myQuizNugget = convertQuizNugget(quizNugget);
             myQuizNuggets.add(myQuizNugget);
         }
         return myQuizNuggets;
     }
 
     public HashMap<String, Object> getQuizNugget(Long quizNuggetId) {
-        HashMap<String, Object> myQuizNugget = this.convertQuizNugget(this.quizNuggetRepository.findOne(quizNuggetId));
-        myQuizNugget.put(this.QN_INCORRECT_ANSWERS, this.getIncorrectAnswers(quizNuggetId));
+        HashMap<String, Object> myQuizNugget = convertQuizNugget(quizNuggetRepository.findOne(quizNuggetId));
+        myQuizNugget.put(QN_INCORRECT_ANSWERS, getIncorrectAnswers(quizNuggetId));
 
         return myQuizNugget;
     }
 
     public HashMap<String, Object> convertQuizNugget(QuizNugget quizNugget) {
         HashMap<String, Object> myQuizNugget = new HashMap<>();
-        myQuizNugget.put(this.QN_ID, quizNugget.getId());
-        myQuizNugget.put(this.QN_QUIZ_REF, quizNugget.getQuiz().getId());
-        myQuizNugget.put(this.QN_QUESTION, quizNugget.getQuestion());
-        myQuizNugget.put(this.QN_CORRECT_ANSWER, quizNugget.getCorrectAnswer());
-        myQuizNugget.put(this.QN_INCORRECT_ANSWERS, this.getIncorrectAnswers(quizNugget.getId()));
+        myQuizNugget.put(QN_ID, quizNugget.getId());
+        myQuizNugget.put(QN_QUIZ_REF, quizNugget.getQuiz().getId());
+        myQuizNugget.put(QN_QUESTION, quizNugget.getQuestion());
+        myQuizNugget.put(QN_CORRECT_ANSWER, quizNugget.getCorrectAnswer());
+        myQuizNugget.put(QN_INCORRECT_ANSWERS, getIncorrectAnswers(quizNugget.getId()));
 
         return myQuizNugget;
     }
@@ -68,15 +68,15 @@ public class QuizHandler {
         List<HashMap<String, Object>> myIncorrectAnswers = new ArrayList<>();
         List<IncorrectAnswers> incorrectAnswers = incorrectAnswerRepository.getByQuizNugget_Id(quizNuggetId);
         for (IncorrectAnswers incorrectAnswer : incorrectAnswers)
-            myIncorrectAnswers.add(this.convertIncorrectAnswer(incorrectAnswer));
+            myIncorrectAnswers.add(convertIncorrectAnswer(incorrectAnswer));
 
         return myIncorrectAnswers;
     }
 
     private HashMap<String, Object> convertIncorrectAnswer(IncorrectAnswers incorrectAnswers) {
         HashMap<String, Object> myIncorrectAnswer = new HashMap<>();
-        myIncorrectAnswer.put(this.IA_ID, incorrectAnswers.getId());
-        myIncorrectAnswer.put(this.IA_INCORRECT_ANSWERS, incorrectAnswers.getIncorrectAnswer());
+        myIncorrectAnswer.put(IA_ID, incorrectAnswers.getId());
+        myIncorrectAnswer.put(IA_INCORRECT_ANSWERS, incorrectAnswers.getIncorrectAnswer());
 
         return myIncorrectAnswer;
     }
