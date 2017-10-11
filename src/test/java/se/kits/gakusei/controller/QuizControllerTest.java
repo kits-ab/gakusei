@@ -20,7 +20,9 @@ import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.QuizRepository;
 import se.kits.gakusei.test_tools.TestTools;
 import se.kits.gakusei.util.QuestionHandler;
+import se.kits.gakusei.util.QuizHandler;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -40,11 +42,16 @@ public class QuizControllerTest {
     @Mock
     private QuizRepository quizRepository;
 
+    @Mock
+    private QuizHandler quizHandler;
+
     private String lessonName;
     private List<Quiz> fewQuizzes;
     private List<Quiz> manyQuizzes;
     private int pageSize;
     private String searchString;
+    private Quiz quiz;
+    private List<HashMap<String, Object>> questions;
 
     @Before
     public void setUp() throws Exception {
@@ -53,6 +60,9 @@ public class QuizControllerTest {
         manyQuizzes = TestTools.generateQuizzes(30, "Test", "Beskrivning");
         pageSize = 10;
         searchString = "test";
+        quiz = TestTools.generateQuiz();
+        questions = new ArrayList<>();
+        questions.add(TestTools.createQuestion(quiz, 3));
     }
 
     @Test
@@ -116,5 +126,13 @@ public class QuizControllerTest {
         ResponseEntity<Iterable<Quiz>> re = quizController.getQuizzesByName(searchString, 0);
         assertEquals(firstMatchingPage.getContent(), re.getBody());
         assertEquals(HttpStatus.OK, re.getStatusCode());
+    }
+
+    @Test
+    public void testGetQuizNuggetsOK() {
+       Mockito.when(quizHandler.getQuizNuggets(quiz.getId())).thenReturn(questions);
+       ResponseEntity<List<HashMap<String,Object>>> re = quizController.getQuizNuggets(quiz.getId());
+       assertEquals(questions, re.getBody());
+       assertEquals(HttpStatus.OK, re.getStatusCode());
     }
 }

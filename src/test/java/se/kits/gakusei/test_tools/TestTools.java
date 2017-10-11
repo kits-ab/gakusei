@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import se.kits.gakusei.content.model.*;
+import se.kits.gakusei.util.QuizHandler;
 
 import java.util.*;
 
@@ -100,6 +101,8 @@ public class TestTools {
         return course;
     }
 
+    public static Quiz generateQuiz() { return createQuiz("", "Testquiz", "description"); }
+
     public static List<Quiz> generateQuizzes(int nbrOfQuizzes, String namePrefix, String descrPrefix) {
         List<Quiz> quizzes = new ArrayList<>();
        for (int i = 1; i <= nbrOfQuizzes; i++ ) {
@@ -120,4 +123,45 @@ public class TestTools {
         Page<Quiz> page = new PageImpl<>(quizzes, pageRequest, quizzes.size());
         return page;
     }
+
+    public static HashMap<String, Object> createQuestion(Quiz quiz, int nbrOfIncorrectAnswers) {
+        HashMap<String, Object> question = new HashMap<>();
+        QuizNugget quizNugget = createQuizNugget(quiz, "");
+        question.put(QuizHandler.QN_ID, quizNugget.getId());
+        question.put(QuizHandler.QN_QUIZ_REF, quiz.getId());
+        question.put(QuizHandler.QN_INCORRECT_ANSWERS, createIncorrectAnswers(quizNugget, nbrOfIncorrectAnswers));
+        return question;
+    }
+
+    private static QuizNugget createQuizNugget(Quiz quiz, String suffix) {
+        QuizNugget nugget = new QuizNugget();
+        nugget.setQuiz(quiz);
+        nugget.setQuestion("Question " + suffix);
+        nugget.setCorrectAnswer("correct alternative");
+        return nugget;
+    }
+
+    private static List<HashMap<String, Object>> createIncorrectAnswers(QuizNugget quizNugget, int
+            nbrOfIncorrectAnswers) {
+        List<HashMap<String, Object>> incorrectAnswers = new ArrayList<>();
+        for (int i = 1; i < nbrOfIncorrectAnswers; i++) {
+            incorrectAnswers.add(convertIncorrectAnswer(createIncorrectAnswer(quizNugget, Integer.toString(i))));
+        }
+        return incorrectAnswers;
+    }
+
+    private static HashMap<String, Object> convertIncorrectAnswer(IncorrectAnswers incorrectAnswer) {
+        HashMap<String, Object> convertedIncorrectAnswer = new HashMap<>();
+        convertedIncorrectAnswer.put(QuizHandler.IA_ID, incorrectAnswer.getId());
+        convertedIncorrectAnswer.put(QuizHandler.IA_INCORRECT_ANSWERS, incorrectAnswer.getIncorrectAnswer());
+        return convertedIncorrectAnswer;
+    }
+
+    private static IncorrectAnswers createIncorrectAnswer(QuizNugget nugget, String suffix) {
+        IncorrectAnswers incorrectAnswer = new IncorrectAnswers();
+        incorrectAnswer.setQuizNugget(nugget);
+        incorrectAnswer.setIncorrectAnswer("incorrect alternative " + suffix);
+        return incorrectAnswer;
+    }
+
 }
