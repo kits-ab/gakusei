@@ -95,7 +95,7 @@ public class QuizController {
     }
 
     @RequestMapping(
-            value = "/api/quizes/nuggets/{quizId}",
+            value = "/api/quizes/{quizId}/nuggets",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
