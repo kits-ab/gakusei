@@ -130,9 +130,9 @@ public class QuizControllerTest {
 
     @Test
     public void testGetQuizNuggetsOK() {
-       Mockito.when(quizHandler.getQuizNuggets(quiz.getId())).thenReturn(questions);
-       ResponseEntity<List<HashMap<String,Object>>> re = quizController.getQuizNuggets(quiz.getId());
-       assertEquals(questions, re.getBody());
-       assertEquals(HttpStatus.OK, re.getStatusCode());
+        Mockito.when(quizHandler.getQuizNuggets(quiz.getId())).thenReturn(questions);
+        ResponseEntity<List<HashMap<String,Object>>> re = quizController.getQuizNuggets(quiz.getId());
+        assertEquals(questions, re.getBody());
+        assertEquals(HttpStatus.OK, re.getStatusCode());
     }
 }
