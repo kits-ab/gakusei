@@ -144,7 +144,7 @@ public class TestTools {
     private static List<HashMap<String, Object>> createIncorrectAnswers(QuizNugget quizNugget, int
             nbrOfIncorrectAnswers) {
         List<HashMap<String, Object>> incorrectAnswers = new ArrayList<>();
-        for (int i = 1; i < nbrOfIncorrectAnswers; i++) {
+        for (int i = 1; i <= nbrOfIncorrectAnswers; i++) {
             incorrectAnswers.add(convertIncorrectAnswer(createIncorrectAnswer(quizNugget, Integer.toString(i))));
         }
         return incorrectAnswers;
