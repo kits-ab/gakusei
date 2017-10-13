@@ -127,7 +127,8 @@ public class TestTools {
     public static HashMap<String, Object> createQuestion(Quiz quiz, int nbrOfIncorrectAnswers) {
         HashMap<String, Object> question = new HashMap<>();
         QuizNugget quizNugget = createQuizNugget(quiz, "");
-        question.put(QuizHandler.QN_ID, quizNugget.getId());
+        question.put(QuizHandler.QN_QUESTION, quizNugget.getQuestion());
+        question.put(QuizHandler.QN_CORRECT_ANSWER, quizNugget.getCorrectAnswer());
         question.put(QuizHandler.QN_QUIZ_REF, quiz.getId());
         question.put(QuizHandler.QN_INCORRECT_ANSWERS, createIncorrectAnswers(quizNugget, nbrOfIncorrectAnswers));
         return question;
@@ -144,7 +145,7 @@ public class TestTools {
     private static List<HashMap<String, Object>> createIncorrectAnswers(QuizNugget quizNugget, int
             nbrOfIncorrectAnswers) {
         List<HashMap<String, Object>> incorrectAnswers = new ArrayList<>();
-        for (int i = 1; i < nbrOfIncorrectAnswers; i++) {
+        for (int i = 1; i <= nbrOfIncorrectAnswers; i++) {
             incorrectAnswers.add(convertIncorrectAnswer(createIncorrectAnswer(quizNugget, Integer.toString(i))));
         }
         return incorrectAnswers;
@@ -152,7 +153,6 @@ public class TestTools {
 
     private static HashMap<String, Object> convertIncorrectAnswer(IncorrectAnswers incorrectAnswer) {
         HashMap<String, Object> convertedIncorrectAnswer = new HashMap<>();
-        convertedIncorrectAnswer.put(QuizHandler.IA_ID, incorrectAnswer.getId());
         convertedIncorrectAnswer.put(QuizHandler.IA_INCORRECT_ANSWERS, incorrectAnswer.getIncorrectAnswer());
         return convertedIncorrectAnswer;
     }
