@@ -484,7 +484,8 @@ export function fetchLessons(type) {
   return function (dispatch, getState) {
     const lessonState = getState().lessons;
     const lessonType = type === 'quiz' ? 'quiz' : 'vocabulary';
-    return fetch(`/api/lessons?lessonType=${lessonType}`, { credentials: 'same-origin' })
+    const url = type === 'quiz' ? '/api/quizes' : `/api/lessons?lessonType=${lessonType}`;
+    return fetch(url, { credentials: 'same-origin' })
       .then((response) => {
         if (response.ok) {
           return response.json();
