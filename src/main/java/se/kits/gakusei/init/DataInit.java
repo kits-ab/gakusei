@@ -13,14 +13,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import se.kits.gakusei.content.model.Fact;
-import se.kits.gakusei.content.model.Lesson;
-import se.kits.gakusei.content.model.Nugget;
-import se.kits.gakusei.content.repository.FactRepository;
-import se.kits.gakusei.content.repository.LessonRepository;
-import se.kits.gakusei.content.repository.NuggetRepository;
+import se.kits.gakusei.content.model.*;
+import se.kits.gakusei.content.repository.*;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
+import se.kits.gakusei.util.ParserFailureException;
+import se.kits.gakusei.util.csv.CSVQuizNugget;
+import se.kits.gakusei.util.csv.CSVQuizToDatabase;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +50,15 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private IncorrectAnswerRepository incorrectAnswerRepository;
+
+    @Autowired
+    private QuizNuggetRepository quizNuggetRepository;
+
+    @Autowired
+    private QuizRepository quizRepository;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${gakusei.data-init}")
@@ -62,11 +70,17 @@ public class DataInit implements ApplicationRunner {
         String activeProfiles = Arrays.toString(environment.getActiveProfiles());
         if (datainit) {
             String testDataFile = "testdata/testdata.json";
+            // Remove when quiz data migration is done
             String quizDataFile = "testdata/quizdata.json";
+            String csvQuizNuggetFile = "testdata/quizzes.csv";
+
             createUsers();
             createTestData(readTestDataFromFile(testDataFile));
+            // Remove when quiz data migration is done
             createQuiz(readTestDataFromFile(quizDataFile));
             createLessons();
+            createQuizzesFromCSV(csvQuizNuggetFile);
+
             logger.info("*** Data initialization was set on profile(s): " + activeProfiles);
         } else {
             logger.info("*** Data initialization was NOT set on profile(s): " + activeProfiles);
@@ -180,6 +194,7 @@ public class DataInit implements ApplicationRunner {
         lessonRepository.save(lessons);
     }
 
+    // Remove when quiz data migration is done
     private void createQuiz(Set<Map<String, Object>> dataHolders) {
         for (Map<String, Object> tdh : dataHolders) {
             Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
@@ -220,6 +235,34 @@ public class DataInit implements ApplicationRunner {
                 fact.setNugget(savedNugget);
             }
             factRepository.save(facts);
+        }
+    }
+
+    public void createQuizzesFromCSV(String csvFile) throws Exception {
+
+        CSVQuizToDatabase parser = new CSVQuizToDatabase(resourceLoader.getResource("classpath:" + csvFile).getFile
+                ().getAbsolutePath());
+        List<CSVQuizNugget> csvQuizNuggets = new ArrayList<>();
+
+        try {
+            csvQuizNuggets = parser.parse();
+
+        } catch (ParserFailureException e){
+            logger.error("Unable to parse " + csvFile, e);
+        }
+
+        for (CSVQuizNugget csvQuizNugget : csvQuizNuggets) {
+            Quiz quiz = csvQuizNugget.getQuiz();
+            List<Quiz> quizzes = quizRepository.findByName(quiz.getName());
+            if (quizzes.isEmpty()) {
+                quiz = quizRepository.save(quiz);
+            } else {
+                quiz = quizzes.get(0);
+            }
+            QuizNugget quizNugget = quizNuggetRepository.save(csvQuizNugget.getQuizNugget(quiz));
+
+            Iterable<IncorrectAnswers> ias = incorrectAnswerRepository.save(csvQuizNugget.getIncorrectAnswers
+                    (quizNugget));
         }
     }
 }
