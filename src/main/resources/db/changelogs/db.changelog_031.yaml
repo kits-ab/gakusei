@@ -4,11 +4,10 @@ databaseChangeLog:
     author: doverstav
     preConditions:
         - onFail: MARK_RAN
-        - not:
-            - columnExists:
-                columnName: courseOrder
-                schemaName: contentschema
-                tableName: courses
+        - columnExists:
+            columnName: order
+            schemaName: contentschema
+            tableName: courses
     changes:
     - renameColumn:
         newColumnName: courseOrder

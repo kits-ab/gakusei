@@ -1,0 +1,11 @@
+# Header row
+
+name, description, question, correctAnswer, incorrectAnswers
+
+# Body rows
+
+"Den japanska floran","Ett quiz om den japanska floran","Vilken växts blomning firas under högtiden Hanami?","körsbärsträd","näsduksträd, ginkgo, svinröv, kryptomera, japansk begonia, astilbe, magnolia"
+"Den japanska floran","Ett quiz om den japanska floran","Vilken färg har japanska vinterbär (Skimmia japonica)?","röda","blåa, vita, gula, svarta, gröna"
+"Den japanska floran","Ett quiz om den japanska floran","Vad betyder bonsai?","skålväxt","litet träd, konstväxt, tuktat träd, gammal växt, helig växt"
+"Den japanska floran","Ett quiz om den japanska floran","Vilken familj tillhör busken nätvaktelbär?","ljungväxter","cycasväxter, ginkgoväxter, narrbuskeväxter, syrenväxter"
+"Den japanska floran","Ett quiz om den japanska floran","Hur många arter finns det i ginkgosläktet?","1","2, 5, 20, 60"
