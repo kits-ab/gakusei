@@ -19,10 +19,10 @@ public class CSV {
      * Parse a CSV file and return a map with its headers and rows.
      *
      * @param filePath
-     * @param expectedNbrOdHeaders
+     * @param expectedNbrOfHeaders
      * @return Map
      */
-    public static Map<String, List<String[]>> parse(String filePath, int expectedNbrOdHeaders) {
+    public static Map<String, List<String[]>> parse(String filePath, int expectedNbrOfHeaders) {
 
         CsvParserSettings settings = new CsvParserSettings();
         RowListProcessor rowProcessor = new RowListProcessor();
@@ -49,9 +49,9 @@ public class CSV {
         List<String[]> headerList = new ArrayList<String[]>();
 
         String[] headers = rowProcessor.getHeaders();
-        if (headers.length != expectedNbrOdHeaders) {
+        if (headers.length != expectedNbrOfHeaders) {
             throw new ParserFailureException("Unexpected number of headers" +
-                    "\nExpected " + Integer.toString(expectedNbrOdHeaders) +
+                    "\nExpected " + Integer.toString(expectedNbrOfHeaders) +
                     " but got " + Integer.toString(headers.length));
         }
 
