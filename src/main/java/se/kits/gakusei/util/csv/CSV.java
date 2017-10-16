@@ -38,12 +38,7 @@ public class CSV {
         try {
             parser.parse(new FileReader(filePath));
         } catch(IOException e) {
-
-            List err = new ArrayList<String>();
-            err.add("CSV file could not be parsed");
-            result.put("ERROR", err);
-
-            return result;
+            throw new ParserFailureException("CSV file could not be parsed \n" + e.toString());
         }
 
         List<String[]> headerList = new ArrayList<String[]>();
