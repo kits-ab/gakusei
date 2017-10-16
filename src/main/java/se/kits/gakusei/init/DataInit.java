@@ -212,9 +212,7 @@ public class DataInit implements ApplicationRunner {
                 quiz = quizzes.get(0);
             }
             QuizNugget quizNugget = quizNuggetRepository.save(csvQuizNugget.getQuizNugget(quiz));
-
-            Iterable<IncorrectAnswers> ias = incorrectAnswerRepository.save(csvQuizNugget.getIncorrectAnswers
-                    (quizNugget));
+            incorrectAnswerRepository.save(csvQuizNugget.getIncorrectAnswers(quizNugget));
         }
     }
 }
