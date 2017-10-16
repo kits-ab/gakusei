@@ -59,6 +59,34 @@ Since we will create a single .jar file with all resources embedded, we will nee
 * Command `mvn package -Pdevelopment` is also available, should you want to use it for troubleshooting.
 * The spring profile "enable-resource-caching" enables some very effective caching methods. You should always want to have this profile active when you deploy in production.
 
+#### Deployment to staging and production
+When pushing to master or develop, Travis does the following:
+* create the .jar file by executing `mvn clean package -Pproduction`
+* copy the .jar from the Travis build directory to the specified server
+```
+master  -> gakusei.daigaku.se
+develop -> staging.daigaku.se
+```
+* ssh to the specified server
+* run `deploy_gakusei.sh` located in the Scripts directory
+
+##### Staging
+The staging environment is a Linux server (distribution?) hosted by Linode https://www.linode.com/.
+
+On the stagin server `deploy_gakusei.sh`:
+* sets some enivronmental variables (script mode (=deploy), logfile name, production jar file name, db user etc)
+* executes `node /home/staging/deploy-watcher/index.js`
+
+In `index.js`:
+* backups are created
+  * the old .jar file is moved to the backup directory
+  * the old logfile is moved
+  * the old database is dumped to the db backup directory
+* the old .jar gets replaced by the new .jar
+* `pkill -u staging -f "java"` is executed to terminate all java processes for the staging user 
+  (observed that all errors that may arise at this point are ignored and presumed to happen because there are no java processes running to terminate)
+* `nohup java -jar "<new>".jar --spring.profiles.active='postgres,enable-resource-caching' &> "<logfile>" &` is executed to run the new jar (with the specified profiles active) and to redirect the output to the logfile.
+
 ### System overview
 The following picture gives a brief overview of the projects structure:
 
