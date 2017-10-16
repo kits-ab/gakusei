@@ -70,7 +70,7 @@ export class GakuseiNav extends React.Component {
             </Nav>
           :
             <Nav pullRight>
-              <LinkContainer to="/login">
+              <LinkContainer to={`/login${this.props.location.search}`}>
                 <NavItem>Logga in / Registrera</NavItem>
               </LinkContainer>
             </Nav>}
