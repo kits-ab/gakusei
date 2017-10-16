@@ -192,8 +192,7 @@ public class DataInit implements ApplicationRunner {
 
     public void createQuizzesFromCSV(String csvFile) throws Exception {
 
-        CSVQuizToDatabase parser = new CSVQuizToDatabase(resourceLoader.getResource("classpath:" + csvFile).getFile
-                ().getAbsolutePath());
+        CSVQuizToDatabase parser = new CSVQuizToDatabase(resourceLoader.getResource("classpath:" + csvFile).getInputStream());
         List<CSVQuizNugget> csvQuizNuggets = new ArrayList<>();
 
         try {

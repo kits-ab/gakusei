@@ -5,8 +5,8 @@ import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 import se.kits.gakusei.util.ParserFailureException;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,11 +18,11 @@ public class CSV {
     /**
      * Parse a CSV file and return a map with its headers and rows.
      *
-     * @param filePath
+     * @param csvInput
      * @param expectedNbrOfHeaders
      * @return Map
      */
-    public static Map<String, List<String[]>> parse(String filePath, int expectedNbrOfHeaders) {
+    public static Map<String, List<String[]>> parse(InputStream csvInput, int expectedNbrOfHeaders) {
 
         CsvParserSettings settings = new CsvParserSettings();
         RowListProcessor rowProcessor = new RowListProcessor();
@@ -35,11 +35,7 @@ public class CSV {
 
         Map<String, List<String[]>> result = new HashMap<String, List<String[]>>();
 
-        try {
-            parser.parse(new FileReader(filePath));
-        } catch(IOException e) {
-            throw new ParserFailureException("CSV file could not be parsed \n" + e.toString());
-        }
+        parser.parse(new InputStreamReader(csvInput));
 
         List<String[]> headerList = new ArrayList<String[]>();
 

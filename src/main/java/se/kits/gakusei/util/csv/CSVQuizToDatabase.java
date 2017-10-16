@@ -1,21 +1,22 @@
 package se.kits.gakusei.util.csv;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class CSVQuizToDatabase {
 
-    private String file;
+    private InputStream csvInput;
     private final int EXPECTED_NUMBER_OF_HEADERS = 5;
 
-    public CSVQuizToDatabase(String file){
-        this.file = file;
+    public CSVQuizToDatabase(InputStream csvInput){
+        this.csvInput = csvInput;
     }
 
     public List<CSVQuizNugget> parse() throws Exception {
 
-        Map<String, List<String []>> csv = CSV.parse(file, EXPECTED_NUMBER_OF_HEADERS);
+        Map<String, List<String []>> csv = CSV.parse(csvInput, EXPECTED_NUMBER_OF_HEADERS);
         List<CSVQuizNugget> csvQuizNuggets = createCSVQuizNuggets(csv.get("ROWS"));
         return csvQuizNuggets;
 
