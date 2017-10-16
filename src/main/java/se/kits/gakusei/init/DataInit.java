@@ -70,14 +70,10 @@ public class DataInit implements ApplicationRunner {
         String activeProfiles = Arrays.toString(environment.getActiveProfiles());
         if (datainit) {
             String testDataFile = "testdata/testdata.json";
-            // Remove when quiz data migration is done
-            String quizDataFile = "testdata/quizdata.json";
             String csvQuizNuggetFile = "testdata/quizzes.csv";
 
             createUsers();
             createTestData(readTestDataFromFile(testDataFile));
-            // Remove when quiz data migration is done
-            createQuiz(readTestDataFromFile(quizDataFile));
             createLessons();
             createQuizzesFromCSV(csvQuizNuggetFile);
 
@@ -192,50 +188,6 @@ public class DataInit implements ApplicationRunner {
             lessons.add(l);
         }
         lessonRepository.save(lessons);
-    }
-
-    // Remove when quiz data migration is done
-    private void createQuiz(Set<Map<String, Object>> dataHolders) {
-        for (Map<String, Object> tdh : dataHolders) {
-            Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
-            nugget.setDescription((String) tdh.get("question"));
-            nugget.setId(tdh.get("id").toString());
-            List<Fact> facts = new ArrayList<>();
-            Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id", "question"));
-            for (Map.Entry entry : tdh.entrySet()) {
-                String type = entry.getKey().toString();
-                if (typeSet.contains(type)) {
-                    if (entry.getValue().toString().equals("hidden")) {
-                        nugget.setHidden(true);
-                    }
-                    continue;
-                }
-                Object data = entry.getValue();
-                if (data instanceof String) {
-                    Fact fact = new Fact();
-                    fact.setType(type);
-                    fact.setData(data.toString());
-                    facts.add(fact);
-                } else {
-                    List<Fact> collectedFacts = ((List<String>) data).stream()
-                            .map(d -> {
-                                Fact f = new Fact();
-                                f.setType(entry.getKey().toString());
-                                f.setData(d);
-                                return f;
-                            })
-                            .collect(Collectors.toList());
-                    facts.addAll(collectedFacts);
-                }
-
-            }
-            Nugget savedNugget = nuggetRepository.save(nugget);
-            savedNugget.setFacts(facts);
-            for (Fact fact : facts) {
-                fact.setNugget(savedNugget);
-            }
-            factRepository.save(facts);
-        }
     }
 
     public void createQuizzesFromCSV(String csvFile) throws Exception {
