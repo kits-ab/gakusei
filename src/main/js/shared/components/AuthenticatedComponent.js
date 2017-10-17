@@ -20,7 +20,7 @@ export function requireAuthentication(Component) {
     checkAuth(isAuthenticated) {
       if (!isAuthenticated) {
         const redirectAfterLogin = this.props.location.pathname;
-        this.props.setPageByName('login', { redirectUrl: redirectAfterLogin });
+        this.props.setPageByName('start', { redirectUrl: redirectAfterLogin });
         // this.props.dispatch(pushState(null, `/login?next=${redirectAfterLogin}`));
       }
     }
