@@ -72,7 +72,7 @@ public class QuizControllerTest {
         ResponseEntity<List<HashMap<String, Object>>> re = quizController.getQuizQuestions(quizName);
 
         assertEquals(dtoList, re.getBody());
-        assertEquals(200, re.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, re.getStatusCode());
     }
 
     @Test
