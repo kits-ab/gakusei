@@ -66,7 +66,7 @@ public class QuizControllerTest {
 
     @Test
     public void testGetQuizQuestions() {
-        Mockito.when(quizRepository.findByName(quiz.getName())).thenReturn(quiz);
+        Mockito.when(quizRepository.findByName(quiz.getName())).thenReturn(Collections.singletonList(quiz));
         List<HashMap<String, Object>> dtoList = Collections.singletonList(TestTools.generateQuestion());
         Mockito.when(quizHandler.getQuizNuggetsForGakusei(quiz.getId())).thenReturn(dtoList);
         ResponseEntity<List<HashMap<String, Object>>> re = quizController.getQuizQuestions(quizName);
@@ -80,7 +80,7 @@ public class QuizControllerTest {
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(null);
         ResponseEntity<List<HashMap<String, Object>>> re = quizController.getQuizQuestions(lessonName);
         assertEquals(null, re.getBody());
-        assertEquals(HttpStatus.NOT_FOUND, re.getStatusCode());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());
     }
 
     @Test

@@ -38,7 +38,13 @@ public class QuizController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<List<HashMap<String, Object>>> getQuizQuestions(@RequestParam(value = "lessonName") String lessonName) {
-        Quiz quiz = quizRepository.findByName(lessonName);
+        List<Quiz> quizList = quizRepository.findByName(lessonName);
+
+        if(quizList.size() != 1){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        Quiz quiz = quizList.get(0);
 
         if (quiz == null) {
             return new ResponseEntity<> (HttpStatus.NOT_FOUND);
