@@ -37,15 +37,13 @@ public class QuizControllerTest {
     private LessonRepository lessonRepository;
 
     @Mock
-    private QuestionHandler questionHandler;
-
-    @Mock
     private QuizRepository quizRepository;
 
     @Mock
     private QuizHandler quizHandler;
 
     private String lessonName;
+    private String quizName;
     private List<Quiz> fewQuizzes;
     private List<Quiz> manyQuizzes;
     private int pageSize;
@@ -56,6 +54,7 @@ public class QuizControllerTest {
     @Before
     public void setUp() throws Exception {
         lessonName = "testLesson";
+        quizName = "Testquiz";
         fewQuizzes = TestTools.generateQuizzes(5, "Test", "Beskrivning");
         manyQuizzes = TestTools.generateQuizzes(30, "Test", "Beskrivning");
         pageSize = 10;
@@ -67,14 +66,10 @@ public class QuizControllerTest {
 
     @Test
     public void testGetQuizQuestions() {
-        String correctData = "quiz_correct";
-        String incorrectData = "quiz_incorrect";
-        String description = "quiz_question";
-        Lesson lesson = TestTools.generateQuizLesson(lessonName, description, correctData, incorrectData);
-        Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
+        Mockito.when(quizRepository.findByName(quiz.getName())).thenReturn(quiz);
         List<HashMap<String, Object>> dtoList = Collections.singletonList(TestTools.generateQuestion());
-        Mockito.when(questionHandler.createQuizQuestions(lesson.getNuggets())).thenReturn(dtoList);
-        ResponseEntity<List<HashMap<String, Object>>> re = quizController.getQuizQuestions(lessonName);
+        Mockito.when(quizHandler.getQuizNuggetsForGakusei(quiz.getId())).thenReturn(dtoList);
+        ResponseEntity<List<HashMap<String, Object>>> re = quizController.getQuizQuestions(quizName);
 
         assertEquals(dtoList, re.getBody());
         assertEquals(200, re.getStatusCodeValue());

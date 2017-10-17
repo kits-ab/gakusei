@@ -38,10 +38,15 @@ public class QuizController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<List<HashMap<String, Object>>> getQuizQuestions(@RequestParam(value = "lessonName") String lessonName) {
-        Lesson lesson = lessonRepository.findByName(lessonName);
-        if (lesson == null) return new ResponseEntity<List<HashMap<String, Object>>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        final List<HashMap<String, Object>> quizQuestions = questionHandler.createQuizQuestions(lesson.getNuggets());
-        return new ResponseEntity<List<HashMap<String, Object>>>(quizQuestions, HttpStatus.OK);
+        Quiz quiz = quizRepository.findByName(lessonName);
+
+        if (quiz == null) {
+            return new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        final List<HashMap<String, Object>> correctFormat = quizHandler.getQuizNuggetsForGakusei(quiz.getId());
+
+        return new ResponseEntity<>(correctFormat, HttpStatus.OK);
     }
 
     @RequestMapping(

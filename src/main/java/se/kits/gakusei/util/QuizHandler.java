@@ -11,6 +11,7 @@ import se.kits.gakusei.content.repository.QuizNuggetRepository;
 import se.kits.gakusei.content.repository.IncorrectAnswerRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +23,11 @@ public class QuizHandler {
     public final static String QN_QUESTION = "question";
     public final static String QN_CORRECT_ANSWER = "correctAnswer";
     public final static String QN_INCORRECT_ANSWERS = "incorrectAnswers";
+
+    public final static String QN_GA_CORRECT = "correctAlternative";
+    public final static String QN_GA_ALTERNATIVE1 = "alternative1";
+    public final static String QN_GA_ALTERNATIVE2 = "alternative2";
+    public final static String QN_GA_ALTERNATIVE3 = "alternative3";
 
     public final static String IA_INCORRECT_ANSWERS = "incorrectAnswer";
     public final static String IA_ID = "id";
@@ -46,6 +52,18 @@ public class QuizHandler {
         return myQuizNuggets;
     }
 
+    public List<HashMap<String, Object>> getQuizNuggetsForGakusei(Long quizId) {
+        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuiz_Id(quizId);
+        List<HashMap<String, Object>> myQuizNuggets = new ArrayList<>();
+
+        for(QuizNugget qn : quizNuggets){
+            HashMap<String, Object> myQuizNugget = convertQuizNuggetForGakusei(qn);
+            myQuizNuggets.add(myQuizNugget);
+        }
+
+        return myQuizNuggets;
+    }
+
     public HashMap<String, Object> getQuizNugget(Long quizNuggetId) {
         HashMap<String, Object> myQuizNugget = convertQuizNugget(quizNuggetRepository.findOne(quizNuggetId));
         myQuizNugget.put(QN_INCORRECT_ANSWERS, getIncorrectAnswers(quizNuggetId));
@@ -60,6 +78,19 @@ public class QuizHandler {
         myQuizNugget.put(QN_QUESTION, quizNugget.getQuestion());
         myQuizNugget.put(QN_CORRECT_ANSWER, quizNugget.getCorrectAnswer());
         myQuizNugget.put(QN_INCORRECT_ANSWERS, getIncorrectAnswers(quizNugget.getId()));
+
+        return myQuizNugget;
+    }
+
+    public HashMap<String, Object> convertQuizNuggetForGakusei(QuizNugget quizNugget){
+        HashMap<String, Object> myQuizNugget = new HashMap<>();
+        List<IncorrectAnswers> incorrectAnswers = selectIncorrectAnswers(quizNugget.getId());
+
+        myQuizNugget.put(QN_QUESTION, Collections.singletonList(quizNugget.getQuestion()));
+        myQuizNugget.put(QN_GA_CORRECT, Collections.singletonList(quizNugget.getCorrectAnswer()));
+        myQuizNugget.put(QN_GA_ALTERNATIVE1, Collections.singletonList(incorrectAnswers.get(0).getIncorrectAnswer()));
+        myQuizNugget.put(QN_GA_ALTERNATIVE2, Collections.singletonList(incorrectAnswers.get(1).getIncorrectAnswer()));
+        myQuizNugget.put(QN_GA_ALTERNATIVE3, Collections.singletonList(incorrectAnswers.get(2).getIncorrectAnswer()));
 
         return myQuizNugget;
     }
@@ -79,5 +110,14 @@ public class QuizHandler {
         myIncorrectAnswer.put(IA_INCORRECT_ANSWERS, incorrectAnswers.getIncorrectAnswer());
 
         return myIncorrectAnswer;
+    }
+
+    private List<IncorrectAnswers> selectIncorrectAnswers(Long quizNuggetId){
+        List<IncorrectAnswers> allIncorrectAnswers = incorrectAnswerRepository.getByQuizNugget_Id(quizNuggetId);
+
+        // Naive randomization
+        Collections.shuffle(allIncorrectAnswers);
+
+        return allIncorrectAnswers.subList(0,3);
     }
 }
