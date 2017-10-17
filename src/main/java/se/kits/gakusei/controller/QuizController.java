@@ -41,7 +41,7 @@ public class QuizController {
         Quiz quiz = quizRepository.findByName(lessonName);
 
         if (quiz == null) {
-            return new ResponseEntity<> (HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<> (HttpStatus.NOT_FOUND);
         }
 
         final List<HashMap<String, Object>> correctFormat = quizHandler.getQuizNuggetsForGakusei(quiz.getId());

@@ -80,7 +80,7 @@ public class QuizControllerTest {
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(null);
         ResponseEntity<List<HashMap<String, Object>>> re = quizController.getQuizQuestions(lessonName);
         assertEquals(null, re.getBody());
-        assertEquals(500, re.getStatusCodeValue());
+        assertEquals(HttpStatus.NOT_FOUND, re.getStatusCode());
     }
 
     @Test
