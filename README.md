@@ -25,13 +25,13 @@ In the instructions below, it is assumed that the aforementioned tools are avail
 
 * You will need [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-#### 2.a. Simple: Using in-memory database (H2)
+#### Simple: Using in-memory database (H2)
 
 1. In terminal, ```mvn spring-boot:run```
 
 **Note:** You should also be able to just run as a Java application in your IDE of choice.
 
-#### 2.b. Advanced: Using PostgreSQL
+#### Advanced: Using PostgreSQL
 
 1. Make sure to have a fairly recent installation of PostgreSQL 9
 2. In Postgres, create a user with name/password *gakusei*
@@ -39,7 +39,8 @@ In the instructions below, it is assumed that the aforementioned tools are avail
 4. In Postgres, create a schema called *contentschema* in database *gakusei*
 5. Start the back-end with ```mvn spring-boot:run -Drun.profiles=postgres``` instead of ```mvn spring-boot:run```
 
-**Note #1:** Data initialization is set manually to true or false in application.yml. Starting the server twice with data init set to true may put redundant data in your database, so make sure to only do it once. If you need to refresh your database, you will have to wipe and delete/drop all tables as well.
+**Note #1:** Data initialization is set manually to true or false in application.yml. Starting the server twice with data init set to true may put redundant data in your database, so make sure to only do it once. If you need to refresh your database, you will have to wipe and delete/drop all tables as well. 
+
 **Note #2:** You should also be able to just run as a Java application in your IDE of choice, specifying `--spring.profiles.active=postgres` as argument to enable postgres.
 
 ### Get the front-end running in a development environment
@@ -52,23 +53,24 @@ Install [nodejs](https://nodejs.org/en/), any version is fine.
 * Do `npm start` to open a web server at http://localhost:7777. Any changes will automatically update, so no need to run the command again.
 * Do `npm run compile` to simply compile the files, and visit the back-end server on http://localhost:8080 with reduced developer convenience. For every change you make in the front-end, you will need to run the command again.
 
-### Package it up for deployment
+### Package the project and run locally
 Since we will create a single .jar file with all resources embedded, we will need to compile the front-end to the back-end resources first. We can use the pre-made maven profiles for this purpose.
 
-2. Do `mvn package -Pproduction` to install npm packages, compile the front-end, back-end, and finally, package the .jar file to `target/`
-3. After completing these steps, simply just copy the .jar file that contains all the embedded files, to a server of your choice.
-4. Sample commands for starting the server:
-* `nohup java -jar gakusei.jar &> server.log &` for in-memory db, that clears on restart.
-* `nohup java -jar gakusei.jar --spring.profiles.active="postgres, enable-resource-caching" &> server.log &` for postgres, with previously mentioned setup needed.
+1. Do `mvn clean package -Pproduction` to install npm packages, compile the front-end, back-end, and finally, package the .jar file to `target/`
+2. Start the server:
+* `nohup java -jar target/gakusei.jar &> server.log &` for in-memory db, that clears on restart.
+* `nohup java -jar target/gakusei.jar --spring.profiles.active="postgres, enable-resource-caching" &> server.log &` for postgres, with previously mentioned setup needed.
+3. Go to http://localhost:8080.
 
 * Command `mvn package -Pdevelopment` is also available, should you want to use it for troubleshooting.
 * The spring profile "enable-resource-caching" enables some very effective caching methods. You should always want to have this profile active when you deploy in production.
 
 ## Travis CI <a name="travis"/>
+
+## Deployment <a name="deploy"/>
 The repository is synched with [Travis CI](https://travis-ci.org/), which is a tool for continuous integration that automatically builds, tests and deploys the project.
 Travis configuration is available in [.travis.yml](.travis.yml).
 
-## Deployment <a name="deploy"/>
 When pushing to master or develop, Travis does the following:
 * `mvn clean package -Pproduction` to install npm packages, compile the front-end, back-end, and finally, package the .jar file to `target/`
 * copy the .jar from the Travis build directory to the specified server
@@ -82,12 +84,14 @@ develop -> staging.daigaku.se
 ### Staging server
 The staging environment is a CentOs Linux 7 (Core) server hosted by [Linode](https://www.linode.com/), with an [nginx](http://nginx.org/) web server.
 
-On the staging server `deploy_gakusei.sh`:
+The following happens on deploy:
+
+#### 1. `deploy_gakusei.sh`
 * set some enivronmental variables (script mode (=deploy), logfile name, production jar file name, db user etc)
 * execute `node /home/staging/deploy-watcher/index.js`
 
-`index.js`:
-* create backups:
+#### 2. `index.js`
+* create backups
   * the old .jar file and logfile are moved to the backup directory
   * the old database is dumped to the db backup directory
 * the old .jar gets replaced by the new .jar
@@ -100,8 +104,8 @@ The main nginx configuration file (`nginx.conf`) is located in `etc/nginx/`. Lin
 
 The virtual domains ([server block](https://www.linode.com/docs/web-servers/nginx/how-to-configure-nginx#server-virtual-domains-configuration)) configuration is located in `sites-available`. 
 
-nginx listens to incoming http requests on port 80 and https requests on port 443. 
-All incoming http requests are rewritten to https URIs and redirected to port 443.
+nginx listens to incoming http requests on port 80 and https requests on port 443. <br>
+All incoming http requests are rewritten to https URIs and redirected to port 443. <br>
 Subsequently the requests are proxied to Tomcat serving Gakusei on localhost:8080.
 
 ## System overview <a name="system"/>
