@@ -8,7 +8,6 @@ A beta version of Gakusei can be tested at [gakusei.daigaku.se](http://gakusei.d
 ## Contents
 * [Prerequisites](#prereq)
 * [Instructions](#instructions)
-* [Travis CI](#travis)
 * [Deployment](#deploy)
 * [System overview](#system)
 
@@ -64,8 +63,6 @@ Since we will create a single .jar file with all resources embedded, we will nee
 
 * Command `mvn package -Pdevelopment` is also available, should you want to use it for troubleshooting.
 * The spring profile "enable-resource-caching" enables some very effective caching methods. You should always want to have this profile active when you deploy in production.
-
-## Travis CI <a name="travis"/>
 
 ## Deployment <a name="deploy"/>
 The repository is synched with [Travis CI](https://travis-ci.org/), which is a tool for continuous integration that automatically builds, tests and deploys the project.
