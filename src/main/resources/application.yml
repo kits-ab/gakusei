@@ -11,6 +11,8 @@ gakusei:
   event-logging: true
   questions-quantity: 20
 
+security:
+  require-ssl: true
 ---
 
 spring:
