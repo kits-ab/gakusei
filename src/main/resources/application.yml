@@ -11,9 +11,6 @@ gakusei:
   event-logging: true
   questions-quantity: 20
 
-security:
-  require-ssl: true
-
 server:
   tomcat:
     remote_ip_header: x-forwarded-for
