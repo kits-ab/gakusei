@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface QuizRepository extends CrudRepository<Quiz, Long> {
 
-    List<Quiz> findByName(String name);
+    Quiz findByName(String name);
 
     List<Quiz> findByNameContainingIgnoreCase(@Param("name") String name, Pageable pageRequest);
 
