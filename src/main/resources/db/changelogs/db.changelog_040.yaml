@@ -1,0 +1,17 @@
+databaseChangeLog:
+    - changeSet:
+        id: 40
+        author: sofiaedstrom
+        changes:
+        - dropForeignKeyConstraint:
+            baseTableName: quiz_nugget
+            baseTableSchemaName: contentschema
+            constraintName: quiz_nugget_quiz_ref_key
+        - addForeignKeyConstraint:
+            baseColumnNames: quiz_ref
+            baseTableName: quiz_nugget
+            baseTableSchemaName: contentschema
+            constraintName: quiz_nugget_quiz_ref_key
+            referencedColumnNames: id
+            referencedTableName: quiz
+            referencedTableSchemaName: contentschema
