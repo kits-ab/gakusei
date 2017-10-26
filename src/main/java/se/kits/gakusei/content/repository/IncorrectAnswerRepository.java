@@ -12,4 +12,8 @@ public interface IncorrectAnswerRepository extends CrudRepository<IncorrectAnswe
 
     @Transactional
     void deleteByQuizNuggetId(Long id);
+
+    @Transactional
+    void deleteByQuizNuggetIdIn(List<Long> ids);
+
 }
