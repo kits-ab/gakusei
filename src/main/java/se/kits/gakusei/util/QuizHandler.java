@@ -97,7 +97,7 @@ public class QuizHandler {
 
     private List<HashMap<String, Object>> getIncorrectAnswers(Long quizNuggetId) {
         List<HashMap<String, Object>> myIncorrectAnswers = new ArrayList<>();
-        List<IncorrectAnswers> incorrectAnswers = incorrectAnswerRepository.getByQuizNugget_Id(quizNuggetId);
+        List<IncorrectAnswers> incorrectAnswers = incorrectAnswerRepository.findByQuizNuggetId(quizNuggetId);
         for (IncorrectAnswers incorrectAnswer : incorrectAnswers)
             myIncorrectAnswers.add(convertIncorrectAnswer(incorrectAnswer));
 
@@ -113,7 +113,7 @@ public class QuizHandler {
     }
 
     private List<IncorrectAnswers> selectIncorrectAnswers(Long quizNuggetId){
-        List<IncorrectAnswers> allIncorrectAnswers = incorrectAnswerRepository.getByQuizNugget_Id(quizNuggetId);
+        List<IncorrectAnswers> allIncorrectAnswers = incorrectAnswerRepository.findByQuizNuggetId(quizNuggetId);
 
         // Naive randomization
         Collections.shuffle(allIncorrectAnswers);

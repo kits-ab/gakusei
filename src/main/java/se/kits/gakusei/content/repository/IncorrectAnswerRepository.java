@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface IncorrectAnswerRepository extends CrudRepository<IncorrectAnswers, Long> {
 
-    List<IncorrectAnswers> getByQuizNugget_Id(Long id);
+    List<IncorrectAnswers> findByQuizNuggetId(Long id);
 
 }
