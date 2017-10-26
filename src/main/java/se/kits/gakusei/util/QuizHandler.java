@@ -42,7 +42,7 @@ public class QuizHandler {
     protected IncorrectAnswerRepository incorrectAnswerRepository;
 
     public List<HashMap<String, Object>> getQuizNuggets(Long quizId) {
-        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuiz_Id(quizId);
+        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuizId(quizId);
         List<HashMap<String, Object>> myQuizNuggets = new ArrayList<>();
 
         for (QuizNugget quizNugget : quizNuggets) {
@@ -53,7 +53,7 @@ public class QuizHandler {
     }
 
     public List<HashMap<String, Object>> getQuizNuggetsForGakusei(Long quizId) {
-        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuiz_Id(quizId);
+        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuizId(quizId);
         List<HashMap<String, Object>> myQuizNuggets = new ArrayList<>();
 
         for(QuizNugget qn : quizNuggets){

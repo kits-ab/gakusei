@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface QuizNuggetRepository extends CrudRepository<QuizNugget, Long> {
 
-    List<QuizNugget> findByQuiz_Id(Long id);
+    List<QuizNugget> findByQuizId(Long id);
 }
