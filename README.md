@@ -78,8 +78,8 @@ develop -> staging.daigaku.se
 * ssh to the specified server
 * run `deploy_gakusei.sh` located in the Scripts directory 
 
-### Staging server
-The staging environment is a CentOs Linux 7 (Core) server hosted by [Linode](https://www.linode.com/), with an [nginx](http://nginx.org/) web server.
+### Staging and production servers
+The staging and production environments have similar setups. They are CentOs Linux 7 (Core) servers hosted by [Linode](https://www.linode.com/), with an [nginx](http://nginx.org/) web server.
 
 The following happens on deploy:
 
@@ -92,9 +92,14 @@ The following happens on deploy:
   * the old .jar file and logfile are moved to the backup directory
   * the old database is dumped to the db backup directory
 * the old .jar gets replaced by the new .jar
-* `pkill -u staging -f "java"` is executed to terminate all java processes for the staging user 
-(this should be updated to only terminate the relevant java processes)
-* `nohup java -jar "<new>".jar --spring.profiles.active='postgres,enable-resource-caching' &> "<logfile>" &` is executed to run the new jar (with the postgres and enable-resource-caching profiles active) and to redirect the output to the logfile.
+* `pkill -u <staging or production> -f java.-jar.<old>.jar` is executed to terminate the java process started with the arguments `-jar gakusei.<old>.jar`, owned by the staging/production user.
+* `nohup java -jar <new>.jar --spring.profiles.active='postgres,enable-resource-caching' &> <logfile> &` is executed to run the new jar (with the postgres and enable-resource-caching profiles active) and to redirect the output to the logfile.
+
+#### Other usefull scripts
+Other bash scripts than the deploy script are available in the `Scripts` directory:
+* `backup_gakusei.sh`
+* `restart_gakusei.sh`
+* `stop_gakusei.sh`
 
 #### nginx
 The main nginx configuration file (`nginx.conf`) is located in `etc/nginx/`. Linode has a guide that covers most of the directives and setup: https://www.linode.com/docs/web-servers/nginx/how-to-configure-nginx.
