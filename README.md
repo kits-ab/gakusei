@@ -85,20 +85,21 @@ The following happens on deploy:
 
 #### 1. `deploy_gakusei.sh`
 * set some enivronmental variables (script mode (=deploy), logfile name, production jar file name, db user etc)
-* execute `node /home/staging/deploy-watcher/index.js`
+* execute `node /home/<staging or production>/deploy-watcher/index.js`
 
 #### 2. `index.js`
 * create backups
   * the old .jar file and logfile are moved to the backup directory
   * the old database is dumped to the db backup directory
 * the old .jar gets replaced by the new .jar
-* `pkill -u <staging or production> -f java.-jar.<old>.jar` is executed to terminate the java process started with the arguments `-jar gakusei.<old>.jar`, owned by the staging/production user.
-* `nohup java -jar <new>.jar --spring.profiles.active='postgres,enable-resource-caching' &> <logfile> &` is executed to run the new jar (with the postgres and enable-resource-caching profiles active) and to redirect the output to the logfile.
+* `pkill --pidfile <pidfile>` is executed to terminate the running process with the pid in `<pidfile>`.
+* `nohup java -jar <new>.jar --spring.profiles.active='postgres,enable-resource-caching' &> <logfile> & echo &! > <pidfile>` is executed to run the new jar (with the postgres and enable-resource-caching profiles active), redirect the output to the logfile and save the pid to file.
 
 #### Other usefull scripts
 Other bash scripts than the deploy script are available in the `Scripts` directory:
 * `backup_gakusei.sh`
 * `restart_gakusei.sh`
+* `start_gakusei.sh`
 * `stop_gakusei.sh`
 
 #### nginx
