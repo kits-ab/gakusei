@@ -1,0 +1,23 @@
+databaseChangeLog:
+- changeSet:
+    id: 36
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: insert incorrect_answers from facts, nuggets and quiz_nuggets
+        sql: insert into contentschema.incorrect_answers (incorrect_answer, quiz_nugget_ref)
+             select incorrect_answer, quiz_nugget_ref
+             from
+               ( select f.nuggetid, f.data as incorrect_answer
+                 from contentschema.facts as f
+                 where f.type = 'incorrect'
+               ) answers,
+               ( select n.id, n.description
+                 from contentschema.nuggets as n
+                 where n.type = 'quiz'
+               ) questions,
+               ( select q.id as quiz_nugget_ref, q.question
+                 from contentschema.quiz_nugget as q
+               ) quiz_nuggets
+             where answers.nuggetid = questions.id
+                   and  questions.description = quiz_nuggets.question;

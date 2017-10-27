@@ -203,13 +203,13 @@ public class DataInit implements ApplicationRunner {
         }
 
         for (CSVQuizNugget csvQuizNugget : csvQuizNuggets) {
-            Quiz quiz = csvQuizNugget.getQuiz();
-            List<Quiz> quizzes = quizRepository.findByName(quiz.getName());
-            if (quizzes.isEmpty()) {
-                quiz = quizRepository.save(quiz);
-            } else {
-                quiz = quizzes.get(0);
+            Quiz newQuiz = csvQuizNugget.getQuiz();
+            Quiz quiz = quizRepository.findByName(newQuiz.getName());
+
+            if (quiz == null) {
+                quiz = quizRepository.save(newQuiz);
             }
+
             QuizNugget quizNugget = quizNuggetRepository.save(csvQuizNugget.getQuizNugget(quiz));
             incorrectAnswerRepository.save(csvQuizNugget.getIncorrectAnswers(quizNugget));
         }
