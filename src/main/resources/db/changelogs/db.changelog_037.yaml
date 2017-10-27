@@ -1,0 +1,9 @@
+databaseChangeLog:
+- changeSet:
+    id: 37
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: delete quizzes from facts
+        sql:  delete from contentschema.facts
+              where type in('quiz', 'correct', 'incorrect');
