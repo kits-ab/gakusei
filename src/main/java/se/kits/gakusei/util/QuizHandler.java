@@ -42,7 +42,7 @@ public class QuizHandler {
     protected IncorrectAnswerRepository incorrectAnswerRepository;
 
     public List<HashMap<String, Object>> getQuizNuggets(Long quizId) {
-        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuiz_Id(quizId);
+        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuizId(quizId);
         List<HashMap<String, Object>> myQuizNuggets = new ArrayList<>();
 
         for (QuizNugget quizNugget : quizNuggets) {
@@ -53,7 +53,7 @@ public class QuizHandler {
     }
 
     public List<HashMap<String, Object>> getQuizNuggetsForGakusei(Long quizId) {
-        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuiz_Id(quizId);
+        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuizId(quizId);
         List<HashMap<String, Object>> myQuizNuggets = new ArrayList<>();
 
         for(QuizNugget qn : quizNuggets){
@@ -97,7 +97,7 @@ public class QuizHandler {
 
     private List<HashMap<String, Object>> getIncorrectAnswers(Long quizNuggetId) {
         List<HashMap<String, Object>> myIncorrectAnswers = new ArrayList<>();
-        List<IncorrectAnswers> incorrectAnswers = incorrectAnswerRepository.getByQuizNugget_Id(quizNuggetId);
+        List<IncorrectAnswers> incorrectAnswers = incorrectAnswerRepository.findByQuizNuggetId(quizNuggetId);
         for (IncorrectAnswers incorrectAnswer : incorrectAnswers)
             myIncorrectAnswers.add(convertIncorrectAnswer(incorrectAnswer));
 
@@ -113,7 +113,7 @@ public class QuizHandler {
     }
 
     private List<IncorrectAnswers> selectIncorrectAnswers(Long quizNuggetId){
-        List<IncorrectAnswers> allIncorrectAnswers = incorrectAnswerRepository.getByQuizNugget_Id(quizNuggetId);
+        List<IncorrectAnswers> allIncorrectAnswers = incorrectAnswerRepository.findByQuizNuggetId(quizNuggetId);
 
         // Naive randomization
         Collections.shuffle(allIncorrectAnswers);
