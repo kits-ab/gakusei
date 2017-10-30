@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 27
+      author: Sofia Edström
+      preConditions:
+          - onFail: MARK_RAN
+          - not:
+              - tableExists:
+                  tableName: books
+                  schemaName: contentschema
+      changes:
+      - createTable:
+          tableName: books
+          schemaName: contentschema
+          columns:
+          - column:
+              name: id
+              type: SERIAL
+              autoIncrement: true
+              constraints:
+                  primaryKey: true
+                  primaryKeyName: book_pkey
+          - column:
+              name: title
+              type: VARCHAR(256)
+              constraints:
+                  nullable: false
+                  unique: true

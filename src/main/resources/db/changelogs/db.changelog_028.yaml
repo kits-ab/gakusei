@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 28
+      author: Sofia Edström
+      preConditions:
+          - onFail: MARK_RAN
+          - not:
+              - columnExists:
+                  columnName: book_ref
+                  tableName: nuggets
+                  schemaName: contentschema
+      changes:
+      - addColumn:
+          tableName: nuggets
+          schemaName: contentschema
+          columns:
+          - column:
+              name: book_ref
+              type: INTEGER
+              constraints:
+                  foreignKeyName: nugget_book_ref_key
+                  references: contentschema.books(id)

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,11 +62,14 @@ public class UserController {
         Map<String, Object> values = new HashMap<>();
         String nameKey = "username";
         String authenticatedKey = "loggedIn";
+        String authoritiesKey = "authorities";
         values.put(nameKey, "");
         values.put(authenticatedKey, Boolean.FALSE);
+        values.put(authoritiesKey, new ArrayList<>());
         if (authentication != null && authentication.isAuthenticated()) {
             values.put(nameKey, authentication.getName());
             values.put(authenticatedKey, Boolean.TRUE);
+            values.put(authoritiesKey, authentication.getAuthorities());
         }
         return values;
     }

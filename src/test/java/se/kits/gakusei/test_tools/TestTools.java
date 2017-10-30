@@ -1,8 +1,11 @@
 package se.kits.gakusei.test_tools;
 
-import se.kits.gakusei.content.model.Fact;
-import se.kits.gakusei.content.model.Lesson;
-import se.kits.gakusei.content.model.Nugget;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import se.kits.gakusei.content.model.*;
+import se.kits.gakusei.util.QuizHandler;
+
 import java.util.*;
 
 public class TestTools {
@@ -76,4 +79,89 @@ public class TestTools {
         dto.put("correctAlternative", altCorrect);
         return dto;
     }
+
+    public static List<Course> generateCourses(){
+        List<Course> courses = new ArrayList<>();
+
+        for(int i = 1; i <= 10; i++){
+            courses.add(createCourse(Integer.toString(i)));
+        }
+
+        return courses;
+    }
+
+    public static Course generateCourse(){
+        return createCourse("");
+    }
+
+    private static Course createCourse(String suffix){
+        Course course = new Course();
+        course.setName("Test course" + suffix);
+        course.setCourseCode("TC");
+        return course;
+    }
+
+    public static Quiz generateQuiz() { return createQuiz("", "Testquiz", "description"); }
+
+    public static List<Quiz> generateQuizzes(int nbrOfQuizzes, String namePrefix, String descrPrefix) {
+        List<Quiz> quizzes = new ArrayList<>();
+       for (int i = 1; i <= nbrOfQuizzes; i++ ) {
+           quizzes.add(createQuiz(Integer.toString(i), namePrefix, descrPrefix));
+       }
+
+       return quizzes;
+    }
+
+    private static Quiz createQuiz(String suffix, String namePrefix, String descrPrefix) {
+        Quiz quiz = new Quiz();
+        quiz.setName(namePrefix + suffix);
+        quiz.setDescription(descrPrefix + suffix);
+        return quiz;
+    }
+
+    public static Page<Quiz> generateQuizzesPage(List<Quiz> quizzes, Pageable pageRequest) {
+        Page<Quiz> page = new PageImpl<>(quizzes, pageRequest, quizzes.size());
+        return page;
+    }
+
+    public static HashMap<String, Object> createQuestion(Quiz quiz, int nbrOfIncorrectAnswers) {
+        HashMap<String, Object> question = new HashMap<>();
+        QuizNugget quizNugget = createQuizNugget(quiz, "");
+        question.put(QuizHandler.QN_QUESTION, quizNugget.getQuestion());
+        question.put(QuizHandler.QN_CORRECT_ANSWER, quizNugget.getCorrectAnswer());
+        question.put(QuizHandler.QN_QUIZ_REF, quiz.getId());
+        question.put(QuizHandler.QN_INCORRECT_ANSWERS, createIncorrectAnswers(quizNugget, nbrOfIncorrectAnswers));
+        return question;
+    }
+
+    private static QuizNugget createQuizNugget(Quiz quiz, String suffix) {
+        QuizNugget nugget = new QuizNugget();
+        nugget.setQuiz(quiz);
+        nugget.setQuestion("Question " + suffix);
+        nugget.setCorrectAnswer("correct alternative");
+        return nugget;
+    }
+
+    private static List<HashMap<String, Object>> createIncorrectAnswers(QuizNugget quizNugget, int
+            nbrOfIncorrectAnswers) {
+        List<HashMap<String, Object>> incorrectAnswers = new ArrayList<>();
+        for (int i = 1; i <= nbrOfIncorrectAnswers; i++) {
+            incorrectAnswers.add(convertIncorrectAnswer(createIncorrectAnswer(quizNugget, Integer.toString(i))));
+        }
+        return incorrectAnswers;
+    }
+
+    private static HashMap<String, Object> convertIncorrectAnswer(IncorrectAnswers incorrectAnswer) {
+        HashMap<String, Object> convertedIncorrectAnswer = new HashMap<>();
+        convertedIncorrectAnswer.put(QuizHandler.IA_INCORRECT_ANSWERS, incorrectAnswer.getIncorrectAnswer());
+        return convertedIncorrectAnswer;
+    }
+
+    private static IncorrectAnswers createIncorrectAnswer(QuizNugget nugget, String suffix) {
+        IncorrectAnswers incorrectAnswer = new IncorrectAnswers();
+        incorrectAnswer.setQuizNugget(nugget);
+        incorrectAnswer.setIncorrectAnswer("incorrect alternative " + suffix);
+        return incorrectAnswer;
+    }
+
 }

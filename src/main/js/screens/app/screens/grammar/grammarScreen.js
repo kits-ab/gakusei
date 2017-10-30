@@ -1,5 +1,5 @@
 /* global speechSynthesis */
-/* eslint jsx-a11y/no-static-element-interactions: 0 */
+/* eslint-disable */
 
 import React from 'react';
 import { Col } from 'react-bootstrap';

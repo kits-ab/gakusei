@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 26
+      author: Sofia Edström
+      preConditions:
+          - onFail: MARK_RAN
+          - not:
+              - and:
+                  - columnExists:
+                      columnName: swedish
+                      tableName: nuggets
+                      schemaName: contentschema
+                  - columnExists:
+                      columnName: english
+                      tableName: nuggets
+                      schemaName: contentschema
+                  - columnExists:
+                      columnName: jp_read
+                      tableName: nuggets
+                      schemaName: contentschema
+                  - columnExists:
+                      columnName: jp_write
+                      tableName: nuggets
+                      schemaName: contentschema
+                  - columnExists:
+                      columnName: word_type_ref
+                      tableName: nuggets
+                      schemaName: contentschema
+      changes:
+      - addColumn:
+          tableName: nuggets
+          schemaName: contentschema
+          columns:
+          - column:
+              name: swedish
+              type: VARCHAR(32)
+          - column:
+              name: english
+              type: VARCHAR(32)
+          - column:
+              name: jp_read
+              type: VARCHAR(32)
+          - column:
+              name: jp_write
+              type: VARCHAR(32)
+          - column:
+              name: word_type_ref
+              type: INTEGER
+              constraints:
+                  foreignKeyName: nugget_word_type_ref_key
+                  references: contentschema.word_types(id)

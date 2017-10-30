@@ -1,0 +1,39 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684531133-2
+    author: joakim (generated)
+    preConditions:
+      - onFail: MARK_RAN
+      - not:
+        - tableExists:
+            schemaName: public
+            tableName: progresstrackinglist
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: progresstrackinglist_pkey
+            name: id
+            type: SERIAL
+        - column:
+            name: user_ref
+            type: VARCHAR(32)
+        - column:
+            name: nugget_id
+            type: VARCHAR(16)
+        - column:
+            name: correct_count
+            type: BIGINT
+        - column:
+            name: incorrect_count
+            type: BIGINT
+        - column:
+            name: latest_timestamp
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        - column:
+            name: latest_result
+            type: BOOLEAN
+        tableName: progresstrackinglist

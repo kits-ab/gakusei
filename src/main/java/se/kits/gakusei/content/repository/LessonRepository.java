@@ -12,28 +12,32 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
 
     Lesson findByName(String name);
 
-    List<Nugget> findNuggetsByTwoFactTypes(
+    List<Nugget> findNuggetsByTwoFactTypes (
             @Param("lessonName") String lessonName,
             @Param("factType1") String questionType,
             @Param("factType2") String answerType);
 
-    List<Nugget> findNuggetsBySuccessrate(
-            @Param("username") String username,
+    List<Nugget> findKanjiLessNuggetsByFactType (
             @Param("lessonName") String lessonName,
             @Param("factType1") String questionType,
             @Param("factType2") String answerType);
 
-    List<Nugget> findUnansweredNuggets(
-            @Param("username") String username,
+    List<Nugget> findKanjiNuggetsByFactType (
             @Param("lessonName") String lessonName,
             @Param("factType1") String questionType,
             @Param("factType2") String answerType);
 
-    List<Nugget> findCorrectlyAnsweredNuggets(
+    List<Nugget> findNuggetsBySuccessrate (
             @Param("username") String username,
-            @Param("lessonName") String lessonName,
-            @Param("factType1") String questionType,
-            @Param("factType2") String answerType);
+            @Param("lessonName") String lessonName);
+
+    List<Nugget> findUnansweredNuggets (
+            @Param("username") String username,
+            @Param("lessonName") String lessonName);
+
+    List<Nugget> findCorrectlyAnsweredNuggets (
+            @Param("username") String username,
+            @Param("lessonName") String lessonName);
 
     @Query("select l from Lesson l where not l.description = 'quiz' order by l.name")
     List<Lesson> findVocabularyLessons();

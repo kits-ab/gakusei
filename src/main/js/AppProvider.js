@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-prop-types */
+
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRedirect } from 'react-router';
@@ -8,7 +10,7 @@ import { requireAuthentication } from './shared/components/AuthenticatedComponen
 
 import appScreen from './screens/app';
 import aboutScreen from './screens/app/screens/about';
-import listsScreen from './screens/app/screens/lists';
+// import listsScreen from './screens/app/screens/lists';
 import grammarScreen from './screens/app/screens/grammar';
 import finishScreen from './screens/app/screens/finish';
 import homeScreen from './screens/app/screens/home';
@@ -67,3 +69,8 @@ export default class AppProvider extends React.Component {
     return null;
   }
 }
+
+AppProvider.propTypes = {
+  store: React.PropTypes.object.isRequired,
+  history: React.PropTypes.object.isRequired
+};

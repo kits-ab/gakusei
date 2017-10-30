@@ -1,7 +1,6 @@
 package se.kits.gakusei.content.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -11,11 +10,13 @@ import java.util.List;
 
 @Entity
 @Table(name="nuggets", schema = "contentschema")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Nugget implements Serializable{
 
     @Id
     private String id;
 
+    //Remove when migrating, along with getter and setter
     @Column(nullable = false)
     private String type;
 
@@ -23,14 +24,34 @@ public class Nugget implements Serializable{
 
     private boolean hidden = false;
 
+    //Remove when migrating, along with getter and setter
     @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
-    @JsonManagedReference
+    @JsonManagedReference(value = "fact")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Fact> facts;
 
+    @ManyToOne
+    @JsonBackReference(value = "book")
+    @JoinColumn(name = "book_ref")
+    private Book title;
+
+    @ManyToOne
+    @JsonBackReference(value = "wordtype")
+    @JoinColumn(name = "word_type_ref")
+    private WordType wordType;
+
     @ManyToMany(mappedBy = "nuggets")
-    @JsonBackReference
+    // @JsonBackReference(value = "lessonnugget")
+    @JsonIgnore
     private List<Lesson> lessons;
+
+    private String swedish;
+
+    private String english;
+
+    private String jpRead;
+
+    private String jpWrite;
 
     public Nugget(){}
 
@@ -84,5 +105,53 @@ public class Nugget implements Serializable{
 
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
+    }
+
+    public String getSwedish() {
+        return swedish;
+    }
+
+    public void setSwedish(String swedish) {
+        this.swedish = swedish;
+    }
+
+    public String getEnglish() {
+        return english;
+    }
+
+    public void setEnglish(String english) {
+        this.english = english;
+    }
+
+    public String getJpRead() {
+        return jpRead;
+    }
+
+    public void setJpRead(String jpRead) {
+        this.jpRead = jpRead;
+    }
+
+    public String getJpWrite() {
+        return jpWrite;
+    }
+
+    public void setJpWrite(String jpWrite) {
+        this.jpWrite = jpWrite;
+    }
+
+    public WordType getWordType() {
+        return wordType;
+    }
+
+    public void setWordType(WordType wordType) {
+        this.wordType = wordType;
+    }
+
+    public Book getTitle() {
+        return title;
+    }
+
+    public void setTitle(Book title) {
+        this.title = title;
     }
 }

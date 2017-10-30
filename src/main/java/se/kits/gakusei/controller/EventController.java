@@ -1,5 +1,7 @@
 package se.kits.gakusei.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,7 @@ import java.sql.Timestamp;
 
 @RestController
 public class EventController {
+    private Logger logger = LoggerFactory.getLogger(EventController.class);
 
     @Autowired
     private EventRepository eventRepository;
@@ -80,7 +83,7 @@ public class EventController {
         event.setData(eventDTO.getData());
         event.setNuggetId(eventDTO.getNuggetid());
         event.setTimestamp(new Timestamp(eventDTO.getTimestamp()));
-        System.out.println(event.getTimestamp().toString()
+        logger.info(event.getTimestamp().toString()
                 + " / " + event.getGamemode()
                 + " / " + event.getType()
                 + " / " + event.getData()

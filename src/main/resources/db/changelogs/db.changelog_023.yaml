@@ -1,0 +1,66 @@
+databaseChangeLog:
+  - changeSet:
+      id: 23
+      author: Sofia Edström
+      preConditions:
+          - onFail: MARK_RAN
+          - not:
+              - and:
+                  - tableExists:
+                      tableName: courses
+                      schemaName: contentschema
+                  - tableExists:
+                      tableName: prerequisites
+                      schemaName: contentschema
+      changes:
+      - createTable:
+          tableName: courses
+          schemaName: contentschema
+          columns:
+          - column:
+              name: id
+              type: SERIAL
+              autoIncrement: true
+              constraints:
+                  primaryKey: true
+                  primaryKeyName: course_pkey
+          - column:
+              name: name
+              type: VARCHAR(64)
+              constraints:
+                  nullable: false
+                  unique: true
+          - column:
+              name: description
+              type: VARCHAR(1024)
+          - column:
+              name: parent_ref
+              type: INTEGER
+              constraints:
+                  foreignKeyName: course_parent_ref_key
+                  references: contentschema.courses(id)
+          - column:
+              name: order
+              type: INTEGER
+          - column:
+              name: course_code
+              type: VARCHAR(32)
+              constraints:
+                  nullable: false
+                  unique: true
+      - createTable:
+          tableName: prerequisites
+          schemaName: contentschema
+          columns:
+          - column:
+              name: course_id
+              type: SERIAL
+              autoIncrement: true
+              constraints:
+                  nullable: false
+          - column:
+              name: prerequisite_id
+              type: SERIAL
+              autoIncrement: true
+              constraints:
+                  nullable: false

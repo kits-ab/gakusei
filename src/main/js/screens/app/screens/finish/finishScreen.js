@@ -17,15 +17,24 @@ export class finishScreen extends React.Component {
   }
 
   componentDidMount() {
+    // Kick user out if data is missing
+    if (!this.props.answeredQuestions || this.props.answeredQuestions.length === 0) {
+      if (this.props.params.type) {
+        this.props.setPageByName(`/select/${this.props.params.type}`);
+      } else {
+        this.props.setPageByName('/home');
+      }
+    }
+
     this.logEvents();
   }
 
   logEvents() {
-    this.props.processedQuestionsWithAnswers.forEach((processedQuestionWithAnswer) => {
+    this.props.answeredQuestions.forEach((processedQuestionWithAnswer) => {
       try {
         // Send in the correct answers
         processedQuestionWithAnswer.correctAlternative.forEach(correctAlt =>
-          Utility.logEvent('finish', 'correctAnswer', correctAlt, null, this.props.loggedInUser));
+          Utility.logEvent('finish', 'correctAlternative', correctAlt, null, this.props.loggedInUser));
         // Send in the user answer
         Utility.logEvent('finish', 'userAnswer', processedQuestionWithAnswer.userAnswer, null, this.props.loggedInUser);
       } catch (err) {
@@ -46,22 +55,32 @@ export class finishScreen extends React.Component {
   }
 
   showResults() {
-    const result = this.props.processedQuestionsWithAnswers.map(qa =>
-      <ListGroupItem
+    const result = this.props.answeredQuestions.map((qa) => {
+      let yourAnswerText = `Svar: ${qa.correctAlternative}. `;
+
+      if ((qa.userAnswer === null || qa.userAnswer === '') && qa.userCorrect) {
+        yourAnswerText += '(Du svarade rätt)';
+      } else if ((qa.userAnswer === null || qa.userAnswer === '') && !qa.userCorrect) {
+        yourAnswerText += '(Du svarade fel)';
+      } else {
+        yourAnswerText += `(Du svarade: ${qa.userAnswer})`;
+      }
+
+      return (<ListGroupItem
         key={qa.userAnswer + qa.correctAlternative[0]}
-        bsStyle={qa.correctAlternative.indexOf(qa.userAnswer) !== -1 ? 'success' : 'danger'}
+        bsStyle={qa.userCorrect ? 'success' : 'danger'}
       >
         <DisplayQuestion
-          primaryText={qa.actualQuestionShapes[0]}
-          secondaryText={qa.actualQuestionShapes[1] || null}
+          primaryText={qa.shapes[0]}
+          secondaryText={qa.shapes[1] || null}
           resourceRef={qa.resourceRef}
           japaneseCharacters={qa.questionType === 'reading'}
           showSpeechButton={this.props.params.type !== 'quiz'}
           smallerText
         />
-        Svar: {qa.correctAlternative}. {qa.userAnswer === '' ? '' : `(Du svarade: ${qa.userAnswer})`}
-      </ListGroupItem>
-    );
+        {yourAnswerText}
+      </ListGroupItem>);
+    });
     return result;
   }
   render() {

@@ -1,0 +1,19 @@
+databaseChangeLog:
+- changeSet:
+    id: 35
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: insert quiz_nuggets from facts and nuggets
+        sql:  insert into contentschema.quiz_nugget (question, correct_answer, quiz_ref)
+              select question, correct_answer, quizzes.id as quiz_ref
+              from
+                ( select f.nuggetid, f.data as correct_answer
+                  from contentschema.facts as f
+                  where f.type = 'correct' ) answers,
+                ( select f.nuggetid, f.data as quiz, n.description as question
+                  from contentschema.facts as f, contentschema.nuggets as n
+                  where f.type = 'quiz' and f.nuggetid = n.id ) questions,
+                contentschema.quiz as quizzes
+              where answers.nuggetid = questions.nuggetid
+                    and questions.quiz = quizzes.name;

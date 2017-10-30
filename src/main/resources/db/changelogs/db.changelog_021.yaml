@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 21
+      author: Fredrik Öller
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+          - tableExists:
+              schemaName: contentschema
+              tableName: quiz_nugget
+      changes:
+      - createTable:
+          tableName: quiz_nugget
+          schemaName: contentschema
+          columns:
+          - column:
+              autoIncrement: true
+              constraints:
+                primaryKey: true
+                primaryKeyName: quiz_nugget_pkey
+              name: id
+              type: SERIAL
+          - column:
+              name: question
+              type: VARCHAR(120)
+              constraints:
+                nullable: false
+          - column:
+              name: correct_answer
+              type: VARCHAR(64)
+          - column:
+              name: quiz_ref
+              type: INTEGER
+              constraints:
+                nullable: false
+                foreignKeyName: quiz_nugget_quiz_ref_key
+                references: contentschema.quiz(id)

@@ -22,7 +22,7 @@ public class Fact implements Serializable{
     private String description;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "fact")
     @JoinColumn(name="nuggetid")
     private Nugget nugget;
 

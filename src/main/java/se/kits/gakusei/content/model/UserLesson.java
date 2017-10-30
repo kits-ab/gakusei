@@ -17,13 +17,13 @@ public class UserLesson {
     private Long id;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "userlesson")
     @JoinColumn(name = "user_ref")
     private User user;
 
     @NotNull
     @ManyToOne
-    @JsonManagedReference
+    //@JsonManagedReference(value = "ullessons")
     @JoinColumn(name = "lesson_ref")
     private Lesson lesson;
 

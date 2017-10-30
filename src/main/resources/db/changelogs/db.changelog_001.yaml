@@ -1,0 +1,44 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684531133-1
+    author: joakim (generated)
+    preConditions:
+      - onFail: MARK_RAN
+      - not:
+        - tableExists:
+            schemaName: public
+            tableName: events
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: events_pkey
+            name: id
+            type: SERIAL
+        - column:
+            constraints:
+              nullable: false
+            name: timestamp
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: type
+            type: VARCHAR(64)
+        - column:
+            constraints:
+              nullable: false
+            name: data
+            type: VARCHAR(64)
+        - column:
+            constraints:
+              nullable: false
+            name: gamemode
+            type: VARCHAR(64)
+        - column:
+            name: user_ref
+            type: VARCHAR(32)
+        tableName: events

@@ -1,3 +1,5 @@
+logging:
+  file: log.txt
 spring:
   profiles:
     active: development
@@ -9,6 +11,10 @@ gakusei:
   event-logging: true
   questions-quantity: 20
 
+server:
+  tomcat:
+    remote_ip_header: x-forwarded-for
+    protocol_header: x-forwarded-proto
 ---
 
 spring:
@@ -24,6 +30,10 @@ spring:
 gakusei:
   data-init: true
 
+liquibase:
+      change-log: classpath:/db/db.changelog-master.yaml
+      enabled: false
+
 ---
 
 spring:
@@ -34,6 +44,9 @@ spring:
     password: gakusei
     driver-class-name: org.postgresql.Driver
 
+liquibase:
+      change-log: classpath:/db/db.changelog-master.yaml
+      enabled: true
 ---
 
 spring:

@@ -23,7 +23,7 @@ export default class startScreen extends React.Component {
                 <Grid className="about_features">
                     <div className="text-center">
                         <h1><i>Gakusei erbjuder många olika funktioner som underlättar ditt lärande.</i></h1>
-                        <Button href="/login" bsStyle="success" bsSize="large">Testa dem redan nu!</Button>
+                        <Button href={`login${this.props.location.search}`} bsStyle="success" bsSize="large">Testa dem redan nu!</Button>
                     </div>
                     <Row className="features_prev">
                         <Col xs={6} md={4} className="text-center">
@@ -82,7 +82,7 @@ export default class startScreen extends React.Component {
                                 <h3>Utöka din kunskap med Gakusei!</h3>
                                 <br/>
                                 <ButtonGroup vertical block>
-                                <Button href="/login" bsStyle="success" bsSize="large">Registrera dig nu!</Button>
+                                <Button href={`login${this.props.location.search}`} bsStyle="success" bsSize="large">Registrera dig nu!</Button>
                                 </ButtonGroup>
                             </Col>
                         </Row>

@@ -1,0 +1,20 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684531133-7
+    author: joakim (generated)
+    preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: select count (*) from pg_constraint where conname='progresstrackinglist_user_ref_fkey'
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_ref
+        baseTableName: progresstrackinglist
+        constraintName: progresstrackinglist_user_ref_fkey
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: username
+        referencedTableName: users

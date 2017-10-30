@@ -1,7 +1,6 @@
 package se.kits.gakusei.content.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -14,7 +13,30 @@ import java.util.List;
 @NamedNativeQueries({
         @NamedNativeQuery(
                 name = "Lesson.findNuggetsByTwoFactTypes",
-                query = "select * from contentschema.nuggets where id in " +
+                query = "select * from contentschema.nuggets n " +
+                        "where n.hidden = FALSE AND n.id in " +
+                        "(select filtered.nugget_id from contentschema.facts " +
+                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
+                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
+                        "on nuggetid = nugget_id " +
+                        "where facts.type IN (:factType1, :factType2) " +
+                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
+                resultClass = Nugget.class),
+        @NamedNativeQuery(
+                name = "Lesson.findKanjiLessNuggetsByFactType",
+                query = "select * from contentschema.nuggets n " +
+                        "where n.type  <> 'kanji' and n.id in " +
+                        "(select filtered.nugget_id from contentschema.facts " +
+                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
+                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
+                        "on nuggetid = nugget_id " +
+                        "where facts.type IN (:factType1, :factType2) " +
+                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
+                resultClass = Nugget.class),
+        @NamedNativeQuery(
+                name = "Lesson.findKanjiNuggetsByFactType",
+                query = "select * from contentschema.nuggets n " +
+                        "where n.type  = 'kanji' and n.id in " +
                         "(select filtered.nugget_id from contentschema.facts " +
                         "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
                         "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
@@ -25,33 +47,20 @@ import java.util.List;
         @NamedNativeQuery(
                 name = "Lesson.findNuggetsBySuccessrate",
                 query = "select * from contentschema.nuggets where id in " +
-                        "(select nugget_id from progresstrackinglist where " +
-                        "user_ref = :username and incorrect_count > correct_count) " +
-                        "and :lessonName in " +
-                        "(select name from contentschema.lessons inner join contentschema.lessons_nuggets " +
-                        "on contentschema.lessons.id=contentschema.lessons_nuggets.lesson_id) " +
-                        "and id in " +
-                        "(select filtered.nugget_id from contentschema.facts " +
-                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
-                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
-                        "on nuggetid = nugget_id " +
-                        "where facts.type IN (:factType1, :factType2) " +
-                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
+                        "(select nugget_id from progresstrackinglist " +
+                        " where user_ref = :username " +
+                        "    and incorrect_count > correct_count) " +
+                        "    and :lessonName in " +
+                        "    (select name from contentschema.lessons inner join contentschema.lessons_nuggets \n" +
+                        "       on contentschema.lessons.id=contentschema.lessons_nuggets.lesson_id)",
                 resultClass = Nugget.class),
         @NamedNativeQuery(
                 name = "Lesson.findUnansweredNuggets",
                 query = "select * from contentschema.nuggets where id not in " +
                         "(select nugget_id from progresstrackinglist where user_ref = :username)" +
                         "and id in " +
-                        "(select nugget_id from contentschema.lessons inner join contentschema.lessons_nuggets on " +
-                        "contentschema.lessons.id=contentschema.lessons_nuggets.lesson_id where name = :lessonName)" +
-                        "and id in " +
-                        "(select filtered.nugget_id from contentschema.facts " +
-                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
-                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
-                        "on nuggetid = nugget_id " +
-                        "where facts.type IN (:factType1, :factType2) " +
-                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
+                        "(select ln.nugget_id from contentschema.lessons l, contentschema.lessons_nuggets ln" +
+                        "   where l.id=ln.lesson_id and l.name =  :lessonName)",
                 resultClass = Nugget.class),
         @NamedNativeQuery(
                 name = "Lesson.findCorrectlyAnsweredNuggets",
@@ -59,16 +68,10 @@ import java.util.List;
                         "(select nugget_id from progresstrackinglist where user_ref = :username and correct_count > 0)" +
                         "and id in " +
                         "(select nugget_id from contentschema.lessons inner join contentschema.lessons_nuggets on " +
-                        "contentschema.lessons.id=contentschema.lessons_nuggets.lesson_id where name = :lessonName)" +
-                        "and id in " +
-                        "(select filtered.nugget_id from contentschema.facts " +
-                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
-                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
-                        "on nuggetid = nugget_id " +
-                        "where facts.type IN (:factType1, :factType2) " +
-                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
+                        "contentschema.lessons.id=contentschema.lessons_nuggets.lesson_id where name = :lessonName)",
                 resultClass = Nugget.class)
 })
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Lesson implements Serializable {
 
     @Id
@@ -81,7 +84,7 @@ public class Lesson implements Serializable {
     private String description;
 
     @ManyToMany
-    @JsonManagedReference
+    //@JsonManagedReference(value = "lessonnugget")
     @JoinTable(
             name = "lessons_nuggets",
             schema = "contentschema",
@@ -89,10 +92,16 @@ public class Lesson implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"))
     private List<Nugget> nuggets;
 
-    @JsonBackReference
-    @OneToMany(mappedBy="lesson", fetch = FetchType.EAGER)
+    //@JsonBackReference(value = "ullessons")
+    @JsonIgnore
+    @OneToMany(mappedBy="lesson", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<UserLesson> userLessons;
+
+    @ManyToOne
+    @JsonBackReference(value = "courselesson")
+    @JoinColumn(name="course_ref")
+    private Course course;
 
     public Lesson() {
     }
@@ -135,5 +144,13 @@ public class Lesson implements Serializable {
 
     public void setUserLessons(List<UserLesson> userLessons) {
         this.userLessons = userLessons;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

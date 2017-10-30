@@ -13,14 +13,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import se.kits.gakusei.content.model.Fact;
-import se.kits.gakusei.content.model.Lesson;
-import se.kits.gakusei.content.model.Nugget;
-import se.kits.gakusei.content.repository.FactRepository;
-import se.kits.gakusei.content.repository.LessonRepository;
-import se.kits.gakusei.content.repository.NuggetRepository;
+import se.kits.gakusei.content.model.*;
+import se.kits.gakusei.content.repository.*;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
+import se.kits.gakusei.util.ParserFailureException;
+import se.kits.gakusei.util.csv.CSVQuizNugget;
+import se.kits.gakusei.util.csv.CSVQuizToDatabase;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +50,15 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private IncorrectAnswerRepository incorrectAnswerRepository;
+
+    @Autowired
+    private QuizNuggetRepository quizNuggetRepository;
+
+    @Autowired
+    private QuizRepository quizRepository;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${gakusei.data-init}")
@@ -62,11 +70,13 @@ public class DataInit implements ApplicationRunner {
         String activeProfiles = Arrays.toString(environment.getActiveProfiles());
         if (datainit) {
             String testDataFile = "testdata/testdata.json";
-            String quizDataFile = "testdata/quizdata.json";
+            String csvQuizNuggetFile = "testdata/quizzes.csv";
+
             createUsers();
             createTestData(readTestDataFromFile(testDataFile));
-            createQuiz(readTestDataFromFile(quizDataFile));
             createLessons();
+            createQuizzesFromCSV(csvQuizNuggetFile);
+
             logger.info("*** Data initialization was set on profile(s): " + activeProfiles);
         } else {
             logger.info("*** Data initialization was NOT set on profile(s): " + activeProfiles);
@@ -76,14 +86,13 @@ public class DataInit implements ApplicationRunner {
     private Set<Map<String, Object>> readTestDataFromFile(String testDataFile) {
                 ObjectMapper mapper = new ObjectMapper();
         Resource resource = resourceLoader.getResource("classpath:" + testDataFile);
-        logger.info("Loaded resource");
+        logger.info("Loaded resource: " + testDataFile);
         try (InputStream json = resource.getInputStream()) {
             Set<Map<String, Object>> dataHolders = mapper.readValue(json,new TypeReference<Set<Map<String, Object>>>(){});
-            logger.info(dataHolders.toString());
+            logger.debug(dataHolders.toString());
             return dataHolders;
         } catch (IOException e) {
-            logger.error("Unable to parse " + testDataFile);
-            e.printStackTrace();
+            logger.error("Unable to parse " + testDataFile, e);
             return null;
         }
     }
@@ -181,46 +190,28 @@ public class DataInit implements ApplicationRunner {
         lessonRepository.save(lessons);
     }
 
-    private void createQuiz(Set<Map<String, Object>> dataHolders) {
-        for (Map<String, Object> tdh : dataHolders) {
-            Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
-            nugget.setDescription((String) tdh.get("question"));
-            nugget.setId(tdh.get("id").toString());
-            List<Fact> facts = new ArrayList<>();
-            Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id", "question"));
-            for (Map.Entry entry : tdh.entrySet()) {
-                String type = entry.getKey().toString();
-                if (typeSet.contains(type)) {
-                    if (entry.getValue().toString().equals("hidden")) {
-                        nugget.setHidden(true);
-                    }
-                    continue;
-                }
-                Object data = entry.getValue();
-                if (data instanceof String) {
-                    Fact fact = new Fact();
-                    fact.setType(type);
-                    fact.setData(data.toString());
-                    facts.add(fact);
-                } else {
-                    List<Fact> collectedFacts = ((List<String>) data).stream()
-                            .map(d -> {
-                                Fact f = new Fact();
-                                f.setType(entry.getKey().toString());
-                                f.setData(d);
-                                return f;
-                            })
-                            .collect(Collectors.toList());
-                    facts.addAll(collectedFacts);
-                }
+    public void createQuizzesFromCSV(String csvFile) throws Exception {
 
+        CSVQuizToDatabase parser = new CSVQuizToDatabase(resourceLoader.getResource("classpath:" + csvFile).getInputStream());
+        List<CSVQuizNugget> csvQuizNuggets = new ArrayList<>();
+
+        try {
+            csvQuizNuggets = parser.parse();
+
+        } catch (ParserFailureException e){
+            logger.error("Unable to parse " + csvFile, e);
+        }
+
+        for (CSVQuizNugget csvQuizNugget : csvQuizNuggets) {
+            Quiz newQuiz = csvQuizNugget.getQuiz();
+            Quiz quiz = quizRepository.findByName(newQuiz.getName());
+
+            if (quiz == null) {
+                quiz = quizRepository.save(newQuiz);
             }
-            Nugget savedNugget = nuggetRepository.save(nugget);
-            savedNugget.setFacts(facts);
-            for (Fact fact : facts) {
-                fact.setNugget(savedNugget);
-            }
-            factRepository.save(facts);
+
+            QuizNugget quizNugget = quizNuggetRepository.save(csvQuizNugget.getQuizNugget(quiz));
+            incorrectAnswerRepository.save(csvQuizNugget.getIncorrectAnswers(quizNugget));
         }
     }
 }
