@@ -26,7 +26,7 @@ install: true # Skip the default travis install phase
 script:
 # final build for deployment
 - 'if [ "$TRAVIS_BRANCH" = "master" ]; then
-    export DEPLOY_URL="ec2-user@gakusei.daigaku.se"
+    export DEPLOY_URL="production@176.58.115.136"
     export SLACK_PARAMETER=$KITS_SLACK
     export EMAIL_PARAMETER=true
     export FILENAME_SUFFIX="production";
@@ -67,7 +67,7 @@ cache:
   - $HOME/.m2
 addons:
   ssh_known_hosts:
-    - gakusei.daigaku.se
+    - 176.58.115.136
     - staging.daigaku.se
   # sauce_connect: true
 notifications:
