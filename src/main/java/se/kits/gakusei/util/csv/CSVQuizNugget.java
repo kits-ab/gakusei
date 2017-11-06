@@ -58,7 +58,7 @@ public class CSVQuizNugget {
         // List of incorrect answers is comma separated
         String [] stringIas = s.split(",");
         if (stringIas.length < EXPECTED_NUMBER_OF_INCORRECT_ANSWERS) {
-            throw new ParserFailureException("Too few incorrect answers provided " +
+            throw new ParserFailureException("Too few incorrect answers provided in row: " + Arrays.toString(values) +
                     "\nExpected " + Integer.toString(EXPECTED_NUMBER_OF_INCORRECT_ANSWERS) +
                     " but got " + Integer.toString(stringIas.length));
         }

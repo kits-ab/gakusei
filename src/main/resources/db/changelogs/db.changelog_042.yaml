@@ -1,0 +1,10 @@
+databaseChangeLog:
+    - changeSet:
+        id: 42
+        author: sofiaedstrom
+        changes:
+        - modifyDataType:
+            columnName: data
+            newDataType: varchar(256)
+            schemaName: public
+            tableName: events
