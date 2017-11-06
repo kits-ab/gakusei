@@ -1,0 +1,10 @@
+databaseChangeLog:
+    - changeSet:
+        id: 41
+        author: sofiaedstrom
+        changes:
+        - addUniqueConstraint:
+            columnNames: lesson_ref, user_ref
+            constraintName: lesson_user_composite_unique
+            schemaName: public
+            tableName: user_lesson

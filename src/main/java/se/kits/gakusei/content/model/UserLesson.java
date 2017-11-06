@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "user_lesson")
+@Table(name = "user_lesson", uniqueConstraints = @UniqueConstraint(columnNames = {"lesson_ref", "user_ref"}))
 public class UserLesson {
 
     @Id
