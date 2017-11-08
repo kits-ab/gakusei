@@ -87,6 +87,11 @@
             <artifactId>univocity-parsers</artifactId>
             <version>2.5.4</version>
         </dependency>
+        <dependency>
+            <groupId>se.sandboge.japanese</groupId>
+            <artifactId>grammar-utils</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
