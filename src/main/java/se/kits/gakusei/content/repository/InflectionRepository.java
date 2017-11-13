@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface InflectionRepository extends CrudRepository<Inflection, Long> {
 
-    List<Inflection> findByLesson_Id(Long id);
+    List<Inflection> findByLessonId(Long id);
 
     Inflection findByLessonAndInflectionMethod(Lesson lesson, String inflectionMethod);
 
