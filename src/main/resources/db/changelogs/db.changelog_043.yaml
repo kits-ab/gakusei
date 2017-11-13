@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 43
+      author: Pontus Doverstav
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+          - tableExists:
+              schemaName: contentschema
+              tableName: inflections
+      changes:
+      - createTable:
+          tableName: inflections
+          schemaName: contentschema
+          columns:
+          - column:
+              autoIncrement: true
+              constraints:
+                primaryKey: true
+                primaryKeyName: inflections_pkey
+              name: id
+              type: SERIAL
+          - column:
+              name: inflection_method
+              type: VARCHAR(64)
+              constraints:
+                nullable: false
+          - column:
+              name: lesson_ref
+              type: INTEGER
+              constraints:
+                nullable: false
+                foreignKeyName: inflections_lesson_ref_key
+                references: contentschema.lessons(id)

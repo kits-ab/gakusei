@@ -83,3 +83,5 @@ databaseChangeLog:
     file: classpath:db/changelogs/db.changelog_041.yaml
 - include:
     file: classpath:db/changelogs/db.changelog_042.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_043.yaml
