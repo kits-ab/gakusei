@@ -20,6 +20,7 @@ before_install:
 - node --version
 - git clone https://github.com/psandboge/japanese-grammar-utils.git
 - cd japanese-grammar-utils && mvn install
+- cd ..
 
 install: true # Skip the default travis install phase
 
