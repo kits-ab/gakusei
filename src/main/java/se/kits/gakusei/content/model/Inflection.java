@@ -51,13 +51,17 @@ public class Inflection {
         Method[] allMethods = Verb.class.getDeclaredMethods();
 
         for(Method method : allMethods){
-            if(Modifier.isPublic(method.getModifiers())
-                    && !Modifier.isStatic(method.getModifiers())
-                    && method.getGenericReturnType().equals(String.class)){
+            if(isInflection(method)){
                 inflectionMethods.add(method.getName());
             }
         }
 
         return inflectionMethods;
+    }
+
+    private static boolean isInflection(Method method){
+        return Modifier.isPublic(method.getModifiers())
+                && !Modifier.isStatic(method.getModifiers())
+                && method.getGenericReturnType().equals(String.class);
     }
 }
