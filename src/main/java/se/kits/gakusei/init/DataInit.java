@@ -102,7 +102,6 @@ public class DataInit implements ApplicationRunner {
             try {
                 Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
                 nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
-                nugget.setId(tdh.get("id").toString());
                 List<Fact> facts = new ArrayList<>();
                 Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id"));
                 for (Map.Entry entry : tdh.entrySet()) {

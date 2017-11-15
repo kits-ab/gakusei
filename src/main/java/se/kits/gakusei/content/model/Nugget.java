@@ -7,6 +7,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name="nuggets", schema = "contentschema")
@@ -14,7 +15,7 @@ import java.util.List;
 public class Nugget implements Serializable{
 
     @Id
-    private String id;
+    private String id = UUID.randomUUID().toString();
 
     //Remove when migrating, along with getter and setter
     @Column(nullable = false)
@@ -93,10 +94,6 @@ public class Nugget implements Serializable{
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public List<Lesson> getLessons() {
