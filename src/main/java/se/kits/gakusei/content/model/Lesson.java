@@ -99,6 +99,15 @@ public class Lesson implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"))
     private List<Nugget> nuggets;
 
+    @ManyToMany
+    @JoinTable(
+            name = "lessons_kanjis",
+            schema = "contentschema",
+            joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "kanji_id", referencedColumnName = "id")
+    )
+    private List<Kanji> kanjis;
+
     //@JsonBackReference(value = "ullessons")
     @JsonIgnore
     @OneToMany(mappedBy="lesson", fetch = FetchType.LAZY)
@@ -159,5 +168,13 @@ public class Lesson implements Serializable {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public List<Kanji> getKanjis() {
+        return kanjis;
+    }
+
+    public void setKanjis(List<Kanji> kanjis) {
+        this.kanjis = kanjis;
     }
 }

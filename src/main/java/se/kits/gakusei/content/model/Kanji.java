@@ -1,8 +1,10 @@
 package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +28,10 @@ public class Kanji {
     private String english;
 
     private String kanji;
+
+    @ManyToMany(mappedBy = "kanjis")
+    @JsonIgnore
+    private List<Lesson> lessons;
 
     public String getId() {
         return id;
@@ -77,5 +83,13 @@ public class Kanji {
 
     public void setKanji(String kanji) {
         this.kanji = kanji;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
     }
 }
