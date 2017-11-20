@@ -1,0 +1,39 @@
+databaseChangeLog:
+- changeSet:
+    id: 59
+    author: Pontus Doverstav
+    preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                schemaName: contentschema
+                tableName: kanjis
+    changes:
+        - createTable:
+            schemaName: contentschema
+            tableName: kanjis
+            columns:
+                - column:
+                    name: id
+                    type: varchar(256)
+                - column:
+                    name: description
+                    type: varchar(256)
+                - column:
+                    name: hidden
+                    type: boolean
+                - column:
+                    name: swedish
+                    type: varchar(32)
+                - column:
+                    name: english
+                    type: varchar(32)
+                - column:
+                    name: kanji
+                    type: varchar(32)
+                - column:
+                    name: book_ref
+                    type: integer
+                    constraints:
+                        foreignKeyName: kanji_book_ref_key
+                        references: contentschema.books(id)
