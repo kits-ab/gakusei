@@ -36,7 +36,6 @@ public class Nugget implements Serializable{
     private Book title;
 
     @ManyToOne
-    @JsonBackReference(value = "wordtype")
     @JoinColumn(name = "word_type_ref")
     private WordType wordType;
 

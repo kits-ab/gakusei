@@ -1,0 +1,11 @@
+databaseChangeLog:
+- changeSet:
+    id: 45
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: copy nugget types into word_types
+        sql: insert into contentschema.word_types (type)
+             select distinct n.type
+             from contentschema.nuggets n
+             where n.type != 'kanji';

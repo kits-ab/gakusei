@@ -1,0 +1,16 @@
+databaseChangeLog:
+- changeSet:
+    id: 47
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: copy facts data into nuggets
+        sql:  update contentschema.nuggets as n
+              set swedish = sw.swedish
+              from
+                (
+                  select f.type, f.data swedish, f.nuggetid nugget, n.id
+                  from contentschema.facts f, contentschema.nuggets n
+                  where f.nuggetid = n.id and f.type = 'swedish' and n.type != 'kanji'
+                ) sw
+              where n.id = sw.nugget;
