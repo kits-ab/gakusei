@@ -1,0 +1,33 @@
+databaseChangeLog:
+- changeSet:
+    id: 52
+    author: sofiaedstrom
+    preConditions:
+      - onFail: MARK_RAN
+      - not:
+        - tableExists:
+            schemaName: contentschema
+            tableName: nugget_books
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+            name: book_id
+            type: SERIAL
+        - column:
+            name: nugget_id
+            type: VARCHAR(16)
+        tableName: nugget_books
+        schemaName: contentschema
+    - addUniqueConstraint:
+        columnNames: nugget_id, book_id
+        constraintName: nugget_book_unique
+        schemaName: contentschema
+        tableName: nugget_books
+    - dropColumn:
+        columnName: book_ref
+        schemaName: contentschema
+        tableName: nuggets
