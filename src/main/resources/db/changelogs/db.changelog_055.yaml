@@ -1,0 +1,10 @@
+databaseChangeLog:
+    - changeSet:
+        id: 55
+        author: Pontus Doverstav
+        changes:
+        - modifyDataType:
+            schemaName: contentschema
+            tableName: facts
+            columnName: nuggetid
+            newDataType: varchar(256)

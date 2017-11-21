@@ -108,7 +108,6 @@ public class DataInit implements ApplicationRunner {
             try {
                 Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
                 nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
-                nugget.setId(tdh.get("id").toString());
                 String nuggetType = ((ArrayList<String>) tdh.get("type")).get(0);
 
                 // skip handling kanji nuggets until kanji gets its own table
