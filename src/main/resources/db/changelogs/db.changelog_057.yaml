@@ -1,0 +1,10 @@
+databaseChangeLog:
+    - changeSet:
+        id: 57
+        author: Pontus Doverstav
+        changes:
+        - modifyDataType:
+            schemaName: public
+            tableName: progresstrackinglist
+            columnName: nugget_id
+            newDataType: varchar(256)

@@ -14,7 +14,6 @@ public class TestTools {
         List<Nugget> nuggets = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             Nugget n = new Nugget("verb");
-            n.setId("nuggetid" + i);
             Fact f1 = new Fact();
             f1.setType("swedish");
             f1.setData("swe_test" + i);
