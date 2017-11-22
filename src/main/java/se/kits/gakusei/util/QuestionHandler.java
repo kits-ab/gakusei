@@ -1,15 +1,25 @@
 package se.kits.gakusei.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.kits.gakusei.content.model.Fact;
+import se.kits.gakusei.content.model.Inflection;
+import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
+import se.kits.gakusei.content.repository.InflectionRepository;
 import se.kits.gakusei.dto.ResourceReference;
+import se.sandboge.japanese.conjugation.Verb;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
 public class QuestionHandler {
+
+    @Autowired
+    InflectionRepository inflectionRepository;
 
     public List<HashMap<String, Object>> createQuestions(List<Nugget> nuggets,
                                                          int quantity,
@@ -64,6 +74,44 @@ public class QuestionHandler {
             questionMap.put("questionNuggetId", nugget.getId());
             return questionMap;
         } else {
+            return null;
+        }
+    }
+
+    public List<HashMap<String, Object>> createGrammarQuestions(Lesson lesson, List<Nugget> nuggets, String questionType, String answerType){
+        return nuggets.stream().map(n -> createGrammarQuestion(lesson, n, questionType, answerType)).collect(Collectors.toList());
+    }
+
+    private HashMap<String, Object> createGrammarQuestion(Lesson lesson, Nugget nugget, String questionType, String answerType){
+        HashMap<String, Object> questionMap = new HashMap<>();
+
+        List<Inflection> inflections = inflectionRepository.findByLessonId(lesson.getId());
+        Collections.shuffle(inflections); // Get "random" inflection
+        Inflection selectedInflection = inflections.get(0);
+
+        List<String> question = createAlternative(nugget, questionType);
+        question.add(selectedInflection.getInflectionMethod());
+
+        String inflectedVerb = inflectVerb(selectedInflection, question.get(1));
+
+        questionMap.put("question", question);
+        questionMap.put("correctAlternative", Collections.singletonList(inflectedVerb));
+        questionMap.put("alternative1", Collections.EMPTY_LIST);
+        questionMap.put("alternative2", Collections.EMPTY_LIST);
+        questionMap.put("alternative3", Collections.EMPTY_LIST);
+        questionMap.put("questionNuggetId", nugget.getId());
+
+        return questionMap;
+    }
+
+    private String inflectVerb(Inflection inflection, String baseVerb){
+        try {
+            Verb verb = new Verb(baseVerb);
+            Method methodToInvoke = verb.getClass().getMethod(inflection.getInflectionMethod());
+            String inflectedVerb = (String) methodToInvoke.invoke(verb);
+            return inflectedVerb;
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | IllegalArgumentException e) {
+            e.printStackTrace();
             return null;
         }
     }
