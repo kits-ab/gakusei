@@ -18,6 +18,7 @@ public class QuestionHandler {
         List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
         List<HashMap<String, Object>> questions = notHiddenNuggets.stream()
                 .map(n -> createQuestion(n, notHiddenNuggets, questionType, answerType))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         Collections.shuffle(questions);
         if (questions.size() > quantity) {
