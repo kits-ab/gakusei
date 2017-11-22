@@ -65,7 +65,11 @@ public class QuestionController {
                 allLessonNuggets, quantity);
 
         if(lessonType.equals("grammar")){
-            return questionHandler.createGrammarQuestions(lessonRepository.findByName(lessonName), nuggets, questionType, answerType);
+            return questionHandler.createGrammarQuestions(
+                    lessonRepository.findByName(lessonName),
+                    nuggets,
+                    questionType, 
+                    answerType);
         } else {
             return questionHandler.createQuestions(nuggets, quantity, questionType,
                     answerType);

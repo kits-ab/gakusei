@@ -78,11 +78,20 @@ public class QuestionHandler {
         }
     }
 
-    public List<HashMap<String, Object>> createGrammarQuestions(Lesson lesson, List<Nugget> nuggets, String questionType, String answerType){
-        return nuggets.stream().map(n -> createGrammarQuestion(lesson, n, questionType, answerType)).filter(Objects::nonNull).collect(Collectors.toList());
+    public List<HashMap<String, Object>> createGrammarQuestions(Lesson lesson,
+                                                                List<Nugget> nuggets,
+                                                                String questionType,
+                                                                String answerType){
+        return nuggets.stream().
+                map(n -> createGrammarQuestion(lesson, n, questionType, answerType)).
+                filter(Objects::nonNull).
+                collect(Collectors.toList());
     }
 
-    private HashMap<String, Object> createGrammarQuestion(Lesson lesson, Nugget nugget, String questionType, String answerType){
+    private HashMap<String, Object> createGrammarQuestion(Lesson lesson,
+                                                          Nugget nugget,
+                                                          String questionType,
+                                                          String answerType){
         HashMap<String, Object> questionMap = new HashMap<>();
 
         List<Inflection> inflections = inflectionRepository.findByLessonId(lesson.getId());
@@ -113,7 +122,10 @@ public class QuestionHandler {
             Method methodToInvoke = verb.getClass().getMethod(inflection.getInflectionMethod());
             String inflectedVerb = (String) methodToInvoke.invoke(verb);
             return inflectedVerb;
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | IllegalArgumentException e) {
+        } catch (NoSuchMethodException
+                | InvocationTargetException
+                | IllegalAccessException
+                | IllegalArgumentException e) {
             e.printStackTrace();
             return null;
         }
