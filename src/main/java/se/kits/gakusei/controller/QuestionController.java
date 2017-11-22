@@ -64,8 +64,12 @@ public class QuestionController {
         List<Nugget> nuggets = questionHandler.chooseNuggetsByProgress(nuggetsWithLowSuccessrate, unansweredNuggets,
                 allLessonNuggets, quantity);
 
-        return questionHandler.createQuestions(nuggets, quantity, questionType,
-                answerType);
+        if(lessonType.equals("grammar")){
+            return questionHandler.createGrammarQuestions(lessonRepository.findByName(lessonName), nuggets, questionType, answerType);
+        } else {
+            return questionHandler.createQuestions(nuggets, quantity, questionType,
+                    answerType);
+        }
     }
 
     @Cacheable("kanjiNuggets")
