@@ -79,7 +79,7 @@ public class QuestionHandler {
     }
 
     public List<HashMap<String, Object>> createGrammarQuestions(Lesson lesson, List<Nugget> nuggets, String questionType, String answerType){
-        return nuggets.stream().map(n -> createGrammarQuestion(lesson, n, questionType, answerType)).collect(Collectors.toList());
+        return nuggets.stream().map(n -> createGrammarQuestion(lesson, n, questionType, answerType)).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     private HashMap<String, Object> createGrammarQuestion(Lesson lesson, Nugget nugget, String questionType, String answerType){
@@ -93,6 +93,9 @@ public class QuestionHandler {
         question.add(selectedInflection.getInflectionMethod());
 
         String inflectedVerb = inflectVerb(selectedInflection, question.get(1));
+        if(inflectedVerb == null){
+            return null;
+        }
 
         questionMap.put("question", question);
         questionMap.put("correctAlternative", Collections.singletonList(inflectedVerb));
