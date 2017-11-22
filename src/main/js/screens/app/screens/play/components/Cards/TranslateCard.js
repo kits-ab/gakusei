@@ -11,6 +11,7 @@ class ButtonsCard extends React.Component {
           secondaryText={this.props.question.shapes[1] || null}
           resourceRef={this.props.question.resourceRef}
           japaneseCharacters={this.props.questionType === 'reading' && this.props.cardType !== 'quiz'}
+          cardType={this.props.cardType}
           showSpeechButton
           showKanji
         />

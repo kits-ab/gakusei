@@ -61,6 +61,7 @@ export class playScreen extends React.Component {
   render() {
     let playCard = null;
     switch (this.props.params.type) {
+      case 'grammar':
       case 'translate':
         playCard = (<TranslateCard
           question={this.props.currentQuestion}
