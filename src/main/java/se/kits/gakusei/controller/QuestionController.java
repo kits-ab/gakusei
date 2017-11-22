@@ -79,7 +79,7 @@ public class QuestionController {
     }
 
     @Cacheable("verbNuggets")
-    private List<Nugget> cachedFindVerbNuggets(String lessonName){
+    public List<Nugget> cachedFindVerbNuggets(String lessonName){
         return lessonRepository.findVerbNuggets(lessonRepository.findByName(lessonName).getId());
     }
 }
