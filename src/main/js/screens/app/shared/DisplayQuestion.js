@@ -10,12 +10,10 @@ export class DisplayQuestion extends React.Component {
       let swedishText = this.props.inflection[1];
       let inflection = this.props.inflection[0];
       return (
-        <p className="questionText">
-          Ange böjningen för
-          <br/><strong>{this.props.secondaryText}</strong>
-          <br/>({text}, {swedishText})
-          <br/>på formen
-          <br/><strong>{inflection}</strong>
+        <p className="verbQuestionText">
+          Ange böjningen för: <strong>{this.props.secondaryText} </strong>
+           ({text}, {swedishText})
+          <br/>på formen: <strong>{inflection}</strong>
         </p>
       );
     } else if (this.props.secondaryText && this.props.secondaryText !== text) {
