@@ -9,10 +9,11 @@ export class DisplayQuestion extends React.Component {
     if (this.props.cardType === 'grammar') {
       return (
         <p className="questionText">
-          Ange böjning för
-          <br/><strong>{text}</strong><br/>
-          på formen
-          <br/><strong>testBöjningsForm</strong>
+          Ange böjningen för
+          <br/><strong>{this.props.secondaryText}</strong>
+          <br/>({text}, svensk översättning)
+          <br/>på formen
+          <br/><strong>{this.props.inflection}</strong>
         </p>
       );
     } else if (this.props.secondaryText && this.props.secondaryText !== text) {
@@ -105,6 +106,7 @@ DisplayQuestion.propTypes = {
   showKanji: React.PropTypes.bool,
   smallerText: React.PropTypes.bool,
   cardType: React.PropTypes.string,
+  inflection: React.PropTypes.string,
 };
 
 export default DisplayQuestion;

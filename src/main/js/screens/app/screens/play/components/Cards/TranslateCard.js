@@ -9,6 +9,7 @@ class ButtonsCard extends React.Component {
         <DisplayQuestion
           primaryText={this.props.question.shapes[0]}
           secondaryText={this.props.question.shapes[1] || null}
+          inflection={this.props.question.shapes[2] || null}
           resourceRef={this.props.question.resourceRef}
           japaneseCharacters={this.props.questionType === 'reading' && this.props.cardType !== 'quiz'}
           cardType={this.props.cardType}
