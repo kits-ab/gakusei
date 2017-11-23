@@ -59,6 +59,12 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private QuizRepository quizRepository;
 
+    @Autowired
+    private WordTypeRepository wordTypeRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${gakusei.data-init}")
@@ -102,8 +108,31 @@ public class DataInit implements ApplicationRunner {
             try {
                 Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
                 nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
+                String nuggetType = ((ArrayList<String>) tdh.get("type")).get(0);
+
+                // skip handling kanji nuggets until kanji gets its own table
+                if (!nuggetType.equals("kanji")) {
+                    nugget.setEnglish(((ArrayList<String>) tdh.get("english")).get(0));
+                    nugget.setSwedish(((ArrayList<String>) tdh.get("swedish")).get(0));
+                    nugget.setJpRead(((ArrayList<String>) tdh.get("reading")).get(0));
+                    nugget.setJpWrite(((ArrayList<String>) tdh.get("writing")).get(0));
+
+                    WordType wordType = wordTypeRepository.findByType(nuggetType);
+
+                    if (wordType == null) {
+                        wordType = new WordType();
+                        wordType.setType(nuggetType);
+                        wordTypeRepository.save(wordType);
+                    }
+
+                    nugget.setWordType(wordType);
+                }
+
                 List<Fact> facts = new ArrayList<>();
                 Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id"));
+                List<Book> books = new ArrayList<>();
+                Set<String> allKeysExceptBooks = new HashSet<>(Arrays.asList("type", "english", "swedish", "id",
+                        "state", "reading", "writing", "kanjidrawing"));
                 for (Map.Entry entry : tdh.entrySet()) {
                     String type = entry.getKey().toString();
                     if (typeSet.contains(type)) {
@@ -111,6 +140,23 @@ public class DataInit implements ApplicationRunner {
                             nugget.setHidden(true);
                         }
                         continue;
+                    }
+                    if (!allKeysExceptBooks.contains(type)) {
+                        Object bookData = entry.getValue();
+                        String chapter;
+                        if (bookData instanceof String) {
+                            chapter = bookData.toString();
+                        } else {
+                            chapter = ((ArrayList<String>) entry.getValue()).get(0);
+                        }
+                        String title = type.concat(" " + chapter);
+                        Book book = bookRepository.findByTitle(title);
+                        if (book == null) {
+                            book = new Book();
+                            book.setTitle(title);
+                            bookRepository.save(book);
+                        }
+                        books.add(book);
                     }
                     Fact fact = new Fact();
                     fact.setType(type);
@@ -122,6 +168,7 @@ public class DataInit implements ApplicationRunner {
                     }
                     facts.add(fact);
                 }
+                nugget.setBooks(books);
                 Nugget savedNugget = nuggetRepository.save(nugget);
                 savedNugget.setFacts(facts);
                 for (Fact fact : facts) {

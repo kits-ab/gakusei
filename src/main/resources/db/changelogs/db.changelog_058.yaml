@@ -1,0 +1,18 @@
+databaseChangeLog:
+- changeSet:
+    id: 58
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: map nuggets to books
+        sql:  insert into contentschema.nugget_books (book_id, nugget_id)
+              select b.id, n.id
+              from
+                (
+                  select nuggetid nugget, concat(type, ' ', data) chapter
+                  from contentschema.facts
+                  where type not in('swedish', 'english', 'reading', 'writing', 'kanjidrawing')
+                ) cn,
+                contentschema.books b,
+                contentschema.nuggets n
+              where n.id = cn.nugget and cn.chapter = b.title;
