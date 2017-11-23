@@ -100,6 +100,7 @@ public class QuestionHandler {
 
         List<String> question = createAlternative(nugget, questionType);
         question.add(selectedInflection.getInflectionMethod());
+        question.addAll(createAlternative(nugget, answerType));
 
         String inflectedVerb = inflectVerb(selectedInflection, question.get(1));
         if(inflectedVerb == null){
