@@ -19,7 +19,7 @@ databaseChangeLog:
             type: SERIAL
         - column:
             name: nugget_id
-            type: VARCHAR(16)
+            type: VARCHAR(256)
         tableName: nugget_books
         schemaName: contentschema
     - addUniqueConstraint:
