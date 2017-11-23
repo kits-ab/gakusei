@@ -31,13 +31,17 @@ public class Nugget implements Serializable{
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Fact> facts;
 
-    @ManyToOne
-    @JsonBackReference(value = "book")
-    @JoinColumn(name = "book_ref")
-    private Book title;
+    @ManyToMany
+    @JoinTable(
+            name = "nugget_books",
+            schema = "contentschema",
+            joinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"nugget_id", "book_id"})
+    )
+    private List<Book> books;
 
     @ManyToOne
-    @JsonBackReference(value = "wordtype")
     @JoinColumn(name = "word_type_ref")
     private WordType wordType;
 
@@ -144,11 +148,11 @@ public class Nugget implements Serializable{
         this.wordType = wordType;
     }
 
-    public Book getTitle() {
-        return title;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setTitle(Book title) {
-        this.title = title;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }

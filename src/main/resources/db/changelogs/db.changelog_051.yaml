@@ -1,0 +1,15 @@
+databaseChangeLog:
+- changeSet:
+    id: 51
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: copy facts data into nuggets
+        sql: insert into contentschema.books (title)
+             select concat(chapters.type, ' ', chapters.data)
+             from
+               (
+                 select distinct data, type
+                 from contentschema.facts
+                 where type not in('swedish', 'english', 'reading', 'writing', 'kanjidrawing')
+               ) chapters;

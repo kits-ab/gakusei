@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 46
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: reference word type from nuggets
+        sql: update contentschema.nuggets as n
+             set word_type_ref = wt.id
+             from
+               contentschema.word_types wt
+             where wt.type = n.type;

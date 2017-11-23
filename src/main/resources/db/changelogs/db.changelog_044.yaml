@@ -1,0 +1,30 @@
+databaseChangeLog:
+- changeSet:
+    id: 44
+    author: sofiaedstrom
+    changes:
+    - modifyDataType:
+        columnName: swedish
+        newDataType: varchar(128)
+        schemaName: contentschema
+        tableName: nuggets
+    - modifyDataType:
+        columnName: swedish
+        newDataType: varchar(128)
+        schemaName: contentschema
+        tableName: nuggets
+    - modifyDataType:
+        columnName: english
+        newDataType: varchar(128)
+        schemaName: contentschema
+        tableName: nuggets
+    - modifyDataType:
+        columnName: jp_read
+        newDataType: varchar(128)
+        schemaName: contentschema
+        tableName: nuggets
+    - modifyDataType:
+        columnName: jp_write
+        newDataType: varchar(128)
+        schemaName: contentschema
+        tableName: nuggets
