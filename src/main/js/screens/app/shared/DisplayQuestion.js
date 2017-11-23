@@ -6,7 +6,29 @@ export class DisplayQuestion extends React.Component {
   getQuestionText() {
     let text = this.props.primaryText || null;
 
-    if (this.props.secondaryText && this.props.secondaryText !== this.props.primaryText) {
+    if (this.props.cardType === 'grammar') {
+      let swedishText = this.props.inflection[1];
+      let inflection = this.props.inflection[0];
+      return (
+        <p className="verbQuestionText">
+          Ange böjningen för: <strong>{this.props.secondaryText} </strong>
+           ({text}, {swedishText})
+          <br/>på formen: <strong>{inflection}</strong>
+        </p>
+      );
+    } else if (this.props.secondaryText && this.props.secondaryText !== text) {
+      if (this.props.japaneseCharacters) {
+        text += ` 「${this.props.secondaryText}」`;
+      } else {
+        text += ` (${this.props.secondaryText})`;
+      }
+      return (
+        <p className="questionText">{text}</p>
+      );
+    }
+
+
+    if (this.props.secondaryText && this.props.secondaryText !== text) {
       if (this.props.japaneseCharacters) {
         text += ` 「${this.props.secondaryText}」`;
       } else {
@@ -47,8 +69,8 @@ export class DisplayQuestion extends React.Component {
     return (
       <div style={generalStyle}>
         { this.props.showKanji ? resource : null }
+        {questionText}
         <p className="questionText">
-          {questionText}
           { this.props.japaneseCharacters && this.props.showSpeechButton ?
             <span className="speechButtonContainer">
               {' '}
@@ -82,7 +104,9 @@ DisplayQuestion.propTypes = {
   }),
   showSpeechButton: React.PropTypes.bool,
   showKanji: React.PropTypes.bool,
-  smallerText: React.PropTypes.bool
+  smallerText: React.PropTypes.bool,
+  cardType: React.PropTypes.string,
+  inflection: React.PropTypes.arrayOf(React.PropTypes.string),
 };
 
 export default DisplayQuestion;
