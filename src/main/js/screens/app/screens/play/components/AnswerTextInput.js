@@ -5,7 +5,8 @@ export default class AnswerButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answer: ''
+      answer: '',
+      buttonText: 'Kontrollera svar',
     };
   }
 
@@ -20,10 +21,12 @@ export default class AnswerButton extends React.Component {
         answerStyle: (nextProps.questionAnsweredCorrectly ?
           'success' :
           'error'
-        )
+        ),
+        buttonText: 'Nästa fråga',
+        clickFunc: this.props.clickNextCallback.bind(this),
       });
     } else {
-      this.setState({ answer: '', answerStyle: null });
+      this.setState({ answer: '', answerStyle: null, buttonText: 'Kontrollera svar' });
       this.updateAnswerText();
     }
   }
@@ -40,7 +43,7 @@ export default class AnswerButton extends React.Component {
 
   updateAnswerText(optionalValue = null) {
     this.setState({
-      answerClickFunc: this.props.clickCallback.bind(this, optionalValue || this.state.answer || '')
+      clickFunc: this.props.clickCallback.bind(this, optionalValue || this.state.answer || '')
     });
   }
 
@@ -60,6 +63,10 @@ export default class AnswerButton extends React.Component {
     this.updateAnswerText(event.target.value);
   }
 
+  inputIsDisabled() {
+    return this.state.buttonText === 'Nästa fråga' || this.props.buttonsDisabled;
+  }
+
   render() {
     return (
       <div>
@@ -73,14 +80,15 @@ export default class AnswerButton extends React.Component {
             placeholder="Ditt svar"
             value={this.state.answer}
             onChange={this.handleChange}
-            disabled={this.props.buttonsDisabled}
+            disabled={this.inputIsDisabled()}
+            inputRef={(ref)  => { this.answerInput = ref; }}
           />
           <FormControl.Feedback />
         </FormGroup>
         <Row>
-          <Button type="submit" onClick={this.state.answerClickFunc} disabled={this.props.buttonsDisabled}>
-              Kontrollera svar
-            </Button>
+          <Button type="submit" onClick={this.state.clickFunc} disabled={this.props.buttonsDisabled}>
+            {this.state.buttonText}
+          </Button>
         </Row>
         { this.getOutput() }
       </div>

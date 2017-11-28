@@ -17,6 +17,7 @@ export class playScreen extends React.Component {
   constructor(props) {
     super(props);
     this.checkAnswer = this.checkAnswer.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -44,17 +45,25 @@ export class playScreen extends React.Component {
       this.props.verifyUserLoggedIn();
     });
 
-    if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
-      setTimeout(() => {
-        this.props.incrementQuestionIndex();
-        this.props.processCurrentQuestion();
-        this.props.setAllButtonsDisabledState(false);
-      }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
-    } else {
+    if (this.props.currentQuestionIndex === this.props.lessonLength - 1) {
       setTimeout(
         () => {
           this.props.setPageByName(`/finish/${this.props.params.type}`);
-        }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
+        }, window.customDelay /* not really accessible, just for e2e testing */ || 2000);
+    } else {
+      this.props.setAllButtonsDisabledState(false);
+    }
+  }
+
+  nextQuestion() {
+    this.props.setAllButtonsDisabledState(true);
+    if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
+      this.props.incrementQuestionIndex();
+      this.props.processCurrentQuestion();
+      this.props.setAnswerTextInputFocusedState(true);
+      this.props.setAllButtonsDisabledState(false);
+    } else {
+      this.props.setPageByName(`/finish/${this.props.params.type}`);
     }
   }
 
@@ -70,6 +79,7 @@ export class playScreen extends React.Component {
           cardType={this.props.params.type}
           buttonsDisabled={this.props.allButtonsDisabled}
           clickCallback={this.checkAnswer}
+          clickNextCallback={this.nextQuestion}
           correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
