@@ -92,7 +92,7 @@ public class InflectionUtil {
     }
 
     public static List<String> createListNoLink(String form){
-        return Collections.singletonList(form);
+        return createList(form, null);
     }
 
 }
