@@ -10,19 +10,19 @@ public class InflectionUtil {
 
     static {
         inflectionMap.put("asDesireForm", null);
-        inflectionMap.put("asPoliteRequestForm", createList("Be om hjälp (artigt)", "gcon_37"));
+        inflectionMap.put("asPoliteRequestForm", createList("Be om hjälp (artig)", "gcon_37"));
         inflectionMap.put("asPoliteRefrainRequestForm", null);
         inflectionMap.put("asRepresentativeForm", null);
         inflectionMap.put("asItIsPossibleNegForm", createList("Det är möjligt att... (nekande)", "gcon_23"));
-        inflectionMap.put("asCasualRequestForm", createList("Be om hjälp (vardagligt)", "gcon_39"));
+        inflectionMap.put("asCasualRequestForm", createList("Be om hjälp (vardaglig)", "gcon_39"));
         inflectionMap.put("asConcurrentActionForm", createList("Samtidigt utförande", "gcon_13"));
         inflectionMap.put("asAlternativeWishNegForm", createList("[Jag borde ha... ; Jag önskar att jag hade...] (nekande)", "gcon_14"));
         inflectionMap.put("asApologizeForForm", createList("Jag ber om ursäkt för att...", "gcon_44"));
         inflectionMap.put("asDeterminationForm", createList("Intention", "gcon_31"));
         inflectionMap.put("asHaveALookAtForm", createList("Försöka eller prova", "gcon_19"));
-        inflectionMap.put("asShortPastNegForm", null);
+        inflectionMap.put("asShortPastNegForm", createListNoLink("Kort (dåtid, nekande)"));
         inflectionMap.put("asOpinionQuoteForm", null);
-        inflectionMap.put("asPoliteVolitionalForm", null);
+        inflectionMap.put("asPoliteVolitionalForm", createList("Volitional (artig)", "gcon_30"));
         inflectionMap.put("asRespectfulAdviceForm", createListNoLink("Respektfullt råd"));
         inflectionMap.put("asApologizeForNegForm", createList("Jag ber om ursäkt för att jag inte...", "gcon_45"));
         inflectionMap.put("asPolitePermissionForm", null);
@@ -41,13 +41,13 @@ public class InflectionUtil {
         inflectionMap.put("asIHearSoudesuForm", createList("[Jag hörde att... ; Det ser ut som att...]", "gcon_17"));
         inflectionMap.put("asPoliteNegForm", null);
         inflectionMap.put("asPolitePastForm", null);
-        inflectionMap.put("asStemForm", null);
-        inflectionMap.put("asShortForm", null);
+        inflectionMap.put("asStemForm", createListNoLink("Stam"));
+        inflectionMap.put("asShortForm", createListNoLink("Kort"));
         inflectionMap.put("asShortNegForm", createList("Te (nekande)", "gcon_46"));
         inflectionMap.put("asHeardQuoteForm", null);
         inflectionMap.put("asInProgressForm", null);
-        inflectionMap.put("asTeForm", null);
-        inflectionMap.put("asShortPastForm", null);
+        inflectionMap.put("asTeForm", createListNoLink("Te"));
+        inflectionMap.put("asShortPastForm", createListNoLink("Kort (dåtid)"));
         inflectionMap.put("asNounForm", null);
         inflectionMap.put("asDictionaryForm", null);
         inflectionMap.put("asPoliteForm", null);
@@ -62,7 +62,7 @@ public class InflectionUtil {
         inflectionMap.put("asPotentialForm", createList("Potentiell", "gcon_15"));
         inflectionMap.put("asCauseForm", createList("Orsak och verkan", "gcon_12"));
         inflectionMap.put("asAppearsNegForm", createList("[Verkar... ; Ser ut som att...] (nekande)", "gcon_6"));
-        inflectionMap.put("asTeNegForm", null);
+        inflectionMap.put("asTeNegForm", createListNoLink("Te (nekande)"));
         inflectionMap.put("asPassiveForm", createListNoLink("Passiv"));
         inflectionMap.put("asEbaNegForm", createListNoLink("Eba (nekande)"));
         inflectionMap.put("asSupposedToForm", null);
