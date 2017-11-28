@@ -83,16 +83,8 @@ public class InflectionUtil {
     }
 
     public static List<String> getInflectionNameAndTextLink(String inflectionMethod) {
-        throw new NotYetImplementedException();
-    }
-
-    public static String getInflectionName(String inflectionMethod) {
-        throw new NotYetImplementedException();
-    }
-
-    public static String getInflectionMethodTextLink(String inflectionMethod) {
-        throw new NotYetImplementedException();
-
+        List<String> value = inflectionMap.get(inflectionMethod);
+        return value != null ? value : Collections.singletonList(inflectionMethod);
     }
 
     public static ArrayList<String> createList(String form, String linkId){
