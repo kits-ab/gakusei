@@ -47,6 +47,8 @@ export const defaultState = {
   answeredQuestions: [],
   lessonLength: 0,
 
+  answerTextInputFocused: true,
+  
   // Things originally in SessionStorage
   correctAttempts: 0,
   totalAttempts: 0,
@@ -75,7 +77,8 @@ export const propTypes = {
   currentQuestionIndex: React.PropTypes.number.isRequired,
   calcAnswerButtonStyles: React.PropTypes.func.isRequired,
   questionType: React.PropTypes.string.isRequired,
-  answerType: React.PropTypes.string.isRequired
+  answerType: React.PropTypes.string.isRequired,
+  answerTextInputFocused: React.PropTypes.bool.isRequired,
 };
 
 // -----------------
@@ -95,6 +98,7 @@ export const RECEIVE_PROCESSED_QUESTION = 'RECEIVE_NEXT_PROCESSED_QUESTION';
 export const SET_SELECTED_LESSON = 'SET_SELECTED_LESSON';
 export const SET_GAMEMODE = 'SET_GAMEMODE';
 export const SET_ALL_BUTTONS_DISABLED_STATE = 'SET_ALL_BUTTONS_DISABLED_STATE';
+export const SET_ANSWER_TEXT_INPUT_FOCUSED_STATE = 'SET_ANSWER_TEXT_INPUT_FOCUSED_STATE';
 export const ADD_USER_ANSWER = 'ADD_USER_ANSWER';
 export const CLEAR_USER_ANSWERS = 'CLEAR_USER_ANSWERS';
 export const SHOW_ANSWER_BUTTON_STYLES = 'SHOW_ANSWER_BUTTON_STYLES';
@@ -292,6 +296,14 @@ export function setAllButtonsDisabledState(disabled) {
     type: SET_ALL_BUTTONS_DISABLED_STATE,
     description: 'Enables or disables all quiz buttons',
     allButtonsDisabled: disabled
+  };
+}
+
+export function setAnswerTextInputFocusedState(focused) {
+  return {
+    type: SET_ANSWER_TEXT_INPUT_FOCUSED_STATE,
+    description: 'Allow or disallow focus for answer input field',
+    answerTextInputFocused: focused
   };
 }
 
@@ -610,6 +622,7 @@ export const actionCreators = {
   setGameMode,
   processCurrentQuestion,
   setAllButtonsDisabledState,
+  setAnswerTextInputFocusedState,
   addUserAnswer,
   clearUserAnswers,
   resetAttempts,
@@ -644,6 +657,11 @@ export function lessons(state = defaultState, action) {
       return {
         ...state,
         allButtonsDisabled: action.allButtonsDisabled
+      };
+    case SET_ANSWER_TEXT_INPUT_FOCUSED_STATE:
+      return {
+        ...state,
+        answerTextInputFocused: action.answerTextInputFocused
       };
     case CLEAR_PROCESSED_QUESTION:
       return {

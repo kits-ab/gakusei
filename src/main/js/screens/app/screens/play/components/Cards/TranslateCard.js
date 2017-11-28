@@ -23,6 +23,7 @@ class ButtonsCard extends React.Component {
           questionAnswered={this.props.questionAnswered}
           questionAnsweredCorrectly={this.props.questionAnsweredCorrectly}
           correctAlternative={this.props.correctAlternative}
+          inputFocused={this.props.inputFocused}
         />
       </div>
     );
@@ -47,7 +48,8 @@ ButtonsCard.propTypes = {
   cardType: React.PropTypes.string.isRequired,
   correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   questionAnswered: React.PropTypes.bool.isRequired,
-  questionAnsweredCorrectly: React.PropTypes.bool.isRequired
+  questionAnsweredCorrectly: React.PropTypes.bool.isRequired,
+  inputFocused: React.PropTypes.bool.isRequired,
 };
 
 export default ButtonsCard;

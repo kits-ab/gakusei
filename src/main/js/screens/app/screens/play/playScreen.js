@@ -39,6 +39,7 @@ export class playScreen extends React.Component {
       cloneCard = React.cloneElement(cardData);
     }
     this.props.setAllButtonsDisabledState(true);
+    this.props.setAnswerTextInputFocusedState(false);
     this.props.addUserAnswer(answer, cloneCard)
     .catch(() => {
       this.props.requestUserLogout('/', getCSRF());
@@ -80,6 +81,7 @@ export class playScreen extends React.Component {
           buttonsDisabled={this.props.allButtonsDisabled}
           clickCallback={this.checkAnswer}
           clickNextCallback={this.nextQuestion}
+          inputFocused={this.props.answerTextInputFocused}
           correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}

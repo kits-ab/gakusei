@@ -31,6 +31,12 @@ export default class AnswerButton extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.props.inputFocused) {
+      this.answerInput.focus();
+    }
+  }
+
   getOutput() {
     if (this.props.questionAnswered) {
       return (<Row>
@@ -108,6 +114,8 @@ AnswerButton.propTypes = {
   // japaneseCharacters: React.PropTypes.bool.isRequired,
   // answerType: React.PropTypes.string.isRequired,
   clickCallback: React.PropTypes.func.isRequired,
+  clickNextCallback: React.PropTypes.func.isRequired,
   questionAnswered: React.PropTypes.bool.isRequired,
-  questionAnsweredCorrectly: React.PropTypes.bool.isRequired
+  questionAnsweredCorrectly: React.PropTypes.bool.isRequired,
+  inputFocused: React.PropTypes.bool.isRequired,
 };
