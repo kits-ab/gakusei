@@ -41,10 +41,10 @@ export class playScreen extends React.Component {
     this.props.setAllButtonsDisabledState(true);
     this.props.setAnswerTextInputFocusedState(false);
     this.props.addUserAnswer(answer, cloneCard)
-    .catch(() => {
-      this.props.requestUserLogout('/', getCSRF());
-      this.props.verifyUserLoggedIn();
-    });
+      .catch(() => {
+        this.props.requestUserLogout('/', getCSRF());
+        this.props.verifyUserLoggedIn();
+      });
 
     if (this.props.currentQuestionIndex === this.props.lessonLength - 1) {
       setTimeout(

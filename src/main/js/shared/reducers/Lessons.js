@@ -48,7 +48,7 @@ export const defaultState = {
   lessonLength: 0,
 
   answerTextInputFocused: true,
-  
+
   // Things originally in SessionStorage
   correctAttempts: 0,
   totalAttempts: 0,
