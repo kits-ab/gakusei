@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Row, FormControl, FormGroup } from 'react-bootstrap';
+import { Button, Row, FormControl, FormGroup, Form } from 'react-bootstrap';
+import * as ReactDOM from 'react-dom';
 
 export default class AnswerButton extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class AnswerButton extends React.Component {
   }
 
   componentWillMount() {
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.updateAnswerText();
   }
@@ -34,6 +36,8 @@ export default class AnswerButton extends React.Component {
   componentDidUpdate() {
     if (this.props.inputFocused) {
       this.answerInput.focus();
+    } else if (this.state.buttonText === 'Nästa fråga') {
+      ReactDOM.findDOMNode(this).querySelector('#nextButton').focus();
     }
   }
 
@@ -73,9 +77,14 @@ export default class AnswerButton extends React.Component {
     return this.state.buttonText === 'Nästa fråga' || this.props.buttonsDisabled;
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    this.state.clickFunc(event);
+  }
+
   render() {
     return (
-      <div>
+      <Form onSubmit={this.handleSubmit}>
         <FormGroup
           controlId="translateTextArea"
           validationState={this.state.answerStyle}
@@ -91,13 +100,13 @@ export default class AnswerButton extends React.Component {
           />
           <FormControl.Feedback />
         </FormGroup>
-        <Row>
-          <Button type="submit" onClick={this.state.clickFunc} disabled={this.props.buttonsDisabled}>
+        <FormGroup>
+          <Button id="nextButton" type="submit" disabled={this.props.buttonsDisabled}>
             {this.state.buttonText}
           </Button>
-        </Row>
+        </FormGroup>
         { this.getOutput() }
-      </div>
+      </Form>
     );
   }
 }

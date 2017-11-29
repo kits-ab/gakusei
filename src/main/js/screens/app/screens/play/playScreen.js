@@ -40,6 +40,10 @@ export class playScreen extends React.Component {
     }
     this.props.setAllButtonsDisabledState(true);
     this.props.setAnswerTextInputFocusedState(false);
+
+    if (['grammar', 'translate'].includes(this.props.params.type)) {
+      this.props.setAnswerTextInputFocusedState(false);
+    }
     this.props.addUserAnswer(answer, cloneCard)
       .catch(() => {
         this.props.requestUserLogout('/', getCSRF());
