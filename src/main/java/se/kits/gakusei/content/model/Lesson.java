@@ -104,7 +104,8 @@ public class Lesson implements Serializable {
             name = "lessons_kanjis",
             schema = "contentschema",
             joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "kanji_id", referencedColumnName = "id")
+            inverseJoinColumns = @JoinColumn(name = "kanji_id", referencedColumnName = "id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"lesson_id", "kanji_id"})
     )
     private List<Kanji> kanjis;
 
