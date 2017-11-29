@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 58
+    id: 58B
     author: Pontus Doverstav
     preConditions:
         - onFail: MARK_RAN
