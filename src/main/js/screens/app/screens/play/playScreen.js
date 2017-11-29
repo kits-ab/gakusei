@@ -33,30 +33,41 @@ export class playScreen extends React.Component {
 
   checkAnswer(answer, cardData) {
     let cloneCard = 'undefined';
+    let textInputPlayType = ['grammar', 'translate'].includes(this.props.params.type);
     if (cardData.type === undefined && Array.isArray(cardData)) {
       cloneCard = cardData.slice(0);
     } else if (typeof cardData !== 'undefined') {
       cloneCard = React.cloneElement(cardData);
     }
-    this.props.setAllButtonsDisabledState(true);
-    this.props.setAnswerTextInputFocusedState(false);
 
-    if (['grammar', 'translate'].includes(this.props.params.type)) {
-      this.props.setAnswerTextInputFocusedState(false);
-    }
+    this.props.setAllButtonsDisabledState(true);
     this.props.addUserAnswer(answer, cloneCard)
       .catch(() => {
         this.props.requestUserLogout('/', getCSRF());
         this.props.verifyUserLoggedIn();
       });
 
-    if (this.props.currentQuestionIndex === this.props.lessonLength - 1) {
+    if (textInputPlayType) {
+      this.props.setAnswerTextInputFocusedState(false);
+      if (this.props.currentQuestionIndex === this.props.lessonLength - 1) {
+        setTimeout(
+          () => {
+            this.props.setPageByName(`/finish/${this.props.params.type}`);
+          }, window.customDelay /* not really accessible, just for e2e testing */ || 2000);
+      } else {
+        this.props.setAllButtonsDisabledState(false);
+      }
+    } else if (!textInputPlayType && (this.props.currentQuestionIndex < this.props.lessonLength - 1)) {
+      setTimeout(() => {
+        this.props.incrementQuestionIndex();
+        this.props.processCurrentQuestion();
+        this.props.setAllButtonsDisabledState(false);
+      }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
+    } else {
       setTimeout(
         () => {
           this.props.setPageByName(`/finish/${this.props.params.type}`);
-        }, window.customDelay /* not really accessible, just for e2e testing */ || 2000);
-    } else {
-      this.props.setAllButtonsDisabledState(false);
+        }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
     }
   }
 
