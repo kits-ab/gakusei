@@ -22,21 +22,11 @@ export class DisplayQuestion extends React.Component {
       } else {
         text += ` (${this.props.secondaryText})`;
       }
-      return (
-        <p className="questionText">{text}</p>
-      );
     }
 
-
-    if (this.props.secondaryText && this.props.secondaryText !== text) {
-      if (this.props.japaneseCharacters) {
-        text += ` 「${this.props.secondaryText}」`;
-      } else {
-        text += ` (${this.props.secondaryText})`;
-      }
-    }
-
-    return text;
+    return (
+      <p className="questionText">{text}</p>
+    );
   }
 
   getResource() {

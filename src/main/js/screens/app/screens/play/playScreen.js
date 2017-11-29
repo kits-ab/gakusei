@@ -17,6 +17,7 @@ export class playScreen extends React.Component {
   constructor(props) {
     super(props);
     this.checkAnswer = this.checkAnswer.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -32,19 +33,31 @@ export class playScreen extends React.Component {
 
   checkAnswer(answer, cardData) {
     let cloneCard = 'undefined';
+    let textInputPlayType = ['grammar', 'translate'].includes(this.props.params.type);
     if (cardData.type === undefined && Array.isArray(cardData)) {
       cloneCard = cardData.slice(0);
     } else if (typeof cardData !== 'undefined') {
       cloneCard = React.cloneElement(cardData);
     }
+
     this.props.setAllButtonsDisabledState(true);
     this.props.addUserAnswer(answer, cloneCard)
-    .catch(() => {
-      this.props.requestUserLogout('/', getCSRF());
-      this.props.verifyUserLoggedIn();
-    });
+      .catch(() => {
+        this.props.requestUserLogout('/', getCSRF());
+        this.props.verifyUserLoggedIn();
+      });
 
-    if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
+    if (textInputPlayType) {
+      this.props.setAnswerTextInputFocusedState(false);
+      if (this.props.currentQuestionIndex === this.props.lessonLength - 1) {
+        setTimeout(
+          () => {
+            this.props.setPageByName(`/finish/${this.props.params.type}`);
+          }, window.customDelay /* not really accessible, just for e2e testing */ || 2000);
+      } else {
+        this.props.setAllButtonsDisabledState(false);
+      }
+    } else if (!textInputPlayType && (this.props.currentQuestionIndex < this.props.lessonLength - 1)) {
       setTimeout(() => {
         this.props.incrementQuestionIndex();
         this.props.processCurrentQuestion();
@@ -55,6 +68,18 @@ export class playScreen extends React.Component {
         () => {
           this.props.setPageByName(`/finish/${this.props.params.type}`);
         }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
+    }
+  }
+
+  nextQuestion() {
+    this.props.setAllButtonsDisabledState(true);
+    if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
+      this.props.incrementQuestionIndex();
+      this.props.processCurrentQuestion();
+      this.props.setAnswerTextInputFocusedState(true);
+      this.props.setAllButtonsDisabledState(false);
+    } else {
+      this.props.setPageByName(`/finish/${this.props.params.type}`);
     }
   }
 
@@ -70,6 +95,8 @@ export class playScreen extends React.Component {
           cardType={this.props.params.type}
           buttonsDisabled={this.props.allButtonsDisabled}
           clickCallback={this.checkAnswer}
+          clickNextCallback={this.nextQuestion}
+          inputFocused={this.props.answerTextInputFocused}
           correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}

@@ -19,9 +19,11 @@ class ButtonsCard extends React.Component {
         <AnswerTextInput
           buttonsDisabled={this.props.buttonsDisabled}
           clickCallback={this.props.clickCallback}
+          clickNextCallback={this.props.clickNextCallback}
           questionAnswered={this.props.questionAnswered}
           questionAnsweredCorrectly={this.props.questionAnsweredCorrectly}
           correctAlternative={this.props.correctAlternative}
+          inputFocused={this.props.inputFocused}
         />
       </div>
     );
@@ -42,10 +44,12 @@ ButtonsCard.propTypes = {
   buttonsDisabled: React.PropTypes.bool.isRequired,
   questionType: React.PropTypes.string.isRequired,
   clickCallback: React.PropTypes.func.isRequired,
+  clickNextCallback: React.PropTypes.func.isRequired,
   cardType: React.PropTypes.string.isRequired,
   correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   questionAnswered: React.PropTypes.bool.isRequired,
-  questionAnsweredCorrectly: React.PropTypes.bool.isRequired
+  questionAnsweredCorrectly: React.PropTypes.bool.isRequired,
+  inputFocused: React.PropTypes.bool.isRequired,
 };
 
 export default ButtonsCard;
