@@ -1,0 +1,13 @@
+databaseChangeLog:
+- changeSet:
+    id: 67
+    author: Pontus Doverstav
+    changes:
+        - sql:
+            comment: Add kanjis to kanji_book table
+            sql:
+                INSERT INTO contentschema.kanji_books (kanji_id, book_id)
+                SELECT nb.nugget_id, nb.book_id
+                FROM contentschema.nugget_books nb
+                INNER JOIN contentschema.nuggets n ON nb.nugget_id = n.id
+                WHERE n.type = 'kanji';
