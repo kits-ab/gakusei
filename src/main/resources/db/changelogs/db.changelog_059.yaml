@@ -31,9 +31,3 @@ databaseChangeLog:
                 - column:
                     name: kanji
                     type: varchar(32)
-                - column:
-                    name: book_ref
-                    type: integer
-                    constraints:
-                        foreignKeyName: kanji_book_ref_key
-                        references: contentschema.books(id)
