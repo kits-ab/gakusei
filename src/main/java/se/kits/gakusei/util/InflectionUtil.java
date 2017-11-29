@@ -43,7 +43,7 @@ public class InflectionUtil {
         inflectionMap.put("asPolitePastForm", createListNoLink("Artig (dåtid)"));
         inflectionMap.put("asStemForm", createListNoLink("Stam"));
         inflectionMap.put("asShortForm", createListNoLink("Kort"));
-        inflectionMap.put("asShortNegForm", createList("Te (nekande)", "gcon_46"));
+        inflectionMap.put("asShortNegForm", createList("Kort (nekande)", "gcon_46"));
         inflectionMap.put("asHeardQuoteForm", createListNoLink("Heard Quote"));
         inflectionMap.put("asInProgressForm", createListNoLink("In Progress"));
         inflectionMap.put("asTeForm", createListNoLink("Te"));
@@ -78,7 +78,7 @@ public class InflectionUtil {
         inflectionMap.put("asThankYouForDoingForm", createListNoLink("Tack för att du..."));
         inflectionMap.put("asSupposedToPastForm", createListNoLink("Supposed To (Past)"));
         inflectionMap.put("asSupposedToNegForm", createListNoLink("Supposed To (Negative)"));
-        inflectionMap.put("asSupposedToPastNegForm", createListNoLink("Supposd To (Past, Negative)"));
+        inflectionMap.put("asSupposedToPastNegForm", createListNoLink("Supposed To (Past, Negative)"));
         inflectionMap.put("asThankYouForDoingHumbleForm", createListNoLink("Tack för att du... (ödmjuk)"));
     }
 
