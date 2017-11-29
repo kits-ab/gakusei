@@ -6,6 +6,6 @@ databaseChangeLog:
         - sql:
             comment: copy id, description, hidden and book_ref from nugget to kanji table
             sql:
-                INSERT INTO contentschema.kanjis (id, description, hidden, book_ref)
+                INSERT INTO contentschema.kanjis (id, description, hidden)
                 SELECT n.id, n.description, n.hidden
                 FROM contentschema.nuggets n WHERE n.type = 'kanji';
