@@ -41,9 +41,6 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
 
     List<Nugget> findVerbNuggets (@Param("lessonId") Long lessonId);
 
-    @Query("select l from Lesson l where not l.description = 'quiz' order by l.name")
-    List<Lesson> findVocabularyLessons();
+    List<Lesson> findAllByOrderByName();
 
-    @Query("select l from Lesson l where l.description = 'quiz' order by l.name")
-    List<Lesson> findQuizLessons();
 }
