@@ -108,7 +108,6 @@ public class Lesson implements Serializable {
     )
     private List<Kanji> kanjis;
 
-    //@JsonBackReference(value = "ullessons")
     @JsonIgnore
     @OneToMany(mappedBy="lesson", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
