@@ -1,15 +1,18 @@
 import React from 'react';
-import { Button, Row, FormControl, FormGroup } from 'react-bootstrap';
+import { Button, Row, FormControl, FormGroup, Form } from 'react-bootstrap';
+import * as ReactDOM from 'react-dom';
 
 export default class AnswerButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answer: ''
+      answer: '',
+      buttonText: 'Kontrollera svar',
     };
   }
 
   componentWillMount() {
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.updateAnswerText();
   }
@@ -20,11 +23,21 @@ export default class AnswerButton extends React.Component {
         answerStyle: (nextProps.questionAnsweredCorrectly ?
           'success' :
           'error'
-        )
+        ),
+        buttonText: 'Nästa fråga',
+        clickFunc: this.props.clickNextCallback.bind(this),
       });
     } else {
-      this.setState({ answer: '', answerStyle: null });
+      this.setState({ answer: '', answerStyle: null, buttonText: 'Kontrollera svar' });
       this.updateAnswerText();
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.inputFocused) {
+      this.answerInput.focus();
+    } else if (this.state.buttonText === 'Nästa fråga') {
+      ReactDOM.findDOMNode(this).querySelector('#nextButton').focus();
     }
   }
 
@@ -40,7 +53,7 @@ export default class AnswerButton extends React.Component {
 
   updateAnswerText(optionalValue = null) {
     this.setState({
-      answerClickFunc: this.props.clickCallback.bind(this, optionalValue || this.state.answer || '')
+      clickFunc: this.props.clickCallback.bind(this, optionalValue || this.state.answer || '')
     });
   }
 
@@ -60,9 +73,18 @@ export default class AnswerButton extends React.Component {
     this.updateAnswerText(event.target.value);
   }
 
+  inputIsDisabled() {
+    return this.state.buttonText === 'Nästa fråga' || this.props.buttonsDisabled;
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.state.clickFunc(event);
+  }
+
   render() {
     return (
-      <div>
+      <Form onSubmit={this.handleSubmit}>
         <FormGroup
           controlId="translateTextArea"
           validationState={this.state.answerStyle}
@@ -73,17 +95,18 @@ export default class AnswerButton extends React.Component {
             placeholder="Ditt svar"
             value={this.state.answer}
             onChange={this.handleChange}
-            disabled={this.props.buttonsDisabled}
+            disabled={this.inputIsDisabled()}
+            inputRef={(ref)  => { this.answerInput = ref; }}
           />
           <FormControl.Feedback />
         </FormGroup>
-        <Row>
-          <Button type="submit" onClick={this.state.answerClickFunc} disabled={this.props.buttonsDisabled}>
-              Kontrollera svar
-            </Button>
-        </Row>
+        <FormGroup>
+          <Button id="nextButton" type="submit" disabled={this.props.buttonsDisabled}>
+            {this.state.buttonText}
+          </Button>
+        </FormGroup>
         { this.getOutput() }
-      </div>
+      </Form>
     );
   }
 }
@@ -100,6 +123,8 @@ AnswerButton.propTypes = {
   // japaneseCharacters: React.PropTypes.bool.isRequired,
   // answerType: React.PropTypes.string.isRequired,
   clickCallback: React.PropTypes.func.isRequired,
+  clickNextCallback: React.PropTypes.func.isRequired,
   questionAnswered: React.PropTypes.bool.isRequired,
-  questionAnsweredCorrectly: React.PropTypes.bool.isRequired
+  questionAnsweredCorrectly: React.PropTypes.bool.isRequired,
+  inputFocused: React.PropTypes.bool.isRequired,
 };

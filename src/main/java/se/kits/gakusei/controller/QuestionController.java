@@ -55,6 +55,8 @@ public class QuestionController {
         if (lessonType.equals("kanji")) {
             allLessonNuggets = cachedFindKanjiNuggetsByFactType(lessonName, questionType, answerType);
 
+        } else if(lessonType.equals("grammar")) {
+            allLessonNuggets = cachedFindVerbNuggets(lessonName);
         } else {
             allLessonNuggets = cachedFindKanjiLessNuggetsByFactType(lessonName, questionType, answerType);
         }
@@ -62,8 +64,16 @@ public class QuestionController {
         List<Nugget> nuggets = questionHandler.chooseNuggetsByProgress(nuggetsWithLowSuccessrate, unansweredNuggets,
                 allLessonNuggets, quantity);
 
-        return questionHandler.createQuestions(nuggets, quantity, questionType,
-                answerType);
+        if(lessonType.equals("grammar")){
+            return questionHandler.createGrammarQuestions(
+                    lessonRepository.findByName(lessonName),
+                    nuggets,
+                    questionType, 
+                    answerType);
+        } else {
+            return questionHandler.createQuestions(nuggets, quantity, questionType,
+                    answerType);
+        }
     }
 
     @Cacheable("kanjiNuggets")
@@ -74,5 +84,10 @@ public class QuestionController {
     @Cacheable("otherNuggets")
     public List<Nugget> cachedFindKanjiLessNuggetsByFactType(String lessonName, String questionType, String answerType) {
         return lessonRepository.findKanjiLessNuggetsByFactType(lessonName, questionType, answerType);
+    }
+
+    @Cacheable("verbNuggets")
+    public List<Nugget> cachedFindVerbNuggets(String lessonName){
+        return lessonRepository.findVerbNuggets(lessonRepository.findByName(lessonName).getId());
     }
 }

@@ -7,6 +7,7 @@ import org.hibernate.annotations.FetchMode;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name="nuggets", schema = "contentschema")
@@ -14,7 +15,7 @@ import java.util.List;
 public class Nugget implements Serializable{
 
     @Id
-    private String id;
+    private String id = UUID.randomUUID().toString();
 
     //Remove when migrating, along with getter and setter
     @Column(nullable = false)
@@ -30,13 +31,17 @@ public class Nugget implements Serializable{
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Fact> facts;
 
-    @ManyToOne
-    @JsonBackReference(value = "book")
-    @JoinColumn(name = "book_ref")
-    private Book title;
+    @ManyToMany
+    @JoinTable(
+            name = "nugget_books",
+            schema = "contentschema",
+            joinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"nugget_id", "book_id"})
+    )
+    private List<Book> books;
 
     @ManyToOne
-    @JsonBackReference(value = "wordtype")
     @JoinColumn(name = "word_type_ref")
     private WordType wordType;
 
@@ -94,10 +99,6 @@ public class Nugget implements Serializable{
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public List<Lesson> getLessons() {
         return lessons;
     }
@@ -146,11 +147,11 @@ public class Nugget implements Serializable{
         this.wordType = wordType;
     }
 
-    public Book getTitle() {
-        return title;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setTitle(Book title) {
-        this.title = title;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
