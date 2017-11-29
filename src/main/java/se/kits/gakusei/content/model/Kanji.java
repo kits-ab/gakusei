@@ -18,10 +18,15 @@ public class Kanji {
 
     private boolean hidden = false;
 
-    @ManyToOne
-    @JsonBackReference(value = "kanji_book")
-    @JoinColumn(name = "book_ref")
-    private Book title;
+    @ManyToMany
+    @JoinTable(
+            name = "kanji_books",
+            schema = "contentschema",
+            joinColumns = @JoinColumn(name = "kanji_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"kanji_id", "book_id"})
+    )
+    private List<Book> books;
 
     private String swedish;
 
@@ -53,12 +58,12 @@ public class Kanji {
         this.hidden = hidden;
     }
 
-    public Book getTitle() {
-        return title;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setTitle(Book title) {
-        this.title = title;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     public String getSwedish() {
