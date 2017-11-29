@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 59
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: delete quizzes from lessons
+        sql:    DELETE FROM contentschema.lessons l
+                WHERE l.name IN (
+                    SELECT name
+                    FROM contentschema.quiz
+                )
