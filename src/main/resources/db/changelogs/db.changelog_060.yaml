@@ -1,0 +1,10 @@
+databaseChangeLog:
+- changeSet:
+    id: 60
+    author: Pontus Doverstav
+    changes:
+        - addPrimaryKey:
+            columnNames: id
+            constraintName: kanji_pkey
+            schemaName: contentschema
+            tableName: kanjis
