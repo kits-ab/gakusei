@@ -1,0 +1,17 @@
+databaseChangeLog:
+- changeSet:
+    id: 64
+    author: Pontus Doverstav
+    changes:
+        - sql:
+            comment: copy kanji from fact to kanji table
+            sql:
+                UPDATE contentschema.kanjis AS k
+                SET kanji = data.data
+                FROM (
+                       SELECT n.id, f.data
+                       FROM contentschema.facts f
+                       INNER JOIN contentschema.nuggets n ON n.id = f.nuggetid
+                       WHERE n.type = 'kanji' AND f.type = 'writing'
+                     ) data
+                WHERE k.id = data.id;

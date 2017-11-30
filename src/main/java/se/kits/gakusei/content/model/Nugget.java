@@ -46,7 +46,6 @@ public class Nugget implements Serializable{
     private WordType wordType;
 
     @ManyToMany(mappedBy = "nuggets")
-    // @JsonBackReference(value = "lessonnugget")
     @JsonIgnore
     private List<Lesson> lessons;
 
