@@ -65,10 +65,15 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private KanjiRepository kanjiRepository;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${gakusei.data-init}")
     private boolean datainit;
+
+    private Set<String> allKeysExceptBooks;
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
@@ -78,7 +83,10 @@ public class DataInit implements ApplicationRunner {
             String testDataFile = "testdata/testdata.json";
             String csvQuizNuggetFile = "testdata/quizzes.csv";
 
+            allKeysExceptBooks = new HashSet<>(Arrays.asList("type", "english", "swedish", "id",
+                    "state", "reading", "writing", "kanjidrawing"));
             createUsers();
+            createTestBooks(readTestDataFromFile(testDataFile));
             createTestData(readTestDataFromFile(testDataFile));
             createLessons();
             createQuizzesFromCSV(csvQuizNuggetFile);
@@ -103,78 +111,107 @@ public class DataInit implements ApplicationRunner {
         }
     }
 
-    private void createTestData(Set<Map<String, Object>> dataHolders) {
+    private void createTestBooks(Set<Map<String, Object>> dataHolders) {
         for (Map<String, Object> tdh : dataHolders) {
             try {
-                Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
-                nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
-                String nuggetType = ((ArrayList<String>) tdh.get("type")).get(0);
-
-                // skip handling kanji nuggets until kanji gets its own table
-                if (!nuggetType.equals("kanji")) {
-                    nugget.setEnglish(((ArrayList<String>) tdh.get("english")).get(0));
-                    nugget.setSwedish(((ArrayList<String>) tdh.get("swedish")).get(0));
-                    nugget.setJpRead(((ArrayList<String>) tdh.get("reading")).get(0));
-                    nugget.setJpWrite(((ArrayList<String>) tdh.get("writing")).get(0));
-
-                    WordType wordType = wordTypeRepository.findByType(nuggetType);
-
-                    if (wordType == null) {
-                        wordType = new WordType();
-                        wordType.setType(nuggetType);
-                        wordTypeRepository.save(wordType);
-                    }
-
-                    nugget.setWordType(wordType);
-                }
-
-                List<Fact> facts = new ArrayList<>();
-                Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id"));
-                List<Book> books = new ArrayList<>();
-                Set<String> allKeysExceptBooks = new HashSet<>(Arrays.asList("type", "english", "swedish", "id",
-                        "state", "reading", "writing", "kanjidrawing"));
                 for (Map.Entry entry : tdh.entrySet()) {
-                    String type = entry.getKey().toString();
-                    if (typeSet.contains(type)) {
-                        if (entry.getValue().toString().equals("hidden")) {
-                            nugget.setHidden(true);
-                        }
-                        continue;
-                    }
-                    if (!allKeysExceptBooks.contains(type)) {
-                        Object bookData = entry.getValue();
-                        String chapter;
-                        if (bookData instanceof String) {
-                            chapter = bookData.toString();
-                        } else {
-                            chapter = ((ArrayList<String>) entry.getValue()).get(0);
-                        }
-                        String title = type.concat(" " + chapter);
-                        Book book = bookRepository.findByTitle(title);
-                        if (book == null) {
-                            book = new Book();
+                    String key = entry.getKey().toString();
+                    if (!allKeysExceptBooks.contains(key)) {
+                        String title = getBookTitle(key, entry.getValue());
+                        if (bookRepository.findByTitle(title) == null) {
+                            Book book = new Book();
                             book.setTitle(title);
                             bookRepository.save(book);
                         }
-                        books.add(book);
                     }
-                    Fact fact = new Fact();
-                    fact.setType(type);
-                    Object data = entry.getValue();
-                    if (data instanceof String) {
-                        fact.setData(data.toString());
-                    } else {
-                        fact.setData(((ArrayList<String>) entry.getValue()).get(0));
+                }
+            } catch (Exception e) {
+                logger.warn("Faulty book detected, skipping: " + tdh);
+            }
+        }
+    }
+
+    private String getBookTitle(String book, Object chapterData) {
+        String chapter;
+        if (chapterData instanceof String) {
+            chapter = chapterData.toString();
+        } else {
+            chapter = ((ArrayList<String>) chapterData).get(0);
+        }
+        return book.concat(" " + chapter);
+    }
+
+    private void createKanji(List<Book> books, Map<String, Object> tdh) {
+        Kanji kanji = new Kanji();
+        kanji.setDescription(((ArrayList<String>)tdh.get("english")).get(0));
+        kanji.setEnglish(((ArrayList<String>)tdh.get("english")).get(0));
+        kanji.setSwedish(((ArrayList<String>)tdh.get("swedish")).get(0));
+        kanji.setKanji(((ArrayList<String>)tdh.get("writing")).get(0));
+        kanji.setHidden(tdh.get("state").equals("hidden"));
+        kanji.setBooks(books);
+        kanjiRepository.save(kanji);
+    }
+
+    private Nugget createNugget(List<Book> books, Map<String, Object> tdh) {
+        String nuggetType = ((ArrayList<String>) tdh.get("type")).get(0);
+        WordType wordType = wordTypeRepository.findByType(nuggetType);
+        if (wordType == null) {
+            wordType = new WordType();
+            wordType.setType(nuggetType);
+            wordTypeRepository.save(wordType);
+        }
+
+        Nugget nugget = new Nugget(nuggetType);
+        nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
+        nugget.setEnglish(((ArrayList<String>) tdh.get("english")).get(0));
+        nugget.setSwedish(((ArrayList<String>) tdh.get("swedish")).get(0));
+        nugget.setJpRead(((ArrayList<String>) tdh.get("reading")).get(0));
+        nugget.setJpWrite(((ArrayList<String>) tdh.get("writing")).get(0));
+        nugget.setHidden(tdh.get("state").equals("hidden"));
+        nugget.setWordType(wordType);
+        nugget.setBooks(books);
+        return nuggetRepository.save(nugget);
+
+    }
+
+    private void createTestData(Set<Map<String, Object>> dataHolders) {
+        for (Map<String, Object> tdh : dataHolders) {
+            try {
+                String nuggetType = ((ArrayList<String>) tdh.get("type")).get(0);
+                List<Book> books = new ArrayList<>();
+
+                for (Map.Entry entry : tdh.entrySet()) {
+                    String type = entry.getKey().toString();
+                    if (!allKeysExceptBooks.contains(type)) {
+                        Book book = bookRepository.findByTitle(getBookTitle(type, entry.getValue()));
+                        if (!books.contains(book)) {
+                            books.add(book);
+                        }
                     }
-                    facts.add(fact);
                 }
-                nugget.setBooks(books);
-                Nugget savedNugget = nuggetRepository.save(nugget);
-                savedNugget.setFacts(facts);
-                for (Fact fact : facts) {
-                    fact.setNugget(savedNugget);
+
+                if (nuggetType.equals("kanji")) {
+                    createKanji(books, tdh);
+                } else {
+                    Nugget nugget = createNugget(books, tdh);
+                    List<Fact> facts = new ArrayList<>();
+                    for (Map.Entry entry : tdh.entrySet()) {
+                        String type = entry.getKey().toString();
+                        Fact fact = new Fact();
+                        fact.setType(type);
+                        Object data = entry.getValue();
+                        if (data instanceof String) {
+                            fact.setData(data.toString());
+                        } else {
+                            fact.setData(((ArrayList<String>) entry.getValue()).get(0));
+                        }
+                        facts.add(fact);
+                        fact.setNugget(nugget);
+                        factRepository.save(fact);
+                    }
+
+                    nugget.setFacts(facts);
                 }
-                factRepository.save(facts);
             } catch (Exception e) {
                 logger.warn("Faulty nugget detected, skipping: " + tdh);
             }
