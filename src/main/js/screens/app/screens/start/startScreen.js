@@ -15,21 +15,21 @@ export default class startScreen extends React.Component {
                 <Jumbotron id="jumbotron_first">
                     <Grid className="make_table">
                         <div className="middle">
-                            <h1><span className="highlight_black">Bli en student och lär dig japanska!</span></h1>
-                            <h3><span className="highlight_black">Ta del utav Gakuseis unika inlärningsmaterial och lär dig japanska redan idag!</span></h3>
+                            <h1><span className="highlight_black">Bli student och lär dig japanska!</span></h1>
+                            <h3><span className="highlight_black">Ta del av Gakuseis inlärningsmaterial och lär dig japanska redan idag!</span></h3>
                         </div>
                     </Grid>
                 </Jumbotron>
                 <Grid className="about_features">
                     <div className="text-center">
-                        <h1><i>Gakusei erbjuder många olika funktioner som underlättar ditt lärande.</i></h1>
-                        <Button href={`login${this.props.location.search}`} bsStyle="success" bsSize="large">Testa dem redan nu!</Button>
+                        <h1><i>Gakusei erbjuder olika funktioner som underlättar ditt lärande.</i></h1>
+                        <Button href={`login${this.props.location.search}`} bsStyle="success" bsSize="large">Testa redan nu!</Button>
                     </div>
                     <Row className="features_prev">
                         <Col xs={6} md={4} className="text-center">
                             <img src="/img/front_page/svja.svg" alt=""/>
-                            <h2>Ett stort utbud</h2>
-                            <p>Vi har ett stort utbud av inlärningsmaterial skapad av våra experter, som du kan ta del av.</p>
+                            <h2>Ett bra komplement till undervisning</h2>
+                            <p>Olika sorters övningar, anpassat efter japanskaundervisning på högskolenivå.</p>
                         </Col>
                         <Col xs={6} md={4} className="text-center">
                             <img src="/img/front_page/devices.svg" alt=""/>
@@ -39,14 +39,14 @@ export default class startScreen extends React.Component {
                         <Col xs={6} md={4} className="text-center">
                             <img src="/img/front_page/anonymous.svg" alt=""/>
                             <h2>Anonymitet</h2>
-                            <p>Gakusei lagrar ingen personlig data om sina användare, det enda som behövs för att ta del utav vårt utbud är ett användarnamn.</p>
+                            <p>Gakusei lagrar ingen personlig data om sina användare, det enda som behövs är ett användarnamn.</p>
                         </Col>
                     </Row>
                     <Row>
                         <Col xs={6} md={4} className="text-center">
                             <img src="/img/front_page/quiz.svg" alt=""/>
-                            <h2>Över <strong>XX</strong> quiz-ar</h2>
-                            <p>Med våra quiz-ar kan du lätt testa dig själv och se hur mycket du har lärt dig.</p>
+                            <h2><strong>2</strong> quizar</h2>
+                            <p>Prova våra quizar och se vad du kan om Japan.</p>
                         </Col>
                         <Col xs={6} md={4} className="text-center">
                             <br/><br/><br/><br/><img src="/img/logo/temp_gakusei_logo.png" alt=""/>
@@ -63,9 +63,9 @@ export default class startScreen extends React.Component {
                         <Row>
                             <Col xs={12} md={8}>
                                 <h2>Daigaku Sverige utvecklar Gakusei</h2>
-                                <p>Daigaku Sverige har som mål att främja undervisning i och forskning om japanska.
+                                <p>Daigaku Sverige har som mål att främja undervisning i, och forskning om japanska.
                                 Idag måste man i stor utsträckning lära sig japanska via engelska. Vi tror att det skulle vara en fördel om åtminstone en del inlärning kan ske direkt från svenska till japanska.
-                                Därför har vi skapat Gakusei, första webbapplikationen som lär dig japanska via svenska!
+                                Därför har vi skapat Gakusei, den första webbapplikationen som lär dig japanska via svenska!
                                 </p>
                                 <p><Button bsStyle="success" href="http://daigaku.se/">Läs mer</Button></p>
                             </Col>
