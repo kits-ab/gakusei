@@ -29,7 +29,7 @@ export default class startScreen extends React.Component {
                         <Col xs={6} md={4} className="text-center">
                             <img src="/img/front_page/svja.svg" alt=""/>
                             <h2>Ett bra komplement till undervisning</h2>
-                            <p>Olika sorters övningar, anpassat efter japanskaundervisning på högskolenivå.</p>
+                            <p>Olika sorters övningar, anpassade efter japanskaundervisning på högskolenivå.</p>
                         </Col>
                         <Col xs={6} md={4} className="text-center">
                             <img src="/img/front_page/devices.svg" alt=""/>
