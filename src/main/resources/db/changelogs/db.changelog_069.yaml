@@ -1,0 +1,44 @@
+databaseChangeLog:
+- changeSet:
+    id: 69
+    author: Pontus Doverstav
+    changes:
+    - dropForeignKeyConstraint:
+        baseTableSchemaName: public
+        baseTableName: events
+        constraintName: events_user_ref_fkey
+    - addForeignKeyConstraint:
+        baseTableSchemaName: public
+        baseTableName: events
+        baseColumnNames: user_ref
+        constraintName: events_user_ref_fkey
+        onDelete: CASCADE
+        referencedTableSchemaName: public
+        referencedTableName: users
+        referencedColumnNames: username
+    - dropForeignKeyConstraint:
+        baseTableSchemaName: public
+        baseTableName: progresstrackinglist
+        constraintName: progresstrackinglist_user_ref_fkey
+    - addForeignKeyConstraint:
+        baseTableSchemaName: public
+        baseTableName: progresstrackinglist
+        baseColumnNames: user_ref
+        constraintName: progresstrackinglist_user_ref_fkey
+        onDelete: CASCADE
+        referencedTableSchemaName: public
+        referencedTableName: users
+        referencedColumnNames: username
+    - dropForeignKeyConstraint:
+        baseTableSchemaName: public
+        baseTableName: user_lesson
+        constraintName: user_lesson_user_ref_fkey
+    - addForeignKeyConstraint:
+        baseTableSchemaName: public
+        baseTableName: user_lesson
+        baseColumnNames: user_ref
+        constraintName: user_lesson_user_ref_fkey
+        onDelete: CASCADE
+        referencedTableSchemaName: public
+        referencedTableName: users
+        referencedColumnNames: username
