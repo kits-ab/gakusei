@@ -30,26 +30,8 @@ public class LessonController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    ResponseEntity<List<Lesson>> getLessonNames(
-            @RequestParam(value = "lessonType") String lessonType) {
-        List<Lesson> tmpLessons = getLessons(lessonType);
-        if (tmpLessons != null) {
-            return new ResponseEntity<>(tmpLessons, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @Cacheable("lessons")
-    public List<Lesson> getLessons(String lessonType) {
-        List<Lesson> tmpLessons = null;
-        if (lessonType.equals("quiz")) {
-            tmpLessons = lessonRepository.findQuizLessons().stream()
-                    .filter(lesson -> lesson.getNuggets().size() >= 4).collect(Collectors.toList());
-        } else if (lessonType.equals("vocabulary")){
-            tmpLessons = lessonRepository.findVocabularyLessons().stream()
-                    .filter(lesson -> lesson.getNuggets().size() >= 4).collect(Collectors.toList());
-        }
-        return tmpLessons;
+    public ResponseEntity<List<Lesson>> getLessons() {
+        return new ResponseEntity<>(getLessonsWithEnoughNuggets(), HttpStatus.OK);
     }
 
     @RequestMapping(
@@ -70,7 +52,7 @@ public class LessonController {
 
         HashMap<String, HashMap<String, Integer>> values = new HashMap<>();
         
-        List<Lesson> tmpLessons = getLessons();
+        List<Lesson> tmpLessons = getLessonsWithEnoughNuggets();
 
         logger.info("Getting vocabulary lessons took {} ms.", System.currentTimeMillis() - mark);
         mark = System.currentTimeMillis();
@@ -110,8 +92,8 @@ public class LessonController {
     }
 
     @Cacheable("lessons")
-    public List<Lesson> getLessons() {
-        return lessonRepository.findVocabularyLessons().stream()
+    public List<Lesson> getLessonsWithEnoughNuggets() {
+        return lessonRepository.findAllByOrderByName().stream()
                 .filter(lesson -> lesson.getNuggets().size() >= 4).collect(Collectors.toList());
     }
 }
