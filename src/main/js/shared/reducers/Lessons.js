@@ -495,8 +495,7 @@ export function setAnswerLanguage(language) {
 export function fetchLessons(type) {
   return function (dispatch, getState) {
     const lessonState = getState().lessons;
-    const lessonType = type === 'quiz' ? 'quiz' : 'vocabulary';
-    const url = type === 'quiz' ? '/api/quizes' : '/api/lessons';
+    const url = type === 'quiz' ? '/api/quizes' : `/api/lessons?lessonType=${type}`;
     return fetch(url, { credentials: 'same-origin' })
       .then((response) => {
         if (response.ok) {
