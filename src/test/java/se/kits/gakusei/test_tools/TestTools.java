@@ -30,38 +30,6 @@ public class TestTools {
         return nuggets;
     }
 
-    public static Nugget generateQuizNugget(String description, String correctData, String incorrectData) {
-        Nugget n = new Nugget("quiz");
-        n.setDescription(description);
-        Fact correctFact = new Fact();
-        correctFact.setType("correct");
-        correctFact.setData(correctData);
-        correctFact.setNugget(n);
-        List<Fact> facts = new ArrayList<>();
-        facts.add(correctFact);
-        for (int i = 0; i < 5; i++) {
-            Fact incorrectFact = new Fact();
-            incorrectFact.setType("incorrect");
-            incorrectFact.setData(incorrectData + i);
-            incorrectFact.setNugget(n);
-            facts.add(incorrectFact);
-        }
-        n.setFacts(facts);
-        return n;
-    }
-
-    public static Lesson generateQuizLesson(String lessonName, String description, String correctData, String incorrectData) {
-        Lesson lesson = new Lesson();
-        lesson.setName(lessonName);
-        List<Nugget> nuggets = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Nugget n = generateQuizNugget(description, correctData, incorrectData);
-            n.setLessons(Collections.singletonList(lesson));
-            nuggets.add(n);
-        }
-        return lesson;
-    }
-
     public static HashMap<String, Object> generateQuestion() {
         List<String> question = new ArrayList<>();
         question.add("question");
