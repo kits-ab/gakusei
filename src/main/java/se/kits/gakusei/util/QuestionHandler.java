@@ -31,37 +31,32 @@ public class QuestionHandler {
                                                      List<Nugget> nuggets,
                                                      String questionType,
                                                      String answerType) {
-        LinkedList<Nugget> optimalNuggets = new LinkedList<>();
 
-        LinkedList<Nugget> allNuggets = new LinkedList<>(nuggets);
-        Collections.shuffle(allNuggets);
-        allNuggets.remove(nugget);
-
-        List<List<String>> alternatives = new ArrayList<>();
-        alternatives.add(createAlternative(nugget, answerType));
         HashMap<String, Object> questionMap = new HashMap<>();
+        LinkedList<Nugget> optimalNuggets = new LinkedList<>();
+        List<Nugget> copyOfNuggets = new ArrayList<>(nuggets);
+        copyOfNuggets.remove(nugget);
+        Collections.shuffle(copyOfNuggets);
 
-        for(int i = 0; optimalNuggets.size() < 3 && i < allNuggets.size(); i++) {
-            if(allNuggets.get(i).getType().equals(nugget.getType()))
-                optimalNuggets.push(allNuggets.get(i));
-            else if(allNuggets.size() - (i + 1) <= 4 - optimalNuggets.size())
-                optimalNuggets.push(allNuggets.get(i));
-        }
+        List<String> correctAlternative = createAlternative(nugget, answerType);
 
-        //Avoid getting the same alternative from another nugget
-        while (alternatives.size() < 4 && !optimalNuggets.isEmpty()) {
-            List<String> tempAlternative = createAlternative(optimalNuggets.poll(), answerType);
-            if (alternatives.stream().noneMatch(l -> l.get(0).equals(tempAlternative.get(0)))) {
-                alternatives.add(tempAlternative);
+        for(int i = 0; optimalNuggets.size() < 3 && i < copyOfNuggets.size(); i++) {
+            if (copyOfNuggets.get(i).getWordType().equals(nugget.getWordType())) {
+                optimalNuggets.push(copyOfNuggets.get(i));
+            } else if (copyOfNuggets.size() - (i + 1) <= 4 - optimalNuggets.size()) {
+                optimalNuggets.push(copyOfNuggets.get(i));
             }
         }
-        if (alternatives.size() == 4) {
+        List<List<String>> incorrectAlternatives = new ArrayList<>(optimalNuggets.stream().map(n
+                -> createAlternative(n, answerType)).collect(Collectors.toList()));
+
+        if (incorrectAlternatives.size() == 3) {
             List<String> question = createAlternative(nugget, questionType);
             questionMap.put("question", question);
-            questionMap.put("correctAlternative", alternatives.get(0));
-            questionMap.put("alternative1", alternatives.get(1));
-            questionMap.put("alternative2", alternatives.get(2));
-            questionMap.put("alternative3", alternatives.get(3));
+            questionMap.put("correctAlternative", correctAlternative);
+            questionMap.put("alternative1", incorrectAlternatives.get(0));
+            questionMap.put("alternative2", incorrectAlternatives.get(1));
+            questionMap.put("alternative3", incorrectAlternatives.get(2));
             questionMap.put("questionNuggetId", nugget.getId());
             return questionMap;
         } else {
