@@ -141,8 +141,10 @@ public class Nugget implements Serializable{
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Nugget)) {
+        if (object == null || !(object instanceof Nugget)) {
             return false;
+        } else if (object == this) {
+            return true;
         } else {
             Nugget nugget = (Nugget)object;
             return nugget.getWordType().getType().equals(wordType.getType()) &&
