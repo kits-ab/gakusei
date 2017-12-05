@@ -1,5 +1,5 @@
 import React from 'react';
-import { Glyphicon, Button } from 'react-bootstrap';
+import { Glyphicon, Button, OverlayTrigger, Popover, Label } from 'react-bootstrap';
 import Speech from '../../../shared/util/Speech';
 
 export class DisplayQuestion extends React.Component {
@@ -9,11 +9,17 @@ export class DisplayQuestion extends React.Component {
     if (this.props.cardType === 'grammar') {
       let swedishText = this.props.inflection[1];
       let inflection = this.props.inflection[0];
+      let explanation = this.props.inflection[2];
       return (
         <p className="verbQuestionText">
           Ange böjningen för: <strong>{this.props.secondaryText} </strong>
            ({text}, {swedishText})
-          <br/>på formen: <strong>{inflection}</strong>
+          <br/>på formen: <strong> {inflection} </strong>
+          {explanation ?
+            <OverlayTrigger overlay={this.popoverText(explanation)} >
+              <Label>?</Label>
+            </OverlayTrigger>
+          : null }
         </p>
       );
     } else if (this.props.secondaryText && this.props.secondaryText !== text) {
@@ -27,6 +33,10 @@ export class DisplayQuestion extends React.Component {
     return (
       <p className="questionText">{text}</p>
     );
+  }
+
+  popoverText(text) {
+    return <Popover id={'Förklaring'} title='Förklaring'> {text} </Popover>;
   }
 
   getResource() {

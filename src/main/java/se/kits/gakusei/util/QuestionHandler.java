@@ -2,10 +2,8 @@ package se.kits.gakusei.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import se.kits.gakusei.content.model.Fact;
-import se.kits.gakusei.content.model.Inflection;
-import se.kits.gakusei.content.model.Lesson;
-import se.kits.gakusei.content.model.Nugget;
+import se.kits.gakusei.content.model.*;
+import se.kits.gakusei.content.repository.GrammarTextRepository;
 import se.kits.gakusei.content.repository.InflectionRepository;
 import se.kits.gakusei.dto.ResourceReference;
 import se.sandboge.japanese.conjugation.Verb;
@@ -17,6 +15,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class QuestionHandler {
+
+    @Autowired
+    GrammarTextRepository grammarTextRepository;
 
     @Autowired
     InflectionRepository inflectionRepository;
@@ -98,16 +99,19 @@ public class QuestionHandler {
         List<Inflection> inflections = inflectionRepository.findByLessonId(lesson.getId());
         Collections.shuffle(inflections); // Get "random" inflection
         Inflection selectedInflection = inflections.get(0);
+        List<GrammarText> grammarTexts = grammarTextRepository.findByInflectionMethod(selectedInflection.getInflectionMethod());
 
         List<String> question = createAlternative(nugget, questionType);
-        List<String> inflectionInfo = InflectionUtil.getInflectionNameAndTextLink(selectedInflection.getInflectionMethod());
 
-        question.add(inflectionInfo.get(0));
-        question.addAll(createAlternative(nugget, answerType));
-        if(inflectionInfo.get(1) != null){
-            question.add(inflectionInfo.get(1));
+        if(!grammarTexts.isEmpty()){
+            question.add(grammarTexts.get(0).getSeShort());
+            question.addAll(createAlternative(nugget, answerType));
+            question.add(grammarTexts.get(0).getSeLong());
+        } else {
+            question.add(selectedInflection.getInflectionMethod());
+            question.addAll(createAlternative(nugget, answerType));
         }
-
+        
         String inflectedVerb = inflectVerb(selectedInflection, question.get(1));
         if(inflectedVerb == null){
             return null;
