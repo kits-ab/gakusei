@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
@@ -73,7 +74,7 @@ public class QuestionControllerTest {
                 "vocabulary", questionType, answerType, userName);
 
         assertEquals(questionList, re.getBody());
-        assertEquals(200, re.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, re.getStatusCode());
     }
 
     @Test
@@ -91,6 +92,6 @@ public class QuestionControllerTest {
                 "vocabulary", questionType, answerType, userName);
 
         assertNull(re.getBody());
-        assertEquals(500, re.getStatusCodeValue());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());
     }
 }
