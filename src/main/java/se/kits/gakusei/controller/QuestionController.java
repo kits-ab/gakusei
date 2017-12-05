@@ -41,14 +41,16 @@ public class QuestionController {
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType,
             @RequestParam(name = "username") String username) {
 
-        List<HashMap<String, Object>> questions = getCachedQuestionsFromLesson(lessonName, lessonType, questionType, answerType, username);
+        List<HashMap<String, Object>> questions = getCachedQuestionsFromLesson(lessonName, lessonType,
+                questionType, answerType, username);
 
         return questions.isEmpty() ?
                 new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) :
                 new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
-    private List<HashMap<String, Object>> getCachedQuestionsFromLesson(String lessonName, String lessonType, String questionType, String answerType, String username) {
+    private List<HashMap<String, Object>> getCachedQuestionsFromLesson(String lessonName, String lessonType, String
+            questionType, String answerType, String username) {
         List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName);
         List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName);
         List<Nugget> allLessonNuggets;
@@ -69,8 +71,7 @@ public class QuestionController {
                     questionType, 
                     answerType);
         } else {
-            return questionHandler.createQuestions(nuggets, quantity, questionType,
-                    answerType);
+            return questionHandler.createQuestions(nuggets, questionType, answerType);
         }
     }
 
