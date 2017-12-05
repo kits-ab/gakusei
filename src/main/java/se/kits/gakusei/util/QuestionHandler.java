@@ -132,26 +132,18 @@ public class QuestionHandler {
                                                 List<Nugget> unansweredNuggets,
                                                 List<Nugget> allLessonNuggets,
                                                 int quantity) {
-        List<Nugget> hiddenNuggets = allLessonNuggets.stream().filter(n -> n.isHidden()).collect(Collectors.toList());
+
         if (allLessonNuggets.size() <= quantity) {
             return allLessonNuggets;
         } else {
             List<Nugget> nuggets = new ArrayList<>();
-            Collections.shuffle(unansweredNuggets);
-            Collections.shuffle(nuggetsWithLowSuccessrate);
-            Collections.shuffle(allLessonNuggets);
             nuggets.addAll(unansweredNuggets);
             nuggets.addAll(nuggetsWithLowSuccessrate);
             nuggets.addAll(allLessonNuggets);
-
-            List<Nugget> questionNuggets = new ArrayList<>();
-            while (questionNuggets.size() <= quantity && nuggets.size() != 0) {
-                Nugget nugget = nuggets.remove(0);
-                if (!questionNuggets.contains(nugget) && !hiddenNuggets.contains(nugget)) {
-                    questionNuggets.add(nugget);
-                }
-            }
-            return questionNuggets;
+            List<Nugget> visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
+                    .collect(Collectors.toList());
+            Collections.shuffle(visibleNuggets);
+            return visibleNuggets.subList(0, quantity);
         }
     }
 
