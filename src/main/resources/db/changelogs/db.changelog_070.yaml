@@ -44,9 +44,5 @@ databaseChangeLog:
                     name: se_long
                     type: text
                 - column:
-                    name: inflection_id
-                    type: INTEGER
-                    constraints:
-                        foreignKey: true
-                        foreignKeyName: grammar_texts_inflections_ref_key
-                        references: contentschema.inflections(id)
+                    name: inflection_method
+                    type: text
