@@ -9,23 +9,24 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.kits.gakusei.content.model.Nugget;
-import se.kits.gakusei.content.repository.FactRepository;
+import se.kits.gakusei.content.model.WordType;
 import se.kits.gakusei.content.repository.NuggetRepository;
+import se.kits.gakusei.content.repository.WordTypeRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class NuggetController {
     private final Logger logger = LoggerFactory.getLogger(NuggetController.class);
 
     private final NuggetRepository nuggetRepository;
-
-    private final FactRepository factRepository;
+    private final WordTypeRepository wordTypeRepository;
 
     @Autowired
-    public NuggetController(NuggetRepository nuggetRepository, FactRepository factRepository) {
+    public NuggetController(NuggetRepository nuggetRepository, WordTypeRepository wordTypeRepository) {
         this.nuggetRepository = nuggetRepository;
-        this.factRepository = factRepository;
+        this.wordTypeRepository = wordTypeRepository;
     }
 
     @RequestMapping(
@@ -34,32 +35,33 @@ public class NuggetController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<List<Nugget>> findNuggetsByFilter(
-            @RequestParam(value = "wordType", defaultValue = "vocabulary") String wordType,
-            @RequestParam(value = "factTypes") List<String> factTypes) {
+            @RequestParam(value = "wordType", defaultValue = "vocabulary") String wordType) {
 
-        Long factFilterCount = factTypes.stream().filter(s -> !s.isEmpty()).count();
-
-        // If no fact type filters are used, we should look for facts of all types
-        if (factFilterCount == 0L) {
-            factTypes = cachingGetAllFactTypes();
+        if (wordType.equals("vocabulary")) {
+            return new ResponseEntity<>(cachedNuggetsOfAllWordTypes(), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(
-                cachingGetNuggetsByFilter(wordType, factTypes, factFilterCount), HttpStatus.OK);
+        return new ResponseEntity<>(cachedNuggetsOfWordType(wordType), HttpStatus.OK);
     }
 
-    @Cacheable("factTypes")
-    public List<String> cachingGetAllFactTypes() {
+    @Cacheable("allWordTypeNuggets")
+    public List<Nugget> cachedNuggetsOfAllWordTypes() {
         long mark = System.currentTimeMillis();
-        List<String> result = factRepository.getAllFactTypes();
+        List<Nugget> result = nuggetRepository.findAll().stream().filter(n -> !n.isHidden())
+                .collect(Collectors.toList());
         logger.info("Get all facts took {} ms", System.currentTimeMillis() - mark);
         return result;
     }
 
-    @Cacheable("nuggetList")
-    public List<Nugget> cachingGetNuggetsByFilter(String wordType, List<String> factTypes, Long factFilterCount) {
+    @Cacheable("oneWordTypeNugget")
+    public List<Nugget> cachedNuggetsOfWordType(String type) {
         long mark = System.currentTimeMillis();
-        List<Nugget> result = nuggetRepository.getNuggetsbyFilter(wordType, factTypes, factFilterCount);
+        List<Nugget> result = new ArrayList<>();;
+        WordType wordType = wordTypeRepository.findByType(type);
+        if (wordType != null) {
+            result = nuggetRepository.findByWordType(wordType).stream().filter(n -> !n.isHidden())
+                    .collect(Collectors.toList());
+        }
         logger.info("Get filtered facts took {} ms", System.currentTimeMillis() - mark);
         return result;
     }
