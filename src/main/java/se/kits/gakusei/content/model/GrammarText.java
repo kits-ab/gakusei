@@ -27,6 +27,8 @@ public class GrammarText {
 
     private String seLong;
 
+    private String inflectionMethod;
+
     public String getRelated() {
         return related;
     }
@@ -97,5 +99,13 @@ public class GrammarText {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    public String getInflectionMethod() {
+        return inflectionMethod;
+    }
+
+    public void setInflectionMethod(String inflectionMethod) {
+        this.inflectionMethod = inflectionMethod;
     }
 }
