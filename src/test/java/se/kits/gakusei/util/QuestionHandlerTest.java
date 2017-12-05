@@ -16,7 +16,6 @@ import java.util.stream.Stream;
 public class QuestionHandlerTest {
 
     private List<Nugget> nuggets;
-    private int quantity;
     private String questionType;
     private String answerType;
     private QuestionHandler questionHandler;
@@ -24,7 +23,6 @@ public class QuestionHandlerTest {
     @Before
     public void setUp() throws Exception {
         nuggets = TestTools.generateNuggets();
-        quantity = 50;
         questionType = "swedish";
         answerType = "english";
         questionHandler = new QuestionHandler();
@@ -33,8 +31,7 @@ public class QuestionHandlerTest {
 
     @Test
     public void testCreateQuestions() throws Exception {
-        List<HashMap<String, Object>> questions = questionHandler.createQuestions(nuggets,
-                quantity, questionType, answerType);
+        List<HashMap<String, Object>> questions = questionHandler.createQuestions(nuggets, questionType, answerType);
 
         assertEquals(6, questions.size());
         assertFalse(questions.stream().anyMatch(q -> q == null));
@@ -81,20 +78,5 @@ public class QuestionHandlerTest {
         HashMap<String, Object> dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
 
         assertNull(dto);
-    }
-
-    @Test
-    public void testCreateQuizQuestion() throws Exception {
-        String correctData = "quiz_correct";
-        String incorrectData = "quiz_incorrect";
-        String description = "quiz_question";
-        Nugget quizNugget = TestTools.generateQuizNugget(description, correctData, incorrectData);
-        HashMap<String, Object> question = questionHandler.createQuizQuestion(quizNugget);
-        assertEquals(1, ((List<String>) question.get("question")).size());
-        assertEquals(description, ((List<String>) question.get("question")).get(0));
-        assertEquals(correctData, ((List<String>) question.get("correctAlternative")).get(0));
-        assertTrue(((List<String>) question.get("alternative1")).get(0).startsWith(incorrectData));
-        assertTrue(((List<String>) question.get("alternative2")).get(0).startsWith(incorrectData));
-        assertTrue(((List<String>) question.get("alternative3")).get(0).startsWith(incorrectData));
     }
 }

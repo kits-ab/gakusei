@@ -121,7 +121,7 @@ public class ProgressHandlerTest {
         ProgressTracking spyPT = spy(progressTracking);
         Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly",nuggets.get(1).getId(), "true");
         when(userRepository.findByUsername(username)).thenReturn(user);
-        when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
+        when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(spyPT);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
         progressHandler.trackProgress(event);
@@ -142,7 +142,7 @@ public class ProgressHandlerTest {
         Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "false");
         when(userRepository.findByUsername(username)).thenReturn(user);
         when(nuggetRepository.findAll()).thenReturn(nuggets);
-        when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
+        when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(spyPT);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
         progressHandler.trackProgress(event);
@@ -160,7 +160,7 @@ public class ProgressHandlerTest {
         Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "true");
         when(userRepository.findByUsername(username)).thenReturn(user);
         when(nuggetRepository.findAll()).thenReturn(nuggets);
-        when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
+        when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(null);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
         progressHandler.trackProgress(event);
@@ -178,7 +178,7 @@ public class ProgressHandlerTest {
         Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "false");
         when(userRepository.findByUsername(username)).thenReturn(user);
         when(nuggetRepository.findAll()).thenReturn(nuggets);
-        when(progressTrackingRepository.findProgressTrackingByUserAndNuggetID(user, nuggets.get(1).getId()))
+        when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(null);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
         progressHandler.trackProgress(event);
