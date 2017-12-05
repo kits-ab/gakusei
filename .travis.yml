@@ -29,7 +29,7 @@ install: true # Skip the default travis install phase
 script:
 # final build for deployment
 - 'if [ "$TRAVIS_BRANCH" = "master" ]; then
-    export DEPLOY_URL="production@176.58.115.136"
+    export DEPLOY_URL="production@gakusei.daigaku.se"
     export SLACK_PARAMETER=$KITS_SLACK
     export EMAIL_PARAMETER=true
     export FILENAME_SUFFIX="production";
