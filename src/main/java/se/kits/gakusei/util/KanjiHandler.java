@@ -27,7 +27,7 @@ public class KanjiHandler {
         return chosenKanjis.stream().map(KanjiHandler::createKanjiQuestion).collect(Collectors.toList());
     }
 
-    private static HashMap<String, Object> createKanjiQuestion(Kanji kanji) {
+    public static HashMap<String, Object> createKanjiQuestion(Kanji kanji) {
         HashMap<String, Object> questionMap = new HashMap<>();
 
         List<String> question = new ArrayList<>();
