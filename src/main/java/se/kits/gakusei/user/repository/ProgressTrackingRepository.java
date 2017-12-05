@@ -6,5 +6,5 @@ import se.kits.gakusei.user.model.ProgressTracking;
 import se.kits.gakusei.user.model.User;
 
 public interface ProgressTrackingRepository extends CrudRepository<ProgressTracking, Long>{
-    ProgressTracking findProgressTrackingByUserAndNuggetID(User user, String nuggetID);
+    ProgressTracking findByUserAndNuggetID(User user, String nuggetID);
 }
