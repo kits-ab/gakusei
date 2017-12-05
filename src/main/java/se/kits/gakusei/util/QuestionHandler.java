@@ -2,12 +2,10 @@ package se.kits.gakusei.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import se.kits.gakusei.content.model.Fact;
 import se.kits.gakusei.content.model.Inflection;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.InflectionRepository;
-import se.kits.gakusei.dto.ResourceReference;
 import se.sandboge.japanese.conjugation.Verb;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,7 +31,6 @@ public class QuestionHandler {
                                                      List<Nugget> nuggets,
                                                      String questionType,
                                                      String answerType) {
-        HashMap<String, Object> questionMap = createQuestionDTOWithResource(nugget);
         LinkedList<Nugget> optimalNuggets = new LinkedList<>();
 
         LinkedList<Nugget> allNuggets = new LinkedList<>(nuggets);
@@ -42,6 +39,7 @@ public class QuestionHandler {
 
         List<List<String>> alternatives = new ArrayList<>();
         alternatives.add(createAlternative(nugget, answerType));
+        HashMap<String, Object> questionMap = new HashMap<>();
 
         for(int i = 0; optimalNuggets.size() < 3 && i < allNuggets.size(); i++) {
             if(allNuggets.get(i).getType().equals(nugget.getType()))
@@ -148,19 +146,6 @@ public class QuestionHandler {
         question.put("alternative2", Collections.singletonList(incorrectAlternatives.get(1).getData()));
         question.put("alternative3", Collections.singletonList(incorrectAlternatives.get(2).getData()));
         return question;
-    }
-
-    protected HashMap<String, Object> createQuestionDTOWithResource(Nugget nugget) {
-        // TODO: Make generic for any type of resource (not only 'kanjidrawing')
-        HashMap<String, Object> questionDTO = new HashMap<>();
-        Fact fact = nugget.getFacts().stream().filter(f -> f.getType().equals("kanjidrawing")).findFirst().orElse(null);
-        if (fact != null) {
-            ResourceReference resource = new ResourceReference();
-            resource.setType(fact.getType());
-            resource.setLocation(fact.getData());
-            questionDTO.put("resourceReference", resource);
-        }
-        return questionDTO;
     }
 
     public List<Nugget> chooseNuggets(List<Nugget> nuggetsWithLowSuccessrate,
