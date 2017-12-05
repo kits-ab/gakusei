@@ -37,9 +37,6 @@ public class DataInit implements ApplicationRunner {
     private NuggetRepository nuggetRepository;
 
     @Autowired
-    private FactRepository factRepository;
-
-    @Autowired
     private LessonRepository lessonRepository;
 
     @Autowired
@@ -153,7 +150,7 @@ public class DataInit implements ApplicationRunner {
         kanjiRepository.save(kanji);
     }
 
-    private Nugget createNugget(List<Book> books, Map<String, Object> tdh) {
+    private void createNugget(List<Book> books, Map<String, Object> tdh) {
         String nuggetType = ((ArrayList<String>) tdh.get("type")).get(0);
         WordType wordType = wordTypeRepository.findByType(nuggetType);
         if (wordType == null) {
@@ -171,7 +168,7 @@ public class DataInit implements ApplicationRunner {
         nugget.setHidden(tdh.get("state").equals("hidden"));
         nugget.setWordType(wordType);
         nugget.setBooks(books);
-        return nuggetRepository.save(nugget);
+        nuggetRepository.save(nugget);
 
     }
 
@@ -194,24 +191,7 @@ public class DataInit implements ApplicationRunner {
                 if (nuggetType.equals("kanji")) {
                     createKanji(books, tdh);
                 } else {
-                    Nugget nugget = createNugget(books, tdh);
-                    List<Fact> facts = new ArrayList<>();
-                    for (Map.Entry entry : tdh.entrySet()) {
-                        String type = entry.getKey().toString();
-                        Fact fact = new Fact();
-                        fact.setType(type);
-                        Object data = entry.getValue();
-                        if (data instanceof String) {
-                            fact.setData(data.toString());
-                        } else {
-                            fact.setData(((ArrayList<String>) entry.getValue()).get(0));
-                        }
-                        facts.add(fact);
-                        fact.setNugget(nugget);
-                        factRepository.save(fact);
-                    }
-
-                    nugget.setFacts(facts);
+                    createNugget(books, tdh);
                 }
             } catch (Exception e) {
                 logger.warn("Faulty nugget detected, skipping: " + tdh);

@@ -1,8 +1,6 @@
 package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,12 +22,6 @@ public class Nugget implements Serializable{
     private String description;
 
     private boolean hidden = false;
-
-    //Remove when migrating, along with getter and setter
-    @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
-    @JsonManagedReference(value = "fact")
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Fact> facts;
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
@@ -85,14 +77,6 @@ public class Nugget implements Serializable{
 
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
-    }
-
-    public List<Fact> getFacts() {
-        return facts;
-    }
-
-    public void setFacts(List<Fact> facts) {
-        this.facts = facts;
     }
 
     public String getId() {
