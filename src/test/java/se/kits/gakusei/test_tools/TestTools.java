@@ -46,6 +46,39 @@ public class TestTools {
         return dto;
     }
 
+    public static List<Kanji> generateKanjis() {
+        List<Kanji> kanjis = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+
+            Kanji k = new Kanji();
+            k.setSwedish("swe_test" + i);
+            k.setEnglish("eng_test" + i);
+            k.setKanji("sign_test" + i);
+            k.setDescription("desc_test" + i);
+            if (i % 3 == 0) {
+                k.setHidden(true);
+            }
+            kanjis.add(k);
+        }
+        return kanjis;
+    }
+
+    public static HashMap<String, Object> generateKanjiQuestion() {
+        HashMap<String, Object> questionMap = new HashMap<>();
+
+        List<String> question = new ArrayList<>();
+        question.add("question");
+        question.add("kanji_sign");
+
+        questionMap.put("question", question);
+        questionMap.put("correctAlternative", Collections.singletonList("kanji_sign"));
+        questionMap.put("alternative1", Collections.EMPTY_LIST);
+        questionMap.put("alternative2", Collections.EMPTY_LIST);
+        questionMap.put("alternative3", Collections.EMPTY_LIST);
+
+        return questionMap;
+    }
+
     public static List<Course> generateCourses(){
         List<Course> courses = new ArrayList<>();
 
