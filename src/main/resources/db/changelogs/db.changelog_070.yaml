@@ -30,19 +30,19 @@ databaseChangeLog:
                     type: VARCHAR(32)
                 - column:
                     name: jp_short
-                    type: VARCHAR(32)
+                    type: text
                 - column:
                     name: se_short
-                    type: VARCHAR(32)
+                    type: text
                 - column:
                     name: related
-                    type: VARCHAR(32)
+                    type: text
                 - column:
                     name: sample
-                    type: VARCHAR(256)
+                    type: text
                 - column:
                     name: se_long
-                    type: VARCHAR(256)
+                    type: text
                 - column:
                     name: inflection_id
                     type: INTEGER
