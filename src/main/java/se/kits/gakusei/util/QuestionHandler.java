@@ -127,26 +127,6 @@ public class QuestionHandler {
             return null;
         }
     }
-    
-    public List<HashMap<String, Object>> createQuizQuestions(List<Nugget> nuggets) {
-        return nuggets.stream().map(n -> createQuizQuestion(n)).collect(Collectors.toList());
-    }
-
-    protected HashMap<String, Object> createQuizQuestion(Nugget nugget) {
-        HashMap<String, Object> question = createQuestionDTOWithResource(nugget);
-        question.put("question", Collections.singletonList(nugget.getDescription()));
-        List<Fact> facts = nugget.getFacts();
-        question.put("correctAlternative",
-                Collections.singletonList(facts.stream().filter(f -> f.getType().equals("correct"))
-                        .findFirst().get().getData()));
-        List<Fact> incorrectAlternatives =
-                facts.stream().filter(f -> f.getType().equals("incorrect")).collect(Collectors.toList());
-        Collections.shuffle(incorrectAlternatives);
-        question.put("alternative1", Collections.singletonList(incorrectAlternatives.get(0).getData()));
-        question.put("alternative2", Collections.singletonList(incorrectAlternatives.get(1).getData()));
-        question.put("alternative3", Collections.singletonList(incorrectAlternatives.get(2).getData()));
-        return question;
-    }
 
     public List<Nugget> chooseNuggets(List<Nugget> nuggetsWithLowSuccessrate,
                                                 List<Nugget> unansweredNuggets,
