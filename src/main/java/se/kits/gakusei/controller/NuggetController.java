@@ -49,7 +49,7 @@ public class NuggetController {
         long mark = System.currentTimeMillis();
         List<Nugget> result = nuggetRepository.findAll().stream().filter(n -> !n.isHidden())
                 .collect(Collectors.toList());
-        logger.info("Get all facts took {} ms", System.currentTimeMillis() - mark);
+        logger.info("Get all nuggets took {} ms", System.currentTimeMillis() - mark);
         return result;
     }
 
@@ -62,7 +62,7 @@ public class NuggetController {
             result = nuggetRepository.findByWordType(wordType).stream().filter(n -> !n.isHidden())
                     .collect(Collectors.toList());
         }
-        logger.info("Get filtered facts took {} ms", System.currentTimeMillis() - mark);
+        logger.info("Get filtered nuggets took {} ms", System.currentTimeMillis() - mark);
         return result;
     }
 }
