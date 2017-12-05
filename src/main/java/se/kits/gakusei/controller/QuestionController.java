@@ -41,28 +41,28 @@ public class QuestionController {
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType,
             @RequestParam(name = "username") String username) {
 
-        List<HashMap<String, Object>> questions = getCachedQuestionsFromLesson(lessonName, lessonType, questionType, answerType, username);
+        List<HashMap<String, Object>> questions = getCachedQuestionsFromLesson(lessonName, lessonType,
+                questionType, answerType, username);
 
         return questions.isEmpty() ?
                 new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) :
                 new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
-    private List<HashMap<String, Object>> getCachedQuestionsFromLesson(String lessonName, String lessonType, String questionType, String answerType, String username) {
+    private List<HashMap<String, Object>> getCachedQuestionsFromLesson(String lessonName, String lessonType, String
+            questionType, String answerType, String username) {
         List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName);
         List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName);
         List<Nugget> allLessonNuggets;
-        if (lessonType.equals("kanji")) {
-            allLessonNuggets = cachedFindKanjiNuggetsByFactType(lessonName, questionType, answerType);
 
-        } else if(lessonType.equals("grammar")) {
+        if (lessonType.equals("grammar")) {
             allLessonNuggets = cachedFindVerbNuggets(lessonName);
         } else {
-            allLessonNuggets = cachedFindKanjiLessNuggetsByFactType(lessonName, questionType, answerType);
+            allLessonNuggets = cachedFindNuggets(lessonName);
         }
 
-        List<Nugget> nuggets = questionHandler.chooseNuggetsByProgress(nuggetsWithLowSuccessrate, unansweredNuggets,
-                allLessonNuggets, quantity);
+        List<Nugget> nuggets = questionHandler.chooseNuggets(nuggetsWithLowSuccessrate,
+                unansweredNuggets, allLessonNuggets, quantity);
 
         if(lessonType.equals("grammar")){
             return questionHandler.createGrammarQuestions(
@@ -71,19 +71,13 @@ public class QuestionController {
                     questionType, 
                     answerType);
         } else {
-            return questionHandler.createQuestions(nuggets, quantity, questionType,
-                    answerType);
+            return questionHandler.createQuestions(nuggets, questionType, answerType);
         }
     }
 
-    @Cacheable("kanjiNuggets")
-    public List<Nugget> cachedFindKanjiNuggetsByFactType(String lessonName, String questionType, String answerType) {
-        return lessonRepository.findKanjiNuggetsByFactType(lessonName, questionType, answerType);
-    }
-
     @Cacheable("otherNuggets")
-    public List<Nugget> cachedFindKanjiLessNuggetsByFactType(String lessonName, String questionType, String answerType) {
-        return lessonRepository.findKanjiLessNuggetsByFactType(lessonName, questionType, answerType);
+    public List<Nugget> cachedFindNuggets(String lessonName) {
+        return lessonRepository.findByName(lessonName).getNuggets();
     }
 
     @Cacheable("verbNuggets")

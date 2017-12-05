@@ -1,8 +1,6 @@
 package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,13 +23,7 @@ public class Nugget implements Serializable{
 
     private boolean hidden = false;
 
-    //Remove when migrating, along with getter and setter
-    @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
-    @JsonManagedReference(value = "fact")
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Fact> facts;
-
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name = "nugget_books",
             schema = "contentschema",
@@ -85,14 +77,6 @@ public class Nugget implements Serializable{
 
     public void setHidden(boolean hidden) {
         this.hidden = hidden;
-    }
-
-    public List<Fact> getFacts() {
-        return facts;
-    }
-
-    public void setFacts(List<Fact> facts) {
-        this.facts = facts;
     }
 
     public String getId() {
@@ -153,5 +137,22 @@ public class Nugget implements Serializable{
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || !(object instanceof Nugget)) {
+            return false;
+        } else if (object == this) {
+            return true;
+        } else {
+            Nugget nugget = (Nugget)object;
+            return nugget.getWordType().getType().equals(wordType.getType()) &&
+                    nugget.getDescription().equals(description) &&
+                    nugget.getSwedish().equals(swedish) &&
+                    nugget.getEnglish().equals(english) &&
+                    nugget.getJpRead().equals(jpRead) &&
+                    nugget.getJpWrite().equals(jpWrite);
+        }
     }
 }

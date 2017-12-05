@@ -1,6 +1,5 @@
 package se.kits.gakusei.content.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -18,7 +17,7 @@ public class Kanji {
 
     private boolean hidden = false;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "kanji_books",
             schema = "contentschema",

@@ -531,7 +531,7 @@ export function fetchLesson(lessonType) {
         fetchURL = '/api/quiz';
         break;
       case 'kanji':
-        fetchURL = '/api/questions';
+        fetchURL = '/api/questions/kanji';
         break;
       default:
         fetchURL = '/api/questions';

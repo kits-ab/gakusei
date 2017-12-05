@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Component
 public class DataInit implements ApplicationRunner {
@@ -34,9 +35,6 @@ public class DataInit implements ApplicationRunner {
 
     @Autowired
     private NuggetRepository nuggetRepository;
-
-    @Autowired
-    private FactRepository factRepository;
 
     @Autowired
     private LessonRepository lessonRepository;
@@ -152,7 +150,7 @@ public class DataInit implements ApplicationRunner {
         kanjiRepository.save(kanji);
     }
 
-    private Nugget createNugget(List<Book> books, Map<String, Object> tdh) {
+    private void createNugget(List<Book> books, Map<String, Object> tdh) {
         String nuggetType = ((ArrayList<String>) tdh.get("type")).get(0);
         WordType wordType = wordTypeRepository.findByType(nuggetType);
         if (wordType == null) {
@@ -170,7 +168,7 @@ public class DataInit implements ApplicationRunner {
         nugget.setHidden(tdh.get("state").equals("hidden"));
         nugget.setWordType(wordType);
         nugget.setBooks(books);
-        return nuggetRepository.save(nugget);
+        nuggetRepository.save(nugget);
 
     }
 
@@ -193,24 +191,7 @@ public class DataInit implements ApplicationRunner {
                 if (nuggetType.equals("kanji")) {
                     createKanji(books, tdh);
                 } else {
-                    Nugget nugget = createNugget(books, tdh);
-                    List<Fact> facts = new ArrayList<>();
-                    for (Map.Entry entry : tdh.entrySet()) {
-                        String type = entry.getKey().toString();
-                        Fact fact = new Fact();
-                        fact.setType(type);
-                        Object data = entry.getValue();
-                        if (data instanceof String) {
-                            fact.setData(data.toString());
-                        } else {
-                            fact.setData(((ArrayList<String>) entry.getValue()).get(0));
-                        }
-                        facts.add(fact);
-                        fact.setNugget(nugget);
-                        factRepository.save(fact);
-                    }
-
-                    nugget.setFacts(facts);
+                    createNugget(books, tdh);
                 }
             } catch (Exception e) {
                 logger.warn("Faulty nugget detected, skipping: " + tdh);
@@ -231,15 +212,12 @@ public class DataInit implements ApplicationRunner {
 
     private void createLessons() {
         createVerbLesson();
-        createLessonsByCategory("kll");
-        createLessonsByCategory("jlpt");
-        createLessonsByCategory("genki");
-        createLessonsByCategory("quiz");
+        createLessonsByBooks();
     }
 
     private void createVerbLesson() {
-        List<Nugget> verbNuggets = nuggetRepository.findAll().stream().filter(n -> n.getType().equals("verb"))
-                .collect(Collectors.toList());
+        List<Nugget> verbNuggets = nuggetRepository.findAll().stream().filter(n -> n.getWordType().getType()
+                .equals("verb")).collect(Collectors.toList());
         Lesson lesson = new Lesson();
         lesson.setName("Verbs");
         lesson.setDescription("All nuggets with type verb");
@@ -247,30 +225,25 @@ public class DataInit implements ApplicationRunner {
         lessonRepository.save(lesson);
     }
 
-    private void createLessonsByCategory(String category) {
-        List<Nugget> nuggets = nuggetRepository.findAll().stream()
-                .filter(n -> n.getFacts().stream().anyMatch(f -> category.equals(f.getType())))
+    private void createLessonsByBooks() {
+        lessonRepository.save(StreamSupport.stream(bookRepository.findAll().spliterator(), false)
+                .map(this::createLesson).collect(Collectors.toList()));
+
+    }
+
+    private Lesson createLesson(Book book) {
+        List<Nugget> nuggets = nuggetRepository.findAll().stream().filter(n -> n.getBooks().stream().map(Book::getId)
+                .collect(Collectors.toList()).contains(book.getId())).collect(Collectors.toList());
+        List<Kanji> kanjis = StreamSupport.stream(kanjiRepository.findAll().spliterator(), false)
+                .filter(k -> k.getBooks().stream().map(Book::getId).collect(Collectors.toList()).contains(book.getId()))
                 .collect(Collectors.toList());
-        if (nuggets.isEmpty()) return;
 
-        Map<String, List<Nugget>> nuggetMap = new HashMap<>();
-        for (Nugget n : nuggets) {
-            Fact fact = n.getFacts().stream().filter(f -> category.equals(f.getType())).findFirst().get();
-
-            String lessonName = fact.getType().equals("quiz") ?
-                    fact.getData() :
-                    (fact.getType() + " " + fact.getData()).toUpperCase();
-            nuggetMap.computeIfAbsent(lessonName, k -> new ArrayList<>()).add(n);
-        }
-        List<Lesson> lessons = new ArrayList<>();
-        for (String lessonName : nuggetMap.keySet()) {
-            Lesson l = new Lesson();
-            l.setName(lessonName);
-            l.setDescription(category);
-            l.setNuggets(nuggetMap.get(lessonName));
-            lessons.add(l);
-        }
-        lessonRepository.save(lessons);
+        Lesson lesson = new Lesson();
+        lesson.setName(book.getTitle());
+        lesson.setDescription(book.getTitle());
+        lesson.setNuggets(nuggets);
+        lesson.setKanjis(kanjis);
+        return lesson;
     }
 
     public void createQuizzesFromCSV(String csvFile) throws Exception {

@@ -25,7 +25,7 @@ export class selectScreen extends React.Component {
       .catch(() => this.props.verifyUserLoggedIn());
 
     if (this.props.params.type === 'kanji') {
-      this.props.setAnswerLanguage('reading');
+      this.props.setQuestionLanguage('reading');
     }
   }
 
