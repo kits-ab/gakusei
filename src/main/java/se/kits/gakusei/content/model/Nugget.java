@@ -161,7 +161,7 @@ public class Nugget implements Serializable{
             return false;
         } else {
             Nugget nugget = (Nugget)object;
-            return nugget.getWordType().getId().equals(wordType.getId()) &&
+            return nugget.getWordType().getType().equals(wordType.getType()) &&
                     nugget.getDescription().equals(description) &&
                     nugget.getSwedish().equals(swedish) &&
                     nugget.getEnglish().equals(english) &&

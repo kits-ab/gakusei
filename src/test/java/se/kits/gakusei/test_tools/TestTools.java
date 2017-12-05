@@ -13,16 +13,15 @@ public class TestTools {
     public static List<Nugget> generateNuggets() {
         List<Nugget> nuggets = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
+            WordType type = new WordType();
+            type.setType("verb");
             Nugget n = new Nugget("verb");
-            Fact f1 = new Fact();
-            f1.setType("swedish");
-            f1.setData("swe_test" + i);
-            f1.setNugget(n);
-            Fact f2 = new Fact();
-            f2.setType("english");
-            f2.setData("eng_test" + i);
-            f2.setNugget(n);
-            n.setFacts(new ArrayList<Fact>(Arrays.asList(f1, f2)));
+            n.setSwedish("swe_test" + i);
+            n.setEnglish("eng_test" + i);
+            n.setJpRead("read_test" + i);
+            n.setJpWrite("write_test" + i);
+            n.setDescription("desc_test" + i);
+            n.setWordType(type);
             if (i % 3 == 0) {
                 n.setHidden(true);
             }
