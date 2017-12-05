@@ -19,6 +19,7 @@ public class QuestionHandlerTest {
     private String questionType;
     private String answerType;
     private QuestionHandler questionHandler;
+    private List<Nugget> visibleNuggets;
 
     @Before
     public void setUp() throws Exception {
@@ -26,6 +27,7 @@ public class QuestionHandlerTest {
         questionType = "swedish";
         answerType = "english";
         questionHandler = new QuestionHandler();
+        visibleNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
 
     }
 
@@ -33,7 +35,6 @@ public class QuestionHandlerTest {
     public void testCreateQuestions() throws Exception {
         List<HashMap<String, Object>> questions = questionHandler.createQuestions(nuggets, questionType, answerType);
 
-        assertEquals(6, questions.size());
         assertFalse(questions.stream().anyMatch(q -> q == null));
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("question")).get(0).startsWith("swe_test")));
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative1")).get(0).startsWith("eng_test")));
@@ -44,10 +45,9 @@ public class QuestionHandlerTest {
 
     @Test
     public void testCreateQuestion() throws Exception {
-        List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-        Nugget nugget = notHiddenNuggets.get(0);
+        Nugget nugget = visibleNuggets.get(0);
 
-        HashMap<String, Object> dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
+        HashMap<String, Object> dto = questionHandler.createQuestion(nugget, visibleNuggets, questionType, answerType);
 
         assertTrue(((List<String>) dto.get("question")).get(0).startsWith("swe_test"));
         Stream.of(dto.get("alternative1"),
@@ -71,12 +71,19 @@ public class QuestionHandlerTest {
 
     @Test
     public void testCreateQuestionNullReturn() throws Exception {
-        List<Nugget> notHiddenNuggets =
-                nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList()).subList(0, 2);
-        Nugget nugget = notHiddenNuggets.get(0);
+        List<Nugget> tooFewNuggets = visibleNuggets.subList(0, 2);
+        Nugget nugget = tooFewNuggets.get(0);
 
-        HashMap<String, Object> dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
+        HashMap<String, Object> dto = questionHandler.createQuestion(nugget, tooFewNuggets, questionType, answerType);
 
         assertNull(dto);
+    }
+
+    @Test
+    public void testChooseNuggets() {
+        int quantity = 5;
+        List<Nugget> chosen = questionHandler.chooseNuggets(visibleNuggets, visibleNuggets, visibleNuggets, quantity);
+        assertTrue(visibleNuggets.size() >= quantity ? chosen.size() == quantity : chosen.size() == visibleNuggets
+                .size());
     }
 }
