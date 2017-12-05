@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Component
 public class DataInit implements ApplicationRunner {
@@ -231,15 +232,12 @@ public class DataInit implements ApplicationRunner {
 
     private void createLessons() {
         createVerbLesson();
-        createLessonsByCategory("kll");
-        createLessonsByCategory("jlpt");
-        createLessonsByCategory("genki");
-        createLessonsByCategory("quiz");
+        createLessonsByBooks();
     }
 
     private void createVerbLesson() {
-        List<Nugget> verbNuggets = nuggetRepository.findAll().stream().filter(n -> n.getType().equals("verb"))
-                .collect(Collectors.toList());
+        List<Nugget> verbNuggets = nuggetRepository.findAll().stream().filter(n -> n.getWordType().getType()
+                .equals("verb")).collect(Collectors.toList());
         Lesson lesson = new Lesson();
         lesson.setName("Verbs");
         lesson.setDescription("All nuggets with type verb");
@@ -247,30 +245,25 @@ public class DataInit implements ApplicationRunner {
         lessonRepository.save(lesson);
     }
 
-    private void createLessonsByCategory(String category) {
-        List<Nugget> nuggets = nuggetRepository.findAll().stream()
-                .filter(n -> n.getFacts().stream().anyMatch(f -> category.equals(f.getType())))
+    private void createLessonsByBooks() {
+        lessonRepository.save(StreamSupport.stream(bookRepository.findAll().spliterator(), false)
+                .map(this::createLesson).collect(Collectors.toList()));
+
+    }
+
+    private Lesson createLesson(Book book) {
+        List<Nugget> nuggets = nuggetRepository.findAll().stream().filter(n -> n.getBooks().stream().map(Book::getId)
+                .collect(Collectors.toList()).contains(book.getId())).collect(Collectors.toList());
+        List<Kanji> kanjis = StreamSupport.stream(kanjiRepository.findAll().spliterator(), false)
+                .filter(k -> k.getBooks().stream().map(Book::getId).collect(Collectors.toList()).contains(book.getId()))
                 .collect(Collectors.toList());
-        if (nuggets.isEmpty()) return;
 
-        Map<String, List<Nugget>> nuggetMap = new HashMap<>();
-        for (Nugget n : nuggets) {
-            Fact fact = n.getFacts().stream().filter(f -> category.equals(f.getType())).findFirst().get();
-
-            String lessonName = fact.getType().equals("quiz") ?
-                    fact.getData() :
-                    (fact.getType() + " " + fact.getData()).toUpperCase();
-            nuggetMap.computeIfAbsent(lessonName, k -> new ArrayList<>()).add(n);
-        }
-        List<Lesson> lessons = new ArrayList<>();
-        for (String lessonName : nuggetMap.keySet()) {
-            Lesson l = new Lesson();
-            l.setName(lessonName);
-            l.setDescription(category);
-            l.setNuggets(nuggetMap.get(lessonName));
-            lessons.add(l);
-        }
-        lessonRepository.save(lessons);
+        Lesson lesson = new Lesson();
+        lesson.setName(book.getTitle());
+        lesson.setDescription(book.getTitle());
+        lesson.setNuggets(nuggets);
+        lesson.setKanjis(kanjis);
+        return lesson;
     }
 
     public void createQuizzesFromCSV(String csvFile) throws Exception {

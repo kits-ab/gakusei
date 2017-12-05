@@ -31,7 +31,7 @@ public class Nugget implements Serializable{
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Fact> facts;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name = "nugget_books",
             schema = "contentschema",
@@ -153,5 +153,20 @@ public class Nugget implements Serializable{
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Nugget)) {
+            return false;
+        } else {
+            Nugget nugget = (Nugget)object;
+            return nugget.getWordType().getId().equals(wordType.getId()) &&
+                    nugget.getDescription().equals(description) &&
+                    nugget.getSwedish().equals(swedish) &&
+                    nugget.getEnglish().equals(english) &&
+                    nugget.getJpRead().equals(jpRead) &&
+                    nugget.getJpWrite().equals(jpWrite);
+        }
     }
 }

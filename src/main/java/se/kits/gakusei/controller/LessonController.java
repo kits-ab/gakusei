@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.InflectionRepository;
+import se.kits.gakusei.content.repository.KanjiRepository;
 import se.kits.gakusei.content.repository.LessonRepository;
 
 import java.util.*;
@@ -29,6 +30,9 @@ public class LessonController {
     @Autowired
     private InflectionRepository inflectionRepository;
 
+    @Autowired
+    private KanjiRepository kanjiRepository;
+
     @RequestMapping(
             value = "/api/lessons",
             method = RequestMethod.GET,
@@ -37,6 +41,8 @@ public class LessonController {
     public ResponseEntity<List<Lesson>> getLessons(@RequestParam(value = "lessonType") String lessonType) {
         if (lessonType.equals("grammar")) {
             return new ResponseEntity<>(getGrammarLessons(), HttpStatus.OK);
+        } else if (lessonType.equals("kanji")) {
+            return new ResponseEntity<>(getKanjiLessons(), HttpStatus.OK);
         }
         return new ResponseEntity<>(getLessonsWithEnoughNuggets(), HttpStatus.OK);
     }
@@ -108,6 +114,12 @@ public class LessonController {
     public List<Lesson> getGrammarLessons() {
         return getLessonsWithEnoughNuggets().stream()
                 .filter(lesson -> !inflectionRepository.findByLessonId(lesson.getId()).isEmpty())
+                .collect(Collectors.toList());
+    }
+
+    @Cacheable("kanjiLessons")
+    public List<Lesson> getKanjiLessons() {
+        return lessonRepository.findAllByOrderByName().stream().filter(lesson -> !lesson.getKanjis().isEmpty())
                 .collect(Collectors.toList());
     }
 }
