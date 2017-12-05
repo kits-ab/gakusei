@@ -44,7 +44,7 @@ public class QuizController {
             return new ResponseEntity<> (HttpStatus.NOT_FOUND);
         }
 
-        final List<HashMap<String, Object>> correctFormat = quizHandler.getQuizNuggetsForGakusei(quiz.getId());
+        final List<HashMap<String, Object>> correctFormat = quizHandler.getQuizNuggets(quiz.getId());
 
         return new ResponseEntity<>(correctFormat, HttpStatus.OK);
     }
@@ -97,16 +97,6 @@ public class QuizController {
             pageRequest = new PageRequest(offset, 10);
 
         return new ResponseEntity<>(quizRepository.findAll(pageRequest).getContent(), HttpStatus.OK);
-    }
-
-    @RequestMapping(
-            value = "/api/quizes/{quizId}/nuggets",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<List<HashMap<String, Object>>> getQuizNuggets(@PathVariable(value="quizId") Long quizId) {
-        List<HashMap<String, Object>> quizNuggets = quizHandler.getQuizNuggets(quizId);
-        return new ResponseEntity<>(quizNuggets, HttpStatus.OK);
     }
 
     @RequestMapping(
