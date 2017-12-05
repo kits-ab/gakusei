@@ -45,17 +45,6 @@ public class QuizHandler {
         List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuizId(quizId);
         List<HashMap<String, Object>> myQuizNuggets = new ArrayList<>();
 
-        for (QuizNugget quizNugget : quizNuggets) {
-            HashMap<String, Object> myQuizNugget = convertQuizNugget(quizNugget);
-            myQuizNuggets.add(myQuizNugget);
-        }
-        return myQuizNuggets;
-    }
-
-    public List<HashMap<String, Object>> getQuizNuggetsForGakusei(Long quizId) {
-        List<QuizNugget> quizNuggets = quizNuggetRepository.findByQuizId(quizId);
-        List<HashMap<String, Object>> myQuizNuggets = new ArrayList<>();
-
         for(QuizNugget qn : quizNuggets){
             HashMap<String, Object> myQuizNugget = convertQuizNuggetForGakusei(qn);
             myQuizNuggets.add(myQuizNugget);
