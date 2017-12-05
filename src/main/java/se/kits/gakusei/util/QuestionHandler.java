@@ -21,19 +21,11 @@ public class QuestionHandler {
     @Autowired
     InflectionRepository inflectionRepository;
 
-    public List<HashMap<String, Object>> createQuestions(List<Nugget> nuggets,
-                                                         int quantity,
-                                                         String questionType,
-                                                         String answerType) {
-        List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-        List<HashMap<String, Object>> questions = notHiddenNuggets.stream()
-                .map(n -> createQuestion(n, notHiddenNuggets, questionType, answerType))
+    public List<HashMap<String, Object>> createQuestions(List<Nugget> nuggets, String questionType, String answerType) {
+        List<HashMap<String, Object>> questions = nuggets.stream()
+                .map(n -> createQuestion(n, nuggets, questionType, answerType))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        Collections.shuffle(questions);
-        if (questions.size() > quantity) {
-            return questions.subList(0, quantity);
-        }
         return questions;
     }
 
@@ -171,7 +163,7 @@ public class QuestionHandler {
         return questionDTO;
     }
 
-    public List<Nugget> chooseNuggetsByProgress(List<Nugget> nuggetsWithLowSuccessrate,
+    public List<Nugget> chooseNuggets(List<Nugget> nuggetsWithLowSuccessrate,
                                                 List<Nugget> unansweredNuggets,
                                                 List<Nugget> allLessonNuggets,
                                                 int quantity) {
@@ -200,13 +192,18 @@ public class QuestionHandler {
 
     private List<String> createAlternative(Nugget nugget, String type) {
         List<String> alternative = new ArrayList<>();
-        alternative.add(nugget.getFacts().stream().filter(f -> f.getType().equals(type)).findFirst().get().getData());
-        if (type.equals("reading")) {
-            Fact tempFact = nugget.getFacts().stream().filter(f -> f.getType().equals("writing"))
-                    .findFirst().orElse(null);
-            if (tempFact != null) {
-                alternative.add(tempFact.getData());
+        try {
+            if (type.equals("reading")) { // reading -> japanese  
+                alternative.add(nugget.getJpRead());
+                alternative.add(nugget.getJpWrite());
+            } else {
+                String methodName = "get" + Character.toString(Character.toUpperCase(type.charAt(0))) +
+                        type.substring(1);
+                alternative.add((String)nugget.getClass().getMethod(methodName).invoke(nugget));
             }
+
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
         return alternative;
     }
