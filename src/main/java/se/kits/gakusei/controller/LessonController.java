@@ -74,7 +74,7 @@ public class LessonController {
                     .stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
             List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, tmpLesson.getName())
                     .stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-            List<Nugget> allLessonNuggets = getNuggets(questionType, answerType, tmpLesson);
+            List<Nugget> allLessonNuggets = getNuggets(tmpLesson);
 
             for (Nugget n :
                     correctlyAnsweredNuggets) {
@@ -98,10 +98,9 @@ public class LessonController {
         return values;
     }
 
-    @Cacheable("twoFactTypeNuggets")
-    public List<Nugget> getNuggets(String questionType, String answerType, Lesson tmpLesson) {
-        return lessonRepository.findNuggetsByTwoFactTypes(tmpLesson.getName(),
-                        questionType, answerType).stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
+    @Cacheable("lessonInfoNuggets")
+    public List<Nugget> getNuggets(Lesson tmpLesson) {
+        return tmpLesson.getNuggets().stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
     }
 
     @Cacheable("lessons")
