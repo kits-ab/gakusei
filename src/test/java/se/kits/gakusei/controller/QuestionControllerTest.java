@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.test_tools.TestTools;
@@ -31,7 +32,7 @@ public class QuestionControllerTest {
     @Mock
     private LessonRepository lessonRepository;
 
-   @Value("${gakusei.questions-quantity}")
+    @Value("${gakusei.questions-quantity}")
     private int quantity;
 
     private String questionType;
@@ -39,6 +40,8 @@ public class QuestionControllerTest {
     private String lessonName;
     private String userName;
     private List<Nugget> nuggets;
+    private Lesson lesson;
+    private List<HashMap<String, Object>> questionList;
 
     @Before
     public void setUp() throws Exception {
@@ -49,16 +52,19 @@ public class QuestionControllerTest {
         lessonName = "Verbs";
         userName = "testUser";
         nuggets = TestTools.generateNuggets();
+        lesson = new Lesson();
+        lesson.setName(lessonName);
+        lesson.setNuggets(nuggets);
+        questionList = Collections.singletonList(TestTools.generateQuestion());
     }
 
 
 
     @Test
     public void testGetQuestionsFromLessonOK() throws Exception {
-        List<HashMap<String, Object>> questionList = Collections.singletonList(TestTools.generateQuestion());
-
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
         Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, questionType, answerType))
                 .thenReturn(questionList);
@@ -72,13 +78,14 @@ public class QuestionControllerTest {
 
     @Test
     public void testGetQuestionsFromLessonInternalServerError() throws Exception {
-        List<HashMap<String, Object>> emptyList = Collections.EMPTY_LIST;
+        questionList = Collections.EMPTY_LIST;
 
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
         Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, questionType, answerType))
-                .thenReturn(emptyList);
+                .thenReturn(questionList);
 
         ResponseEntity<List<HashMap<String, Object>>> re = questionController.getQuestionsFromLesson(lessonName,
                 "vocabulary", questionType, answerType, userName);
