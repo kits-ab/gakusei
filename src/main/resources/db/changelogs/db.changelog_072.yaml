@@ -1,0 +1,15 @@
+databaseChangeLog:
+- changeSet:
+    id: 72
+    author: sofiaedstrom
+    preConditions:
+        - onFail: MARK_RAN
+        - columnExists:
+            schemaName: contentschema
+            tableName: nuggets
+            columnName: type
+    changes:
+    - sql:
+        comment: delete kanji from nuggets
+        sql:    DELETE FROM contentschema.nuggets
+                WHERE type = 'kanji';
