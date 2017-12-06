@@ -70,7 +70,7 @@ cache:
   - $HOME/.m2
 addons:
   ssh_known_hosts:
-    - 176.58.115.136
+    - gakusei.daigaku.se
     - staging.daigaku.se
   # sauce_connect: true
 notifications:
