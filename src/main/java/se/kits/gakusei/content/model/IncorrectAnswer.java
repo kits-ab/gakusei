@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "incorrect_answers", schema = "contentschema")
-public class IncorrectAnswers implements Serializable{
+public class IncorrectAnswer implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ public class IncorrectAnswers implements Serializable{
     @JoinColumn(name="quiz_nugget_ref")
     private QuizNugget quizNugget;
 
-    public IncorrectAnswers() {
+    public IncorrectAnswer() {
     }
 
     public long getId() {

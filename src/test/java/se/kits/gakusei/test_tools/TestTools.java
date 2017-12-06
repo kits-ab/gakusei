@@ -150,14 +150,14 @@ public class TestTools {
         return incorrectAnswers;
     }
 
-    private static HashMap<String, Object> convertIncorrectAnswer(IncorrectAnswers incorrectAnswer) {
+    private static HashMap<String, Object> convertIncorrectAnswer(IncorrectAnswer incorrectAnswer) {
         HashMap<String, Object> convertedIncorrectAnswer = new HashMap<>();
         convertedIncorrectAnswer.put(QuizHandler.IA_INCORRECT_ANSWERS, incorrectAnswer.getIncorrectAnswer());
         return convertedIncorrectAnswer;
     }
 
-    private static IncorrectAnswers createIncorrectAnswer(QuizNugget nugget, String suffix) {
-        IncorrectAnswers incorrectAnswer = new IncorrectAnswers();
+    private static IncorrectAnswer createIncorrectAnswer(QuizNugget nugget, String suffix) {
+        IncorrectAnswer incorrectAnswer = new IncorrectAnswer();
         incorrectAnswer.setQuizNugget(nugget);
         incorrectAnswer.setIncorrectAnswer("incorrect alternative " + suffix);
         return incorrectAnswer;

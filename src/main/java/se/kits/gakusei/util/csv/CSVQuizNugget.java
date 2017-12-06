@@ -1,6 +1,6 @@
 package se.kits.gakusei.util.csv;
 
-import se.kits.gakusei.content.model.IncorrectAnswers;
+import se.kits.gakusei.content.model.IncorrectAnswer;
 import se.kits.gakusei.content.model.Quiz;
 import se.kits.gakusei.content.model.QuizNugget;
 import se.kits.gakusei.util.ParserFailureException;
@@ -52,8 +52,8 @@ public class CSVQuizNugget {
         return quizNugget;
     }
 
-    public Iterable<IncorrectAnswers> getIncorrectAnswers(QuizNugget quizNugget) {
-        List<IncorrectAnswers> ias = new ArrayList<>();
+    public Iterable<IncorrectAnswer> getIncorrectAnswers(QuizNugget quizNugget) {
+        List<IncorrectAnswer> ias = new ArrayList<>();
         String s = values[INCORRECT_ANSWERS_INDEX];
         // List of incorrect answers is comma separated
         String [] stringIas = s.split(",");
@@ -68,8 +68,8 @@ public class CSVQuizNugget {
         return ias;
     }
 
-    private IncorrectAnswers getIncorrectAnswer(String s, QuizNugget quizNugget) {
-        IncorrectAnswers ia = new IncorrectAnswers();
+    private IncorrectAnswer getIncorrectAnswer(String s, QuizNugget quizNugget) {
+        IncorrectAnswer ia = new IncorrectAnswer();
         ia.setIncorrectAnswer(s);
         ia.setQuizNugget(quizNugget);
         return ia;
