@@ -1,0 +1,24 @@
+databaseChangeLog:
+- changeSet:
+    id: 66
+    author: Pontus Doverstav
+    preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                schemaName: contentschema
+                tableName: kanji_books
+    changes:
+        - createTable:
+            schemaName: contentschema
+            tableName: kanji_books
+            columns:
+                - column:
+                    name: kanji_id
+                    type: varchar(256)
+                - column:
+                    autoIncrement: true
+                    constraints:
+                        nullable: false
+                    name: book_id
+                    type: SERIAL

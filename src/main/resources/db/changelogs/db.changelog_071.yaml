@@ -1,0 +1,13 @@
+databaseChangeLog:
+- changeSet:
+    id: 71
+    author: sofiaedstrom
+    preConditions:
+    - onFail: MARK_RAN
+    - tableExists:
+        schemaName: contentschema
+        tableName: facts
+    changes:
+    - dropTable:
+        schemaName: contentschema
+        tableName: facts

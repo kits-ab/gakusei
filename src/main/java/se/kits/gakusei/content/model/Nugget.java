@@ -1,12 +1,11 @@
 package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name="nuggets", schema = "contentschema")
@@ -14,7 +13,7 @@ import java.util.List;
 public class Nugget implements Serializable{
 
     @Id
-    private String id;
+    private String id = UUID.randomUUID().toString();
 
     //Remove when migrating, along with getter and setter
     @Column(nullable = false)
@@ -24,24 +23,21 @@ public class Nugget implements Serializable{
 
     private boolean hidden = false;
 
-    //Remove when migrating, along with getter and setter
-    @OneToMany(mappedBy="nugget", fetch=FetchType.EAGER)
-    @JsonManagedReference(value = "fact")
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Fact> facts;
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+            name = "nugget_books",
+            schema = "contentschema",
+            joinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"nugget_id", "book_id"})
+    )
+    private List<Book> books;
 
     @ManyToOne
-    @JsonBackReference(value = "book")
-    @JoinColumn(name = "book_ref")
-    private Book title;
-
-    @ManyToOne
-    @JsonBackReference(value = "wordtype")
     @JoinColumn(name = "word_type_ref")
     private WordType wordType;
 
     @ManyToMany(mappedBy = "nuggets")
-    // @JsonBackReference(value = "lessonnugget")
     @JsonIgnore
     private List<Lesson> lessons;
 
@@ -83,20 +79,8 @@ public class Nugget implements Serializable{
         this.hidden = hidden;
     }
 
-    public List<Fact> getFacts() {
-        return facts;
-    }
-
-    public void setFacts(List<Fact> facts) {
-        this.facts = facts;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public List<Lesson> getLessons() {
@@ -147,11 +131,28 @@ public class Nugget implements Serializable{
         this.wordType = wordType;
     }
 
-    public Book getTitle() {
-        return title;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setTitle(Book title) {
-        this.title = title;
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == null || !(object instanceof Nugget)) {
+            return false;
+        } else if (object == this) {
+            return true;
+        } else {
+            Nugget nugget = (Nugget)object;
+            return nugget.getWordType().getType().equals(wordType.getType()) &&
+                    nugget.getDescription().equals(description) &&
+                    nugget.getSwedish().equals(swedish) &&
+                    nugget.getEnglish().equals(english) &&
+                    nugget.getJpRead().equals(jpRead) &&
+                    nugget.getJpWrite().equals(jpWrite);
+        }
     }
 }

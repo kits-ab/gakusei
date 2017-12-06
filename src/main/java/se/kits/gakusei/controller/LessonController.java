@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
+import se.kits.gakusei.content.repository.InflectionRepository;
+import se.kits.gakusei.content.repository.KanjiRepository;
 import se.kits.gakusei.content.repository.LessonRepository;
 
 import java.util.*;
@@ -25,31 +27,24 @@ public class LessonController {
     @Autowired
     private LessonRepository lessonRepository;
 
+    @Autowired
+    private InflectionRepository inflectionRepository;
+
+    @Autowired
+    private KanjiRepository kanjiRepository;
+
     @RequestMapping(
             value = "/api/lessons",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    ResponseEntity<List<Lesson>> getLessonNames(
-            @RequestParam(value = "lessonType") String lessonType) {
-        List<Lesson> tmpLessons = getLessons(lessonType);
-        if (tmpLessons != null) {
-            return new ResponseEntity<>(tmpLessons, HttpStatus.OK);
+    public ResponseEntity<List<Lesson>> getLessons(@RequestParam(value = "lessonType") String lessonType) {
+        if (lessonType.equals("grammar")) {
+            return new ResponseEntity<>(getGrammarLessons(), HttpStatus.OK);
+        } else if (lessonType.equals("kanji")) {
+            return new ResponseEntity<>(getKanjiLessons(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @Cacheable("lessons")
-    public List<Lesson> getLessons(String lessonType) {
-        List<Lesson> tmpLessons = null;
-        if (lessonType.equals("quiz")) {
-            tmpLessons = lessonRepository.findQuizLessons().stream()
-                    .filter(lesson -> lesson.getNuggets().size() >= 4).collect(Collectors.toList());
-        } else if (lessonType.equals("vocabulary")){
-            tmpLessons = lessonRepository.findVocabularyLessons().stream()
-                    .filter(lesson -> lesson.getNuggets().size() >= 4).collect(Collectors.toList());
-        }
-        return tmpLessons;
+        return new ResponseEntity<>(getLessonsWithEnoughNuggets(), HttpStatus.OK);
     }
 
     @RequestMapping(
@@ -70,7 +65,7 @@ public class LessonController {
 
         HashMap<String, HashMap<String, Integer>> values = new HashMap<>();
         
-        List<Lesson> tmpLessons = getLessons();
+        List<Lesson> tmpLessons = getLessonsWithEnoughNuggets();
 
         logger.info("Getting vocabulary lessons took {} ms.", System.currentTimeMillis() - mark);
         mark = System.currentTimeMillis();
@@ -79,7 +74,7 @@ public class LessonController {
                     .stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
             List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, tmpLesson.getName())
                     .stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-            List<Nugget> allLessonNuggets = getNuggets(questionType, answerType, tmpLesson);
+            List<Nugget> allLessonNuggets = getNuggets(tmpLesson);
 
             for (Nugget n :
                     correctlyAnsweredNuggets) {
@@ -103,15 +98,27 @@ public class LessonController {
         return values;
     }
 
-    @Cacheable("twoFactTypeNuggets")
-    public List<Nugget> getNuggets(String questionType, String answerType, Lesson tmpLesson) {
-        return lessonRepository.findNuggetsByTwoFactTypes(tmpLesson.getName(),
-                        questionType, answerType).stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
+    @Cacheable("lessonInfoNuggets")
+    public List<Nugget> getNuggets(Lesson tmpLesson) {
+        return tmpLesson.getNuggets().stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
     }
 
     @Cacheable("lessons")
-    public List<Lesson> getLessons() {
-        return lessonRepository.findVocabularyLessons().stream()
+    public List<Lesson> getLessonsWithEnoughNuggets() {
+        return lessonRepository.findAllByOrderByName().stream()
                 .filter(lesson -> lesson.getNuggets().size() >= 4).collect(Collectors.toList());
+    }
+
+    @Cacheable("grammarLessons")
+    public List<Lesson> getGrammarLessons() {
+        return getLessonsWithEnoughNuggets().stream()
+                .filter(lesson -> !inflectionRepository.findByLessonId(lesson.getId()).isEmpty())
+                .collect(Collectors.toList());
+    }
+
+    @Cacheable("kanjiLessons")
+    public List<Lesson> getKanjiLessons() {
+        return lessonRepository.findAllByOrderByName().stream().filter(lesson -> !lesson.getKanjis().isEmpty())
+                .collect(Collectors.toList());
     }
 }

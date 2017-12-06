@@ -13,55 +13,21 @@ public class TestTools {
     public static List<Nugget> generateNuggets() {
         List<Nugget> nuggets = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
+            WordType type = new WordType();
+            type.setType("verb");
             Nugget n = new Nugget("verb");
-            n.setId("nuggetid" + i);
-            Fact f1 = new Fact();
-            f1.setType("swedish");
-            f1.setData("swe_test" + i);
-            f1.setNugget(n);
-            Fact f2 = new Fact();
-            f2.setType("english");
-            f2.setData("eng_test" + i);
-            f2.setNugget(n);
-            n.setFacts(new ArrayList<Fact>(Arrays.asList(f1, f2)));
+            n.setSwedish("swe_test" + i);
+            n.setEnglish("eng_test" + i);
+            n.setJpRead("read_test" + i);
+            n.setJpWrite("write_test" + i);
+            n.setDescription("desc_test" + i);
+            n.setWordType(type);
             if (i % 3 == 0) {
                 n.setHidden(true);
             }
             nuggets.add(n);
         }
         return nuggets;
-    }
-
-    public static Nugget generateQuizNugget(String description, String correctData, String incorrectData) {
-        Nugget n = new Nugget("quiz");
-        n.setDescription(description);
-        Fact correctFact = new Fact();
-        correctFact.setType("correct");
-        correctFact.setData(correctData);
-        correctFact.setNugget(n);
-        List<Fact> facts = new ArrayList<>();
-        facts.add(correctFact);
-        for (int i = 0; i < 5; i++) {
-            Fact incorrectFact = new Fact();
-            incorrectFact.setType("incorrect");
-            incorrectFact.setData(incorrectData + i);
-            incorrectFact.setNugget(n);
-            facts.add(incorrectFact);
-        }
-        n.setFacts(facts);
-        return n;
-    }
-
-    public static Lesson generateQuizLesson(String lessonName, String description, String correctData, String incorrectData) {
-        Lesson lesson = new Lesson();
-        lesson.setName(lessonName);
-        List<Nugget> nuggets = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Nugget n = generateQuizNugget(description, correctData, incorrectData);
-            n.setLessons(Collections.singletonList(lesson));
-            nuggets.add(n);
-        }
-        return lesson;
     }
 
     public static HashMap<String, Object> generateQuestion() {
@@ -78,6 +44,39 @@ public class TestTools {
         dto.put("alternative3", alt3);
         dto.put("correctAlternative", altCorrect);
         return dto;
+    }
+
+    public static List<Kanji> generateKanjis() {
+        List<Kanji> kanjis = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+
+            Kanji k = new Kanji();
+            k.setSwedish("swe_test" + i);
+            k.setEnglish("eng_test" + i);
+            k.setKanji("sign_test" + i);
+            k.setDescription("desc_test" + i);
+            if (i % 3 == 0) {
+                k.setHidden(true);
+            }
+            kanjis.add(k);
+        }
+        return kanjis;
+    }
+
+    public static HashMap<String, Object> generateKanjiQuestion() {
+        HashMap<String, Object> questionMap = new HashMap<>();
+
+        List<String> question = new ArrayList<>();
+        question.add("question");
+        question.add("kanji_sign");
+
+        questionMap.put("question", question);
+        questionMap.put("correctAlternative", Collections.singletonList("kanji_sign"));
+        questionMap.put("alternative1", Collections.EMPTY_LIST);
+        questionMap.put("alternative2", Collections.EMPTY_LIST);
+        questionMap.put("alternative3", Collections.EMPTY_LIST);
+
+        return questionMap;
     }
 
     public static List<Course> generateCourses(){
@@ -151,14 +150,14 @@ public class TestTools {
         return incorrectAnswers;
     }
 
-    private static HashMap<String, Object> convertIncorrectAnswer(IncorrectAnswers incorrectAnswer) {
+    private static HashMap<String, Object> convertIncorrectAnswer(IncorrectAnswer incorrectAnswer) {
         HashMap<String, Object> convertedIncorrectAnswer = new HashMap<>();
         convertedIncorrectAnswer.put(QuizHandler.IA_INCORRECT_ANSWERS, incorrectAnswer.getIncorrectAnswer());
         return convertedIncorrectAnswer;
     }
 
-    private static IncorrectAnswers createIncorrectAnswer(QuizNugget nugget, String suffix) {
-        IncorrectAnswers incorrectAnswer = new IncorrectAnswers();
+    private static IncorrectAnswer createIncorrectAnswer(QuizNugget nugget, String suffix) {
+        IncorrectAnswer incorrectAnswer = new IncorrectAnswer();
         incorrectAnswer.setQuizNugget(nugget);
         incorrectAnswer.setIncorrectAnswer("incorrect alternative " + suffix);
         return incorrectAnswer;

@@ -1,0 +1,48 @@
+databaseChangeLog:
+- changeSet:
+    id: 70
+    author: Pontus Doverstav
+    preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                schemaName: contentschema
+                tableName: grammar_texts
+    changes:
+        - createTable:
+            schemaName: contentschema
+            tableName: grammar_texts
+            columns:
+                - column:
+                    name: id
+                    type: VARCHAR(256)
+                    constraints:
+                        primaryKey: true
+                        primaryKeyName: grammar_texts_pkey
+                - column:
+                    name: book
+                    type: VARCHAR(32)
+                - column:
+                    name: course
+                    type: VARCHAR(32)
+                - column:
+                    name: type
+                    type: VARCHAR(32)
+                - column:
+                    name: jp_short
+                    type: text
+                - column:
+                    name: se_short
+                    type: text
+                - column:
+                    name: related
+                    type: text
+                - column:
+                    name: sample
+                    type: text
+                - column:
+                    name: se_long
+                    type: text
+                - column:
+                    name: inflection_method
+                    type: text

@@ -42,9 +42,14 @@ export class GakuseiNav extends React.Component {
                   <MenuItem className="kanjiPlay">Skriv Kanji</MenuItem>
                 </LinkContainer> */}
               </NavDropdown>
-              <IndexLinkContainer to="/grammar">
-                <NavItem className="grammarHelp">Grammatik</NavItem>
-              </IndexLinkContainer>
+              <NavDropdown className="grammarDropdown" title="Grammatik" id="basic-nav-dropdown">
+                <LinkContainer to="/select/grammar">
+                  <MenuItem className="grammarPlay">Böj verb</MenuItem>
+                </LinkContainer>
+                <LinkContainer to="/grammar">
+                  <NavItem className="grammarHelp">Texter om grammatik</NavItem>
+                </LinkContainer>
+              </NavDropdown>
               <LinkContainer to="/select/quiz">
                 <NavItem className="quizPlay">Quiz</NavItem>
               </LinkContainer>

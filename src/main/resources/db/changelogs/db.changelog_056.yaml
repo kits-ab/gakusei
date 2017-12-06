@@ -1,0 +1,10 @@
+databaseChangeLog:
+    - changeSet:
+        id: 56
+        author: Pontus Doverstav
+        changes:
+        - modifyDataType:
+            schemaName: public
+            tableName: events
+            columnName: nugget_id
+            newDataType: varchar(256)

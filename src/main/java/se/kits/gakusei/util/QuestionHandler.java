@@ -1,28 +1,31 @@
 package se.kits.gakusei.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import se.kits.gakusei.content.model.Fact;
-import se.kits.gakusei.content.model.Nugget;
-import se.kits.gakusei.dto.ResourceReference;
+import se.kits.gakusei.content.model.*;
+import se.kits.gakusei.content.repository.GrammarTextRepository;
+import se.kits.gakusei.content.repository.InflectionRepository;
+import se.sandboge.japanese.conjugation.Verb;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
 public class QuestionHandler {
 
-    public List<HashMap<String, Object>> createQuestions(List<Nugget> nuggets,
-                                                         int quantity,
-                                                         String questionType,
-                                                         String answerType) {
-        List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-        List<HashMap<String, Object>> questions = notHiddenNuggets.stream()
-                .map(n -> createQuestion(n, notHiddenNuggets, questionType, answerType))
+    @Autowired
+    GrammarTextRepository grammarTextRepository;
+
+    @Autowired
+    InflectionRepository inflectionRepository;
+
+    public List<HashMap<String, Object>> createQuestions(List<Nugget> nuggets, String questionType, String answerType) {
+        List<HashMap<String, Object>> questions = nuggets.stream()
+                .map(n -> createQuestion(n, nuggets, questionType, answerType))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        Collections.shuffle(questions);
-        if (questions.size() > quantity) {
-            return questions.subList(0, quantity);
-        }
         return questions;
     }
 
@@ -30,113 +33,134 @@ public class QuestionHandler {
                                                      List<Nugget> nuggets,
                                                      String questionType,
                                                      String answerType) {
-        HashMap<String, Object> questionMap = createQuestionDTOWithResource(nugget);
+
+        HashMap<String, Object> questionMap = new HashMap<>();
         LinkedList<Nugget> optimalNuggets = new LinkedList<>();
+        List<Nugget> copyOfNuggets = new ArrayList<>(nuggets);
+        copyOfNuggets.remove(nugget);
+        Collections.shuffle(copyOfNuggets);
 
-        LinkedList<Nugget> allNuggets = new LinkedList<>(nuggets);
-        Collections.shuffle(allNuggets);
-        allNuggets.remove(nugget);
+        List<String> correctAlternative = createAlternative(nugget, answerType);
 
-        List<List<String>> alternatives = new ArrayList<>();
-        alternatives.add(createAlternative(nugget, answerType));
-
-        for(int i = 0; optimalNuggets.size() < 3 && i < allNuggets.size(); i++) {
-            if(allNuggets.get(i).getType().equals(nugget.getType()))
-                optimalNuggets.push(allNuggets.get(i));
-            else if(allNuggets.size() - (i + 1) <= 4 - optimalNuggets.size())
-                optimalNuggets.push(allNuggets.get(i));
-        }
-
-        //Avoid getting the same alternative from another nugget
-        while (alternatives.size() < 4 && !optimalNuggets.isEmpty()) {
-            List<String> tempAlternative = createAlternative(optimalNuggets.poll(), answerType);
-            if (alternatives.stream().noneMatch(l -> l.get(0).equals(tempAlternative.get(0)))) {
-                alternatives.add(tempAlternative);
+        for(int i = 0; optimalNuggets.size() < 3 && i < copyOfNuggets.size(); i++) {
+            if (copyOfNuggets.get(i).getWordType().equals(nugget.getWordType())) {
+                optimalNuggets.push(copyOfNuggets.get(i));
+            } else if (copyOfNuggets.size() - (i + 1) <= 4 - optimalNuggets.size()) {
+                optimalNuggets.push(copyOfNuggets.get(i));
             }
         }
-        if (alternatives.size() == 4) {
+        List<List<String>> incorrectAlternatives = new ArrayList<>(optimalNuggets.stream().map(n
+                -> createAlternative(n, answerType)).collect(Collectors.toList()));
+
+        if (incorrectAlternatives.size() == 3) {
             List<String> question = createAlternative(nugget, questionType);
             questionMap.put("question", question);
-            questionMap.put("correctAlternative", alternatives.get(0));
-            questionMap.put("alternative1", alternatives.get(1));
-            questionMap.put("alternative2", alternatives.get(2));
-            questionMap.put("alternative3", alternatives.get(3));
+            questionMap.put("correctAlternative", correctAlternative);
+            questionMap.put("alternative1", incorrectAlternatives.get(0));
+            questionMap.put("alternative2", incorrectAlternatives.get(1));
+            questionMap.put("alternative3", incorrectAlternatives.get(2));
             questionMap.put("questionNuggetId", nugget.getId());
             return questionMap;
         } else {
             return null;
         }
     }
-    
-    public List<HashMap<String, Object>> createQuizQuestions(List<Nugget> nuggets) {
-        return nuggets.stream().map(n -> createQuizQuestion(n)).collect(Collectors.toList());
+
+    public List<HashMap<String, Object>> createGrammarQuestions(Lesson lesson,
+                                                                List<Nugget> nuggets,
+                                                                String questionType,
+                                                                String answerType){
+        return nuggets.stream().
+                map(n -> createGrammarQuestion(lesson, n, questionType, answerType)).
+                filter(Objects::nonNull).
+                collect(Collectors.toList());
     }
 
-    protected HashMap<String, Object> createQuizQuestion(Nugget nugget) {
-        HashMap<String, Object> question = createQuestionDTOWithResource(nugget);
-        question.put("question", Collections.singletonList(nugget.getDescription()));
-        List<Fact> facts = nugget.getFacts();
-        question.put("correctAlternative",
-                Collections.singletonList(facts.stream().filter(f -> f.getType().equals("correct"))
-                        .findFirst().get().getData()));
-        List<Fact> incorrectAlternatives =
-                facts.stream().filter(f -> f.getType().equals("incorrect")).collect(Collectors.toList());
-        Collections.shuffle(incorrectAlternatives);
-        question.put("alternative1", Collections.singletonList(incorrectAlternatives.get(0).getData()));
-        question.put("alternative2", Collections.singletonList(incorrectAlternatives.get(1).getData()));
-        question.put("alternative3", Collections.singletonList(incorrectAlternatives.get(2).getData()));
-        return question;
-    }
+    private HashMap<String, Object> createGrammarQuestion(Lesson lesson,
+                                                          Nugget nugget,
+                                                          String questionType,
+                                                          String answerType){
+        HashMap<String, Object> questionMap = new HashMap<>();
 
-    protected HashMap<String, Object> createQuestionDTOWithResource(Nugget nugget) {
-        // TODO: Make generic for any type of resource (not only 'kanjidrawing')
-        HashMap<String, Object> questionDTO = new HashMap<>();
-        Fact fact = nugget.getFacts().stream().filter(f -> f.getType().equals("kanjidrawing")).findFirst().orElse(null);
-        if (fact != null) {
-            ResourceReference resource = new ResourceReference();
-            resource.setType(fact.getType());
-            resource.setLocation(fact.getData());
-            questionDTO.put("resourceReference", resource);
+        List<Inflection> inflections = inflectionRepository.findByLessonId(lesson.getId());
+        Collections.shuffle(inflections); // Get "random" inflection
+        Inflection selectedInflection = inflections.get(0);
+        List<GrammarText> grammarTexts = grammarTextRepository.findByInflectionMethod(selectedInflection.getInflectionMethod());
+
+        List<String> question = createAlternative(nugget, questionType);
+
+        if(!grammarTexts.isEmpty()){
+            question.add(grammarTexts.get(0).getSeShort());
+            question.addAll(createAlternative(nugget, answerType));
+            question.add(grammarTexts.get(0).getSeLong());
+        } else {
+            question.add(selectedInflection.getInflectionMethod());
+            question.addAll(createAlternative(nugget, answerType));
         }
-        return questionDTO;
+        
+        String inflectedVerb = inflectVerb(selectedInflection, question.get(1));
+        if(inflectedVerb == null){
+            return null;
+        }
+
+        questionMap.put("question", question);
+        questionMap.put("correctAlternative", Collections.singletonList(inflectedVerb));
+        questionMap.put("alternative1", Collections.EMPTY_LIST);
+        questionMap.put("alternative2", Collections.EMPTY_LIST);
+        questionMap.put("alternative3", Collections.EMPTY_LIST);
+        questionMap.put("questionNuggetId", nugget.getId());
+
+        return questionMap;
     }
 
-    public List<Nugget> chooseNuggetsByProgress(List<Nugget> nuggetsWithLowSuccessrate,
+    private String inflectVerb(Inflection inflection, String baseVerb){
+        try {
+            Verb verb = new Verb(baseVerb);
+            Method methodToInvoke = verb.getClass().getMethod(inflection.getInflectionMethod());
+            String inflectedVerb = (String) methodToInvoke.invoke(verb);
+            return inflectedVerb;
+        } catch (NoSuchMethodException
+                | InvocationTargetException
+                | IllegalAccessException
+                | IllegalArgumentException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Nugget> chooseNuggets(List<Nugget> nuggetsWithLowSuccessrate,
                                                 List<Nugget> unansweredNuggets,
                                                 List<Nugget> allLessonNuggets,
                                                 int quantity) {
-        List<Nugget> hiddenNuggets = allLessonNuggets.stream().filter(n -> n.isHidden()).collect(Collectors.toList());
+
         if (allLessonNuggets.size() <= quantity) {
             return allLessonNuggets;
         } else {
             List<Nugget> nuggets = new ArrayList<>();
-            Collections.shuffle(unansweredNuggets);
-            Collections.shuffle(nuggetsWithLowSuccessrate);
-            Collections.shuffle(allLessonNuggets);
             nuggets.addAll(unansweredNuggets);
             nuggets.addAll(nuggetsWithLowSuccessrate);
             nuggets.addAll(allLessonNuggets);
-
-            List<Nugget> questionNuggets = new ArrayList<>();
-            while (questionNuggets.size() <= quantity && nuggets.size() != 0) {
-                Nugget nugget = nuggets.remove(0);
-                if (!questionNuggets.contains(nugget) && !hiddenNuggets.contains(nugget)) {
-                    questionNuggets.add(nugget);
-                }
-            }
-            return questionNuggets;
+            List<Nugget> visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
+                    .collect(Collectors.toList());
+            Collections.shuffle(visibleNuggets);
+            return visibleNuggets.subList(0, quantity);
         }
     }
 
     private List<String> createAlternative(Nugget nugget, String type) {
         List<String> alternative = new ArrayList<>();
-        alternative.add(nugget.getFacts().stream().filter(f -> f.getType().equals(type)).findFirst().get().getData());
-        if (type.equals("reading")) {
-            Fact tempFact = nugget.getFacts().stream().filter(f -> f.getType().equals("writing"))
-                    .findFirst().orElse(null);
-            if (tempFact != null) {
-                alternative.add(tempFact.getData());
+        try {
+            if (type.equals("reading")) { // reading -> japanese  
+                alternative.add(nugget.getJpRead());
+                alternative.add(nugget.getJpWrite());
+            } else {
+                String methodName = "get" + Character.toString(Character.toUpperCase(type.charAt(0))) +
+                        type.substring(1);
+                alternative.add((String)nugget.getClass().getMethod(methodName).invoke(nugget));
             }
+
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
         }
         return alternative;
     }

@@ -12,39 +12,6 @@ import java.util.List;
 @Table(name = "lessons", schema = "contentschema")
 @NamedNativeQueries({
         @NamedNativeQuery(
-                name = "Lesson.findNuggetsByTwoFactTypes",
-                query = "select * from contentschema.nuggets n " +
-                        "where n.hidden = FALSE AND n.id in " +
-                        "(select filtered.nugget_id from contentschema.facts " +
-                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
-                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
-                        "on nuggetid = nugget_id " +
-                        "where facts.type IN (:factType1, :factType2) " +
-                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
-                resultClass = Nugget.class),
-        @NamedNativeQuery(
-                name = "Lesson.findKanjiLessNuggetsByFactType",
-                query = "select * from contentschema.nuggets n " +
-                        "where n.type  <> 'kanji' and n.id in " +
-                        "(select filtered.nugget_id from contentschema.facts " +
-                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
-                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
-                        "on nuggetid = nugget_id " +
-                        "where facts.type IN (:factType1, :factType2) " +
-                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
-                resultClass = Nugget.class),
-        @NamedNativeQuery(
-                name = "Lesson.findKanjiNuggetsByFactType",
-                query = "select * from contentschema.nuggets n " +
-                        "where n.type  = 'kanji' and n.id in " +
-                        "(select filtered.nugget_id from contentschema.facts " +
-                        "inner join (select nugget_id from contentschema.lessons_nuggets where lesson_id = " +
-                        "(select distinct id from contentschema.lessons where name = :lessonName)) as filtered " +
-                        "on nuggetid = nugget_id " +
-                        "where facts.type IN (:factType1, :factType2) " +
-                        "GROUP BY filtered.nugget_id HAVING count(filtered.nugget_id) > 1)",
-                resultClass = Nugget.class),
-        @NamedNativeQuery(
                 name = "Lesson.findNuggetsBySuccessrate",
                 query = "select * from contentschema.nuggets where id in " +
                         "(select nugget_id from progresstrackinglist " +
@@ -69,6 +36,13 @@ import java.util.List;
                         "and id in " +
                         "(select nugget_id from contentschema.lessons inner join contentschema.lessons_nuggets on " +
                         "contentschema.lessons.id=contentschema.lessons_nuggets.lesson_id where name = :lessonName)",
+                resultClass = Nugget.class),
+        @NamedNativeQuery(
+                name = "Lesson.findVerbNuggets",
+                query = "select * from contentschema.nuggets n where n.hidden = FALSE and n.id in" +
+                        "  (select verbs.id from contentschema.nuggets verbs " +
+                        "  INNER JOIN contentschema.lessons_nuggets ln on n.id = ln.nugget_id " +
+                        "  WHERE n.type LIKE 'verb' AND ln.lesson_id = :lessonId)",
                 resultClass = Nugget.class)
 })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -92,7 +66,16 @@ public class Lesson implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"))
     private List<Nugget> nuggets;
 
-    //@JsonBackReference(value = "ullessons")
+    @ManyToMany
+    @JoinTable(
+            name = "lessons_kanjis",
+            schema = "contentschema",
+            joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "kanji_id", referencedColumnName = "id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"lesson_id", "kanji_id"})
+    )
+    private List<Kanji> kanjis;
+
     @JsonIgnore
     @OneToMany(mappedBy="lesson", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -152,5 +135,13 @@ public class Lesson implements Serializable {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public List<Kanji> getKanjis() {
+        return kanjis;
+    }
+
+    public void setKanjis(List<Kanji> kanjis) {
+        this.kanjis = kanjis;
     }
 }

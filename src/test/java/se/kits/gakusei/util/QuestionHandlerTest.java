@@ -16,27 +16,25 @@ import java.util.stream.Stream;
 public class QuestionHandlerTest {
 
     private List<Nugget> nuggets;
-    private int quantity;
     private String questionType;
     private String answerType;
     private QuestionHandler questionHandler;
+    private List<Nugget> visibleNuggets;
 
     @Before
     public void setUp() throws Exception {
         nuggets = TestTools.generateNuggets();
-        quantity = 50;
         questionType = "swedish";
         answerType = "english";
         questionHandler = new QuestionHandler();
+        visibleNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
 
     }
 
     @Test
     public void testCreateQuestions() throws Exception {
-        List<HashMap<String, Object>> questions = questionHandler.createQuestions(nuggets,
-                quantity, questionType, answerType);
+        List<HashMap<String, Object>> questions = questionHandler.createQuestions(nuggets, questionType, answerType);
 
-        assertEquals(6, questions.size());
         assertFalse(questions.stream().anyMatch(q -> q == null));
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("question")).get(0).startsWith("swe_test")));
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative1")).get(0).startsWith("eng_test")));
@@ -47,10 +45,9 @@ public class QuestionHandlerTest {
 
     @Test
     public void testCreateQuestion() throws Exception {
-        List<Nugget> notHiddenNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-        Nugget nugget = notHiddenNuggets.get(0);
+        Nugget nugget = visibleNuggets.get(0);
 
-        HashMap<String, Object> dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
+        HashMap<String, Object> dto = questionHandler.createQuestion(nugget, visibleNuggets, questionType, answerType);
 
         assertTrue(((List<String>) dto.get("question")).get(0).startsWith("swe_test"));
         Stream.of(dto.get("alternative1"),
@@ -74,27 +71,19 @@ public class QuestionHandlerTest {
 
     @Test
     public void testCreateQuestionNullReturn() throws Exception {
-        List<Nugget> notHiddenNuggets =
-                nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList()).subList(0, 2);
-        Nugget nugget = notHiddenNuggets.get(0);
+        List<Nugget> tooFewNuggets = visibleNuggets.subList(0, 2);
+        Nugget nugget = tooFewNuggets.get(0);
 
-        HashMap<String, Object> dto = questionHandler.createQuestion(nugget, notHiddenNuggets, questionType, answerType);
+        HashMap<String, Object> dto = questionHandler.createQuestion(nugget, tooFewNuggets, questionType, answerType);
 
         assertNull(dto);
     }
 
     @Test
-    public void testCreateQuizQuestion() throws Exception {
-        String correctData = "quiz_correct";
-        String incorrectData = "quiz_incorrect";
-        String description = "quiz_question";
-        Nugget quizNugget = TestTools.generateQuizNugget(description, correctData, incorrectData);
-        HashMap<String, Object> question = questionHandler.createQuizQuestion(quizNugget);
-        assertEquals(1, ((List<String>) question.get("question")).size());
-        assertEquals(description, ((List<String>) question.get("question")).get(0));
-        assertEquals(correctData, ((List<String>) question.get("correctAlternative")).get(0));
-        assertTrue(((List<String>) question.get("alternative1")).get(0).startsWith(incorrectData));
-        assertTrue(((List<String>) question.get("alternative2")).get(0).startsWith(incorrectData));
-        assertTrue(((List<String>) question.get("alternative3")).get(0).startsWith(incorrectData));
+    public void testChooseNuggets() {
+        int quantity = 5;
+        List<Nugget> chosen = questionHandler.chooseNuggets(visibleNuggets, visibleNuggets, visibleNuggets, quantity);
+        assertTrue(visibleNuggets.size() >= quantity ? chosen.size() == quantity : chosen.size() == visibleNuggets
+                .size());
     }
 }

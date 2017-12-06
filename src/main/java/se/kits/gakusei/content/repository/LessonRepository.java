@@ -12,21 +12,6 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
 
     Lesson findByName(String name);
 
-    List<Nugget> findNuggetsByTwoFactTypes (
-            @Param("lessonName") String lessonName,
-            @Param("factType1") String questionType,
-            @Param("factType2") String answerType);
-
-    List<Nugget> findKanjiLessNuggetsByFactType (
-            @Param("lessonName") String lessonName,
-            @Param("factType1") String questionType,
-            @Param("factType2") String answerType);
-
-    List<Nugget> findKanjiNuggetsByFactType (
-            @Param("lessonName") String lessonName,
-            @Param("factType1") String questionType,
-            @Param("factType2") String answerType);
-
     List<Nugget> findNuggetsBySuccessrate (
             @Param("username") String username,
             @Param("lessonName") String lessonName);
@@ -39,9 +24,8 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
             @Param("username") String username,
             @Param("lessonName") String lessonName);
 
-    @Query("select l from Lesson l where not l.description = 'quiz' order by l.name")
-    List<Lesson> findVocabularyLessons();
+    List<Nugget> findVerbNuggets (@Param("lessonId") Long lessonId);
 
-    @Query("select l from Lesson l where l.description = 'quiz' order by l.name")
-    List<Lesson> findQuizLessons();
+    List<Lesson> findAllByOrderByName();
+
 }
