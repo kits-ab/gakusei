@@ -125,7 +125,10 @@ export class selectScreen extends React.Component {
   render() {
     const options = this.props.lessons.map(lesson =>
       <Row key={lesson.name}>
-        <Col xs={10} md={11} lg={10}>
+        <Col
+          xs={this.props.params.type === 'quiz' ? 12 : 10}
+          md={this.props.params.type === 'quiz' ? 12 : 11}
+          lg={this.props.params.type === 'quiz' ? 12 : 11}>
           <ListGroupItem
             key={lesson.name}
             onClick={() => this.props.setSelectedLesson(lesson)}
@@ -134,14 +137,18 @@ export class selectScreen extends React.Component {
             bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
           />
         </Col>
-        <Col xs={2} md={1} lg={2}>
-          <Button
-            bsStyle={this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ? 'warning' : null}
-            onClick={() => this.handleStarredClick(lesson)}
-          >
-            <Glyphicon glyph="star" />
-          </Button>
-        </Col>
+        {this.props.params.type === 'quiz' ?
+          null
+          :
+          <Col xs={2} md={1} lg={1}>
+            <Button
+              bsStyle={this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ? 'warning' : null}
+              onClick={() => this.handleStarredClick(lesson)}
+            >
+              <Glyphicon glyph="star" />
+            </Button>
+          </Col>
+        }
       </Row>);
 
     const answerLanguages = [];
