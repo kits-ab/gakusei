@@ -7,6 +7,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import '../resources/static/css/custom.css';
 import '../resources/static/css/cardflip.css';
+import '../resources/static/css/start.css';
 import AppProvider from './AppProvider';
 import configureStore from './configureStore';
 

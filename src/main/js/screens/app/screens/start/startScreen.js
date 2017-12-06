@@ -2,8 +2,6 @@ import React from 'react';
 import { Grid, Row, Col, Jumbotron, Button, ButtonGroup } from 'react-bootstrap';
 import { Link } from 'react-router';
 
-import './index.css';
-
 export default class startScreen extends React.Component {
     constructor(props) {
         super(props);
