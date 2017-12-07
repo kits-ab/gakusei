@@ -40,9 +40,10 @@ import java.util.List;
         @NamedNativeQuery(
                 name = "Lesson.findVerbNuggets",
                 query = "select * from contentschema.nuggets n where n.hidden = FALSE and n.id in" +
-                        "  (select verbs.id from contentschema.nuggets verbs " +
-                        "  INNER JOIN contentschema.lessons_nuggets ln on n.id = ln.nugget_id " +
-                        "  WHERE n.type LIKE 'verb' AND ln.lesson_id = :lessonId)",
+                        "(select verbs.id from ((contentschema.nuggets verbs" +
+                        "INNER JOIN contentschema.lessons_nuggets ln on n.id = ln.nugget_id)" +
+                        "INNER JOIN contentschema.word_types wt on n.word_type_ref = wt.id)" +
+                        "WHERE wt.type = 'verb' AND ln.lesson_id = :lessonId)",
                 resultClass = Nugget.class)
 })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
