@@ -9,7 +9,7 @@ export class DisplayQuestion extends React.Component {
     if (this.props.cardType === 'grammar') {
       let swedishText = this.props.inflection[1];
       let inflection = this.props.inflection[0];
-      let explanation = this.props.inflection[2];
+      let explanation = this.props.explanationText;
       return (
         <p className="verbQuestionText">
           Ange böjningen för: <strong>{this.props.secondaryText} </strong>
