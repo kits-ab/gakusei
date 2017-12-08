@@ -15,10 +15,6 @@ public class Nugget implements Serializable{
     @Id
     private String id = UUID.randomUUID().toString();
 
-    //Remove when migrating, along with getter and setter
-    @Column(nullable = false)
-    private String type;
-
     private String description;
 
     private boolean hidden = false;
@@ -50,18 +46,6 @@ public class Nugget implements Serializable{
     private String jpWrite;
 
     public Nugget(){}
-
-    public Nugget(String type){
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getDescription() {
         return description;

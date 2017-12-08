@@ -15,7 +15,7 @@ public class TestTools {
         for (int i = 0; i < 10; i++) {
             WordType type = new WordType();
             type.setType("verb");
-            Nugget n = new Nugget("verb");
+            Nugget n = new Nugget();
             n.setSwedish("swe_test" + i);
             n.setEnglish("eng_test" + i);
             n.setJpRead("read_test" + i);

@@ -159,7 +159,7 @@ public class DataInit implements ApplicationRunner {
             wordTypeRepository.save(wordType);
         }
 
-        Nugget nugget = new Nugget(nuggetType);
+        Nugget nugget = new Nugget();
         nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
         nugget.setEnglish(((ArrayList<String>) tdh.get("english")).get(0));
         nugget.setSwedish(((ArrayList<String>) tdh.get("swedish")).get(0));
