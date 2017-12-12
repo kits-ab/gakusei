@@ -3,16 +3,15 @@ import { Glyphicon, Button, Collapse, Well } from 'react-bootstrap';
 import Speech from '../../../shared/util/Speech';
 
 export class DisplayQuestion extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showHint: false,
-    };
-  }
 
   getQuestionText() {
     let text = this.props.primaryText || null;
+    const speechButtonStyle = {
+      fontSize: (this.props.smallerText ? '1.0em' : '1.6em'),
+      position: 'inherit',
+      verticalAlign: 'middle',
+      padding: '2px 1px 2px 1px'
+    };
 
     if (this.props.cardType === 'grammar') {
       const swedishText = this.props.inflection[1];
@@ -30,11 +29,11 @@ export class DisplayQuestion extends React.Component {
                 <Button
                   bsStyle="info"
                   bsSize="xsmall"
-                  onClick={() => this.setState({ showHint: !this.state.showHint })}
+                  onClick={() => this.props.updateHintVisibility()}
                 >
-                  <Glyphicon glyph={'question-sign'} />
+                  <Glyphicon style={speechButtonStyle} glyph={'question-sign'} />
                 </Button>
-                <Collapse in={this.state.showHint}>
+                <Collapse in={this.props.showHint}>
                   <div>
                     <Well className="hintText">{explanation}</Well>
                   </div>

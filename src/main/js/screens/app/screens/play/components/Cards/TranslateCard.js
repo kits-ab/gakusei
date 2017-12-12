@@ -14,6 +14,8 @@ class ButtonsCard extends React.Component {
           resourceRef={this.props.question.resourceRef}
           japaneseCharacters={this.props.questionType === 'reading' && this.props.cardType !== 'quiz'}
           cardType={this.props.cardType}
+          updateHintVisibility={this.props.updateHintVisibility}
+          showHint={this.props.showHint}
           showSpeechButton
           showKanji
         />
@@ -40,7 +42,8 @@ ButtonsCard.propTypes = {
     shapes: React.PropTypes.arrayOf(React.PropTypes.string),
     randomizedAlternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
     buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    resourceRef: React.PropTypes.string
+    resourceRef: React.PropTypes.string,
+    explanationText: React.PropTypes.string
   }).isRequired,
   buttonsDisabled: React.PropTypes.bool.isRequired,
   questionType: React.PropTypes.string.isRequired,
@@ -51,6 +54,8 @@ ButtonsCard.propTypes = {
   questionAnswered: React.PropTypes.bool.isRequired,
   questionAnsweredCorrectly: React.PropTypes.bool.isRequired,
   inputFocused: React.PropTypes.bool.isRequired,
+  updateHintVisibility: React.PropTypes.func.isRequired,
+  showHint: React.PropTypes.bool.isRequired
 };
 
 export default ButtonsCard;
