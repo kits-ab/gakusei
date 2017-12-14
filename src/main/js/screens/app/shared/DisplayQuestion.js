@@ -1,26 +1,46 @@
 import React from 'react';
-import { Glyphicon, Button, OverlayTrigger, Popover, Label } from 'react-bootstrap';
+import { Glyphicon, Button, Collapse, Well } from 'react-bootstrap';
 import Speech from '../../../shared/util/Speech';
 
 export class DisplayQuestion extends React.Component {
+
   getQuestionText() {
     let text = this.props.primaryText || null;
+    const speechButtonStyle = {
+      fontSize: (this.props.smallerText ? '1.0em' : '1.6em'),
+      position: 'inherit',
+      verticalAlign: 'middle',
+      padding: '2px 1px 2px 1px'
+    };
 
     if (this.props.cardType === 'grammar') {
-      let swedishText = this.props.inflection[1];
-      let inflection = this.props.inflection[0];
-      let explanation = this.props.inflection[2];
+      const swedishText = this.props.inflection[1];
+      const inflection = this.props.inflection[0];
+      const explanation = this.props.explanationText;
       return (
-        <p className="verbQuestionText">
-          Ange böjningen för: <strong>{this.props.secondaryText} </strong>
-           ({text}, {swedishText})
-          <br/>på formen: <strong> {inflection} </strong>
+        <div>
+          <p className="verbQuestionText">
+            Ange böjningen för: <strong>{this.props.secondaryText} </strong>
+             ({text}, {swedishText})
+            <br/>på formen: <strong> {inflection} </strong>
+          </p>
           {explanation ?
-            <OverlayTrigger overlay={this.popoverText(explanation)} >
-              <Label>?</Label>
-            </OverlayTrigger>
-          : null }
-        </p>
+              <div>
+                <Button
+                  bsStyle="info"
+                  bsSize="xsmall"
+                  onClick={() => this.props.updateHintVisibility()}
+                >
+                  <Glyphicon style={speechButtonStyle} glyph={'question-sign'} />
+                </Button>
+                <Collapse in={this.props.showHint}>
+                  <div>
+                    <Well className="hintText">{explanation}</Well>
+                  </div>
+                </Collapse>
+              </div>
+              : null }
+        </div>
       );
     } else if (this.props.secondaryText && this.props.secondaryText !== text) {
       if (this.props.japaneseCharacters) {
@@ -33,10 +53,6 @@ export class DisplayQuestion extends React.Component {
     return (
       <p className="questionText">{text}</p>
     );
-  }
-
-  popoverText(text) {
-    return <Popover id={'Förklaring'} title='Förklaring'> {text} </Popover>;
   }
 
   getResource() {
@@ -91,7 +107,9 @@ DisplayQuestion.defaultProps = {
   secondaryText: null,
   showSpeechButton: false,
   showKanji: false,
-  smallerText: false
+  smallerText: false,
+  inflection: [],
+  explanationText: null
 };
 
 DisplayQuestion.propTypes = {
@@ -107,6 +125,7 @@ DisplayQuestion.propTypes = {
   smallerText: React.PropTypes.bool,
   cardType: React.PropTypes.string,
   inflection: React.PropTypes.arrayOf(React.PropTypes.string),
+  explanationText: React.PropTypes.string
 };
 
 export default DisplayQuestion;

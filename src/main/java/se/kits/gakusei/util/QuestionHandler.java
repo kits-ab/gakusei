@@ -92,7 +92,7 @@ public class QuestionHandler {
         if(!grammarTexts.isEmpty()){
             question.add(grammarTexts.get(0).getSeShort());
             question.addAll(createAlternative(nugget, answerType));
-            question.add(grammarTexts.get(0).getSeLong());
+            questionMap.put("explanationText", grammarTexts.get(0).getSeLong());
         } else {
             question.add(selectedInflection.getInflectionMethod());
             question.addAll(createAlternative(nugget, answerType));
