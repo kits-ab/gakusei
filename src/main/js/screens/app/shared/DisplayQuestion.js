@@ -1,22 +1,15 @@
 import React from 'react';
-import { Glyphicon, Button, Collapse, Well } from 'react-bootstrap';
+import { Glyphicon, Button, ButtonToolbar, Collapse, Well } from 'react-bootstrap';
 import Speech from '../../../shared/util/Speech';
 
 export class DisplayQuestion extends React.Component {
 
   getQuestionText() {
     let text = this.props.primaryText || null;
-    const speechButtonStyle = {
-      fontSize: (this.props.smallerText ? '1.0em' : '1.6em'),
-      position: 'inherit',
-      verticalAlign: 'middle',
-      padding: '2px 1px 2px 1px'
-    };
 
     if (this.props.cardType === 'grammar') {
       const swedishText = this.props.inflection[1];
       const inflection = this.props.inflection[0];
-      const explanation = this.props.explanationText;
       return (
         <div>
           <p className="verbQuestionText">
@@ -24,22 +17,6 @@ export class DisplayQuestion extends React.Component {
              ({text}, {swedishText})
             <br/>på formen: <strong> {inflection} </strong>
           </p>
-          {explanation ?
-              <div>
-                <Button
-                  bsStyle="info"
-                  bsSize="xsmall"
-                  onClick={() => this.props.updateHintVisibility()}
-                >
-                  <Glyphicon style={speechButtonStyle} glyph={'question-sign'} />
-                </Button>
-                <Collapse in={this.props.showHint}>
-                  <div>
-                    <Well className="hintText">{explanation}</Well>
-                  </div>
-                </Collapse>
-              </div>
-              : null }
         </div>
       );
     } else if (this.props.secondaryText && this.props.secondaryText !== text) {
@@ -72,11 +49,17 @@ export class DisplayQuestion extends React.Component {
   render() {
     const questionText = this.getQuestionText();
     const resource = this.getResource();
+    const explanation = this.props.explanationText;
     const speechButtonStyle = {
       fontSize: (this.props.smallerText ? '1.0em' : '1.6em'),
       position: 'inherit',
       verticalAlign: 'middle',
       padding: '2px 1px 2px 1px'
+    };
+    const buttonStyle = {
+      position: 'inherit',
+      verticalAlign: 'middle',
+      margin: '5px 5px 10px 5px'
     };
     const generalStyle = {
       fontSize: (this.props.smallerText ? '0.5em' : '1.0em')
@@ -86,17 +69,36 @@ export class DisplayQuestion extends React.Component {
       <div style={generalStyle}>
         { this.props.showKanji ? resource : null }
         {questionText}
-        <p className="questionText">
+        <div>
           { this.props.japaneseCharacters && this.props.showSpeechButton ?
-            <span className="speechButtonContainer">
-              {' '}
-              <Button bsStyle="info" bsSize="xsmall" onClick={() => Speech.say(this.props.primaryText)} >
+            <span>
+              <Button style={buttonStyle} bsStyle="info" bsSize="xsmall" onClick={() => Speech.say(this.props.primaryText)} >
                 <Glyphicon style={speechButtonStyle} glyph="volume-up" />
               </Button>
+              { explanation ?
+                <Button
+                  style={buttonStyle}
+                  bsStyle="info"
+                  bsSize="xsmall"
+                  onClick={() => this.props.updateHintVisibility()}
+                >
+                  <Glyphicon style={speechButtonStyle} glyph={'question-sign'} />
+                </Button>
+              : null }
             </span>
             :
             null }
-        </p>
+          {explanation ?
+            <div>
+
+              <Collapse in={this.props.showHint}>
+                <div>
+                  <Well className="hintText">{explanation}</Well>
+                </div>
+              </Collapse>
+            </div>
+            : null }
+        </div>
       </div>
     );
   }
