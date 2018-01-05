@@ -364,7 +364,8 @@ export function processCurrentQuestion() {
         state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase())]),
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonsDisabled: false,
-      resourceRef: state.questions[localQuestionIndex].resourceReference || null
+      resourceRef: state.questions[localQuestionIndex].resourceReference || null,
+      explanationText: state.questions[localQuestionIndex].explanationText || null
     };
 
     dispatch(receiveProcessedQuestion(currentQuestion));

@@ -18,6 +18,10 @@ export class playScreen extends React.Component {
     super(props);
     this.checkAnswer = this.checkAnswer.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+
+    this.state = {
+      showHint: false
+    };
   }
 
   componentDidMount() {
@@ -29,6 +33,10 @@ export class playScreen extends React.Component {
         this.props.setPageByName('/home');
       }
     }
+  }
+
+  updateHintVisibility = () => {
+    this.setState({ showHint: !this.state.showHint });
   }
 
   checkAnswer(answer, cardData) {
@@ -73,6 +81,7 @@ export class playScreen extends React.Component {
 
   nextQuestion() {
     this.props.setAllButtonsDisabledState(true);
+    this.setState({ showHint: false });
     if (this.props.currentQuestionIndex < this.props.lessonLength - 1) {
       this.props.incrementQuestionIndex();
       this.props.processCurrentQuestion();
@@ -100,6 +109,8 @@ export class playScreen extends React.Component {
           correctAlternative={this.props.currentQuestion.correctAlternative}
           questionAnswered={this.props.currentProcessedQuestionAnswered}
           questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+          updateHintVisibility={this.updateHintVisibility}
+          showHint={this.state.showHint}
         />);
         break;
       case 'kanji':
