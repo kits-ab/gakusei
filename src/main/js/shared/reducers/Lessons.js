@@ -49,7 +49,7 @@ export const defaultState = {
 
   answerTextInputFocused: true,
 
-  // Things originally in SessionStorage
+  // Things originally in SessionStsorage
   correctAttempts: 0,
   totalAttempts: 0,
   currentQuestionIndex: 0,
@@ -242,7 +242,7 @@ export function addUserAnswer(userAnswerText, cardData) {
       dispatch(receiveIncorrectAttempt());
     }
     const eventData = {
-      page: 'Lessons',
+      page: 'lessons',
       username: securityState.loggedInUser,
       data: [{
         eventType: 'userAnswer',
