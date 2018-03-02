@@ -49,7 +49,7 @@ export const defaultState = {
 
   answerTextInputFocused: true,
 
-  // Things originally in SessionStsorage
+  // Things originally in SessionStorage
   correctAttempts: 0,
   totalAttempts: 0,
   currentQuestionIndex: 0,
