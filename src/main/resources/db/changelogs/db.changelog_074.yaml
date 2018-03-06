@@ -1,0 +1,16 @@
+databaseChangeLog:
+- changeSet:
+    id: 74
+    author: Anton Myrholm
+    changes:
+        - addColumn:
+              columns:
+              - column:
+                  name: retention_factor
+                  type: real
+                  defaultValueNumeric: 2.5
+              - column:
+                  name: retention_date
+                  type: datetime
+              schemaName: public
+              tableName: progresstrackinglist
