@@ -102,11 +102,6 @@ public class ProgressHandler {
         Timestamp retTimeStamp = pt.getLatestTimestamp();
         retTimeStamp.setTime(Math.round(retTimeStamp.getTime()+retInterval*24*3600*1000));
 
-        logger.info(retTimeStamp.toString() + " is the next time");
-
-
-        logger.info("Timeperiod:" + timePeriod + " Retfactor: " + retFactor);
-        
         pt.setRetentionFactor(retFactor);
         pt.setRetentionInterval(retInterval);
         pt.setRetentionDate(retTimeStamp);
