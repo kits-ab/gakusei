@@ -10,6 +10,10 @@ databaseChangeLog:
                   type: real
                   defaultValueNumeric: 2.5
               - column:
+                  name: retention_interval
+                  type: real
+                  defaultValueNumeric: 0
+              - column:
                   name: retention_date
                   type: datetime
               schemaName: public
