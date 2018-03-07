@@ -1,6 +1,9 @@
 package se.kits.gakusei.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.ProgressTracking;
@@ -13,6 +16,11 @@ import java.sql.Timestamp;
 
 @Component
 public class ProgressHandler {
+
+    private Logger logger = LoggerFactory.getLogger(ProgressHandler.class);
+
+    @Value("${gakusei.retention-factor-min}")
+    private double retFactorMin;
 
     @Autowired
     private EventRepository eventRepository;
@@ -53,6 +61,55 @@ public class ProgressHandler {
         }
         pt.setLatestTimestamp(latestTS);
         pt.setLatestResult(Boolean.parseBoolean(event.getData()));
+        progressTrackingRepository.save(pt);
+
+        updateRetention(event, pt);
+    }
+
+    private void updateRetention(Event event, ProgressTracking pt) {
+
+        // Magic numbers in here are from the Super Memo 2 implementation article.
+        String username = event.getUser().getUsername();
+        String nuggetId = event.getNuggetId();
+        int timePeriod = eventRepository.getAnswerTimePeriod(username, nuggetId);
+
+        double retFactor = pt.getRetentionFactor();
+        int quality = 1;
+        if (event.getData().trim().equalsIgnoreCase("true")) {
+            if (timePeriod < 5) {
+                quality = 5;
+            } else if(timePeriod < 10) {
+                quality = 4;
+            } else {
+                quality = 3;
+            }
+        }
+        retFactor = Math.max(retFactor - 0.8 + 0.28 * quality - 0.02 * quality * quality, retFactorMin);
+
+        double retInterval = pt.getRetentionInterval();
+
+        if (retInterval < 2) {
+            if (retInterval == 0) {
+                retInterval = 1;
+            } else if (retInterval == 1) {
+                retInterval = 2;
+            }
+        } else {
+            // Update the retention interval to I(n) := I(n-1) * retentionFactor, with random fuzz to avoid patterns
+            retInterval = retInterval * retFactor + (Math.random() / 4);
+        }
+
+        Timestamp retTimeStamp = pt.getLatestTimestamp();
+        retTimeStamp.setTime(Math.round(retTimeStamp.getTime()+retInterval*24*3600*1000));
+
+        logger.info(retTimeStamp.toString() + " is the next time");
+
+
+        logger.info("Timeperiod:" + timePeriod + " Retfactor: " + retFactor);
+        
+        pt.setRetentionFactor(retFactor);
+        pt.setRetentionInterval(retInterval);
+        pt.setRetentionDate(retTimeStamp);
         progressTrackingRepository.save(pt);
     }
 }
