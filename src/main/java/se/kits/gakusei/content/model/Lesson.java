@@ -45,6 +45,13 @@ import java.util.List;
                         "INNER JOIN contentschema.lessons_nuggets ln on n.id = ln.nugget_id)" +
                         "INNER JOIN contentschema.word_types wt on n.word_type_ref = wt.id)" +
                         "WHERE wt.type = 'verb' AND ln.lesson_id = :lessonId) ",
+                resultClass = Nugget.class),
+        @NamedNativeQuery(
+                name = "Lesson.findNuggetsByRetentionDate",
+                query = "SELECT contentschema.nuggets.* FROM contentschema.nuggets\n" +
+                        "WHERE nuggets.id IN (SELECT nugget_id FROM progresstrackinglist WHERE user_ref = :username AND DATE(progresstrackinglist.retention_date) <= now() ORDER BY retention_date ASC)\n" +
+                        "AND :lessonName IN (SELECT NAME FROM contentschema.lessons INNER JOIN contentschema.lessons_nuggets\n" +
+                        "ON contentschema.lessons.id=contentschema.lessons_nuggets.lesson_id) ",
                 resultClass = Nugget.class)
 })
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")

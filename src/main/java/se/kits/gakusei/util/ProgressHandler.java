@@ -22,6 +22,9 @@ public class ProgressHandler {
     @Value("${gakusei.retention-factor-min}")
     private double retFactorMin;
 
+    @Value("${gakusei.retention-mode}")
+    private boolean retentionMode;
+
     @Autowired
     private EventRepository eventRepository;
 
@@ -63,7 +66,9 @@ public class ProgressHandler {
         pt.setLatestResult(Boolean.parseBoolean(event.getData()));
         progressTrackingRepository.save(pt);
 
-        updateRetention(event, pt);
+        if (retentionMode) {
+            updateRetention(event, pt);
+        }
     }
 
     private void updateRetention(Event event, ProgressTracking pt) {

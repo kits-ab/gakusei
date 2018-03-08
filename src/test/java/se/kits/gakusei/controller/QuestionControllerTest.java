@@ -66,7 +66,7 @@ public class QuestionControllerTest {
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
-        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
+        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, questionType, answerType))
                 .thenReturn(questionList);
 
@@ -84,7 +84,7 @@ public class QuestionControllerTest {
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
-        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
+        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, questionType, answerType))
                 .thenReturn(questionList);
 

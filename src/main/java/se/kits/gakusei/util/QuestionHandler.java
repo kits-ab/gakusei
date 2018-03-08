@@ -1,6 +1,7 @@
 package se.kits.gakusei.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import se.kits.gakusei.content.model.*;
 import se.kits.gakusei.content.repository.GrammarTextRepository;
@@ -14,6 +15,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class QuestionHandler {
+
+    @Value("${gakusei.retention-mode}")
+    private boolean retentionMode;
 
     @Autowired
     GrammarTextRepository grammarTextRepository;
@@ -128,23 +132,33 @@ public class QuestionHandler {
         }
     }
 
-    public List<Nugget> chooseNuggets(List<Nugget> nuggetsWithLowSuccessrate,
-                                                List<Nugget> unansweredNuggets,
-                                                List<Nugget> allLessonNuggets,
-                                                int quantity) {
-
-        if (allLessonNuggets.size() <= quantity) {
-            return allLessonNuggets;
+    public List<Nugget> chooseNuggets(List<Nugget> retentionNuggets, List<Nugget> nuggetsWithLowSuccessrate,
+                                      List<Nugget> unansweredNuggets,
+                                      List<Nugget> allLessonNuggets,
+                                      int quantity) {
+        List<Nugget> visibleNuggets;
+        List<Nugget> nuggets = new ArrayList<>();
+        if (!retentionMode) {
+            if (allLessonNuggets.size() <= quantity) {
+                return allLessonNuggets;
+            } else {
+                nuggets.addAll(unansweredNuggets);
+                nuggets.addAll(nuggetsWithLowSuccessrate);
+                nuggets.addAll(allLessonNuggets);
+                visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
+                        .collect(Collectors.toList());
+                Collections.shuffle(visibleNuggets);
+                return visibleNuggets.subList(0, quantity);
+            }
         } else {
-            List<Nugget> nuggets = new ArrayList<>();
+
+            nuggets.addAll(retentionNuggets);
+            Collections.shuffle(unansweredNuggets);
             nuggets.addAll(unansweredNuggets);
-            nuggets.addAll(nuggetsWithLowSuccessrate);
-            nuggets.addAll(allLessonNuggets);
-            List<Nugget> visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
+            visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
                     .collect(Collectors.toList());
-            Collections.shuffle(visibleNuggets);
-            return visibleNuggets.subList(0, quantity);
         }
+        return visibleNuggets.subList(0, Math.min(nuggets.size(), quantity));
     }
 
     private List<String> createAlternative(Nugget nugget, String type) {

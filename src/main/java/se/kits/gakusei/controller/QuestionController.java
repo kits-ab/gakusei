@@ -51,8 +51,10 @@ public class QuestionController {
 
     private List<HashMap<String, Object>> getCachedQuestionsFromLesson(String lessonName, String lessonType, String
             questionType, String answerType, String username) {
+
         List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName);
         List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName);
+        List<Nugget> retentionNuggets = lessonRepository.findNuggetsByRetentionDate(username, lessonName);
         List<Nugget> allLessonNuggets;
 
         if (lessonType.equals("grammar")) {
@@ -61,7 +63,7 @@ public class QuestionController {
             allLessonNuggets = cachedFindNuggets(lessonName);
         }
 
-        List<Nugget> nuggets = questionHandler.chooseNuggets(nuggetsWithLowSuccessrate,
+        List<Nugget> nuggets = questionHandler.chooseNuggets(retentionNuggets, nuggetsWithLowSuccessrate,
                 unansweredNuggets, allLessonNuggets, quantity);
 
         if(lessonType.equals("grammar")){
