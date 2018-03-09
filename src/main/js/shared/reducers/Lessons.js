@@ -242,7 +242,7 @@ export function addUserAnswer(userAnswerText, cardData) {
       dispatch(receiveIncorrectAttempt());
     }
     const eventData = {
-      page: 'Lessons',
+      page: 'lessons',
       username: securityState.loggedInUser,
       data: [{
         eventType: 'userAnswer',
@@ -251,11 +251,11 @@ export function addUserAnswer(userAnswerText, cardData) {
       }, {
         eventType: 'correctAlternative',
         eventData: state.currentQuestion.shapes[0],
-        nuggetId: null
+        nuggetId: state.currentQuestion.correctAlternativeNuggetId
       }, {
         eventType: 'correctAlternative',
         eventData: state.currentQuestion.correctAlternative[0],
-        nuggetId: null
+        nuggetId: state.currentQuestion.correctAlternativeNuggetId
       }, {
         eventType: 'answeredCorrectly',
         eventData: answeredQuestion.userCorrect,
@@ -333,7 +333,7 @@ export function receiveProcessedQuestion(currentQuestion) {
     });
 
     try {
-      Utility.logEvent('lessons', 'question', currentQuestion.shapes, null, securityState.loggedInUser);
+      Utility.logEvent('lessons', 'question', currentQuestion.shapes, currentQuestion.correctAlternativeNuggetId, securityState.loggedInUser);
       for (let i = 0; i < currentQuestion.randomizedAlternatives.length; i += 1) {
         Utility.logEvent('lessons', 'alternative', currentQuestion.randomizedAlternatives[i], null,
           securityState.loggedInUser);
