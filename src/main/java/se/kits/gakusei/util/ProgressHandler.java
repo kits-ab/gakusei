@@ -95,9 +95,9 @@ public class ProgressHandler {
 
         if (retInterval < 2) {
             if (retInterval == 0) {
+                retInterval = 0.04167;
+            } else if (retInterval < 1) {
                 retInterval = 1;
-            } else if (retInterval == 1) {
-                retInterval = 2;
             }
         } else {
             // Update the retention interval to I(n) := I(n-1) * retentionFactor, with random fuzz to avoid patterns
