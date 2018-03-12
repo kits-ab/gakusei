@@ -10,17 +10,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import se.kits.gakusei.content.model.Nugget;
-import se.kits.gakusei.content.repository.FactRepository;
+import se.kits.gakusei.content.model.WordType;
 import se.kits.gakusei.content.repository.NuggetRepository;
+import se.kits.gakusei.content.repository.WordTypeRepository;
 import se.kits.gakusei.test_tools.TestTools;
 
-import java.util.ArrayList;
-
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NuggetControllerTest {
@@ -29,48 +28,44 @@ public class NuggetControllerTest {
     private NuggetController nuggetController;
 
     @Mock
-    private FactRepository factRepository;
+    private WordTypeRepository wordTypeRepository;
 
     @Mock
     private NuggetRepository nuggetRepository;
 
-    private String wordType;
-    private List<String> factTypes;
+    private WordType wordType;
     private List<Nugget> nuggets;
+    private List<Nugget> visibleNuggets;
 
     @Before
     public void setUp() throws Exception {
-        nuggetController = new NuggetController();
-        MockitoAnnotations.initMocks(this);
-
-        wordType = "verb";
-        factTypes = new ArrayList<>(Arrays.asList("swedish", "english"));
+        nuggetController = new NuggetController(nuggetRepository, wordTypeRepository);
+        wordType = new WordType();
+        wordType.setType("verb");
         nuggets = TestTools.generateNuggets();
+        visibleNuggets = nuggets.stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
     }
 
     @Test
-    public void testFindNuggetByFilterWithFactTypes() {
-        Long lengthOfFacts = 2L;
+    public void testFindNuggetsByFilterOfAllWordTypesOK() {
+        Mockito.when(nuggetRepository.findAll()).thenReturn(nuggets);
+        Mockito.when(nuggetController.cachedNuggetsOfAllWordTypes()).thenReturn(visibleNuggets);
 
-        Mockito.when(nuggetRepository.getNuggetsbyFilter(wordType, factTypes, lengthOfFacts)).thenReturn(nuggets);
+        ResponseEntity<List<Nugget>> re = nuggetController.findNuggetsByFilter("vocabulary");
 
-        ResponseEntity<List<Nugget>> re = nuggetController.findNuggetsByFilter(wordType, factTypes);
-
-        assertEquals(nuggets, re.getBody());
-        assertEquals(200, re.getStatusCodeValue());
+        assertEquals(visibleNuggets, re.getBody());
+        assertEquals(HttpStatus.OK, re.getStatusCode());
     }
 
     @Test
-    public void testFindNuggetByFilterWithoutFactTypes() {
-        Long lengthOfFacts = 0L;
-        List<String> emptyFactTypes = Collections.EMPTY_LIST;
+    public void testFindNuggetsByFilterOfWordType() {
+        Mockito.when(wordTypeRepository.findByType(wordType.getType())).thenReturn(wordType);
+        Mockito.when(nuggetRepository.findByWordType(wordType)).thenReturn(nuggets);
+        Mockito.when(nuggetController.cachedNuggetsOfWordType(wordType.getType())).thenReturn(visibleNuggets);
 
-        Mockito.when(factRepository.getAllFactTypes()).thenReturn(factTypes);
-        Mockito.when(nuggetRepository.getNuggetsbyFilter(wordType, factTypes, lengthOfFacts)).thenReturn(nuggets);
+        ResponseEntity<List<Nugget>> re = nuggetController.findNuggetsByFilter(wordType.getType());
 
-        ResponseEntity<List<Nugget>> re = nuggetController.findNuggetsByFilter(wordType, emptyFactTypes);
-
-        assertEquals(nuggets, re.getBody());
-        assertEquals(200, re.getStatusCodeValue());
+        assertEquals(visibleNuggets, re.getBody());
+        assertEquals(HttpStatus.OK, re.getStatusCode());
     }
 }

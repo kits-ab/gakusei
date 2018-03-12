@@ -37,10 +37,19 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/select/flashcards">
                   <MenuItem className="flashcardPlay">Bildkort</MenuItem>
                 </LinkContainer>
+                  {/* Remove this comment when feature is done
+                  <LinkContainer to="/select/kanji">
+                  <MenuItem className="kanjiPlay">Skriv Kanji</MenuItem>
+                </LinkContainer> */}
               </NavDropdown>
-              <IndexLinkContainer to="/grammar">
-                <NavItem className="grammarHelp">Grammatik</NavItem>
-              </IndexLinkContainer>
+              <NavDropdown className="grammarDropdown" title="Grammatik" id="basic-nav-dropdown">
+                <LinkContainer to="/select/grammar">
+                  <MenuItem className="grammarPlay">Böj verb</MenuItem>
+                </LinkContainer>
+                <LinkContainer to="/grammar">
+                  <NavItem className="grammarHelp">Texter om grammatik</NavItem>
+                </LinkContainer>
+              </NavDropdown>
               <LinkContainer to="/select/quiz">
                 <NavItem className="quizPlay">Quiz</NavItem>
               </LinkContainer>
@@ -67,7 +76,7 @@ export class GakuseiNav extends React.Component {
             </Nav>
           :
             <Nav pullRight>
-              <LinkContainer to="/login">
+              <LinkContainer to={`/login${this.props.location.search}`}>
                 <NavItem>Logga in / Registrera</NavItem>
               </LinkContainer>
             </Nav>}

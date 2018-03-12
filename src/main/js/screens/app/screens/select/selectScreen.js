@@ -23,6 +23,10 @@ export class selectScreen extends React.Component {
 
     this.props.fetchUserStarredLessons()
       .catch(() => this.props.verifyUserLoggedIn());
+
+    if (this.props.params.type === 'kanji') {
+      this.props.setQuestionLanguage('reading');
+    }
   }
 
   componentDidMount() {
@@ -57,6 +61,10 @@ export class selectScreen extends React.Component {
         return <h1>Översätt ordet</h1>;
       case 'flashcards':
         return <h1>Bildkort</h1>;
+      case 'kanji':
+        return <h1>Skriv Kanji</h1>;
+      case 'grammar':
+        return <h1>Böj verb</h1>;
       default:
         throw new Error('No play type specified');
     }
@@ -73,6 +81,10 @@ export class selectScreen extends React.Component {
       case 'flashcards':
         return (<span>Träna dig själv genom att använda kort,
         med frågan på ena sidan och rätta svaret på den andra.</span>);
+      case 'kanji':
+        return (<span>Försök rita kanji-tecken med korrekta drag och i rätt ordning.</span>);
+      case 'grammar':
+        return <span>Böj det visade ordet i fritext på angiven verbform.</span>;
       default:
         throw new Error('No play type specified');
     }
@@ -113,7 +125,10 @@ export class selectScreen extends React.Component {
   render() {
     const options = this.props.lessons.map(lesson =>
       <Row key={lesson.name}>
-        <Col xs={10} md={11} lg={10}>
+        <Col
+          xs={this.props.params.type === 'quiz' ? 12 : 10}
+          md={this.props.params.type === 'quiz' ? 12 : 11}
+          lg={this.props.params.type === 'quiz' ? 12 : 11}>
           <ListGroupItem
             key={lesson.name}
             onClick={() => this.props.setSelectedLesson(lesson)}
@@ -122,28 +137,36 @@ export class selectScreen extends React.Component {
             bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
           />
         </Col>
-        <Col xs={2} md={1} lg={2}>
-          <Button
-            bsStyle={this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ? 'warning' : null}
-            onClick={() => this.handleStarredClick(lesson)}
-          >
-            <Glyphicon glyph="star" />
-          </Button>
-        </Col>
+        {this.props.params.type === 'quiz' ?
+          null
+          :
+          <Col xs={2} md={1} lg={1}>
+            <Button
+              bsStyle={this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ? 'warning' : null}
+              onClick={() => this.handleStarredClick(lesson)}
+            >
+              <Glyphicon glyph="star" />
+            </Button>
+          </Col>
+        }
       </Row>);
 
-    const languages = [];
-    languages.push(
-      <option key={'reading'} value={'reading'}>Japanska</option>,
-      <option key={'swedish'} value={'swedish'}>Svenska</option>
-    );
-
+    const answerLanguages = [];
+    let questionLanguages = [];
+    answerLanguages.push(<option key={'reading'} value={'reading'}>Japanska</option>);
+    answerLanguages.push(<option key={'swedish'} value={'swedish'}>Svenska</option>);
     /* devcode: start */
-    languages.push(<option key={'english'} value={'english'}>Engelska</option>);
+    answerLanguages.push(<option key={'english'} value={'english'}>Engelska</option>);
     /* devcode: end */
 
+    if (this.props.params.type === 'kanji') {
+      questionLanguages = answerLanguages.shift();
+    } else {
+      questionLanguages = answerLanguages;
+    }
+
     let languageSelection;
-    if (this.props.params.type === 'quiz') {
+    if (this.props.params.type === 'quiz' || this.props.params.type === 'grammar') {
       languageSelection = <div />;
     } else {
       languageSelection = (
@@ -157,8 +180,9 @@ export class selectScreen extends React.Component {
                 id="questionLanguageSelection"
                 onChange={this.handleLanguageSelection}
                 value={this.props.questionType}
+                disabled={this.props.params.type === 'kanji'}
               >
-                {languages}
+                {questionLanguages}
               </FormControl>
             </Col>
             <Col xs={12} sm={6}>
@@ -170,7 +194,7 @@ export class selectScreen extends React.Component {
                 onChange={this.handleLanguageSelection}
                 value={this.props.answerType}
               >
-                {languages}
+                {answerLanguages}
               </FormControl>
 
             </Col>

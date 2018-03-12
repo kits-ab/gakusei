@@ -1,0 +1,17 @@
+databaseChangeLog:
+- changeSet:
+    id: 3
+    author: psandboge
+    preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                tableName: user_lesson
+                columnName: lesson_ref
+    changes:
+    - addColumn:
+        tableName: user_lesson
+        columns:
+        - column:
+            name: lesson_ref
+            type: SERIAL

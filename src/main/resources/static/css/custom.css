@@ -32,10 +32,19 @@
 .questionText{
     font-size: 300% !important;
   }
+.verbQuestionText{
+    font-size: 150% !important;
+  }
+.hintText{
+    font-size: 100% !important;
+  }
 }
 
 @media screen and (max-width: 992px) {
 .questionText{
     font-size: 225% !important;
+  }
+.verbQuestionText{
+    font-size: 100% !important;
   }
 }

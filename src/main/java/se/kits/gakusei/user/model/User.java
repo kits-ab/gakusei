@@ -17,27 +17,32 @@ public class User implements Serializable{
     private static final long serialVersionUID = 6433155328293181762L;
 
     @Id
+    @JsonProperty(value = "username")
     private String username;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY, value = "password")
     private String password;
 
     @Column(name = "userrole")
+    @JsonProperty(value = "role")
     private String role;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "events")
     @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonProperty(value = "events")
     private List<Event> events;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "progress")
     @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonProperty(value = "progressTrackingList")
     private List<ProgressTracking> progressTrackingList;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "userlesson")
     @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonProperty(value = "usersLessons")
     private List<UserLesson> usersLessons;
 
     public User() {

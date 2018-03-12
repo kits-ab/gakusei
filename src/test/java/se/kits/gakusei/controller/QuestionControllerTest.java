@@ -10,7 +10,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.test_tools.TestTools;
@@ -31,7 +33,7 @@ public class QuestionControllerTest {
     @Mock
     private LessonRepository lessonRepository;
 
-   @Value("${gakusei.questions-quantity}")
+    @Value("${gakusei.questions-quantity}")
     private int quantity;
 
     private String questionType;
@@ -39,53 +41,57 @@ public class QuestionControllerTest {
     private String lessonName;
     private String userName;
     private List<Nugget> nuggets;
+    private Lesson lesson;
+    private List<HashMap<String, Object>> questionList;
 
     @Before
     public void setUp() throws Exception {
-        questionController = new QuestionController();
+        questionController = new QuestionController(lessonRepository, questionHandler);
         MockitoAnnotations.initMocks(this);
         questionType = "reading";
         answerType = "swedish";
         lessonName = "Verbs";
         userName = "testUser";
         nuggets = TestTools.generateNuggets();
+        lesson = new Lesson();
+        lesson.setName(lessonName);
+        lesson.setNuggets(nuggets);
+        questionList = Collections.singletonList(TestTools.generateQuestion());
     }
 
 
 
     @Test
     public void testGetQuestionsFromLessonOK() throws Exception {
-        List<HashMap<String, Object>> questionList = Collections.singletonList(TestTools.generateQuestion());
-
-        Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName, questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName, questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(questionHandler.chooseNuggetsByProgress(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
-        Mockito.when(questionHandler.createQuestions(nuggets, quantity, questionType, answerType))
+        Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
+        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
+        Mockito.when(questionHandler.createQuestions(nuggets, questionType, answerType))
                 .thenReturn(questionList);
 
         ResponseEntity<List<HashMap<String, Object>>> re = questionController.getQuestionsFromLesson(lessonName,
-                questionType, answerType, userName);
+                "vocabulary", questionType, answerType, userName);
 
         assertEquals(questionList, re.getBody());
-        assertEquals(200, re.getStatusCodeValue());
+        assertEquals(HttpStatus.OK, re.getStatusCode());
     }
 
     @Test
     public void testGetQuestionsFromLessonInternalServerError() throws Exception {
-        List<HashMap<String, Object>> emptyList = Collections.EMPTY_LIST;
+        questionList = Collections.EMPTY_LIST;
 
-        Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName, questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName, questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(lessonRepository.findNuggetsByTwoFactTypes(lessonName, questionType, answerType)).thenReturn(nuggets);
-        Mockito.when(questionHandler.chooseNuggetsByProgress(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
-        Mockito.when(questionHandler.createQuestions(nuggets, quantity, questionType, answerType))
-                .thenReturn(emptyList);
+        Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
+        Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
+        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
+        Mockito.when(questionHandler.createQuestions(nuggets, questionType, answerType))
+                .thenReturn(questionList);
 
         ResponseEntity<List<HashMap<String, Object>>> re = questionController.getQuestionsFromLesson(lessonName,
-                questionType, answerType, userName);
+                "vocabulary", questionType, answerType, userName);
 
         assertNull(re.getBody());
-        assertEquals(500, re.getStatusCodeValue());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());
     }
 }

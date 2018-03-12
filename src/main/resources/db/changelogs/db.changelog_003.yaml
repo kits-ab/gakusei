@@ -1,0 +1,33 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684531133-3
+    author: joakim (generated)
+    preConditions:
+      - onFail: MARK_RAN
+      - not:
+        - tableExists:
+            schemaName: public
+            tableName: user_lesson
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: user_lesson_pkey
+            name: id
+            type: SERIAL
+        - column:
+            name: username
+            type: VARCHAR(32)
+        - column:
+            name: lesson_name
+            type: VARCHAR(32)
+        - column:
+            name: first_deadline
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        - column:
+            name: second_deadline
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        tableName: user_lesson

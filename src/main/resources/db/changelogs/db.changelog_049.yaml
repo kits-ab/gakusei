@@ -1,0 +1,16 @@
+databaseChangeLog:
+- changeSet:
+    id: 49
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: copy facts data into nuggets
+        sql: update contentschema.nuggets as n
+             set jp_read = jp.reading
+             from
+               (
+                 select f.type, f.data reading, f.nuggetid nugget, n.id
+                 from contentschema.facts f, contentschema.nuggets n
+                 where f.nuggetid = n.id and f.type = 'reading' and n.type != 'kanji'
+               ) jp
+             where n.id = jp.nugget;

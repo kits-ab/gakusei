@@ -1,0 +1,11 @@
+databaseChangeLog:
+- changeSet:
+    id: 34
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: insert quizzes from facts
+        sql:  insert into contentschema.quiz (name)
+              select distinct data
+              from contentschema.facts
+              where type = 'quiz';

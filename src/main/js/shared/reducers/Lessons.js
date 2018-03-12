@@ -28,18 +28,26 @@ export const defaultState = {
   answerType: 'swedish',
 
   questions: [],
-  processedQuestion: {
-    actualQuestionShapes: [],
+  currentQuestion: {
+    shapes: [],
     correctAlternative: [],
     correctAlternativeNuggetId: '',
+    // Button specifics
     randomizedAlternatives: [],
     buttonStyles: ['default', 'default', 'default', 'default'],
-    buttonDisabled: false,
-    resourceRef: {}
+    buttonsDisabled: false,
+    resourceRef: {},
+    // Below added after user answers
+    userAnswer: undefined,
+    userCorrect: undefined,
+    cardData: {}
   },
+
   allButtonsDisabled: false,
-  processedQuestionsWithAnswers: [],
+  answeredQuestions: [],
   lessonLength: 0,
+
+  answerTextInputFocused: true,
 
   // Things originally in SessionStorage
   correctAttempts: 0,
@@ -52,13 +60,13 @@ export const defaultState = {
 // PROPTYPES
 export const propTypes = {
   lessonSuccessRateMessage: React.PropTypes.string.isRequired,
-  processedQuestion: React.PropTypes.shape({
-    actualQuestionShapes: React.PropTypes.array.isRequired,
+  currentQuestion: React.PropTypes.shape({
+    shapes: React.PropTypes.array.isRequired,
     correctAlternative: React.PropTypes.array.isRequired,
     correctAlternativeNuggetId: React.PropTypes.string,
     randomizedAlternatives: React.PropTypes.array.isRequired,
     buttonStyles: React.PropTypes.array.isRequired,
-    buttonDisabled: React.PropTypes.bool.isRequired,
+    buttonsDisabled: React.PropTypes.bool.isRequired,
     resourceRef: React.PropTypes.shape({
       type: React.PropTypes.string,
       location: React.PropTypes.string
@@ -69,7 +77,8 @@ export const propTypes = {
   currentQuestionIndex: React.PropTypes.number.isRequired,
   calcAnswerButtonStyles: React.PropTypes.func.isRequired,
   questionType: React.PropTypes.string.isRequired,
-  answerType: React.PropTypes.string.isRequired
+  answerType: React.PropTypes.string.isRequired,
+  answerTextInputFocused: React.PropTypes.bool.isRequired,
 };
 
 // -----------------
@@ -89,6 +98,7 @@ export const RECEIVE_PROCESSED_QUESTION = 'RECEIVE_NEXT_PROCESSED_QUESTION';
 export const SET_SELECTED_LESSON = 'SET_SELECTED_LESSON';
 export const SET_GAMEMODE = 'SET_GAMEMODE';
 export const SET_ALL_BUTTONS_DISABLED_STATE = 'SET_ALL_BUTTONS_DISABLED_STATE';
+export const SET_ANSWER_TEXT_INPUT_FOCUSED_STATE = 'SET_ANSWER_TEXT_INPUT_FOCUSED_STATE';
 export const ADD_USER_ANSWER = 'ADD_USER_ANSWER';
 export const CLEAR_USER_ANSWERS = 'CLEAR_USER_ANSWERS';
 export const SHOW_ANSWER_BUTTON_STYLES = 'SHOW_ANSWER_BUTTON_STYLES';
@@ -175,14 +185,14 @@ export function calcAnswerButtonStyles() {
     const state = getState().lessons;
 
     const userAnswerWord = state
-      .processedQuestionsWithAnswers[state.currentQuestionIndex]
+      .answeredQuestions[state.currentQuestionIndex]
       .userAnswer;
 
-    const newButtonStyles = state.processedQuestion.randomizedAlternatives.map(words =>
+    const newButtonStyles = state.currentQuestion.randomizedAlternatives.map(words =>
       words.map((word) => {
-        if (state.processedQuestion.correctAlternative.indexOf(word) !== -1) {
+        if (state.currentQuestion.correctAlternative.indexOf(word) !== -1) {
           return 'success';
-        } else if (word.toLowerCase() === userAnswerWord.toLowerCase()) {
+        } else if (!userAnswerWord || word.toLowerCase() === userAnswerWord.toLowerCase()) {
           return 'danger';
         }
         return 'default';
@@ -204,47 +214,57 @@ export function receiveIncorrectAttempt() {
   };
 }
 
-export function addUserAnswer(userAnswerText) {
+export function addUserAnswer(userAnswerText, cardData) {
   return function (dispatch, getState) {
     const state = getState().lessons;
     const securityState = getState().security;
 
-    const processedQuestionWithAnswer = {
-      ...state.processedQuestion,
-      userAnswer: userAnswerText,
-      userCorrect: state.processedQuestion.correctAlternative
-      .some(s => s.toLowerCase() === userAnswerText.toLowerCase())
+    let userAnswerTextFinalized = userAnswerText;
+    let userCorrectFinalized = null;
+    if (typeof userAnswerText === 'boolean') {
+      userAnswerTextFinalized = null;
+      userCorrectFinalized = userAnswerText;
+    } else {
+      userCorrectFinalized = state.currentQuestion.correctAlternative
+      .some(s => s.toLowerCase() === userAnswerTextFinalized.toLowerCase());
+    }
+
+    const answeredQuestion = {
+      ...state.currentQuestion,
+      cardData,
+      userAnswer: userAnswerTextFinalized,
+      userCorrect: userCorrectFinalized
     };
 
-    if (processedQuestionWithAnswer.userCorrect) {
+    if (answeredQuestion.userCorrect) {
       dispatch(receiveCorrectAttempt());
     } else {
       dispatch(receiveIncorrectAttempt());
     }
     const eventData = {
-      page: 'Lessons',
+      page: 'lessons',
       username: securityState.loggedInUser,
       data: [{
         eventType: 'userAnswer',
         eventData: userAnswerText,
         nuggetId: null
       }, {
-        eventType: 'correctAnswer',
-        eventData: state.processedQuestion.actualQuestionShapes[0],
-        nuggetId: null
+        eventType: 'correctAlternative',
+        eventData: state.currentQuestion.shapes[0],
+        nuggetId: state.currentQuestion.correctAlternativeNuggetId
       }, {
-        eventType: 'correctAnswer',
-        eventData: state.processedQuestion.correctAlternative[0],
-        nuggetId: null
+        eventType: 'correctAlternative',
+        eventData: state.currentQuestion.correctAlternative[0],
+        nuggetId: state.currentQuestion.correctAlternativeNuggetId
       }, {
         eventType: 'answeredCorrectly',
-        eventData: processedQuestionWithAnswer.userCorrect,
-        nuggetId: state.processedQuestion.correctAlternativeNuggetId
+        eventData: answeredQuestion.userCorrect,
+        nuggetId: state.currentQuestion.correctAlternativeNuggetId
       }] };
 
     dispatch({ type: ADD_USER_ANSWER,
       description: 'Add an answer a user made, along with correct results',
-      processedQuestionWithAnswer });
+      answeredQuestion });
 
     dispatch(calcLessonSuccessRate());
     dispatch(calcAnswerButtonStyles(userAnswerText));
@@ -279,6 +299,14 @@ export function setAllButtonsDisabledState(disabled) {
   };
 }
 
+export function setAnswerTextInputFocusedState(focused) {
+  return {
+    type: SET_ANSWER_TEXT_INPUT_FOCUSED_STATE,
+    description: 'Allow or disallow focus for answer input field',
+    answerTextInputFocused: focused
+  };
+}
+
 export function setGameMode(gamemode) {
   return {
     type: SET_GAMEMODE,
@@ -294,20 +322,20 @@ export function incrementQuestionIndex() {
   };
 }
 
-export function receiveProcessedQuestion(processedQuestion) {
+export function receiveProcessedQuestion(currentQuestion) {
   return function (dispatch, getState) {
     const securityState = getState().security;
 
     dispatch({
       type: RECEIVE_PROCESSED_QUESTION,
       description: 'We have received the next question, randomized and processed for play',
-      processedQuestion
+      currentQuestion
     });
 
     try {
-      Utility.logEvent('lessons', 'question', processedQuestion.actualQuestionShapes, null, securityState.loggedInUser);
-      for (let i = 0; i < processedQuestion.randomizedAlternatives.length; i += 1) {
-        Utility.logEvent('lessons', 'alternative', processedQuestion.randomizedAlternatives[i], null,
+      Utility.logEvent('lessons', 'question', currentQuestion.shapes, currentQuestion.correctAlternativeNuggetId, securityState.loggedInUser);
+      for (let i = 0; i < currentQuestion.randomizedAlternatives.length; i += 1) {
+        Utility.logEvent('lessons', 'alternative', currentQuestion.randomizedAlternatives[i], null,
           securityState.loggedInUser);
       }
       Utility.sendCollectedEvents().catch(() => {
@@ -325,8 +353,8 @@ export function processCurrentQuestion() {
     const state = getState().lessons;
     const localQuestionIndex = state.currentQuestionIndex;
 
-    const processedQuestion = {
-      actualQuestionShapes: state.questions[localQuestionIndex].question.map(s => s),
+    const currentQuestion = {
+      shapes: state.questions[localQuestionIndex].question.map(s => s),
       correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase()),
       correctAlternativeNuggetId: state.questions[localQuestionIndex].questionNuggetId,
       randomizedAlternatives: Utility.randomizeOrder([
@@ -335,11 +363,12 @@ export function processCurrentQuestion() {
         state.questions[localQuestionIndex].alternative3.map(s => s.toLowerCase()),
         state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase())]),
       buttonStyles: ['default', 'default', 'default', 'default'],
-      buttonDisabled: false,
-      resourceRef: state.questions[localQuestionIndex].resourceReference || null
+      buttonsDisabled: false,
+      resourceRef: state.questions[localQuestionIndex].resourceReference || null,
+      explanationText: state.questions[localQuestionIndex].explanationText || null
     };
 
-    dispatch(receiveProcessedQuestion(processedQuestion));
+    dispatch(receiveProcessedQuestion(currentQuestion));
   };
 }
 
@@ -467,8 +496,8 @@ export function setAnswerLanguage(language) {
 export function fetchLessons(type) {
   return function (dispatch, getState) {
     const lessonState = getState().lessons;
-    const lessonType = type === 'quiz' ? 'quiz' : 'vocabulary';
-    return fetch(`/api/lessons?lessonType=${lessonType}`, { credentials: 'same-origin' })
+    const url = type === 'quiz' ? '/api/quizes' : `/api/lessons?lessonType=${type}`;
+    return fetch(url, { credentials: 'same-origin' })
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -488,7 +517,7 @@ export function fetchLessons(type) {
 export function fetchaddressedQuestionsInLessons() {
   return function (dispatch, getState) {
     const securityState = getState().security;
-    return fetch(`api/lessonInfo?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+    return fetch(`/api/lessonInfo?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(result => dispatch(setAddressedQuestions(result)));
   };
@@ -502,6 +531,9 @@ export function fetchLesson(lessonType) {
       case 'quiz':
         fetchURL = '/api/quiz';
         break;
+      case 'kanji':
+        fetchURL = '/api/questions/kanji';
+        break;
       default:
         fetchURL = '/api/questions';
         break;
@@ -511,7 +543,7 @@ export function fetchLesson(lessonType) {
     const securityState = getState().security;
 
     return new Promise(resolve => fetch(`${fetchURL}?lessonName=${lessonState.selectedLesson.name}&questionType=${lessonState.questionType}&` +
-      `answerType=${lessonState.answerType}&username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+      `answerType=${lessonState.answerType}&lessonType=${lessonType}&username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
         (json) => {
@@ -568,7 +600,7 @@ export function fetchUserSuccessRate(username) {
   return function (dispatch) {
     dispatch(requestUserSuccessRate());
 
-    fetch(`api/statistics/${username}`, { credentials: 'same-origin' })
+    fetch(`/api/statistics/${username}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(data => dispatch(receiveUserSuccessRate(data, 'success', data)));
   };
@@ -590,6 +622,7 @@ export const actionCreators = {
   setGameMode,
   processCurrentQuestion,
   setAllButtonsDisabledState,
+  setAnswerTextInputFocusedState,
   addUserAnswer,
   clearUserAnswers,
   resetAttempts,
@@ -625,32 +658,37 @@ export function lessons(state = defaultState, action) {
         ...state,
         allButtonsDisabled: action.allButtonsDisabled
       };
+    case SET_ANSWER_TEXT_INPUT_FOCUSED_STATE:
+      return {
+        ...state,
+        answerTextInputFocused: action.answerTextInputFocused
+      };
     case CLEAR_PROCESSED_QUESTION:
       return {
         ...state,
-        processedQuestion: {
-          actualQuestionShapes: [],
+        currentQuestion: {
+          shapes: [],
           correctAlternative: [],
           randomizedAlternatives: [],
           buttonStyles: ['default', 'default', 'default', 'default'],
-          buttonDisabled: false,
+          buttonsDisabled: false,
           resourceRef: []
         }
       };
     case RECEIVE_ANSWER_BUTTON_STYLES:
       return {
         ...state,
-        processedQuestion: { ...state.processedQuestion, buttonStyles: action.buttonStyles }
+        currentQuestion: { ...state.currentQuestion, buttonStyles: action.buttonStyles }
       };
     case ADD_USER_ANSWER:
       return {
         ...state,
-        processedQuestionsWithAnswers: [...state.processedQuestionsWithAnswers, action.processedQuestionWithAnswer]
+        answeredQuestions: [...state.answeredQuestions, action.answeredQuestion]
       };
     case CLEAR_USER_ANSWERS:
       return {
         ...state,
-        processedQuestionsWithAnswers: [],
+        answeredQuestions: [],
         currentProcessedQuestionAnswered: false,
         currentProcessedQuestionAnsweredCorrectly: false
       };
@@ -673,8 +711,8 @@ export function lessons(state = defaultState, action) {
     case RECEIVE_PROCESSED_QUESTION:
       return {
         ...state,
-        processedQuestion: action.processedQuestion,
-        resourceRef: action.processedQuestion.resourceRef,
+        currentQuestion: action.currentQuestion,
+        resourceRef: action.currentQuestion.resourceRef,
         currentProcessedQuestionAnswered: false,
         currentProcessedQuestionAnsweredCorrectly: false
       };

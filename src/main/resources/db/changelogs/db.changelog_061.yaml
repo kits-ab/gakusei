@@ -1,0 +1,11 @@
+databaseChangeLog:
+- changeSet:
+    id: 61
+    author: Pontus Doverstav
+    changes:
+        - sql:
+            comment: copy id, description, hidden and book_ref from nugget to kanji table
+            sql:
+                INSERT INTO contentschema.kanjis (id, description, hidden)
+                SELECT n.id, n.description, n.hidden
+                FROM contentschema.nuggets n WHERE n.type = 'kanji';

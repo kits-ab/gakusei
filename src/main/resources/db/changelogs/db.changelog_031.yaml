@@ -1,0 +1,16 @@
+databaseChangeLog:
+- changeSet:
+    id: 31
+    author: doverstav
+    preConditions:
+        - onFail: MARK_RAN
+        - columnExists:
+            columnName: order
+            schemaName: contentschema
+            tableName: courses
+    changes:
+    - renameColumn:
+        newColumnName: courseOrder
+        oldColumnName: order
+        schemaName: contentschema
+        tableName: courses

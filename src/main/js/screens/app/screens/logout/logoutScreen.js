@@ -8,7 +8,7 @@ export const Reducers = [Security];
 export class logoutScreen extends React.Component {
 
   componentWillMount() {
-    this.props.requestUserLogout(this.props.location.query.currentUrl || '/', getCSRF());
+    this.props.requestUserLogout('/', getCSRF());
   }
 
   render() {

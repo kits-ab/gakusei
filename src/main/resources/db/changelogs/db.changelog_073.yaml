@@ -1,0 +1,9 @@
+databaseChangeLog:
+- changeSet:
+    id: 73
+    author: Pontus Doverstav
+    changes:
+        - dropColumn:
+            schemaName: contentschema
+            tableName: nuggets
+            columnName: type

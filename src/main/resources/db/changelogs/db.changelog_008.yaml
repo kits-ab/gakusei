@@ -1,0 +1,40 @@
+databaseChangeLog:
+- changeSet:
+    id: 1487684523397-1
+    author: joakim (generated)
+    preConditions:
+      - onFail: MARK_RAN
+      - not:
+        - tableExists:
+            schemaName: contentschema
+            tableName: facts
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              primaryKeyName: facts_pkey
+            name: id
+            type: SERIAL
+        - column:
+            constraints:
+              nullable: false
+            name: type
+            type: VARCHAR(32)
+        - column:
+            constraints:
+              nullable: false
+            name: data
+            type: VARCHAR(128)
+        - column:
+            name: description
+            type: VARCHAR(256)
+        - column:
+            constraints:
+              nullable: false
+            name: nuggetid
+            type: VARCHAR(16)
+        tableName: facts
+        schemaName: contentschema

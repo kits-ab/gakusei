@@ -1,0 +1,150 @@
+databaseChangeLog:
+- include:
+    file: classpath:db/changelogs/db.changelog_001.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_002.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_003.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_004.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_005.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_006.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_007.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_008.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_009.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_010.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_011.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_012.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_013.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_014.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_015.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_016.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_017.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_018.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_019.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_020.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_021.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_022.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_023.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_024.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_025.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_026.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_027.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_028.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_029.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_030.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_031.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_032.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_033.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_034.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_035.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_036.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_037.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_038.yaml
+- include:    
+    file: classpath:db/changelogs/db.changelog_039.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_040.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_041.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_042.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_043.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_044.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_045.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_046.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_047.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_048.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_049.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_050.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_051.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_052.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_053.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_054.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_055.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_056.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_057.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_058.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_058B.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_059.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_060.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_061.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_062.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_063.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_064.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_065.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_066.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_067.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_068.yaml
+- include:    
+    file: classpath:db/changelogs/db.changelog_069.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_070.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_071.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_072.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_073.yaml
+

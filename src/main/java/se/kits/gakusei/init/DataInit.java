@@ -13,19 +13,19 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import se.kits.gakusei.content.model.Fact;
-import se.kits.gakusei.content.model.Lesson;
-import se.kits.gakusei.content.model.Nugget;
-import se.kits.gakusei.content.repository.FactRepository;
-import se.kits.gakusei.content.repository.LessonRepository;
-import se.kits.gakusei.content.repository.NuggetRepository;
+import se.kits.gakusei.content.model.*;
+import se.kits.gakusei.content.repository.*;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
+import se.kits.gakusei.util.ParserFailureException;
+import se.kits.gakusei.util.csv.CSVQuizNugget;
+import se.kits.gakusei.util.csv.CSVQuizToDatabase;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Component
 public class DataInit implements ApplicationRunner {
@@ -35,9 +35,6 @@ public class DataInit implements ApplicationRunner {
 
     @Autowired
     private NuggetRepository nuggetRepository;
-
-    @Autowired
-    private FactRepository factRepository;
 
     @Autowired
     private LessonRepository lessonRepository;
@@ -51,10 +48,30 @@ public class DataInit implements ApplicationRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private IncorrectAnswerRepository incorrectAnswerRepository;
+
+    @Autowired
+    private QuizNuggetRepository quizNuggetRepository;
+
+    @Autowired
+    private QuizRepository quizRepository;
+
+    @Autowired
+    private WordTypeRepository wordTypeRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
+
+    @Autowired
+    private KanjiRepository kanjiRepository;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${gakusei.data-init}")
     private boolean datainit;
+
+    private Set<String> allKeysExceptBooks;
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
@@ -62,11 +79,16 @@ public class DataInit implements ApplicationRunner {
         String activeProfiles = Arrays.toString(environment.getActiveProfiles());
         if (datainit) {
             String testDataFile = "testdata/testdata.json";
-            String quizDataFile = "testdata/quizdata.json";
+            String csvQuizNuggetFile = "testdata/quizzes.csv";
+
+            allKeysExceptBooks = new HashSet<>(Arrays.asList("type", "english", "swedish", "id",
+                    "state", "reading", "writing", "kanjidrawing"));
             createUsers();
+            createTestBooks(readTestDataFromFile(testDataFile));
             createTestData(readTestDataFromFile(testDataFile));
-            createQuiz(readTestDataFromFile(quizDataFile));
             createLessons();
+            createQuizzesFromCSV(csvQuizNuggetFile);
+
             logger.info("*** Data initialization was set on profile(s): " + activeProfiles);
         } else {
             logger.info("*** Data initialization was NOT set on profile(s): " + activeProfiles);
@@ -76,50 +98,101 @@ public class DataInit implements ApplicationRunner {
     private Set<Map<String, Object>> readTestDataFromFile(String testDataFile) {
                 ObjectMapper mapper = new ObjectMapper();
         Resource resource = resourceLoader.getResource("classpath:" + testDataFile);
-        logger.info("Loaded resource");
+        logger.info("Loaded resource: " + testDataFile);
         try (InputStream json = resource.getInputStream()) {
             Set<Map<String, Object>> dataHolders = mapper.readValue(json,new TypeReference<Set<Map<String, Object>>>(){});
-            logger.info(dataHolders.toString());
+            logger.debug(dataHolders.toString());
             return dataHolders;
         } catch (IOException e) {
-            logger.error("Unable to parse " + testDataFile);
-            e.printStackTrace();
+            logger.error("Unable to parse " + testDataFile, e);
             return null;
         }
+    }
+
+    private void createTestBooks(Set<Map<String, Object>> dataHolders) {
+        for (Map<String, Object> tdh : dataHolders) {
+            try {
+                for (Map.Entry entry : tdh.entrySet()) {
+                    String key = entry.getKey().toString();
+                    if (!allKeysExceptBooks.contains(key)) {
+                        String title = getBookTitle(key, entry.getValue());
+                        if (bookRepository.findByTitle(title) == null) {
+                            Book book = new Book();
+                            book.setTitle(title);
+                            bookRepository.save(book);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                logger.warn("Faulty book detected, skipping: " + tdh);
+            }
+        }
+    }
+
+    private String getBookTitle(String book, Object chapterData) {
+        String chapter;
+        if (chapterData instanceof String) {
+            chapter = chapterData.toString();
+        } else {
+            chapter = ((ArrayList<String>) chapterData).get(0);
+        }
+        return book.concat(" " + chapter);
+    }
+
+    private void createKanji(List<Book> books, Map<String, Object> tdh) {
+        Kanji kanji = new Kanji();
+        kanji.setDescription(((ArrayList<String>)tdh.get("english")).get(0));
+        kanji.setEnglish(((ArrayList<String>)tdh.get("english")).get(0));
+        kanji.setSwedish(((ArrayList<String>)tdh.get("swedish")).get(0));
+        kanji.setKanji(((ArrayList<String>)tdh.get("writing")).get(0));
+        kanji.setHidden(tdh.get("state").equals("hidden"));
+        kanji.setBooks(books);
+        kanjiRepository.save(kanji);
+    }
+
+    private void createNugget(List<Book> books, Map<String, Object> tdh) {
+        String nuggetType = ((ArrayList<String>) tdh.get("type")).get(0);
+        WordType wordType = wordTypeRepository.findByType(nuggetType);
+        if (wordType == null) {
+            wordType = new WordType();
+            wordType.setType(nuggetType);
+            wordTypeRepository.save(wordType);
+        }
+
+        Nugget nugget = new Nugget();
+        nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
+        nugget.setEnglish(((ArrayList<String>) tdh.get("english")).get(0));
+        nugget.setSwedish(((ArrayList<String>) tdh.get("swedish")).get(0));
+        nugget.setJpRead(((ArrayList<String>) tdh.get("reading")).get(0));
+        nugget.setJpWrite(((ArrayList<String>) tdh.get("writing")).get(0));
+        nugget.setHidden(tdh.get("state").equals("hidden"));
+        nugget.setWordType(wordType);
+        nugget.setBooks(books);
+        nuggetRepository.save(nugget);
+
     }
 
     private void createTestData(Set<Map<String, Object>> dataHolders) {
         for (Map<String, Object> tdh : dataHolders) {
             try {
-                Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
-                nugget.setDescription(((ArrayList<String>) tdh.get("english")).get(0));
-                nugget.setId(tdh.get("id").toString());
-                List<Fact> facts = new ArrayList<>();
-                Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id"));
+                String nuggetType = ((ArrayList<String>) tdh.get("type")).get(0);
+                List<Book> books = new ArrayList<>();
+
                 for (Map.Entry entry : tdh.entrySet()) {
                     String type = entry.getKey().toString();
-                    if (typeSet.contains(type)) {
-                        if (entry.getValue().toString().equals("hidden")) {
-                            nugget.setHidden(true);
+                    if (!allKeysExceptBooks.contains(type)) {
+                        Book book = bookRepository.findByTitle(getBookTitle(type, entry.getValue()));
+                        if (!books.contains(book)) {
+                            books.add(book);
                         }
-                        continue;
                     }
-                    Fact fact = new Fact();
-                    fact.setType(type);
-                    Object data = entry.getValue();
-                    if (data instanceof String) {
-                        fact.setData(data.toString());
-                    } else {
-                        fact.setData(((ArrayList<String>) entry.getValue()).get(0));
-                    }
-                    facts.add(fact);
                 }
-                Nugget savedNugget = nuggetRepository.save(nugget);
-                savedNugget.setFacts(facts);
-                for (Fact fact : facts) {
-                    fact.setNugget(savedNugget);
+
+                if (nuggetType.equals("kanji")) {
+                    createKanji(books, tdh);
+                } else {
+                    createNugget(books, tdh);
                 }
-                factRepository.save(facts);
             } catch (Exception e) {
                 logger.warn("Faulty nugget detected, skipping: " + tdh);
             }
@@ -139,15 +212,12 @@ public class DataInit implements ApplicationRunner {
 
     private void createLessons() {
         createVerbLesson();
-        createLessonsByCategory("kll");
-        createLessonsByCategory("jlpt");
-        createLessonsByCategory("genki");
-        createLessonsByCategory("quiz");
+        createLessonsByBooks();
     }
 
     private void createVerbLesson() {
-        List<Nugget> verbNuggets = nuggetRepository.findAll().stream().filter(n -> n.getType().equals("verb"))
-                .collect(Collectors.toList());
+        List<Nugget> verbNuggets = nuggetRepository.findAll().stream().filter(n -> n.getWordType().getType()
+                .equals("verb")).collect(Collectors.toList());
         Lesson lesson = new Lesson();
         lesson.setName("Verbs");
         lesson.setDescription("All nuggets with type verb");
@@ -155,72 +225,49 @@ public class DataInit implements ApplicationRunner {
         lessonRepository.save(lesson);
     }
 
-    private void createLessonsByCategory(String category) {
-        List<Nugget> nuggets = nuggetRepository.findAll().stream()
-                .filter(n -> n.getFacts().stream().anyMatch(f -> category.equals(f.getType())))
-                .collect(Collectors.toList());
-        if (nuggets.isEmpty()) return;
+    private void createLessonsByBooks() {
+        lessonRepository.save(StreamSupport.stream(bookRepository.findAll().spliterator(), false)
+                .map(this::createLesson).collect(Collectors.toList()));
 
-        Map<String, List<Nugget>> nuggetMap = new HashMap<>();
-        for (Nugget n : nuggets) {
-            Fact fact = n.getFacts().stream().filter(f -> category.equals(f.getType())).findFirst().get();
-
-            String lessonName = fact.getType().equals("quiz") ?
-                    fact.getData() :
-                    (fact.getType() + " " + fact.getData()).toUpperCase();
-            nuggetMap.computeIfAbsent(lessonName, k -> new ArrayList<>()).add(n);
-        }
-        List<Lesson> lessons = new ArrayList<>();
-        for (String lessonName : nuggetMap.keySet()) {
-            Lesson l = new Lesson();
-            l.setName(lessonName);
-            l.setDescription(category);
-            l.setNuggets(nuggetMap.get(lessonName));
-            lessons.add(l);
-        }
-        lessonRepository.save(lessons);
     }
 
-    private void createQuiz(Set<Map<String, Object>> dataHolders) {
-        for (Map<String, Object> tdh : dataHolders) {
-            Nugget nugget = new Nugget(((ArrayList<String>) tdh.get("type")).get(0));
-            nugget.setDescription((String) tdh.get("question"));
-            nugget.setId(tdh.get("id").toString());
-            List<Fact> facts = new ArrayList<>();
-            Set<String> typeSet = new HashSet<>(Arrays.asList("type", "state", "id", "question"));
-            for (Map.Entry entry : tdh.entrySet()) {
-                String type = entry.getKey().toString();
-                if (typeSet.contains(type)) {
-                    if (entry.getValue().toString().equals("hidden")) {
-                        nugget.setHidden(true);
-                    }
-                    continue;
-                }
-                Object data = entry.getValue();
-                if (data instanceof String) {
-                    Fact fact = new Fact();
-                    fact.setType(type);
-                    fact.setData(data.toString());
-                    facts.add(fact);
-                } else {
-                    List<Fact> collectedFacts = ((List<String>) data).stream()
-                            .map(d -> {
-                                Fact f = new Fact();
-                                f.setType(entry.getKey().toString());
-                                f.setData(d);
-                                return f;
-                            })
-                            .collect(Collectors.toList());
-                    facts.addAll(collectedFacts);
-                }
+    private Lesson createLesson(Book book) {
+        List<Nugget> nuggets = nuggetRepository.findAll().stream().filter(n -> n.getBooks().stream().map(Book::getId)
+                .collect(Collectors.toList()).contains(book.getId())).collect(Collectors.toList());
+        List<Kanji> kanjis = StreamSupport.stream(kanjiRepository.findAll().spliterator(), false)
+                .filter(k -> k.getBooks().stream().map(Book::getId).collect(Collectors.toList()).contains(book.getId()))
+                .collect(Collectors.toList());
 
+        Lesson lesson = new Lesson();
+        lesson.setName(book.getTitle());
+        lesson.setDescription(book.getTitle());
+        lesson.setNuggets(nuggets);
+        lesson.setKanjis(kanjis);
+        return lesson;
+    }
+
+    public void createQuizzesFromCSV(String csvFile) throws Exception {
+
+        CSVQuizToDatabase parser = new CSVQuizToDatabase(resourceLoader.getResource("classpath:" + csvFile).getInputStream());
+        List<CSVQuizNugget> csvQuizNuggets = new ArrayList<>();
+
+        try {
+            csvQuizNuggets = parser.parse();
+
+        } catch (ParserFailureException e){
+            logger.error("Unable to parse " + csvFile, e);
+        }
+
+        for (CSVQuizNugget csvQuizNugget : csvQuizNuggets) {
+            Quiz newQuiz = csvQuizNugget.getQuiz();
+            Quiz quiz = quizRepository.findByName(newQuiz.getName());
+
+            if (quiz == null) {
+                quiz = quizRepository.save(newQuiz);
             }
-            Nugget savedNugget = nuggetRepository.save(nugget);
-            savedNugget.setFacts(facts);
-            for (Fact fact : facts) {
-                fact.setNugget(savedNugget);
-            }
-            factRepository.save(facts);
+
+            QuizNugget quizNugget = quizNuggetRepository.save(csvQuizNugget.getQuizNugget(quiz));
+            incorrectAnswerRepository.save(csvQuizNugget.getIncorrectAnswers(quizNugget));
         }
     }
 }

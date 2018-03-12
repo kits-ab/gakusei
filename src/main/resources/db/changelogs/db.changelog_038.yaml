@@ -1,0 +1,9 @@
+databaseChangeLog:
+- changeSet:
+    id: 38
+    author: sofiaedstrom
+    changes:
+    - sql:
+        comment: delete quizzes from nuggets
+        sql:  delete from contentschema.nuggets
+              where type = 'quiz';

@@ -1,0 +1,17 @@
+databaseChangeLog:
+- changeSet:
+    id: 62
+    author: Pontus Doverstav
+    changes:
+        - sql:
+            comment: Move swedish translations from fact to kanji table
+            sql:
+                UPDATE contentschema.kanjis AS k
+                SET swedish = data.data
+                FROM (
+                       SELECT n.id, f.data
+                       FROM contentschema.facts f
+                       INNER JOIN contentschema.nuggets n ON n.id = f.nuggetid
+                       WHERE n.type = 'kanji' AND f.type = 'swedish'
+                     ) data
+                WHERE k.id = data.id;
