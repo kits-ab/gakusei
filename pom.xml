@@ -32,7 +32,7 @@
         <dependency>
             <groupId>com.github.psandboge</groupId>
             <artifactId>japanese-grammar-utils</artifactId>
-            <version>60adb4c4b4ca6e6891baf2b1c0f0950675f6ae02</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
