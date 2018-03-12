@@ -29,7 +29,7 @@
     "geckodriver": "^1.4.1",
     "hyphenation.sv": "^0.2.1",
     "hypher": "^0.2.5",
-    "moment": "2.17.1",
+    "moment": "2.21.0",
     "moresketchy": "^1.0.5",
     "munkres-js": "^1.2.2",
     "react": "^15.4.2",
