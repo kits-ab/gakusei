@@ -71,7 +71,7 @@ public class ProgressHandler {
         }
     }
 
-    private void updateRetention(Event event, ProgressTracking pt) {
+    protected void updateRetention(Event event, ProgressTracking pt) {
 
         // Magic numbers in here are from the Super Memo 2 implementation article.
         String username = event.getUser().getUsername();
@@ -93,15 +93,15 @@ public class ProgressHandler {
 
         double retInterval = pt.getRetentionInterval();
 
-        if (retInterval < 2) {
+        if (retInterval < 1) {
             if (retInterval == 0) {
                 retInterval = 0.04167;
-            } else if (retInterval < 1) {
+            } else {
                 retInterval = 1;
             }
         } else {
             // Update the retention interval to I(n) := I(n-1) * retentionFactor, with random fuzz to avoid patterns
-            retInterval = retInterval * retFactor + (Math.random() / 4);
+            retInterval = retInterval * retFactor + (Math.random() / 24);
         }
 
         Timestamp retTimeStamp = pt.getLatestTimestamp();
