@@ -191,78 +191,6 @@ public class ProgressHandlerTest {
     }
 
     @Test
-    public void testUpdateRetentionCorrect() throws Exception {
-
-        Timestamp timestampSql = new Timestamp(timestamp);
-        ProgressTracking progressTracking =
-                createProgressTracking(user, nuggets.get(1).getId(), correctCount, incorrectCount, timestampSql, true);
-        ProgressTracking spyPT = spy(progressTracking);
-        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "true");
-
-        when(userRepository.findByUsername(username)).thenReturn(user);
-        when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(1);
-
-        spyPT.setRetentionInterval(0);
-        spyPT.setRetentionFactor(2.5);
-        spyPT.setLatestTimestamp(timestampSql);
-
-        progressHandler.updateRetention(event, spyPT);
-        verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
-        ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
-
-        assertEquals(2.6, ptFromCaptor.getRetentionFactor(),0.0000001);
-        assertEquals(0.04167, ptFromCaptor.getRetentionInterval(),0.0000001);
-        assertEquals(timestamp + Math.round(0.04167 * 24 * 3600 * 1000), ptFromCaptor.getRetentionDate().getTime());
-
-        spyPT.setRetentionInterval(0.04167);
-        progressHandler.updateRetention(event, spyPT);
-        ptFromCaptor = progressTrackingArgumentCaptor.getValue();
-        assertEquals(1.0, ptFromCaptor.getRetentionInterval(),0.0000001);
-
-        spyPT.setRetentionInterval(1);
-        spyPT.setRetentionFactor(2.5);
-        progressHandler.updateRetention(event, spyPT);
-        ptFromCaptor = progressTrackingArgumentCaptor.getValue();
-        assertEquals(ptFromCaptor.getRetentionFactor(),2.6,0.0001);
-        assertTrue(ptFromCaptor.getRetentionInterval() >= 2.6 && ptFromCaptor.getRetentionInterval() < 2.6417);
-    }
-
-    @Test
-    public void testRetentionFactorUpdate() throws Exception {
-        Timestamp timestampSql = new Timestamp(timestamp);
-        ProgressTracking progressTracking =
-                createProgressTracking(user, nuggets.get(1).getId(), correctCount, incorrectCount, timestampSql, true);
-        ProgressTracking spyPT = spy(progressTracking);
-        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "true");
-
-        when(userRepository.findByUsername(username)).thenReturn(user);
-        when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(1);
-
-        spyPT.setRetentionFactor(2.5);
-
-        progressHandler.updateRetention(event, spyPT);
-        verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
-        ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
-        assertEquals(2.6, ptFromCaptor.getRetentionFactor(),0.0000001);
-
-        when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(7);
-        spyPT.setRetentionFactor(2.5);
-        progressHandler.updateRetention(event, spyPT);
-        assertEquals(2.5, ptFromCaptor.getRetentionFactor(),0.0000001);
-
-        when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(30);
-        spyPT.setRetentionFactor(2.5);
-        progressHandler.updateRetention(event, spyPT);
-        assertEquals(2.36, ptFromCaptor.getRetentionFactor(),0.0000001);
-
-        event.setData("false");
-        when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(3);
-        spyPT.setRetentionFactor(2.5);
-        progressHandler.updateRetention(event, spyPT);
-        assertEquals(1.96, ptFromCaptor.getRetentionFactor(),0.0000001);
-    }
-
-    @Test
     public void testRetentionFactorCorrectFast() {
         retentionFactorHelperTester(2.5, 1, 2.6, "true");
     }
@@ -291,24 +219,64 @@ public class ProgressHandlerTest {
     public void testRetentionFactorIncorrectSlow() {
         retentionFactorHelperTester(2.5, 30, 1.96, "false");
     }
-    
 
-    private void retentionFactorHelperTester(double factor, int time, double expected, String correct) {
+    @Test
+    public void testRetentionIntervalAndDateFirst(){
+        double interval = retentionIntervalAndDateHelperTester(0);
+        assertEquals(0.04167,interval,0.000001);
+    }
+
+    @Test
+    public void testRetentionIntervalAndDateSecond(){
+        double interval = retentionIntervalAndDateHelperTester(0.04167);
+        assertEquals(1,interval,0.000001);
+    }
+
+    @Test
+    public void testRetentionIntervalAndDateThird(){
+        double interval = retentionIntervalAndDateHelperTester(1);
+        assertTrue(interval >= 2.6);
+        assertTrue(interval <= 2.6 + (1d/24d));
+    }
+
+
+    private void retentionFactorHelperTester(double factor, int timeTaken, double expectedFactor, String answeredCorrectly) {
         Timestamp timestampSql = new Timestamp(timestamp);
         ProgressTracking progressTracking =
                 createProgressTracking(user, nuggets.get(1).getId(), correctCount, incorrectCount, timestampSql, true);
         ProgressTracking spyPT = spy(progressTracking);
-        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), correct);
+        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), answeredCorrectly);
 
         when(userRepository.findByUsername(username)).thenReturn(user);
-        when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(time);
+        when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(timeTaken);
 
         spyPT.setRetentionFactor(factor);
 
         progressHandler.updateRetention(event, spyPT);
         verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
         ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
-        assertEquals(expected, ptFromCaptor.getRetentionFactor(),0.0000001);
+
+        assertEquals(expectedFactor, ptFromCaptor.getRetentionFactor(),0.0000001);
+    }
+
+    private double retentionIntervalAndDateHelperTester(double interval) {
+        Timestamp timestampSql = new Timestamp(timestamp);
+        ProgressTracking progressTracking =
+                createProgressTracking(user, nuggets.get(1).getId(), correctCount, incorrectCount, timestampSql, true);
+        ProgressTracking spyPT = spy(progressTracking);
+        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "true");
+
+        when(userRepository.findByUsername(username)).thenReturn(user);
+        when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(1);
+
+        spyPT.setRetentionFactor(2.5);
+        spyPT.setRetentionInterval(interval);
+
+        progressHandler.updateRetention(event, spyPT);
+        verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
+        ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
+
+        return ptFromCaptor.getRetentionInterval();
     }
 
 }
