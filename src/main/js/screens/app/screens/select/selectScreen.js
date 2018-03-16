@@ -13,6 +13,7 @@ export class selectScreen extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
+    this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
 
     this.onKeys = this.onKeys.bind(this);
   }
@@ -115,6 +116,10 @@ export class selectScreen extends React.Component {
     } catch (err) {
       this.props.verifyUserLoggedIn();
     }
+  }
+
+  handleSpacedRepetition(event) {
+    this.props.toggleSpacedRepetition();
   }
 
   handleStarredClick(lesson) {
@@ -224,6 +229,7 @@ export class selectScreen extends React.Component {
                 onKeyPress={this.handleKeyPress}
               />
               <Button type="submit" bsStyle="primary">&nbsp;Starta&nbsp;</Button>
+              <ControlLabel> Spaced Repetition: <input name="spacedRepetition" type="checkbox" onClick={this.handleSpacedRepetition} /></ControlLabel>
             </FormGroup>
             <br />
           </form>

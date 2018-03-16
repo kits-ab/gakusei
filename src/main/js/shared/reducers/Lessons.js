@@ -48,6 +48,7 @@ export const defaultState = {
   lessonLength: 0,
 
   answerTextInputFocused: true,
+  spacedRepetition: false,
 
   // Things originally in SessionStorage
   correctAttempts: 0,
@@ -79,6 +80,7 @@ export const propTypes = {
   questionType: React.PropTypes.string.isRequired,
   answerType: React.PropTypes.string.isRequired,
   answerTextInputFocused: React.PropTypes.bool.isRequired,
+  spacedRepetition: React.PropTypes.bool.isRequired
 };
 
 // -----------------
@@ -108,6 +110,7 @@ export const CLEAR_PROCESSED_QUESTION = 'CLEAR_PROCESSED_QUESTION';
 export const SET_QUESTION_LANGUAGE = 'SET_QUESTION_LANGUAGE';
 export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
 export const SET_ADDRESSED_QUESTIONS = 'SET_ADDRESSED_QUESTIONS';
+export const SET_SPACED_REPETITION = 'SET_SPACED_REPETITION';
 
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
@@ -526,7 +529,6 @@ export function fetchaddressedQuestionsInLessons() {
 export function fetchLesson(lessonType) {
   return function (dispatch, getState) {
     let fetchURL;
-
     switch (lessonType) {
       case 'quiz':
         fetchURL = '/api/quiz';
@@ -543,7 +545,7 @@ export function fetchLesson(lessonType) {
     const securityState = getState().security;
 
     return new Promise(resolve => fetch(`${fetchURL}?lessonName=${lessonState.selectedLesson.name}&questionType=${lessonState.questionType}&` +
-      `answerType=${lessonState.answerType}&lessonType=${lessonType}&username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+      `answerType=${lessonState.answerType}&lessonType=${lessonType}&username=${securityState.loggedInUser}&spacedRepetition=${lessonState.spacedRepetition}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(
         (json) => {
@@ -606,6 +608,27 @@ export function fetchUserSuccessRate(username) {
   };
 }
 
+export function toggleSpacedRepetition() {
+  return function (dispatch, getState) {
+      const lessonState = getState().lessons;
+      if (lessonState.spacedRepetition) {
+        dispatch({
+          type: SET_SPACED_REPETITION,
+          description: 'Toggles spaced repetition',
+          value: false
+        });
+      } else {
+        dispatch({
+          type: SET_SPACED_REPETITION,
+          description: 'Toggles spaced repetition',
+          value: true
+        });
+      }
+
+      
+  };
+}
+
 export const actionCreators = {
   requestUserSuccessRate,
   fetchUserSuccessRate,
@@ -634,7 +657,8 @@ export const actionCreators = {
   fetchUserStarredLessons,
   receiveUserStarredLessons,
   addStarredLesson,
-  removeStarredLesson
+  removeStarredLesson,
+  toggleSpacedRepetition
 };
 
 // ----------------
@@ -796,6 +820,11 @@ export function lessons(state = defaultState, action) {
       return {
         ...state,
         requestingSuccessRate: true
+      };
+    case SET_SPACED_REPETITION:
+      return {
+        ...state,
+        spacedRepetition: action.value
       };
   }
 }
