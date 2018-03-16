@@ -67,12 +67,12 @@ public class QuestionControllerTest {
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
-        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
+        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, nuggets, quantity, false)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, questionType, answerType))
                 .thenReturn(questionList);
 
         ResponseEntity<List<HashMap<String, Object>>> re = questionController.getQuestionsFromLesson(lessonName,
-                "vocabulary", questionType, answerType, userName);
+                "vocabulary", questionType, answerType, userName, false);
 
         assertEquals(questionList, re.getBody());
         assertEquals(HttpStatus.OK, re.getStatusCode());
@@ -85,12 +85,12 @@ public class QuestionControllerTest {
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
-        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
+        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, nuggets, quantity, false)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, questionType, answerType))
                 .thenReturn(questionList);
 
         ResponseEntity<List<HashMap<String, Object>>> re = questionController.getQuestionsFromLesson(lessonName,
-                "vocabulary", questionType, answerType, userName);
+                "vocabulary", questionType, answerType, userName, false);
 
         assertNull(re.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());

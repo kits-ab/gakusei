@@ -16,9 +16,6 @@ import java.util.stream.Collectors;
 @Component
 public class QuestionHandler {
 
-    @Value("${gakusei.retention-mode}")
-    private boolean retentionMode;
-
     @Autowired
     GrammarTextRepository grammarTextRepository;
 
@@ -135,10 +132,10 @@ public class QuestionHandler {
     public List<Nugget> chooseNuggets(List<Nugget> retentionNuggets, List<Nugget> nuggetsWithLowSuccessrate,
                                       List<Nugget> unansweredNuggets,
                                       List<Nugget> allLessonNuggets,
-                                      int quantity) {
+                                      int quantity, boolean spacedRepetition) {
         List<Nugget> visibleNuggets;
         List<Nugget> nuggets = new ArrayList<>();
-        if (!retentionMode) {
+        if (!spacedRepetition) {
             if (allLessonNuggets.size() <= quantity) {
                 return allLessonNuggets;
             } else {

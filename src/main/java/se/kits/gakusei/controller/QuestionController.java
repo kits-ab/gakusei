@@ -39,10 +39,11 @@ public class QuestionController {
             @RequestParam(value = "lessonType", defaultValue = "vocabulary") String lessonType,
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType,
-            @RequestParam(name = "username") String username) {
+            @RequestParam(name = "username") String username,
+            @RequestParam(name = "spacedRepetition", required = false, defaultValue = "false") boolean spacedRepetition) {
 
         List<HashMap<String, Object>> questions = getCachedQuestionsFromLesson(lessonName, lessonType,
-                questionType, answerType, username);
+                questionType, answerType, username, spacedRepetition);
 
         return questions.isEmpty() ?
                 new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) :
@@ -50,7 +51,7 @@ public class QuestionController {
     }
 
     private List<HashMap<String, Object>> getCachedQuestionsFromLesson(String lessonName, String lessonType, String
-            questionType, String answerType, String username) {
+            questionType, String answerType, String username, boolean spacedRepetition) {
 
         List<Nugget> nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(username, lessonName);
         List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, lessonName);
@@ -64,7 +65,7 @@ public class QuestionController {
         }
 
         List<Nugget> nuggets = questionHandler.chooseNuggets(retentionNuggets, nuggetsWithLowSuccessrate,
-                unansweredNuggets, allLessonNuggets, quantity);
+                unansweredNuggets, allLessonNuggets, quantity, spacedRepetition);
 
         if(lessonType.equals("grammar")){
             return questionHandler.createGrammarQuestions(

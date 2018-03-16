@@ -10,7 +10,6 @@ gakusei:
   data-init: false
   event-logging: true
   questions-quantity: 20
-  retention-mode: false
   retention-factor-min: 1.3
 
 
