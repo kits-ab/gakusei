@@ -91,7 +91,7 @@ public class EventController {
                 + " / " + user.getUsername());
         event = eventRepository.save(event);
         if (event.getType().equalsIgnoreCase("answeredCorrectly")) {
-            progressHandler.trackProgress(event);
+            progressHandler.trackProgress(event, false);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
