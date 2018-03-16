@@ -263,6 +263,10 @@ export function addUserAnswer(userAnswerText, cardData) {
         eventType: 'answeredCorrectly',
         eventData: answeredQuestion.userCorrect,
         nuggetId: state.currentQuestion.correctAlternativeNuggetId
+      }, {
+        eventType: 'updateRetention',
+        eventData: answeredQuestion.userCorrect,
+        nuggetId: state.currentQuestion.correctAlternativeNuggetId
       }] };
 
     dispatch({ type: ADD_USER_ANSWER,

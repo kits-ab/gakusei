@@ -93,6 +93,10 @@ public class EventController {
         if (event.getType().equalsIgnoreCase("answeredCorrectly")) {
             progressHandler.trackProgress(event, false);
         }
+
+        if(event.getType().equalsIgnoreCase("updateRetention")) {
+            // Update the retention
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
