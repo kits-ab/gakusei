@@ -263,11 +263,15 @@ export function addUserAnswer(userAnswerText, cardData) {
         eventType: 'answeredCorrectly',
         eventData: answeredQuestion.userCorrect,
         nuggetId: state.currentQuestion.correctAlternativeNuggetId
-      }, {
-        eventType: 'updateRetention',
-        eventData: answeredQuestion.userCorrect,
-        nuggetId: state.currentQuestion.correctAlternativeNuggetId
       }] };
+
+      if (getState().lessons.spacedRepetition) {
+        eventData.data.push({
+          eventType: 'updateRetention',
+          eventData: answeredQuestion.userCorrect,
+          nuggetId: state.currentQuestion.correctAlternativeNuggetId
+        });
+      }
 
     dispatch({ type: ADD_USER_ANSWER,
       description: 'Add an answer a user made, along with correct results',
