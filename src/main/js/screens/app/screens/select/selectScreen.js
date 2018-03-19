@@ -229,7 +229,7 @@ export class selectScreen extends React.Component {
                 onKeyPress={this.handleKeyPress}
               />
               <Button type="submit" bsStyle="primary">&nbsp;Starta&nbsp;</Button>
-              <ControlLabel> Spaced Repetition: <input name="spacedRepetition" type="checkbox" onClick={this.handleSpacedRepetition} /></ControlLabel>
+              <ControlLabel> Spaced Repetition: <input name="spacedRepetition" type="checkbox" defaultChecked={this.props.spacedRepetition} onClick={this.handleSpacedRepetition} /></ControlLabel>
             </FormGroup>
             <br />
           </form>
