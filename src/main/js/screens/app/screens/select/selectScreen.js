@@ -150,6 +150,18 @@ export class selectScreen extends React.Component {
       this.props.addStarredLesson(lesson.name);
   }
 
+  getNumberOfQuestions(lesson) {
+    if (this.props.spacedRepetition && this.props.addressedQuestionsInLessons) {
+      return this.props.addressedQuestionsInLessons[lesson.name].retention +
+      this.props.addressedQuestionsInLessons[lesson.name].unanswered + 0;
+    } else if (this.props.addressedQuestionsInLessons) {
+      return this.props.addressedQuestionsInLessons[lesson.name].all;
+    }
+    
+    return lesson.name;
+    
+  }
+
   render() {
     const options = this.props.lessons.map(lesson =>
       <Row key={lesson.name}>
@@ -161,7 +173,7 @@ export class selectScreen extends React.Component {
             key={lesson.name}
             onClick={() => this.props.setSelectedLesson(lesson)}
             value={lesson.name}
-            header={lesson.name}
+            header={`${lesson.name} - ${this.getNumberOfQuestions(lesson)} frågor ${this.props.spacedRepetition ? 'kvar' : ''}`}
             bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
           />
         </Col>
