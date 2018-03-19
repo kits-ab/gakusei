@@ -20,13 +20,13 @@ export class selectScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.props.Lessons(this.props.params.type)
+    this.props.fetchLessons(this.props.params.type)
       .catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.UserStarredLessons()
+    this.props.fetchUserStarredLessons()
       .catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.addressedQuestionsInLessons()
+    this.props.fetchaddressedQuestionsInLessons()
       .catch(() => this.props.verifyUserLoggedIn());
 
     if (this.props.params.type === 'kanji') {
@@ -41,7 +41,7 @@ export class selectScreen extends React.Component {
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.params.type !== nextProps.params.type) {
-      this.props.Lessons(nextProps.params.type)
+      this.props.fetchLessons(nextProps.params.type)
         .catch(() => this.props.verifyUserLoggedIn());
     }
   }
