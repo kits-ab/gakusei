@@ -63,12 +63,12 @@ public class ProgressHandler {
         pt.setLatestResult(Boolean.parseBoolean(event.getData()));
         progressTrackingRepository.save(pt);
 
-        if (isRetention) {
-            updateRetention(event, pt);
-        }
     }
 
-    protected void updateRetention(Event event, ProgressTracking pt) {
+    public void updateRetention(Event event) {
+        User user = userRepository.findByUsername(event.getUser().getUsername());
+        ProgressTracking pt = progressTrackingRepository.findByUserAndNuggetID(user,
+                event.getNuggetId());
 
         // Magic numbers in here are from the Super Memo 2 implementation article.
         String username = event.getUser().getUsername();

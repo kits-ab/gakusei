@@ -249,10 +249,12 @@ public class ProgressHandlerTest {
 
         when(userRepository.findByUsername(username)).thenReturn(user);
         when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(timeTaken);
+        when(progressTrackingRepository.findByUserAndNuggetID(user,
+                event.getNuggetId())).thenReturn(spyPT);
 
         spyPT.setRetentionFactor(factor);
 
-        progressHandler.updateRetention(event, spyPT);
+        progressHandler.updateRetention(event);
         verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
         ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
 
@@ -268,11 +270,13 @@ public class ProgressHandlerTest {
 
         when(userRepository.findByUsername(username)).thenReturn(user);
         when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(1);
+        when(progressTrackingRepository.findByUserAndNuggetID(user,
+                event.getNuggetId())).thenReturn(spyPT);
 
         spyPT.setRetentionFactor(2.5);
         spyPT.setRetentionInterval(interval);
 
-        progressHandler.updateRetention(event, spyPT);
+        progressHandler.updateRetention(event);
         verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
         ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
 
