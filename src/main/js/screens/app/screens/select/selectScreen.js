@@ -20,13 +20,13 @@ export class selectScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchLessons(this.props.params.type)
+    this.props.Lessons(this.props.params.type)
       .catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchUserStarredLessons()
+    this.props.UserStarredLessons()
       .catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchaddressedQuestionsInLessons()
+    this.props.addressedQuestionsInLessons()
       .catch(() => this.props.verifyUserLoggedIn());
 
     if (this.props.params.type === 'kanji') {
@@ -41,7 +41,7 @@ export class selectScreen extends React.Component {
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.params.type !== nextProps.params.type) {
-      this.props.fetchLessons(nextProps.params.type)
+      this.props.Lessons(nextProps.params.type)
         .catch(() => this.props.verifyUserLoggedIn());
     }
   }
@@ -121,10 +121,17 @@ export class selectScreen extends React.Component {
     return true;
   }
 
+  getButtonText() {
+    if (this.isLessonStartable()) {
+      return 'Starta';
+    }
+    return 'Ej startbar';
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     try {
-      this.props.fetchLesson(this.props.params.type)
+      this.props.Lesson(this.props.params.type)
           .then(() => {
             this.props.setPageByName(`/play/${this.props.params.type}`);
           });
@@ -244,7 +251,7 @@ export class selectScreen extends React.Component {
                 type="hidden"
                 onKeyPress={this.handleKeyPress}
               />
-              <Button type="submit" bsStyle="primary" disabled={!this.isLessonStartable()}>&nbsp;Starta&nbsp;</Button>
+              <Button type="submit" bsStyle="primary" disabled={!this.isLessonStartable()}>{this.getButtonText()}</Button>
               <ControlLabel> Spaced Repetition: <input name="spacedRepetition" type="checkbox" defaultChecked={this.props.spacedRepetition} onClick={this.handleSpacedRepetition} /></ControlLabel>
             </FormGroup>
             <br />
