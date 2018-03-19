@@ -16,6 +16,7 @@ export class selectScreen extends React.Component {
     this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
 
     this.onKeys = this.onKeys.bind(this);
+
   }
 
   componentWillMount() {
@@ -23,6 +24,9 @@ export class selectScreen extends React.Component {
       .catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchUserStarredLessons()
+      .catch(() => this.props.verifyUserLoggedIn());
+
+    this.props.fetchaddressedQuestionsInLessons()
       .catch(() => this.props.verifyUserLoggedIn());
 
     if (this.props.params.type === 'kanji') {
@@ -106,6 +110,17 @@ export class selectScreen extends React.Component {
         break;
     }
   }
+  
+  isLessonStartable() {
+    if (this.props.spacedRepetition) {
+      if (this.props.selectedLesson.name && this.props.addressedQuestionsInLessons) {
+        return this.props.addressedQuestionsInLessons[this.props.selectedLesson.name].retention 
+        + this.props.addressedQuestionsInLessons[this.props.selectedLesson.name].unanswered >= 4;
+      } 
+    }
+    return true;
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     try {
@@ -127,6 +142,7 @@ export class selectScreen extends React.Component {
       this.props.removeStarredLesson(lesson.name) :
       this.props.addStarredLesson(lesson.name);
   }
+
   render() {
     const options = this.props.lessons.map(lesson =>
       <Row key={lesson.name}>
@@ -228,7 +244,7 @@ export class selectScreen extends React.Component {
                 type="hidden"
                 onKeyPress={this.handleKeyPress}
               />
-              <Button type="submit" bsStyle="primary">&nbsp;Starta&nbsp;</Button>
+              <Button type="submit" bsStyle="primary" disabled={!this.isLessonStartable()}>&nbsp;Starta&nbsp;</Button>
               <ControlLabel> Spaced Repetition: <input name="spacedRepetition" type="checkbox" defaultChecked={this.props.spacedRepetition} onClick={this.handleSpacedRepetition} /></ControlLabel>
             </FormGroup>
             <br />
