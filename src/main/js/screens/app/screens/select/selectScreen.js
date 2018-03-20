@@ -106,23 +106,6 @@ export class selectScreen extends React.Component {
     }
   }
   
-  isLessonStartable() {
-    if (this.props.spacedRepetition) {
-      if (this.props.selectedLesson.name && this.props.addressedQuestionsInLessons) {
-        return this.props.addressedQuestionsInLessons[this.props.selectedLesson.name].retention 
-        + this.props.addressedQuestionsInLessons[this.props.selectedLesson.name].unanswered >= 4;
-      } 
-    }
-    return true;
-  }
-
-  getButtonText() {
-    if (this.isLessonStartable()) {
-      return 'Starta';
-    }
-    return 'Kom tillbaka senare';
-  }
-
   handleSubmit(event) {
     event.preventDefault();
     try {
