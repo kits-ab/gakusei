@@ -7,11 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
+import se.kits.gakusei.content.model.UserLesson;
 import se.kits.gakusei.content.repository.LessonRepository;
+import se.kits.gakusei.content.repository.UserLessonRepository;
 import se.kits.gakusei.util.QuestionHandler;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class QuestionController {
@@ -20,13 +24,16 @@ public class QuestionController {
 
     private QuestionHandler questionHandler;
 
+    private UserLessonRepository userLessonRepository;
+
     @Value("${gakusei.questions-quantity}")
     private int quantity;
 
     @Autowired
-    public QuestionController(LessonRepository lessonRepository, QuestionHandler questionHandler) {
+    public QuestionController(LessonRepository lessonRepository, QuestionHandler questionHandler, UserLessonRepository userLessonRepository) {
         this.lessonRepository = lessonRepository;
         this.questionHandler = questionHandler;
+        this.userLessonRepository = userLessonRepository;
     }
 
     @RequestMapping(
@@ -41,12 +48,45 @@ public class QuestionController {
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType,
             @RequestParam(name = "username") String username) {
 
-        List<HashMap<String, Object>> questions = getCachedQuestionsFromLesson(lessonName, lessonType,
-                questionType, answerType, username);
+        List<HashMap<String, Object>> questions;
+        if (!lessonName.equals("Favoriter")) {
+            questions = getCachedQuestionsFromLesson(lessonName, lessonType,
+                    questionType, answerType, username);
+        } else {
+            questions = getCachedQuestionsFromFavoriteLesson(questionType, answerType, username);
+        }
 
         return questions.isEmpty() ?
                 new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR) :
                 new ResponseEntity<>(questions, HttpStatus.OK);
+    }
+
+    private List<HashMap<String,Object>> getCachedQuestionsFromFavoriteLesson(
+            String questionType, String answerType, String username) {
+        //get all favorites, for each get unanswered and hard ones
+        List<Lesson> favoriteLessons = userLessonRepository.findUsersStarredLessons(username)
+                .stream().map(UserLesson::getLesson).collect(Collectors.toList());
+
+        List<Nugget> unansweredNuggets = favoriteLessons.stream()
+                .map(lesson -> lessonRepository.findUnansweredNuggets(username, lesson.getName()))
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
+        List<Nugget> nuggetsWithLowSuccessrate = favoriteLessons.stream()
+                .map(lesson -> lessonRepository.findNuggetsBySuccessrate(username, lesson.getName()))
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
+        List<Nugget> allLessonNuggets = favoriteLessons.stream()
+                .map(lesson -> cachedFindNuggets(lesson.getName()))
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+
+        List<Nugget> favoriteNuggets = questionHandler.chooseNuggets(nuggetsWithLowSuccessrate,
+                unansweredNuggets, allLessonNuggets, quantity);
+
+        return questionHandler.createQuestions(favoriteNuggets, questionType, answerType);
+
     }
 
     private List<HashMap<String, Object>> getCachedQuestionsFromLesson(String lessonName, String lessonType, String

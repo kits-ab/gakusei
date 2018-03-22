@@ -18,6 +18,7 @@ export const defaultState = {
   lessons: [],
   selectedLesson: { name: '' },
   addressedQuestionsInLessons: null,
+  favoriteLesson: null,
 
   // select/play stuff
   lessonSuccessRate: 0,
@@ -95,6 +96,7 @@ export const INCREMENT_QUESTION_INDEX = 'INCREMENT_QUESTION_INDEX';
 export const RESET_QUESTION_INDEX = 'RESET_QUESTION_INDEX';
 export const RECEIVE_LESSON = 'RECEIVE_LESSON';
 export const RECEIVE_PROCESSED_QUESTION = 'RECEIVE_NEXT_PROCESSED_QUESTION';
+export const RECEIVE_FAVORITE_LESSON = 'RECEIVE_FAVORITE_LESSON';
 export const SET_SELECTED_LESSON = 'SET_SELECTED_LESSON';
 export const SET_GAMEMODE = 'SET_GAMEMODE';
 export const SET_ALL_BUTTONS_DISABLED_STATE = 'SET_ALL_BUTTONS_DISABLED_STATE';
@@ -413,6 +415,14 @@ export function receiveUserStarredLessons(result) {
   };
 }
 
+export function receiveFavoriteLesson(lesson) {
+  return {
+    type: RECEIVE_FAVORITE_LESSON,
+    description: 'Received favorite lesson',
+    lesson
+  };
+}
+
 export function requestUserSuccessRate() {
   return {
     type: REQUEST_USER_SUCCESS_RATE,
@@ -541,7 +551,7 @@ export function fetchLesson(lessonType) {
 
     const lessonState = getState().lessons;
     const securityState = getState().security;
-
+    
     return new Promise(resolve => fetch(`${fetchURL}?lessonName=${lessonState.selectedLesson.name}&questionType=${lessonState.questionType}&` +
       `answerType=${lessonState.answerType}&lessonType=${lessonType}&username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
       .then(response => response.json())
@@ -552,6 +562,15 @@ export function fetchLesson(lessonType) {
           dispatch(processCurrentQuestion());
           resolve();
         }));
+  };
+}
+
+export function fetchFavoriteLesson() {
+  return function (dispatch, getState) {
+    const securityState = getState().security;
+    return fetch(`/api/lessons/favorite?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+      .then(response => response.json())
+      .then(result => dispatch(receiveFavoriteLesson(result)));
   };
 }
 
@@ -618,6 +637,7 @@ export const actionCreators = {
   fetchLesson,
   fetchLessons,
   fetchaddressedQuestionsInLessons,
+  fetchFavoriteLesson,
   setSelectedLesson,
   setGameMode,
   processCurrentQuestion,
@@ -629,6 +649,7 @@ export const actionCreators = {
   calcAnswerButtonStyles,
   resetLesson,
   receiveLessons,
+  receiveFavoriteLesson,
   setQuestionLanguage,
   setAnswerLanguage,
   fetchUserStarredLessons,
@@ -715,6 +736,11 @@ export function lessons(state = defaultState, action) {
         resourceRef: action.currentQuestion.resourceRef,
         currentProcessedQuestionAnswered: false,
         currentProcessedQuestionAnsweredCorrectly: false
+      };
+    case RECEIVE_FAVORITE_LESSON:
+      return {
+        ...state,
+        favoriteLesson: action.lesson
       };
     case SET_SELECTED_LESSON:
       return {

@@ -24,6 +24,9 @@ export class selectScreen extends React.Component {
     this.props.fetchUserStarredLessons()
       .catch(() => this.props.verifyUserLoggedIn());
 
+    this.props.fetchFavoriteLesson()
+    .catch(() => this.props.verifyUserLoggedIn());
+
     if (this.props.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
     }
@@ -151,6 +154,25 @@ export class selectScreen extends React.Component {
           </Col>
         }
       </Row>);
+    
+
+    const favoriteLesson = 
+    <Row>
+      <Col
+        xs={11}
+        md={11}
+        lg={11}>
+        <ListGroupItem header='Blandade frågor'
+        onClick={() => this.props.setSelectedLesson(this.props.favoriteLesson)}
+        bsStyle={ (this.props.favoriteLesson && this.props.favoriteLesson.name === this.props.selectedLesson.name ? 'info' : null)}
+        />
+      </Col>
+        <Col xs={2} md={1} lg={1}>
+          <Button bsStyle="primary">
+            <Glyphicon glyph="play" />
+          </Button>
+        </Col>
+    </Row>;
 
     const answerLanguages = [];
     let questionLanguages = [];
@@ -215,7 +237,7 @@ export class selectScreen extends React.Component {
             <FormGroup>
               <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
               <ListGroup>
-                <ListGroupItem header='tja' /> 
+                {favoriteLesson}
               </ListGroup>
             </FormGroup>
 

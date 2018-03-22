@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
+import se.kits.gakusei.content.model.UserLesson;
 import se.kits.gakusei.content.repository.InflectionRepository;
 import se.kits.gakusei.content.repository.KanjiRepository;
 import se.kits.gakusei.content.repository.LessonRepository;
+import se.kits.gakusei.content.repository.UserLessonRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,6 +34,9 @@ public class LessonController {
 
     @Autowired
     private KanjiRepository kanjiRepository;
+
+    @Autowired
+    private UserLessonRepository userLessonRepository;
 
     @RequestMapping(
             value = "/api/lessons",
@@ -58,6 +63,16 @@ public class LessonController {
             @RequestParam(name = "username") String username) {
         HashMap<String, HashMap<String, Integer>> values = getStringHashMapHashMap(questionType, answerType, username);
         return new ResponseEntity<>(values, HttpStatus.OK);
+    }
+
+    @RequestMapping(
+            value = "/api/lessons/favorite",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<Lesson> getFavoriteLesson(@RequestParam(value = "lessonType", required = false) String lessonType,
+                                                    @RequestParam(value = "username") String username) {
+        return new ResponseEntity<>(getLessonFromFavorites(username), HttpStatus.OK);
     }
 
     private HashMap<String, HashMap<String, Integer>> getStringHashMapHashMap(String questionType, String answerType, String username) {
@@ -120,5 +135,24 @@ public class LessonController {
     public List<Lesson> getKanjiLessons() {
         return lessonRepository.findAllByOrderByName().stream().filter(lesson -> !lesson.getKanjis().isEmpty())
                 .collect(Collectors.toList());
+    }
+
+    @Cacheable("favoriteLesson")
+    public Lesson getLessonFromFavorites(String username) {
+        List<Nugget> favoriteNuggets = userLessonRepository.findUsersStarredLessons(username).stream()
+                .map(UserLesson::getLesson)
+                .map(Lesson::getNuggets)
+                .flatMap(List::stream)
+                .filter(n -> !n.isHidden())
+                .distinct()
+                .collect(Collectors.toList());
+
+        Lesson favoriteLesson = new Lesson();
+        favoriteLesson.setNuggets(favoriteNuggets);
+        favoriteLesson.setName("Favoriter");
+        favoriteLesson.setId(1337L);
+
+        return favoriteLesson;
+
     }
 }
