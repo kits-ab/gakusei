@@ -159,19 +159,15 @@ export class selectScreen extends React.Component {
     const favoriteLesson = 
     <Row>
       <Col
-        xs={11}
-        md={11}
-        lg={11}>
+        xs={12}
+        md={12}
+        lg={12}>
         <ListGroupItem header='Blandade frågor'
         onClick={() => this.props.setSelectedLesson(this.props.favoriteLesson)}
         bsStyle={ (this.props.favoriteLesson && this.props.favoriteLesson.name === this.props.selectedLesson.name ? 'info' : null)}
         />
       </Col>
-        <Col xs={2} md={1} lg={1}>
-          <Button bsStyle="primary">
-            <Glyphicon glyph="play" />
-          </Button>
-        </Col>
+        
     </Row>;
 
     const answerLanguages = [];
@@ -234,12 +230,14 @@ export class selectScreen extends React.Component {
               <ControlLabel>{this.getPageDescription()}</ControlLabel>
             </FormGroup>
 
+            {this.props.params.type !== 'quiz' ? 
             <FormGroup>
               <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
               <ListGroup>
                 {favoriteLesson}
               </ListGroup>
             </FormGroup>
+            : null }
 
             <FormGroup>
               <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
