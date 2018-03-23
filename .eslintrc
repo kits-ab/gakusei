@@ -200,6 +200,7 @@
     "import/no-named-as-default": "off",
     "prefer-const": "warn",
     "no-unused-labels": "warn",
+    "no-undef": "warn",
     "no-mixed-operators": "off",
     "no-confusing-arrow": "off",
     "no-multi-spaces": "warn",
