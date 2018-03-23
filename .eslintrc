@@ -127,7 +127,7 @@
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md
     "react/jsx-first-prop-new-line": ["warn"],
     "react/jsx-max-props-per-line": ["warn"],
-    "padded-blocks": ["warn", "always"],
+    "padded-blocks": ["off"],
 
     // Enforce spacing around jsx equals signs
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-equals-spacing.md
@@ -202,6 +202,7 @@
     "import/no-named-as-default": "off",
     "prefer-const": "warn",
     "no-unused-labels": "warn",
+    "no-mixed-operators": "off",
     "no-multi-spaces": "warn",
     "indent": ["warn"],
     "no-trailing-spaces": ["warn"],

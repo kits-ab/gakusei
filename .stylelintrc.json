@@ -1,0 +1,21 @@
+{
+    "extends": [
+        "stylelint-config-recommended",
+        "stylelint-config-prettier"
+    ],
+    "rules": {
+        "color-hex-length": null,
+        "comment-empty-line-before": null,
+        "unit-no-unknown": null,
+        "selector-combinator-space-before": null,
+        "selector-descendant-combinator-no-non-space": null,
+        "declaration-block-no-redundant-longhand-properties": null,
+        "no-descending-specificity": null,
+        "font-family-no-missing-generic-family-keyword": null,
+        "at-rule-no-unknown": null,
+        "selector-pseudo-class-no-unknown": null,
+        "max-line-length": null,
+        "indentation": 2,
+        "string-quotes": "single"
+    }
+}
