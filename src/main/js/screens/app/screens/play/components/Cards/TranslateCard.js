@@ -33,9 +33,7 @@ class ButtonsCard extends React.Component {
   }
 }
 
-ButtonsCard.defaultProps = {
-
-};
+ButtonsCard.defaultProps = {};
 
 ButtonsCard.propTypes = {
   question: React.PropTypes.shape({

@@ -4,7 +4,6 @@ import React from 'react';
 import { REHYDRATE } from 'redux-persist/constants';
 import Utility from '../../shared/util/Utility';
 
-
 // ----------------
 // DEFAULT STATE
 export const defaultState = {
@@ -47,33 +46,37 @@ export const CLEAR_AUTH_RESPONSE = 'CLEAR_AUTH_RESPONSE';
 
 export function clearAuthResponse() {
   return {
-    type: CLEAR_AUTH_RESPONSE };
+    type: CLEAR_AUTH_RESPONSE
+  };
 }
 
 export function receiveAuthResponse(success, response) {
   return {
     type: RECEIVE_AUTH_RESPONSE,
     success,
-    response };
+    response
+  };
 }
 
 export function setLoggingIn(status = true) {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(clearAuthResponse());
     dispatch({
       type: SET_LOGGING_IN,
-      status });
+      status
+    });
   };
 }
 
 export function setRegistering(status = true) {
   return {
     type: SET_REGISTERING,
-    status };
+    status
+  };
 }
 
 export function receiveLoggedInStatus(loggedIn) {
-  return function (dispatch) {
+  return function(dispatch) {
     if (!loggedIn) {
       dispatch({
         type: RECEIVE_LOGGED_IN_USER,
@@ -91,11 +94,13 @@ export function receiveLoggedInStatus(loggedIn) {
 }
 
 export function setPageByName(pageName, query = null) {
-  return function (dispatch) {
-    dispatch(push({
-      pathname: `${pageName}`,
-      query
-    }));
+  return function(dispatch) {
+    dispatch(
+      push({
+        pathname: `${pageName}`,
+        query
+      })
+    );
 
     dispatch({
       type: SET_PAGE,
@@ -106,11 +111,12 @@ export function setPageByName(pageName, query = null) {
 }
 
 export function receiveLoggedInUser(user) {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch({
       type: RECEIVE_LOGGED_IN_USER,
       description: 'Fetching complete',
-      user });
+      user
+    });
 
     dispatch(receiveLoggedInStatus(!!user));
   };
@@ -124,14 +130,13 @@ export function requestLoggedInUser() {
 }
 
 export function fetchLoggedInUser() {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(requestLoggedInUser());
 
-    return new Promise((resolve) => {
-      fetch('/username', { credentials: 'same-origin' })
-      .then((response) => {
+    return new Promise(resolve => {
+      fetch('/username', { credentials: 'same-origin' }).then(response => {
         if (response.status === 200) {
-          response.text().then((text) => {
+          response.text().then(text => {
             const data = JSON.parse(text);
             dispatch(receiveLoggedInUser(data.username));
             dispatch(receiveLoggedInStatus(data.loggedIn));
@@ -148,18 +153,16 @@ export function fetchLoggedInUser() {
 }
 
 export function requestUserLogout(redirectUrl, csrf) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const routing = getState().routing;
 
-    fetch('/logout',
-      {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-          'X-XSRF-TOKEN': csrf || ''
-        }
-      })
-    .then((response) => {
+    fetch('/logout', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'X-XSRF-TOKEN': csrf || ''
+      }
+    }).then(response => {
       if (response.status === 200) {
         dispatch(receiveLoggedInStatus(false));
         dispatch(clearAuthResponse());
@@ -170,8 +173,8 @@ export function requestUserLogout(redirectUrl, csrf) {
 }
 
 export function requestUserLogin(data, redirectUrl) {
-  return function (dispatch) {
-    const formBody = (typeof data === 'string' ? data : Utility.getFormData(data).join('&'));
+  return function(dispatch) {
+    const formBody = typeof data === 'string' ? data : Utility.getFormData(data).join('&');
 
     dispatch(setLoggingIn());
 
@@ -184,22 +187,21 @@ export function requestUserLogin(data, redirectUrl) {
           'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
         },
         body: formBody
-      })
-    .then((response) => {
-      switch (response.status) {
-        case 403:
-          dispatch(receiveAuthResponse(false, 'Felaktiga uppgifter, vänligen kontrollera formuläret.'));
-          break;
-        case 200:
-          dispatch(receiveAuthResponse(true, 'Inloggad, tar dig vidare..'));
-          dispatch(fetchLoggedInUser()).then(() => {
-            dispatch(setPageByName(redirectUrl || '/'));
-          });
-          break;
-        default:
-          throw new Error();
-      }
-    });
+      }).then(response => {
+        switch (response.status) {
+          case 403:
+            dispatch(receiveAuthResponse(false, 'Felaktiga uppgifter, vänligen kontrollera formuläret.'));
+            break;
+          case 200:
+            dispatch(receiveAuthResponse(true, 'Inloggad, tar dig vidare..'));
+            dispatch(fetchLoggedInUser()).then(() => {
+              dispatch(setPageByName(redirectUrl || '/'));
+            });
+            break;
+          default:
+            throw new Error();
+        }
+      });
     } catch (err) {
       dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
     } finally {
@@ -209,8 +211,8 @@ export function requestUserLogin(data, redirectUrl) {
 }
 
 export function requestUserRegister(data, redirectUrl) {
-  return function (dispatch) {
-    const formBody = (typeof data === 'string' ? data : Utility.getFormData(data).join('&'));
+  return function(dispatch) {
+    const formBody = typeof data === 'string' ? data : Utility.getFormData(data).join('&');
 
     try {
       dispatch(setRegistering());
@@ -223,15 +225,14 @@ export function requestUserRegister(data, redirectUrl) {
           'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
         },
         body: formBody
-      }).then((response) => {
+      }).then(response => {
         switch (response.status) {
           case 422:
             dispatch(receiveAuthResponse(false, 'Användarnamnet finns tyvärr redan, prova ett annat.'));
             break;
           case 201:
             dispatch(receiveAuthResponse(true, 'Registeringen lyckades, loggar in..'));
-            setTimeout(
-              () => dispatch(requestUserLogin(formBody, redirectUrl)), 1500);
+            setTimeout(() => dispatch(requestUserLogin(formBody, redirectUrl)), 1500);
             break;
           default:
             dispatch(fetchLoggedInUser());
@@ -248,7 +249,7 @@ export function requestUserRegister(data, redirectUrl) {
 }
 
 export function reloadCurrentRoute() {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const routing = getState().routing;
 
     dispatch(setPageByName(routing.locationBeforeTransitions.pathname));
@@ -256,7 +257,7 @@ export function reloadCurrentRoute() {
 }
 
 export function verifyUserLoggedIn() {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const securityState = getState().security;
 
     dispatch(fetchLoggedInUser()).then(() => {
@@ -293,7 +294,8 @@ export function security(state = defaultState, action) {
         ...state,
         loggedIn: incoming.loggedIn,
         loggedInUser: incoming.loggedInUser,
-        purgeNeeded: (incoming.projectVersion !== state.projectVersion) };
+        purgeNeeded: incoming.projectVersion !== state.projectVersion
+      };
     }
     return state;
   }
@@ -306,7 +308,7 @@ export function security(state = defaultState, action) {
         ...state,
         currentPageName: action.currentPageName
       };
-      // Security stuff
+    // Security stuff
     case REQUEST_LOGGED_IN_USER:
       return {
         ...state,

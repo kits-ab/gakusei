@@ -69,20 +69,25 @@ export class loginScreen extends React.Component {
       !this.props.loginInProgress &&
       !this.props.registerInProgress &&
       this.props.authSuccess &&
-      this.props.authResponse !== '');
+      this.props.authResponse !== ''
+    );
   }
   haveFailedAuth() {
     return (
       !this.props.loginInProgress &&
       !this.props.registerInProgress &&
       !this.props.authSuccess &&
-      this.props.authResponse !== '');
+      this.props.authResponse !== ''
+    );
   }
   render() {
     return (
       <Grid>
         <Row>
-          <Col mdOffset={2} md={8}>
+          <Col
+            mdOffset={2}
+            md={8}
+          >
             <Form onSubmit={this.handleSubmit}>
               <fieldset>
                 <FormGroup
@@ -90,10 +95,9 @@ export class loginScreen extends React.Component {
                   validationState={this.getValidationState()}
                 >
                   <legend>Logga in eller registrera dig</legend>
-                  {
-                    this.props.authResponse && this.getValidationState() ?
-                      <ControlLabel name="authFeedback">{this.props.authResponse}</ControlLabel> : null
-                  }
+                  {this.props.authResponse && this.getValidationState() ? (
+                    <ControlLabel name="authFeedback">{this.props.authResponse}</ControlLabel>
+                  ) : null}
                 </FormGroup>
                 <FormGroup>
                   <FormControl
@@ -130,8 +134,7 @@ export class loginScreen extends React.Component {
                     disabled={!this.state.username || !this.state.password}
                   >
                     Logga in
-                  </Button>
-                  {' '}
+                  </Button>{' '}
                   <Button
                     label="login"
                     onClick={() => this.setLoginSubmitMode(false)}
@@ -152,12 +155,8 @@ export class loginScreen extends React.Component {
   }
 }
 
-loginScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+loginScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
-}, Reducers);
-
-loginScreen.propTypes = Utility.reduxEnabledPropTypes({
-
-}, Reducers);
+loginScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
 export default Utility.superConnect(this, Reducers)(loginScreen);
