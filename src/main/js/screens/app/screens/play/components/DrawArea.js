@@ -181,7 +181,7 @@ export default class DrawArea extends React.Component {
         correctLine: relevantAnswerPoints,
         userLine: latestUserPoints,
         correctLines: this.state.correctAlternative.pathPoints,
-        userLines: this.setState.userAnswer.existingPoints
+        userLines: this.state.userAnswer.existingPoints
       });
 
       const isLineAccurateResult = rules.isLineAccurate(

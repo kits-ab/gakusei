@@ -13,12 +13,7 @@ export function isLineAccurate(ruleOptions, data) {
 
 export function areLinesAccurate(ruleOptions, data) {
   // Calculate accuracy for all lines
-  const accuracy = Geometry.compareShapes(
-    [data.correctLines],
-    [data.userLines],
-    false,
-    ruleOptions.strictnessPercentage
-  );
+  const accuracy = Geometry.compareShapes(data.correctLines, data.userLines, false, ruleOptions.strictnessPercentage);
 
   return {
     value: accuracy > ruleOptions.requiredAccuracyPercentage,
