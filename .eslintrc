@@ -194,6 +194,7 @@
         "peerDependencies": false
       }
     ],
+    "max-len": ["warn", 120],
     "jsx-space-before-closing": 0,
     "no-underscore-dangle": "warn",
     "no-useless-constructor": "warn",
