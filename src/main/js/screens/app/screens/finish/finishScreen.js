@@ -30,11 +30,12 @@ export class finishScreen extends React.Component {
   }
 
   logEvents() {
-    this.props.answeredQuestions.forEach((processedQuestionWithAnswer) => {
+    this.props.answeredQuestions.forEach(processedQuestionWithAnswer => {
       try {
         // Send in the correct answers
         processedQuestionWithAnswer.correctAlternative.forEach(correctAlt =>
-          Utility.logEvent('finish', 'correctAlternative', correctAlt, null, this.props.loggedInUser));
+          Utility.logEvent('finish', 'correctAlternative', correctAlt, null, this.props.loggedInUser)
+        );
         // Send in the user answer
         Utility.logEvent('finish', 'userAnswer', processedQuestionWithAnswer.userAnswer, null, this.props.loggedInUser);
       } catch (err) {
@@ -44,18 +45,20 @@ export class finishScreen extends React.Component {
   }
 
   backtoSelection() {
-    this.props.fetchLesson(this.props.params.type)
+    this.props
+      .fetchLesson(this.props.params.type)
       .catch(this.props.verifyUserLoggedIn())
       .then(this.props.setPageByName(`/select/${this.props.params.type}`));
   }
   playAgain() {
-    this.props.fetchLesson(this.props.params.type)
+    this.props
+      .fetchLesson(this.props.params.type)
       .catch(this.props.verifyUserLoggedIn())
       .then(this.props.setPageByName(`/play/${this.props.params.type}`));
   }
 
   showResults() {
-    const result = this.props.answeredQuestions.map((qa) => {
+    const result = this.props.answeredQuestions.map(qa => {
       let yourAnswerText = `Svar: ${qa.correctAlternative}. `;
 
       if ((qa.userAnswer === null || qa.userAnswer === '') && qa.userCorrect) {
@@ -66,20 +69,22 @@ export class finishScreen extends React.Component {
         yourAnswerText += `(Du svarade: ${qa.userAnswer})`;
       }
 
-      return (<ListGroupItem
-        key={qa.userAnswer + qa.correctAlternative[0]}
-        bsStyle={qa.userCorrect ? 'success' : 'danger'}
-      >
-        <DisplayQuestion
-          primaryText={qa.shapes[0]}
-          secondaryText={qa.shapes[1] || null}
-          resourceRef={qa.resourceRef}
-          japaneseCharacters={qa.questionType === 'reading'}
-          showSpeechButton={this.props.params.type !== 'quiz'}
-          smallerText
-        />
-        {yourAnswerText}
-      </ListGroupItem>);
+      return (
+        <ListGroupItem
+          key={qa.userAnswer + qa.correctAlternative[0]}
+          bsStyle={qa.userCorrect ? 'success' : 'danger'}
+        >
+          <DisplayQuestion
+            primaryText={qa.shapes[0]}
+            secondaryText={qa.shapes[1] || null}
+            resourceRef={qa.resourceRef}
+            japaneseCharacters={qa.questionType === 'reading'}
+            showSpeechButton={this.props.params.type !== 'quiz'}
+            smallerText
+          />
+          {yourAnswerText}
+        </ListGroupItem>
+      );
     });
     return result;
   }
@@ -88,35 +93,44 @@ export class finishScreen extends React.Component {
       <Grid>
         <Row>
           <div className="text-center">
-            <h2>
-              {this.props.lessonSuccessRate}% rätt!
-            </h2>
+            <h2>{this.props.lessonSuccessRate}% rätt!</h2>
             <h3>
               Du svarade rätt på {this.props.correctAttempts} av {this.props.totalAttempts} möjliga frågor
             </h3>
           </div>
         </Row>
         <Row>
-          <Col xs={12} md={8} mdOffset={2}>
+          <Col
+            xs={12}
+            md={8}
+            mdOffset={2}
+          >
             <ListGroup>
-              <ListGroupItem>
-                {this.showResults()}
-              </ListGroupItem>
+              <ListGroupItem>{this.showResults()}</ListGroupItem>
             </ListGroup>
           </Col>
         </Row>
         <Row>
-          <Col xs={12} md={8} mdOffset={2}>
+          <Col
+            xs={12}
+            md={8}
+            mdOffset={2}
+          >
             <div className="text-center">
-              <Button bsStyle="info" className="tryAgainButton" onClick={this.playAgain}>Försök igen</Button>
-              {' '}
+              <Button
+                bsStyle="info"
+                className="tryAgainButton"
+                onClick={this.playAgain}
+              >
+                Försök igen
+              </Button>{' '}
               <Button
                 bsStyle="info"
                 className="backToSelectScreenButton"
                 onClick={this.backtoSelection}
               >
-              Välj nya frågor
-            </Button>
+                Välj nya frågor
+              </Button>
             </div>
           </Col>
         </Row>
@@ -126,12 +140,8 @@ export class finishScreen extends React.Component {
   }
 }
 
-finishScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+finishScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
-}, Reducers);
-
-finishScreen.propTypes = Utility.reduxEnabledPropTypes({
-
-}, Reducers);
+finishScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
 export default Utility.superConnect(this, Reducers)(finishScreen);

@@ -1,7 +1,4 @@
-/*
-globals MouseEvent SVG
-eslint-disable no-console
-*/
+/* eslint-disable no-console */
 
 import React from 'react';
 import simplify from 'simplify-js';
@@ -17,7 +14,7 @@ export default class DrawArea extends React.Component {
     this.onNewUserPath = this.onNewUserPath.bind(this);
 
     /* devcode:start */
-    this.onKeys = function (event) {
+    this.onKeys = function(event) {
       const keyDown = event.key;
       if (keyDown === '0') {
         if (!this.props.buttonsDisabled) {
@@ -78,10 +75,7 @@ export default class DrawArea extends React.Component {
     this.setState({
       userAnswer: {
         ...this.state.userAnswer,
-        existingPoints: [
-          ...this.state.userAnswer.existingPoints,
-          simplify(points, 2, true)
-        ]
+        existingPoints: [...this.state.userAnswer.existingPoints, simplify(points, 2, true)]
       }
     });
   }
@@ -190,28 +184,36 @@ export default class DrawArea extends React.Component {
       // Calculate accuracy for this shape
       let match = Geometry.compareShapes([relevantAnswerPoints], [latestUserPoints], undefined, lessStrict);
       if (match > 0.9) {
-        match = 0.9 + (roundIt(
-          Geometry.compareShapes([relevantAnswerPoints], [latestUserPoints], undefined, veryStrict), 2) - 0.9);
+        match =
+          0.9 +
+          (roundIt(Geometry.compareShapes([relevantAnswerPoints], [latestUserPoints], undefined, veryStrict), 2) - 0.9);
       }
 
       // Calculate accuracy for total shapes
       let totalMatch = Geometry.compareShapes(
         this.state.correctAlternative.pathPoints.slice(0, newestUserPointIndex + 1),
-        this.state.userAnswer.existingPoints
-        , undefined, lessStrict
+        this.state.userAnswer.existingPoints,
+        undefined,
+        lessStrict
       );
 
       if (totalMatch > 0.9) {
-        totalMatch = 0.9 + (roundIt(Geometry.compareShapes(
-        this.state.correctAlternative.pathPoints.slice(0, newestUserPointIndex + 1),
-        this.state.userAnswer.existingPoints
-        , undefined, veryStrict
-      ), 2) - 0.9);
+        totalMatch =
+          0.9 +
+          (roundIt(
+            Geometry.compareShapes(
+              this.state.correctAlternative.pathPoints.slice(0, newestUserPointIndex + 1),
+              this.state.userAnswer.existingPoints,
+              undefined,
+              veryStrict
+            ),
+            2
+          ) -
+            0.9);
       }
 
       // Get starting angle of drawn path
-      const startAngle = Geometry
-      .getAngle(latestUserPoints[0], latestUserPoints[latestUserPoints.length - 1]);
+      const startAngle = Geometry.getAngle(latestUserPoints[0], latestUserPoints[latestUserPoints.length - 1]);
 
       // Get starting angle of correct answer
       const answerStartAngle = Geometry.getAngle(
@@ -220,7 +222,7 @@ export default class DrawArea extends React.Component {
       );
 
       // Check whether the user started drawing on the correct end of the line
-      const userCorrectDirection = (answerStartAngle - 90 < startAngle) && (answerStartAngle + 90 > startAngle);
+      const userCorrectDirection = answerStartAngle - 90 < startAngle && answerStartAngle + 90 > startAngle;
 
       // Normalize to percentage values
       const accuracy = parseFloat(match * 100).toFixed(2);
@@ -250,7 +252,7 @@ export default class DrawArea extends React.Component {
 
       fetch(svgUrl)
         .then(response => response.text())
-        .then((text) => {
+        .then(text => {
           const data = Geometry.extractDataFromSVG(text, bounds.width, bounds.height);
           this.setState({
             correctAlternative: {
@@ -265,11 +267,14 @@ export default class DrawArea extends React.Component {
   render() {
     return (
       <Canvas
-        ref={(c) => { this.canvasComponent = c; }}
+        ref={c => {
+          this.canvasComponent = c;
+        }}
         newUserPath={this.onNewUserPath}
         drawActions={this.getDrawActions()}
         inputDisabled={this.props.buttonsDisabled}
-      />);
+      />
+    );
   }
 }
 
@@ -284,4 +289,3 @@ DrawArea.propTypes = {
   newMatch: React.PropTypes.func.isRequired,
   buttonsDisabled: React.PropTypes.bool.isRequired
 };
-

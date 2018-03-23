@@ -22,9 +22,6 @@ node/
 npm-debug.log
 npm-debug.log.*
 
-# VS Code
-.vscode
-
 # Hide our secret env.json File
 env.json
 

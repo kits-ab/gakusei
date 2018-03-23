@@ -7,7 +7,7 @@ class ButtonsCard extends React.Component {
     super(props);
 
     /* devcode:start */
-    this.onKeys = function (event) {
+    this.onKeys = function(event) {
       const keyDown = event.key;
       if (!this.props.buttonsDisabled) {
         if (keyDown === '0') {
@@ -54,9 +54,7 @@ class ButtonsCard extends React.Component {
   }
 }
 
-ButtonsCard.defaultProps = {
-
-};
+ButtonsCard.defaultProps = {};
 
 ButtonsCard.propTypes = {
   question: React.PropTypes.shape({

@@ -1,50 +1,50 @@
-.btn{
-    white-space: normal;
+.btn {
+  white-space: normal;
 }
 .brandButton {
-    background-color: Transparent;
-    border: none;
-    outline: none;
+  background-color: Transparent;
+  border: none;
+  outline: none;
 }
 
 .btn-no-hover:hover {
-    border-color: #ccc;
+  border-color: #ccc;
 }
 
 .logged-in-text {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 /* bootstrap override */
 .progress {
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    select,
-    textarea,
-    input {
-        font-size: 1.2em !important;
-    }
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select,
+  textarea,
+  input {
+    font-size: 1.2em !important;
+  }
 }
 
 @media screen and (min-width: 992px) {
-.questionText{
+  .questionText {
     font-size: 300% !important;
   }
-.verbQuestionText{
+  .verbQuestionText {
     font-size: 150% !important;
   }
-.hintText{
+  .hintText {
     font-size: 100% !important;
   }
 }
 
 @media screen and (max-width: 992px) {
-.questionText{
+  .questionText {
     font-size: 225% !important;
   }
-.verbQuestionText{
+  .verbQuestionText {
     font-size: 100% !important;
   }
 }
