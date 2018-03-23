@@ -44,6 +44,7 @@ export default class AnswerButton extends React.Component {
   }
 
   updateAnswerText(text) {
+    // eslint-disable-next-line react/no-direct-mutation-state
     this.state = {
       answerClickFunc: this.props.onAnswerClick.bind(this, text)
     };
