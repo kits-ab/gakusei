@@ -21,8 +21,14 @@
     "lint-css-staged": "./node_modules/.bin/prettier-stylelint --write \"*.css\""
   },
   "lint-staged": {
-    "*.{js,jsx}": ["npm run lint-js-staged", "git add"],
-    "*.css": ["npm run lint-css-staged", "git add"]
+    "*.{js,jsx}": [
+      "npm run lint-js-staged",
+      "git add"
+    ],
+    "*.css": [
+      "npm run lint-css-staged",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -75,7 +81,6 @@
     "css-loader": "^0.23.1",
     "env2": "^2.1.1",
     "eslint": "^3.18.0",
-    "eslint-config-airbnb": "^14.1.0",
     "eslint-config-prettier": "2.9.0",
     "eslint-config-stylelint": "^8.1.0",
     "eslint-plugin-import": "^2.2.0",
@@ -91,6 +96,8 @@
     "nightwatch": "^0.9.14",
     "path": "^0.12.7",
     "postcss-loader": "^0.9.1",
+    "prettier-eslint": "^8.8.1",
+    "prettier-eslint-cli": "^4.7.1",
     "prettier-stylelint": "0.4.2",
     "prettyjson": "^1.2.1",
     "raw-loader": "^0.5.1",
