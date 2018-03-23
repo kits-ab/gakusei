@@ -5,6 +5,7 @@ import simplify from 'simplify-js';
 
 import Geometry from '../../../../../shared/util/Geometry';
 
+import * as rules from './DrawArea.rules';
 import Canvas from './Canvas';
 
 export default class DrawArea extends React.Component {
@@ -176,67 +177,32 @@ export default class DrawArea extends React.Component {
       const relevantAnswerPoints = this.state.correctAlternative.pathPoints[newestUserPointIndex];
       const latestUserPoints = this.state.userAnswer.existingPoints[newestUserPointIndex];
 
-      const lessStrict = 20;
-      const veryStrict = 50;
+      const getData = () => ({
+        correctLine: relevantAnswerPoints,
+        userLine: latestUserPoints,
+        correctLines: this.state.correctAlternative.pathPoints,
+        userLines: this.setState.userAnswer.existingPoints
+      });
 
-      const roundIt = (value, decimals) => Number(`${Math.round(`${value}e${decimals}`)}e-${decimals}`);
-
-      // Calculate accuracy for this shape
-      let match = Geometry.compareShapes([relevantAnswerPoints], [latestUserPoints], undefined, lessStrict);
-      if (match > 0.9) {
-        match =
-          0.9 +
-          (roundIt(Geometry.compareShapes([relevantAnswerPoints], [latestUserPoints], undefined, veryStrict), 2) - 0.9);
-      }
-
-      // Calculate accuracy for total shapes
-      let totalMatch = Geometry.compareShapes(
-        this.state.correctAlternative.pathPoints.slice(0, newestUserPointIndex + 1),
-        this.state.userAnswer.existingPoints,
-        undefined,
-        lessStrict
+      const isLineAccurateResult = rules.isLineAccurate(
+        { requiredAccuracyPercentage: 50, strictnessPercentage: 20 },
+        getData()
       );
 
-      if (totalMatch > 0.9) {
-        totalMatch =
-          0.9 +
-          (roundIt(
-            Geometry.compareShapes(
-              this.state.correctAlternative.pathPoints.slice(0, newestUserPointIndex + 1),
-              this.state.userAnswer.existingPoints,
-              undefined,
-              veryStrict
-            ),
-            2
-          ) -
-            0.9);
-      }
-
-      // Get starting angle of drawn path
-      const startAngle = Geometry.getAngle(latestUserPoints[0], latestUserPoints[latestUserPoints.length - 1]);
-
-      // Get starting angle of correct answer
-      const answerStartAngle = Geometry.getAngle(
-        relevantAnswerPoints[0],
-        relevantAnswerPoints[relevantAnswerPoints.length - 1]
+      const areLinesAccurateResult = rules.areLinesAccurate(
+        { requiredAccuracyPercentage: 50, strictnessPercentage: 20 },
+        getData()
       );
 
-      // Check whether the user started drawing on the correct end of the line
-      const userCorrectDirection = answerStartAngle - 90 < startAngle && answerStartAngle + 90 > startAngle;
-
-      // Normalize to percentage values
-      const accuracy = parseFloat(match * 100).toFixed(2);
-      const totalAccuracy = parseFloat(totalMatch * 100).toFixed(2);
-
-      // Save the comparison
+      const isCorrectDirectionResult = rules.isCorrectDirection({}, getData());
 
       // Send the comparison upward for current index
       this.props.newMatch({
         lineIndex: newestUserPointIndex,
         linesLeft: this.state.correctAlternative.pathPoints.length - (newestUserPointIndex + 1),
-        accuracy,
-        totalAccuracy,
-        userCorrectDirection
+        accuracy: isLineAccurateResult.message,
+        totalAccuracy: areLinesAccurateResult.message,
+        userCorrectDirection: isCorrectDirectionResult.value
       });
     }
   }
