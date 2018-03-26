@@ -17,7 +17,6 @@ export const propTypes = {
 export const RECEIVE_USER_SUCCESS_RATE = 'RECEIVED_USER_SUCCESS_RATE';
 export const REQUEST_USER_SUCCESS_RATE = 'REQUEST_USER_SUCCESS_RATE';
 
-
 // -----------------
 // ACTION (CREATORS) - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
@@ -29,7 +28,8 @@ export function receiveUserSuccessRate(successRate, status, response) {
     successRate,
     status,
     response,
-    lastReceived: Date.now() };
+    lastReceived: Date.now()
+  };
 }
 
 export function requestUserSuccessRate() {

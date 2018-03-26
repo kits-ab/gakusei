@@ -1,5 +1,17 @@
 import React from 'react';
-import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Glyphicon, HelpBlock } from 'react-bootstrap';
+import {
+  Button,
+  Grid,
+  Row,
+  Col,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  ListGroup,
+  ListGroupItem,
+  Glyphicon,
+  HelpBlock
+} from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 
 import * as Lessons from '../../../../shared/reducers/Lessons';
@@ -18,11 +30,9 @@ export class selectScreen extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchLessons(this.props.params.type)
-      .catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchLessons(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchUserStarredLessons()
-      .catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchFavoriteLesson()
     .catch(() => this.props.verifyUserLoggedIn());
@@ -39,8 +49,7 @@ export class selectScreen extends React.Component {
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.params.type !== nextProps.params.type) {
-      this.props.fetchLessons(nextProps.params.type)
-        .catch(() => this.props.verifyUserLoggedIn());
+      this.props.fetchLessons(nextProps.params.type).catch(() => this.props.verifyUserLoggedIn());
     }
   }
 
@@ -76,16 +85,17 @@ export class selectScreen extends React.Component {
   getPageDescription() {
     switch (this.props.params.type) {
       case 'quiz':
-        return (<span>Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ</span>);
+        return <span>Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ</span>;
       case 'guess':
         return <span>Välj mellan 4 svarsalternativ för den korrekta översättningen.</span>;
       case 'translate':
         return <span>Översätt det visade ordet i fritext.</span>;
       case 'flashcards':
-        return (<span>Träna dig själv genom att använda kort,
-        med frågan på ena sidan och rätta svaret på den andra.</span>);
+        return (
+          <span>Träna dig själv genom att använda kort, med frågan på ena sidan och rätta svaret på den andra.</span>
+        );
       case 'kanji':
-        return (<span>Försök rita kanji-tecken med korrekta drag och i rätt ordning.</span>);
+        return <span>Försök rita kanji-tecken med korrekta drag och i rätt ordning.</span>;
       case 'grammar':
         return <span>Böj det visade ordet i fritext på angiven verbform.</span>;
       default:
@@ -112,27 +122,27 @@ export class selectScreen extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     try {
-      this.props.fetchLesson(this.props.params.type)
-          .then(() => {
-            this.props.setPageByName(`/play/${this.props.params.type}`);
-          });
+      this.props.fetchLesson(this.props.params.type).then(() => {
+        this.props.setPageByName(`/play/${this.props.params.type}`);
+      });
     } catch (err) {
       this.props.verifyUserLoggedIn();
     }
   }
 
   handleStarredClick(lesson) {
-    return this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ?
-      this.props.removeStarredLesson(lesson.name) :
-      this.props.addStarredLesson(lesson.name);
+    return this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+      ? this.props.removeStarredLesson(lesson.name)
+      : this.props.addStarredLesson(lesson.name);
   }
   render() {
-    const options = this.props.lessons.map(lesson =>
+    const options = this.props.lessons.map(lesson => (
       <Row key={lesson.name}>
         <Col
           xs={this.props.params.type === 'quiz' ? 12 : 10}
           md={this.props.params.type === 'quiz' ? 12 : 11}
-          lg={this.props.params.type === 'quiz' ? 12 : 11}>
+          lg={this.props.params.type === 'quiz' ? 12 : 11}
+        >
           <ListGroupItem
             key={lesson.name}
             onClick={() => this.props.setSelectedLesson(lesson)}
@@ -141,19 +151,25 @@ export class selectScreen extends React.Component {
             bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
           />
         </Col>
-        {this.props.params.type === 'quiz' ?
-          null
-          :
-          <Col xs={2} md={1} lg={1}>
+        {this.props.params.type === 'quiz' ? null : (
+          <Col
+            xs={2}
+            md={1}
+            lg={1}
+          >
             <Button
-              bsStyle={this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ? 'warning' : null}
+              bsStyle={
+                this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+                  ? 'warning'
+                  : null
+              }
               onClick={() => this.handleStarredClick(lesson)}
             >
               <Glyphicon glyph="star" />
             </Button>
           </Col>
-        }
-      </Row>);
+        )}
+      </Row>));
     
 
     const favoriteLesson = 
@@ -172,10 +188,31 @@ export class selectScreen extends React.Component {
 
     const answerLanguages = [];
     let questionLanguages = [];
-    answerLanguages.push(<option key={'reading'} value={'reading'}>Japanska</option>);
-    answerLanguages.push(<option key={'swedish'} value={'swedish'}>Svenska</option>);
+    answerLanguages.push(
+      <option
+        key={'reading'}
+        value={'reading'}
+      >
+        Japanska
+      </option>
+    );
+    answerLanguages.push(
+      <option
+        key={'swedish'}
+        value={'swedish'}
+      >
+        Svenska
+      </option>
+    );
     /* devcode: start */
-    answerLanguages.push(<option key={'english'} value={'english'}>Engelska</option>);
+    answerLanguages.push(
+      <option
+        key={'english'}
+        value={'english'}
+      >
+        Engelska
+      </option>
+    );
     /* devcode: end */
 
     if (this.props.params.type === 'kanji') {
@@ -191,7 +228,10 @@ export class selectScreen extends React.Component {
       languageSelection = (
         <FormGroup>
           <Row>
-            <Col xs={12} sm={6}>
+            <Col
+              xs={12}
+              sm={6}
+            >
               <HelpBlock>Frågespråk</HelpBlock>
               <FormControl
                 componentClass="select"
@@ -204,7 +244,10 @@ export class selectScreen extends React.Component {
                 {questionLanguages}
               </FormControl>
             </Col>
-            <Col xs={12} sm={6}>
+            <Col
+              xs={12}
+              sm={6}
+            >
               <HelpBlock>Svarspråk</HelpBlock>
               <FormControl
                 componentClass="select"
@@ -215,15 +258,22 @@ export class selectScreen extends React.Component {
               >
                 {answerLanguages}
               </FormControl>
-
             </Col>
           </Row>
-        </FormGroup>);
+        </FormGroup>
+      );
     }
     return (
       <Grid className="text-center">
-        <Col xs={11} lg={8} lgOffset={2}>
-          <form href="#" onSubmit={this.handleSubmit}>
+        <Col
+          xs={11}
+          lg={8}
+          lgOffset={2}
+        >
+          <form
+            href="#"
+            onSubmit={this.handleSubmit}
+          >
             <ControlLabel>{this.getPageHeader()}</ControlLabel>
 
             <FormGroup>
@@ -241,9 +291,7 @@ export class selectScreen extends React.Component {
 
             <FormGroup>
               <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
-              <ListGroup>
-                {options}
-              </ListGroup>
+              <ListGroup>{options}</ListGroup>
               {languageSelection}
             </FormGroup>
             <FormGroup>
@@ -251,7 +299,12 @@ export class selectScreen extends React.Component {
                 type="hidden"
                 onKeyPress={this.handleKeyPress}
               />
-              <Button type="submit" bsStyle="primary">&nbsp;Starta&nbsp;</Button>
+              <Button
+                type="submit"
+                bsStyle="primary"
+              >
+                &nbsp;Starta&nbsp;
+              </Button>
             </FormGroup>
             <br />
           </form>
@@ -261,13 +314,8 @@ export class selectScreen extends React.Component {
   }
 }
 
-selectScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+selectScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
-}, Reducers);
-
-selectScreen.propTypes = Utility.reduxEnabledPropTypes({
-
-}, Reducers);
-
+selectScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
 export default Utility.superConnect(this, Reducers)(selectScreen);

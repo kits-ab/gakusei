@@ -8,7 +8,6 @@ export const Reducers = [Security, Lessons];
 
 export function requireAuthentication(Component) {
   class AuthenticatedComponent extends React.Component {
-
     componentWillMount() {
       this.checkAuth(this.props.loggedIn);
     }
@@ -26,26 +25,13 @@ export function requireAuthentication(Component) {
     }
 
     render() {
-      return (
-        <div>
-          {this.props.loggedIn
-                        ? <Component {...this.props} />
-                        : null
-                    }
-        </div>
-      );
+      return <div>{this.props.loggedIn ? <Component {...this.props} /> : null}</div>;
     }
-    }
+  }
 
-  AuthenticatedComponent.defaultProps = Utility.reduxEnabledDefaultProps({
+  AuthenticatedComponent.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
-  }, Reducers);
-
-  AuthenticatedComponent.propTypes = Utility.reduxEnabledPropTypes({
-
-  }, Reducers);
-
+  AuthenticatedComponent.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
   return Utility.superConnect(this, Reducers)(AuthenticatedComponent);
 }
-

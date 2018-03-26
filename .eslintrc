@@ -8,8 +8,8 @@
     // http://eslint.org/docs/rules/jsx-quotes
     "jsx-quotes": ["warn", "prefer-double"],
     "jsx-a11y/href-no-hash": "off",
-    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }],
-    "class-methods-use-this": ["warn"],
+    "jsx-a11y/anchor-is-valid": ["off"],
+    "class-methods-use-this": ["off"],
 
     // Forbid certain propTypes (any, array, object)
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md
@@ -29,11 +29,11 @@
 
     // Validate props indentation in JSX
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-indent-props.md
-    "react/jsx-indent-props": ["warn"],
+    "react/jsx-indent-props": ["warn", 2],
 
     // Prevent usage of .bind() in JSX props
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md
-    "react/jsx-no-bind": ["warn"],
+    "react/jsx-no-bind": ["off"],
 
     // Prevent duplicate props in JSX
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-duplicate-props.md
@@ -97,7 +97,7 @@
 
     // Prevent missing props validation in a React component definition
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prop-types.md
-    "react/prop-types": ["warn"],
+    "react/prop-types": ["off"],
 
     // Prevent missing React when using JSX
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/react-in-jsx-scope.md
@@ -111,10 +111,6 @@
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
     "react/self-closing-comp": "warn",
 
-    // Enforce spaces before the closing bracket of self-closing JSX elements
-    // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-space-before-closing.md
-    "react/jsx-space-before-closing": ["warn"],
-
     // Enforce component methods order
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-comp.md
     "react/sort-comp": ["warn"],
@@ -127,7 +123,7 @@
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-first-prop-new-line.md
     "react/jsx-first-prop-new-line": ["warn"],
     "react/jsx-max-props-per-line": ["warn"],
-    "padded-blocks": ["warn", "always"],
+    "padded-blocks": ["off"],
 
     // Enforce spacing around jsx equals signs
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-equals-spacing.md
@@ -135,7 +131,7 @@
 
     // Enforce JSX indentation
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-indent.md
-    "react/jsx-indent": ["warn"],
+    "react/jsx-indent": ["warn", 2],
 
     // Disallow target="_blank" on links
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-target-blank.md
@@ -179,7 +175,7 @@
 
     // Prevent usage of Array index in keys
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-array-index-key.md
-    "react/no-array-index-key": "warn",
+    "react/no-array-index-key": "off",
 
     // Enforce a defaultProps definition for every prop that is not a required prop
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/require-default-props.md
@@ -190,37 +186,43 @@
     "no-debugger": "error",
     "strict": 0, // babel-eslint related
     "no-plusplus": "off", // As if people wouldn't understand what it means.
-    "import/no-extraneous-dependencies": ["warn",
+    "import/no-extraneous-dependencies": [
+      "warn",
       {
         "devDependencies": true, // Because we want devDependencies...
         "optionalDependencies": false,
         "peerDependencies": false
       }
     ],
+    "jsx-space-before-closing": 0,
     "no-underscore-dangle": "warn",
     "no-useless-constructor": "warn",
     "import/no-named-as-default": "off",
     "prefer-const": "warn",
     "no-unused-labels": "warn",
+    "no-undef": "warn",
+    "no-mixed-operators": "off",
+    "no-confusing-arrow": "off",
     "no-multi-spaces": "warn",
-    "indent": ["warn"],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
     "no-trailing-spaces": ["warn"],
     "no-unused-vars": ["warn"],
     "func-names": ["warn", "never"],
     "comma-dangle": ["warn", "never"],
-    "max-len": ["warn", 120, 2, {
-      "ignoreUrls": true,
-      "ignoreComments": false,
-      "ignoreRegExpLiterals": true,
-      "ignoreStrings": true,
-      "ignoreTemplateLiterals": true
-    }],
-    "react/jsx-filename-extension": [1, {
-      "extensions": [".js", ".jsx"]
-    }]
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ]
   },
-  "extends": "airbnb",
-
+  "plugins": ["react", "prettier", "import"],
+  "extends": [
+      "plugin:react/recommended", // if something new pops up in recommended, we'll know
+      "prettier",
+      "prettier/react",
+      "prettier/standard"
+  ],
   "settings": {
     "import/resolver": {
       "node": {

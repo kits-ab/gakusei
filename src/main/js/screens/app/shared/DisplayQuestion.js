@@ -1,9 +1,8 @@
 import React from 'react';
-import { Glyphicon, Button, ButtonToolbar, Collapse, Well } from 'react-bootstrap';
+import { Glyphicon, Button, Collapse, Well } from 'react-bootstrap';
 import Speech from '../../../shared/util/Speech';
 
 export class DisplayQuestion extends React.Component {
-
   getQuestionText() {
     let text = this.props.primaryText || null;
 
@@ -14,8 +13,8 @@ export class DisplayQuestion extends React.Component {
         <div>
           <p className="verbQuestionText">
             Ange böjningen för: <strong>{this.props.secondaryText} </strong>
-             ({text}, {swedishText})
-            <br/>på formen: <strong> {inflection} </strong>
+            ({text}, {swedishText})
+            <br />på formen: <strong> {inflection} </strong>
           </p>
         </div>
       );
@@ -27,23 +26,33 @@ export class DisplayQuestion extends React.Component {
       }
     }
 
-    return (
-      <p className="questionText">{text}</p>
-    );
+    return <p className="questionText">{text}</p>;
   }
 
   getResource() {
     if (this.props.resourceRef && this.props.resourceRef.type === 'kanjidrawing') {
-      return (<object
+      return (
+        <object
+          fillOpacity="0.0"
+          width="12%"
+          height="12%"
+          viewBox="-7 -85 534 540"
+          type="image/svg+xml"
+          data={this.props.resourceRef.location}
+        >
+          (SVG fel)
+        </object>
+      );
+    }
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
         fillOpacity="0.0"
         width="12%"
         height="12%"
         viewBox="-7 -85 534 540"
-        type="image/svg+xml"
-        data={this.props.resourceRef.location}
-      >(SVG fel)</object>);
-    }
-    return (<svg xmlns="http://www.w3.org/2000/svg" fillOpacity="0.0" width="12%" height="12%" viewBox="-7 -85 534 540" />);
+      />
+    );
   }
 
   render() {
@@ -51,7 +60,7 @@ export class DisplayQuestion extends React.Component {
     const resource = this.getResource();
     const explanation = this.props.explanationText;
     const speechButtonStyle = {
-      fontSize: (this.props.smallerText ? '1.0em' : '1.6em'),
+      fontSize: this.props.smallerText ? '1.0em' : '1.6em',
       position: 'inherit',
       verticalAlign: 'middle',
       padding: '2px 1px 2px 1px'
@@ -62,42 +71,51 @@ export class DisplayQuestion extends React.Component {
       margin: '5px 5px 10px 5px'
     };
     const generalStyle = {
-      fontSize: (this.props.smallerText ? '0.5em' : '1.0em')
+      fontSize: this.props.smallerText ? '0.5em' : '1.0em'
     };
 
     return (
       <div style={generalStyle}>
-        { this.props.showKanji ? resource : null }
+        {this.props.showKanji ? resource : null}
         {questionText}
         <div>
-          { this.props.japaneseCharacters && this.props.showSpeechButton ?
+          {this.props.japaneseCharacters && this.props.showSpeechButton ? (
             <span>
-              <Button style={buttonStyle} bsStyle="info" bsSize="xsmall" onClick={() => Speech.say(this.props.primaryText)} >
-                <Glyphicon style={speechButtonStyle} glyph="volume-up" />
+              <Button
+                style={buttonStyle}
+                bsStyle="info"
+                bsSize="xsmall"
+                onClick={() => Speech.say(this.props.primaryText)}
+              >
+                <Glyphicon
+                  style={speechButtonStyle}
+                  glyph="volume-up"
+                />
               </Button>
-              { explanation ?
+              {explanation ? (
                 <Button
                   style={buttonStyle}
                   bsStyle="info"
                   bsSize="xsmall"
                   onClick={() => this.props.updateHintVisibility()}
                 >
-                  <Glyphicon style={speechButtonStyle} glyph={'question-sign'} />
+                  <Glyphicon
+                    style={speechButtonStyle}
+                    glyph={'question-sign'}
+                  />
                 </Button>
-              : null }
+              ) : null}
             </span>
-            :
-            null }
-          {explanation ?
+          ) : null}
+          {explanation ? (
             <div>
-
               <Collapse in={this.props.showHint}>
                 <div>
                   <Well className="hintText">{explanation}</Well>
                 </div>
               </Collapse>
             </div>
-            : null }
+          ) : null}
         </div>
       </div>
     );
@@ -111,7 +129,8 @@ DisplayQuestion.defaultProps = {
   showKanji: false,
   smallerText: false,
   inflection: [],
-  explanationText: null
+  explanationText: null,
+  cardType: ''
 };
 
 DisplayQuestion.propTypes = {

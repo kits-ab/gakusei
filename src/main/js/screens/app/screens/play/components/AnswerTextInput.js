@@ -7,7 +7,7 @@ export default class AnswerButton extends React.Component {
     super(props);
     this.state = {
       answer: '',
-      buttonText: 'Kontrollera svar',
+      buttonText: 'Kontrollera svar'
     };
   }
 
@@ -20,12 +20,9 @@ export default class AnswerButton extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.questionAnswered) {
       this.setState({
-        answerStyle: (nextProps.questionAnsweredCorrectly ?
-          'success' :
-          'error'
-        ),
+        answerStyle: nextProps.questionAnsweredCorrectly ? 'success' : 'error',
         buttonText: 'Nästa fråga',
-        clickFunc: this.props.clickNextCallback.bind(this),
+        clickFunc: this.props.clickNextCallback.bind(this)
       });
     } else {
       this.setState({ answer: '', answerStyle: null, buttonText: 'Kontrollera svar' });
@@ -37,18 +34,30 @@ export default class AnswerButton extends React.Component {
     if (this.props.inputFocused) {
       this.answerInput.focus();
     } else if (this.state.buttonText === 'Nästa fråga') {
-      ReactDOM.findDOMNode(this).querySelector('#nextButton').focus();
+      // eslint-disable-next-line react/no-find-dom-node
+      ReactDOM.findDOMNode(this)
+        .querySelector('#nextButton')
+        .focus();
     }
   }
 
   getOutput() {
     if (this.props.questionAnswered) {
-      return (<Row>
-        { (this.props.questionAnsweredCorrectly ?
-          <h3>Rätt!</h3> : <h3>Fel, rätt svar: {this.props.correctAlternative[0]}</h3>) }
-      </Row>);
+      return (
+        <Row>
+          {this.props.questionAnsweredCorrectly ? (
+            <h3>Rätt!</h3>
+          ) : (
+            <h3>Fel, rätt svar: {this.props.correctAlternative[0]}</h3>
+          )}
+        </Row>
+      );
     }
-    return (<Row><h3>&nbsp;</h3></Row>);
+    return (
+      <Row>
+        <h3>&nbsp;</h3>
+      </Row>
+    );
   }
 
   updateAnswerText(optionalValue = null) {
@@ -96,16 +105,22 @@ export default class AnswerButton extends React.Component {
             value={this.state.answer}
             onChange={this.handleChange}
             disabled={this.inputIsDisabled()}
-            inputRef={(ref)  => { this.answerInput = ref; }}
+            inputRef={ref => {
+              this.answerInput = ref;
+            }}
           />
           <FormControl.Feedback />
         </FormGroup>
         <FormGroup>
-          <Button id="nextButton" type="submit" disabled={this.props.buttonsDisabled}>
+          <Button
+            id="nextButton"
+            type="submit"
+            disabled={this.props.buttonsDisabled}
+          >
             {this.state.buttonText}
           </Button>
         </FormGroup>
-        { this.getOutput() }
+        {this.getOutput()}
       </Form>
     );
   }
@@ -126,5 +141,5 @@ AnswerButton.propTypes = {
   clickNextCallback: React.PropTypes.func.isRequired,
   questionAnswered: React.PropTypes.bool.isRequired,
   questionAnsweredCorrectly: React.PropTypes.bool.isRequired,
-  inputFocused: React.PropTypes.bool.isRequired,
+  inputFocused: React.PropTypes.bool.isRequired
 };

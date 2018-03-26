@@ -10,8 +10,7 @@ class WriteCard extends React.Component {
 
     this.onMatch = this.onMatch.bind(this);
 
-    this.accuracyLevels =
-    [
+    this.accuracyLevels = [
       {
         level: 1,
         minPercent: 0,
@@ -89,13 +88,17 @@ class WriteCard extends React.Component {
       let totalAccuracyLevel;
 
       for (let i = 0; i < this.accuracyLevels.length; i++) {
-        if (this.accuracyLevels[i].minPercent <= match.accuracy &&
-        this.accuracyLevels[i].maxPercent >= match.accuracy) {
+        if (
+          this.accuracyLevels[i].minPercent <= match.accuracy &&
+          this.accuracyLevels[i].maxPercent >= match.accuracy
+        ) {
           accuracyLevel = this.accuracyLevels[i];
         }
 
-        if (this.accuracyLevels[i].minPercent <= match.totalAccuracy &&
-        this.accuracyLevels[i].maxPercent >= match.totalAccuracy) {
+        if (
+          this.accuracyLevels[i].minPercent <= match.totalAccuracy &&
+          this.accuracyLevels[i].maxPercent >= match.totalAccuracy
+        ) {
           totalAccuracyLevel = this.accuracyLevels[i];
         }
       }
@@ -103,7 +106,8 @@ class WriteCard extends React.Component {
       this.setState({
         matchingDone: match.linesLeft === 0,
         matches: [
-          ...this.state.matches, {
+          ...this.state.matches,
+          {
             match: {
               percentage: match.accuracy,
               userCorrectDirection: match.userCorrectDirection,
@@ -118,7 +122,8 @@ class WriteCard extends React.Component {
               scoreLevel: totalAccuracyLevel.level,
               userCorrect: accuracyLevel.acceptable
             }
-          }]
+          }
+        ]
       });
 
       // No button to end voluntarily for now (should be the only option in harder modes)
@@ -128,7 +133,12 @@ class WriteCard extends React.Component {
   render() {
     return (
       <Row>
-        <Col xs={10} xsOffset={1} sm={10} smOffset={1}>
+        <Col
+          xs={10}
+          xsOffset={1}
+          sm={10}
+          smOffset={1}
+        >
           <Row>
             <DisplayQuestion
               style={{ verticalAlign: 'center' }}
@@ -152,9 +162,7 @@ class WriteCard extends React.Component {
   }
 }
 
-WriteCard.defaultProps = {
-
-};
+WriteCard.defaultProps = {};
 
 WriteCard.propTypes = {
   question: React.PropTypes.shape({
