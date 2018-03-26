@@ -16,7 +16,7 @@
     "start": "webpack-dev-server",
     "lint": "npm run -s lint-js && npm run -s lint-js && npm run -s lint-css && npm run -s lint-css",
     "lint-js": "./node_modules/.bin/prettier-eslint --write \"src/main/js/**/*.{js,jsx}\"",
-    "lint-js-staged": "./node_modules/.bin/prettier-eslint --write",
+    "lint-js-staged": "./node_modules/.bin/prettier-eslint --print-width=120 --write",
     "lint-css": "./node_modules/.bin/prettier-stylelint --write --quiet \"src/main/resources/static/css/**/*.css\"",
     "lint-css-staged": "./node_modules/.bin/prettier-stylelint --write \"*.css\""
   },
