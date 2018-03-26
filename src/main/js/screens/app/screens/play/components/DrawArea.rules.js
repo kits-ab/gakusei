@@ -1,6 +1,28 @@
 import simplify from 'simplify-js';
 import Geometry from '../../../../../shared/util/Geometry';
 
+export function isLineIntersectingOtherLines(ruleOptions, data) {
+  const intersections = [];
+
+  data.correctLines.forEach((correctLine, correctLineIndex) => {
+    // don't compare correct line with its own answer
+    if (correctLineIndex !== data.userLines.length - 1) {
+      const lineIntersections = Geometry.getIntersections(data.userLine, correctLine);
+      if (lineIntersections.length > 0) {
+        intersections.push({
+          otherLineIndex: correctLineIndex,
+          lineIntersections
+        });
+      }
+    }
+  });
+
+  return {
+    value: intersections.length > 0,
+    message: intersections
+  };
+}
+
 export function isLineAccurate(ruleOptions, data) {
   // Calculate accuracy for this shape
   const decimalAccuracy = Geometry.compareShapes(

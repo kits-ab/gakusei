@@ -44,6 +44,7 @@
     "form-data": "^2.1.2",
     "hyphenation.sv": "^0.2.1",
     "hypher": "^0.2.5",
+    "mathjs": "^4.0.1",
     "moment": "2.21.0",
     "moresketchy": "^1.0.5",
     "munkres-js": "^1.2.2",

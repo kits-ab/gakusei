@@ -14,14 +14,6 @@ export default class DrawArea extends React.Component {
 
     this.onNewUserPath = this.onNewUserPath.bind(this);
 
-    this.colors = {
-      neutral: 'LightGray',
-      contrastedNeutral: '#505050',
-      error: 'DarkRed',
-      highlighted: 'Orange',
-      black: 'Black'
-    };
-
     /* devcode:start */
     this.onKeys = function(event) {
       const keyDown = event.key;
@@ -98,13 +90,13 @@ export default class DrawArea extends React.Component {
           existingPoints: this.state.userAnswer.existingPoints
         },
         action(canvas, data) {
-          let lineColor = this.colors.neutral;
+          let lineColor = 'LightGray';
 
           data.answerPoints.forEach((answerPoint, i) => {
             if (i >= data.existingPoints.length) {
-              lineColor = this.colors.neutral;
+              lineColor = 'LightGray';
             } else {
-              lineColor = this.colors.neutral;
+              lineColor = 'LightGray';
             }
             this.drawPoints(data.answerPoints[i], lineColor);
           });
@@ -120,10 +112,10 @@ export default class DrawArea extends React.Component {
         action(canvas, data) {
           // Go into each path
           for (let i = 0; i < data.existingPoints.length; i++) {
-            let lineColor = this.colors.contrastedNeutral;
+            let lineColor = '#505050';
             if (data.highlightErrors) {
               if (!data.matches[i].match.userCorrect) {
-                lineColor = this.colors.error;
+                lineColor = 'DarkRed';
               }
             }
 
@@ -148,16 +140,18 @@ export default class DrawArea extends React.Component {
 
               if (data.highlightErrors && !data.matches[i].match.userCorrect) {
                 // Error highlighting mode, don't show next number to draw.
-                boxColor = this.colors.error;
+                boxColor = 'DarkRed';
               } else {
                 const currentNumber = parseInt(numberPoint.text, 10);
                 if (currentNumber === data.existingPoints.length + 1) {
-                  boxColor = this.colors.highlighted;
+                  boxColor = 'Orange';
                 } else if (currentNumber < data.existingPoints.length + 1) {
                   boxColor = null;
-                  textColor = this.colors.neutral;
+                  textColor = 'LightGray';
+                  // boxColor = 'LightGray';
                 } else {
                   boxColor = null;
+                  // boxColor = 'LightGreen';
                 }
               }
 
@@ -170,7 +164,7 @@ export default class DrawArea extends React.Component {
       {
         data: {},
         action(canvas, data, drawPoints) {
-          this.drawPoints(drawPoints, this.colors.black);
+          this.drawPoints(drawPoints, 'Black');
         }
       }
     ];
@@ -180,7 +174,6 @@ export default class DrawArea extends React.Component {
     if (this.state.correctAlternative.pathPoints.length > 0 && this.state.userAnswer.existingPoints.length > 0) {
       const latestUserPointIndex = this.state.userAnswer.existingPoints.length - 1;
 
-      // Data
       const data = {
         correctLine: this.state.correctAlternative.pathPoints[latestUserPointIndex],
         userLine: this.state.userAnswer.existingPoints[latestUserPointIndex],
@@ -188,7 +181,8 @@ export default class DrawArea extends React.Component {
         userLines: this.state.userAnswer.existingPoints
       };
 
-      // Rules
+      const isLineIntersectingOtherLinesResult = rules.isLineIntersectingOtherLines({}, data);
+
       const isLineAccurateResult = rules.isLineAccurate(
         { requiredAccuracyPercentage: 50, strictnessPercentage: 20 },
         data
@@ -206,6 +200,9 @@ export default class DrawArea extends React.Component {
         lineIndex: latestUserPointIndex,
         linesLeft: this.state.correctAlternative.pathPoints.length - (latestUserPointIndex + 1),
         validationResults: [isLineAccurateResult, areLinesAccurateResult, isCorrectDirectionResult]
+        // accuracy: isLineAccurateResult.message,
+        // totalAccuracy: areLinesAccurateResult.message,
+        // userCorrectDirection: isCorrectDirectionResult.value
       });
     }
   }
