@@ -1,0 +1,7 @@
+--ui bdd
+--timeout 999999
+--colors
+--recursive
+./src/**/*.test.js
+--require
+./tests/mocha.bootstrap.js
