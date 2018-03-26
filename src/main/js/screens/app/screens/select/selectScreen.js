@@ -34,8 +34,7 @@ export class selectScreen extends React.Component {
 
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchFavoriteLesson()
-    .catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchFavoriteLesson().catch(() => this.props.verifyUserLoggedIn());
 
     if (this.props.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
@@ -118,7 +117,7 @@ export class selectScreen extends React.Component {
         break;
     }
   }
-  
+
   handleSubmit(event) {
     event.preventDefault();
     try {
@@ -169,22 +168,28 @@ export class selectScreen extends React.Component {
             </Button>
           </Col>
         )}
-      </Row>));
-    
+      </Row>
+    ));
 
-    const favoriteLesson = 
-    <Row>
-      <Col
-        xs={12}
-        md={12}
-        lg={12}>
-        <ListGroupItem header='Blandade frågor'
-        onClick={() => this.props.setSelectedLesson(this.props.favoriteLesson)}
-        bsStyle={ (this.props.favoriteLesson && this.props.favoriteLesson.name === this.props.selectedLesson.name ? 'info' : null)}
-        />
-      </Col>
-        
-    </Row>;
+    const favoriteLesson = (
+      <Row>
+        <Col
+          xs={12}
+          md={12}
+          lg={12}
+        >
+          <ListGroupItem
+            header="Blandade frågor"
+            onClick={() => this.props.setSelectedLesson(this.props.favoriteLesson)}
+            bsStyle={
+              this.props.favoriteLesson && this.props.favoriteLesson.name === this.props.selectedLesson.name
+                ? 'info'
+                : null
+            }
+          />
+        </Col>
+      </Row>
+    );
 
     const answerLanguages = [];
     let questionLanguages = [];
@@ -280,14 +285,12 @@ export class selectScreen extends React.Component {
               <ControlLabel>{this.getPageDescription()}</ControlLabel>
             </FormGroup>
 
-            {this.props.params.type !== 'quiz' ? 
-            <FormGroup>
-              <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
-              <ListGroup>
-                {favoriteLesson}
-              </ListGroup>
-            </FormGroup>
-            : null }
+            {this.props.params.type !== 'quiz' ? (
+              <FormGroup>
+                <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
+                <ListGroup>{favoriteLesson}</ListGroup>
+              </FormGroup>
+            ) : null}
 
             <FormGroup>
               <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
