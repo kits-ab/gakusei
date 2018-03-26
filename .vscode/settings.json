@@ -1,7 +1,7 @@
 {
     "prettier.eslintIntegration": true,
     "prettier.stylelintIntegration": true,
-    "prettier.printWidth": 120,
+    "prettier.printWidth": 80,
     "eslint.run": "onSave",
     "indentRainbow.errorColor": "rgba(128,32,32,0.0)",
     "stylelint.config": { "extends": "./.stylelintrc.json" }

@@ -217,6 +217,10 @@
       }
     ]
   },
+  "env": {
+    "es6": true,
+    "browser": true
+  },
   "plugins": ["react", "prettier", "import"],
   "extends": [
       "plugin:react/recommended", // if something new pops up in recommended, we'll know
