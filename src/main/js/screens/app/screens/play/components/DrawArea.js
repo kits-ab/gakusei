@@ -14,6 +14,14 @@ export default class DrawArea extends React.Component {
 
     this.onNewUserPath = this.onNewUserPath.bind(this);
 
+    this.colors = {
+      neutral: 'LightGray',
+      contrastedNeutral: '#505050',
+      error: 'DarkRed',
+      highlighted: 'Orange',
+      black: 'Black'
+    };
+
     /* devcode:start */
     this.onKeys = function(event) {
       const keyDown = event.key;
@@ -90,16 +98,16 @@ export default class DrawArea extends React.Component {
           existingPoints: this.state.userAnswer.existingPoints
         },
         action(canvas, data) {
-          let lineColor = 'LightGray';
+          let lineColor = this.colors.neutral;
 
-          for (let i = 0; i < data.answerPoints.length; i++) {
+          data.answerPoints.forEach((answerPoint, i) => {
             if (i >= data.existingPoints.length) {
-              lineColor = 'LightGray';
+              lineColor = this.colors.neutral;
             } else {
-              lineColor = 'LightGray';
+              lineColor = this.colors.neutral;
             }
             this.drawPoints(data.answerPoints[i], lineColor);
-          }
+          });
         }
       },
       // Draw the lines the user has previously made
@@ -112,10 +120,10 @@ export default class DrawArea extends React.Component {
         action(canvas, data) {
           // Go into each path
           for (let i = 0; i < data.existingPoints.length; i++) {
-            let lineColor = '#505050';
+            let lineColor = this.colors.contrastedNeutral;
             if (data.highlightErrors) {
               if (!data.matches[i].match.userCorrect) {
-                lineColor = 'DarkRed';
+                lineColor = this.colors.error;
               }
             }
 
@@ -134,29 +142,27 @@ export default class DrawArea extends React.Component {
         action(canvas, data) {
           // Answer numbers
           if (data.numberPoints.length > 0) {
-            for (let i = 0; i < data.numberPoints.length; i++) {
+            data.numberPoints.forEach((numberPoint, i) => {
               let textColor = null;
               let boxColor = null;
 
-              if (data.highlightErrors && !data.matches[i].match.userCorrectDirection) {
+              if (data.highlightErrors && !data.matches[i].match.userCorrect) {
                 // Error highlighting mode, don't show next number to draw.
-                boxColor = 'DarkRed';
+                boxColor = this.colors.error;
               } else {
-                const currentNumber = parseInt(data.numberPoints[i].text, 10);
+                const currentNumber = parseInt(numberPoint.text, 10);
                 if (currentNumber === data.existingPoints.length + 1) {
-                  boxColor = 'Orange';
+                  boxColor = this.colors.highlighted;
                 } else if (currentNumber < data.existingPoints.length + 1) {
                   boxColor = null;
-                  textColor = 'LightGray';
-                  // boxColor = 'LightGray';
+                  textColor = this.colors.neutral;
                 } else {
                   boxColor = null;
-                  // boxColor = 'LightGreen';
                 }
               }
 
-              this.drawText(data.numberPoints[i], textColor, boxColor);
-            }
+              this.drawText(numberPoint, textColor, boxColor);
+            });
           }
         }
       },
@@ -164,7 +170,7 @@ export default class DrawArea extends React.Component {
       {
         data: {},
         action(canvas, data, drawPoints) {
-          this.drawPoints(drawPoints, 'Black');
+          this.drawPoints(drawPoints, this.colors.black);
         }
       }
     ];
@@ -172,37 +178,34 @@ export default class DrawArea extends React.Component {
 
   compare() {
     if (this.state.correctAlternative.pathPoints.length > 0 && this.state.userAnswer.existingPoints.length > 0) {
-      const newestUserPointIndex = this.state.userAnswer.existingPoints.length - 1;
+      const latestUserPointIndex = this.state.userAnswer.existingPoints.length - 1;
 
-      const relevantAnswerPoints = this.state.correctAlternative.pathPoints[newestUserPointIndex];
-      const latestUserPoints = this.state.userAnswer.existingPoints[newestUserPointIndex];
-
-      const getData = () => ({
-        correctLine: relevantAnswerPoints,
-        userLine: latestUserPoints,
+      // Data
+      const data = {
+        correctLine: this.state.correctAlternative.pathPoints[latestUserPointIndex],
+        userLine: this.state.userAnswer.existingPoints[latestUserPointIndex],
         correctLines: this.state.correctAlternative.pathPoints,
         userLines: this.state.userAnswer.existingPoints
-      });
+      };
 
+      // Rules
       const isLineAccurateResult = rules.isLineAccurate(
         { requiredAccuracyPercentage: 50, strictnessPercentage: 20 },
-        getData()
+        data
       );
 
       const areLinesAccurateResult = rules.areLinesAccurate(
         { requiredAccuracyPercentage: 50, strictnessPercentage: 20 },
-        getData()
+        data
       );
 
-      const isCorrectDirectionResult = rules.isCorrectDirection({}, getData());
+      const isCorrectDirectionResult = rules.isCorrectDirection({}, data);
 
       // Send the comparison upward for current index
       this.props.newMatch({
-        lineIndex: newestUserPointIndex,
-        linesLeft: this.state.correctAlternative.pathPoints.length - (newestUserPointIndex + 1),
-        accuracy: isLineAccurateResult.message,
-        totalAccuracy: areLinesAccurateResult.message,
-        userCorrectDirection: isCorrectDirectionResult.value
+        lineIndex: latestUserPointIndex,
+        linesLeft: this.state.correctAlternative.pathPoints.length - (latestUserPointIndex + 1),
+        validationResults: [isLineAccurateResult, areLinesAccurateResult, isCorrectDirectionResult]
       });
     }
   }

@@ -10,51 +10,6 @@ class WriteCard extends React.Component {
 
     this.onMatch = this.onMatch.bind(this);
 
-    this.accuracyLevels = [
-      {
-        level: 1,
-        minPercent: 0,
-        maxPercent: 15,
-        acceptable: false,
-        wording: 'inte alls bra'
-      },
-      {
-        level: 2,
-        minPercent: 15,
-        maxPercent: 40,
-        acceptable: false,
-        wording: 'inte så bra'
-      },
-      {
-        level: 3,
-        minPercent: 40,
-        maxPercent: 60,
-        acceptable: true,
-        wording: 'OK'
-      },
-      {
-        level: 4,
-        minPercent: 60,
-        maxPercent: 90,
-        acceptable: true,
-        wording: 'bra'
-      },
-      {
-        level: 5,
-        minPercent: 90,
-        maxPercent: 95,
-        acceptable: true,
-        wording: 'väldigt bra'
-      },
-      {
-        level: 6,
-        minPercent: 95,
-        maxPercent: 100,
-        acceptable: true,
-        wording: 'perfekt'
-      }
-    ];
-
     this.defaultState = {
       matchingDone: false,
       matches: []
@@ -84,43 +39,16 @@ class WriteCard extends React.Component {
   onMatch(match) {
     // Check if this line-match has been recorded already
     if (typeof this.state.matches[match.lineIndex] === 'undefined') {
-      let accuracyLevel;
-      let totalAccuracyLevel;
-
-      for (let i = 0; i < this.accuracyLevels.length; i++) {
-        if (
-          this.accuracyLevels[i].minPercent <= match.accuracy &&
-          this.accuracyLevels[i].maxPercent >= match.accuracy
-        ) {
-          accuracyLevel = this.accuracyLevels[i];
-        }
-
-        if (
-          this.accuracyLevels[i].minPercent <= match.totalAccuracy &&
-          this.accuracyLevels[i].maxPercent >= match.totalAccuracy
-        ) {
-          totalAccuracyLevel = this.accuracyLevels[i];
-        }
-      }
-
       this.setState({
         matchingDone: match.linesLeft === 0,
         matches: [
           ...this.state.matches,
           {
             match: {
-              percentage: match.accuracy,
-              userCorrectDirection: match.userCorrectDirection,
-              wording: accuracyLevel.wording,
-              scoreLevel: accuracyLevel.level,
-              userCorrectDrawStyle: accuracyLevel.acceptable,
-              userCorrect: accuracyLevel.acceptable && match.userCorrectDirection
+              userCorrect: match.validationResults.every(result => result.value === true)
             },
             totalMatch: {
-              percentage: match.totalAccuracy,
-              wording: totalAccuracyLevel.wording,
-              scoreLevel: totalAccuracyLevel.level,
-              userCorrect: accuracyLevel.acceptable
+              userCorrect: match.validationResults.every(result => result.value === true)
             }
           }
         ]
