@@ -11,8 +11,11 @@ import {
   ListGroup,
   ListGroupItem,
   Glyphicon,
-  HelpBlock
+  HelpBlock,
+  Panel,
+  Checkbox
 } from 'react-bootstrap';
+
 import Utility from '../../../../shared/util/Utility';
 
 import * as Lessons from '../../../../shared/reducers/Lessons';
@@ -137,35 +140,45 @@ export class selectScreen extends React.Component {
   }
   render() {
     const options = this.props.lessons.map(lesson => (
-      <ListGroupItem
-        href="#"
+      <Col
         key={lesson.name}
-        onClick={e => {
-          e.preventDefault();
-          this.props.setSelectedLesson(lesson);
-        }}
-        value={lesson.name}
-        header={lesson.name}
-        active={lesson.name === this.props.selectedLesson.name}
-        className="clearfix"
+        xs={12}
+        md={6}
+        lg={4}
       >
-        {this.props.params.type === 'quiz' ? null : (
-          <Button
-            bsStyle={
-              this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-                ? 'warning'
-                : null
-            }
-            onClick={e => {
-              e.stopPropagation();
-              this.handleStarredClick(lesson);
-            }}
-            className="pull-right"
-          >
-            <Glyphicon glyph="star" />
-          </Button>
-        )}
-      </ListGroupItem>
+        <Panel>
+          <Panel.Heading className="clearfix">
+            <Panel.Title>
+              {this.props.params.type === 'quiz' ? null : (
+                <Button
+                  bsClass="favorite-icon-button"
+                  onClick={e => {
+                    e.stopPropagation();
+                    this.handleStarredClick(lesson);
+                  }}
+                  className="pull-right"
+                >
+                  <Glyphicon glyph="star" />
+                </Button>
+              )}
+
+              {lesson.name}
+            </Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <p>{lesson.description}</p>
+            <Button
+              onClick={e => {
+                e.stopPropagation();
+                this.handleStarredClick(lesson);
+              }}
+            >
+              <Glyphicon glyph="play" />
+            </Button>
+            <Badge pullRight>42</Badge>
+          </Panel.Body>
+        </Panel>
+      </Col>
     ));
 
     const favoriteLesson = (
@@ -266,7 +279,7 @@ export class selectScreen extends React.Component {
       );
     }
     return (
-      <Grid className="text-center">
+      <Grid>
         <Col
           xs={11}
           lg={8}
@@ -291,7 +304,7 @@ export class selectScreen extends React.Component {
 
             <FormGroup>
               <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
-              <ListGroup>{options}</ListGroup>
+              <Row>{options}</Row>
               {languageSelection}
             </FormGroup>
             <FormGroup>
