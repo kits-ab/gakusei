@@ -21,14 +21,18 @@
 }
 
 .favorite-icon-button {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  outline: none;
-  border: 0;
+  border: none;
   background: transparent;
-  color: red;
+  color: white;
   font-size: 150%;
+  padding: 0;
+  line-height: 0;
+  -webkit-text-stroke: rgb(210, 212, 210) 0.05em;
+}
+
+.favorite-icon-button.favorite-icon-button__active {
+  color: rgb(255, 215, 107);
+  -webkit-text-stroke: rgb(206, 166, 65) 0.05em;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {

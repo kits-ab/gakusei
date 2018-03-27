@@ -151,7 +151,11 @@ export class selectScreen extends React.Component {
             <Panel.Title>
               {this.props.params.type === 'quiz' ? null : (
                 <Button
-                  bsClass="favorite-icon-button"
+                  bsClass={
+                    this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+                      ? 'favorite-icon-button favorite-icon-button__active'
+                      : 'favorite-icon-button'
+                  }
                   onClick={e => {
                     e.stopPropagation();
                     this.handleStarredClick(lesson);
@@ -175,7 +179,6 @@ export class selectScreen extends React.Component {
             >
               <Glyphicon glyph="play" />
             </Button>
-            <Badge pullRight>42</Badge>
           </Panel.Body>
         </Panel>
       </Col>
