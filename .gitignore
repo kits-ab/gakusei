@@ -37,4 +37,4 @@ src/main/resources/static/js/**
 
 # Don't include java log directory
 logs/
-package-lock.json
+
