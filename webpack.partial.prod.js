@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* eslint-env node */
 
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -16,10 +17,8 @@ module.exports = {
       {
         test: /\.jsx?$/,
         enforce: 'pre',
-        exclude: /(node_modules|bower_components|\.spec\.js)/,
-        use: [
-          'webpack-strip-block?start=devcode:start&end=devcode:end'
-        ]
+        exclude: /(node_modules|\.spec\.js)/,
+        use: ['webpack-strip-block?start=devcode:start&end=devcode:end']
       }
     ]
   },

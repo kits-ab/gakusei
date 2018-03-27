@@ -1,50 +1,30 @@
 /* eslint-disable no-console */
+/* eslint-env node */
 
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const indexFilename = function () {
-  // if this env variable stops working, try npm_package_scripts_start instead.
-  if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
-    return '../../templates/index.html';
-  }
-  return 'index.html';
-};
-
-const getEntries = function () {
-  // if this env variable stops working, try npm_package_scripts_start instead.
-  if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
-    return {};
-  }
-  return { main: [
-    'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:7777'
-  ] };
-};
-
-const getPath = function () {
-  if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
-    return path.resolve(__dirname, 'src/main/resources/static/js');
-  }
-  return path.resolve(__dirname, 'src/main/resources/static');
-};
-
-const getPublicPath = function () {
-  if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
-    return '/js';
-  }
-  return '/';
-};
+// if this env variable stops working, try npm_package_scripts_start instead.
+const notDevServer = process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server';
 
 module.exports = {
   output: {
-    publicPath: getPublicPath(),
+    publicPath: notDevServer ? '/js' : '/',
     filename: '[name].bundle.js',
-    path: getPath()
+    path: notDevServer
+      ? path.resolve(__dirname, 'src/main/resources/static/js')
+      : path.resolve(__dirname, 'src/main/resources/static')
     // If anything breaks, it's because this "/js" part needs to be removed for dev server, I think.
   },
-  entry: getEntries,
+  entry: () => {
+    if (notDevServer) {
+      return {};
+    }
+    return {
+      main: ['react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:7777']
+    };
+  },
   // Source mapping, to be able to get readable code in the chrome devtools
   devtool: 'source-map',
   // devServer: For running a local web server on localhost:7777
@@ -80,7 +60,7 @@ module.exports = {
 
     // HtmlWebpackPlugin: Generate a html file into memory. Should be identical to the templates/index.html file
     new HtmlWebpackPlugin({
-      filename: indexFilename(),
+      filename: notDevServer ? '../../templates/index.html' : 'index.html',
       template: path.resolve('src/main/resources/static/html/webpack_index.html')
     })
   ]

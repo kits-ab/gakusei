@@ -219,7 +219,8 @@
   },
   "env": {
     "es6": true,
-    "browser": true
+    "browser": true,
+    "mocha": true
   },
   "plugins": ["react", "prettier", "import"],
   "extends": [
@@ -251,7 +252,8 @@
     "before": false,
     "beforeEach": false,
     "it": false,
-    "done": false
+    "done": false,
+    "expect": true
   },
   "parser": "babel-eslint",
   "parserOptions": {

@@ -3,44 +3,35 @@
 // This file is for unit tests to work properly
 // require('ignore-styles');
 // ES6/ES201X-functionality
-require('babel-polyfill');
+// require('babel-polyfill');
 require('babel-register')({
+  // This will override `node_modules` ignoring - you can alternatively pass
+  // an array of strings to be explicitly matched or a regex / glob
+  ignore: function(filename) {
+    if (filename.includes('moresketchy')) {
+      return false;
+    } else if (filename.includes('node_modules')) {
+      return true;
+    } else {
+      return false;
+    }
+  },
   // This is a .babelrc config
   sourceMaps: 'inline',
   retainLines: true,
   presets: [
     [
-      '@babel/preset-env',
+      'env',
       {
         targets: {
-          browsers: ['last 2 versions']
-        },
-        // modules: true, // because webpack won't handle this for us
-        useBuiltIns: true
+          node: '8.1.2'
+        }
       }
     ],
     'react'
   ],
-  plugins: [
-    'transform-object-rest-spread'
-    // 'rewire',
-    // [
-    //   'react-css-modules',
-    //   {
-    //     context: options.context,
-    //     // include: "\.module\.(less|css)$", // PR pending
-    //     exclude: '^(?!.*module).+.(less|css)$',
-    //     filetypes: {
-    //       '.less': {
-    //         syntax: 'postcss-less'
-    //       }
-    //     },
-    //     generateScopedName: '[local]'
-    //   }
-    // ]
-    // ['module-alias', [{ src: './src/app/spine', expose: 'spine' }]] /* unit testing */
-  ]
-}); // to be able to write es6+ tests
+  plugins: ['transform-object-rest-spread']
+});
 
 // Chai
 require('chai/register-assert'); // Using Assert style
@@ -83,21 +74,3 @@ global.window.ReactDOM = global.ReactDOM;
 // var Adapter = require('enzyme-adapter-react-16');
 // var configure = require('enzyme').configure;
 // configure({ adapter: new Adapter() });
-
-// MISC
-// ------
-// To avoid chai `should` property leaking into JSON stringify when the object itself is a proxy object
-global.stringifyOriginal = JSON.stringify;
-global.window.stringifyOriginal = JSON.stringify;
-JSON.stringify = (x, originalReplacer) =>
-  global.stringifyOriginal(x, (key, value) => {
-    let modifiedValue = value;
-    if (key === 'should') {
-      modifiedValue = undefined;
-    }
-
-    if (originalReplacer) {
-      return originalReplacer(key, modifiedValue);
-    }
-    return modifiedValue;
-  });

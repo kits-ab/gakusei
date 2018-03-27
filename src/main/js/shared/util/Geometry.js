@@ -1,16 +1,23 @@
 import Sketchy from 'moresketchy';
 import mathjs from 'mathjs';
+import SVG from 'svg.js';
 
 export default class Geometry {
   static extractDataFromSVG(svgText, width = 109, height = 109, pixelsPerPoint = 1) {
     const object = document.createElement('object');
     object.innerHTML = svgText;
 
+    var test = SVG('drawing');
+    var svg = SVG.draw.svg(svgText);
+
+    const getSvgLength = path => (path.getTotalLength ? path.getTotalLength() : 100);
+
     // Get paths
     const paths = object.getElementsByTagName('path');
     const pathArray = [];
     for (let i = 0; i < paths.length; i++) {
-      const pathLength = paths[i].getTotalLength();
+      const pathLength = getSvgLength(paths[i]);
+
       const numPoints = pathLength / pixelsPerPoint + 1;
       const pathPoints = [];
 
