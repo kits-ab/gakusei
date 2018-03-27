@@ -58,8 +58,13 @@ module.exports = function () {
         },
         {
           test: /\.jsx?$/,
-          use: ['babel-loader'],
-          exclude: /(node_modules|bower_components|\.spec\.js)/
+          exclude: /(node_modules|bower_components|\.spec\.js)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true
+            }
+          }
         },
         {
           test: /\.json$/,
