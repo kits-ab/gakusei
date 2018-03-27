@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* eslint-env node */
 
 const path = require('path');
 const merge = require('webpack-merge');
@@ -9,42 +10,38 @@ const packageJson = require('./package.json');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-module.exports = function () {
+module.exports = function() {
   let partialConfig;
-  const shellScripts = [
-    'node scripts/updateVersionFromMavenPom.js',
-    'node scripts/generateFrontendLicenses.js'
-  ];
+  const shellScripts = ['node scripts/updateVersionFromMavenPom.js', 'node scripts/generateFrontendLicenses.js'];
 
-  if (process.env.NODE_ENV === 'production') {
-    partialConfig = prodConfig;
-    console.info('');
-    console.info('Production mode: Please make sure to recompile via maven/spring-boot after this!');
-    console.info('');
-  } else {
-    partialConfig = devConfig;
-    // Don't show any recompile warnings if we run via the dev server
-    if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
-      console.info('');
-      console.info('Development mode: Please make sure to recompile via maven/spring-boot after this!');
-      console.info('');
-    }
-    // Make sure that we have enough file watchers on current OS
-    shellScripts.push('node scripts/checkWatcherCount.js');
+  switch (process.env.NODE_ENV) {
+    case 'production':
+      partialConfig = prodConfig;
+      console.info('\nProduction mode: Please make sure to recompile via maven/spring-boot after this!\n');
+      break;
+    default:
+      partialConfig = devConfig;
+      // Don't show any recompile warnings if we run via the dev server
+      if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
+        console.info('\nDevelopment mode: Please make sure to recompile via maven/spring-boot after this!\n');
+      }
+      // Make sure that we have enough file watchers on current OS
+      shellScripts.push('node scripts/checkWatcherCount.js');
+      break;
   }
 
-  const theConfig = merge.smart(partialConfig, {
+  const exclude = /node_modules/;
+
+  const webpackConfig = merge.smart(partialConfig, {
     entry: {
-      main: [
-        'react-hot-loader/patch', 
-        './src/main/js/main.js'
-      ] },
+      main: ['react-hot-loader/patch', './src/main/js/main.js']
+    },
     module: {
       rules: [
         {
           test: /\.jsx?$/,
           enforce: 'pre',
-          exclude: /(node_modules|bower_components|\.spec\.js)/,
+          exclude,
           use: [
             {
               loader: 'eslint-loader',
@@ -59,17 +56,17 @@ module.exports = function () {
         {
           test: /\.jsx?$/,
           use: ['babel-loader'],
-          exclude: /(node_modules|bower_components|\.spec\.js)/
+          exclude
         },
         {
           test: /\.json$/,
           use: ['json-loader'],
-          exclude: /(node_modules|bower_components|\.spec\.js)/
+          exclude
         },
         {
           test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
-          exclude: /(node_modules|bower_components|\.spec\.js)/
+          use: ['style-loader', { loader: 'css-loader', options: { importLoaders: 1 } }, 'postcss-loader'],
+          exclude
         }
       ]
     },
@@ -97,11 +94,13 @@ module.exports = function () {
 
   if (process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server') {
     // Add cleaner
-    theConfig.plugins.push(new CleanWebpackPlugin(['src/main/resources/static/js/*'], {
-      root: path.resolve(),
-      verbose: true
-    }));
+    webpackConfig.plugins.push(
+      new CleanWebpackPlugin(['src/main/resources/static/js/*'], {
+        root: path.resolve(),
+        verbose: true
+      })
+    );
   }
 
-  return theConfig;
+  return webpackConfig;
 };

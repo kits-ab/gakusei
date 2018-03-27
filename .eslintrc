@@ -194,6 +194,7 @@
         "peerDependencies": false
       }
     ],
+    "max-len": ["off"],
     "jsx-space-before-closing": 0,
     "no-underscore-dangle": "warn",
     "no-useless-constructor": "warn",
@@ -215,6 +216,11 @@
         "extensions": [".js", ".jsx"]
       }
     ]
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "mocha": true
   },
   "plugins": ["react", "prettier", "import"],
   "extends": [
@@ -246,7 +252,8 @@
     "before": false,
     "beforeEach": false,
     "it": false,
-    "done": false
+    "done": false,
+    "expect": true
   },
   "parser": "babel-eslint",
   "parserOptions": {
