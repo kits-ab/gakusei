@@ -149,7 +149,6 @@ export class selectScreen extends React.Component {
         active={lesson.name === this.props.selectedLesson.name}
         className="clearfix"
       >
-        <Badge pullRight>42</Badge>
         {this.props.params.type === 'quiz' ? null : (
           <Button
             bsStyle={
