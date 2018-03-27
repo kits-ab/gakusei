@@ -17,7 +17,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         enforce: 'pre',
-        exclude: /(node_modules|\.spec\.js)/,
+        exclude: /node_modules/,
         use: ['webpack-strip-block?start=devcode:start&end=devcode:end']
       }
     ]
