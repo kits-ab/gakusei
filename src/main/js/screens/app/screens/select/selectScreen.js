@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Button,
+  Badge,
   Grid,
   Row,
   Col,
@@ -136,47 +137,44 @@ export class selectScreen extends React.Component {
   }
   render() {
     const options = this.props.lessons.map(lesson => (
-      <Row key={lesson.name}>
-        <Col
-          xs={this.props.params.type === 'quiz' ? 12 : 10}
-          md={this.props.params.type === 'quiz' ? 12 : 11}
-          lg={this.props.params.type === 'quiz' ? 12 : 11}
-        >
-          <ListGroupItem
-            key={lesson.name}
-            onClick={() => this.props.setSelectedLesson(lesson)}
-            value={lesson.name}
-            header={lesson.name}
-            bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
-          />
-        </Col>
+      <ListGroupItem
+        href="#"
+        key={lesson.name}
+        onClick={e => {
+          e.preventDefault();
+          this.props.setSelectedLesson(lesson);
+        }}
+        value={lesson.name}
+        header={lesson.name}
+        active={lesson.name === this.props.selectedLesson.name}
+        className="clearfix"
+      >
+        <Badge pullRight>42</Badge>
         {this.props.params.type === 'quiz' ? null : (
-          <Col
-            xs={2}
-            md={1}
-            lg={1}
+          <Button
+            bsStyle={
+              this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+                ? 'warning'
+                : null
+            }
+            onClick={e => {
+              e.stopPropagation();
+              this.handleStarredClick(lesson);
+            }}
+            className="pull-right"
           >
-            <Button
-              bsStyle={
-                this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-                  ? 'warning'
-                  : null
-              }
-              onClick={() => this.handleStarredClick(lesson)}
-            >
-              <Glyphicon glyph="star" />
-            </Button>
-          </Col>
+            <Glyphicon glyph="star" />
+          </Button>
         )}
-      </Row>
+      </ListGroupItem>
     ));
 
     const favoriteLesson = (
       <Row>
         <Col
-          xs={12}
-          md={12}
-          lg={12}
+          xs={11}
+          md={11}
+          lg={11}
         >
           <ListGroupItem
             header="Blandade frågor"
