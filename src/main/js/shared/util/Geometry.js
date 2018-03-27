@@ -1,4 +1,5 @@
 import Sketchy from 'moresketchy';
+import mathjs from 'mathjs';
 
 export default class Geometry {
   static extractDataFromSVG(svgText, width = 109, height = 109, pixelsPerPoint = 1) {
@@ -10,6 +11,7 @@ export default class Geometry {
     const pathArray = [];
     for (let i = 0; i < paths.length; i++) {
       const pathLength = paths[i].getTotalLength();
+
       const numPoints = pathLength / pixelsPerPoint + 1;
       const pathPoints = [];
 
@@ -44,6 +46,73 @@ export default class Geometry {
       paths: pathArray,
       numbers: numberArray
     };
+  }
+
+  static getIntersections(pointPath1, pointPath2) {
+    const intersections = [];
+
+    const coordsAsArr = coordsObj => [coordsObj.x, coordsObj.y];
+    const coordsAsObj = coordsArr => ({ x: coordsArr[0], y: coordsArr[1] });
+
+    pointPath2.forEach((rootCoords, rootIndex, rootArr) => {
+      if (rootArr[rootIndex + 1] === undefined) {
+        // out of bounds
+        return;
+      }
+
+      pointPath1.forEach((subCoords, subIndex, subArr) => {
+        if (subArr[subIndex + 1] === undefined) {
+          // out of bounds
+          return;
+        }
+
+        const nextSubCoords = subArr[subIndex + 1];
+        const nextRootCoords = rootArr[rootIndex + 1];
+
+        const intersection = mathjs.intersect(
+          coordsAsArr(subCoords),
+          coordsAsArr(nextSubCoords),
+          coordsAsArr(rootCoords),
+          coordsAsArr(nextRootCoords)
+        );
+
+        if (intersection) {
+          const intObj = coordsAsObj(intersection);
+
+          // is the intersection happening within the two lines or somewhere outside?
+          if (
+            this.isCoordinateWithinLine(subCoords, nextSubCoords, intObj) &&
+            this.isCoordinateWithinLine(rootCoords, nextRootCoords, intObj)
+          ) {
+            intersections.push({
+              firstPathPercentage: subIndex / (subArr.length - 1) * 100 || 0,
+              secondPathPercentage: rootIndex / (rootArr.length - 1) * 100 || 0
+            });
+          }
+        }
+      });
+    });
+
+    return intersections;
+  }
+
+  static getLineDimensions(lineStart, lineEnd) {
+    const width = Math.abs(lineStart.x - lineEnd.x);
+    const height = Math.abs(lineStart.y - lineEnd.y);
+    const minX = Math.min(lineStart.x, lineEnd.x);
+    const minY = Math.min(lineStart.y, lineEnd.y);
+
+    return {
+      width,
+      height,
+      minX,
+      minY
+    };
+  }
+
+  static isCoordinateWithinLine(lineStart, lineEnd, coords) {
+    const { width, height, minX, minY } = this.getLineDimensions(lineStart, lineEnd);
+    return coords.x <= minX + width && coords.x >= minX && coords.y <= minY + height && coords.y >= minY;
   }
 
   static getAngle(startPoint, endPoint) {
