@@ -1,12 +1,7 @@
 /* eslint-env node */
 
-var path = require('path');
-var options = {
-  context: path.resolve(__dirname, '../src')
-};
-
 // This file is for unit tests to work properly
-require('ignore-styles');
+// require('ignore-styles');
 // ES6/ES201X-functionality
 require('babel-polyfill');
 require('babel-register')({
@@ -15,10 +10,10 @@ require('babel-register')({
   retainLines: true,
   presets: [
     [
-      'env',
+      '@babel/preset-env',
       {
         targets: {
-          browsers: ['last 2 versions', 'safari >= 7']
+          browsers: ['last 2 versions']
         },
         // modules: true, // because webpack won't handle this for us
         useBuiltIns: true
@@ -84,9 +79,10 @@ global.ReactDOM = require('react-dom');
 global.window.React = global.React;
 global.window.ReactDOM = global.ReactDOM;
 
-var Adapter = require('enzyme-adapter-react-16');
-var configure = require('enzyme').configure;
-configure({ adapter: new Adapter() });
+// Not on React 16 yet
+// var Adapter = require('enzyme-adapter-react-16');
+// var configure = require('enzyme').configure;
+// configure({ adapter: new Adapter() });
 
 // MISC
 // ------
