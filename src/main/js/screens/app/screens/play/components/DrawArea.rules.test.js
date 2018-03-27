@@ -6,7 +6,7 @@ import testDataImport from './DrawArea.rules.data.json';
 import * as rules from './DrawArea.rules';
 // import Geometry from '../../../../../shared/util/Geometry';
 
-describe('rules should work as intended', () => {
+describe('kanji drawing rules should work as intended', () => {
   it('should take in some data without error', () => {
     const testData = testDataImport;
     const ruleData = testData['rule-data'];
