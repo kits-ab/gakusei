@@ -123,7 +123,10 @@ export class selectScreen extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    return null;
+  }
+
+  startLesson() {
     try {
       this.props.fetchLesson(this.props.params.type).then(() => {
         this.props.setPageByName(`/play/${this.props.params.type}`);
@@ -174,7 +177,8 @@ export class selectScreen extends React.Component {
             <Button
               onClick={e => {
                 e.stopPropagation();
-                this.handleStarredClick(lesson);
+                this.props.setSelectedLesson(lesson);
+                this.startLesson();
               }}
             >
               <Glyphicon glyph="play" />
@@ -187,19 +191,27 @@ export class selectScreen extends React.Component {
     const favoriteLesson = (
       <Row>
         <Col
-          xs={11}
-          md={11}
-          lg={11}
+          xs={12}
+          md={12}
+          lg={12}
         >
-          <ListGroupItem
-            header="Blandade frågor"
-            onClick={() => this.props.setSelectedLesson(this.props.favoriteLesson)}
-            bsStyle={
-              this.props.favoriteLesson && this.props.favoriteLesson.name === this.props.selectedLesson.name
-                ? 'info'
-                : null
-            }
-          />
+          <Panel>
+            <Panel.Heading className="clearfix">
+              <Panel.Title>Blandade frågor.</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <p>Blandade frågor från alla dina favoritmarkerade lektioner.</p>
+              <Button
+                onClick={e => {
+                  e.stopPropagation();
+                  this.props.setSelectedLesson(this.props.favoriteLesson);
+                  this.startLesson();
+                }}
+              >
+                <Glyphicon glyph="play" />
+              </Button>
+            </Panel.Body>
+          </Panel>
         </Col>
       </Row>
     );
@@ -301,7 +313,7 @@ export class selectScreen extends React.Component {
             {this.props.params.type !== 'quiz' ? (
               <FormGroup>
                 <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
-                <ListGroup>{favoriteLesson}</ListGroup>
+                {favoriteLesson}
               </FormGroup>
             ) : null}
 
@@ -309,18 +321,6 @@ export class selectScreen extends React.Component {
               <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
               <Row>{options}</Row>
               {languageSelection}
-            </FormGroup>
-            <FormGroup>
-              <FormControl
-                type="hidden"
-                onKeyPress={this.handleKeyPress}
-              />
-              <Button
-                type="submit"
-                bsStyle="primary"
-              >
-                &nbsp;Starta&nbsp;
-              </Button>
             </FormGroup>
             <br />
           </form>
