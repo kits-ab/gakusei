@@ -1,19 +1,15 @@
 import React from 'react';
 import {
   Button,
-  Badge,
   Grid,
   Row,
   Col,
   FormGroup,
   FormControl,
   ControlLabel,
-  ListGroup,
-  ListGroupItem,
   Glyphicon,
   HelpBlock,
-  Panel,
-  Checkbox
+  Panel
 } from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
@@ -26,11 +22,8 @@ export const Reducers = [Lessons, Security];
 export class selectScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
-
-    this.onKeys = this.onKeys.bind(this);
   }
 
   componentWillMount() {
@@ -38,7 +31,7 @@ export class selectScreen extends React.Component {
 
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchFavoriteLesson().catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchFavoriteLesson(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
 
     if (this.props.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
@@ -58,12 +51,6 @@ export class selectScreen extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.onKeys);
-  }
-
-  onKeys(event) {
-    if (event.keyCode === 13) {
-      this.handleSubmit(event);
-    }
   }
 
   getPageHeader() {
@@ -120,10 +107,6 @@ export class selectScreen extends React.Component {
       default:
         break;
     }
-  }
-
-  handleSubmit(event) {
-    return null;
   }
 
   startLesson() {
@@ -300,30 +283,25 @@ export class selectScreen extends React.Component {
           lg={8}
           lgOffset={2}
         >
-          <form
-            href="#"
-            onSubmit={this.handleSubmit}
-          >
-            <ControlLabel>{this.getPageHeader()}</ControlLabel>
+          <ControlLabel>{this.getPageHeader()}</ControlLabel>
 
+          <FormGroup>
+            <ControlLabel>{this.getPageDescription()}</ControlLabel>
+          </FormGroup>
+
+          {this.props.params.type !== 'quiz' && this.props.params.type !== 'grammar' ? (
             <FormGroup>
-              <ControlLabel>{this.getPageDescription()}</ControlLabel>
+              <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
+              {favoriteLesson}
             </FormGroup>
+          ) : null}
 
-            {this.props.params.type !== 'quiz' ? (
-              <FormGroup>
-                <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
-                {favoriteLesson}
-              </FormGroup>
-            ) : null}
-
-            <FormGroup>
-              <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
-              <Row>{options}</Row>
-              {languageSelection}
-            </FormGroup>
-            <br />
-          </form>
+          <FormGroup>
+            <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
+            <Row>{options}</Row>
+            {languageSelection}
+          </FormGroup>
+          <br />
         </Col>
       </Grid>
     );

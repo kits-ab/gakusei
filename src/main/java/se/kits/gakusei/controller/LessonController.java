@@ -139,16 +139,16 @@ public class LessonController {
 
     @Cacheable("favoriteLesson")
     public Lesson getLessonFromFavorites(String username) {
-        List<Nugget> favoriteNuggets = userLessonRepository.findUsersStarredLessons(username).stream()
+        /*List<Nugget> favoriteNuggets = userLessonRepository.findUsersStarredLessons(username).stream()
                 .map(UserLesson::getLesson)
                 .map(Lesson::getNuggets)
                 .flatMap(List::stream)
                 .filter(n -> !n.isHidden())
                 .distinct()
                 .collect(Collectors.toList());
-
+*/
         Lesson favoriteLesson = new Lesson();
-        favoriteLesson.setNuggets(favoriteNuggets);
+//        favoriteLesson.setNuggets(favoriteNuggets);
         favoriteLesson.setName("Favoriter");
         favoriteLesson.setId(1337L);
 

@@ -53,7 +53,7 @@ public class QuestionController {
             questions = getCachedQuestionsFromLesson(lessonName, lessonType,
                     questionType, answerType, username);
         } else {
-            questions = getCachedQuestionsFromFavoriteLesson(questionType, answerType, username);
+            questions = getCachedQuestionsFromFavoriteLesson(lessonType, questionType, answerType, username);
         }
 
         return questions.isEmpty() ?
@@ -61,9 +61,11 @@ public class QuestionController {
                 new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
-    private List<HashMap<String,Object>> getCachedQuestionsFromFavoriteLesson(
-            String questionType, String answerType, String username) {
+    private List<HashMap<String, Object>> getCachedQuestionsFromFavoriteLesson(
+            String lessonType, String questionType, String answerType, String username) {
         //get all favorites, for each get unanswered and hard ones
+
+        List<Nugget> allLessonNuggets;
         List<Lesson> favoriteLessons = userLessonRepository.findUsersStarredLessons(username)
                 .stream().map(UserLesson::getLesson).collect(Collectors.toList());
 
@@ -77,15 +79,31 @@ public class QuestionController {
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
 
-        List<Nugget> allLessonNuggets = favoriteLessons.stream()
-                .map(lesson -> cachedFindNuggets(lesson.getName()))
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
+        if (!lessonType.equals("grammar")) {
+            allLessonNuggets = favoriteLessons.stream()
+                    .map(lesson -> cachedFindNuggets(lesson.getName()))
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList());
+        } else {
+            allLessonNuggets = favoriteLessons.stream()
+                    .map(lesson -> cachedFindVerbNuggets(lesson.getName()))
+                    .flatMap(List::stream)
+                    .collect(Collectors.toList());
+        }
 
         List<Nugget> favoriteNuggets = questionHandler.chooseNuggets(nuggetsWithLowSuccessrate,
                 unansweredNuggets, allLessonNuggets, quantity);
 
-        return questionHandler.createQuestions(favoriteNuggets, questionType, answerType);
+        if (lessonType.equals("grammar")) {
+            return questionHandler.createGrammarQuestions(
+                    lessonRepository.findByName(null),
+                    favoriteNuggets,
+                    questionType,
+                    answerType);
+            //TODO: Fix favorite-mode for grammar questions.
+        } else {
+            return questionHandler.createQuestions(favoriteNuggets, questionType, answerType);
+        }
 
     }
 
@@ -104,11 +122,11 @@ public class QuestionController {
         List<Nugget> nuggets = questionHandler.chooseNuggets(nuggetsWithLowSuccessrate,
                 unansweredNuggets, allLessonNuggets, quantity);
 
-        if(lessonType.equals("grammar")){
+        if (lessonType.equals("grammar")) {
             return questionHandler.createGrammarQuestions(
                     lessonRepository.findByName(lessonName),
                     nuggets,
-                    questionType, 
+                    questionType,
                     answerType);
         } else {
             return questionHandler.createQuestions(nuggets, questionType, answerType);
@@ -121,7 +139,7 @@ public class QuestionController {
     }
 
     @Cacheable("verbNuggets")
-    public List<Nugget> cachedFindVerbNuggets(String lessonName){
+    public List<Nugget> cachedFindVerbNuggets(String lessonName) {
         return lessonRepository.findVerbNuggets(lessonRepository.findByName(lessonName).getId());
     }
 }

@@ -597,10 +597,12 @@ export function fetchLesson(lessonType) {
   };
 }
 
-export function fetchFavoriteLesson() {
+export function fetchFavoriteLesson(lessonType) {
   return function(dispatch, getState) {
     const securityState = getState().security;
-    return fetch(`/api/lessons/favorite?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+    return fetch(`/api/lessons/favorite?username=${securityState.loggedInUser}?lessonType=${lessonType}`, {
+      credentials: 'same-origin'
+    })
       .then(response => response.json())
       .then(result => dispatch(receiveFavoriteLesson(result)));
   };
