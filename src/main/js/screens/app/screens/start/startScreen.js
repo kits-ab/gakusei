@@ -35,8 +35,9 @@ export default class startScreen extends React.Component {
           </div>
           <Row className="features_prev">
             <Col
-              xs={6}
-              md={4}
+              xs={12}
+              md={6}
+              lg={4}
               className="text-center"
             >
               <img
@@ -47,8 +48,9 @@ export default class startScreen extends React.Component {
               <p>Olika sorters övningar, anpassade efter japanskaundervisning på högskolenivå.</p>
             </Col>
             <Col
-              xs={6}
-              md={4}
+              xs={12}
+              md={6}
+              lg={4}
               className="text-center"
             >
               <img
@@ -58,9 +60,11 @@ export default class startScreen extends React.Component {
               <h2>Gakusei överallt</h2>
               <p>Öva med Gakusei på mobilen! Fungerar lika på mobila enheter som på laptops.</p>
             </Col>
+            <div className="clearfix visible-md" />
             <Col
-              xs={6}
-              md={4}
+              xs={12}
+              md={6}
+              lg={4}
               className="text-center"
             >
               <img
@@ -70,11 +74,11 @@ export default class startScreen extends React.Component {
               <h2>Anonymitet</h2>
               <p>Gakusei lagrar ingen personlig data om sina användare, det enda som behövs är ett användarnamn.</p>
             </Col>
-          </Row>
-          <Row>
+            <div className="clearfix visible-lg" />
             <Col
-              xs={6}
-              md={4}
+              xs={12}
+              md={6}
+              lg={4}
               className="text-center"
             >
               <img
@@ -86,23 +90,23 @@ export default class startScreen extends React.Component {
               </h2>
               <p>Prova våra quizar och se vad du kan om Japan.</p>
             </Col>
+            <div className="clearfix visible-md" />
             <Col
-              xs={6}
-              md={4}
+              xs={12}
+              md={6}
+              lg={4}
               className="text-center"
             >
-              <br />
-              <br />
-              <br />
-              <br />
               <img
                 src="/img/logo/temp_gakusei_logo.png"
                 alt=""
+                className="gakuseiLogo"
               />
             </Col>
             <Col
-              xs={6}
-              md={4}
+              xs={12}
+              md={6}
+              lg={4}
               className="text-center"
             >
               <img
