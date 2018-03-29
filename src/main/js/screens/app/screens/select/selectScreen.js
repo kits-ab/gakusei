@@ -9,7 +9,9 @@ import {
   ControlLabel,
   Glyphicon,
   HelpBlock,
-  Panel
+  Panel,
+  Badge,
+  Label
 } from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
@@ -24,6 +26,7 @@ export class selectScreen extends React.Component {
     super(props);
     this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
+    this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
   }
 
   componentWillMount() {
@@ -132,17 +135,11 @@ export class selectScreen extends React.Component {
   }
 
   getNumberOfQuestions(lesson) {
-    if (this.props.spacedRepetition && this.props.addressedQuestionsInLessons) {
-      return (
-        this.props.addressedQuestionsInLessons[lesson.name].retention +
-        this.props.addressedQuestionsInLessons[lesson.name].unanswered +
-        0
-      );
-    } else if (this.props.addressedQuestionsInLessons) {
-      return this.props.addressedQuestionsInLessons[lesson.name].all;
-    }
+    const unanswered = this.props.addressedQuestionsInLessons[lesson.name].unanswered;
+    const retention = this.props.addressedQuestionsInLessons[lesson.name].retention;
+    const total = this.props.addressedQuestionsInLessons[lesson.name].all;
 
-    return lesson.name;
+    return { unanswered: unanswered, retention: retention, total: total };
   }
 
   render() {
@@ -172,8 +169,16 @@ export class selectScreen extends React.Component {
                   <Glyphicon glyph="star" />
                 </Button>
               )}
-
               {lesson.name}
+              <Badge>{this.getNumberOfQuestions(lesson).retention}</Badge>
+              <Badge>{this.getNumberOfQuestions(lesson).unanswered}</Badge>
+              {this.getNumberOfQuestions(lesson).unanswered === this.getNumberOfQuestions(lesson).total ? (
+                <Label bsStyle="info">Ny!</Label>
+              ) : null}
+              {this.getNumberOfQuestions(lesson).unanswered === 0 &&
+              this.getNumberOfQuestions(lesson).retention === 0 ? (
+                <Label bsStyle="success">Färdig!</Label>
+                ) : null}
             </Panel.Title>
           </Panel.Heading>
           <Panel.Body>
@@ -321,7 +326,15 @@ export class selectScreen extends React.Component {
             <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
             <Row>{options}</Row>
             {languageSelection}
+            <Button
+              bsStyle="success"
+              active={this.props.spacedRepetition}
+              onClick={this.handleSpacedRepetition}
+            >
+              Smart inlärningsläge
+            </Button>
           </FormGroup>
+
           <br />
         </Col>
       </Grid>
