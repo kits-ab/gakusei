@@ -15,18 +15,14 @@ export class appScreen extends React.Component {
     return (
       <div>
         <GakuseiNav />
-        { this.props.children }
+        {this.props.children}
       </div>
     );
   }
 }
 
-appScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+appScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
-}, Reducers);
-
-appScreen.propTypes = Utility.reduxEnabledPropTypes({
-
-}, Reducers);
+appScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
 export default Utility.superConnect(this, Reducers)(appScreen);

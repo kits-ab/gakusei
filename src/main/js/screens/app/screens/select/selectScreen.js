@@ -1,5 +1,17 @@
 import React from 'react';
-import { Button, Grid, Row, Col, FormGroup, FormControl, ControlLabel, ListGroup, ListGroupItem, Glyphicon, HelpBlock } from 'react-bootstrap';
+import {
+  Button,
+  Grid,
+  Row,
+  Col,
+  FormGroup,
+  FormControl,
+  ControlLabel,
+  Glyphicon,
+  HelpBlock,
+  Panel
+} from 'react-bootstrap';
+
 import Utility from '../../../../shared/util/Utility';
 
 import * as Lessons from '../../../../shared/reducers/Lessons';
@@ -10,24 +22,18 @@ export const Reducers = [Lessons, Security];
 export class selectScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
-    this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
-
-    this.onKeys = this.onKeys.bind(this);
-
   }
 
   componentWillMount() {
-    this.props.fetchLessons(this.props.params.type)
-      .catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchLessons(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchUserStarredLessons()
-      .catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchaddressedQuestionsInLessons()
-      .catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchFavoriteLesson(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
+
+    this.props.fetchaddressedQuestionsInLessons().catch(() => this.props.verifyUserLoggedIn());
 
     if (this.props.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
@@ -41,19 +47,12 @@ export class selectScreen extends React.Component {
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
     if (this.props.params.type !== nextProps.params.type) {
-      this.props.fetchLessons(nextProps.params.type)
-        .catch(() => this.props.verifyUserLoggedIn());
+      this.props.fetchLessons(nextProps.params.type).catch(() => this.props.verifyUserLoggedIn());
     }
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.onKeys);
-  }
-
-  onKeys(event) {
-    if (event.keyCode === 13) {
-      this.handleSubmit(event);
-    }
   }
 
   getPageHeader() {
@@ -78,16 +77,17 @@ export class selectScreen extends React.Component {
   getPageDescription() {
     switch (this.props.params.type) {
       case 'quiz':
-        return (<span>Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ</span>);
+        return <span>Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ</span>;
       case 'guess':
         return <span>Välj mellan 4 svarsalternativ för den korrekta översättningen.</span>;
       case 'translate':
         return <span>Översätt det visade ordet i fritext.</span>;
       case 'flashcards':
-        return (<span>Träna dig själv genom att använda kort,
-        med frågan på ena sidan och rätta svaret på den andra.</span>);
+        return (
+          <span>Träna dig själv genom att använda kort, med frågan på ena sidan och rätta svaret på den andra.</span>
+        );
       case 'kanji':
-        return (<span>Försök rita kanji-tecken med korrekta drag och i rätt ordning.</span>);
+        return <span>Försök rita kanji-tecken med korrekta drag och i rätt ordning.</span>;
       case 'grammar':
         return <span>Böj det visade ordet i fritext på angiven verbform.</span>;
       default:
@@ -110,31 +110,12 @@ export class selectScreen extends React.Component {
         break;
     }
   }
-  
-  isLessonStartable() {
-    if (this.props.spacedRepetition) {
-      if (this.props.selectedLesson.name && this.props.addressedQuestionsInLessons) {
-        return this.props.addressedQuestionsInLessons[this.props.selectedLesson.name].retention 
-        + this.props.addressedQuestionsInLessons[this.props.selectedLesson.name].unanswered >= 4;
-      } 
-    }
-    return true;
-  }
 
-  getButtonText() {
-    if (this.isLessonStartable()) {
-      return 'Starta';
-    }
-    return 'Ej startbar';
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
+  startLesson() {
     try {
-      this.props.Lesson(this.props.params.type)
-          .then(() => {
-            this.props.setPageByName(`/play/${this.props.params.type}`);
-          });
+      this.props.fetchLesson(this.props.params.type).then(() => {
+        this.props.setPageByName(`/play/${this.props.params.type}`);
+      });
     } catch (err) {
       this.props.verifyUserLoggedIn();
     }
@@ -145,58 +126,127 @@ export class selectScreen extends React.Component {
   }
 
   handleStarredClick(lesson) {
-    return this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ?
-      this.props.removeStarredLesson(lesson.name) :
-      this.props.addStarredLesson(lesson.name);
+    return this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+      ? this.props.removeStarredLesson(lesson.name)
+      : this.props.addStarredLesson(lesson.name);
   }
 
   getNumberOfQuestions(lesson) {
     if (this.props.spacedRepetition && this.props.addressedQuestionsInLessons) {
-      return this.props.addressedQuestionsInLessons[lesson.name].retention +
-      this.props.addressedQuestionsInLessons[lesson.name].unanswered + 0;
+      return (
+        this.props.addressedQuestionsInLessons[lesson.name].retention +
+        this.props.addressedQuestionsInLessons[lesson.name].unanswered +
+        0
+      );
     } else if (this.props.addressedQuestionsInLessons) {
       return this.props.addressedQuestionsInLessons[lesson.name].all;
     }
-    
+
     return lesson.name;
-    
   }
 
   render() {
-    const options = this.props.lessons.map(lesson =>
-      <Row key={lesson.name}>
-        <Col
-          xs={this.props.params.type === 'quiz' ? 12 : 10}
-          md={this.props.params.type === 'quiz' ? 12 : 11}
-          lg={this.props.params.type === 'quiz' ? 12 : 11}>
-          <ListGroupItem
-            key={lesson.name}
-            onClick={() => this.props.setSelectedLesson(lesson)}
-            value={lesson.name}
-            header={`${lesson.name} - ${this.getNumberOfQuestions(lesson)} frågor ${this.props.spacedRepetition ? 'kvar' : ''}`}
-            bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
-          />
-        </Col>
-        {this.props.params.type === 'quiz' ?
-          null
-          :
-          <Col xs={2} md={1} lg={1}>
+    const options = this.props.lessons.map(lesson => (
+      <Col
+        key={lesson.name}
+        xs={12}
+        md={6}
+        lg={4}
+      >
+        <Panel>
+          <Panel.Heading className="clearfix">
+            <Panel.Title>
+              {this.props.params.type === 'quiz' ? null : (
+                <Button
+                  bsClass={
+                    this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+                      ? 'favorite-icon-button favorite-icon-button__active'
+                      : 'favorite-icon-button'
+                  }
+                  onClick={e => {
+                    e.stopPropagation();
+                    this.handleStarredClick(lesson);
+                  }}
+                  className="pull-right"
+                >
+                  <Glyphicon glyph="star" />
+                </Button>
+              )}
+
+              {lesson.name}
+            </Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <p>{lesson.description}</p>
             <Button
-              bsStyle={this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name) ? 'warning' : null}
-              onClick={() => this.handleStarredClick(lesson)}
+              onClick={e => {
+                e.stopPropagation();
+                this.props.setSelectedLesson(lesson);
+                this.startLesson();
+              }}
             >
-              <Glyphicon glyph="star" />
+              <Glyphicon glyph="play" />
             </Button>
-          </Col>
-        }
-      </Row>);
+          </Panel.Body>
+        </Panel>
+      </Col>
+    ));
+
+    const favoriteLesson = (
+      <Row>
+        <Col
+          xs={12}
+          md={12}
+          lg={12}
+        >
+          <Panel>
+            <Panel.Heading className="clearfix">
+              <Panel.Title>Blandade frågor.</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <p>Blandade frågor från alla dina favoritmarkerade lektioner.</p>
+              <Button
+                onClick={e => {
+                  e.stopPropagation();
+                  this.props.setSelectedLesson(this.props.favoriteLesson);
+                  this.startLesson();
+                }}
+              >
+                <Glyphicon glyph="play" />
+              </Button>
+            </Panel.Body>
+          </Panel>
+        </Col>
+      </Row>
+    );
 
     const answerLanguages = [];
     let questionLanguages = [];
-    answerLanguages.push(<option key={'reading'} value={'reading'}>Japanska</option>);
-    answerLanguages.push(<option key={'swedish'} value={'swedish'}>Svenska</option>);
+    answerLanguages.push(
+      <option
+        key={'reading'}
+        value={'reading'}
+      >
+        Japanska
+      </option>
+    );
+    answerLanguages.push(
+      <option
+        key={'swedish'}
+        value={'swedish'}
+      >
+        Svenska
+      </option>
+    );
     /* devcode: start */
-    answerLanguages.push(<option key={'english'} value={'english'}>Engelska</option>);
+    answerLanguages.push(
+      <option
+        key={'english'}
+        value={'english'}
+      >
+        Engelska
+      </option>
+    );
     /* devcode: end */
 
     if (this.props.params.type === 'kanji') {
@@ -212,7 +262,10 @@ export class selectScreen extends React.Component {
       languageSelection = (
         <FormGroup>
           <Row>
-            <Col xs={12} sm={6}>
+            <Col
+              xs={12}
+              sm={6}
+            >
               <HelpBlock>Frågespråk</HelpBlock>
               <FormControl
                 componentClass="select"
@@ -225,7 +278,10 @@ export class selectScreen extends React.Component {
                 {questionLanguages}
               </FormControl>
             </Col>
-            <Col xs={12} sm={6}>
+            <Col
+              xs={12}
+              sm={6}
+            >
               <HelpBlock>Svarspråk</HelpBlock>
               <FormControl
                 componentClass="select"
@@ -236,51 +292,45 @@ export class selectScreen extends React.Component {
               >
                 {answerLanguages}
               </FormControl>
-
             </Col>
           </Row>
-        </FormGroup>);
+        </FormGroup>
+      );
     }
     return (
-      <Grid className="text-center">
-        <Col xs={11} lg={8} lgOffset={2}>
-          <form href="#" onSubmit={this.handleSubmit}>
-            <ControlLabel>{this.getPageHeader()}</ControlLabel>
+      <Grid>
+        <Col
+          xs={11}
+          lg={8}
+          lgOffset={2}
+        >
+          <ControlLabel>{this.getPageHeader()}</ControlLabel>
 
-            <FormGroup>
-              <ControlLabel>{this.getPageDescription()}</ControlLabel>
-            </FormGroup>
+          <FormGroup>
+            <ControlLabel>{this.getPageDescription()}</ControlLabel>
+          </FormGroup>
 
+          {this.props.params.type !== 'quiz' && this.props.params.type !== 'grammar' ? (
             <FormGroup>
-              <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
-              <ListGroup>
-                {options}
-              </ListGroup>
-              {languageSelection}
+              <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
+              {favoriteLesson}
             </FormGroup>
-            <FormGroup>
-              <FormControl
-                type="hidden"
-                onKeyPress={this.handleKeyPress}
-              />
-              <Button type="submit" bsStyle="primary" disabled={!this.isLessonStartable()}>{this.getButtonText()}</Button>
-              <ControlLabel> Spaced Repetition: <input name="spacedRepetition" type="checkbox" defaultChecked={this.props.spacedRepetition} onClick={this.handleSpacedRepetition} /></ControlLabel>
-            </FormGroup>
-            <br />
-          </form>
+          ) : null}
+
+          <FormGroup>
+            <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
+            <Row>{options}</Row>
+            {languageSelection}
+          </FormGroup>
+          <br />
         </Col>
       </Grid>
     );
   }
 }
 
-selectScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+selectScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
-}, Reducers);
-
-selectScreen.propTypes = Utility.reduxEnabledPropTypes({
-
-}, Reducers);
-
+selectScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
 export default Utility.superConnect(this, Reducers)(selectScreen);

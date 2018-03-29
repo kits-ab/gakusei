@@ -1,85 +1,88 @@
-
 .navbar {
-    margin: 0;
-    box-shadow: 0px 0px 5px #000000;
-    border-radius: 0;
+  margin: 0;
+  box-shadow: 0px 0px 5px #000000;
+  border-radius: 0;
 }
 .navbar-right li {
-    margin-top: -1px;
-    border-top: 1px solid #1c7f20;
-    background: #4caf50;
-    background: linear-gradient(#4caf50, #1c7f20);
-    box-shadow: inset 0 0 1px #000000;
+  margin-top: -1px;
+  border-top: 1px solid #1c7f20;
+  background: #4caf50;
+  background: linear-gradient(#4caf50, #1c7f20);
+  box-shadow: inset 0 0 1px #000000;
 }
 .navbar-inverse .navbar-nav > li > a {
-    color: white;
+  color: white;
 }
 
 .jumbotron {
-    margin: 0;
-    border-bottom: 5px solid #DCDCDC;
+  margin: 0;
+  border-bottom: 5px solid #dcdcdc;
 }
 
 #jumbotron_first {
-    display: block;
-    background: url(/img/front_page/gakusei_background.svg);
-    background-size: cover;
-    height: 46.25vw;
-    max-height: 100vh;
-    min-height: 300px;
-    color:#ffffff;
+  display: block;
+  background: url(/img/front_page/gakusei_background.svg);
+  background-size: cover;
+  height: 46.25vw;
+  max-height: 100vh;
+  min-height: 300px;
+  color: #ffffff;
 }
 
 #jumbotron_register {
-    background:#01579b;
-    color:#ffffff;
-    border-color: #01478b;
-    background: linear-gradient(to bottom right, #01478b, #0277bd);
+  background: #01579b;
+  color: #ffffff;
+  border-color: #01478b;
+  background: linear-gradient(to bottom right, #01478b, #0277bd);
 }
 
 #jumbotron_footer {
-    background:#382823;
-    color:#ffffff;
-    border-color: #281813;
+  background: #382823;
+  color: #ffffff;
+  border-color: #281813;
 }
 #jumbotron_footer a {
-    color: #ffffff;
+  color: #ffffff;
 }
 #jumbotron_footer img {
-    width: 80px;
-    margin-bottom: 20px;
+  width: 80px;
+  margin-bottom: 20px;
 }
 
 .about_features {
-    margin-top: 40px;
-    margin-bottom: 100px;
+  margin-top: 40px;
+  margin-bottom: 100px;
 }
 .about_features img {
-    width: 120px;
+  width: 120px;
 }
 .about_features p {
-    font-size: 17px;
+  font-size: 17px;
 }
 
 .links_ls {
-    list-style-type:none;
-    padding: 0;
+  list-style-type: none;
+  padding: 0;
 }
 
 .highlight_black {
-    background: rgba(0, 0, 0, 0.5);;
-    padding: 0 0.1em;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0 0.1em;
 }
 
 .make_table {
-    display:table;
-    height:80%;
+  display: table;
+  height: 80%;
 }
 .middle {
-    display:table-cell;
-    vertical-align:middle;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .features_prev {
-    margin-top: 40px;
+  margin-top: 40px;
+}
+
+.gakuseiLogo {
+  margin: 50px;
 }

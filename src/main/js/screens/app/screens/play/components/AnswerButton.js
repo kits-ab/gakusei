@@ -44,6 +44,7 @@ export default class AnswerButton extends React.Component {
   }
 
   updateAnswerText(text) {
+    // eslint-disable-next-line react/no-direct-mutation-state
     this.state = {
       answerClickFunc: this.props.onAnswerClick.bind(this, text)
     };
@@ -52,9 +53,10 @@ export default class AnswerButton extends React.Component {
   render() {
     return (
       <Button
-        style={(this.props.buttonSize === 'large' ? { height: '5em' } : { height: '3em' })}
+        style={this.props.buttonSize === 'large' ? { height: '5em' } : { height: '3em' }}
         bsStyle={this.props.buttonStyle}
-        bsSize={this.props.buttonSize} block
+        bsSize={this.props.buttonSize}
+        block
         onClick={this.state.answerClickFunc}
         disabled={this.props.disableButton}
         className="btn answerbutton btn-no-hover"

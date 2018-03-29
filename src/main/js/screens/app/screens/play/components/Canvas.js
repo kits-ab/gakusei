@@ -1,7 +1,5 @@
-/*
-globals MouseEvent SVG
-eslint-disable no-console
-*/
+/* globals MouseEvent */
+/* eslint-disable no-console */
 
 import React from 'react';
 
@@ -30,7 +28,7 @@ export default class Canvas extends React.Component {
   }
 
   componentDidMount() {
-  // Configure graphics
+    // Configure graphics
     const context = this.canvas.getContext('2d');
     context.lineJoin = 'round';
     context.lineCap = 'round';
@@ -43,32 +41,44 @@ export default class Canvas extends React.Component {
     this.canvas.addEventListener('mouseup', this.handleMouseEvent, false);
     this.canvas.addEventListener('mousemove', this.handleMouseEvent, false);
 
-    this.canvas.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      const mouseEvent = new MouseEvent('mousedown', {
-        button: 0,
-        clientX: touch.clientX,
-        clientY: touch.clientY
-      });
-      this.canvas.dispatchEvent(mouseEvent);
-    }, false);
+    this.canvas.addEventListener(
+      'touchstart',
+      e => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousedown', {
+          button: 0,
+          clientX: touch.clientX,
+          clientY: touch.clientY
+        });
+        this.canvas.dispatchEvent(mouseEvent);
+      },
+      false
+    );
 
-    this.canvas.addEventListener('touchend', (e) => {
-      e.preventDefault();
-      const mouseEvent = new MouseEvent('mouseup', {});
-      this.canvas.dispatchEvent(mouseEvent);
-    }, false);
-    this.canvas.addEventListener('touchmove', (e) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      const mouseEvent = new MouseEvent('mousemove', {
-        clientX: touch.clientX,
-        clientY: touch.clientY
-      });
+    this.canvas.addEventListener(
+      'touchend',
+      e => {
+        e.preventDefault();
+        const mouseEvent = new MouseEvent('mouseup', {});
+        this.canvas.dispatchEvent(mouseEvent);
+      },
+      false
+    );
+    this.canvas.addEventListener(
+      'touchmove',
+      e => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousemove', {
+          clientX: touch.clientX,
+          clientY: touch.clientY
+        });
 
-      this.canvas.dispatchEvent(mouseEvent);
-    }, false);
+        this.canvas.dispatchEvent(mouseEvent);
+      },
+      false
+    );
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -145,10 +155,7 @@ export default class Canvas extends React.Component {
     if (!this.props.inputDisabled && this.state.isMouseDown) {
       const coords = this.getMousePos(event);
 
-      this.totalDistance += Math.abs(
-        this.lastSeenAt.x - coords.x) +
-        Math.abs(this.lastSeenAt.y - coords.y
-      );
+      this.totalDistance += Math.abs(this.lastSeenAt.x - coords.x) + Math.abs(this.lastSeenAt.y - coords.y);
 
       this.lastSeenAt = coords;
 
@@ -157,7 +164,7 @@ export default class Canvas extends React.Component {
 
         // We are now drawing a line.
         this.setState({
-          isDrawing: (this.state.points.length > 1),
+          isDrawing: this.state.points.length > 1,
           points: [...this.state.points, { x: coords.x, y: coords.y }]
         });
       }
@@ -180,25 +187,24 @@ export default class Canvas extends React.Component {
       const lastX = points[Math.max(i - 1, 0)].x;
       const lastY = points[Math.max(i - 1, 0)].y;
       context.moveTo(
-          lastX / (bounds.width / this.canvasResolutionWidth),
-          lastY / (bounds.height / this.canvasResolutionHeight)
-        );
+        lastX / (bounds.width / this.canvasResolutionWidth),
+        lastY / (bounds.height / this.canvasResolutionHeight)
+      );
       context.lineTo(
-          points[i].x / (bounds.width / this.canvasResolutionWidth),
-          points[i].y / (bounds.height / this.canvasResolutionHeight)
-        );
+        points[i].x / (bounds.width / this.canvasResolutionWidth),
+        points[i].y / (bounds.height / this.canvasResolutionHeight)
+      );
     }
     context.stroke();
   }
-
 
   drawText(textPoint, textColor, boxColor) {
     const context = this.canvas.getContext('2d');
     const bounds = this.canvas.getBoundingClientRect();
 
-    const fontSizeMod = (parseInt(this.fontSize, 10) / 1.7);
+    const fontSizeMod = parseInt(this.fontSize, 10) / 1.7;
     const charCount = textPoint.text.toString().length;
-    const xMod = (charCount * fontSizeMod);
+    const xMod = charCount * fontSizeMod;
 
     // 8px is good for 2+ characters
     // 16px gives a nice square if only 1 character
@@ -211,10 +217,10 @@ export default class Canvas extends React.Component {
     if (boxColor) {
       context.fillStyle = boxColor;
       context.fillRect(
-        parseInt((textPoint.x / (bounds.width / this.canvasResolutionWidth)) - (boxPadding / 2), 10),
-        parseInt((textPoint.y / (bounds.height / this.canvasResolutionHeight)) - 25, 10),
+        parseInt(textPoint.x / (bounds.width / this.canvasResolutionWidth) - boxPadding / 2, 10),
+        parseInt(textPoint.y / (bounds.height / this.canvasResolutionHeight) - 25, 10),
         parseInt(xMod + boxPadding, 10),
-        parseInt(32, 10),
+        parseInt(32, 10)
       );
     }
 
@@ -227,7 +233,7 @@ export default class Canvas extends React.Component {
 
     context.fillText(
       textPoint.text,
-      (textPoint.x / (bounds.width / this.canvasResolutionWidth)),
+      textPoint.x / (bounds.width / this.canvasResolutionWidth),
       textPoint.y / (bounds.height / this.canvasResolutionHeight)
     );
   }
@@ -258,7 +264,15 @@ export default class Canvas extends React.Component {
 
     return (
       <div>
-        <canvas id="drawing" style={canvasStyle} ref={(c) => { this.canvas = c; }} height={this.canvasResolutionHeight} width={this.canvasResolutionWidth} />
+        <canvas
+          id="drawing"
+          style={canvasStyle}
+          ref={c => {
+            this.canvas = c;
+          }}
+          height={this.canvasResolutionHeight}
+          width={this.canvasResolutionWidth}
+        />
       </div>
     );
   }

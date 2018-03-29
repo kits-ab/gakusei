@@ -1,13 +1,11 @@
-/*
-globals MouseEvent SVG
-eslint-disable no-console
-*/
+/* eslint-disable no-console */
 
 import React from 'react';
 import simplify from 'simplify-js';
 
 import Geometry from '../../../../../shared/util/Geometry';
 
+import * as rules from './DrawArea.rules';
 import Canvas from './Canvas';
 
 export default class DrawArea extends React.Component {
@@ -17,7 +15,7 @@ export default class DrawArea extends React.Component {
     this.onNewUserPath = this.onNewUserPath.bind(this);
 
     /* devcode:start */
-    this.onKeys = function (event) {
+    this.onKeys = function(event) {
       const keyDown = event.key;
       if (keyDown === '0') {
         if (!this.props.buttonsDisabled) {
@@ -78,10 +76,7 @@ export default class DrawArea extends React.Component {
     this.setState({
       userAnswer: {
         ...this.state.userAnswer,
-        existingPoints: [
-          ...this.state.userAnswer.existingPoints,
-          simplify(points, 2, true)
-        ]
+        existingPoints: [...this.state.userAnswer.existingPoints, simplify(points, 2, true)]
       }
     });
   }
@@ -97,14 +92,14 @@ export default class DrawArea extends React.Component {
         action(canvas, data) {
           let lineColor = 'LightGray';
 
-          for (let i = 0; i < data.answerPoints.length; i++) {
+          data.answerPoints.forEach((answerPoint, i) => {
             if (i >= data.existingPoints.length) {
               lineColor = 'LightGray';
             } else {
               lineColor = 'LightGray';
             }
             this.drawPoints(data.answerPoints[i], lineColor);
-          }
+          });
         }
       },
       // Draw the lines the user has previously made
@@ -139,15 +134,15 @@ export default class DrawArea extends React.Component {
         action(canvas, data) {
           // Answer numbers
           if (data.numberPoints.length > 0) {
-            for (let i = 0; i < data.numberPoints.length; i++) {
+            data.numberPoints.forEach((numberPoint, i) => {
               let textColor = null;
               let boxColor = null;
 
-              if (data.highlightErrors && !data.matches[i].match.userCorrectDirection) {
+              if (data.highlightErrors && !data.matches[i].match.userCorrect) {
                 // Error highlighting mode, don't show next number to draw.
                 boxColor = 'DarkRed';
               } else {
-                const currentNumber = parseInt(data.numberPoints[i].text, 10);
+                const currentNumber = parseInt(numberPoint.text, 10);
                 if (currentNumber === data.existingPoints.length + 1) {
                   boxColor = 'Orange';
                 } else if (currentNumber < data.existingPoints.length + 1) {
@@ -160,8 +155,8 @@ export default class DrawArea extends React.Component {
                 }
               }
 
-              this.drawText(data.numberPoints[i], textColor, boxColor);
-            }
+              this.drawText(numberPoint, textColor, boxColor);
+            });
           }
         }
       },
@@ -177,64 +172,37 @@ export default class DrawArea extends React.Component {
 
   compare() {
     if (this.state.correctAlternative.pathPoints.length > 0 && this.state.userAnswer.existingPoints.length > 0) {
-      const newestUserPointIndex = this.state.userAnswer.existingPoints.length - 1;
+      const latestUserPointIndex = this.state.userAnswer.existingPoints.length - 1;
 
-      const relevantAnswerPoints = this.state.correctAlternative.pathPoints[newestUserPointIndex];
-      const latestUserPoints = this.state.userAnswer.existingPoints[newestUserPointIndex];
+      const data = {
+        correctLine: this.state.correctAlternative.pathPoints[latestUserPointIndex],
+        userLine: this.state.userAnswer.existingPoints[latestUserPointIndex],
+        correctLines: this.state.correctAlternative.pathPoints,
+        userLines: this.state.userAnswer.existingPoints
+      };
 
-      const lessStrict = 20;
-      const veryStrict = 50;
+      const isLineIntersectingOtherLinesResult = rules.isLineIntersectingOtherLines({}, data);
 
-      const roundIt = (value, decimals) => Number(`${Math.round(`${value}e${decimals}`)}e-${decimals}`);
-
-      // Calculate accuracy for this shape
-      let match = Geometry.compareShapes([relevantAnswerPoints], [latestUserPoints], undefined, lessStrict);
-      if (match > 0.9) {
-        match = 0.9 + (roundIt(
-          Geometry.compareShapes([relevantAnswerPoints], [latestUserPoints], undefined, veryStrict), 2) - 0.9);
-      }
-
-      // Calculate accuracy for total shapes
-      let totalMatch = Geometry.compareShapes(
-        this.state.correctAlternative.pathPoints.slice(0, newestUserPointIndex + 1),
-        this.state.userAnswer.existingPoints
-        , undefined, lessStrict
+      const isLineAccurateResult = rules.isLineAccurate(
+        { requiredAccuracyPercentage: 50, strictnessPercentage: 20 },
+        data
       );
 
-      if (totalMatch > 0.9) {
-        totalMatch = 0.9 + (roundIt(Geometry.compareShapes(
-        this.state.correctAlternative.pathPoints.slice(0, newestUserPointIndex + 1),
-        this.state.userAnswer.existingPoints
-        , undefined, veryStrict
-      ), 2) - 0.9);
-      }
-
-      // Get starting angle of drawn path
-      const startAngle = Geometry
-      .getAngle(latestUserPoints[0], latestUserPoints[latestUserPoints.length - 1]);
-
-      // Get starting angle of correct answer
-      const answerStartAngle = Geometry.getAngle(
-        relevantAnswerPoints[0],
-        relevantAnswerPoints[relevantAnswerPoints.length - 1]
+      const areLinesAccurateResult = rules.areLinesAccurate(
+        { requiredAccuracyPercentage: 50, strictnessPercentage: 20 },
+        data
       );
 
-      // Check whether the user started drawing on the correct end of the line
-      const userCorrectDirection = (answerStartAngle - 90 < startAngle) && (answerStartAngle + 90 > startAngle);
-
-      // Normalize to percentage values
-      const accuracy = parseFloat(match * 100).toFixed(2);
-      const totalAccuracy = parseFloat(totalMatch * 100).toFixed(2);
-
-      // Save the comparison
+      const isCorrectDirectionResult = rules.isCorrectDirection({}, data);
 
       // Send the comparison upward for current index
       this.props.newMatch({
-        lineIndex: newestUserPointIndex,
-        linesLeft: this.state.correctAlternative.pathPoints.length - (newestUserPointIndex + 1),
-        accuracy,
-        totalAccuracy,
-        userCorrectDirection
+        lineIndex: latestUserPointIndex,
+        linesLeft: this.state.correctAlternative.pathPoints.length - (latestUserPointIndex + 1),
+        validationResults: [isLineAccurateResult, areLinesAccurateResult, isCorrectDirectionResult]
+        // accuracy: isLineAccurateResult.message,
+        // totalAccuracy: areLinesAccurateResult.message,
+        // userCorrectDirection: isCorrectDirectionResult.value
       });
     }
   }
@@ -250,7 +218,7 @@ export default class DrawArea extends React.Component {
 
       fetch(svgUrl)
         .then(response => response.text())
-        .then((text) => {
+        .then(text => {
           const data = Geometry.extractDataFromSVG(text, bounds.width, bounds.height);
           this.setState({
             correctAlternative: {
@@ -265,11 +233,14 @@ export default class DrawArea extends React.Component {
   render() {
     return (
       <Canvas
-        ref={(c) => { this.canvasComponent = c; }}
+        ref={c => {
+          this.canvasComponent = c;
+        }}
         newUserPath={this.onNewUserPath}
         drawActions={this.getDrawActions()}
         inputDisabled={this.props.buttonsDisabled}
-      />);
+      />
+    );
   }
 }
 
@@ -284,4 +255,3 @@ DrawArea.propTypes = {
   newMatch: React.PropTypes.func.isRequired,
   buttonsDisabled: React.PropTypes.bool.isRequired
 };
-

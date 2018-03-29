@@ -40,7 +40,12 @@ class FlashCard extends React.Component {
   render() {
     return (
       <Row>
-        <Col xs={10} xsOffset={1} sm={10} smOffset={1}>
+        <Col
+          xs={10}
+          xsOffset={1}
+          sm={10}
+          smOffset={1}
+        >
           <div className="flip-container">
             <Jumbotron className={`card${this.state.flipped ? ' flipped' : ''}`}>
               <figure className="front">
@@ -82,7 +87,7 @@ class FlashCard extends React.Component {
               bsSize="large"
               onClick={() => this.flipIt()}
             >
-            &nbsp;Vänd på kortet&nbsp;
+              &nbsp;Vänd på kortet&nbsp;
             </Button>
           </Row>
         </Col>
@@ -91,9 +96,7 @@ class FlashCard extends React.Component {
   }
 }
 
-FlashCard.defaultProps = {
-
-};
+FlashCard.defaultProps = {};
 
 FlashCard.propTypes = {
   question: React.PropTypes.shape({

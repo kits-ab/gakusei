@@ -6,7 +6,6 @@ import * as Security from '../../../../shared/reducers/Security';
 export const Reducers = [Security];
 
 export class logoutScreen extends React.Component {
-
   componentWillMount() {
     this.props.requestUserLogout('/', getCSRF());
   }
@@ -16,12 +15,8 @@ export class logoutScreen extends React.Component {
   }
 }
 
-logoutScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+logoutScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
-}, Reducers);
-
-logoutScreen.propTypes = Utility.reduxEnabledPropTypes({
-
-}, Reducers);
+logoutScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
 export default Utility.superConnect(this, Reducers)(logoutScreen);

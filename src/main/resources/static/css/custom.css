@@ -1,50 +1,65 @@
-.btn{
-    white-space: normal;
+.btn {
+  white-space: normal;
 }
 .brandButton {
-    background-color: Transparent;
-    border: none;
-    outline: none;
+  background-color: Transparent;
+  border: none;
+  outline: none;
 }
 
 .btn-no-hover:hover {
-    border-color: #ccc;
+  border-color: #ccc;
 }
 
 .logged-in-text {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 /* bootstrap override */
 .progress {
-    margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    select,
-    textarea,
-    input {
-        font-size: 1.2em !important;
-    }
+.favorite-icon-button {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 150%;
+  padding: 0;
+  line-height: 0;
+  -webkit-text-stroke: rgb(210, 212, 210) 0.05em;
+}
+
+.favorite-icon-button.favorite-icon-button__active {
+  color: rgb(255, 215, 107);
+  -webkit-text-stroke: rgb(206, 166, 65) 0.05em;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  select,
+  textarea,
+  input {
+    font-size: 1.2em !important;
+  }
 }
 
 @media screen and (min-width: 992px) {
-.questionText{
+  .questionText {
     font-size: 300% !important;
   }
-.verbQuestionText{
+  .verbQuestionText {
     font-size: 150% !important;
   }
-.hintText{
+  .hintText {
     font-size: 100% !important;
   }
 }
 
 @media screen and (max-width: 992px) {
-.questionText{
+  .questionText {
     font-size: 225% !important;
   }
-.verbQuestionText{
+  .verbQuestionText {
     font-size: 100% !important;
   }
 }
