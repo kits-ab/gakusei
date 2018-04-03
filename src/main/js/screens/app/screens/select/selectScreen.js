@@ -142,6 +142,14 @@ export class selectScreen extends React.Component {
     return { unanswered: unanswered, retention: retention, total: total };
   }
 
+  isLessonUnfinished(lesson) {
+    return (
+      (this.getNumberOfQuestions(lesson).unanswered < this.getNumberOfQuestions(lesson).total &&
+        this.getNumberOfQuestions(lesson).unanswered !== 0) ||
+      this.getNumberOfQuestions(lesson).retention > 0
+    );
+  }
+
   render() {
     const options = this.props.lessons.map(lesson => (
       <Col
@@ -157,7 +165,7 @@ export class selectScreen extends React.Component {
                 <Button
                   bsClass={
                     this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-                      ? 'favorite-icon-button favorite-icon-button__active'
+                      ? 'favorite-icon-button favorite-icon-button--active'
                       : 'favorite-icon-button'
                   }
                   onClick={e => {
@@ -170,13 +178,15 @@ export class selectScreen extends React.Component {
                 </Button>
               )}
               {lesson.name}
-              <Badge>{this.getNumberOfQuestions(lesson).retention}</Badge>
-              <Badge>{this.getNumberOfQuestions(lesson).unanswered}</Badge>
-              {this.getNumberOfQuestions(lesson).unanswered === this.getNumberOfQuestions(lesson).total ? (
-                <Label bsStyle="info">Ny!</Label>
+              {this.isLessonUnfinished(lesson) && this.props.spacedRepetition ? (
+                <Badge className="badge--type-todo">{this.getNumberOfQuestions(lesson).retention}</Badge>
+              ) : null}
+              {this.isLessonUnfinished(lesson) && this.props.spacedRepetition ? (
+                <Badge className="badge--type-new">{this.getNumberOfQuestions(lesson).unanswered}</Badge>
               ) : null}
               {this.getNumberOfQuestions(lesson).unanswered === 0 &&
-              this.getNumberOfQuestions(lesson).retention === 0 ? (
+              this.getNumberOfQuestions(lesson).retention === 0 &&
+              this.props.spacedRepetition ? (
                 <Label bsStyle="success">Färdig!</Label>
                 ) : null}
             </Panel.Title>
@@ -189,6 +199,11 @@ export class selectScreen extends React.Component {
                 this.props.setSelectedLesson(lesson);
                 this.startLesson();
               }}
+              disabled={
+                this.getNumberOfQuestions(lesson).unanswered === 0 &&
+                this.getNumberOfQuestions(lesson).retention === 0 &&
+                this.props.spacedRepetition
+              }
             >
               <Glyphicon glyph="play" />
             </Button>
@@ -216,6 +231,7 @@ export class selectScreen extends React.Component {
                   this.props.setSelectedLesson(this.props.favoriteLesson);
                   this.startLesson();
                 }}
+                disabled={this.props.starredLessons.length === 0}
               >
                 <Glyphicon glyph="play" />
               </Button>

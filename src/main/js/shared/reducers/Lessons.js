@@ -49,7 +49,7 @@ export const defaultState = {
   lessonLength: 0,
 
   answerTextInputFocused: true,
-  spacedRepetition: true,
+  spacedRepetition: false,
 
   // Things originally in SessionStorage
   correctAttempts: 0,
