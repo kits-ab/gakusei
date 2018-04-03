@@ -124,7 +124,7 @@ export class selectScreen extends React.Component {
     }
   }
 
-  handleSpacedRepetition(event) {
+  handleSpacedRepetition() {
     this.props.toggleSpacedRepetition();
   }
 
