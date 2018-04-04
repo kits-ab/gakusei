@@ -67,7 +67,7 @@ class FlashCard extends React.Component {
                   japaneseCharacters={this.props.questionType === 'reading' && this.props.cardType !== 'quiz'}
                   showKanji
                 />
-                <i>Kunde du svaret?</i>
+                Kunde du svaret?
                 <FlashButtonSet
                   correctAlternative={this.props.correctAlternative}
                   buttonStyles={this.props.question.buttonStyles}
