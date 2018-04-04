@@ -1,3 +1,7 @@
+html {
+  background-color: #eee;
+}
+
 .btn {
   white-space: normal;
 }
@@ -20,6 +24,39 @@
   margin-bottom: 0.5em;
 }
 
+.gakusei-logo {
+  margin: 50px;
+}
+
+.page-footer {
+  margin-top: 48px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  background-color: #eee;
+}
+
+.copyright-information {
+  margin-top: 2em;
+}
+.copyright-information__logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+.copyright-information__text {
+  display: block;
+}
+
+.sitemap h1 {
+  display: none;
+}
+.sitemap h2 {
+  font-size: large;
+}
+.sitemap__group {
+  list-style-type: none;
+  padding: 0;
+}
+
 .favorite-icon-button {
   border: none;
   background: transparent;
@@ -29,7 +66,6 @@
   line-height: 0;
   -webkit-text-stroke: rgb(210, 212, 210) 0.05em;
 }
-
 .favorite-icon-button.favorite-icon-button__active {
   color: rgb(255, 215, 107);
   -webkit-text-stroke: rgb(206, 166, 65) 0.05em;
