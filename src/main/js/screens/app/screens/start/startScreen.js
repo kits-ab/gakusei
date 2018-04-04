@@ -5,11 +5,11 @@ export default class startScreen extends React.Component {
   render() {
     return (
       <div>
-        <Jumbotron id="jumbotron_first">
-          <Grid className="make_table">
-            <div className="middle">
-              <h1 className="highlight_black">Bli student och lär dig japanska!</h1>
-              <p className="highlight_black">Ta del av Gakuseis inlärningsmaterial och lär dig japanska redan idag!</p>
+        <Jumbotron className="introduction">
+          <Grid>
+            <div className="introduction__text">
+              <h1>Bli student och lär dig japanska!</h1>
+              <p>Ta del av Gakuseis inlärningsmaterial och lär dig japanska redan idag!</p>
             </div>
           </Grid>
         </Jumbotron>

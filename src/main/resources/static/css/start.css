@@ -14,14 +14,24 @@
   color: white;
 }
 
-#jumbotron_first {
+.introduction {
   display: block;
   background: url(/img/front_page/gakusei_background.svg);
   background-size: cover;
   height: 46.25vw;
   max-height: 100vh;
   min-height: 300px;
-  color: #ffffff;
+}
+.introduction .container {
+  height: 100%;
+  position: relative;
+}
+.introduction__text {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  text-shadow: -0.05em -0.05em 0 black, 0.05em -0.05em 0 black, -0.05em 0.05em 0 black, 0.05em 0.05em 0 black;
 }
 
 .about_features {
@@ -33,11 +43,6 @@
 }
 .about_features p {
   font-size: 17px;
-}
-
-.highlight_black {
-  background: rgba(0, 0, 0, 0.5);
-  padding: 0 0.1em;
 }
 
 .make_table {
