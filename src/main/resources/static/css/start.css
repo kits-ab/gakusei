@@ -45,15 +45,6 @@
   font-size: 17px;
 }
 
-.make_table {
-  display: table;
-  height: 80%;
-}
-.middle {
-  display: table-cell;
-  vertical-align: middle;
-}
-
 .features_prev {
   margin-top: 40px;
 }
