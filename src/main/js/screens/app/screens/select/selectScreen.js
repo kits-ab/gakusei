@@ -7,11 +7,11 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
-  ListGroup,
-  ListGroupItem,
   Glyphicon,
-  HelpBlock
+  HelpBlock,
+  Panel
 } from 'react-bootstrap';
+
 import Utility from '../../../../shared/util/Utility';
 
 import * as Lessons from '../../../../shared/reducers/Lessons';
@@ -22,17 +22,16 @@ export const Reducers = [Lessons, Security];
 export class selectScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
-
-    this.onKeys = this.onKeys.bind(this);
   }
 
   componentWillMount() {
     this.props.fetchLessons(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
+
+    this.props.fetchFavoriteLesson(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
 
     if (this.props.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
@@ -52,12 +51,6 @@ export class selectScreen extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.onKeys);
-  }
-
-  onKeys(event) {
-    if (event.keyCode === 13) {
-      this.handleSubmit(event);
-    }
   }
 
   getPageHeader() {
@@ -115,8 +108,8 @@ export class selectScreen extends React.Component {
         break;
     }
   }
-  handleSubmit(event) {
-    event.preventDefault();
+
+  startLesson() {
     try {
       this.props.fetchLesson(this.props.params.type).then(() => {
         this.props.setPageByName(`/play/${this.props.params.type}`);
@@ -133,40 +126,78 @@ export class selectScreen extends React.Component {
   }
   render() {
     const options = this.props.lessons.map(lesson => (
-      <Row key={lesson.name}>
-        <Col
-          xs={this.props.params.type === 'quiz' ? 12 : 10}
-          md={this.props.params.type === 'quiz' ? 12 : 11}
-          lg={this.props.params.type === 'quiz' ? 12 : 11}
-        >
-          <ListGroupItem
-            key={lesson.name}
-            onClick={() => this.props.setSelectedLesson(lesson)}
-            value={lesson.name}
-            header={lesson.name}
-            bsStyle={lesson.name === this.props.selectedLesson.name ? 'info' : null}
-          />
-        </Col>
-        {this.props.params.type === 'quiz' ? null : (
-          <Col
-            xs={2}
-            md={1}
-            lg={1}
-          >
+      <Col
+        key={lesson.name}
+        xs={12}
+        md={6}
+        lg={4}
+      >
+        <Panel>
+          <Panel.Heading className="clearfix">
+            <Panel.Title>
+              {this.props.params.type === 'quiz' ? null : (
+                <Button
+                  bsClass={
+                    this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+                      ? 'favorite-icon-button favorite-icon-button__active'
+                      : 'favorite-icon-button'
+                  }
+                  onClick={e => {
+                    e.stopPropagation();
+                    this.handleStarredClick(lesson);
+                  }}
+                  className="pull-right"
+                >
+                  <Glyphicon glyph="star" />
+                </Button>
+              )}
+
+              {lesson.name}
+            </Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <p>{lesson.description}</p>
             <Button
-              bsStyle={
-                this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-                  ? 'warning'
-                  : null
-              }
-              onClick={() => this.handleStarredClick(lesson)}
+              onClick={e => {
+                e.stopPropagation();
+                this.props.setSelectedLesson(lesson);
+                this.startLesson();
+              }}
             >
-              <Glyphicon glyph="star" />
+              <Glyphicon glyph="play" />
             </Button>
-          </Col>
-        )}
-      </Row>
+          </Panel.Body>
+        </Panel>
+      </Col>
     ));
+
+    const favoriteLesson = (
+      <Row>
+        <Col
+          xs={12}
+          md={12}
+          lg={12}
+        >
+          <Panel>
+            <Panel.Heading className="clearfix">
+              <Panel.Title>Blandade frågor.</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <p>Blandade frågor från alla dina favoritmarkerade lektioner.</p>
+              <Button
+                onClick={e => {
+                  e.stopPropagation();
+                  this.props.setSelectedLesson(this.props.favoriteLesson);
+                  this.startLesson();
+                }}
+              >
+                <Glyphicon glyph="play" />
+              </Button>
+            </Panel.Body>
+          </Panel>
+        </Col>
+      </Row>
+    );
 
     const answerLanguages = [];
     let questionLanguages = [];
@@ -246,41 +277,31 @@ export class selectScreen extends React.Component {
       );
     }
     return (
-      <Grid className="text-center">
+      <Grid>
         <Col
           xs={11}
           lg={8}
           lgOffset={2}
         >
-          <form
-            href="#"
-            onSubmit={this.handleSubmit}
-          >
-            <ControlLabel>{this.getPageHeader()}</ControlLabel>
+          <ControlLabel>{this.getPageHeader()}</ControlLabel>
 
-            <FormGroup>
-              <ControlLabel>{this.getPageDescription()}</ControlLabel>
-            </FormGroup>
+          <FormGroup>
+            <ControlLabel>{this.getPageDescription()}</ControlLabel>
+          </FormGroup>
 
+          {this.props.params.type !== 'quiz' && this.props.params.type !== 'grammar' ? (
             <FormGroup>
-              <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
-              <ListGroup>{options}</ListGroup>
-              {languageSelection}
+              <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
+              {favoriteLesson}
             </FormGroup>
-            <FormGroup>
-              <FormControl
-                type="hidden"
-                onKeyPress={this.handleKeyPress}
-              />
-              <Button
-                type="submit"
-                bsStyle="primary"
-              >
-                &nbsp;Starta&nbsp;
-              </Button>
-            </FormGroup>
-            <br />
-          </form>
+          ) : null}
+
+          <FormGroup>
+            <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
+            <Row>{options}</Row>
+            {languageSelection}
+          </FormGroup>
+          <br />
         </Col>
       </Grid>
     );
