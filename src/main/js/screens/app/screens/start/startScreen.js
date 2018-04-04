@@ -1,38 +1,29 @@
 import React from 'react';
 import { Grid, Row, Col, Jumbotron, Button, ButtonGroup } from 'react-bootstrap';
-import { Link } from 'react-router';
 
 export default class startScreen extends React.Component {
   render() {
     return (
       <div>
-        <Jumbotron id="jumbotron_first">
-          <Grid className="make_table">
-            <div className="middle">
-              <h1>
-                <span className="highlight_black">Bli student och lär dig japanska!</span>
-              </h1>
-              <h3>
-                <span className="highlight_black">
-                  Ta del av Gakuseis inlärningsmaterial och lär dig japanska redan idag!
-                </span>
-              </h3>
+        <Jumbotron className="introduction">
+          <Grid>
+            <div className="introduction__text">
+              <h1>Bli student och lär dig japanska!</h1>
+              <p>Ta del av Gakuseis inlärningsmaterial och lär dig japanska redan idag!</p>
             </div>
           </Grid>
         </Jumbotron>
+        <Jumbotron className="text-center">
+          <h2>Gakusei erbjuder många funktioner som underlättar ditt lärande</h2>
+          <Button
+            href={`login${this.props.location.search}`}
+            bsStyle="success"
+            bsSize="large"
+          >
+            Testa redan nu!
+          </Button>
+        </Jumbotron>
         <Grid className="about_features">
-          <div className="text-center">
-            <h1>
-              <i>Gakusei erbjuder olika funktioner som underlättar ditt lärande.</i>
-            </h1>
-            <Button
-              href={`login${this.props.location.search}`}
-              bsStyle="success"
-              bsSize="large"
-            >
-              Testa redan nu!
-            </Button>
-          </div>
           <Row className="features_prev">
             <Col
               xs={12}
@@ -42,9 +33,9 @@ export default class startScreen extends React.Component {
             >
               <img
                 src="/img/front_page/svja.svg"
-                alt=""
+                alt="Språk komplement"
               />
-              <h2>Ett bra komplement till undervisning</h2>
+              <h3>Ett bra komplement till undervisning</h3>
               <p>Olika sorters övningar, anpassade efter japanskaundervisning på högskolenivå.</p>
             </Col>
             <Col
@@ -55,9 +46,9 @@ export default class startScreen extends React.Component {
             >
               <img
                 src="/img/front_page/devices.svg"
-                alt=""
+                alt="Multipla enheter"
               />
-              <h2>Gakusei överallt</h2>
+              <h3>Gakusei överallt</h3>
               <p>Öva med Gakusei på mobilen! Fungerar lika på mobila enheter som på laptops.</p>
             </Col>
             <div className="clearfix visible-md" />
@@ -69,9 +60,9 @@ export default class startScreen extends React.Component {
             >
               <img
                 src="/img/front_page/anonymous.svg"
-                alt=""
+                alt="Anonymitet"
               />
-              <h2>Anonymitet</h2>
+              <h3>Anonymitet</h3>
               <p>Gakusei lagrar ingen personlig data om sina användare, det enda som behövs är ett användarnamn.</p>
             </Col>
             <div className="clearfix visible-lg" />
@@ -83,11 +74,11 @@ export default class startScreen extends React.Component {
             >
               <img
                 src="/img/front_page/quiz.svg"
-                alt=""
+                alt="Quiz"
               />
-              <h2>
+              <h3>
                 <strong>2</strong> quizar
-              </h2>
+              </h3>
               <p>Prova våra quizar och se vad du kan om Japan.</p>
             </Col>
             <div className="clearfix visible-md" />
@@ -99,8 +90,8 @@ export default class startScreen extends React.Component {
             >
               <img
                 src="/img/logo/temp_gakusei_logo.png"
-                alt=""
-                className="gakuseiLogo"
+                alt="Gakusei logo"
+                className="gakusei-logo"
               />
             </Col>
             <Col
@@ -111,9 +102,9 @@ export default class startScreen extends React.Component {
             >
               <img
                 src="/img/front_page/brain.svg"
-                alt=""
+                alt="Hjärna"
               />
-              <h2>Smart inlärningsteknologi</h2>
+              <h3>Smart inlärningsteknologi</h3>
               <p>
                 Vårt system kommer ihåg hur du har svarat på frågor, på så sätt kan vi anpassa inlärningsmaterialet
                 efter dig.
@@ -151,78 +142,21 @@ export default class startScreen extends React.Component {
               >
                 <img
                   src="/img/front_page/daigaku.svg"
-                  alt=""
+                  alt="Gakusei logo"
                 />
               </Col>
             </Row>
           </Grid>
         </Jumbotron>
-        <Jumbotron id="jumbotron_register">
-          <Grid>
-            <Row>
-              <Col
-                mdOffset={4}
-                md={4}
-                className="text-center"
-              >
-                <h3>Utöka din kunskap med Gakusei!</h3>
-                <br />
-                <ButtonGroup
-                  vertical
-                  block
-                >
-                  <Button
-                    href={`login${this.props.location.search}`}
-                    bsStyle="success"
-                    bsSize="large"
-                  >
-                    Registrera dig nu!
-                  </Button>
-                </ButtonGroup>
-              </Col>
-            </Row>
-          </Grid>
-        </Jumbotron>
-        <Jumbotron id="jumbotron_footer">
-          <Grid>
-            <Row>
-              <Col
-                xs={6}
-                md={4}
-              >
-                <img
-                  src="/img/logo/temp_gakusei_logo2.png"
-                  alt=""
-                />
-                <br />
-                <span>© Gakusei 2017 - Alla rättigheter reserverade.</span>
-              </Col>
-              <Col
-                xs={6}
-                md={4}
-              >
-                <h4>Gakusei</h4>
-                <ul className="links_ls">
-                  <li>
-                    <Link to="/about">Om oss</Link>
-                  </li>
-                  <li>Kontakt</li>
-                  <li>Vårt team</li>
-                </ul>
-              </Col>
-              <Col
-                xs={6}
-                md={4}
-              >
-                <h4>Hjälp</h4>
-                <ul className="links_ls">
-                  <li>FAQ</li>
-                  <li>Användarvilkor</li>
-                  <li>Integritetspolicy</li>
-                </ul>
-              </Col>
-            </Row>
-          </Grid>
+        <Jumbotron className="text-center">
+          <h2>Utöka din kunskap med Gakusei!</h2>
+          <Button
+            href={`login${this.props.location.search}`}
+            bsStyle="success"
+            bsSize="large"
+          >
+            Registrera dig nu!
+          </Button>
         </Jumbotron>
       </div>
     );
