@@ -36,6 +36,8 @@
     "url": "git+https://github.com/kits-ab/gakusei.git"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/react-fontawesome": "0.0.18",
     "anchorate": "^1.2.3",
     "babel-preset-es2016": "^6.22.0",
     "babel-preset-es2017": "^6.22.0",
