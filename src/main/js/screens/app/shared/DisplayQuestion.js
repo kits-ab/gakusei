@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Glyphicon, Button, Collapse, Well } from 'react-bootstrap';
 import Speech from '../../../shared/util/Speech';
@@ -134,19 +135,19 @@ DisplayQuestion.defaultProps = {
 };
 
 DisplayQuestion.propTypes = {
-  primaryText: React.PropTypes.string.isRequired,
-  secondaryText: React.PropTypes.string,
-  japaneseCharacters: React.PropTypes.bool.isRequired,
-  resourceRef: React.PropTypes.shape({
-    type: React.PropTypes.string.isRequired,
-    location: React.PropTypes.string.isRequired
+  primaryText: PropTypes.string.isRequired,
+  secondaryText: PropTypes.string,
+  japaneseCharacters: PropTypes.bool.isRequired,
+  resourceRef: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired
   }),
-  showSpeechButton: React.PropTypes.bool,
-  showKanji: React.PropTypes.bool,
-  smallerText: React.PropTypes.bool,
-  cardType: React.PropTypes.string,
-  inflection: React.PropTypes.arrayOf(React.PropTypes.string),
-  explanationText: React.PropTypes.string
+  showSpeechButton: PropTypes.bool,
+  showKanji: PropTypes.bool,
+  smallerText: PropTypes.bool,
+  cardType: PropTypes.string,
+  inflection: PropTypes.arrayOf(PropTypes.string),
+  explanationText: PropTypes.string
 };
 
 export default DisplayQuestion;

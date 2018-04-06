@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
@@ -108,10 +109,10 @@ export default class AnswerButtonSet extends React.Component {
 AnswerButtonSet.defaultProps = {};
 
 AnswerButtonSet.propTypes = {
-  alternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
-  buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  buttonsDisabled: React.PropTypes.bool.isRequired,
-  japaneseCharacters: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired,
-  clickCallback: React.PropTypes.func.isRequired
+  alternatives: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+  buttonStyles: PropTypes.arrayOf(PropTypes.string).isRequired,
+  buttonsDisabled: PropTypes.bool.isRequired,
+  japaneseCharacters: PropTypes.bool.isRequired,
+  answerType: PropTypes.string.isRequired,
+  clickCallback: PropTypes.func.isRequired
 };

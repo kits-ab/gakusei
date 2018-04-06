@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
@@ -72,8 +73,8 @@ export default class FlashButtonSet extends React.Component {
 FlashButtonSet.defaultProps = {};
 
 FlashButtonSet.propTypes = {
-  correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  buttonsDisabled: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired,
-  clickCallback: React.PropTypes.func.isRequired
+  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired,
+  buttonsDisabled: PropTypes.bool.isRequired,
+  answerType: PropTypes.string.isRequired,
+  clickCallback: PropTypes.func.isRequired
 };
