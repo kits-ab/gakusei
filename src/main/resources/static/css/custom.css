@@ -1,3 +1,7 @@
+html {
+  background-color: #eee;
+}
+
 .btn {
   white-space: normal;
 }
@@ -18,6 +22,39 @@
 /* bootstrap override */
 .progress {
   margin-bottom: 0.5em;
+}
+
+.gakusei-logo {
+  margin: 50px;
+}
+
+.page-footer {
+  margin-top: 48px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  background-color: #eee;
+}
+
+.copyright-information {
+  margin-top: 2em;
+}
+.copyright-information__logo {
+  width: 80px;
+  margin-bottom: 20px;
+}
+.copyright-information__text {
+  display: block;
+}
+
+.sitemap h1 {
+  display: none;
+}
+.sitemap h2 {
+  font-size: large;
+}
+.sitemap__group {
+  list-style-type: none;
+  padding: 0;
 }
 
 .favorite-icon-button {
