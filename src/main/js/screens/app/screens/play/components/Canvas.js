@@ -1,6 +1,8 @@
 /* globals MouseEvent */
 /* eslint-disable no-console */
 
+import PropTypes from 'prop-types';
+
 import React from 'react';
 
 export default class Canvas extends React.Component {
@@ -284,12 +286,12 @@ Canvas.defaultProps = {
 };
 
 Canvas.propTypes = {
-  inputDisabled: React.PropTypes.bool,
-  newUserPath: React.PropTypes.func.isRequired,
-  drawActions: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      data: React.PropTypes.object.isRequired,
-      action: React.PropTypes.func.isRequired
+  inputDisabled: PropTypes.bool,
+  newUserPath: PropTypes.func.isRequired,
+  drawActions: PropTypes.arrayOf(
+    PropTypes.shape({
+      data: PropTypes.object.isRequired,
+      action: PropTypes.func.isRequired
     }).isRequired
   )
 };

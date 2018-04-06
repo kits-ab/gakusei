@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Accordion, Panel } from 'react-bootstrap';
 import FactList from './FactList';
@@ -16,7 +17,7 @@ const NuggetList = props => {
 };
 
 NuggetList.propTypes = {
-  nuggetResults: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  nuggetResults: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default NuggetList;
