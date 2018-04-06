@@ -31,7 +31,7 @@ public class ProgressHandler {
     @Autowired
     private ProgressTrackingRepository progressTrackingRepository;
 
-    public void trackProgress(Event event, boolean isRetention) {
+    public void trackProgress(Event event) {
         if (event.getNuggetId() == null) {
             return;
         }

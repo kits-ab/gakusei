@@ -124,7 +124,7 @@ public class ProgressHandlerTest {
         when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(spyPT);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
-        progressHandler.trackProgress(event, false);
+        progressHandler.trackProgress(event);
         verify(spyPT).setCorrectCount(correctCountCaptor.capture());
         verify(spyPT).setLatestTimestamp(latestTimestampCaptor.capture());
         verify(spyPT).setLatestResult(latestResultCaptor.capture());
@@ -145,7 +145,7 @@ public class ProgressHandlerTest {
         when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(spyPT);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
-        progressHandler.trackProgress(event, false);
+        progressHandler.trackProgress(event);
         verify(spyPT).setIncorrectCount(incorrectCountCaptor.capture());
         verify(spyPT).setLatestTimestamp(latestTimestampCaptor.capture());
         verify(spyPT).setLatestResult(latestResultCaptor.capture());
@@ -163,7 +163,7 @@ public class ProgressHandlerTest {
         when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(null);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
-        progressHandler.trackProgress(event, false);
+        progressHandler.trackProgress(event);
         verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
         ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
         assertEquals(1L, ptFromCaptor.getCorrectCount());
@@ -181,7 +181,7 @@ public class ProgressHandlerTest {
         when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(null);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
-        progressHandler.trackProgress(event, false);
+        progressHandler.trackProgress(event);
         verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
         ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
         assertEquals(0L, ptFromCaptor.getCorrectCount());

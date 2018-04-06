@@ -91,7 +91,7 @@ public class EventController {
                 + " / " + user.getUsername());
         event = eventRepository.save(event);
         if (event.getType().equalsIgnoreCase("answeredCorrectly")) {
-            progressHandler.trackProgress(event, false);
+            progressHandler.trackProgress(event);
         }
 
         if(event.getType().equalsIgnoreCase("updateRetention")) {
