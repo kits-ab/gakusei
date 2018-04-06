@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, FormGroup, Checkbox, FormControl, ControlLabel } from 'react-bootstrap';
 
@@ -61,8 +62,8 @@ const QueryInput = props => (
 );
 
 QueryInput.propTypes = {
-  handleSubmit: React.PropTypes.func.isRequired,
-  handleChange: React.PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired
 };
 
 export default QueryInput;

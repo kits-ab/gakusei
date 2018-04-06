@@ -1,5 +1,7 @@
 /* eslint-disable react/forbid-prop-types */
 
+import PropTypes from 'prop-types';
+
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRedirect } from 'react-router';
@@ -107,6 +109,6 @@ export default class AppProvider extends React.Component {
 }
 
 AppProvider.propTypes = {
-  store: React.PropTypes.object.isRequired,
-  history: React.PropTypes.object.isRequired
+  store: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
