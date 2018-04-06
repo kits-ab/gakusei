@@ -128,6 +128,11 @@ export class selectScreen extends React.Component {
     this.props.toggleSpacedRepetition();
   }
 
+  isSpacedRepetition() {
+    const supportedModes = ['guess', 'grammar'];
+    return this.props.spacedRepetition && supportedModes.includes(this.props.params.type);
+  }
+
   handleStarredClick(lesson) {
     return this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
       ? this.props.removeStarredLesson(lesson.name)
@@ -135,11 +140,13 @@ export class selectScreen extends React.Component {
   }
 
   getNumberOfQuestions(lesson) {
-    const unanswered = this.props.addressedQuestionsInLessons[lesson.name].unanswered;
-    const retention = this.props.addressedQuestionsInLessons[lesson.name].retention;
-    const total = this.props.addressedQuestionsInLessons[lesson.name].all;
-
-    return { unanswered: unanswered, retention: retention, total: total };
+    if (this.props.params.type === 'guess' || this.props.params.type === 'grammar') {
+      const unanswered = this.props.addressedQuestionsInLessons[lesson.name].unanswered;
+      const retention = this.props.addressedQuestionsInLessons[lesson.name].retention;
+      const total = this.props.addressedQuestionsInLessons[lesson.name].all;
+      return { unanswered: unanswered, retention: retention, total: total };
+    }
+    return { unanswered: 0, retention: 0, total: 0 };
   }
 
   isLessonUnfinished(lesson) {
@@ -178,15 +185,15 @@ export class selectScreen extends React.Component {
                 </Button>
               )}
               {lesson.name}
-              {this.isLessonUnfinished(lesson) && this.props.spacedRepetition ? (
+              {this.isLessonUnfinished(lesson) && this.isSpacedRepetition() ? (
                 <Badge className="badge--type-todo">{this.getNumberOfQuestions(lesson).retention}</Badge>
               ) : null}
-              {this.isLessonUnfinished(lesson) && this.props.spacedRepetition ? (
+              {this.isLessonUnfinished(lesson) && this.isSpacedRepetition() ? (
                 <Badge className="badge--type-new">{this.getNumberOfQuestions(lesson).unanswered}</Badge>
               ) : null}
               {this.getNumberOfQuestions(lesson).unanswered === 0 &&
               this.getNumberOfQuestions(lesson).retention === 0 &&
-              this.props.spacedRepetition ? (
+              this.isSpacedRepetition() ? (
                 <Label bsStyle="success">Färdig!</Label>
                 ) : null}
             </Panel.Title>
@@ -202,7 +209,7 @@ export class selectScreen extends React.Component {
               disabled={
                 this.getNumberOfQuestions(lesson).unanswered === 0 &&
                 this.getNumberOfQuestions(lesson).retention === 0 &&
-                this.props.spacedRepetition
+                this.isSpacedRepetition()
               }
             >
               <Glyphicon glyph="play" />
@@ -285,7 +292,7 @@ export class selectScreen extends React.Component {
           <Row>
             <Col
               xs={12}
-              sm={6}
+              sm={4}
             >
               <HelpBlock>Frågespråk</HelpBlock>
               <FormControl
@@ -301,7 +308,7 @@ export class selectScreen extends React.Component {
             </Col>
             <Col
               xs={12}
-              sm={6}
+              sm={4}
             >
               <HelpBlock>Svarspråk</HelpBlock>
               <FormControl
@@ -313,6 +320,18 @@ export class selectScreen extends React.Component {
               >
                 {answerLanguages}
               </FormControl>
+            </Col>
+            <Col
+              xs={12}
+              sm={4}
+            >
+              <Button
+                bsStyle="success"
+                active={this.isSpacedRepetition()}
+                onClick={this.handleSpacedRepetition}
+              >
+                Smart inlärningsläge
+              </Button>
             </Col>
           </Row>
         </FormGroup>
@@ -342,13 +361,6 @@ export class selectScreen extends React.Component {
             <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
             <Row>{options}</Row>
             {languageSelection}
-            <Button
-              bsStyle="success"
-              active={this.props.spacedRepetition}
-              onClick={this.handleSpacedRepetition}
-            >
-              Smart inlärningsläge
-            </Button>
           </FormGroup>
 
           <br />
