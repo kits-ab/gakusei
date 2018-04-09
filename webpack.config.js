@@ -71,6 +71,11 @@ module.exports = function() {
       ]
     },
     plugins: [
+      new webpack.ProvidePlugin({
+        React: 'react',
+        ReactDOM: 'react-dom',
+        PropTypes: 'prop-types'
+      }),
       new webpack.DefinePlugin({
         'process.env': {
           PROJECT_VERSION: JSON.stringify(packageJson.version),
