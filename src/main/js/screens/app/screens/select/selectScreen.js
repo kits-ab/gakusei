@@ -142,7 +142,10 @@ export class selectScreen extends React.Component {
   }
 
   getNumberOfQuestions(lesson) {
-    if (this.props.spacedRepetitionModes.includes(this.props.params.type) || this.props.params.type === 'grammar') {
+    if (
+      (this.props.addressedQuestionsInLessons && this.props.spacedRepetitionModes.includes(this.props.params.type)) ||
+      this.props.params.type === 'grammar'
+    ) {
       const { unanswered, retention, all } = this.props.addressedQuestionsInLessons[lesson.name];
       return { unanswered, retention, all };
     }
