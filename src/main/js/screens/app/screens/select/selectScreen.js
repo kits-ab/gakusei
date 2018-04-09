@@ -129,8 +129,7 @@ export class selectScreen extends React.Component {
   }
 
   isSpacedRepetition() {
-    const supportedModes = ['guess', 'grammar'];
-    return this.props.spacedRepetition && supportedModes.includes(this.props.params.type);
+    return this.props.spacedRepetition && this.props.spacedRepetitionModes.includes(this.props.params.type);
   }
 
   handleStarredClick(lesson) {
@@ -140,7 +139,7 @@ export class selectScreen extends React.Component {
   }
 
   getNumberOfQuestions(lesson) {
-    if (this.props.params.type === 'guess' || this.props.params.type === 'grammar') {
+    if (this.props.spacedRepetitionModes.includes(this.props.params.type) || this.props.params.type === 'grammar') {
       const unanswered = this.props.addressedQuestionsInLessons[lesson.name].unanswered;
       const retention = this.props.addressedQuestionsInLessons[lesson.name].retention;
       const total = this.props.addressedQuestionsInLessons[lesson.name].all;

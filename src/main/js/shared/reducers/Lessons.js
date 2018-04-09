@@ -50,6 +50,7 @@ export const defaultState = {
 
   answerTextInputFocused: true,
   spacedRepetition: false,
+  spacedRepetitionModes: ['guess', 'grammar', 'translate', 'flashcards'],
 
   // Things originally in SessionStorage
   correctAttempts: 0,
@@ -82,7 +83,8 @@ export const propTypes = {
   questionType: React.PropTypes.string.isRequired,
   answerType: React.PropTypes.string.isRequired,
   answerTextInputFocused: React.PropTypes.bool.isRequired,
-  spacedRepetition: React.PropTypes.bool.isRequired
+  spacedRepetition: React.PropTypes.bool.isRequired,
+  spacedRepetitionModes: React.PropTypes.array.isRequired
 };
 
 // -----------------
