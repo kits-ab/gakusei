@@ -34,6 +34,15 @@ public class ProgressTracking implements Serializable{
     @Column(name = "latest_result")
     private boolean latestResult;
 
+    @Column(name = "retention_factor")
+    private double retentionFactor;
+
+    @Column(name = "retention_interval")
+    private double retentionInterval;
+
+    @Column(name = "retention_date")
+    private Timestamp retentionDate;
+
     public ProgressTracking(){}
 
     public long getId() {
@@ -91,4 +100,30 @@ public class ProgressTracking implements Serializable{
     public void setNuggetID(String nuggetID) {
         this.nuggetID = nuggetID;
     }
+
+    public double getRetentionFactor() {
+        return retentionFactor;
+    }
+
+    public void setRetentionFactor(double retention_factor) {
+        this.retentionFactor = retention_factor;
+    }
+
+    public double getRetentionInterval() {
+        return retentionInterval;
+    }
+
+    public void setRetentionInterval(double retentionInterval) {
+        this.retentionInterval = retentionInterval;
+    }
+
+    public Timestamp getRetentionDate() {
+        return retentionDate;
+    }
+
+    public void setRetentionDate(Timestamp retention_date) {
+        this.retentionDate = retention_date;
+    }
+
+
 }

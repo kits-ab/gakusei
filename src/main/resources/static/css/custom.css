@@ -63,12 +63,29 @@ html {
   color: white;
   font-size: 150%;
   padding: 0;
+  margin-left: 0.1em;
   line-height: 0;
   -webkit-text-stroke: rgb(210, 212, 210) 0.05em;
 }
-.favorite-icon-button.favorite-icon-button__active {
+
+.favorite-icon-button--active {
   color: rgb(255, 215, 107);
   -webkit-text-stroke: rgb(206, 166, 65) 0.05em;
+}
+
+/* Override bootstrap panel heading badge */
+.panel-default > .panel-heading .badge--type-todo {
+  background-color: #fa3e3e;
+  margin-left: 0.2em;
+}
+
+.panel-default > .panel-heading .badge--type-new {
+  background-color: #5bc0de;
+  margin-left: 0.2em;
+}
+
+.panel-default > .panel-heading .label {
+  margin-left: 0.5em;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {

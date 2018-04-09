@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -188,4 +189,98 @@ public class ProgressHandlerTest {
         assertEquals(timestamp, ptFromCaptor.getLatestTimestamp().getTime());
         assertEquals(Boolean.parseBoolean(event.getData()), ptFromCaptor.isLatestResult());
     }
+
+    @Test
+    public void testRetentionFactorCorrectFast() {
+        retentionFactorHelperTester(2.5, 1, 2.6, "true");
+    }
+
+    @Test
+    public void testRetentionFactorCorrectMedium() {
+        retentionFactorHelperTester(2.5, 7, 2.5, "true");
+    }
+
+    @Test
+    public void testRetentionFactorCorrectSlow() {
+        retentionFactorHelperTester(2.5, 30, 2.36, "true");
+    }
+
+    @Test
+    public void testRetentionFactorIncorrectFast() {
+        retentionFactorHelperTester(2.5, 1, 1.96, "false");
+    }
+
+    @Test
+    public void testRetentionFactorIncorrectMedium() {
+        retentionFactorHelperTester(2.5, 7, 1.96, "false");
+    }
+
+    @Test
+    public void testRetentionFactorIncorrectSlow() {
+        retentionFactorHelperTester(2.5, 30, 1.96, "false");
+    }
+
+    @Test
+    public void testRetentionIntervalAndDateFirst(){
+        double interval = retentionIntervalAndDateHelperTester(0);
+        assertEquals(0.04167,interval,0.000001);
+    }
+
+    @Test
+    public void testRetentionIntervalAndDateSecond(){
+        double interval = retentionIntervalAndDateHelperTester(0.04167);
+        assertEquals(1,interval,0.000001);
+    }
+
+    @Test
+    public void testRetentionIntervalAndDateThird(){
+        double interval = retentionIntervalAndDateHelperTester(1);
+        assertTrue(interval >= 2.6);
+        assertTrue(interval <= 2.6 + (1d/24d));
+    }
+
+
+    private void retentionFactorHelperTester(double factor, int timeTaken, double expectedFactor, String answeredCorrectly) {
+        Timestamp timestampSql = new Timestamp(timestamp);
+        ProgressTracking progressTracking =
+                createProgressTracking(user, nuggets.get(1).getId(), correctCount, incorrectCount, timestampSql, true);
+        ProgressTracking spyPT = spy(progressTracking);
+        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), answeredCorrectly);
+
+        when(userRepository.findByUsername(username)).thenReturn(user);
+        when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(timeTaken);
+        when(progressTrackingRepository.findByUserAndNuggetID(user,
+                event.getNuggetId())).thenReturn(spyPT);
+
+        spyPT.setRetentionFactor(factor);
+
+        progressHandler.updateRetention(event);
+        verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
+        ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
+
+        assertEquals(expectedFactor, ptFromCaptor.getRetentionFactor(),0.0000001);
+    }
+
+    private double retentionIntervalAndDateHelperTester(double interval) {
+        Timestamp timestampSql = new Timestamp(timestamp);
+        ProgressTracking progressTracking =
+                createProgressTracking(user, nuggets.get(1).getId(), correctCount, incorrectCount, timestampSql, true);
+        ProgressTracking spyPT = spy(progressTracking);
+        Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "true");
+
+        when(userRepository.findByUsername(username)).thenReturn(user);
+        when(eventRepository.getAnswerTimePeriod(username, event.getNuggetId())).thenReturn(1);
+        when(progressTrackingRepository.findByUserAndNuggetID(user,
+                event.getNuggetId())).thenReturn(spyPT);
+
+        spyPT.setRetentionFactor(2.5);
+        spyPT.setRetentionInterval(interval);
+
+        progressHandler.updateRetention(event);
+        verify(progressTrackingRepository).save(progressTrackingArgumentCaptor.capture());
+        ProgressTracking ptFromCaptor = progressTrackingArgumentCaptor.getValue();
+
+        return ptFromCaptor.getRetentionInterval();
+    }
+
 }
