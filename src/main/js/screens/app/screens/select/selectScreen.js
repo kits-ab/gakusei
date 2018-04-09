@@ -9,7 +9,9 @@ import {
   ControlLabel,
   Glyphicon,
   HelpBlock,
-  Panel
+  Panel,
+  Badge,
+  Label
 } from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
@@ -28,6 +30,7 @@ export class selectScreen extends React.Component {
     super(props);
     this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
+    this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
   }
 
   componentWillMount() {
@@ -36,6 +39,8 @@ export class selectScreen extends React.Component {
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchFavoriteLesson(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
+
+    this.props.fetchaddressedQuestionsInLessons();
 
     if (this.props.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
@@ -123,11 +128,36 @@ export class selectScreen extends React.Component {
     }
   }
 
+  handleSpacedRepetition() {
+    this.props.toggleSpacedRepetition();
+  }
+
+  isSpacedRepetition() {
+    return this.props.spacedRepetition && this.props.spacedRepetitionModes.includes(this.props.params.type);
+  }
+
   handleStarredClick(lesson) {
     return this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
       ? this.props.removeStarredLesson(lesson.name)
       : this.props.addStarredLesson(lesson.name);
   }
+
+  getNumberOfQuestions(lesson) {
+    if (this.props.spacedRepetitionModes.includes(this.props.params.type) || this.props.params.type === 'grammar') {
+      const { unanswered, retention, all } = this.props.addressedQuestionsInLessons[lesson.name];
+      return { unanswered, retention, all };
+    }
+    return { unanswered: 0, retention: 0, total: 0 };
+  }
+
+  isLessonUnfinished(lesson) {
+    return (
+      (this.getNumberOfQuestions(lesson).unanswered < this.getNumberOfQuestions(lesson).total &&
+        this.getNumberOfQuestions(lesson).unanswered !== 0) ||
+      this.getNumberOfQuestions(lesson).retention > 0
+    );
+  }
+
   render() {
     const options = this.props.lessons.map(lesson => (
       <Col
@@ -143,7 +173,7 @@ export class selectScreen extends React.Component {
                 <Button
                   bsClass={
                     this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-                      ? 'favorite-icon-button favorite-icon-button__active'
+                      ? 'favorite-icon-button favorite-icon-button--active'
                       : 'favorite-icon-button'
                   }
                   onClick={e => {
@@ -155,8 +185,18 @@ export class selectScreen extends React.Component {
                   <FontAwesomeIcon icon={faStar} />
                 </Button>
               )}
-
               {lesson.name}
+              {this.isLessonUnfinished(lesson) && this.isSpacedRepetition() ? (
+                <Badge className="badge--type-todo">{this.getNumberOfQuestions(lesson).retention}</Badge>
+              ) : null}
+              {this.isLessonUnfinished(lesson) && this.isSpacedRepetition() ? (
+                <Badge className="badge--type-new">{this.getNumberOfQuestions(lesson).unanswered}</Badge>
+              ) : null}
+              {this.getNumberOfQuestions(lesson).unanswered === 0 &&
+              this.getNumberOfQuestions(lesson).retention === 0 &&
+              this.isSpacedRepetition() ? (
+                <Label bsStyle="success">Färdig!</Label>
+                ) : null}
             </Panel.Title>
           </Panel.Heading>
           <Panel.Body>
@@ -167,6 +207,11 @@ export class selectScreen extends React.Component {
                 this.props.setSelectedLesson(lesson);
                 this.startLesson();
               }}
+              disabled={
+                this.getNumberOfQuestions(lesson).unanswered === 0 &&
+                this.getNumberOfQuestions(lesson).retention === 0 &&
+                this.isSpacedRepetition()
+              }
             >
               <FontAwesomeIcon icon={faPlay} />
             </Button>
@@ -194,6 +239,7 @@ export class selectScreen extends React.Component {
                   this.props.setSelectedLesson(this.props.favoriteLesson);
                   this.startLesson();
                 }}
+                disabled={this.props.starredLessons.length === 0}
               >
                 <FontAwesomeIcon icon={faPlay} />
               </Button>
@@ -247,7 +293,7 @@ export class selectScreen extends React.Component {
           <Row>
             <Col
               xs={12}
-              sm={6}
+              sm={4}
             >
               <HelpBlock>Frågespråk</HelpBlock>
               <FormControl
@@ -263,7 +309,7 @@ export class selectScreen extends React.Component {
             </Col>
             <Col
               xs={12}
-              sm={6}
+              sm={4}
             >
               <HelpBlock>Svarspråk</HelpBlock>
               <FormControl
@@ -275,6 +321,18 @@ export class selectScreen extends React.Component {
               >
                 {answerLanguages}
               </FormControl>
+            </Col>
+            <Col
+              xs={12}
+              sm={4}
+            >
+              <Button
+                bsStyle="success"
+                active={this.isSpacedRepetition()}
+                onClick={this.handleSpacedRepetition}
+              >
+                Smart inlärningsläge
+              </Button>
             </Col>
           </Row>
         </FormGroup>
@@ -305,6 +363,7 @@ export class selectScreen extends React.Component {
             <Row>{options}</Row>
             {languageSelection}
           </FormGroup>
+
           <br />
         </Col>
       </Grid>

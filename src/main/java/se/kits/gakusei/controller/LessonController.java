@@ -90,6 +90,8 @@ public class LessonController {
             List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(username, tmpLesson.getName())
                     .stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
             List<Nugget> allLessonNuggets = getNuggets(tmpLesson);
+            List<Nugget> retentionNuggets = lessonRepository.findNuggetsByRetentionDate(username, tmpLesson.getName())
+                    .stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
 
             for (Nugget n :
                     correctlyAnsweredNuggets) {
@@ -104,6 +106,7 @@ public class LessonController {
             lessonData.put("unanswered", unansweredNuggets.size());
             lessonData.put("correctlyAnswered", correctlyAnsweredNuggets.size());
             lessonData.put("all", allLessonNuggets.size());
+            lessonData.put("retention", retentionNuggets.size());
 
             values.put(tmpLesson.getName(), lessonData);
 

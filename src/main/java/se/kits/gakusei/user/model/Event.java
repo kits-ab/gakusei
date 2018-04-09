@@ -22,6 +22,15 @@ import java.sql.Timestamp;
                 "where user_ref = :username and type = 'answeredCorrectly'"
         ),
         @NamedNativeQuery(
+                name = "Event.getAnswerTimePeriod",
+                query = "SELECT FLOOR(EXTRACT(EPOCH FROM timestamp_B.timestamp - timestamp_A.timestamp)) FROM\n" +
+                        "(SELECT timestamp FROM events WHERE type = 'answeredCorrectly' AND user_ref = :username AND nugget_id = :nugget_id\n" +
+                        "ORDER BY events.timestamp DESC LIMIT 1) AS timestamp_B,\n" +
+                        "(SELECT timestamp FROM events WHERE type = 'question' AND user_ref = :username AND nugget_id = :nugget_id\n" +
+                        "ORDER BY events.timestamp DESC LIMIT 1) AS timestamp_A"
+        ),
+        // (SELECT timestamp FROM events WHERE userref == gunnargren as timestamp_A )
+        @NamedNativeQuery(
                 name = "Event.getLatestAnswerTimestamp",
                 query = "SELECT timestamp " +
                         "FROM events " +

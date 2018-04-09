@@ -1,8645 +1,3912 @@
 [
   {
-    "swedish": [
-      "servitör"
-    ],
-    "genki": [
-      "13"
-    ],
-    "writing": [
-      "ウエイター"
-    ],
-    "english": [
-      "waiter"
-    ],
-    "reading": [
-      "ウエイター"
-    ],
+    "swedish": ["servitör"],
+    "genki": ["13"],
+    "writing": ["ウエイター"],
+    "english": ["waiter"],
+    "reading": ["ウエイター"],
     "state": "",
     "id": "12x1",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "främmande språk"
-    ],
-    "genki": [
-      "13"
-    ],
-    "writing": [
-      "外国語"
-    ],
-    "english": [
-      "foreign language"
-    ],
-    "reading": [
-      "がいこくご"
-    ],
+    "swedish": ["främmande språk"],
+    "genki": ["13"],
+    "writing": ["外国語"],
+    "english": ["foreign language"],
+    "reading": ["がいこくご"],
     "state": "",
     "id": "12x2",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "musikinstrument"
-    ],
-    "genki": [
-      "13"
-    ],
-    "writing": [
-      "楽器"
-    ],
-    "english": [
-      "musical instrument"
-    ],
-    "reading": [
-      "がっき"
-    ],
+    "swedish": ["musikinstrument"],
+    "genki": ["13"],
+    "writing": ["楽器"],
+    "english": ["musical instrument"],
+    "reading": ["がっき"],
     "state": "",
     "id": "12x3",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "karate"
-    ],
-    "genki": [
-      "13"
-    ],
-    "writing": [
-      "空手"
-    ],
-    "english": [
-      "karate"
-    ],
-    "reading": [
-      "からて"
-    ],
+    "swedish": ["karate"],
+    "genki": ["13"],
+    "writing": ["空手"],
+    "english": ["karate"],
+    "reading": ["からて"],
     "state": "",
     "id": "12x4",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "golf"
-    ],
-    "genki": [
-      "13"
-    ],
-    "writing": [
-      "ゴルフ"
-    ],
-    "english": [
-      "golf"
-    ],
-    "reading": [
-      "ゴルフ"
-    ],
+    "swedish": ["golf"],
+    "genki": ["13"],
+    "writing": ["ゴルフ"],
+    "english": ["golf"],
+    "reading": ["ゴルフ"],
     "state": "",
     "id": "12x5",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "motorcykel"
-    ],
-    "genki": [
-      "13"
-    ],
-    "writing": [
-      "バイク"
-    ],
-    "english": [
-      "motorcycle"
-    ],
-    "reading": [
-      "バイク"
-    ],
+    "swedish": ["motorcykel"],
+    "genki": ["13"],
+    "writing": ["バイク"],
+    "english": ["motorcycle"],
+    "reading": ["バイク"],
     "state": "",
     "id": "12x6",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "advokat"
-    ],
-    "genki": [
-      "13"
-    ],
-    "writing": [
-      "弁護し"
-    ],
-    "english": [
-      "lawyer"
-    ],
-    "reading": [
-      "べんごし"
-    ],
+    "swedish": ["advokat"],
+    "genki": ["13"],
+    "writing": ["弁護し"],
+    "english": ["lawyer"],
+    "reading": ["べんごし"],
     "state": "",
     "id": "12x7",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "rekrytering"
-    ],
-    "genki": [
-      "13"
-    ],
-    "writing": [
-      "募集"
-    ],
-    "english": [
-      "recruitment"
-    ],
-    "reading": [
-      "ぼしゅう"
-    ],
+    "swedish": ["rekrytering"],
+    "genki": ["13"],
+    "writing": ["募集"],
+    "english": ["recruitment"],
+    "reading": ["ぼしゅう"],
     "state": "",
     "id": "12x8",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "yakuza"
-    ],
-    "genki": [
-      "13"
-    ],
-    "writing": [
-      "やくざ"
-    ],
-    "english": [
-      "yakuza"
-    ],
-    "reading": [
-      "やくざ"
-    ],
+    "swedish": ["yakuza"],
+    "genki": ["13"],
+    "writing": ["やくざ"],
+    "english": ["yakuza"],
+    "reading": ["やくざ"],
     "state": "",
     "id": "12x9",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "Internet"
-    ],
-    "genki": [
-      "15"
-    ],
-    "writing": [
-      "インターネット"
-    ],
-    "english": [
-      "Internet"
-    ],
-    "reading": [
-      "インターネット"
-    ],
+    "swedish": ["Internet"],
+    "genki": ["15"],
+    "writing": ["インターネット"],
+    "english": ["Internet"],
+    "reading": ["インターネット"],
     "state": "",
     "id": "12x10",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "nattklubb"
-    ],
-    "genki": [
-      "15"
-    ],
-    "writing": [
-      "クラブ"
-    ],
-    "english": [
-      "night club"
-    ],
-    "reading": [
-      "クラブ"
-    ],
+    "swedish": ["nattklubb"],
+    "genki": ["15"],
+    "writing": ["クラブ"],
+    "english": ["night club"],
+    "reading": ["クラブ"],
     "state": "",
     "id": "12x11",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "glad",
-      "lycklig"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n3"
-    ],
-    "writing": [
-      "嬉しい"
-    ],
-    "english": [
-      "happy",
-      " glad",
-      " pleasant"
-    ],
-    "reading": [
-      "うれしい"
-    ],
+    "swedish": ["glad", "lycklig"],
+    "genki": ["13"],
+    "jlpt": ["n3"],
+    "writing": ["嬉しい"],
+    "english": ["happy", " glad", " pleasant"],
+    "reading": ["うれしい"],
     "state": "",
     "id": "n3_12",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "erfarenhet"
-    ],
-    "genki": [
-      "15"
-    ],
-    "jlpt": [
-      "n3"
-    ],
-    "writing": [
-      "経験"
-    ],
-    "english": [
-      "experience"
-    ],
-    "reading": [
-      "けいけん"
-    ],
+    "swedish": ["erfarenhet"],
+    "genki": ["15"],
+    "jlpt": ["n3"],
+    "writing": ["経験"],
+    "english": ["experience"],
+    "reading": ["けいけん"],
     "state": "",
     "id": "n3_13",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "annons"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n3"
-    ],
-    "writing": [
-      "広告"
-    ],
-    "english": [
-      "advertisement"
-    ],
-    "reading": [
-      "こうこく"
-    ],
+    "swedish": ["annons"],
+    "genki": ["13"],
+    "jlpt": ["n3"],
+    "writing": ["広告"],
+    "english": ["advertisement"],
+    "reading": ["こうこく"],
     "state": "",
     "id": "n3_14",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "elefant"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n3"
-    ],
-    "writing": [
-      "象"
-    ],
-    "english": [
-      "elephant"
-    ],
-    "reading": [
-      "ぞう"
-    ],
+    "swedish": ["elefant"],
+    "genki": ["13"],
+    "jlpt": ["n3"],
+    "writing": ["象"],
+    "english": ["elephant"],
+    "reading": ["ぞう"],
     "state": "",
     "id": "n3_15",
-    "type": [
-      "other"
-    ],
-    "kanjidrawing" : [
-      "/img/kanji/elefant.svg"
-    ]
+    "type": ["other"],
+    "kanjidrawing": ["/img/kanji/elefant.svg"]
   },
   {
-    "swedish": [
-      "konsumentpriser"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n3"
-    ],
-    "writing": [
-      "物価"
-    ],
-    "english": [
-      "prices of commodities",
-      "prices (in general)"
-    ],
-    "reading": [
-      "ぶっか"
-    ],
+    "swedish": ["konsumentpriser"],
+    "genki": ["13"],
+    "jlpt": ["n3"],
+    "writing": ["物価"],
+    "english": ["prices of commodities", "prices (in general)"],
+    "reading": ["ぶっか"],
     "state": "",
     "id": "n3_16",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "fiol"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n3"
-    ],
-    "english": [
-      "violin"
-    ],
-    "reading": [
-      "バイオリン"
-    ],
+    "swedish": ["fiol"],
+    "genki": ["13"],
+    "jlpt": ["n3"],
+    "english": ["violin"],
+    "reading": ["バイオリン"],
+    "writing": ["バイオリン"],
     "state": "",
     "id": "n3_17",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "Ah"
-    ],
-    "jlpt": [
-      "n4"
-    ],
-    "english": [
-      "Ah"
-    ],
-    "reading": [
-      "あ"
-    ],
+    "swedish": ["Ah"],
+    "jlpt": ["n4"],
+    "english": ["Ah"],
+    "reading": ["あ"],
+    "writing": ["あ"],
     "state": "",
     "id": "n4_18",
-    "type": [
-      "interjection"
-    ]
+    "type": ["interjection"]
   },
   {
-    "swedish": [
-      "Aha..."
-    ],
-    "jlpt": [
-      "n4"
-    ],
-    "english": [
-      "like that"
-    ],
-    "reading": [
-      "ああ"
-    ],
+    "swedish": ["Aha..."],
+    "jlpt": ["n4"],
+    "english": ["like that"],
+    "reading": ["ああ"],
+    "writing": ["ああ"],
     "state": "",
     "id": "n4_19",
-    "type": [
-      "interjection"
-    ]
+    "type": ["interjection"]
   },
   {
-    "swedish": [
-      "mellan"
-    ],
-    "jlpt": [
-      "n4"
-    ],
-    "writing": [
-      "間"
-    ],
-    "english": [
-      "a space"
-    ],
-    "reading": [
-      "あいだ"
-    ],
+    "swedish": ["mellan"],
+    "jlpt": ["n4"],
+    "writing": ["間"],
+    "english": ["a space"],
+    "reading": ["あいだ"],
     "state": "",
     "id": "n4_20",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "ditt hus (artigt)"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n4"
-    ],
-    "writing": [
-      "お宅"
-    ],
-    "english": [
-      "(polite) your house"
-    ],
-    "reading": [
-      "おたく"
-    ],
+    "swedish": ["ditt hus (artigt)"],
+    "genki": ["13"],
+    "jlpt": ["n4"],
+    "writing": ["お宅"],
+    "english": ["(polite) your house"],
+    "reading": ["おたく"],
     "state": "",
     "id": "n4_21",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "ledsen"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n4"
-    ],
-    "writing": [
-      "悲しい"
-    ],
-    "english": [
-      "sad"
-    ],
-    "reading": [
-      "かなしい"
-    ],
+    "swedish": ["ledsen"],
+    "genki": ["13"],
+    "jlpt": ["n4"],
+    "writing": ["悲しい"],
+    "english": ["sad"],
+    "reading": ["かなしい"],
     "state": "",
     "id": "n4_22",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "kimono"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n4"
-    ],
-    "writing": [
-      "着物"
-    ],
-    "english": [
-      "kimono"
-    ],
-    "reading": [
-      "きもの"
-    ],
+    "swedish": ["kimono"],
+    "genki": ["13"],
+    "jlpt": ["n4"],
+    "writing": ["着物"],
+    "english": ["kimono"],
+    "reading": ["きもの"],
     "state": "",
     "id": "n4_23",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "grammatik"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n4"
-    ],
-    "writing": [
-      "文法"
-    ],
-    "english": [
-      "grammar"
-    ],
-    "reading": [
-      "ぶんぽう"
-    ],
+    "swedish": ["grammatik"],
+    "genki": ["13"],
+    "jlpt": ["n4"],
+    "writing": ["文法"],
+    "english": ["grammar"],
+    "reading": ["ぶんぽう"],
     "state": "",
     "id": "n4_24",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "löfte"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n4"
-    ],
-    "writing": [
-      "約束"
-    ],
-    "english": [
-      "promise"
-    ],
-    "reading": [
-      "やくそく"
-    ],
+    "swedish": ["löfte"],
+    "genki": ["13"],
+    "jlpt": ["n4"],
+    "writing": ["約束"],
+    "english": ["promise"],
+    "reading": ["やくそく"],
     "state": "",
     "id": "n4_25",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "rapport"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n4"
-    ],
-    "writing": [
-      "レポート"
-    ],
-    "english": [
-      "report"
-    ],
-    "reading": [
-      "レポート"
-    ],
+    "swedish": ["rapport"],
+    "genki": ["13"],
+    "jlpt": ["n4"],
+    "writing": ["レポート"],
+    "english": ["report"],
+    "reading": ["レポート"],
     "state": "",
     "id": "n4_26",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "möta"
-    ],
-    "genki": [
-      "4"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "会う"
-    ],
-    "english": [
-      "to meet"
-    ],
-    "reading": [
-      "あう"
-    ],
+    "swedish": ["möta"],
+    "genki": ["4"],
+    "jlpt": ["n5"],
+    "writing": ["会う"],
+    "english": ["to meet"],
+    "reading": ["あう"],
     "state": "",
     "id": "n5_27",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "blå"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "青"
-    ],
-    "english": [
-      "blue"
-    ],
-    "reading": [
-      "あお"
-    ],
+    "swedish": ["blå"],
+    "jlpt": ["n5"],
+    "writing": ["青"],
+    "english": ["blue"],
+    "reading": ["あお"],
     "state": "hidden",
     "id": "n5_28",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "blå"
-    ],
-    "genki": [
-      "9"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "青い"
-    ],
-    "english": [
-      "blue"
-    ],
-    "reading": [
-      "あおい"
-    ],
+    "swedish": ["blå"],
+    "genki": ["9"],
+    "jlpt": ["n5"],
+    "writing": ["青い"],
+    "english": ["blue"],
+    "reading": ["あおい"],
     "state": "",
     "id": "n5_29",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "röd"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "赤"
-    ],
-    "english": [
-      "red"
-    ],
-    "reading": [
-      "あか"
-    ],
+    "swedish": ["röd"],
+    "jlpt": ["n5"],
+    "writing": ["赤"],
+    "english": ["red"],
+    "reading": ["あか"],
     "state": "hidden",
     "id": "n5_30",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "röd"
-    ],
-    "genki": [
-      "9"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "赤い"
-    ],
-    "english": [
-      "red"
-    ],
-    "reading": [
-      "あかい"
-    ],
+    "swedish": ["röd"],
+    "genki": ["9"],
+    "jlpt": ["n5"],
+    "writing": ["赤い"],
+    "english": ["red"],
+    "reading": ["あかい"],
     "state": "",
     "id": "n5_31",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "ljus"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "明い"
-    ],
-    "english": [
-      "bright"
-    ],
-    "reading": [
-      "あかるい"
-    ],
+    "swedish": ["ljus"],
+    "jlpt": ["n5"],
+    "writing": ["明い"],
+    "english": ["bright"],
+    "reading": ["あかるい"],
     "state": "",
     "id": "n5_32",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "höst"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "秋"
-    ],
-    "english": [
-      "autumn"
-    ],
-    "reading": [
-      "あき"
-    ],
+    "swedish": ["höst"],
+    "jlpt": ["n5"],
+    "writing": ["秋"],
+    "english": ["autumn"],
+    "reading": ["あき"],
     "state": "",
     "id": "n5_33",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "öppna sig"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "開く"
-    ],
-    "english": [
-      "to become open"
-    ],
-    "reading": [
-      "あく"
-    ],
+    "swedish": ["öppna sig"],
+    "jlpt": ["n5"],
+    "writing": ["開く"],
+    "english": ["to become open"],
+    "reading": ["あく"],
     "state": "",
     "id": "n5_34",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "öppna"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "開く"
-    ],
-    "english": [
-      "to open"
-    ],
-    "reading": [
-      "あく"
-    ],
+    "swedish": ["öppna"],
+    "jlpt": ["n5"],
+    "writing": ["開く"],
+    "english": ["to open"],
+    "reading": ["あく"],
     "state": "hidden",
     "id": "n5_35",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "öppna"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "開ける"
-    ],
-    "english": [
-      "to open"
-    ],
-    "reading": [
-      "あける"
-    ],
+    "swedish": ["öppna"],
+    "jlpt": ["n5"],
+    "writing": ["開ける"],
+    "english": ["to open"],
+    "reading": ["あける"],
     "state": "",
     "id": "n5_36",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "ge"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "上げる"
-    ],
-    "english": [
-      "to give"
-    ],
-    "reading": [
-      "あげる"
-    ],
+    "swedish": ["ge"],
+    "jlpt": ["n5"],
+    "writing": ["上げる"],
+    "english": ["to give"],
+    "reading": ["あげる"],
     "state": "",
     "id": "n5_37",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "morgon"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "朝"
-    ],
-    "english": [
-      "morning"
-    ],
-    "reading": [
-      "あさ"
-    ],
+    "swedish": ["morgon"],
+    "jlpt": ["n5"],
+    "writing": ["朝"],
+    "english": ["morning"],
+    "reading": ["あさ"],
     "state": "",
     "id": "n5_38",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "frukost"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "朝御飯"
-    ],
-    "english": [
-      "breakfast"
-    ],
-    "reading": [
-      "あさごはん"
-    ],
+    "swedish": ["frukost"],
+    "jlpt": ["n5"],
+    "writing": ["朝御飯"],
+    "english": ["breakfast"],
+    "reading": ["あさごはん"],
     "state": "",
     "id": "n5_39",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "övermorgon"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あさって"
-    ],
-    "english": [
-      "day after tomorrow"
-    ],
-    "reading": [
-      "あさって"
-    ],
+    "swedish": ["övermorgon"],
+    "jlpt": ["n5"],
+    "writing": ["あさって"],
+    "english": ["day after tomorrow"],
+    "reading": ["あさって"],
     "state": "",
     "id": "n5_40",
-    "type": [
-      "temporal"
-    ]
+    "type": ["temporal"]
   },
   {
-    "swedish": [
-      "ben"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "足"
-    ],
-    "english": [
-      "leg"
-    ],
-    "reading": [
-      "あし"
-    ],
+    "swedish": ["ben"],
+    "jlpt": ["n5"],
+    "writing": ["足"],
+    "english": ["leg"],
+    "reading": ["あし"],
     "state": "hidden",
     "id": "n5_41",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "fot"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "足"
-    ],
-    "english": [
-      "foot"
-    ],
-    "reading": [
-      "あし"
-    ],
+    "swedish": ["fot"],
+    "jlpt": ["n5"],
+    "writing": ["足"],
+    "english": ["foot"],
+    "reading": ["あし"],
     "state": "",
     "id": "n5_42",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "imorgon"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "明日"
-    ],
-    "english": [
-      "tomorrow"
-    ],
-    "reading": [
-      "あした"
-    ],
+    "swedish": ["imorgon"],
+    "jlpt": ["n5"],
+    "writing": ["明日"],
+    "english": ["tomorrow"],
+    "reading": ["あした"],
     "state": "",
     "id": "n5_43",
-    "type": [
-      "temporal"
-    ]
+    "type": ["temporal"]
   },
   {
-    "swedish": [
-      "där borta"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あそこ"
-    ],
-    "english": [
-      "over there"
-    ],
-    "reading": [
-      "あそこ"
-    ],
+    "swedish": ["där borta"],
+    "jlpt": ["n5"],
+    "writing": ["あそこ"],
+    "english": ["over there"],
+    "reading": ["あそこ"],
     "state": "",
     "id": "n5_44",
-    "type": [
-      "pronoun"
-    ]
+    "type": ["pronoun"]
   },
   {
-    "swedish": [
-      "hälsa på"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "遊ぶ"
-    ],
-    "english": [
-      "to make a visit"
-    ],
-    "reading": [
-      "あそぶ"
-    ],
+    "swedish": ["hälsa på"],
+    "jlpt": ["n5"],
+    "writing": ["遊ぶ"],
+    "english": ["to make a visit"],
+    "reading": ["あそぶ"],
     "state": "hidden",
     "id": "n5_45",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "leka"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "遊ぶ"
-    ],
-    "english": [
-      "to play"
-    ],
-    "reading": [
-      "あそぶ"
-    ],
+    "swedish": ["leka"],
+    "jlpt": ["n5"],
+    "writing": ["遊ぶ"],
+    "english": ["to play"],
+    "reading": ["あそぶ"],
     "state": "",
     "id": "n5_46",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "varm"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "暖かい"
-    ],
-    "english": [
-      "warm"
-    ],
-    "reading": [
-      "あたたかい"
-    ],
+    "swedish": ["varm"],
+    "jlpt": ["n5"],
+    "writing": ["暖かい"],
+    "english": ["warm"],
+    "reading": ["あたたかい"],
     "state": "",
     "id": "n5_47",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "huvud"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "頭"
-    ],
-    "english": [
-      "head"
-    ],
-    "reading": [
-      "あたま"
-    ],
+    "swedish": ["huvud"],
+    "jlpt": ["n5"],
+    "writing": ["頭"],
+    "english": ["head"],
+    "reading": ["あたま"],
     "state": "",
     "id": "n5_48",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "ny"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "新しい"
-    ],
-    "english": [
-      "new"
-    ],
-    "reading": [
-      "あたらしい"
-    ],
+    "swedish": ["ny"],
+    "jlpt": ["n5"],
+    "writing": ["新しい"],
+    "english": ["new"],
+    "reading": ["あたらしい"],
     "state": "",
     "id": "n5_49",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "där"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あちら"
-    ],
-    "english": [
-      "there"
-    ],
-    "reading": [
-      "あちら"
-    ],
+    "swedish": ["där"],
+    "jlpt": ["n5"],
+    "writing": ["あちら"],
+    "english": ["there"],
+    "reading": ["あちら"],
     "state": "",
     "id": "n5_50",
-    "type": [
-      "pronoun"
-    ]
+    "type": ["pronoun"]
   },
   {
-    "swedish": [
-      "het"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "暑い"
-    ],
-    "english": [
-      "hot"
-    ],
-    "reading": [
-      "あつい"
-    ],
+    "swedish": ["het"],
+    "jlpt": ["n5"],
+    "writing": ["暑い"],
+    "english": ["hot"],
+    "reading": ["あつい"],
     "state": "",
     "id": "n5_51",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "brännhet"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "熱い"
-    ],
-    "english": [
-      "hot to the touch"
-    ],
-    "reading": [
-      "あつい"
-    ],
+    "swedish": ["brännhet"],
+    "jlpt": ["n5"],
+    "writing": ["熱い"],
+    "english": ["hot to the touch"],
+    "reading": ["あつい"],
     "state": "hidden",
     "id": "n5_52",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "tjock"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "厚い"
-    ],
-    "english": [
-      "thick"
-    ],
-    "reading": [
-      "あつい"
-    ],
+    "swedish": ["tjock"],
+    "jlpt": ["n5"],
+    "writing": ["厚い"],
+    "english": ["thick"],
+    "reading": ["あつい"],
     "state": "hidden",
     "id": "n5_53",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "djup"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "厚い"
-    ],
-    "english": [
-      "deep"
-    ],
-    "reading": [
-      "あつい"
-    ],
+    "swedish": ["djup"],
+    "jlpt": ["n5"],
+    "writing": ["厚い"],
+    "english": ["deep"],
+    "reading": ["あつい"],
     "state": "hidden",
     "id": "n5_54",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "snäll"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "厚い"
-    ],
-    "english": [
-      "kind"
-    ],
-    "reading": [
-      "あつい"
-    ],
+    "swedish": ["snäll"],
+    "jlpt": ["n5"],
+    "writing": ["厚い"],
+    "english": ["kind"],
+    "reading": ["あつい"],
     "state": "",
     "id": "n5_55",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "där borta"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あっち"
-    ],
-    "english": [
-      "over there"
-    ],
-    "reading": [
-      "あっち"
-    ],
+    "swedish": ["där borta"],
+    "jlpt": ["n5"],
+    "writing": ["あっち"],
+    "english": ["over there"],
+    "reading": ["あっち"],
     "state": "",
     "id": "n5_56",
-    "type": [
-      "pronoun"
-    ]
+    "type": ["pronoun"]
   },
   {
-    "swedish": [
-      "efteråt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "後"
-    ],
-    "english": [
-      "afterwards"
-    ],
-    "reading": [
-      "あと"
-    ],
+    "swedish": ["efteråt"],
+    "jlpt": ["n5"],
+    "writing": ["後"],
+    "english": ["afterwards"],
+    "reading": ["あと"],
     "state": "",
     "id": "n5_57",
-    "type": [
-      "temporal"
-    ]
+    "type": ["temporal"]
   },
   {
-    "swedish": [
-      "du"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あなた"
-    ],
-    "english": [
-      "you"
-    ],
-    "reading": [
-      "あなた"
-    ],
+    "swedish": ["du"],
+    "jlpt": ["n5"],
+    "writing": ["あなた"],
+    "english": ["you"],
+    "reading": ["あなた"],
     "state": "",
     "id": "n5_58",
-    "type": [
-      "pronoun"
-    ]
+    "type": ["pronoun"]
   },
   {
-    "swedish": [
-      "storebror (ödmjuk)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "兄"
-    ],
-    "english": [
-      "(humble) older brother"
-    ],
-    "reading": [
-      "あに"
-    ],
+    "swedish": ["storebror (ödmjuk)"],
+    "jlpt": ["n5"],
+    "writing": ["兄"],
+    "english": ["(humble) older brother"],
+    "reading": ["あに"],
     "state": "",
     "id": "n5_59",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "storasyster (ödmjuk)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "姉"
-    ],
-    "english": [
-      "(humble) older sister"
-    ],
-    "reading": [
-      "あね"
-    ],
+    "swedish": ["storasyster (ödmjuk)"],
+    "jlpt": ["n5"],
+    "writing": ["姉"],
+    "english": ["(humble) older sister"],
+    "reading": ["あね"],
     "state": "",
     "id": "n5_60",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "där borta"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あの"
-    ],
-    "english": [
-      "that over there"
-    ],
-    "reading": [
-      "あの"
-    ],
+    "swedish": ["där borta"],
+    "jlpt": ["n5"],
+    "writing": ["あの"],
+    "english": ["that over there"],
+    "reading": ["あの"],
     "state": "",
     "id": "n5_61",
-    "type": [
-      "pronoun"
-    ]
+    "type": ["pronoun"]
   },
   {
-    "swedish": [
-      "hm..."
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あの"
-    ],
-    "english": [
-      "um..."
-    ],
-    "reading": [
-      "あの"
-    ],
+    "swedish": ["hm..."],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["あの"],
+    "english": ["um..."],
+    "reading": ["あの"],
     "state": "",
     "id": "n5_62",
-    "type": [
-      "interjection"
-    ]
+    "type": ["interjection"]
   },
   {
-    "swedish": [
-      "lägenhet"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "アパート"
-    ],
-    "english": [
-      "apartment"
-    ],
-    "reading": [
-      "アパート"
-    ],
+    "swedish": ["lägenhet"],
+    "jlpt": ["n5"],
+    "writing": ["アパート"],
+    "english": ["apartment"],
+    "reading": ["アパート"],
     "state": "",
     "id": "n5_63",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "duscha"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あびる"
-    ],
-    "english": [
-      "shower"
-    ],
-    "reading": [
-      "あびる"
-    ],
+    "swedish": ["duscha"],
+    "jlpt": ["n5"],
+    "writing": ["あびる"],
+    "english": ["shower"],
+    "reading": ["あびる"],
     "state": "hidden",
     "id": "n5_64",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "bada"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あびる"
-    ],
-    "english": [
-      "bathe"
-    ],
-    "reading": [
-      "あびる"
-    ],
+    "swedish": ["bada"],
+    "jlpt": ["n5"],
+    "writing": ["あびる"],
+    "english": ["bathe"],
+    "reading": ["あびる"],
     "state": "",
     "id": "n5_65",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "farlig"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "危ない"
-    ],
-    "english": [
-      "dangerous"
-    ],
-    "reading": [
-      "あぶない"
-    ],
+    "swedish": ["farlig"],
+    "jlpt": ["n5"],
+    "writing": ["危ない"],
+    "english": ["dangerous"],
+    "reading": ["あぶない"],
     "state": "",
     "id": "n5_66",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "söt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "甘い"
-    ],
-    "english": [
-      "sweet"
-    ],
-    "reading": [
-      "あまい"
-    ],
+    "swedish": ["söt"],
+    "jlpt": ["n5"],
+    "writing": ["甘い"],
+    "english": ["sweet"],
+    "reading": ["あまい"],
     "state": "",
     "id": "n5_67",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "inte mycket"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あまり"
-    ],
-    "english": [
-      "not very"
-    ],
-    "reading": [
-      "あまり"
-    ],
+    "swedish": ["inte mycket"],
+    "jlpt": ["n5"],
+    "writing": ["あまり"],
+    "english": ["not very"],
+    "reading": ["あまり"],
     "state": "",
     "id": "n5_68",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "regn"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "雨"
-    ],
-    "english": [
-      "rain"
-    ],
-    "reading": [
-      "あめ"
-    ],
+    "swedish": ["regn"],
+    "jlpt": ["n5"],
+    "writing": ["雨"],
+    "english": ["rain"],
+    "reading": ["あめ"],
     "state": "",
     "id": "n5_69",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "godis"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "飴"
-    ],
-    "english": [
-      "candy"
-    ],
-    "reading": [
-      "あめ"
-    ],
+    "swedish": ["godis"],
+    "jlpt": ["n5"],
+    "writing": ["飴"],
+    "english": ["candy"],
+    "reading": ["あめ"],
     "state": "",
     "id": "n5_70",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "tvätta"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "洗う"
-    ],
-    "english": [
-      "wash"
-    ],
-    "reading": [
-      "あらう"
-    ],
+    "swedish": ["tvätta"],
+    "jlpt": ["n5"],
+    "writing": ["洗う"],
+    "english": ["wash"],
+    "reading": ["あらう"],
     "state": "",
     "id": "n5_71",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "vara (saker)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "ある"
-    ],
-    "english": [
-      "be (used for inanimate objects)"
-    ],
-    "reading": [
-      "ある"
-    ],
+    "swedish": ["vara (saker)"],
+    "jlpt": ["n5"],
+    "writing": ["ある"],
+    "english": ["be (used for inanimate objects)"],
+    "reading": ["ある"],
     "state": "",
     "id": "n5_72",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "ha"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "ある"
-    ],
-    "english": [
-      "have (used for inanimate objects)"
-    ],
-    "reading": [
-      "ある"
-    ],
+    "swedish": ["ha"],
+    "jlpt": ["n5"],
+    "writing": ["ある"],
+    "english": ["have (used for inanimate objects)"],
+    "reading": ["ある"],
     "state": "hidden",
     "id": "n5_73",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "gå"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "歩く"
-    ],
-    "english": [
-      "walk"
-    ],
-    "reading": [
-      "あるく"
-    ],
+    "swedish": ["gå"],
+    "jlpt": ["n5"],
+    "writing": ["歩く"],
+    "english": ["walk"],
+    "reading": ["あるく"],
     "state": "hidden",
     "id": "n5_74",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "det"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "あれ"
-    ],
-    "english": [
-      "that"
-    ],
-    "reading": [
-      "あれ"
-    ],
+    "swedish": ["det"],
+    "jlpt": ["n5"],
+    "writing": ["あれ"],
+    "english": ["that"],
+    "reading": ["あれ"],
     "state": "",
     "id": "n5_75",
-    "type": [
-      "pronoun"
-    ]
+    "type": ["pronoun"]
   },
   {
-    "swedish": [
-      "bra"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いい"
-    ],
-    "english": [
-      "good"
-    ],
-    "reading": [
-      "いい"
-    ],
+    "swedish": ["bra"],
+    "jlpt": ["n5"],
+    "writing": ["いい"],
+    "english": ["good"],
+    "reading": ["いい"],
     "state": "",
     "id": "n5_76",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "bra"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "よい"
-    ],
-    "english": [
-      "good"
-    ],
-    "reading": [
-      "よい"
-    ],
+    "swedish": ["bra"],
+    "jlpt": ["n5"],
+    "writing": ["よい"],
+    "english": ["good"],
+    "reading": ["よい"],
     "state": "hidden",
     "id": "n5_77",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "nej"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いいえ"
-    ],
-    "english": [
-      "no"
-    ],
-    "reading": [
-      "いいえ"
-    ],
+    "swedish": ["nej"],
+    "jlpt": ["n5"],
+    "writing": ["いいえ"],
+    "english": ["no"],
+    "reading": ["いいえ"],
     "state": "",
     "id": "n5_78",
-    "type": [
-      "interjection"
-    ]
+    "type": ["interjection"]
   },
   {
-    "swedish": [
-      "säga"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "言う"
-    ],
-    "english": [
-      "say"
-    ],
-    "reading": [
-      "いう"
-    ],
+    "swedish": ["säga"],
+    "jlpt": ["n5"],
+    "writing": ["言う"],
+    "english": ["say"],
+    "reading": ["いう"],
     "state": "",
     "id": "n5_79",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "hus"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "家"
-    ],
-    "english": [
-      "house"
-    ],
-    "reading": [
-      "いえ"
-    ],
+    "swedish": ["hus"],
+    "jlpt": ["n5"],
+    "writing": ["家"],
+    "english": ["house"],
+    "reading": ["いえ"],
     "state": "",
     "id": "n5_80",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "hur"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いかが"
-    ],
-    "english": [
-      "how"
-    ],
-    "reading": [
-      "いかが"
-    ],
+    "swedish": ["hur"],
+    "jlpt": ["n5"],
+    "writing": ["いかが"],
+    "english": ["how"],
+    "reading": ["いかが"],
     "state": "",
     "id": "n5_81",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "gå"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "行く"
-    ],
-    "english": [
-      "go"
-    ],
-    "reading": [
-      "いく"
-    ],
+    "swedish": ["gå"],
+    "jlpt": ["n5"],
+    "writing": ["行く"],
+    "english": ["go"],
+    "reading": ["いく"],
     "state": "",
     "id": "n5_82",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "hur gammal?"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いくつ"
-    ],
-    "english": [
-      "how old?"
-    ],
-    "reading": [
-      "いくつ"
-    ],
+    "swedish": ["hur gammal?"],
+    "jlpt": ["n5"],
+    "writing": ["いくつ"],
+    "english": ["how old?"],
+    "reading": ["いくつ"],
     "state": "hidden",
     "id": "n5_83",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "hur många?"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いくつ"
-    ],
-    "english": [
-      "how many?"
-    ],
-    "reading": [
-      "いくつ"
-    ],
+    "swedish": ["hur många?"],
+    "jlpt": ["n5"],
+    "writing": ["いくつ"],
+    "english": ["how many?"],
+    "reading": ["いくつ"],
     "state": "",
     "id": "n5_84",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "hyr mycket?"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いくら"
-    ],
-    "english": [
-      "how much?"
-    ],
-    "reading": [
-      "いくら"
-    ],
+    "swedish": ["hyr mycket?"],
+    "jlpt": ["n5"],
+    "writing": ["いくら"],
+    "english": ["how much?"],
+    "reading": ["いくら"],
     "state": "",
     "id": "n5_85",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "damm"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "池"
-    ],
-    "english": [
-      "pond"
-    ],
-    "reading": [
-      "いけ"
-    ],
+    "swedish": ["damm"],
+    "jlpt": ["n5"],
+    "writing": ["池"],
+    "english": ["pond"],
+    "reading": ["いけ"],
     "state": "",
     "id": "n5_86",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "läkare"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "医者"
-    ],
-    "english": [
-      "medical doctor"
-    ],
-    "reading": [
-      "いしゃ"
-    ],
+    "swedish": ["läkare"],
+    "jlpt": ["n5"],
+    "writing": ["医者"],
+    "english": ["medical doctor"],
+    "reading": ["いしゃ"],
     "state": "",
     "id": "n5_87",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "stol"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いす"
-    ],
-    "english": [
-      "chair"
-    ],
-    "reading": [
-      "いす"
-    ],
+    "swedish": ["stol"],
+    "jlpt": ["n5"],
+    "writing": ["いす"],
+    "english": ["chair"],
+    "reading": ["いす"],
     "state": "",
     "id": "n5_88",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "irriterad"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "忙しい"
-    ],
-    "english": [
-      "irritated"
-    ],
-    "reading": [
-      "いそがしい"
-    ],
+    "swedish": ["irriterad"],
+    "jlpt": ["n5"],
+    "writing": ["忙しい"],
+    "english": ["irritated"],
+    "reading": ["いそがしい"],
     "state": "hidden",
     "id": "n5_89",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "upptagen"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "忙しい"
-    ],
-    "english": [
-      "busy"
-    ],
-    "reading": [
-      "いそがしい"
-    ],
+    "swedish": ["upptagen"],
+    "jlpt": ["n5"],
+    "writing": ["忙しい"],
+    "english": ["busy"],
+    "reading": ["いそがしい"],
     "state": "",
     "id": "n5_90",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "smärtsam"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "痛い"
-    ],
-    "english": [
-      "painful"
-    ],
-    "reading": [
-      "いたい"
-    ],
+    "swedish": ["smärtsam"],
+    "jlpt": ["n5"],
+    "writing": ["痛い"],
+    "english": ["painful"],
+    "reading": ["いたい"],
     "state": "",
     "id": "n5_91",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "ett"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "一"
-    ],
-    "english": [
-      "one"
-    ],
-    "reading": [
-      "いち"
-    ],
+    "swedish": ["ett"],
+    "jlpt": ["n5"],
+    "writing": ["一"],
+    "english": ["one"],
+    "reading": ["いち"],
     "state": "",
     "id": "n5_92",
-    "type": [
-      "numeric"
-    ]
+    "type": ["numeric"]
   },
   {
-    "swedish": [
-      "första i månad"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "一日"
-    ],
-    "english": [
-      "first of month"
-    ],
-    "reading": [
-      "いちにち"
-    ],
+    "swedish": ["första i månad"],
+    "jlpt": ["n5"],
+    "writing": ["一日"],
+    "english": ["first of month"],
+    "reading": ["いちにち"],
     "state": "hidden",
     "id": "n5_93",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "en dag"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "一日"
-    ],
-    "english": [
-      "one day"
-    ],
-    "reading": [
-      "いちにち"
-    ],
+    "swedish": ["en dag"],
+    "jlpt": ["n5"],
+    "writing": ["一日"],
+    "english": ["one day"],
+    "reading": ["いちにち"],
     "state": "",
     "id": "n5_94",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "först"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いちばん"
-    ],
-    "english": [
-      "first"
-    ],
-    "reading": [
-      "いちばん"
-    ],
+    "swedish": ["först"],
+    "jlpt": ["n5"],
+    "writing": ["いちばん"],
+    "english": ["first"],
+    "reading": ["いちばん"],
     "state": "hidden",
     "id": "n5_95",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "bäst"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いちばん"
-    ],
-    "english": [
-      "best"
-    ],
-    "reading": [
-      "いちばん"
-    ],
+    "swedish": ["bäst"],
+    "jlpt": ["n5"],
+    "writing": ["いちばん"],
+    "english": ["best"],
+    "reading": ["いちばん"],
     "state": "",
     "id": "n5_96",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "när"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いつ"
-    ],
-    "english": [
-      "when"
-    ],
-    "reading": [
-      "いつ"
-    ],
+    "swedish": ["när"],
+    "jlpt": ["n5"],
+    "writing": ["いつ"],
+    "english": ["when"],
+    "reading": ["いつ"],
     "state": "",
     "id": "n5_97",
-    "type": [
-      "pronoun"
-    ]
+    "type": ["pronoun"]
   },
   {
-    "swedish": [
-      "femte i månad"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "五日"
-    ],
-    "english": [
-      "fifth day"
-    ],
-    "reading": [
-      "いつか"
-    ],
+    "swedish": ["femte i månad"],
+    "jlpt": ["n5"],
+    "writing": ["五日"],
+    "english": ["fifth day"],
+    "reading": ["いつか"],
     "state": "hidden",
     "id": "n5_98",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "fem dagar"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "五日"
-    ],
-    "english": [
-      "five days"
-    ],
-    "reading": [
-      "いつか"
-    ],
+    "swedish": ["fem dagar"],
+    "jlpt": ["n5"],
+    "writing": ["五日"],
+    "english": ["five days"],
+    "reading": ["いつか"],
     "state": "",
     "id": "n5_99",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "tillsammans"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "一緒"
-    ],
-    "english": [
-      "together"
-    ],
-    "reading": [
-      "いっしょ"
-    ],
+    "swedish": ["tillsammans"],
+    "jlpt": ["n5"],
+    "writing": ["一緒"],
+    "english": ["together"],
+    "reading": ["いっしょ"],
     "state": "",
     "id": "n5_100",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "fem"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "五つ"
-    ],
-    "english": [
-      "five"
-    ],
-    "reading": [
-      "いつつ"
-    ],
+    "swedish": ["fem"],
+    "jlpt": ["n5"],
+    "writing": ["五つ"],
+    "english": ["five"],
+    "reading": ["いつつ"],
     "state": "",
     "id": "n5_101",
-    "type": [
-      "numeric"
-    ]
+    "type": ["numeric"]
   },
   {
-    "swedish": [
-      "alltid"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いつも"
-    ],
-    "english": [
-      "always"
-    ],
-    "reading": [
-      "いつも"
-    ],
+    "swedish": ["alltid"],
+    "jlpt": ["n5"],
+    "writing": ["いつも"],
+    "english": ["always"],
+    "reading": ["いつも"],
     "state": "",
     "id": "n5_102",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "hund"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "犬"
-    ],
-    "english": [
-      "dog"
-    ],
-    "reading": [
-      "いぬ"
-    ],
+    "swedish": ["hund"],
+    "jlpt": ["n5"],
+    "writing": ["犬"],
+    "english": ["dog"],
+    "reading": ["いぬ"],
     "state": "",
     "id": "n5_103",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "nu"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "今"
-    ],
-    "english": [
-      "now"
-    ],
-    "reading": [
-      "いま"
-    ],
+    "swedish": ["nu"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["今"],
+    "english": ["now"],
+    "reading": ["いま"],
     "state": "",
     "id": "n5_104",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "nu"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "今"
-    ],
-    "english": [
-      "now"
-    ],
-    "reading": [
-      "いま"
-    ],
+    "swedish": ["nu"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["今"],
+    "english": ["now"],
+    "reading": ["いま"],
     "state": "",
     "id": "n5_104k",
-    "type": [
-      "kanji"
-    ]
+    "type": ["kanji"]
   },
   {
-    "swedish": [
-      "nu"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "今"
-    ],
-    "english": [
-      "now"
-    ],
-    "reading": [
-      "いま"
-    ],
+    "swedish": ["nu"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["今"],
+    "english": ["now"],
+    "reading": ["いま"],
     "state": "",
     "id": "n5_104k",
-    "type": [
-      "kanji"
-    ]
+    "type": ["kanji"]
   },
   {
-    "swedish": [
-      "betydelse"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "意味"
-    ],
-    "english": [
-      "meaning"
-    ],
-    "reading": [
-      "いみ"
-    ],
+    "swedish": ["betydelse"],
+    "jlpt": ["n5"],
+    "writing": ["意味"],
+    "english": ["meaning"],
+    "reading": ["いみ"],
     "state": "",
     "id": "n5_105",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "yngre syster (ödmjuk)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "妹"
-    ],
-    "english": [
-      "(humble) younger sister"
-    ],
-    "reading": [
-      "いもうと"
-    ],
+    "swedish": ["yngre syster (ödmjuk)"],
+    "jlpt": ["n5"],
+    "writing": ["妹"],
+    "english": ["(humble) younger sister"],
+    "reading": ["いもうと"],
     "state": "",
     "id": "n5_106",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "otrevlig"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "嫌"
-    ],
-    "english": [
-      "unpleasant"
-    ],
-    "reading": [
-      "いや"
-    ],
+    "swedish": ["otrevlig"],
+    "jlpt": ["n5"],
+    "writing": ["嫌"],
+    "english": ["unpleasant"],
+    "reading": ["いや"],
     "state": "",
     "id": "n5_107",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "entré"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "入口"
-    ],
-    "english": [
-      "entrance"
-    ],
-    "reading": [
-      "いりぐち"
-    ],
+    "swedish": ["entré"],
+    "jlpt": ["n5"],
+    "writing": ["入口"],
+    "english": ["entrance"],
+    "reading": ["いりぐち"],
     "state": "",
     "id": "n5_108",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "ha"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "居る"
-    ],
-    "english": [
-      "have (used for people and animals)"
-    ],
-    "reading": [
-      "いる"
-    ],
+    "swedish": ["ha"],
+    "jlpt": ["n5"],
+    "writing": ["居る"],
+    "english": ["have (used for people and animals)"],
+    "reading": ["いる"],
     "state": "hidden",
     "id": "n5_109",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "vara (varelser)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "居る"
-    ],
-    "english": [
-      "to be (used for people and animals)"
-    ],
-    "reading": [
-      "いる"
-    ],
+    "swedish": ["vara (varelser)"],
+    "jlpt": ["n5"],
+    "writing": ["居る"],
+    "english": ["to be (used for people and animals)"],
+    "reading": ["いる"],
     "state": "",
     "id": "n5_110",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "behöva"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "要る"
-    ],
-    "english": [
-      "need"
-    ],
-    "reading": [
-      "いる"
-    ],
+    "swedish": ["behöva"],
+    "jlpt": ["n5"],
+    "writing": ["要る"],
+    "english": ["need"],
+    "reading": ["いる"],
     "state": "hidden",
     "id": "n5_111",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "stoppa in"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "入れる"
-    ],
-    "english": [
-      "put in"
-    ],
-    "reading": [
-      "いれる"
-    ],
+    "swedish": ["stoppa in"],
+    "jlpt": ["n5"],
+    "writing": ["入れる"],
+    "english": ["put in"],
+    "reading": ["いれる"],
     "state": "",
     "id": "n5_112",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "färg"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "色"
-    ],
-    "english": [
-      "colour"
-    ],
-    "reading": [
-      "いろ"
-    ],
+    "swedish": ["färg"],
+    "jlpt": ["n5"],
+    "writing": ["色"],
+    "english": ["colour"],
+    "reading": ["いろ"],
     "state": "",
     "id": "n5_113",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "blandade"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "いろいろ"
-    ],
-    "english": [
-      "various"
-    ],
-    "reading": [
-      "いろいろ"
-    ],
+    "swedish": ["blandade"],
+    "jlpt": ["n5"],
+    "writing": ["いろいろ"],
+    "english": ["various"],
+    "reading": ["いろいろ"],
     "state": "",
     "id": "n5_114",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "ovanför"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "上"
-    ],
-    "english": [
-      "on top of"
-    ],
-    "reading": [
-      "うえ"
-    ],
+    "swedish": ["ovanför"],
+    "jlpt": ["n5"],
+    "writing": ["上"],
+    "english": ["on top of"],
+    "reading": ["うえ"],
     "state": "",
     "id": "n5_115",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "bakom"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "後ろ"
-    ],
-    "english": [
-      "behind"
-    ],
-    "reading": [
-      "うしろ"
-    ],
+    "swedish": ["bakom"],
+    "jlpt": ["n5"],
+    "writing": ["後ろ"],
+    "english": ["behind"],
+    "reading": ["うしろ"],
     "state": "",
     "id": "n5_116",
-    "type": [
-      "adverb"
-    ]
+    "type": ["adverb"]
   },
   {
-    "swedish": [
-      "svag"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "薄い"
-    ],
-    "english": [
-      "weak"
-    ],
-    "reading": [
-      "うすい"
-    ],
+    "swedish": ["svag"],
+    "jlpt": ["n5"],
+    "writing": ["薄い"],
+    "english": ["weak"],
+    "reading": ["うすい"],
     "state": "",
     "id": "n5_117",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "tunn"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "薄い"
-    ],
-    "english": [
-      "thin"
-    ],
-    "reading": [
-      "うすい"
-    ],
+    "swedish": ["tunn"],
+    "jlpt": ["n5"],
+    "writing": ["薄い"],
+    "english": ["thin"],
+    "reading": ["うすい"],
     "state": "hidden",
     "id": "n5_118",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "sång"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "歌"
-    ],
-    "english": [
-      "song"
-    ],
-    "reading": [
-      "うた"
-    ],
+    "swedish": ["sång"],
+    "jlpt": ["n5"],
+    "writing": ["歌"],
+    "english": ["song"],
+    "reading": ["うた"],
     "state": "",
     "id": "n5_119",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "sjunga"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "歌う"
-    ],
-    "english": [
-      "sing"
-    ],
-    "reading": [
-      "うたう"
-    ],
+    "swedish": ["sjunga"],
+    "jlpt": ["n5"],
+    "writing": ["歌う"],
+    "english": ["sing"],
+    "reading": ["うたう"],
     "state": "",
     "id": "n5_120",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "födas"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "生まれる"
-    ],
-    "english": [
-      "be born"
-    ],
-    "reading": [
-      "うまれる"
-    ],
+    "swedish": ["födas"],
+    "jlpt": ["n5"],
+    "writing": ["生まれる"],
+    "english": ["be born"],
+    "reading": ["うまれる"],
     "state": "",
     "id": "n5_121",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "hav"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "海"
-    ],
-    "english": [
-      "sea"
-    ],
-    "reading": [
-      "うみ"
-    ],
+    "swedish": ["hav"],
+    "jlpt": ["n5"],
+    "writing": ["海"],
+    "english": ["sea"],
+    "reading": ["うみ"],
     "state": "",
     "id": "n5_122",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "sälja"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "売る"
-    ],
-    "english": [
-      "sell"
-    ],
-    "reading": [
-      "うる"
-    ],
+    "swedish": ["sälja"],
+    "jlpt": ["n5"],
+    "writing": ["売る"],
+    "english": ["sell"],
+    "reading": ["うる"],
     "state": "",
     "id": "n5_123",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "irriterande"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "煩い"
-    ],
-    "english": [
-      "annoying"
-    ],
-    "reading": [
-      "うるさい"
-    ],
+    "swedish": ["irriterande"],
+    "jlpt": ["n5"],
+    "writing": ["煩い"],
+    "english": ["annoying"],
+    "reading": ["うるさい"],
     "state": "hidden",
     "id": "n5_124",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "väsnande"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "煩い"
-    ],
-    "english": [
-      "noisy"
-    ],
-    "reading": [
-      "うるさい"
-    ],
+    "swedish": ["väsnande"],
+    "jlpt": ["n5"],
+    "writing": ["煩い"],
+    "english": ["noisy"],
+    "reading": ["うるさい"],
     "state": "",
     "id": "n5_125",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "jacka"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "上着"
-    ],
-    "english": [
-      "jacket"
-    ],
-    "reading": [
-      "うわぎ"
-    ],
+    "swedish": ["jacka"],
+    "jlpt": ["n5"],
+    "writing": ["上着"],
+    "english": ["jacket"],
+    "reading": ["うわぎ"],
     "state": "",
     "id": "n5_126",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "bild"
-    ],
-    "genki": [
-      "15"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "絵"
-    ],
-    "english": [
-      "picture"
-    ],
-    "reading": [
-      "え"
-    ],
+    "swedish": ["bild"],
+    "genki": ["15"],
+    "jlpt": ["n5"],
+    "writing": ["絵"],
+    "english": ["picture"],
+    "reading": ["え"],
     "state": "",
     "id": "n5_127",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "film"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "映画"
-    ],
-    "english": [
-      "movie"
-    ],
-    "reading": [
-      "えいが"
-    ],
+    "swedish": ["film"],
+    "jlpt": ["n5"],
+    "writing": ["映画"],
+    "english": ["movie"],
+    "reading": ["えいが"],
     "state": "",
     "id": "n5_128",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "biograf"
-    ],
-    "genki": [
-      "15"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "映画館"
-    ],
-    "english": [
-      "cinema"
-    ],
-    "reading": [
-      "えいがかん"
-    ],
+    "swedish": ["biograf"],
+    "genki": ["15"],
+    "jlpt": ["n5"],
+    "writing": ["映画館"],
+    "english": ["cinema"],
+    "reading": ["えいがかん"],
     "state": "",
     "id": "n5_129",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "engelska"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "英語"
-    ],
-    "english": [
-      "English language"
-    ],
-    "reading": [
-      "えいご"
-    ],
+    "swedish": ["engelska"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["英語"],
+    "english": ["English language"],
+    "reading": ["えいご"],
     "state": "",
     "id": "n5_130",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "england"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "英"
-    ],
-    "english": [
-      "England"
-    ],
-    "reading": [
-      "えい"
-    ],
+    "swedish": ["england"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["英"],
+    "english": ["England"],
+    "reading": ["えい"],
     "state": "",
     "id": "n5_130k1",
-    "type": [
-      "kanji"
-    ]
+    "type": ["kanji"]
   },
   {
-    "swedish": [
-      "språk"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "語"
-    ],
-    "english": [
-      "language"
-    ],
-    "reading": [
-      "ご"
-    ],
+    "swedish": ["språk"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["語"],
+    "english": ["language"],
+    "reading": ["ご"],
     "state": "",
     "id": "n5_130k",
-    "type": [
-      "kanji"
-    ]
+    "type": ["kanji"]
   },
   {
-    "swedish": [
-      "england"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "英"
-    ],
-    "english": [
-      "England"
-    ],
-    "reading": [
-      "えい"
-    ],
+    "swedish": ["england"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["英"],
+    "english": ["England"],
+    "reading": ["えい"],
     "state": "",
     "id": "n5_130k1",
-    "type": [
-      "kanji"
-    ]
+    "type": ["kanji"]
   },
   {
-    "swedish": [
-      "språk"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "語"
-    ],
-    "english": [
-      "language"
-    ],
-    "reading": [
-      "ご"
-    ],
+    "swedish": ["språk"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["語"],
+    "english": ["language"],
+    "reading": ["ご"],
     "state": "",
     "id": "n5_130k",
-    "type": [
-      "kanji"
-    ]
+    "type": ["kanji"]
   },
   {
-    "swedish": [
-      "ja"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "ええ"
-    ],
-    "english": [
-      "yes"
-    ],
-    "reading": [
-      "ええ"
-    ],
+    "swedish": ["ja"],
+    "jlpt": ["n5"],
+    "writing": ["ええ"],
+    "english": ["yes"],
+    "reading": ["ええ"],
     "state": "",
     "id": "n5_131",
-    "type": [
-      "interjection"
-    ]
+    "type": ["interjection"]
   },
   {
-    "swedish": [
-      "station"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "駅"
-    ],
-    "english": [
-      "station"
-    ],
-    "reading": [
-      "えき"
-    ],
+    "swedish": ["station"],
+    "jlpt": ["n5"],
+    "writing": ["駅"],
+    "english": ["station"],
+    "reading": ["えき"],
     "state": "",
     "id": "n5_132",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "hiss"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "エレベーター"
-    ],
-    "english": [
-      "elevator"
-    ],
-    "reading": [
-      "エレベーター"
-    ],
+    "swedish": ["hiss"],
+    "jlpt": ["n5"],
+    "writing": ["エレベーター"],
+    "english": ["elevator"],
+    "reading": ["エレベーター"],
     "state": "",
     "id": "n5_133",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "blyertspenna"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "鉛筆"
-    ],
-    "english": [
-      "pencil"
-    ],
-    "reading": [
-      "えんぴつ"
-    ],
+    "swedish": ["blyertspenna"],
+    "jlpt": ["n5"],
+    "writing": ["鉛筆"],
+    "english": ["pencil"],
+    "reading": ["えんぴつ"],
     "state": "",
     "id": "n5_134",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "delikat"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "おいしい"
-    ],
-    "english": [
-      "delicious"
-    ],
-    "reading": [
-      "おいしい"
-    ],
+    "swedish": ["delikat"],
+    "jlpt": ["n5"],
+    "writing": ["おいしい"],
+    "english": ["delicious"],
+    "reading": ["おいしい"],
     "state": "",
     "id": "n5_135",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "många"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "多い"
-    ],
-    "english": [
-      "many"
-    ],
-    "reading": [
-      "おおい"
-    ],
+    "swedish": ["många"],
+    "jlpt": ["n5"],
+    "writing": ["多い"],
+    "english": ["many"],
+    "reading": ["おおい"],
     "state": "",
     "id": "n5_136",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "stor"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "大きい"
-    ],
-    "english": [
-      "big"
-    ],
-    "reading": [
-      "おおきい"
-    ],
+    "swedish": ["stor"],
+    "jlpt": ["n5"],
+    "writing": ["大きい"],
+    "english": ["big"],
+    "reading": ["おおきい"],
     "state": "",
     "id": "n5_137",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "stor"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "大きな"
-    ],
-    "english": [
-      "big"
-    ],
-    "reading": [
-      "おおきな"
-    ],
+    "swedish": ["stor"],
+    "jlpt": ["n5"],
+    "writing": ["大きな"],
+    "english": ["big"],
+    "reading": ["おおきな"],
     "state": "hidden",
     "id": "n5_138",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "folkrik"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "大勢"
-    ],
-    "english": [
-      "great number of people"
-    ],
-    "reading": [
-      "おおぜい"
-    ],
+    "swedish": ["folkrik"],
+    "jlpt": ["n5"],
+    "writing": ["大勢"],
+    "english": ["great number of people"],
+    "reading": ["おおぜい"],
     "state": "",
     "id": "n5_139",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "mor (artig)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お母さん"
-    ],
-    "english": [
-      "(honorable) mother"
-    ],
-    "reading": [
-      "おかあさん"
-    ],
+    "swedish": ["mor (artig)"],
+    "jlpt": ["n5"],
+    "writing": ["お母さん"],
+    "english": ["(honorable) mother"],
+    "reading": ["おかあさん"],
     "state": "",
     "id": "n5_140",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "godis"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お菓子"
-    ],
-    "english": [
-      "candy",
-      "sweets"
-    ],
-    "reading": [
-      "おかし"
-    ],
+    "swedish": ["godis"],
+    "jlpt": ["n5"],
+    "writing": ["お菓子"],
+    "english": ["candy", "sweets"],
+    "reading": ["おかし"],
     "state": "",
     "id": "n5_141",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "pengar"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お金"
-    ],
-    "english": [
-      "money"
-    ],
-    "reading": [
-      "おかね"
-    ],
+    "swedish": ["pengar"],
+    "jlpt": ["n5"],
+    "writing": ["お金"],
+    "english": ["money"],
+    "reading": ["おかね"],
     "state": "",
     "id": "n5_142",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "stiga upp"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "起きる"
-    ],
-    "english": [
-      "to get up"
-    ],
-    "reading": [
-      "おきる"
-    ],
+    "swedish": ["stiga upp"],
+    "jlpt": ["n5"],
+    "writing": ["起きる"],
+    "english": ["to get up"],
+    "reading": ["おきる"],
     "state": "",
     "id": "n5_143",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "lägga"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "置く"
-    ],
-    "english": [
-      "to put"
-    ],
-    "reading": [
-      "おく"
-    ],
+    "swedish": ["lägga"],
+    "jlpt": ["n5"],
+    "writing": ["置く"],
+    "english": ["to put"],
+    "reading": ["おく"],
     "state": "",
     "id": "n5_144",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "fru (artig)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "奥さん"
-    ],
-    "english": [
-      "(honorable) wife"
-    ],
-    "reading": [
-      "おくさん"
-    ],
+    "swedish": ["fru (artig)"],
+    "jlpt": ["n5"],
+    "writing": ["奥さん"],
+    "english": ["(honorable) wife"],
+    "reading": ["おくさん"],
     "state": "",
     "id": "n5_145",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "risvin"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お酒"
-    ],
-    "english": [
-      "rice wine"
-    ],
-    "reading": [
-      "おさけ"
-    ],
+    "swedish": ["risvin"],
+    "jlpt": ["n5"],
+    "writing": ["お酒"],
+    "english": ["rice wine"],
+    "reading": ["おさけ"],
     "state": "",
     "id": "n5_146",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "alkohol"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お酒"
-    ],
-    "english": [
-      "alcohol"
-    ],
-    "reading": [
-      "おさけ"
-    ],
+    "swedish": ["alkohol"],
+    "jlpt": ["n5"],
+    "writing": ["お酒"],
+    "english": ["alcohol"],
+    "reading": ["おさけ"],
     "state": "hidden",
     "id": "n5_147",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "tallrik"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お皿"
-    ],
-    "english": [
-      "dish",
-      "plate"
-    ],
-    "reading": [
-      "おさら"
-    ],
+    "swedish": ["tallrik"],
+    "jlpt": ["n5"],
+    "writing": ["お皿"],
+    "english": ["dish", "plate"],
+    "reading": ["おさら"],
     "state": "",
     "id": "n5_148",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "pensionär (man)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "伯父"
-    ],
-    "english": [
-      "male senior citizen"
-    ],
-    "reading": [
-      "おじいさん"
-    ],
+    "swedish": ["pensionär (man)"],
+    "jlpt": ["n5"],
+    "writing": ["伯父"],
+    "english": ["male senior citizen"],
+    "reading": ["おじいさん"],
     "state": "hidden",
     "id": "n5_149",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "farfar",
-      "morfar"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "叔父"
-    ],
-    "english": [
-      "grandfather"
-    ],
-    "reading": [
-      "おじいさん"
-    ],
+    "swedish": ["farfar", "morfar"],
+    "jlpt": ["n5"],
+    "writing": ["叔父"],
+    "english": ["grandfather"],
+    "reading": ["おじいさん"],
     "state": "hidden",
     "id": "n5_150",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "pensionär (man)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "伯父"
-    ],
-    "english": [
-      "male senior citizen"
-    ],
-    "reading": [
-      "おじいさん"
-    ],
+    "swedish": ["pensionär (man)"],
+    "jlpt": ["n5"],
+    "writing": ["伯父"],
+    "english": ["male senior citizen"],
+    "reading": ["おじいさん"],
     "state": "hidden",
     "id": "n5_151",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "farfar",
-      "morfar"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "叔父"
-    ],
-    "english": [
-      "grandfather"
-    ],
-    "reading": [
-      "おじいさん"
-    ],
+    "swedish": ["farfar", "morfar"],
+    "jlpt": ["n5"],
+    "writing": ["叔父"],
+    "english": ["grandfather"],
+    "reading": ["おじいさん"],
     "state": "",
     "id": "n5_152",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "berätta"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "教える"
-    ],
-    "english": [
-      "tell"
-    ],
-    "reading": [
-      "おしえる"
-    ],
+    "swedish": ["berätta"],
+    "jlpt": ["n5"],
+    "writing": ["教える"],
+    "english": ["tell"],
+    "reading": ["おしえる"],
     "state": "",
     "id": "n5_153",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "lära ut"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "教える"
-    ],
-    "english": [
-      "teach"
-    ],
-    "reading": [
-      "おしえる"
-    ],
+    "swedish": ["lära ut"],
+    "jlpt": ["n5"],
+    "writing": ["教える"],
+    "english": ["teach"],
+    "reading": ["おしえる"],
     "state": "",
     "id": "n5_154",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "medelålders man"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "叔父"
-    ],
-    "english": [
-      "middle aged gentleman"
-    ],
-    "reading": [
-      "おじさん"
-    ],
+    "swedish": ["medelålders man"],
+    "jlpt": ["n5"],
+    "writing": ["叔父"],
+    "english": ["middle aged gentleman"],
+    "reading": ["おじさん"],
     "state": "hidden",
     "id": "n5_155",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "farbror",
-      "morbror"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "伯父"
-    ],
-    "english": [
-      "uncle"
-    ],
-    "reading": [
-      "おじさん"
-    ],
+    "swedish": ["farbror", "morbror"],
+    "jlpt": ["n5"],
+    "writing": ["伯父"],
+    "english": ["uncle"],
+    "reading": ["おじさん"],
     "state": "hidden",
     "id": "n5_156",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "medelålders man"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "叔父"
-    ],
-    "english": [
-      "middle aged gentleman"
-    ],
-    "reading": [
-      "おじさん"
-    ],
+    "swedish": ["medelålders man"],
+    "jlpt": ["n5"],
+    "writing": ["叔父"],
+    "english": ["middle aged gentleman"],
+    "reading": ["おじさん"],
     "state": "hidden",
     "id": "n5_157",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "farbror",
-      "morbror"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "伯父"
-    ],
-    "english": [
-      "uncle"
-    ],
-    "reading": [
-      "おじさん"
-    ],
+    "swedish": ["farbror", "morbror"],
+    "jlpt": ["n5"],
+    "writing": ["伯父"],
+    "english": ["uncle"],
+    "reading": ["おじさん"],
     "state": "",
     "id": "n5_158",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "stämpla"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "押す"
-    ],
-    "english": [
-      "stamp"
-    ],
-    "reading": [
-      "おす"
-    ],
+    "swedish": ["stämpla"],
+    "jlpt": ["n5"],
+    "writing": ["押す"],
+    "english": ["stamp"],
+    "reading": ["おす"],
     "state": "hidden",
     "id": "n5_159",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "putta"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "押す"
-    ],
-    "english": [
-      "push"
-    ],
-    "reading": [
-      "おす"
-    ],
+    "swedish": ["putta"],
+    "jlpt": ["n5"],
+    "writing": ["押す"],
+    "english": ["push"],
+    "reading": ["おす"],
     "state": "",
     "id": "n5_160",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "långsam"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "遅い"
-    ],
-    "english": [
-      "slow"
-    ],
-    "reading": [
-      "おそい"
-    ],
+    "swedish": ["långsam"],
+    "jlpt": ["n5"],
+    "writing": ["遅い"],
+    "english": ["slow"],
+    "reading": ["おそい"],
     "state": "hidden",
     "id": "n5_161",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "sen"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "遅い"
-    ],
-    "english": [
-      "late"
-    ],
-    "reading": [
-      "おそい"
-    ],
+    "swedish": ["sen"],
+    "jlpt": ["n5"],
+    "writing": ["遅い"],
+    "english": ["late"],
+    "reading": ["おそい"],
     "state": "",
     "id": "n5_162",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "grönt te"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お茶"
-    ],
-    "english": [
-      "green tea"
-    ],
-    "reading": [
-      "おちゃ"
-    ],
+    "swedish": ["grönt te"],
+    "jlpt": ["n5"],
+    "writing": ["お茶"],
+    "english": ["green tea"],
+    "reading": ["おちゃ"],
     "state": "",
     "id": "n5_163",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "badrum"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お手洗い"
-    ],
-    "english": [
-      "bathroom"
-    ],
-    "reading": [
-      "おてあらい"
-    ],
+    "swedish": ["badrum"],
+    "jlpt": ["n5"],
+    "writing": ["お手洗い"],
+    "english": ["bathroom"],
+    "reading": ["おてあらい"],
     "state": "",
     "id": "n5_164",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "far (artig)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お父さん"
-    ],
-    "english": [
-      "(honorable) father"
-    ],
-    "reading": [
-      "おとうさん"
-    ],
+    "swedish": ["far (artig)"],
+    "jlpt": ["n5"],
+    "writing": ["お父さん"],
+    "english": ["(honorable) father"],
+    "reading": ["おとうさん"],
     "state": "",
     "id": "n5_165",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "yngre bror"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "弟"
-    ],
-    "english": [
-      "younger brother"
-    ],
-    "reading": [
-      "おとうと"
-    ],
+    "swedish": ["yngre bror"],
+    "jlpt": ["n5"],
+    "writing": ["弟"],
+    "english": ["younger brother"],
+    "reading": ["おとうと"],
     "state": "",
     "id": "n5_166",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "man"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "男"
-    ],
-    "english": [
-      "man"
-    ],
-    "reading": [
-      "おとこ"
-    ],
+    "swedish": ["man"],
+    "jlpt": ["n5"],
+    "writing": ["男"],
+    "english": ["man"],
+    "reading": ["おとこ"],
     "state": "",
     "id": "n5_167",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "pojke"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "男の子"
-    ],
-    "english": [
-      "boy"
-    ],
-    "reading": [
-      "おとこのこ"
-    ],
+    "swedish": ["pojke"],
+    "jlpt": ["n5"],
+    "writing": ["男の子"],
+    "english": ["boy"],
+    "reading": ["おとこのこ"],
     "state": "",
     "id": "n5_168",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "iförrgår"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "一昨日"
-    ],
-    "english": [
-      "day before yesterday"
-    ],
-    "reading": [
-      "おととい"
-    ],
+    "swedish": ["iförrgår"],
+    "jlpt": ["n5"],
+    "writing": ["一昨日"],
+    "english": ["day before yesterday"],
+    "reading": ["おととい"],
     "state": "",
     "id": "n5_169",
-    "type": [
-      "temporal"
-    ]
+    "type": ["temporal"]
   },
   {
-    "swedish": [
-      "förrförra året"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "一昨年"
-    ],
-    "english": [
-      "year before last"
-    ],
-    "reading": [
-      "おととし"
-    ],
+    "swedish": ["förrförra året"],
+    "jlpt": ["n5"],
+    "writing": ["一昨年"],
+    "english": ["year before last"],
+    "reading": ["おととし"],
     "state": "",
     "id": "n5_170",
-    "type": [
-      "temporal"
-    ]
+    "type": ["temporal"]
   },
   {
-    "swedish": [
-      "vuxen"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "大人"
-    ],
-    "english": [
-      "adult"
-    ],
-    "reading": [
-      "おとな"
-    ],
+    "swedish": ["vuxen"],
+    "genki": ["13"],
+    "jlpt": ["n5"],
+    "writing": ["大人"],
+    "english": ["adult"],
+    "reading": ["おとな"],
     "state": "",
     "id": "n5_171",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "mage"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "おなか"
-    ],
-    "english": [
-      "stomach"
-    ],
-    "reading": [
-      "おなか"
-    ],
+    "swedish": ["mage"],
+    "jlpt": ["n5"],
+    "writing": ["おなか"],
+    "english": ["stomach"],
+    "reading": ["おなか"],
     "state": "",
     "id": "n5_172",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "samma"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "同じ"
-    ],
-    "english": [
-      "same"
-    ],
-    "reading": [
-      "おなじ"
-    ],
+    "swedish": ["samma"],
+    "jlpt": ["n5"],
+    "writing": ["同じ"],
+    "english": ["same"],
+    "reading": ["おなじ"],
     "state": "",
     "id": "n5_173",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "äldre bror"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お兄さん"
-    ],
-    "english": [
-      "(honorable) older brother"
-    ],
-    "reading": [
-      "おにいさん"
-    ],
+    "swedish": ["äldre bror"],
+    "jlpt": ["n5"],
+    "writing": ["お兄さん"],
+    "english": ["(honorable) older brother"],
+    "reading": ["おにいさん"],
     "state": "",
     "id": "n5_174",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "äldre syster"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お姉さん"
-    ],
-    "english": [
-      "(honorable) older sister"
-    ],
-    "reading": [
-      "おねえさん"
-    ],
+    "swedish": ["äldre syster"],
+    "jlpt": ["n5"],
+    "writing": ["お姉さん"],
+    "english": ["(honorable) older sister"],
+    "reading": ["おねえさん"],
     "state": "",
     "id": "n5_175",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "pensionär (kvinna)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "おばあさん"
-    ],
-    "english": [
-      "female senior-citizen"
-    ],
-    "reading": [
-      "おばあさん"
-    ],
+    "swedish": ["pensionär (kvinna)"],
+    "jlpt": ["n5"],
+    "writing": ["おばあさん"],
+    "english": ["female senior-citizen"],
+    "reading": ["おばあさん"],
     "state": "hidden",
     "id": "n5_176",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "farmor",
-      "mormor"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "おばあさん"
-    ],
-    "english": [
-      "grandmother"
-    ],
-    "reading": [
-      "おばあさん"
-    ],
+    "swedish": ["farmor", "mormor"],
+    "jlpt": ["n5"],
+    "writing": ["おばあさん"],
+    "english": ["grandmother"],
+    "reading": ["おばあさん"],
     "state": "",
     "id": "n5_177",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "moster",
-      "faster"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "伯母さん"
-    ],
-    "english": [
-      "aunt"
-    ],
-    "reading": [
-      "おばさん"
-    ],
+    "swedish": ["moster", "faster"],
+    "jlpt": ["n5"],
+    "writing": ["伯母さん"],
+    "english": ["aunt"],
+    "reading": ["おばさん"],
     "state": "hidden",
     "id": "n5_178",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "moster",
-      "faster"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "叔母さん"
-    ],
-    "english": [
-      "aunt"
-    ],
-    "reading": [
-      "おばさん"
-    ],
+    "swedish": ["moster", "faster"],
+    "jlpt": ["n5"],
+    "writing": ["叔母さん"],
+    "english": ["aunt"],
+    "reading": ["おばさん"],
     "state": "",
     "id": "n5_179",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "bad"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お風呂"
-    ],
-    "english": [
-      "bath"
-    ],
-    "reading": [
-      "おふろ"
-    ],
+    "swedish": ["bad"],
+    "jlpt": ["n5"],
+    "writing": ["お風呂"],
+    "english": ["bath"],
+    "reading": ["おふろ"],
     "state": "",
     "id": "n5_180",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "bento"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "お弁当"
-    ],
-    "english": [
-      "boxed lunch"
-    ],
-    "reading": [
-      "おべんとう"
-    ],
+    "swedish": ["bento"],
+    "jlpt": ["n5"],
+    "writing": ["お弁当"],
+    "english": ["boxed lunch"],
+    "reading": ["おべんとう"],
     "state": "",
     "id": "n5_181",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "komma ihåg"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "覚える"
-    ],
-    "english": [
-      "remember"
-    ],
-    "reading": [
-      "おぼえる"
-    ],
+    "swedish": ["komma ihåg"],
+    "jlpt": ["n5"],
+    "writing": ["覚える"],
+    "english": ["remember"],
+    "reading": ["おぼえる"],
     "state": "",
     "id": "n5_182",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "polisman (familjär)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "おまわりさん"
-    ],
-    "english": [
-      "friendly term for policeman"
-    ],
-    "reading": [
-      "おまわりさん"
-    ],
+    "swedish": ["polisman (familjär)"],
+    "jlpt": ["n5"],
+    "writing": ["おまわりさん"],
+    "english": ["friendly term for policeman"],
+    "reading": ["おまわりさん"],
     "state": "",
     "id": "n5_183",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "tung"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "重い"
-    ],
-    "english": [
-      "heavy"
-    ],
-    "reading": [
-      "おもい"
-    ],
+    "swedish": ["tung"],
+    "jlpt": ["n5"],
+    "writing": ["重い"],
+    "english": ["heavy"],
+    "reading": ["おもい"],
     "state": "",
     "id": "n5_184",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "intressant"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "おもしろい"
-    ],
-    "english": [
-      "interesting"
-    ],
-    "reading": [
-      "おもしろい"
-    ],
+    "swedish": ["intressant"],
+    "jlpt": ["n5"],
+    "writing": ["おもしろい"],
+    "english": ["interesting"],
+    "reading": ["おもしろい"],
     "state": "",
     "id": "n5_185",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "simma"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "泳ぐ"
-    ],
-    "english": [
-      "to swim"
-    ],
-    "reading": [
-      "およぐ"
-    ],
+    "swedish": ["simma"],
+    "jlpt": ["n5"],
+    "writing": ["泳ぐ"],
+    "english": ["to swim"],
+    "reading": ["およぐ"],
     "state": "",
     "id": "n5_186",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "nedstiga"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "降りる"
-    ],
-    "english": [
-      "to descend"
-    ],
-    "reading": [
-      "おりる"
-    ],
+    "swedish": ["nedstiga"],
+    "jlpt": ["n5"],
+    "writing": ["降りる"],
+    "english": ["to descend"],
+    "reading": ["おりる"],
     "state": "",
     "id": "n5_187",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "kliva av"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "降りる"
-    ],
-    "english": [
-      "to get off"
-    ],
-    "reading": [
-      "おりる"
-    ],
+    "swedish": ["kliva av"],
+    "jlpt": ["n5"],
+    "writing": ["降りる"],
+    "english": ["to get off"],
+    "reading": ["おりる"],
     "state": "hidden",
     "id": "n5_188",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "avsluta"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "終る"
-    ],
-    "english": [
-      "to finish"
-    ],
-    "reading": [
-      "おわる"
-    ],
+    "swedish": ["avsluta"],
+    "jlpt": ["n5"],
+    "writing": ["終る"],
+    "english": ["to finish"],
+    "reading": ["おわる"],
     "state": "",
     "id": "n5_189",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "musik"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "音楽"
-    ],
-    "english": [
-      "music"
-    ],
-    "reading": [
-      "おんがく"
-    ],
+    "swedish": ["musik"],
+    "jlpt": ["n5"],
+    "writing": ["音楽"],
+    "english": ["music"],
+    "reading": ["おんがく"],
     "state": "",
     "id": "n5_190",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "kvinna"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "女"
-    ],
-    "english": [
-      "woman"
-    ],
-    "reading": [
-      "おんな"
-    ],
+    "swedish": ["kvinna"],
+    "jlpt": ["n5"],
+    "writing": ["女"],
+    "english": ["woman"],
+    "reading": ["おんな"],
     "state": "",
     "id": "n5_191",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "flicka"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "女の子"
-    ],
-    "english": [
-      "girl"
-    ],
-    "reading": [
-      "おんなのこ"
-    ],
+    "swedish": ["flicka"],
+    "jlpt": ["n5"],
+    "writing": ["女の子"],
+    "english": ["girl"],
+    "reading": ["おんなのこ"],
     "state": "",
     "id": "n5_192",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "främmande land"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "外国"
-    ],
-    "english": [
-      "foreign country"
-    ],
-    "reading": [
-      "がいこく"
-    ],
+    "swedish": ["främmande land"],
+    "jlpt": ["n5"],
+    "writing": ["外国"],
+    "english": ["foreign country"],
+    "reading": ["がいこく"],
     "state": "",
     "id": "n5_193",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "utlänning"
-    ],
-    "genki": [
-      "15"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "外国人"
-    ],
-    "english": [
-      "foreigner"
-    ],
-    "reading": [
-      "がいこくじん"
-    ],
+    "swedish": ["utlänning"],
+    "genki": ["15"],
+    "jlpt": ["n5"],
+    "writing": ["外国人"],
+    "english": ["foreigner"],
+    "reading": ["がいこくじん"],
     "state": "",
     "id": "n5_194",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "företag"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "会社"
-    ],
-    "english": [
-      "company"
-    ],
-    "reading": [
-      "かいしゃ"
-    ],
+    "swedish": ["företag"],
+    "jlpt": ["n5"],
+    "writing": ["会社"],
+    "english": ["company"],
+    "reading": ["かいしゃ"],
     "state": "",
     "id": "n5_195",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "trappa"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "階段"
-    ],
-    "english": [
-      "stairs"
-    ],
-    "reading": [
-      "かいだん"
-    ],
+    "swedish": ["trappa"],
+    "jlpt": ["n5"],
+    "writing": ["階段"],
+    "english": ["stairs"],
+    "reading": ["かいだん"],
     "state": "",
     "id": "n5_196",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "shopping"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "買い物"
-    ],
-    "english": [
-      "shopping"
-    ],
-    "reading": [
-      "かいもの"
-    ],
+    "swedish": ["shopping"],
+    "jlpt": ["n5"],
+    "writing": ["買い物"],
+    "english": ["shopping"],
+    "reading": ["かいもの"],
     "state": "",
     "id": "n5_197",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "köpa"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "買う"
-    ],
-    "english": [
-      "buy"
-    ],
-    "reading": [
-      "かう"
-    ],
+    "swedish": ["köpa"],
+    "jlpt": ["n5"],
+    "writing": ["買う"],
+    "english": ["buy"],
+    "reading": ["かう"],
     "state": "",
     "id": "n5_198",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "returnera"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "返す"
-    ],
-    "english": [
-      "return something"
-    ],
-    "reading": [
-      "かえす"
-    ],
+    "swedish": ["returnera"],
+    "jlpt": ["n5"],
+    "writing": ["返す"],
+    "english": ["return something"],
+    "reading": ["かえす"],
     "state": "",
     "id": "n5_199",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "återvända"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "帰る"
-    ],
-    "english": [
-      "go back"
-    ],
-    "reading": [
-      "かえる"
-    ],
+    "swedish": ["återvända"],
+    "jlpt": ["n5"],
+    "writing": ["帰る"],
+    "english": ["go back"],
+    "reading": ["かえる"],
     "state": "",
     "id": "n5_200",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "ta tid eller pengar"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "かかる"
-    ],
-    "english": [
-      "to take time or money"
-    ],
-    "reading": [
-      "かかる"
-    ],
+    "swedish": ["ta tid eller pengar"],
+    "jlpt": ["n5"],
+    "writing": ["かかる"],
+    "english": ["to take time or money"],
+    "reading": ["かかる"],
     "state": "",
     "id": "n5_201",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "nyckel"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "かぎ"
-    ],
-    "english": [
-      "key"
-    ],
-    "reading": [
-      "かぎ"
-    ],
+    "swedish": ["nyckel"],
+    "jlpt": ["n5"],
+    "writing": ["かぎ"],
+    "english": ["key"],
+    "reading": ["かぎ"],
     "state": "",
     "id": "n5_202",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "skriva"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "書く"
-    ],
-    "english": [
-      "write"
-    ],
-    "reading": [
-      "かく"
-    ],
+    "swedish": ["skriva"],
+    "jlpt": ["n5"],
+    "writing": ["書く"],
+    "english": ["write"],
+    "reading": ["かく"],
     "state": "",
     "id": "n5_203",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "student"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "学生"
-    ],
-    "english": [
-      "student"
-    ],
-    "reading": [
-      "がくせい"
-    ],
+    "swedish": ["student"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["学生"],
+    "english": ["student"],
+    "reading": ["がくせい"],
     "state": "",
     "id": "n5_204",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "lärande"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "学"
-    ],
-    "english": [
-      "learning"
-    ],
-    "reading": [
-      "がく"
-    ],
+    "swedish": ["lärande"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["学"],
+    "english": ["learning"],
+    "reading": ["がく"],
     "state": "",
     "id": "n5_204k1",
-    "type": [
-      "kanji"
-    ]
+    "type": ["kanji"]
   },
   {
-    "swedish": [
-      "födelse"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "生"
-    ],
-    "english": [
-      "birth"
-    ],
-    "reading": [
-      "せい"
-    ],
+    "swedish": ["födelse"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["生"],
+    "english": ["birth"],
+    "reading": ["せい"],
     "state": "",
     "id": "n5_204k2",
-    "type": [
-      "kanji"
-    ]
+    "type": ["kanji"]
   },
   {
-    "swedish": [
-      "lärande"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "学"
-    ],
-    "english": [
-      "learning"
-    ],
-    "reading": [
-      "がく"
-    ],
+    "swedish": ["lärande"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["学"],
+    "english": ["learning"],
+    "reading": ["がく"],
     "state": "",
     "id": "n5_204k1",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "födelse"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "生"
-    ],
-    "english": [
-      "birth"
-    ],
-    "reading": [
-      "せい"
-    ],
+    "swedish": ["födelse"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["生"],
+    "english": ["birth"],
+    "reading": ["せい"],
     "state": "",
     "id": "n5_204k2",
-    "type": [
-      "kanji"
-    ]
+    "type": ["kanji"]
   },
   {
-    "swedish": [
-      "ringa"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "かける"
-    ],
-    "english": [
-      "to call by phone"
-    ],
-    "reading": [
-      "かける"
-    ],
+    "swedish": ["ringa"],
+    "jlpt": ["n5"],
+    "writing": ["かける"],
+    "english": ["to call by phone"],
+    "reading": ["かける"],
     "state": "",
     "id": "n5_205",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "paraply"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "傘"
-    ],
-    "english": [
-      "umbrella"
-    ],
-    "reading": [
-      "かさ"
-    ],
+    "swedish": ["paraply"],
+    "jlpt": ["n5"],
+    "writing": ["傘"],
+    "english": ["umbrella"],
+    "reading": ["かさ"],
     "state": "",
     "id": "n5_206",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "låna ut"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "貸す"
-    ],
-    "english": [
-      "lend"
-    ],
-    "reading": [
-      "かす"
-    ],
+    "swedish": ["låna ut"],
+    "jlpt": ["n5"],
+    "writing": ["貸す"],
+    "english": ["lend"],
+    "reading": ["かす"],
     "state": "",
     "id": "n5_207",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "vind"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "風"
-    ],
-    "english": [
-      "wind"
-    ],
-    "reading": [
-      "かぜ"
-    ],
+    "swedish": ["vind"],
+    "jlpt": ["n5"],
+    "writing": ["風"],
+    "english": ["wind"],
+    "reading": ["かぜ"],
     "state": "",
     "id": "n5_208",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "förkylning"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "風邪"
-    ],
-    "english": [
-      "a cold"
-    ],
-    "reading": [
-      "かぜ"
-    ],
+    "swedish": ["förkylning"],
+    "jlpt": ["n5"],
+    "writing": ["風邪"],
+    "english": ["a cold"],
+    "reading": ["かぜ"],
     "state": "",
     "id": "n5_209",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "familj"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "家族"
-    ],
-    "english": [
-      "family"
-    ],
-    "reading": [
-      "かぞく"
-    ],
+    "swedish": ["familj"],
+    "jlpt": ["n5"],
+    "writing": ["家族"],
+    "english": ["family"],
+    "reading": ["かぞく"],
     "state": "",
     "id": "n5_210",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "sätt att göra"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "方"
-    ],
-    "english": [
-      "way of doing"
-    ],
-    "reading": [
-      "かた"
-    ],
+    "swedish": ["sätt att göra"],
+    "jlpt": ["n5"],
+    "writing": ["方"],
+    "english": ["way of doing"],
+    "reading": ["かた"],
     "state": "",
     "id": "n5_211",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "person"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "方"
-    ],
-    "english": [
-      "person"
-    ],
-    "reading": [
-      "かた"
-    ],
+    "swedish": ["person"],
+    "jlpt": ["n5"],
+    "writing": ["方"],
+    "english": ["person"],
+    "reading": ["かた"],
     "state": "",
     "id": "n5_212",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "skola"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "学校"
-    ],
-    "english": [
-      "school"
-    ],
-    "reading": [
-      "がっこう"
-    ],
+    "swedish": ["skola"],
+    "jlpt": ["n5"],
+    "writing": ["学校"],
+    "english": ["school"],
+    "reading": ["がっこう"],
     "state": "",
     "id": "n5_213",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "kopp"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "カップ"
-    ],
-    "english": [
-      "cup"
-    ],
-    "reading": [
-      "カップ"
-    ],
+    "swedish": ["kopp"],
+    "jlpt": ["n5"],
+    "writing": ["カップ"],
+    "english": ["cup"],
+    "reading": ["カップ"],
     "state": "",
     "id": "n5_214",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "hushåll"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "家庭"
-    ],
-    "english": [
-      "household"
-    ],
-    "reading": [
-      "かてい"
-    ],
+    "swedish": ["hushåll"],
+    "jlpt": ["n5"],
+    "writing": ["家庭"],
+    "english": ["household"],
+    "reading": ["かてい"],
     "state": "",
     "id": "n5_215",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "hörn"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "角"
-    ],
-    "english": [
-      "a corner"
-    ],
-    "reading": [
-      "かど"
-    ],
+    "swedish": ["hörn"],
+    "jlpt": ["n5"],
+    "writing": ["角"],
+    "english": ["a corner"],
+    "reading": ["かど"],
     "state": "",
     "id": "n5_216",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "korg"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "かばん"
-    ],
-    "english": [
-      "basket"
-    ],
-    "reading": [
-      "かばん"
-    ],
+    "swedish": ["korg"],
+    "jlpt": ["n5"],
+    "writing": ["かばん"],
+    "english": ["basket"],
+    "reading": ["かばん"],
     "state": "",
     "id": "n5_217",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "väska"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "かばん"
-    ],
-    "english": [
-      "bag"
-    ],
-    "reading": [
-      "かばん"
-    ],
+    "swedish": ["väska"],
+    "jlpt": ["n5"],
+    "writing": ["かばん"],
+    "english": ["bag"],
+    "reading": ["かばん"],
     "state": "",
     "id": "n5_218",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "vas"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "花瓶"
-    ],
-    "english": [
-      "a vase"
-    ],
-    "reading": [
-      "かびん"
-    ],
+    "swedish": ["vas"],
+    "jlpt": ["n5"],
+    "writing": ["花瓶"],
+    "english": ["a vase"],
+    "reading": ["かびん"],
     "state": "",
     "id": "n5_219",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "papper"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "紙"
-    ],
-    "english": [
-      "paper"
-    ],
-    "reading": [
-      "かみ"
-    ],
+    "swedish": ["papper"],
+    "jlpt": ["n5"],
+    "writing": ["紙"],
+    "english": ["paper"],
+    "reading": ["かみ"],
     "state": "",
     "id": "n5_220",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "kamera"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "カメラ"
-    ],
-    "english": [
-      "camera"
-    ],
-    "reading": [
-      "カメラ"
-    ],
+    "swedish": ["kamera"],
+    "jlpt": ["n5"],
+    "writing": ["カメラ"],
+    "english": ["camera"],
+    "reading": ["カメラ"],
     "state": "",
     "id": "n5_221",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "tisdag"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "火曜日"
-    ],
-    "english": [
-      "Tuesday"
-    ],
-    "reading": [
-      "かようび"
-    ],
+    "swedish": ["tisdag"],
+    "jlpt": ["n5"],
+    "writing": ["火曜日"],
+    "english": ["Tuesday"],
+    "reading": ["かようび"],
     "state": "",
     "id": "n5_222",
-    "type": [
-      "temporal"
-    ]
+    "type": ["temporal"]
   },
   {
-    "swedish": [
-      "kryddstark"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "辛い"
-    ],
-    "english": [
-      "spicy"
-    ],
-    "reading": [
-      "からい"
-    ],
+    "swedish": ["kryddstark"],
+    "jlpt": ["n5"],
+    "writing": ["辛い"],
+    "english": ["spicy"],
+    "reading": ["からい"],
     "state": "",
     "id": "n5_223",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "kropp"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "体"
-    ],
-    "english": [
-      "body"
-    ],
-    "reading": [
-      "からだ"
-    ],
+    "swedish": ["kropp"],
+    "jlpt": ["n5"],
+    "writing": ["体"],
+    "english": ["body"],
+    "reading": ["からだ"],
     "state": "",
     "id": "n5_224",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "låna"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "借りる"
-    ],
-    "english": [
-      "borrow"
-    ],
-    "reading": [
-      "かりる"
-    ],
+    "swedish": ["låna"],
+    "jlpt": ["n5"],
+    "writing": ["借りる"],
+    "english": ["borrow"],
+    "reading": ["かりる"],
     "state": "",
     "id": "n5_225",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "lätt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "軽い"
-    ],
-    "english": [
-      "light"
-    ],
-    "reading": [
-      "かるい"
-    ],
+    "swedish": ["lätt"],
+    "jlpt": ["n5"],
+    "writing": ["軽い"],
+    "english": ["light"],
+    "reading": ["かるい"],
     "state": "",
     "id": "n5_226",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "curry"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "カレー"
-    ],
-    "english": [
-      "curry"
-    ],
-    "reading": [
-      "カレー"
-    ],
+    "swedish": ["curry"],
+    "genki": ["13"],
+    "jlpt": ["n5"],
+    "writing": ["カレー"],
+    "english": ["curry"],
+    "reading": ["カレー"],
     "state": "",
     "id": "n5_227",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "kalender"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "カレンダー"
-    ],
-    "english": [
-      "calendar"
-    ],
-    "reading": [
-      "カレンダー"
-    ],
+    "swedish": ["kalender"],
+    "jlpt": ["n5"],
+    "writing": ["カレンダー"],
+    "english": ["calendar"],
+    "reading": ["カレンダー"],
     "state": "",
     "id": "n5_228",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "flod"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "河"
-    ],
-    "english": [
-      "river"
-    ],
-    "reading": [
-      "かわ"
-    ],
+    "swedish": ["flod"],
+    "jlpt": ["n5"],
+    "writing": ["河"],
+    "english": ["river"],
+    "reading": ["かわ"],
     "state": "hidden",
     "id": "n5_229",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "flod"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "川"
-    ],
-    "english": [
-      "river"
-    ],
-    "reading": [
-      "かわ"
-    ],
+    "swedish": ["flod"],
+    "jlpt": ["n5"],
+    "writing": ["川"],
+    "english": ["river"],
+    "reading": ["かわ"],
     "state": "",
     "id": "n5_230",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "söt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "かわいい"
-    ],
-    "english": [
-      "cute"
-    ],
-    "reading": [
-      "かわいい"
-    ],
+    "swedish": ["söt"],
+    "jlpt": ["n5"],
+    "writing": ["かわいい"],
+    "english": ["cute"],
+    "reading": ["かわいい"],
     "state": "",
     "id": "n5_231",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "kinesiskt tecken"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "漢字"
-    ],
-    "english": [
-      "Chinese character"
-    ],
-    "reading": [
-      "かんじ"
-    ],
+    "swedish": ["kinesiskt tecken"],
+    "jlpt": ["n5"],
+    "writing": ["漢字"],
+    "english": ["Chinese character"],
+    "reading": ["かんじ"],
     "state": "",
     "id": "n5_232",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "trä"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "木"
-    ],
-    "english": [
-      "wood"
-    ],
-    "reading": [
-      "き"
-    ],
+    "swedish": ["trä"],
+    "jlpt": ["n5"],
+    "writing": ["木"],
+    "english": ["wood"],
+    "reading": ["き"],
     "state": "hidden",
     "id": "n5_233",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "träd"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "木"
-    ],
-    "english": [
-      "tree"
-    ],
-    "reading": [
-      "き"
-    ],
+    "swedish": ["träd"],
+    "jlpt": ["n5"],
+    "writing": ["木"],
+    "english": ["tree"],
+    "reading": ["き"],
     "state": "",
     "id": "n5_234",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "gul"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "黄色"
-    ],
-    "english": [
-      "yellow"
-    ],
-    "reading": [
-      "きいろ"
-    ],
+    "swedish": ["gul"],
+    "jlpt": ["n5"],
+    "writing": ["黄色"],
+    "english": ["yellow"],
+    "reading": ["きいろ"],
     "state": "hidden",
     "id": "n5_235",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "gul"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "黄色い"
-    ],
-    "english": [
-      "yellow"
-    ],
-    "reading": [
-      "きいろい"
-    ],
+    "swedish": ["gul"],
+    "jlpt": ["n5"],
+    "writing": ["黄色い"],
+    "english": ["yellow"],
+    "reading": ["きいろい"],
     "state": "",
     "id": "n5_236",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "försvinna"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "消える"
-    ],
-    "english": [
-      "disappear"
-    ],
-    "reading": [
-      "きえる"
-    ],
+    "swedish": ["försvinna"],
+    "jlpt": ["n5"],
+    "writing": ["消える"],
+    "english": ["disappear"],
+    "reading": ["きえる"],
     "state": "",
     "id": "n5_237",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "fråga"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "聞く"
-    ],
-    "english": [
-      "ask"
-    ],
-    "reading": [
-      "きく"
-    ],
+    "swedish": ["fråga"],
+    "jlpt": ["n5"],
+    "writing": ["聞く"],
+    "english": ["ask"],
+    "reading": ["きく"],
     "state": "hidden",
     "id": "n5_238",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "lyssna på"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "聞く"
-    ],
-    "english": [
-      "listen to"
-    ],
-    "reading": [
-      "きく"
-    ],
+    "swedish": ["lyssna på"],
+    "jlpt": ["n5"],
+    "writing": ["聞く"],
+    "english": ["listen to"],
+    "reading": ["きく"],
     "state": "hidden",
     "id": "n5_239",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "höra"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "聞く"
-    ],
-    "english": [
-      "hear"
-    ],
-    "reading": [
-      "きく"
-    ],
+    "swedish": ["höra"],
+    "jlpt": ["n5"],
+    "writing": ["聞く"],
+    "english": ["hear"],
+    "reading": ["きく"],
     "state": "",
     "id": "n5_240",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "norr"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "北"
-    ],
-    "english": [
-      "north"
-    ],
-    "reading": [
-      "きた"
-    ],
+    "swedish": ["norr"],
+    "jlpt": ["n5"],
+    "writing": ["北"],
+    "english": ["north"],
+    "reading": ["きた"],
     "state": "",
     "id": "n5_241",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "gitarr"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "ギター"
-    ],
-    "english": [
-      "guitar"
-    ],
-    "reading": [
-      "ギター"
-    ],
+    "swedish": ["gitarr"],
+    "jlpt": ["n5"],
+    "writing": ["ギター"],
+    "english": ["guitar"],
+    "reading": ["ギター"],
     "state": "",
     "id": "n5_242",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "smutsig"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "汚い"
-    ],
-    "english": [
-      "dirty"
-    ],
-    "reading": [
-      "きたない"
-    ],
+    "swedish": ["smutsig"],
+    "jlpt": ["n5"],
+    "writing": ["汚い"],
+    "english": ["dirty"],
+    "reading": ["きたない"],
     "state": "",
     "id": "n5_243",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "kafé"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "喫茶店"
-    ],
-    "english": [
-      "coffee lounge"
-    ],
-    "reading": [
-      "きっさてん"
-    ],
+    "swedish": ["kafé"],
+    "jlpt": ["n5"],
+    "writing": ["喫茶店"],
+    "english": ["coffee lounge"],
+    "reading": ["きっさてん"],
     "state": "",
     "id": "n5_244",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "frimärke"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "切手"
-    ],
-    "english": [
-      "postage stamp"
-    ],
-    "reading": [
-      "きって"
-    ],
+    "swedish": ["frimärke"],
+    "jlpt": ["n5"],
+    "writing": ["切手"],
+    "english": ["postage stamp"],
+    "reading": ["きって"],
     "state": "",
     "id": "n5_245",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "biljett"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "切符"
-    ],
-    "english": [
-      "ticket"
-    ],
-    "reading": [
-      "きっぷ"
-    ],
+    "swedish": ["biljett"],
+    "jlpt": ["n5"],
+    "writing": ["切符"],
+    "english": ["ticket"],
+    "reading": ["きっぷ"],
     "state": "",
     "id": "n5_246",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "igår"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "昨日"
-    ],
-    "english": [
-      "yesterday"
-    ],
-    "reading": [
-      "きのう"
-    ],
+    "swedish": ["igår"],
+    "jlpt": ["n5"],
+    "writing": ["昨日"],
+    "english": ["yesterday"],
+    "reading": ["きのう"],
     "state": "",
     "id": "n5_247",
-    "type": [
-      "temporal"
-    ]
+    "type": ["temporal"]
   },
   {
-    "swedish": [
-      "nio"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "九"
-    ],
-    "english": [
-      "nine"
-    ],
-    "reading": [
-      "く"
-    ],
+    "swedish": ["nio"],
+    "jlpt": ["n5"],
+    "writing": ["九"],
+    "english": ["nine"],
+    "reading": ["く"],
     "state": "hidden",
     "id": "n5_248",
-    "type": [
-      "numeric"
-    ]
+    "type": ["numeric"]
   },
   {
-    "swedish": [
-      "nio"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "九"
-    ],
-    "english": [
-      "nine"
-    ],
-    "reading": [
-      "きゅう"
-    ],
+    "swedish": ["nio"],
+    "jlpt": ["n5"],
+    "writing": ["九"],
+    "english": ["nine"],
+    "reading": ["きゅう"],
     "state": "",
     "id": "n5_249",
-    "type": [
-      "numeric"
-    ]
+    "type": ["numeric"]
   },
   {
-    "swedish": [
-      "nötkött"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "牛肉"
-    ],
-    "english": [
-      "beef"
-    ],
-    "reading": [
-      "ぎゅうにく"
-    ],
+    "swedish": ["nötkött"],
+    "jlpt": ["n5"],
+    "writing": ["牛肉"],
+    "english": ["beef"],
+    "reading": ["ぎゅうにく"],
     "state": "",
     "id": "n5_250",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "mjölk"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "牛乳"
-    ],
-    "english": [
-      "milk"
-    ],
-    "reading": [
-      "ぎゅうにゅう"
-    ],
+    "swedish": ["mjölk"],
+    "jlpt": ["n5"],
+    "writing": ["牛乳"],
+    "english": ["milk"],
+    "reading": ["ぎゅうにゅう"],
     "state": "",
     "id": "n5_251",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "idag"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "今日"
-    ],
-    "english": [
-      "today"
-    ],
-    "reading": [
-      "きょう"
-    ],
+    "swedish": ["idag"],
+    "jlpt": ["n5"],
+    "writing": ["今日"],
+    "english": ["today"],
+    "reading": ["きょう"],
     "state": "",
     "id": "n5_252",
-    "type": [
-      "temporal"
-    ]
+    "type": ["temporal"]
   },
   {
-    "swedish": [
-      "klassrum"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "教室"
-    ],
-    "english": [
-      "classroom"
-    ],
-    "reading": [
-      "きょうしつ"
-    ],
+    "swedish": ["klassrum"],
+    "jlpt": ["n5"],
+    "writing": ["教室"],
+    "english": ["classroom"],
+    "reading": ["きょうしつ"],
     "state": "",
     "id": "n5_253",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "syskon (ödmjuk)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "兄弟"
-    ],
-    "english": [
-      "(humble) siblings"
-    ],
-    "reading": [
-      "きょうだい"
-    ],
+    "swedish": ["syskon (ödmjuk)"],
+    "jlpt": ["n5"],
+    "writing": ["兄弟"],
+    "english": ["(humble) siblings"],
+    "reading": ["きょうだい"],
     "state": "",
     "id": "n5_254",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "förra året"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "去年"
-    ],
-    "english": [
-      "last year"
-    ],
-    "reading": [
-      "きょねん"
-    ],
+    "swedish": ["förra året"],
+    "jlpt": ["n5"],
+    "writing": ["去年"],
+    "english": ["last year"],
+    "reading": ["きょねん"],
     "state": "",
     "id": "n5_255",
-    "type": [
-      "temporal"
-    ]
+    "type": ["temporal"]
   },
   {
-    "swedish": [
-      "hat"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "嫌い"
-    ],
-    "english": [
-      "hate"
-    ],
-    "reading": [
-      "きらい"
-    ],
+    "swedish": ["hat"],
+    "jlpt": ["n5"],
+    "writing": ["嫌い"],
+    "english": ["hate"],
+    "reading": ["きらい"],
     "state": "",
     "id": "n5_256",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "skära"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "切る"
-    ],
-    "english": [
-      "cut"
-    ],
-    "reading": [
-      "きる"
-    ],
+    "swedish": ["skära"],
+    "jlpt": ["n5"],
+    "writing": ["切る"],
+    "english": ["cut"],
+    "reading": ["きる"],
     "state": "",
     "id": "n5_257",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "ta på sig (överkropp)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "着る"
-    ],
-    "english": [
-      "to put on from the shoulders down"
-    ],
-    "reading": [
-      "きる"
-    ],
+    "swedish": ["ta på sig (överkropp)"],
+    "jlpt": ["n5"],
+    "writing": ["着る"],
+    "english": ["to put on from the shoulders down"],
+    "reading": ["きる"],
     "state": "",
     "id": "n5_258",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "ren"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "きれい"
-    ],
-    "english": [
-      "clean"
-    ],
-    "reading": [
-      "きれい"
-    ],
+    "swedish": ["ren"],
+    "jlpt": ["n5"],
+    "writing": ["きれい"],
+    "english": ["clean"],
+    "reading": ["きれい"],
     "state": "",
     "id": "n5_259",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "söt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "きれい"
-    ],
-    "english": [
-      "pretty"
-    ],
-    "reading": [
-      "きれい"
-    ],
+    "swedish": ["söt"],
+    "jlpt": ["n5"],
+    "writing": ["きれい"],
+    "english": ["pretty"],
+    "reading": ["きれい"],
     "state": "hidden",
     "id": "n5_260",
-    "type": [
-      "adjective"
-    ]
+    "type": ["adjective"]
   },
   {
-    "swedish": [
-      "kilogram"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "キログラム"
-    ],
-    "english": [
-      "kilogram"
-    ],
-    "reading": [
-      "キログラム"
-    ],
+    "swedish": ["kilogram"],
+    "jlpt": ["n5"],
+    "writing": ["キログラム"],
+    "english": ["kilogram"],
+    "reading": ["キログラム"],
     "state": "",
     "id": "n5_261",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "kilometer"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "キロメートル"
-    ],
-    "english": [
-      "kilometre"
-    ],
-    "reading": [
-      "キロメートル"
-    ],
+    "swedish": ["kilometer"],
+    "jlpt": ["n5"],
+    "writing": ["キロメートル"],
+    "english": ["kilometre"],
+    "reading": ["キロメートル"],
     "state": "",
     "id": "n5_262",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "kilo"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "キロ"
-    ],
-    "english": [
-      "kilogram"
-    ],
-    "reading": [
-      "キロ"
-    ],
+    "swedish": ["kilo"],
+    "jlpt": ["n5"],
+    "writing": ["キロ"],
+    "english": ["kilogram"],
+    "reading": ["キロ"],
     "state": "",
     "id": "n5_263",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "km"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "キロ"
-    ],
-    "english": [
-      "kilometre"
-    ],
-    "reading": [
-      "キロ"
-    ],
+    "swedish": ["km"],
+    "jlpt": ["n5"],
+    "writing": ["キロ"],
+    "english": ["kilometre"],
+    "reading": ["キロ"],
     "state": "hidden",
     "id": "n5_264",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "bank"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "銀行"
-    ],
-    "english": [
-      "bank"
-    ],
-    "reading": [
-      "ぎんこう"
-    ],
+    "swedish": ["bank"],
+    "jlpt": ["n5"],
+    "writing": ["銀行"],
+    "english": ["bank"],
+    "reading": ["ぎんこう"],
     "state": "",
     "id": "n5_265",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "fredag"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "金曜日"
-    ],
-    "english": [
-      "Friday"
-    ],
-    "reading": [
-      "きんようび"
-    ],
+    "swedish": ["fredag"],
+    "jlpt": ["n5"],
+    "writing": ["金曜日"],
+    "english": ["Friday"],
+    "reading": ["きんようび"],
     "state": "",
     "id": "n5_266",
-    "type": [
-      "temporal"
-    ]
+    "type": ["temporal"]
   },
   {
-    "swedish": [
-      "medicin"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "薬"
-    ],
-    "english": [
-      "medicine"
-    ],
-    "reading": [
-      "くすり"
-    ],
+    "swedish": ["medicin"],
+    "jlpt": ["n5"],
+    "writing": ["薬"],
+    "english": ["medicine"],
+    "reading": ["くすり"],
     "state": "",
     "id": "n5_267",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "frukt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "果物"
-    ],
-    "english": [
-      "fruit"
-    ],
-    "reading": [
-      "くだもの"
-    ],
+    "swedish": ["frukt"],
+    "jlpt": ["n5"],
+    "writing": ["果物"],
+    "english": ["fruit"],
+    "reading": ["くだもの"],
     "state": "",
     "id": "n5_268",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "öppning"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "口"
-    ],
-    "english": [
-      "opening"
-    ],
-    "reading": [
-      "くち"
-    ],
+    "swedish": ["öppning"],
+    "jlpt": ["n5"],
+    "writing": ["口"],
+    "english": ["opening"],
+    "reading": ["くち"],
     "state": "hidden",
     "id": "n5_269",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "mun"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "口"
-    ],
-    "english": [
-      "mouth"
-    ],
-    "reading": [
-      "くち"
-    ],
+    "swedish": ["mun"],
+    "jlpt": ["n5"],
+    "writing": ["口"],
+    "english": ["mouth"],
+    "reading": ["くち"],
     "state": "",
     "id": "n5_270",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "skor"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "靴"
-    ],
-    "english": [
-      "shoes"
-    ],
-    "reading": [
-      "くつ"
-    ],
+    "swedish": ["skor"],
+    "jlpt": ["n5"],
+    "writing": ["靴"],
+    "english": ["shoes"],
+    "reading": ["くつ"],
     "state": "",
     "id": "n5_271",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "strumpor"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "靴下"
-    ],
-    "english": [
-      "socks"
-    ],
-    "reading": [
-      "くつした"
-    ],
+    "swedish": ["strumpor"],
+    "jlpt": ["n5"],
+    "writing": ["靴下"],
+    "english": ["socks"],
+    "reading": ["くつした"],
     "state": "",
     "id": "n5_272",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "nation"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "国"
-    ],
-    "english": [
-      "country"
-    ],
-    "reading": [
-      "くに"
-    ],
+    "swedish": ["nation"],
+    "jlpt": ["n5"],
+    "writing": ["国"],
+    "english": ["country"],
+    "reading": ["くに"],
     "state": "",
     "id": "n5_273",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "molnigt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "曇り"
-    ],
-    "english": [
-      "cloudy weather"
-    ],
-    "reading": [
-      "くもり"
-    ],
+    "swedish": ["molnigt"],
+    "jlpt": ["n5"],
+    "writing": ["曇り"],
+    "english": ["cloudy weather"],
+    "reading": ["くもり"],
     "state": "",
     "id": "n5_274",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "mörkna"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "曇る"
-    ],
-    "english": [
-      "to become dim"
-    ],
-    "reading": [
-      "くもる"
-    ],
+    "swedish": ["mörkna"],
+    "jlpt": ["n5"],
+    "writing": ["曇る"],
+    "english": ["to become dim"],
+    "reading": ["くもる"],
     "state": "hidden",
     "id": "n5_275",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "bli molnigt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "曇る"
-    ],
-    "english": [
-      "to become cloudy"
-    ],
-    "reading": [
-      "くもる"
-    ],
+    "swedish": ["bli molnigt"],
+    "jlpt": ["n5"],
+    "writing": ["曇る"],
+    "english": ["to become cloudy"],
+    "reading": ["くもる"],
     "state": "",
     "id": "n5_276",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "dystert"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "暗い"
-    ],
-    "english": [
-      "gloomy"
-    ],
-    "reading": [
-      "くらい"
-    ],
+    "swedish": ["dystert"],
+    "jlpt": ["n5"],
+    "writing": ["暗い"],
+    "english": ["gloomy"],
+    "reading": ["くらい"],
     "state": "",
     "id": "n5_277",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "klass"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "クラス"
-    ],
-    "english": [
-      "class"
-    ],
-    "reading": [
-      "クラス"
-    ],
+    "swedish": ["klass"],
+    "jlpt": ["n5"],
+    "writing": ["クラス"],
+    "english": ["class"],
+    "reading": ["クラス"],
     "state": "",
     "id": "n5_278",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "gramm"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "グラム"
-    ],
-    "english": [
-      "gram"
-    ],
-    "reading": [
-      "グラム"
-    ],
+    "swedish": ["gramm"],
+    "jlpt": ["n5"],
+    "writing": ["グラム"],
+    "english": ["gram"],
+    "reading": ["グラム"],
     "state": "",
     "id": "n5_279",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "komma"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "来る"
-    ],
-    "english": [
-      "to come"
-    ],
-    "reading": [
-      "くる"
-    ],
+    "swedish": ["komma"],
+    "jlpt": ["n5"],
+    "writing": ["来る"],
+    "english": ["to come"],
+    "reading": ["くる"],
     "state": "",
     "id": "n5_280",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "fordon"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "車"
-    ],
-    "english": [
-      "vehicle"
-    ],
-    "reading": [
-      "くるま"
-    ],
+    "swedish": ["fordon"],
+    "jlpt": ["n5"],
+    "writing": ["車"],
+    "english": ["vehicle"],
+    "reading": ["くるま"],
     "state": "hidden",
     "id": "n5_281",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "bil"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "車"
-    ],
-    "english": [
-      "car"
-    ],
-    "reading": [
-      "くるま"
-    ],
+    "swedish": ["bil"],
+    "jlpt": ["n5"],
+    "writing": ["車"],
+    "english": ["car"],
+    "reading": ["くるま"],
     "state": "",
     "id": "n5_282",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "svart"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "黒"
-    ],
-    "english": [
-      "black"
-    ],
-    "reading": [
-      "くろ"
-    ],
+    "swedish": ["svart"],
+    "jlpt": ["n5"],
+    "writing": ["黒"],
+    "english": ["black"],
+    "reading": ["くろ"],
     "state": "",
     "id": "n5_283",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "svart"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "黒い"
-    ],
-    "english": [
-      "black"
-    ],
-    "reading": [
-      "くろい"
-    ],
+    "swedish": ["svart"],
+    "jlpt": ["n5"],
+    "writing": ["黒い"],
+    "english": ["black"],
+    "reading": ["くろい"],
     "state": "",
     "id": "n5_284",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "polisman"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "警官"
-    ],
-    "english": [
-      "policeman"
-    ],
-    "reading": [
-      "けいかん"
-    ],
+    "swedish": ["polisman"],
+    "jlpt": ["n5"],
+    "writing": ["警官"],
+    "english": ["policeman"],
+    "reading": ["けいかん"],
     "state": "",
     "id": "n5_285",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "i morse"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "今朝"
-    ],
-    "english": [
-      "this morning"
-    ],
-    "reading": [
-      "けさ"
-    ],
+    "swedish": ["i morse"],
+    "jlpt": ["n5"],
+    "writing": ["今朝"],
+    "english": ["this morning"],
+    "reading": ["けさ"],
     "state": "",
     "id": "n5_286",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "stänga av"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "消す"
-    ],
-    "english": [
-      "to turn off power"
-    ],
-    "reading": [
-      "けす"
-    ],
+    "swedish": ["stänga av"],
+    "jlpt": ["n5"],
+    "writing": ["消す"],
+    "english": ["to turn off power"],
+    "reading": ["けす"],
     "state": "",
     "id": "n5_287",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "radera"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "消す"
-    ],
-    "english": [
-      "to erase"
-    ],
-    "reading": [
-      "けす"
-    ],
+    "swedish": ["radera"],
+    "jlpt": ["n5"],
+    "writing": ["消す"],
+    "english": ["to erase"],
+    "reading": ["けす"],
     "state": "",
     "id": "n5_288",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "tillräckligt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "結構"
-    ],
-    "english": [
-      "enough"
-    ],
-    "reading": [
-      "けっこう"
-    ],
+    "swedish": ["tillräckligt"],
+    "jlpt": ["n5"],
+    "writing": ["結構"],
+    "english": ["enough"],
+    "reading": ["けっこう"],
     "state": "",
     "id": "n5_289",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "utmärkt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "結構"
-    ],
-    "english": [
-      "splendid"
-    ],
-    "reading": [
-      "けっこう"
-    ],
+    "swedish": ["utmärkt"],
+    "jlpt": ["n5"],
+    "writing": ["結構"],
+    "english": ["splendid"],
+    "reading": ["けっこう"],
     "state": "",
     "id": "n5_290",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "giftermål"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "結婚"
-    ],
-    "english": [
-      "marriage"
-    ],
-    "reading": [
-      "けっこん"
-    ],
+    "swedish": ["giftermål"],
+    "jlpt": ["n5"],
+    "writing": ["結婚"],
+    "english": ["marriage"],
+    "reading": ["けっこん"],
     "state": "",
     "id": "n5_291",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "måndag"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "月曜日"
-    ],
-    "english": [
-      "Monday"
-    ],
-    "reading": [
-      "げつようび"
-    ],
+    "swedish": ["måndag"],
+    "jlpt": ["n5"],
+    "writing": ["月曜日"],
+    "english": ["Monday"],
+    "reading": ["げつようび"],
     "state": "",
     "id": "n5_292",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "farstu"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "玄関"
-    ],
-    "english": [
-      "entry hall"
-    ],
-    "reading": [
-      "げんかん"
-    ],
+    "swedish": ["farstu"],
+    "jlpt": ["n5"],
+    "writing": ["玄関"],
+    "english": ["entry hall"],
+    "reading": ["げんかん"],
     "state": "",
     "id": "n5_293",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "vitalitet"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "元気"
-    ],
-    "english": [
-      "vitality"
-    ],
-    "reading": [
-      "げんき"
-    ],
+    "swedish": ["vitalitet"],
+    "jlpt": ["n5"],
+    "writing": ["元気"],
+    "english": ["vitality"],
+    "reading": ["げんき"],
     "state": "",
     "id": "n5_294",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "hälsa"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "元気"
-    ],
-    "english": [
-      "health"
-    ],
-    "reading": [
-      "げんき"
-    ],
+    "swedish": ["hälsa"],
+    "jlpt": ["n5"],
+    "writing": ["元気"],
+    "english": ["health"],
+    "reading": ["げんき"],
     "state": "",
     "id": "n5_295",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "fem"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "五"
-    ],
-    "english": [
-      "five"
-    ],
-    "reading": [
-      "ご"
-    ],
+    "swedish": ["fem"],
+    "jlpt": ["n5"],
+    "writing": ["五"],
+    "english": ["five"],
+    "reading": ["ご"],
     "state": "",
     "id": "n5_296",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "park"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "公園"
-    ],
-    "english": [
-      "park"
-    ],
-    "reading": [
-      "こうえん"
-    ],
+    "swedish": ["park"],
+    "jlpt": ["n5"],
+    "writing": ["公園"],
+    "english": ["park"],
+    "reading": ["こうえん"],
     "state": "",
     "id": "n5_297",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "korsning"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "交差点"
-    ],
-    "english": [
-      "intersection"
-    ],
-    "reading": [
-      "こうさてん"
-    ],
+    "swedish": ["korsning"],
+    "jlpt": ["n5"],
+    "writing": ["交差点"],
+    "english": ["intersection"],
+    "reading": ["こうさてん"],
     "state": "",
     "id": "n5_298",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "svart te"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "紅茶"
-    ],
-    "english": [
-      "black tea"
-    ],
-    "reading": [
-      "こうちゃ"
-    ],
+    "swedish": ["svart te"],
+    "genki": ["13"],
+    "jlpt": ["n5"],
+    "writing": ["紅茶"],
+    "english": ["black tea"],
+    "reading": ["こうちゃ"],
     "state": "",
     "id": "n5_299",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "poliskiosk"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "交番"
-    ],
-    "english": [
-      "police box"
-    ],
-    "reading": [
-      "こうばん"
-    ],
+    "swedish": ["poliskiosk"],
+    "jlpt": ["n5"],
+    "writing": ["交番"],
+    "english": ["police box"],
+    "reading": ["こうばん"],
     "state": "",
     "id": "n5_300",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "röst"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "声"
-    ],
-    "english": [
-      "voice"
-    ],
-    "reading": [
-      "こえ"
-    ],
+    "swedish": ["röst"],
+    "jlpt": ["n5"],
+    "writing": ["声"],
+    "english": ["voice"],
+    "reading": ["こえ"],
     "state": "",
     "id": "n5_301",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "tennisbana"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "コート"
-    ],
-    "english": [
-      "tennis court"
-    ],
-    "reading": [
-      "コート"
-    ],
+    "swedish": ["tennisbana"],
+    "jlpt": ["n5"],
+    "writing": ["コート"],
+    "english": ["tennis court"],
+    "reading": ["コート"],
     "state": "",
     "id": "n5_302",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "rock"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "コート"
-    ],
-    "english": [
-      "coat"
-    ],
-    "reading": [
-      "コート"
-    ],
+    "swedish": ["rock"],
+    "jlpt": ["n5"],
+    "writing": ["コート"],
+    "english": ["coat"],
+    "reading": ["コート"],
     "state": "",
     "id": "n5_303",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "kaffe"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "コーヒー"
-    ],
-    "english": [
-      "coffee"
-    ],
-    "reading": [
-      "コーヒー"
-    ],
+    "swedish": ["kaffe"],
+    "jlpt": ["n5"],
+    "writing": ["コーヒー"],
+    "english": ["coffee"],
+    "reading": ["コーヒー"],
     "state": "",
     "id": "n5_304",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "här"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "ここ"
-    ],
-    "english": [
-      "here"
-    ],
-    "reading": [
-      "ここ"
-    ],
+    "swedish": ["här"],
+    "jlpt": ["n5"],
+    "writing": ["ここ"],
+    "english": ["here"],
+    "reading": ["ここ"],
     "state": "",
     "id": "n5_305",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "eftermiddag"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "午後"
-    ],
-    "english": [
-      "afternoon"
-    ],
-    "reading": [
-      "ごご"
-    ],
+    "swedish": ["eftermiddag"],
+    "jlpt": ["n5"],
+    "writing": ["午後"],
+    "english": ["afternoon"],
+    "reading": ["ごご"],
     "state": "",
     "id": "n5_306",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "nionde (i månad)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "九日"
-    ],
-    "english": [
-      "ninth day"
-    ],
-    "reading": [
-      "ここのか"
-    ],
+    "swedish": ["nionde (i månad)"],
+    "jlpt": ["n5"],
+    "writing": ["九日"],
+    "english": ["ninth day"],
+    "reading": ["ここのか"],
     "state": "",
     "id": "n5_307",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "nio dagar"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "九日"
-    ],
-    "english": [
-      "nine days"
-    ],
-    "reading": [
-      "ここのか"
-    ],
+    "swedish": ["nio dagar"],
+    "jlpt": ["n5"],
+    "writing": ["九日"],
+    "english": ["nine days"],
+    "reading": ["ここのか"],
     "state": "",
     "id": "n5_308",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "nio"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "九つ"
-    ],
-    "english": [
-      "nine"
-    ],
-    "reading": [
-      "ここのつ"
-    ],
+    "swedish": ["nio"],
+    "jlpt": ["n5"],
+    "writing": ["九つ"],
+    "english": ["nine"],
+    "reading": ["ここのつ"],
     "state": "",
     "id": "n5_309",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "morgon"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "午前"
-    ],
-    "english": [
-      "morning"
-    ],
-    "reading": [
-      "ごぜん"
-    ],
+    "swedish": ["morgon"],
+    "jlpt": ["n5"],
+    "writing": ["午前"],
+    "english": ["morning"],
+    "reading": ["ごぜん"],
     "state": "",
     "id": "n5_310",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "svara"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "答える"
-    ],
-    "english": [
-      "to answer"
-    ],
-    "reading": [
-      "こたえる"
-    ],
+    "swedish": ["svara"],
+    "jlpt": ["n5"],
+    "writing": ["答える"],
+    "english": ["to answer"],
+    "reading": ["こたえる"],
     "state": "",
     "id": "n5_311",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "den här personen",
-      "den här vägen"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "こちら"
-    ],
-    "english": [
-      "this person",
-      "this way"
-    ],
-    "reading": [
-      "こちら"
-    ],
+    "swedish": ["den här personen", "den här vägen"],
+    "jlpt": ["n5"],
+    "writing": ["こちら"],
+    "english": ["this person", "this way"],
+    "reading": ["こちら"],
     "state": "",
     "id": "n5_312",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "den här personen",
-      "den här vägen"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "こっち"
-    ],
-    "english": [
-      "this person",
-      "this way"
-    ],
-    "reading": [
-      "こっち"
-    ],
+    "swedish": ["den här personen", "den här vägen"],
+    "jlpt": ["n5"],
+    "writing": ["こっち"],
+    "english": ["this person", "this way"],
+    "reading": ["こっち"],
     "state": "",
     "id": "n5_313",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "glas"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "コップ"
-    ],
-    "english": [
-      "a glass"
-    ],
-    "reading": [
-      "コップ"
-    ],
+    "swedish": ["glas"],
+    "jlpt": ["n5"],
+    "writing": ["コップ"],
+    "english": ["a glass"],
+    "reading": ["コップ"],
     "state": "",
     "id": "n5_314",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "detta året"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "今年"
-    ],
-    "english": [
-      "this year"
-    ],
-    "reading": [
-      "ことし"
-    ],
+    "swedish": ["detta året"],
+    "jlpt": ["n5"],
+    "writing": ["今年"],
+    "english": ["this year"],
+    "reading": ["ことし"],
     "state": "",
     "id": "n5_315",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "språk"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "言葉"
-    ],
-    "english": [
-      "language"
-    ],
-    "reading": [
-      "ことば"
-    ],
+    "swedish": ["språk"],
+    "genki": ["13"],
+    "jlpt": ["n5"],
+    "writing": ["言葉"],
+    "english": ["language"],
+    "reading": ["ことば"],
     "state": "",
     "id": "n5_316",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "ord"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "言葉"
-    ],
-    "english": [
-      "word"
-    ],
-    "reading": [
-      "ことば"
-    ],
+    "swedish": ["ord"],
+    "jlpt": ["n5"],
+    "writing": ["言葉"],
+    "english": ["word"],
+    "reading": ["ことば"],
     "state": "hidden",
     "id": "n5_317",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "barn"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "子供"
-    ],
-    "english": [
-      "child"
-    ],
-    "reading": [
-      "こども"
-    ],
+    "swedish": ["barn"],
+    "jlpt": ["n5"],
+    "writing": ["子供"],
+    "english": ["child"],
+    "reading": ["こども"],
     "state": "",
     "id": "n5_318",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "den här"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "この"
-    ],
-    "english": [
-      "this"
-    ],
-    "reading": [
-      "この"
-    ],
+    "swedish": ["den här"],
+    "jlpt": ["n5"],
+    "writing": ["この"],
+    "english": ["this"],
+    "reading": ["この"],
     "state": "",
     "id": "n5_319",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "måltid"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "御飯"
-    ],
-    "english": [
-      "meal"
-    ],
-    "reading": [
-      "ごはん"
-    ],
+    "swedish": ["måltid"],
+    "jlpt": ["n5"],
+    "writing": ["御飯"],
+    "english": ["meal"],
+    "reading": ["ごはん"],
     "state": "",
     "id": "n5_320",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "ris (tillagat)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "御飯"
-    ],
-    "english": [
-      "cooked rice"
-    ],
-    "reading": [
-      "ごはん"
-    ],
+    "swedish": ["ris (tillagat)"],
+    "jlpt": ["n5"],
+    "writing": ["御飯"],
+    "english": ["cooked rice"],
+    "reading": ["ごはん"],
     "state": "",
     "id": "n5_321",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "kopiera"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "コピーする"
-    ],
-    "english": [
-      "to copy"
-    ],
-    "reading": [
-      "コピーする"
-    ],
+    "swedish": ["kopiera"],
+    "jlpt": ["n5"],
+    "writing": ["コピーする"],
+    "english": ["to copy"],
+    "reading": ["コピーする"],
     "state": "",
     "id": "n5_322",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "vara orolig"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "困る"
-    ],
-    "english": [
-      "to be worried"
-    ],
-    "reading": [
-      "こまる"
-    ],
+    "swedish": ["vara orolig"],
+    "jlpt": ["n5"],
+    "writing": ["困る"],
+    "english": ["to be worried"],
+    "reading": ["こまる"],
     "state": "",
     "id": "n5_323",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "denna"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "これ"
-    ],
-    "english": [
-      "this"
-    ],
-    "reading": [
-      "これ"
-    ],
+    "swedish": ["denna"],
+    "jlpt": ["n5"],
+    "writing": ["これ"],
+    "english": ["this"],
+    "reading": ["これ"],
     "state": "",
     "id": "n5_324",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "denna månaden"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "今月"
-    ],
-    "english": [
-      "this month"
-    ],
-    "reading": [
-      "こんげつ"
-    ],
+    "swedish": ["denna månaden"],
+    "jlpt": ["n5"],
+    "writing": ["今月"],
+    "english": ["this month"],
+    "reading": ["こんげつ"],
     "state": "",
     "id": "n5_325",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "denna veckan"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "今週"
-    ],
-    "english": [
-      "this week"
-    ],
-    "reading": [
-      "こんしゅう"
-    ],
+    "swedish": ["denna veckan"],
+    "jlpt": ["n5"],
+    "writing": ["今週"],
+    "english": ["this week"],
+    "reading": ["こんしゅう"],
     "state": "",
     "id": "n5_326",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "sådan"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "こんな"
-    ],
-    "english": [
-      "such"
-    ],
-    "reading": [
-      "こんな"
-    ],
+    "swedish": ["sådan"],
+    "jlpt": ["n5"],
+    "writing": ["こんな"],
+    "english": ["such"],
+    "reading": ["こんな"],
     "state": "",
     "id": "n5_327",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "ikväll"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "今晩"
-    ],
-    "english": [
-      "this evening"
-    ],
-    "reading": [
-      "こんばん"
-    ],
+    "swedish": ["ikväll"],
+    "jlpt": ["n5"],
+    "writing": ["今晩"],
+    "english": ["this evening"],
+    "reading": ["こんばん"],
     "state": "",
     "id": "n5_328",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "tja..."
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "さあ"
-    ],
-    "english": [
-      "well…"
-    ],
-    "reading": [
-      "さあ"
-    ],
+    "swedish": ["tja..."],
+    "jlpt": ["n5"],
+    "writing": ["さあ"],
+    "english": ["well…"],
+    "reading": ["さあ"],
     "state": "",
     "id": "n5_329",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "plånbok"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "財布"
-    ],
-    "english": [
-      "wallet"
-    ],
-    "reading": [
-      "さいふ"
-    ],
+    "swedish": ["plånbok"],
+    "jlpt": ["n5"],
+    "writing": ["財布"],
+    "english": ["wallet"],
+    "reading": ["さいふ"],
     "state": "",
     "id": "n5_330",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "fisk"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "魚"
-    ],
-    "english": [
-      "fish"
-    ],
-    "reading": [
-      "さかな"
-    ],
+    "swedish": ["fisk"],
+    "jlpt": ["n5"],
+    "writing": ["魚"],
+    "english": ["fish"],
+    "reading": ["さかな"],
     "state": "",
     "id": "n5_331",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "föregående"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "先"
-    ],
-    "english": [
-      "previous"
-    ],
-    "reading": [
-      "さき"
-    ],
+    "swedish": ["föregående"],
+    "jlpt": ["n5"],
+    "writing": ["先"],
+    "english": ["previous"],
+    "reading": ["さき"],
     "state": "",
     "id": "n5_332",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "framtiden"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "先"
-    ],
-    "english": [
-      "the future"
-    ],
-    "reading": [
-      "さき"
-    ],
+    "swedish": ["framtiden"],
+    "jlpt": ["n5"],
+    "writing": ["先"],
+    "english": ["the future"],
+    "reading": ["さき"],
     "state": "",
     "id": "n5_333",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "blomma"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "咲く"
-    ],
-    "english": [
-      "to bloom"
-    ],
-    "reading": [
-      "さく"
-    ],
+    "swedish": ["blomma"],
+    "jlpt": ["n5"],
+    "writing": ["咲く"],
+    "english": ["to bloom"],
+    "reading": ["さく"],
     "state": "",
     "id": "n5_334",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "skrift"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "作文"
-    ],
-    "english": [
-      "writing"
-    ],
-    "reading": [
-      "さくぶん"
-    ],
+    "swedish": ["skrift"],
+    "jlpt": ["n5"],
+    "writing": ["作文"],
+    "english": ["writing"],
+    "reading": ["さくぶん"],
     "state": "",
     "id": "n5_335",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "komposition"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "作文"
-    ],
-    "english": [
-      "composition"
-    ],
-    "reading": [
-      "さくぶん"
-    ],
+    "swedish": ["komposition"],
+    "jlpt": ["n5"],
+    "writing": ["作文"],
+    "english": ["composition"],
+    "reading": ["さくぶん"],
     "state": "",
     "id": "n5_336",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "fälla upp (paraply)"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "差す"
-    ],
-    "english": [
-      "to raise an umbrella"
-    ],
-    "reading": [
-      "さす"
-    ],
+    "swedish": ["fälla upp (paraply)"],
+    "jlpt": ["n5"],
+    "writing": ["差す"],
+    "english": ["to raise an umbrella"],
+    "reading": ["さす"],
     "state": "",
     "id": "n5_337",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "räcka ut händerna"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "差す"
-    ],
-    "english": [
-      "to stretch out hands"
-    ],
-    "reading": [
-      "さす"
-    ],
+    "swedish": ["räcka ut händerna"],
+    "jlpt": ["n5"],
+    "writing": ["差す"],
+    "english": ["to stretch out hands"],
+    "reading": ["さす"],
     "state": "",
     "id": "n5_338",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "tidskrift"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "雑誌"
-    ],
-    "english": [
-      "magazine"
-    ],
-    "reading": [
-      "ざっし"
-    ],
+    "swedish": ["tidskrift"],
+    "jlpt": ["n5"],
+    "writing": ["雑誌"],
+    "english": ["magazine"],
+    "reading": ["ざっし"],
     "state": "",
     "id": "n5_339",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "socker"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "砂糖"
-    ],
-    "english": [
-      "sugar"
-    ],
-    "reading": [
-      "さとう"
-    ],
+    "swedish": ["socker"],
+    "jlpt": ["n5"],
+    "writing": ["砂糖"],
+    "english": ["sugar"],
+    "reading": ["さとう"],
     "state": "",
     "id": "n5_340",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "kall"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "寒い"
-    ],
-    "english": [
-      "cold"
-    ],
-    "reading": [
-      "さむい"
-    ],
+    "swedish": ["kall"],
+    "jlpt": ["n5"],
+    "writing": ["寒い"],
+    "english": ["cold"],
+    "reading": ["さむい"],
     "state": "",
     "id": "n5_341",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "nästnästa år"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "さ来年"
-    ],
-    "english": [
-      "year after next"
-    ],
-    "reading": [
-      "さらいねん"
-    ],
+    "swedish": ["nästnästa år"],
+    "jlpt": ["n5"],
+    "writing": ["さ来年"],
+    "english": ["year after next"],
+    "reading": ["さらいねん"],
     "state": "",
     "id": "n5_342",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "tre"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "三"
-    ],
-    "english": [
-      "three"
-    ],
-    "reading": [
-      "さん"
-    ],
+    "swedish": ["tre"],
+    "jlpt": ["n5"],
+    "writing": ["三"],
+    "english": ["three"],
+    "reading": ["さん"],
     "state": "",
     "id": "n5_343",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "flanera"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "散歩"
-    ],
-    "english": [
-      "to stroll"
-    ],
-    "reading": [
-      "さんぽする"
-    ],
+    "swedish": ["flanera"],
+    "jlpt": ["n5"],
+    "writing": ["散歩"],
+    "english": ["to stroll"],
+    "reading": ["さんぽする"],
     "state": "",
     "id": "n5_344",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "fyra"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "四"
-    ],
-    "english": [
-      "four"
-    ],
-    "reading": [
-      "よん"
-    ],
+    "swedish": ["fyra"],
+    "jlpt": ["n5"],
+    "writing": ["四"],
+    "english": ["four"],
+    "reading": ["よん"],
     "state": "",
     "id": "n5_345",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "fyra"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "四"
-    ],
-    "english": [
-      "four"
-    ],
-    "reading": [
-      "し"
-    ],
+    "swedish": ["fyra"],
+    "jlpt": ["n5"],
+    "writing": ["四"],
+    "english": ["four"],
+    "reading": ["し"],
     "state": "hidden",
     "id": "n5_346",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "salt"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "塩"
-    ],
-    "english": [
-      "salt"
-    ],
-    "reading": [
-      "しお"
-    ],
+    "swedish": ["salt"],
+    "jlpt": ["n5"],
+    "writing": ["塩"],
+    "english": ["salt"],
+    "reading": ["しお"],
     "state": "",
     "id": "n5_347",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "dock"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "しかし"
-    ],
-    "english": [
-      "however"
-    ],
-    "reading": [
-      "しかし"
-    ],
+    "swedish": ["dock"],
+    "jlpt": ["n5"],
+    "writing": ["しかし"],
+    "english": ["however"],
+    "reading": ["しかし"],
     "state": "",
     "id": "n5_348",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "tid"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "時間"
-    ],
-    "english": [
-      "time"
-    ],
-    "reading": [
-      "じかん"
-    ],
+    "swedish": ["tid"],
+    "jlpt": ["n5"],
+    "writing": ["時間"],
+    "english": ["time"],
+    "reading": ["じかん"],
     "state": "",
     "id": "n5_349",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "jobb"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "仕事"
-    ],
-    "english": [
-      "job"
-    ],
-    "reading": [
-      "しごと"
-    ],
+    "swedish": ["jobb"],
+    "jlpt": ["n5"],
+    "writing": ["仕事"],
+    "english": ["job"],
+    "reading": ["しごと"],
     "state": "",
     "id": "n5_350",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "lexikon"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "辞書"
-    ],
-    "english": [
-      "dictionary"
-    ],
-    "reading": [
-      "じしょ"
-    ],
+    "swedish": ["lexikon"],
+    "jlpt": ["n5"],
+    "writing": ["辞書"],
+    "english": ["dictionary"],
+    "reading": ["じしょ"],
     "state": "",
     "id": "n5_351",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "tyst"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "静か"
-    ],
-    "english": [
-      "quiet"
-    ],
-    "reading": [
-      "しずか"
-    ],
+    "swedish": ["tyst"],
+    "jlpt": ["n5"],
+    "writing": ["静か"],
+    "english": ["quiet"],
+    "reading": ["しずか"],
     "state": "",
     "id": "n5_352",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "under"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "下"
-    ],
-    "english": [
-      "below"
-    ],
-    "reading": [
-      "した"
-    ],
+    "swedish": ["under"],
+    "jlpt": ["n5"],
+    "writing": ["下"],
+    "english": ["below"],
+    "reading": ["した"],
     "state": "",
     "id": "n5_353",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "sju"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "七"
-    ],
-    "english": [
-      "seven"
-    ],
-    "reading": [
-      "しち"
-    ],
+    "swedish": ["sju"],
+    "jlpt": ["n5"],
+    "writing": ["七"],
+    "english": ["seven"],
+    "reading": ["しち"],
     "state": "hidden",
     "id": "n5_354",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "sju"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "七"
-    ],
-    "english": [
-      "seven"
-    ],
-    "reading": [
-      "なな"
-    ],
+    "swedish": ["sju"],
+    "jlpt": ["n5"],
+    "writing": ["七"],
+    "english": ["seven"],
+    "reading": ["なな"],
     "state": "",
     "id": "n5_355",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "fråga"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "質問"
-    ],
-    "english": [
-      "question"
-    ],
-    "reading": [
-      "しつもん"
-    ],
+    "swedish": ["fråga"],
+    "jlpt": ["n5"],
+    "writing": ["質問"],
+    "english": ["question"],
+    "reading": ["しつもん"],
     "state": "",
     "id": "n5_356",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "cykel"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "自転車"
-    ],
-    "english": [
-      "bicycle"
-    ],
-    "reading": [
-      "じてんしゃ"
-    ],
+    "swedish": ["cykel"],
+    "jlpt": ["n5"],
+    "writing": ["自転車"],
+    "english": ["bicycle"],
+    "reading": ["じてんしゃ"],
     "state": "",
     "id": "n5_357",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "bil"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "自動車"
-    ],
-    "english": [
-      "automobile"
-    ],
-    "reading": [
-      "じどうしゃ"
-    ],
+    "swedish": ["bil"],
+    "jlpt": ["n5"],
+    "writing": ["自動車"],
+    "english": ["automobile"],
+    "reading": ["じどうしゃ"],
     "state": "",
     "id": "n5_358",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "dö"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "死ぬ"
-    ],
-    "english": [
-      "to die"
-    ],
-    "reading": [
-      "しぬ"
-    ],
+    "swedish": ["dö"],
+    "jlpt": ["n5"],
+    "writing": ["死ぬ"],
+    "english": ["to die"],
+    "reading": ["しぬ"],
     "state": "",
     "id": "n5_359",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "lexikon"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "字引"
-    ],
-    "english": [
-      "dictionary"
-    ],
-    "reading": [
-      "じびき"
-    ],
+    "swedish": ["lexikon"],
+    "jlpt": ["n5"],
+    "writing": ["字引"],
+    "english": ["dictionary"],
+    "reading": ["じびき"],
     "state": "hidden",
     "id": "n5_360",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "sig själv"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "自分"
-    ],
-    "english": [
-      "oneself"
-    ],
-    "reading": [
-      "じぶん"
-    ],
+    "swedish": ["sig själv"],
+    "jlpt": ["n5"],
+    "writing": ["自分"],
+    "english": ["oneself"],
+    "reading": ["じぶん"],
     "state": "",
     "id": "n5_361",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "vara stängd"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "閉まる"
-    ],
-    "english": [
-      "to be closed"
-    ],
-    "reading": [
-      "しまる"
-    ],
+    "swedish": ["vara stängd"],
+    "jlpt": ["n5"],
+    "writing": ["閉まる"],
+    "english": ["to be closed"],
+    "reading": ["しまる"],
     "state": "hidden",
     "id": "n5_362",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "stängas"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "閉まる"
-    ],
-    "english": [
-      "to close"
-    ],
-    "reading": [
-      "しまる"
-    ],
+    "swedish": ["stängas"],
+    "jlpt": ["n5"],
+    "writing": ["閉まる"],
+    "english": ["to close"],
+    "reading": ["しまる"],
     "state": "",
     "id": "n5_363",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "stänga"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "閉める"
-    ],
-    "english": [
-      "to close something"
-    ],
-    "reading": [
-      "しめる"
-    ],
+    "swedish": ["stänga"],
+    "jlpt": ["n5"],
+    "writing": ["閉める"],
+    "english": ["to close something"],
+    "reading": ["しめる"],
     "state": "",
     "id": "n5_364",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "knyta"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "締める"
-    ],
-    "english": [
-      "to tie"
-    ],
-    "reading": [
-      "しめる"
-    ],
+    "swedish": ["knyta"],
+    "jlpt": ["n5"],
+    "writing": ["締める"],
+    "english": ["to tie"],
+    "reading": ["しめる"],
     "state": "hidden",
     "id": "n5_365",
-    "type": [
-      "verb"
-    ]
+    "type": ["verb"]
   },
   {
-    "swedish": [
-      "då så..."
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "じゃあ"
-    ],
-    "english": [
-      "well then…"
-    ],
-    "reading": [
-      "じゃあ"
-    ],
+    "swedish": ["då så..."],
+    "jlpt": ["n5"],
+    "writing": ["じゃあ"],
+    "english": ["well then…"],
+    "reading": ["じゃあ"],
     "state": "",
     "id": "n5_366",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "ja..."
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "じゃ"
-    ],
-    "english": [
-      "well then…"
-    ],
-    "reading": [
-      "じゃ"
-    ],
+    "swedish": ["ja..."],
+    "jlpt": ["n5"],
+    "writing": ["じゃ"],
+    "english": ["well then…"],
+    "reading": ["じゃ"],
     "state": "",
     "id": "n5_367",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "foto"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "写真"
-    ],
-    "english": [
-      "photograph"
-    ],
-    "reading": [
-      "しゃしん"
-    ],
+    "swedish": ["foto"],
+    "jlpt": ["n5"],
+    "writing": ["写真"],
+    "english": ["photograph"],
+    "reading": ["しゃしん"],
     "state": "",
     "id": "n5_368",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "skjorta"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "シャツ"
-    ],
-    "english": [
-      "shirt"
-    ],
-    "reading": [
-      "シャツ"
-    ],
+    "swedish": ["skjorta"],
+    "jlpt": ["n5"],
+    "writing": ["シャツ"],
+    "english": ["shirt"],
+    "reading": ["シャツ"],
     "state": "",
     "id": "n5_369",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "dusch"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "シャワー"
-    ],
-    "english": [
-      "shower"
-    ],
-    "reading": [
-      "シャワー"
-    ],
+    "swedish": ["dusch"],
+    "jlpt": ["n5"],
+    "writing": ["シャワー"],
+    "english": ["shower"],
+    "reading": ["シャワー"],
     "state": "",
     "id": "n5_370",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "tio"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "十"
-    ],
-    "english": [
-      "ten"
-    ],
-    "reading": [
-      "じゅう",
-      "とお"
-    ],
+    "swedish": ["tio"],
+    "jlpt": ["n5"],
+    "writing": ["十"],
+    "english": ["ten"],
+    "reading": ["じゅう", "とお"],
     "state": "",
     "id": "n5_371",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "lektion"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "授業"
-    ],
-    "english": [
-      "lesson"
-    ],
-    "reading": [
-      "じゅぎょう"
-    ],
+    "swedish": ["lektion"],
+    "jlpt": ["n5"],
+    "writing": ["授業"],
+    "english": ["lesson"],
+    "reading": ["じゅぎょう"],
     "state": "",
     "id": "n5_372",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "läxa"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "宿題"
-    ],
-    "english": [
-      "homework"
-    ],
-    "reading": [
-      "しゅくだい"
-    ],
+    "swedish": ["läxa"],
+    "jlpt": ["n5"],
+    "writing": ["宿題"],
+    "english": ["homework"],
+    "reading": ["しゅくだい"],
     "state": "",
     "id": "n5_373",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "skicklig"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "上手"
-    ],
-    "english": [
-      "skillful"
-    ],
-    "reading": [
-      "じょうず"
-    ],
+    "swedish": ["skicklig"],
+    "jlpt": ["n5"],
+    "writing": ["上手"],
+    "english": ["skillful"],
+    "reading": ["じょうず"],
     "state": "",
     "id": "n5_374",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "tröja"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "セーター"
-    ],
-    "english": [
-      "sweater"
-    ],
-    "reading": [
-      "セーター"
-    ],
+    "swedish": ["tröja"],
+    "genki": ["13"],
+    "jlpt": ["n5"],
+    "writing": ["セーター"],
+    "english": ["sweater"],
+    "reading": ["セーター"],
     "state": "",
     "id": "n5_375",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   },
   {
-    "swedish": [
-      "ja"
-    ],
-    "genki": [
-      "1"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "はい"
-    ],
-    "english": [
-      "yes"
-    ],
-    "reading": [
-      "はい"
-    ],
+    "swedish": ["ja"],
+    "genki": ["1"],
+    "jlpt": ["n5"],
+    "writing": ["はい"],
+    "english": ["yes"],
+    "reading": ["はい"],
     "state": "",
     "id": "n5_376",
-    "type": [
-      "other"
-    ]
+    "type": ["other"]
   },
   {
-    "swedish": [
-      "affär"
-    ],
-    "genki": [
-      "13"
-    ],
-    "jlpt": [
-      "n5"
-    ],
-    "writing": [
-      "店"
-    ],
-    "english": [
-      "shop"
-    ],
-    "reading": [
-      "みせ"
-    ],
+    "swedish": ["affär"],
+    "genki": ["13"],
+    "jlpt": ["n5"],
+    "writing": ["店"],
+    "english": ["shop"],
+    "reading": ["みせ"],
     "state": "",
     "id": "n5_377",
-    "type": [
-      "noun"
-    ]
+    "type": ["noun"]
   }
 ]
