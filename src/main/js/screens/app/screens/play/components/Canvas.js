@@ -1,10 +1,6 @@
 /* globals MouseEvent */
 /* eslint-disable no-console */
 
-import PropTypes from 'prop-types';
-
-import React from 'react';
-
 export default class Canvas extends React.Component {
   constructor(props) {
     super(props);

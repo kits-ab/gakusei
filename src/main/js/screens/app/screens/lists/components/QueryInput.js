@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Button, FormGroup, Checkbox, FormControl, ControlLabel } from 'react-bootstrap';
 
 const QueryInput = props => (

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
 import DrawArea from '../DrawArea';

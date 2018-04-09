@@ -1,7 +1,5 @@
 import 'whatwg-fetch';
 import { push } from 'react-router-redux';
-import PropTypes from 'prop-types';
-import React from 'react';
 import { REHYDRATE } from 'redux-persist/constants';
 import Utility from '../../shared/util/Utility';
 

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Jumbotron, Button, Row, Col } from 'react-bootstrap';
 import FlashButtonSet from '../FlashButtonSet';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';

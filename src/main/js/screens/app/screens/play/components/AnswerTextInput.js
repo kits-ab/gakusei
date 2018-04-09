@@ -1,7 +1,4 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Button, Row, FormControl, FormGroup, Form } from 'react-bootstrap';
-import * as ReactDOM from 'react-dom';
 
 export default class AnswerButton extends React.Component {
   constructor(props) {

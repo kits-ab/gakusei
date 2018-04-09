@@ -1,6 +1,4 @@
 import 'whatwg-fetch';
-import PropTypes from 'prop-types';
-import React from 'react';
 import { REHYDRATE } from 'redux-persist/constants';
 
 import getCSRF from '../../shared/util/getcsrf';

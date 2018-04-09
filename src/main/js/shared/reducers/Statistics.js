@@ -1,6 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-
 // ----------------
 // DEFAULT STATE
 export const defaultState = {

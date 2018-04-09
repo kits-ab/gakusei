@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
 

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Accordion, Panel } from 'react-bootstrap';
 import FactList from './FactList';
 

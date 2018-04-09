@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Button } from 'react-bootstrap';
 import Hypher from 'hypher';
 import swedish from 'hyphenation.sv';

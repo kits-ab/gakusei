@@ -1,7 +1,6 @@
 /* global speechSynthesis */
 /* eslint-disable */
 
-import React from 'react';
 import { Col } from 'react-bootstrap';
 
 import DisplayQuestion from '../../shared/DisplayQuestion';

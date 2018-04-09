@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, ProgressBar } from 'react-bootstrap';
 import { Pie } from 'react-chartjs-2';
 

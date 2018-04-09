@@ -1,8 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
 
-import PropTypes from 'prop-types';
-
-import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRedirect } from 'react-router';
 import { anchorate } from 'anchorate';

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Glyphicon, Button, Collapse, Well } from 'react-bootstrap';
 import Speech from '../../../shared/util/Speech';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Row, Col, Jumbotron, Button, ButtonGroup } from 'react-bootstrap';
 
 export default class startScreen extends React.Component {

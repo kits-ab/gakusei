@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import AnswerButtonSet from '../AnswerButtonSet';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 

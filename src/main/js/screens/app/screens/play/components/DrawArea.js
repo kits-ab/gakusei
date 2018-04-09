@@ -1,8 +1,5 @@
 /* eslint-disable no-console */
 
-import PropTypes from 'prop-types';
-
-import React from 'react';
 import simplify from 'simplify-js';
 
 import Geometry from '../../../../../shared/util/Geometry';

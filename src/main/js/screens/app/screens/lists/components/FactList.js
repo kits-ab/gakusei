@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const FactList = props => {

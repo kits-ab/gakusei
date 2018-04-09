@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Grid, Row, ListGroup, ListGroupItem, Col } from 'react-bootstrap';
 import Utility from '../../../../shared/util/Utility';
 import getCSRF from '../../../../shared/util/getcsrf';

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import { Row } from 'react-bootstrap';
 
 class LessonStats extends React.Component {
