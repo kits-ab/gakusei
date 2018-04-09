@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
 import DrawArea from '../DrawArea';
@@ -93,16 +92,16 @@ class WriteCard extends React.Component {
 WriteCard.defaultProps = {};
 
 WriteCard.propTypes = {
-  question: React.PropTypes.shape({
-    correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string),
-    shapes: React.PropTypes.arrayOf(React.PropTypes.string),
-    randomizedAlternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
-    buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    resourceRef: React.PropTypes.any
+  question: PropTypes.shape({
+    correctAlternative: PropTypes.arrayOf(PropTypes.string),
+    shapes: PropTypes.arrayOf(PropTypes.string),
+    randomizedAlternatives: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+    buttonStyles: PropTypes.arrayOf(PropTypes.string).isRequired,
+    resourceRef: PropTypes.any
   }).isRequired,
-  buttonsDisabled: React.PropTypes.bool.isRequired,
-  clickCallback: React.PropTypes.func.isRequired,
-  correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+  buttonsDisabled: PropTypes.bool.isRequired,
+  clickCallback: PropTypes.func.isRequired,
+  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default WriteCard;

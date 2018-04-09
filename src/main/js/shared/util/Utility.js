@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import getCSRF from './getcsrf';
 
@@ -10,7 +9,7 @@ export default class Utility {
     reducers.forEach(reducer => {
       const dynamicPropTypes = {};
       Object.keys(reducer.actionCreators).forEach(x => {
-        dynamicPropTypes[x] = React.PropTypes.func.isRequired;
+        dynamicPropTypes[x] = PropTypes.func.isRequired;
       });
 
       result = {

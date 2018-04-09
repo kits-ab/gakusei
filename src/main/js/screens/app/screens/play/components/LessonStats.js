@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row } from 'react-bootstrap';
 
 class LessonStats extends React.Component {
@@ -41,19 +40,19 @@ class LessonStats extends React.Component {
 LessonStats.defaultProps = {};
 
 LessonStats.propTypes = {
-  feedbackItems: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      correct: React.PropTypes.bool.isRequired,
-      errorCount: React.PropTypes.number.isRequired,
-      text: React.PropTypes.string
+  feedbackItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      correct: PropTypes.bool.isRequired,
+      errorCount: PropTypes.number.isRequired,
+      text: PropTypes.string
     })
   ).isRequired,
 
-  currentQuestionNumber: React.PropTypes.number.isRequired, // Deprecated
-  totalQuestionsNumber: React.PropTypes.number.isRequired,
-  correctAttempts: React.PropTypes.number.isRequired, // Deprecated
-  lessonSuccessRateMessage: React.PropTypes.string.isRequired,
-  lessonType: React.PropTypes.string.isRequired
+  currentQuestionNumber: PropTypes.number.isRequired, // Deprecated
+  totalQuestionsNumber: PropTypes.number.isRequired,
+  correctAttempts: PropTypes.number.isRequired, // Deprecated
+  lessonSuccessRateMessage: PropTypes.string.isRequired,
+  lessonType: PropTypes.string.isRequired
 };
 
 export default LessonStats;

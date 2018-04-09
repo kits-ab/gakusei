@@ -1,5 +1,4 @@
 import 'whatwg-fetch';
-import React from 'react';
 import { REHYDRATE } from 'redux-persist/constants';
 
 import getCSRF from '../../shared/util/getcsrf';
@@ -62,29 +61,29 @@ export const defaultState = {
 // ----------------
 // PROPTYPES
 export const propTypes = {
-  lessonSuccessRateMessage: React.PropTypes.string.isRequired,
-  currentQuestion: React.PropTypes.shape({
-    shapes: React.PropTypes.array.isRequired,
-    correctAlternative: React.PropTypes.array.isRequired,
-    correctAlternativeNuggetId: React.PropTypes.string,
-    randomizedAlternatives: React.PropTypes.array.isRequired,
-    buttonStyles: React.PropTypes.array.isRequired,
-    buttonsDisabled: React.PropTypes.bool.isRequired,
-    resourceRef: React.PropTypes.shape({
-      type: React.PropTypes.string,
-      location: React.PropTypes.string
+  lessonSuccessRateMessage: PropTypes.string.isRequired,
+  currentQuestion: PropTypes.shape({
+    shapes: PropTypes.array.isRequired,
+    correctAlternative: PropTypes.array.isRequired,
+    correctAlternativeNuggetId: PropTypes.string,
+    randomizedAlternatives: PropTypes.array.isRequired,
+    buttonStyles: PropTypes.array.isRequired,
+    buttonsDisabled: PropTypes.bool.isRequired,
+    resourceRef: PropTypes.shape({
+      type: PropTypes.string,
+      location: PropTypes.string
     })
   }).isRequired,
-  allButtonsDisabled: React.PropTypes.bool.isRequired,
-  lessonLength: React.PropTypes.number.isRequired,
-  correctAttempts: React.PropTypes.number.isRequired,
-  currentQuestionIndex: React.PropTypes.number.isRequired,
-  calcAnswerButtonStyles: React.PropTypes.func.isRequired,
-  questionType: React.PropTypes.string.isRequired,
-  answerType: React.PropTypes.string.isRequired,
-  answerTextInputFocused: React.PropTypes.bool.isRequired,
-  spacedRepetition: React.PropTypes.bool.isRequired,
-  spacedRepetitionModes: React.PropTypes.array.isRequired
+  allButtonsDisabled: PropTypes.bool.isRequired,
+  lessonLength: PropTypes.number.isRequired,
+  correctAttempts: PropTypes.number.isRequired,
+  currentQuestionIndex: PropTypes.number.isRequired,
+  calcAnswerButtonStyles: PropTypes.func.isRequired,
+  questionType: PropTypes.string.isRequired,
+  answerType: PropTypes.string.isRequired,
+  answerTextInputFocused: PropTypes.bool.isRequired,
+  spacedRepetition: PropTypes.bool.isRequired,
+  spacedRepetitionModes: PropTypes.array.isRequired
 };
 
 // -----------------

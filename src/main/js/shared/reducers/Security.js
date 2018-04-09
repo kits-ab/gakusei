@@ -1,6 +1,5 @@
 import 'whatwg-fetch';
 import { push } from 'react-router-redux';
-import React from 'react';
 import { REHYDRATE } from 'redux-persist/constants';
 import Utility from '../../shared/util/Utility';
 
@@ -24,8 +23,8 @@ export const defaultState = {
 // ----------------
 // PROPTYPES
 export const propTypes = {
-  loggedIn: React.PropTypes.bool.isRequired,
-  loggedInUser: React.PropTypes.string.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  loggedInUser: PropTypes.string.isRequired
 };
 
 // -----------------

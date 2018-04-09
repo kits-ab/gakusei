@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 
-import React from 'react';
 import simplify from 'simplify-js';
 
 import Geometry from '../../../../../shared/util/Geometry';
@@ -249,9 +248,9 @@ DrawArea.defaultProps = {
 };
 
 DrawArea.propTypes = {
-  signToDraw: React.PropTypes.string.isRequired,
-  matches: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  highlightErrors: React.PropTypes.bool,
-  newMatch: React.PropTypes.func.isRequired,
-  buttonsDisabled: React.PropTypes.bool.isRequired
+  signToDraw: PropTypes.string.isRequired,
+  matches: PropTypes.arrayOf(PropTypes.object).isRequired,
+  highlightErrors: PropTypes.bool,
+  newMatch: PropTypes.func.isRequired,
+  buttonsDisabled: PropTypes.bool.isRequired
 };

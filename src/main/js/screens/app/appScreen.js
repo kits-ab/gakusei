@@ -1,4 +1,3 @@
-import React from 'react';
 import GakuseiNav from './components/GakuseiNav';
 
 import Utility from '../../shared/util/Utility';

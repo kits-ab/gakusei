@@ -247,6 +247,9 @@
     "XMLSerializer": true,
     "SpeechSynthesisUtterance": true,
     "SpeechSynthesis": true,
+    "React": true,
+    "ReactDOM": true,
+    "PropTypes": true,
     // nightwatch globals (testing)
     "describe": false,
     "before": false,

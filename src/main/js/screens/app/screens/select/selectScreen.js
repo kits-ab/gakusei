@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Button,
   Grid,
@@ -18,6 +17,10 @@ import Utility from '../../../../shared/util/Utility';
 
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import * as Security from '../../../../shared/reducers/Security';
+
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
+import faStar from '@fortawesome/fontawesome-free-solid/faStar';
 
 export const Reducers = [Lessons, Security];
 
@@ -178,7 +181,7 @@ export class selectScreen extends React.Component {
                   }}
                   className="pull-right"
                 >
-                  <Glyphicon glyph="star" />
+                  <FontAwesomeIcon icon={faStar} />
                 </Button>
               )}
               {lesson.name}
@@ -209,7 +212,7 @@ export class selectScreen extends React.Component {
                 this.isSpacedRepetition()
               }
             >
-              <Glyphicon glyph="play" />
+              <FontAwesomeIcon icon={faPlay} />
             </Button>
           </Panel.Body>
         </Panel>
@@ -237,7 +240,7 @@ export class selectScreen extends React.Component {
                 }}
                 disabled={this.props.starredLessons.length === 0}
               >
-                <Glyphicon glyph="play" />
+                <FontAwesomeIcon icon={faPlay} />
               </Button>
             </Panel.Body>
           </Panel>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 
 const FactList = props => {
@@ -11,7 +10,7 @@ const FactList = props => {
 };
 
 FactList.propTypes = {
-  factlist: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+  factlist: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default FactList;

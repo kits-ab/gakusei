@@ -1,4 +1,3 @@
-import React from 'react';
 import AnswerTextInput from '../AnswerTextInput';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 
@@ -36,24 +35,24 @@ class ButtonsCard extends React.Component {
 ButtonsCard.defaultProps = {};
 
 ButtonsCard.propTypes = {
-  question: React.PropTypes.shape({
-    shapes: React.PropTypes.arrayOf(React.PropTypes.string),
-    randomizedAlternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
-    buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    resourceRef: React.PropTypes.string,
-    explanationText: React.PropTypes.string
+  question: PropTypes.shape({
+    shapes: PropTypes.arrayOf(PropTypes.string),
+    randomizedAlternatives: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+    buttonStyles: PropTypes.arrayOf(PropTypes.string).isRequired,
+    resourceRef: PropTypes.string,
+    explanationText: PropTypes.string
   }).isRequired,
-  buttonsDisabled: React.PropTypes.bool.isRequired,
-  questionType: React.PropTypes.string.isRequired,
-  clickCallback: React.PropTypes.func.isRequired,
-  clickNextCallback: React.PropTypes.func.isRequired,
-  cardType: React.PropTypes.string.isRequired,
-  correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  questionAnswered: React.PropTypes.bool.isRequired,
-  questionAnsweredCorrectly: React.PropTypes.bool.isRequired,
-  inputFocused: React.PropTypes.bool.isRequired,
-  updateHintVisibility: React.PropTypes.func.isRequired,
-  showHint: React.PropTypes.bool.isRequired
+  buttonsDisabled: PropTypes.bool.isRequired,
+  questionType: PropTypes.string.isRequired,
+  clickCallback: PropTypes.func.isRequired,
+  clickNextCallback: PropTypes.func.isRequired,
+  cardType: PropTypes.string.isRequired,
+  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired,
+  questionAnswered: PropTypes.bool.isRequired,
+  questionAnsweredCorrectly: PropTypes.bool.isRequired,
+  inputFocused: PropTypes.bool.isRequired,
+  updateHintVisibility: PropTypes.func.isRequired,
+  showHint: PropTypes.bool.isRequired
 };
 
 export default ButtonsCard;

@@ -65,12 +65,14 @@ html {
   padding: 0;
   margin-left: 0.1em;
   line-height: 0;
-  -webkit-text-stroke: rgb(210, 212, 210) 0.05em;
+  stroke-width: 0.5em;
+  stroke: rgb(210, 212, 210);
 }
 
 .favorite-icon-button--active {
   color: rgb(255, 215, 107);
-  -webkit-text-stroke: rgb(206, 166, 65) 0.05em;
+  stroke: rgb(206, 166, 65);
+  stroke-width: 0.5em;
 }
 
 /* Override bootstrap panel heading badge */

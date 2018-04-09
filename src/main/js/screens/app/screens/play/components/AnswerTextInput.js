@@ -1,6 +1,4 @@
-import React from 'react';
 import { Button, Row, FormControl, FormGroup, Form } from 'react-bootstrap';
-import * as ReactDOM from 'react-dom';
 
 export default class AnswerButton extends React.Component {
   constructor(props) {
@@ -132,14 +130,14 @@ AnswerButton.defaultProps = {
 
 AnswerButton.propTypes = {
   // alternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
-  correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired,
   // buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  buttonsDisabled: React.PropTypes.bool.isRequired,
+  buttonsDisabled: PropTypes.bool.isRequired,
   // japaneseCharacters: React.PropTypes.bool.isRequired,
   // answerType: React.PropTypes.string.isRequired,
-  clickCallback: React.PropTypes.func.isRequired,
-  clickNextCallback: React.PropTypes.func.isRequired,
-  questionAnswered: React.PropTypes.bool.isRequired,
-  questionAnsweredCorrectly: React.PropTypes.bool.isRequired,
-  inputFocused: React.PropTypes.bool.isRequired
+  clickCallback: PropTypes.func.isRequired,
+  clickNextCallback: PropTypes.func.isRequired,
+  questionAnswered: PropTypes.bool.isRequired,
+  questionAnsweredCorrectly: PropTypes.bool.isRequired,
+  inputFocused: PropTypes.bool.isRequired
 };

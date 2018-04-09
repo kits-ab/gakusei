@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Col } from 'react-bootstrap';
 import ButtonsCard from './components/Cards/ButtonsCard';
 import FlashCard from './components/Cards/FlashCard';

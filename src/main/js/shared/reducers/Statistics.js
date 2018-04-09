@@ -1,5 +1,3 @@
-import React from 'react';
-
 // ----------------
 // DEFAULT STATE
 export const defaultState = {
@@ -9,7 +7,7 @@ export const defaultState = {
 // ----------------
 // PROPTYPES
 export const propTypes = {
-  successRate: React.PropTypes.number.isRequired
+  successRate: PropTypes.number.isRequired
 };
 
 // -----------------
