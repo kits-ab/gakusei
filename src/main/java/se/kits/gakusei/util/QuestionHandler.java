@@ -30,6 +30,14 @@ public class QuestionHandler {
         return questions;
     }
 
+    public List<HashMap<String, Object>> createSpacedRepetitionQuestions(List<Nugget> retentionNuggets, List<Nugget> allLessonNuggets, String questionType, String answerType) {
+        List<HashMap<String, Object>> questions = retentionNuggets.stream()
+                .map(n -> createQuestion(n, allLessonNuggets, questionType, answerType))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        return questions;
+    }
+
     protected HashMap<String, Object> createQuestion(Nugget nugget,
                                                      List<Nugget> nuggets,
                                                      String questionType,

@@ -132,7 +132,12 @@ public class QuestionController {
                     questionType,
                     answerType);
         } else {
-            return questionHandler.createQuestions(nuggets, questionType, answerType);
+            if(spacedRepetition) {
+                return questionHandler.createSpacedRepetitionQuestions(nuggets, allLessonNuggets, questionType, answerType);
+            } else {
+                return questionHandler.createQuestions(nuggets, questionType, answerType);
+            }
+
         }
     }
 
