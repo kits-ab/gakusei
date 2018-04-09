@@ -146,12 +146,12 @@ export class selectScreen extends React.Component {
       const { unanswered, retention, all } = this.props.addressedQuestionsInLessons[lesson.name];
       return { unanswered, retention, all };
     }
-    return { unanswered: 0, retention: 0, total: 0 };
+    return { unanswered: 0, retention: 0, all: 0 };
   }
 
   isLessonUnfinished(lesson) {
     return (
-      (this.getNumberOfQuestions(lesson).unanswered < this.getNumberOfQuestions(lesson).total &&
+      (this.getNumberOfQuestions(lesson).unanswered < this.getNumberOfQuestions(lesson).all &&
         this.getNumberOfQuestions(lesson).unanswered !== 0) ||
       this.getNumberOfQuestions(lesson).retention > 0
     );
