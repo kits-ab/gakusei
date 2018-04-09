@@ -36,7 +36,7 @@ export class selectScreen extends React.Component {
 
     this.props.fetchFavoriteLesson(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchaddressedQuestionsInLessons().catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchaddressedQuestionsInLessons();
 
     if (this.props.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
@@ -140,10 +140,8 @@ export class selectScreen extends React.Component {
 
   getNumberOfQuestions(lesson) {
     if (this.props.spacedRepetitionModes.includes(this.props.params.type) || this.props.params.type === 'grammar') {
-      const unanswered = this.props.addressedQuestionsInLessons[lesson.name].unanswered;
-      const retention = this.props.addressedQuestionsInLessons[lesson.name].retention;
-      const total = this.props.addressedQuestionsInLessons[lesson.name].all;
-      return { unanswered: unanswered, retention: retention, total: total };
+      const { unanswered, retention, all } = this.props.addressedQuestionsInLessons[lesson.name];
+      return { unanswered, retention, all };
     }
     return { unanswered: 0, retention: 0, total: 0 };
   }

@@ -674,19 +674,11 @@ export function fetchUserSuccessRate(username) {
 export function toggleSpacedRepetition() {
   return function(dispatch, getState) {
     const lessonState = getState().lessons;
-    if (lessonState.spacedRepetition) {
-      dispatch({
-        type: SET_SPACED_REPETITION,
-        description: 'Toggles spaced repetition',
-        value: false
-      });
-    } else {
-      dispatch({
-        type: SET_SPACED_REPETITION,
-        description: 'Toggles spaced repetition',
-        value: true
-      });
-    }
+    dispatch({
+      type: SET_SPACED_REPETITION,
+      description: 'Toggles spaced repetition',
+      value: !lessonState.spacedRepetition
+    });
   };
 }
 

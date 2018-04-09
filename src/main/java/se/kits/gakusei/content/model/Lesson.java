@@ -51,7 +51,7 @@ import java.util.List;
                 query = "SELECT contentschema.nuggets.* FROM contentschema.nuggets\n" +
                         "WHERE nuggets.id IN (SELECT progresstrackinglist.nugget_id FROM progresstrackinglist \n" +
                         "\tINNER JOIN contentschema.lessons_nuggets ON progresstrackinglist.nugget_id = lessons_nuggets.nugget_id\n" +
-                        "\tWHERE user_ref = :username AND DATE(progresstrackinglist.retention_date) <= now() \n" +
+                        "\tWHERE user_ref = :username AND progresstrackinglist.retention_date <= current_timestamp \n" +
                         "\tAND lesson_id IN (SELECT id FROM contentschema.lessons WHERE name = :lessonName) ORDER BY retention_date ASC)",
                 resultClass = Nugget.class)
 })
