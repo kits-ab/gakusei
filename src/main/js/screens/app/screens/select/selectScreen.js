@@ -144,8 +144,9 @@ export class selectScreen extends React.Component {
 
   getNumberOfQuestions(lesson) {
     if (
-      (this.props.addressedQuestionsInLessons && this.props.spacedRepetitionModes.includes(this.props.params.type)) ||
-      this.props.params.type === 'grammar'
+      this.props.addressedQuestionsInLessons &&
+      this.props.addressedQuestionsInLessons[lesson.name] &&
+      this.props.spacedRepetitionModes.includes(this.props.params.type)
     ) {
       const { unanswered, retention, all } = this.props.addressedQuestionsInLessons[lesson.name];
       return { unanswered, retention, all };
@@ -154,6 +155,9 @@ export class selectScreen extends React.Component {
   }
 
   isLessonUnfinished(lesson) {
+    if (!this.props.addressedQuestionsInLessons) {
+      return false;
+    }
     return (
       (this.getNumberOfQuestions(lesson).unanswered < this.getNumberOfQuestions(lesson).all &&
         this.getNumberOfQuestions(lesson).unanswered !== 0) ||
@@ -189,10 +193,10 @@ export class selectScreen extends React.Component {
                 </Button>
               )}
               {lesson.name}
-              {this.isLessonUnfinished(lesson) && this.isSpacedRepetition() ? (
+              {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
                 <Badge className="badge--type-todo">{this.getNumberOfQuestions(lesson).retention}</Badge>
               ) : null}
-              {this.isLessonUnfinished(lesson) && this.isSpacedRepetition() ? (
+              {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
                 <Badge className="badge--type-new">{this.getNumberOfQuestions(lesson).unanswered}</Badge>
               ) : null}
               {this.getNumberOfQuestions(lesson).unanswered === 0 &&
@@ -211,35 +215,37 @@ export class selectScreen extends React.Component {
                 this.startLesson();
               }}
               disabled={
+                this.isSpacedRepetition() &&
                 this.getNumberOfQuestions(lesson).unanswered === 0 &&
-                this.getNumberOfQuestions(lesson).retention === 0 &&
-                this.isSpacedRepetition()
+                this.getNumberOfQuestions(lesson).retention === 0
               }
             >
               <FontAwesomeIcon icon={faPlay} />
             </Button>
           </Panel.Body>
-          <Panel.Footer>
-            <ProgressBar>
-              <ProgressBar
-                now={this.getNumberOfQuestions(lesson).retention / this.getNumberOfQuestions(lesson).all * 100}
-                bsStyle={'danger'}
-              />
-              <ProgressBar
-                now={this.getNumberOfQuestions(lesson).unanswered / this.getNumberOfQuestions(lesson).all * 100}
-                bsStyle={'info'}
-              />
-              <ProgressBar
-                now={
-                  100 -
-                  (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered) /
-                    this.getNumberOfQuestions(lesson).all *
-                    100
-                }
-                bsStyle={'success'}
-              />
-            </ProgressBar>
-          </Panel.Footer>
+          {this.isSpacedRepetition() ? (
+            <Panel.Footer>
+              <ProgressBar>
+                <ProgressBar
+                  now={this.getNumberOfQuestions(lesson).retention / this.getNumberOfQuestions(lesson).all * 100}
+                  bsStyle={'danger'}
+                />
+                <ProgressBar
+                  now={this.getNumberOfQuestions(lesson).unanswered / this.getNumberOfQuestions(lesson).all * 100}
+                  bsStyle={'info'}
+                />
+                <ProgressBar
+                  now={
+                    100 -
+                    (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered) /
+                      this.getNumberOfQuestions(lesson).all *
+                      100
+                  }
+                  bsStyle={'success'}
+                />
+              </ProgressBar>
+            </Panel.Footer>
+          ) : null}
         </Panel>
       </Col>
     ));
