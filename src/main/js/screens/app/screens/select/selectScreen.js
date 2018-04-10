@@ -6,11 +6,12 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
-  Glyphicon,
   HelpBlock,
   Panel,
   Badge,
-  Label
+  Label,
+  ProgressBar,
+  Tooltip
 } from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
@@ -197,7 +198,7 @@ export class selectScreen extends React.Component {
               {this.getNumberOfQuestions(lesson).unanswered === 0 &&
               this.getNumberOfQuestions(lesson).retention === 0 &&
               this.isSpacedRepetition() ? (
-                <Label bsStyle="success">Färdig!</Label>
+                  <Label bsStyle="success">Färdig!</Label>
                 ) : null}
             </Panel.Title>
           </Panel.Heading>
@@ -218,6 +219,27 @@ export class selectScreen extends React.Component {
               <FontAwesomeIcon icon={faPlay} />
             </Button>
           </Panel.Body>
+          <Panel.Footer>
+            <ProgressBar>
+              <ProgressBar
+                now={this.getNumberOfQuestions(lesson).retention / this.getNumberOfQuestions(lesson).all * 100}
+                bsStyle={'danger'}
+              />
+              <ProgressBar
+                now={this.getNumberOfQuestions(lesson).unanswered / this.getNumberOfQuestions(lesson).all * 100}
+                bsStyle={'info'}
+              />
+              <ProgressBar
+                now={
+                  100 -
+                  (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered) /
+                    this.getNumberOfQuestions(lesson).all *
+                    100
+                }
+                bsStyle={'success'}
+              />
+            </ProgressBar>
+          </Panel.Footer>
         </Panel>
       </Col>
     ));
