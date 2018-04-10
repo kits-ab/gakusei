@@ -24,6 +24,15 @@ html {
   margin-bottom: 0.5em;
 }
 
+.progress__select {
+  height: 0.5em;
+}
+
+.progress__select > progress {
+  border-radius: 0px;
+  height: 0.5em;
+}
+
 .gakusei-logo {
   margin: 50px;
 }

@@ -8,6 +8,7 @@ import {
   ControlLabel,
   HelpBlock,
   Panel,
+  PanelGroup,
   Badge,
   Label,
   ProgressBar,
@@ -22,6 +23,8 @@ import * as Security from '../../../../shared/reducers/Security';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
 import faStar from '@fortawesome/fontawesome-free-solid/faStar';
+
+import ToggleButton from 'react-toggle-button';
 
 export const Reducers = [Lessons, Security];
 
@@ -165,8 +168,16 @@ export class selectScreen extends React.Component {
     );
   }
 
-  render() {
-    const options = this.props.lessons.map(lesson => (
+  isLessonUnstarted(lesson) {
+    if (!this.props.addressedQuestionsInLessons) {
+      return false;
+    }
+
+    return this.getNumberOfQuestions(lesson).unanswered === this.getNumberOfQuestions(lesson).all;
+  }
+
+  renderLessons(lessons) {
+    return lessons.map(lesson => (
       <Col
         key={lesson.name}
         xs={12}
@@ -225,14 +236,16 @@ export class selectScreen extends React.Component {
           </Panel.Body>
           {this.isSpacedRepetition() ? (
             <Panel.Footer>
-              <ProgressBar>
+              <ProgressBar className={'progress--select'}>
                 <ProgressBar
                   now={this.getNumberOfQuestions(lesson).retention / this.getNumberOfQuestions(lesson).all * 100}
                   bsStyle={'danger'}
+                  label={this.getNumberOfQuestions(lesson).retention}
                 />
                 <ProgressBar
                   now={this.getNumberOfQuestions(lesson).unanswered / this.getNumberOfQuestions(lesson).all * 100}
                   bsStyle={'info'}
+                  label={this.getNumberOfQuestions(lesson).unanswered}
                 />
                 <ProgressBar
                   now={
@@ -242,6 +255,10 @@ export class selectScreen extends React.Component {
                       100
                   }
                   bsStyle={'success'}
+                  label={
+                    this.getNumberOfQuestions(lesson).all -
+                    (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered)
+                  }
                 />
               </ProgressBar>
             </Panel.Footer>
@@ -249,6 +266,14 @@ export class selectScreen extends React.Component {
         </Panel>
       </Col>
     ));
+  }
+
+  render() {
+    const lessonsUnfinished = this.renderLessons(this.props.lessons.filter(lesson => this.isLessonUnfinished(lesson)));
+    const lessonsFinished = this.renderLessons(
+      this.props.lessons.filter(lesson => !this.isLessonUnfinished(lesson) && !this.isLessonUnstarted(lesson))
+    );
+    const lessonsUnstarted = this.renderLessons(this.props.lessons.filter(lesson => this.isLessonUnstarted(lesson)));
 
     const favoriteLesson = (
       <Row>
@@ -356,13 +381,13 @@ export class selectScreen extends React.Component {
               xs={12}
               sm={4}
             >
-              <Button
-                bsStyle="success"
-                active={this.isSpacedRepetition()}
-                onClick={this.handleSpacedRepetition}
-              >
-                Smart inlärningsläge
-              </Button>
+              <HelpBlock>Smart inlärningsläge</HelpBlock>
+              <ToggleButton
+                inactiveLabel={'Av'}
+                activeLabel={'På'}
+                value={this.isSpacedRepetition()}
+                onToggle={this.handleSpacedRepetition}
+              />
             </Col>
           </Row>
         </FormGroup>
@@ -376,24 +401,28 @@ export class selectScreen extends React.Component {
           lgOffset={2}
         >
           <ControlLabel>{this.getPageHeader()}</ControlLabel>
-
           <FormGroup>
             <ControlLabel>{this.getPageDescription()}</ControlLabel>
           </FormGroup>
-
           {this.props.params.type !== 'quiz' && this.props.params.type !== 'grammar' ? (
             <FormGroup>
               <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
               {favoriteLesson}
+              <hr />
             </FormGroup>
           ) : null}
-
           <FormGroup>
-            <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
-            <Row>{options}</Row>
-            {languageSelection}
+            <HelpBlock> Pågående lektioner </HelpBlock>
+            <Row>{lessonsUnfinished}</Row>
           </FormGroup>
-
+          <hr />
+          <HelpBlock> Ej ännu spelade lektioner </HelpBlock>
+          <Row>{lessonsUnstarted}</Row>
+          <hr />
+          <HelpBlock> Färdiga lektioner </HelpBlock>
+          <Row>{lessonsFinished}</Row>
+          <hr />
+          {languageSelection}
           <br />
         </Col>
       </Grid>
