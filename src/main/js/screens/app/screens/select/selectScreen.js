@@ -8,11 +8,9 @@ import {
   ControlLabel,
   HelpBlock,
   Panel,
-  PanelGroup,
   Badge,
   Label,
-  ProgressBar,
-  Tooltip
+  ProgressBar
 } from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
