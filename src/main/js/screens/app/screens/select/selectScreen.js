@@ -234,7 +234,7 @@ export class selectScreen extends React.Component {
               <FontAwesomeIcon icon={faPlay} />
             </Button>
           </Panel.Body>
-          {this.isSpacedRepetition() ? (
+          {this.isSpacedRepetition() && false ? (
             <Panel.Footer>
               <ProgressBar className={'progress--select'}>
                 <ProgressBar
