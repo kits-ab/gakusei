@@ -232,19 +232,9 @@ export class selectScreen extends React.Component {
               <FontAwesomeIcon icon={faPlay} />
             </Button>
           </Panel.Body>
-          {this.isSpacedRepetition() && false ? (
+          {this.isSpacedRepetition() && true ? (
             <Panel.Footer>
               <ProgressBar className={'progress--select'}>
-                <ProgressBar
-                  now={this.getNumberOfQuestions(lesson).retention / this.getNumberOfQuestions(lesson).all * 100}
-                  bsStyle={'danger'}
-                  label={this.getNumberOfQuestions(lesson).retention}
-                />
-                <ProgressBar
-                  now={this.getNumberOfQuestions(lesson).unanswered / this.getNumberOfQuestions(lesson).all * 100}
-                  bsStyle={'info'}
-                  label={this.getNumberOfQuestions(lesson).unanswered}
-                />
                 <ProgressBar
                   now={
                     100 -
@@ -252,11 +242,20 @@ export class selectScreen extends React.Component {
                       this.getNumberOfQuestions(lesson).all *
                       100
                   }
-                  bsStyle={'success'}
                   label={
                     this.getNumberOfQuestions(lesson).all -
                     (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered)
                   }
+                />
+                <ProgressBar
+                  now={this.getNumberOfQuestions(lesson).unanswered / this.getNumberOfQuestions(lesson).all * 100}
+                  bsStyle={'info'}
+                  label={this.getNumberOfQuestions(lesson).unanswered}
+                />
+                <ProgressBar
+                  now={this.getNumberOfQuestions(lesson).retention / this.getNumberOfQuestions(lesson).all * 100}
+                  bsStyle={'danger'}
+                  label={this.getNumberOfQuestions(lesson).retention}
                 />
               </ProgressBar>
             </Panel.Footer>
