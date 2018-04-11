@@ -183,8 +183,8 @@ export class selectScreen extends React.Component {
         lg={4}
       >
         <Panel>
-          <Panel.Heading className="clearfix">
-            <Panel.Title>
+          <Panel.Body>
+            <div className={'exercise'}>
               {this.props.params.type === 'quiz' ? null : (
                 <Button
                   bsClass={
@@ -213,28 +213,8 @@ export class selectScreen extends React.Component {
               this.isSpacedRepetition() ? (
                   <Label bsStyle="success">Färdig!</Label>
                 ) : null}
-            </Panel.Title>
-          </Panel.Heading>
-          <Panel.Body>
-            <p>{lesson.description}</p>
-            <Button
-              onClick={e => {
-                e.stopPropagation();
-                this.props.setSelectedLesson(lesson);
-                this.startLesson();
-              }}
-              disabled={
-                this.isSpacedRepetition() &&
-                this.getNumberOfQuestions(lesson).unanswered === 0 &&
-                this.getNumberOfQuestions(lesson).retention === 0
-              }
-            >
-              <FontAwesomeIcon icon={faPlay} />
-            </Button>
-          </Panel.Body>
-          {this.isSpacedRepetition() && true ? (
-            <Panel.Footer>
-              <ProgressBar className={'progress--select'}>
+
+              {this.isSpacedRepetition() && true ? (
                 <ProgressBar
                   now={
                     100 -
@@ -242,24 +222,25 @@ export class selectScreen extends React.Component {
                       this.getNumberOfQuestions(lesson).all *
                       100
                   }
-                  label={
-                    this.getNumberOfQuestions(lesson).all -
-                    (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered)
-                  }
                 />
-                <ProgressBar
-                  now={this.getNumberOfQuestions(lesson).unanswered / this.getNumberOfQuestions(lesson).all * 100}
-                  bsStyle={'info'}
-                  label={this.getNumberOfQuestions(lesson).unanswered}
-                />
-                <ProgressBar
-                  now={this.getNumberOfQuestions(lesson).retention / this.getNumberOfQuestions(lesson).all * 100}
-                  bsStyle={'danger'}
-                  label={this.getNumberOfQuestions(lesson).retention}
-                />
-              </ProgressBar>
-            </Panel.Footer>
-          ) : null}
+              ) : null}
+              <p>{lesson.description}</p>
+              <Button
+                onClick={e => {
+                  e.stopPropagation();
+                  this.props.setSelectedLesson(lesson);
+                  this.startLesson();
+                }}
+                disabled={
+                  this.isSpacedRepetition() &&
+                  this.getNumberOfQuestions(lesson).unanswered === 0 &&
+                  this.getNumberOfQuestions(lesson).retention === 0
+                }
+              >
+                <FontAwesomeIcon icon={faPlay} />
+              </Button>
+            </div>
+          </Panel.Body>
         </Panel>
       </Col>
     ));

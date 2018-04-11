@@ -32,6 +32,27 @@ html {
   border-radius: 0px;
 }
 
+.exercise {
+}
+
+.exercise__header {
+}
+
+.exercise__header__title {
+}
+
+.exercise__header__settings {
+}
+
+.exercise__progress {
+}
+
+.exercise__description {
+}
+
+.exercise__actions {
+}
+
 .gakusei-logo {
   margin: 50px;
 }
@@ -83,15 +104,12 @@ html {
   stroke-width: 0.5em;
 }
 
-/* Override bootstrap panel heading badge */
-.panel-default > .panel-heading .badge--type-todo {
+.badge--type-todo {
   background-color: #fa3e3e;
-  margin-left: 0.2em;
 }
 
-.panel-default > .panel-heading .badge--type-new {
+.badge--type-new {
   background-color: #5bc0de;
-  margin-left: 0.2em;
 }
 
 .panel-default > .panel-heading .label {
