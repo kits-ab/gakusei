@@ -269,11 +269,16 @@ export class selectScreen extends React.Component {
   }
 
   render() {
-    const lessonsUnfinished = this.renderLessons(this.props.lessons.filter(lesson => this.isLessonUnfinished(lesson)));
-    const lessonsFinished = this.renderLessons(
-      this.props.lessons.filter(lesson => !this.isLessonUnfinished(lesson) && !this.isLessonUnstarted(lesson))
-    );
-    const lessonsUnstarted = this.renderLessons(this.props.lessons.filter(lesson => this.isLessonUnstarted(lesson)));
+    let lessonsUnfinished, lessonsFinished, lessonsUnstarted, lessonsAll;
+    if (this.isSpacedRepetition()) {
+      lessonsUnfinished = this.renderLessons(this.props.lessons.filter(lesson => this.isLessonUnfinished(lesson)));
+      lessonsFinished = this.renderLessons(
+        this.props.lessons.filter(lesson => !this.isLessonUnfinished(lesson) && !this.isLessonUnstarted(lesson))
+      );
+      lessonsUnstarted = this.renderLessons(this.props.lessons.filter(lesson => this.isLessonUnstarted(lesson)));
+    } else {
+      lessonsAll = this.renderLessons(this.props.lessons);
+    }
 
     const favoriteLesson = (
       <Row>
@@ -408,20 +413,26 @@ export class selectScreen extends React.Component {
             <FormGroup>
               <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
               {favoriteLesson}
-              <hr />
             </FormGroup>
           ) : null}
-          <FormGroup>
-            <HelpBlock> Pågående lektioner </HelpBlock>
-            <Row>{lessonsUnfinished}</Row>
-          </FormGroup>
-          <hr />
-          <HelpBlock> Ej påbörjade lektioner </HelpBlock>
-          <Row>{lessonsUnstarted}</Row>
-          <hr />
-          <HelpBlock> Färdiga lektioner </HelpBlock>
-          <Row>{lessonsFinished}</Row>
-          <hr />
+          {this.isSpacedRepetition() ? (
+            <FormGroup>
+              <HelpBlock> Pågående lektioner </HelpBlock>
+              <Row>{lessonsUnfinished}</Row>
+              <hr />
+              <HelpBlock> Ej påbörjade lektioner </HelpBlock>
+              <Row>{lessonsUnstarted}</Row>
+              <hr />
+              <HelpBlock> Färdiga lektioner </HelpBlock>
+              <Row>{lessonsFinished}</Row>
+              <hr />
+            </FormGroup>
+          ) : (
+            <FormGroup>
+              <HelpBlock> Välj lektion att starta </HelpBlock>
+              <Row>{lessonsAll}</Row>
+            </FormGroup>
+          )}
           {languageSelection}
           <br />
         </Col>
