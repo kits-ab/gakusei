@@ -416,7 +416,7 @@ export class selectScreen extends React.Component {
             <Row>{lessonsUnfinished}</Row>
           </FormGroup>
           <hr />
-          <HelpBlock> Ej ännu spelade lektioner </HelpBlock>
+          <HelpBlock> Ej påbörjade lektioner </HelpBlock>
           <Row>{lessonsUnstarted}</Row>
           <hr />
           <HelpBlock> Färdiga lektioner </HelpBlock>
