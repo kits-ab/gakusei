@@ -138,8 +138,8 @@ export class selectScreen extends React.Component {
 
   handleStarredClick(lesson) {
     this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-      ? this.props.removeStarredLesson(lesson.name)
-      : this.props.addStarredLesson(lesson.name);
+      ? this.props.removeStarredLesson(lesson.name, this.props.params.type)
+      : this.props.addStarredLesson(lesson.name, this.props.params.type);
   }
 
   getNumberOfQuestions(lesson) {

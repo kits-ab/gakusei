@@ -630,7 +630,7 @@ export function fetchUserStarredLessons() {
   };
 }
 
-export function addStarredLesson(lessonName) {
+export function addStarredLesson(lessonName, lessonType) {
   return function(dispatch, getState) {
     const xsrfTokenValue = getCSRF();
     const securityState = getState().security;
@@ -641,11 +641,13 @@ export function addStarredLesson(lessonName) {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': xsrfTokenValue
       }
-    }).then(() => dispatch(fetchUserStarredLessons()));
+    })
+      .then(() => dispatch(fetchUserStarredLessons()))
+      .then(() => dispatch(fetchFavoriteLesson(lessonType)));
   };
 }
 
-export function removeStarredLesson(lessonName) {
+export function removeStarredLesson(lessonName, lessonType) {
   return function(dispatch, getState) {
     const xsrfTokenValue = getCSRF();
     const securityState = getState().security;
@@ -656,7 +658,9 @@ export function removeStarredLesson(lessonName) {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': xsrfTokenValue
       }
-    }).then(() => dispatch(fetchUserStarredLessons()));
+    })
+      .then(() => dispatch(fetchUserStarredLessons()))
+      .then(() => dispatch(fetchFavoriteLesson(lessonType)));
   };
 }
 
