@@ -2,6 +2,7 @@ html {
   background-color: #eee;
 }
 
+/* bootstrap override */
 .btn {
   white-space: normal;
 }
@@ -33,10 +34,10 @@ html {
   display: block;
 }
 
-.sitemap h1 {
+.sitemap__header {
   display: none;
 }
-.sitemap h2 {
+.sitemap__group-title {
   font-size: large;
 }
 .sitemap__group {
