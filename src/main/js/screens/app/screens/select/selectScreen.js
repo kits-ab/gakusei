@@ -298,21 +298,40 @@ export class selectScreen extends React.Component {
           lg={12}
         >
           <Panel>
-            <Panel.Heading className="clearfix">
-              <Panel.Title>Blandade frågor.</Panel.Title>
-            </Panel.Heading>
             <Panel.Body>
-              <p>Blandade frågor från alla dina favoritmarkerade lektioner.</p>
-              <Button
-                onClick={e => {
-                  e.stopPropagation();
-                  this.props.setSelectedLesson(this.props.favoriteLesson);
-                  this.startLesson();
-                }}
-                disabled={this.props.starredLessons.length === 0}
-              >
-                <FontAwesomeIcon icon={faPlay} />
-              </Button>
+              <div className={'exercise'}>
+                <div className={'exercise__header'}>
+                  <h3 className={'exercise__header__title'}>
+                    {'Blandade frågor.'}
+                    {this.isSpacedRepetition() ? <Badge className="badge--type-todo">-1</Badge> : null}
+                    {this.isSpacedRepetition() ? <Badge className="badge--type-new">-1</Badge> : null}
+                  </h3>
+                </div>
+                {this.isSpacedRepetition() && true ? (
+                  <div className={'exercise__progress'}>
+                    <ProgressBar now={0} />
+                  </div>
+                ) : null}
+                <p className={'exercise__description'}>
+                  {'Blandade frågor från alla dina favoritmarkerade lektioner.'}
+                </p>
+                <div className={'exercise__actions'}>
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      this.props.setSelectedLesson(this.props.favoriteLesson);
+                      this.startLesson();
+                    }}
+                    disabled={this.props.starredLessons.length === 0}
+                    bsClass={'icon-button'}
+                  >
+                    <FontAwesomeIcon
+                      className={'fa-fw'}
+                      icon={faPlay}
+                    />
+                  </Button>
+                </div>
+              </div>
             </Panel.Body>
           </Panel>
         </Col>
