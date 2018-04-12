@@ -6,10 +6,6 @@ html {
   white-space: normal;
 }
 
-.btn-no-hover:hover {
-  border-color: #ccc;
-}
-
 .logged-in-text {
   pointer-events: none;
 }
