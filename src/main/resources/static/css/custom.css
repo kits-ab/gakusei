@@ -32,9 +32,6 @@ html {
   border-radius: 0px;
 }
 
-.exercise {
-}
-
 .exercise__header {
   display: flex;
   padding-left: 0.25em;
@@ -50,12 +47,6 @@ html {
   margin: 0;
   flex: 1;
   font-size: 1.25em;
-}
-
-.exercise__header__settings {
-}
-
-.exercise__progress {
 }
 
 .exercise__progress .progress {

@@ -150,24 +150,28 @@ public class LessonController {
         List<Nugget> correctlyAnsweredNuggets = favoriteLessons.stream()
                 .map(lesson -> lessonRepository.findCorrectlyAnsweredNuggets(username, lesson.getName()))
                 .flatMap(nuggets -> nuggets.stream())
+                .filter(nugget -> !nugget.isHidden())
                 .distinct()
                 .collect(Collectors.toList());
 
         List<Nugget> unansweredNuggets = favoriteLessons.stream()
                 .map(lesson -> lessonRepository.findUnansweredNuggets(username, lesson.getName()))
                 .flatMap(nuggets -> nuggets.stream())
+                .filter(nugget -> !nugget.isHidden())
                 .distinct()
                 .collect(Collectors.toList());
 
         List<Nugget> allLessonNuggets = favoriteLessons.stream()
                 .map(lesson -> lesson.getNuggets())
                 .flatMap(nuggets -> nuggets.stream())
+                .filter(nugget -> !nugget.isHidden())
                 .distinct()
                 .collect(Collectors.toList());
 
         List<Nugget> retentionNuggets = favoriteLessons.stream()
                 .map(lesson -> lessonRepository.findNuggetsByRetentionDate(username, lesson.getName()))
                 .flatMap(nuggets -> nuggets.stream())
+                .filter(nugget -> !nugget.isHidden())
                 .distinct()
                 .collect(Collectors.toList());
 
@@ -176,28 +180,16 @@ public class LessonController {
         lessonData.put("all", allLessonNuggets.size());
         lessonData.put("retention", retentionNuggets.size());
 
-
-//        values.put(tmpLesson.getName(), lessonData);
-        //String data = allNuggetData.entrySet().stream().filter(map -> favoriteLessons.contains(map.getKey())).
-        return null;
+        return lessonData;
     }
 
     @Cacheable("favoriteLesson")
     public FavoriteLesson getLessonFromFavorites(String username) {
-        /*List<Nugget> favoriteNuggets = userLessonRepository.findUsersStarredLessons(username).stream()
-                .map(UserLesson::getLesson)
-                .map(Lesson::getNuggets)
-                .flatMap(List::stream)
-                .filter(n -> !n.isHidden())
-                .distinct()
-                .collect(Collectors.toList());
-*/
         FavoriteLesson favoriteLesson = new FavoriteLesson();
         favoriteLesson.setName("Favoriter");
         favoriteLesson.setId(1337L);
         favoriteLesson.setNuggetData(getFavoriteDataHashMap(username));
 
         return favoriteLesson;
-
     }
 }
