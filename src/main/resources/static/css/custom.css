@@ -132,10 +132,6 @@ html {
   background-color: #5bc0de;
 }
 
-.panel-default > .panel-heading .label {
-  margin-left: 0.5em;
-}
-
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
   select,
   textarea,
