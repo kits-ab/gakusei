@@ -5,11 +5,6 @@ html {
 .btn {
   white-space: normal;
 }
-.brandButton {
-  background-color: Transparent;
-  border: none;
-  outline: none;
-}
 
 .btn-no-hover:hover {
   border-color: #ccc;
