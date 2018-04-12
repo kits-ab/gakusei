@@ -175,75 +175,101 @@ export class selectScreen extends React.Component {
   }
 
   renderLessons(lessons) {
-    return lessons.map(lesson => (
+    const mediumColumnSize = 6;
+    const largeColumnSize = 4;
+    const renderedLessons = lessons.map((lesson, index) => (
       <Col
         key={lesson.name}
         xs={12}
-        md={6}
-        lg={4}
+        md={mediumColumnSize}
+        lg={largeColumnSize}
       >
         <Panel>
           <Panel.Body>
             <div className={'exercise'}>
-              {this.props.params.type === 'quiz' ? null : (
+              <div className={'exercise__header'}>
+                <h3 className={'exercise__header__title'}>
+                  {lesson.name}
+                  {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
+                    <Badge className="badge--type-todo">{this.getNumberOfQuestions(lesson).retention}</Badge>
+                  ) : null}
+                  {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
+                    <Badge className="badge--type-new">{this.getNumberOfQuestions(lesson).unanswered}</Badge>
+                  ) : null}
+                </h3>
+                {this.props.params.type === 'quiz' ? null : (
+                  <div className={'exercise__header__settings'}>
+                    <Button
+                      bsClass={
+                        this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+                          ? 'favorite-icon-button favorite-icon-button--active'
+                          : 'favorite-icon-button'
+                      }
+                      onClick={e => {
+                        e.stopPropagation();
+                        this.handleStarredClick(lesson);
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faStar} />
+                    </Button>
+                  </div>
+                )}
+              </div>
+              {this.isSpacedRepetition() && true ? (
+                <div className={'exercise__progress'}>
+                  <ProgressBar
+                    now={
+                      100 -
+                      (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered) /
+                        this.getNumberOfQuestions(lesson).all *
+                        100
+                    }
+                  />
+                </div>
+              ) : null}
+              <p className={'exercise__description'}>{lesson.description}</p>
+              <div className={'exercise__actions'}>
                 <Button
-                  bsClass={
-                    this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-                      ? 'favorite-icon-button favorite-icon-button--active'
-                      : 'favorite-icon-button'
-                  }
                   onClick={e => {
                     e.stopPropagation();
-                    this.handleStarredClick(lesson);
+                    this.props.setSelectedLesson(lesson);
+                    this.startLesson();
                   }}
-                  className="pull-right"
-                >
-                  <FontAwesomeIcon icon={faStar} />
-                </Button>
-              )}
-              {lesson.name}
-              {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
-                <Badge className="badge--type-todo">{this.getNumberOfQuestions(lesson).retention}</Badge>
-              ) : null}
-              {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
-                <Badge className="badge--type-new">{this.getNumberOfQuestions(lesson).unanswered}</Badge>
-              ) : null}
-              {this.getNumberOfQuestions(lesson).unanswered === 0 &&
-              this.getNumberOfQuestions(lesson).retention === 0 &&
-              this.isSpacedRepetition() ? (
-                  <Label bsStyle="success">Färdig!</Label>
-                ) : null}
-
-              {this.isSpacedRepetition() && true ? (
-                <ProgressBar
-                  now={
-                    100 -
-                    (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered) /
-                      this.getNumberOfQuestions(lesson).all *
-                      100
+                  disabled={
+                    this.isSpacedRepetition() &&
+                    this.getNumberOfQuestions(lesson).unanswered === 0 &&
+                    this.getNumberOfQuestions(lesson).retention === 0
                   }
-                />
-              ) : null}
-              <p>{lesson.description}</p>
-              <Button
-                onClick={e => {
-                  e.stopPropagation();
-                  this.props.setSelectedLesson(lesson);
-                  this.startLesson();
-                }}
-                disabled={
-                  this.isSpacedRepetition() &&
-                  this.getNumberOfQuestions(lesson).unanswered === 0 &&
-                  this.getNumberOfQuestions(lesson).retention === 0
-                }
-              >
-                <FontAwesomeIcon icon={faPlay} />
-              </Button>
+                >
+                  <FontAwesomeIcon icon={faPlay} />
+                </Button>
+              </div>
             </div>
           </Panel.Body>
         </Panel>
       </Col>
     ));
+
+    const adjustedLessons = [];
+    for (let i = 0; i < renderedLessons.length; i++) {
+      adjustedLessons.push(renderedLessons[i]);
+      if ((i + 1) % (12 / mediumColumnSize) === 0) {
+        const fixer = (<div
+          key={`clearfix-md ${i}`}
+          className="clearfix visible-md"
+        />);
+        adjustedLessons.push(fixer);
+      }
+
+      if ((i + 1) % (12 / largeColumnSize) === 0) {
+        const fixer = (<div
+          key={`clearfix-lg ${i}`}
+          className="clearfix visible-lg"
+        />);
+        adjustedLessons.push(fixer);
+      }
+    }
+    return adjustedLessons;
   }
 
   render() {

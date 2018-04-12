@@ -36,9 +36,16 @@ html {
 }
 
 .exercise__header {
+  display: flex;
+}
+
+.exercise__header__title > .badge {
+  margin-left: 0.4em;
 }
 
 .exercise__header__title {
+  margin-top: 0;
+  flex: 1;
 }
 
 .exercise__header__settings {
