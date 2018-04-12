@@ -154,6 +154,18 @@ export class selectScreen extends React.Component {
     return { unanswered: 0, retention: 0, all: 0 };
   }
 
+  getNumberOfFavoriteQuestions() {
+    if (
+      this.props.favoriteLesson &&
+      this.props.favoriteLesson.nuggetData &&
+      this.props.spacedRepetitionModes.includes(this.props.params.type)
+    ) {
+      const { unanswered, retention, all } = this.props.favoriteLesson.nuggetData;
+      return { unanswered, retention, all };
+    }
+    return { unanswered: 0, retention: 0, all: 0 };
+  }
+
   isLessonUnfinished(lesson) {
     if (!this.props.addressedQuestionsInLessons) {
       return false;
@@ -217,7 +229,7 @@ export class selectScreen extends React.Component {
                   </div>
                 )}
               </div>
-              {this.isSpacedRepetition() && true ? (
+              {this.isSpacedRepetition() ? (
                 <div className={'exercise__progress'}>
                   <ProgressBar
                     now={
@@ -303,13 +315,25 @@ export class selectScreen extends React.Component {
                 <div className={'exercise__header'}>
                   <h3 className={'exercise__header__title'}>
                     {'Blandade frågor.'}
-                    {this.isSpacedRepetition() ? <Badge className="badge--type-todo">-1</Badge> : null}
-                    {this.isSpacedRepetition() ? <Badge className="badge--type-new">-1</Badge> : null}
+                    {this.isSpacedRepetition() ? (
+                      <Badge className="badge--type-todo">{this.getNumberOfFavoriteQuestions().retention}</Badge>
+                    ) : null}
+                    {this.isSpacedRepetition() ? (
+                      <Badge className="badge--type-new">{this.getNumberOfFavoriteQuestions().unanswered}</Badge>
+                    ) : null}
                   </h3>
                 </div>
-                {this.isSpacedRepetition() && true ? (
+                {this.isSpacedRepetition() ? (
                   <div className={'exercise__progress'}>
-                    <ProgressBar now={0} />
+                    <ProgressBar
+                      now={
+                        100 -
+                        (this.getNumberOfFavoriteQuestions().retention +
+                          this.getNumberOfFavoriteQuestions().unanswered) /
+                          this.getNumberOfFavoriteQuestions().all *
+                          100
+                      }
+                    />
                   </div>
                 ) : null}
                 <p className={'exercise__description'}>
