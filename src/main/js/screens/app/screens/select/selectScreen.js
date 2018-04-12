@@ -327,11 +327,13 @@ export class selectScreen extends React.Component {
                   <div className={'exercise__progress'}>
                     <ProgressBar
                       now={
-                        100 -
-                        (this.getNumberOfFavoriteQuestions().retention +
-                          this.getNumberOfFavoriteQuestions().unanswered) /
-                          this.getNumberOfFavoriteQuestions().all *
-                          100
+                        this.getNumberOfFavoriteQuestions().all > 0
+                          ? 100 -
+                            (this.getNumberOfFavoriteQuestions().retention +
+                              this.getNumberOfFavoriteQuestions().unanswered) /
+                              this.getNumberOfFavoriteQuestions().all *
+                              100
+                          : 0
                       }
                     />
                   </div>
