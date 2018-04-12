@@ -72,6 +72,12 @@ html {
   color: #337ab7;
 }
 
+.exercise__actions .icon-button:disabled {
+  opacity: 0.65;
+  color: rgb(114, 114, 114);
+  cursor: not-allowed;
+}
+
 .gakusei-logo {
   margin: 50px;
 }

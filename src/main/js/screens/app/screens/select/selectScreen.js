@@ -247,11 +247,7 @@ export class selectScreen extends React.Component {
                     this.props.setSelectedLesson(lesson);
                     this.startLesson();
                   }}
-                  disabled={
-                    this.isSpacedRepetition() &&
-                    this.getNumberOfQuestions(lesson).unanswered === 0 &&
-                    this.getNumberOfQuestions(lesson).retention === 0
-                  }
+                  disabled={this.isSpacedRepetition() && !this.isLessonUnfinished(lesson)}
                   bsClass={'icon-button'}
                 >
                   <FontAwesomeIcon
