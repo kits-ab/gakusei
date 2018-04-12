@@ -82,8 +82,10 @@ export class GakuseiNav extends React.Component {
             </Nav>
           )}
           {this.props.loggedIn ? (
+            <p className="navbar-text navbar-right">Inloggad som: {this.props.loggedInUser}</p>
+          ) : null}
+          {this.props.loggedIn ? (
             <Nav pullRight>
-              <NavItem className="logged-in-text">Inloggad som: {this.props.loggedInUser}</NavItem>
               <LinkContainer to={{ pathname: '/logout', query: { currentUrl: this.props.location.pathname } }}>
                 <NavItem className="logoutButton">Logga ut</NavItem>
               </LinkContainer>

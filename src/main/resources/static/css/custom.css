@@ -6,10 +6,6 @@ html {
   white-space: normal;
 }
 
-.logged-in-text {
-  pointer-events: none;
-}
-
 /* bootstrap override */
 .progress {
   margin-bottom: 0.5em;
