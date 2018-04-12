@@ -313,10 +313,10 @@ export class selectScreen extends React.Component {
                 <div className={'exercise__header'}>
                   <h3 className={'exercise__header__title'}>
                     {'Blandade frågor.'}
-                    {this.isSpacedRepetition() ? (
+                    {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().retention > 0 ? (
                       <Badge className="badge--type-todo">{this.getNumberOfFavoriteQuestions().retention}</Badge>
                     ) : null}
-                    {this.isSpacedRepetition() ? (
+                    {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().unanswered > 0 ? (
                       <Badge className="badge--type-new">{this.getNumberOfFavoriteQuestions().unanswered}</Badge>
                     ) : null}
                   </h3>
