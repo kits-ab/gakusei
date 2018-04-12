@@ -9,7 +9,6 @@ import {
   HelpBlock,
   Panel,
   Badge,
-  Label,
   ProgressBar
 } from 'react-bootstrap';
 
@@ -177,7 +176,7 @@ export class selectScreen extends React.Component {
   renderLessons(lessons) {
     const mediumColumnSize = 6;
     const largeColumnSize = 4;
-    const renderedLessons = lessons.map((lesson, index) => (
+    const renderedLessons = lessons.map(lesson => (
       <Col
         key={lesson.name}
         xs={12}
