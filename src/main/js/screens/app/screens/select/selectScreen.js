@@ -201,15 +201,18 @@ export class selectScreen extends React.Component {
                     <Button
                       bsClass={
                         this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-                          ? 'favorite-icon-button favorite-icon-button--active'
-                          : 'favorite-icon-button'
+                          ? 'favorite-icon-button favorite-icon-button--active icon-button'
+                          : 'favorite-icon-button icon-button'
                       }
                       onClick={e => {
                         e.stopPropagation();
                         this.handleStarredClick(lesson);
                       }}
                     >
-                      <FontAwesomeIcon icon={faStar} />
+                      <FontAwesomeIcon
+                        className={'fa-fw'}
+                        icon={faStar}
+                      />
                     </Button>
                   </div>
                 )}
@@ -239,8 +242,12 @@ export class selectScreen extends React.Component {
                     this.getNumberOfQuestions(lesson).unanswered === 0 &&
                     this.getNumberOfQuestions(lesson).retention === 0
                   }
+                  bsClass={'icon-button'}
                 >
-                  <FontAwesomeIcon icon={faPlay} />
+                  <FontAwesomeIcon
+                    className={'fa-fw'}
+                    icon={faPlay}
+                  />
                 </Button>
               </div>
             </div>
