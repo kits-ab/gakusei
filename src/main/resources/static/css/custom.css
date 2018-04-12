@@ -87,22 +87,22 @@ html {
 }
 
 @media screen and (min-width: 992px) {
-  .questionText {
+  .question-text {
     font-size: 300% !important;
   }
-  .verbQuestionText {
+  .verb-question-text {
     font-size: 150% !important;
   }
-  .hintText {
+  .hint-text {
     font-size: 100% !important;
   }
 }
 
 @media screen and (max-width: 992px) {
-  .questionText {
+  .question-text {
     font-size: 225% !important;
   }
-  .verbQuestionText {
+  .verb-question-text {
     font-size: 100% !important;
   }
 }
