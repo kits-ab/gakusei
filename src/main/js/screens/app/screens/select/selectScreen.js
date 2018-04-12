@@ -33,7 +33,9 @@ export class selectScreen extends React.Component {
     this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeys);
+
     this.props.fetchLessons(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
@@ -45,10 +47,6 @@ export class selectScreen extends React.Component {
     if (this.props.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
     }
-  }
-
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeys);
   }
 
   // Triggers when we change between play types but remain in "selection" page
