@@ -9,7 +9,6 @@ import {
   HelpBlock,
   Panel,
   Badge,
-  Label,
   ProgressBar
 } from 'react-bootstrap';
 
@@ -34,7 +33,9 @@ export class selectScreen extends React.Component {
     this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeys);
+
     this.props.fetchLessons(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
@@ -46,10 +47,6 @@ export class selectScreen extends React.Component {
     if (this.props.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
     }
-  }
-
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeys);
   }
 
   // Triggers when we change between play types but remain in "selection" page
@@ -138,9 +135,9 @@ export class selectScreen extends React.Component {
   }
 
   handleStarredClick(lesson) {
-    return this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-      ? this.props.removeStarredLesson(lesson.name)
-      : this.props.addStarredLesson(lesson.name);
+    this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+      ? this.props.removeStarredLesson(lesson.name, this.props.params.type)
+      : this.props.addStarredLesson(lesson.name, this.props.params.type);
   }
 
   getNumberOfQuestions(lesson) {
@@ -150,6 +147,18 @@ export class selectScreen extends React.Component {
       this.props.spacedRepetitionModes.includes(this.props.params.type)
     ) {
       const { unanswered, retention, all } = this.props.addressedQuestionsInLessons[lesson.name];
+      return { unanswered, retention, all };
+    }
+    return { unanswered: 0, retention: 0, all: 0 };
+  }
+
+  getNumberOfFavoriteQuestions() {
+    if (
+      this.props.favoriteLesson &&
+      this.props.favoriteLesson.nuggetData &&
+      this.props.spacedRepetitionModes.includes(this.props.params.type)
+    ) {
+      const { unanswered, retention, all } = this.props.favoriteLesson.nuggetData;
       return { unanswered, retention, all };
     }
     return { unanswered: 0, retention: 0, all: 0 };
@@ -175,95 +184,104 @@ export class selectScreen extends React.Component {
   }
 
   renderLessons(lessons) {
-    return lessons.map(lesson => (
+    const mediumColumnSize = 6;
+    const largeColumnSize = 4;
+    const renderedLessons = lessons.map(lesson => (
       <Col
         key={lesson.name}
         xs={12}
-        md={6}
-        lg={4}
+        md={mediumColumnSize}
+        lg={largeColumnSize}
       >
         <Panel>
-          <Panel.Heading className="clearfix">
-            <Panel.Title>
-              {this.props.params.type === 'quiz' ? null : (
+          <Panel.Body>
+            <div className={'exercise'}>
+              <div className={'exercise__header'}>
+                <h3 className={'exercise__header__title'}>
+                  {lesson.name}
+                  {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
+                    <Badge className="badge--type-todo">{this.getNumberOfQuestions(lesson).retention}</Badge>
+                  ) : null}
+                  {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
+                    <Badge className="badge--type-new">{this.getNumberOfQuestions(lesson).unanswered}</Badge>
+                  ) : null}
+                </h3>
+                {this.props.params.type === 'quiz' ? null : (
+                  <div className={'exercise__header__settings'}>
+                    <Button
+                      bsClass={
+                        this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+                          ? 'favorite-icon-button favorite-icon-button--active icon-button'
+                          : 'favorite-icon-button icon-button'
+                      }
+                      onClick={e => {
+                        e.stopPropagation();
+                        this.handleStarredClick(lesson);
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        className={'fa-fw'}
+                        icon={faStar}
+                      />
+                    </Button>
+                  </div>
+                )}
+              </div>
+              {this.isSpacedRepetition() ? (
+                <div className={'exercise__progress'}>
+                  <ProgressBar
+                    now={
+                      100 -
+                      (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered) /
+                        this.getNumberOfQuestions(lesson).all *
+                        100
+                    }
+                  />
+                </div>
+              ) : null}
+              <p className={'exercise__description'}>{lesson.description}</p>
+              <div className={'exercise__actions'}>
                 <Button
-                  bsClass={
-                    this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-                      ? 'favorite-icon-button favorite-icon-button--active'
-                      : 'favorite-icon-button'
-                  }
                   onClick={e => {
                     e.stopPropagation();
-                    this.handleStarredClick(lesson);
+                    this.props.setSelectedLesson(lesson);
+                    this.startLesson();
                   }}
-                  className="pull-right"
+                  disabled={this.isSpacedRepetition() && !this.isLessonUnfinished(lesson)}
+                  bsClass={'icon-button'}
                 >
-                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon
+                    className={'fa-fw'}
+                    icon={faPlay}
+                  />
                 </Button>
-              )}
-              {lesson.name}
-              {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
-                <Badge className="badge--type-todo">{this.getNumberOfQuestions(lesson).retention}</Badge>
-              ) : null}
-              {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
-                <Badge className="badge--type-new">{this.getNumberOfQuestions(lesson).unanswered}</Badge>
-              ) : null}
-              {this.getNumberOfQuestions(lesson).unanswered === 0 &&
-              this.getNumberOfQuestions(lesson).retention === 0 &&
-              this.isSpacedRepetition() ? (
-                  <Label bsStyle="success">Färdig!</Label>
-                ) : null}
-            </Panel.Title>
-          </Panel.Heading>
-          <Panel.Body>
-            <p>{lesson.description}</p>
-            <Button
-              onClick={e => {
-                e.stopPropagation();
-                this.props.setSelectedLesson(lesson);
-                this.startLesson();
-              }}
-              disabled={
-                this.isSpacedRepetition() &&
-                this.getNumberOfQuestions(lesson).unanswered === 0 &&
-                this.getNumberOfQuestions(lesson).retention === 0
-              }
-            >
-              <FontAwesomeIcon icon={faPlay} />
-            </Button>
+              </div>
+            </div>
           </Panel.Body>
-          {this.isSpacedRepetition() && false ? (
-            <Panel.Footer>
-              <ProgressBar className={'progress--select'}>
-                <ProgressBar
-                  now={this.getNumberOfQuestions(lesson).retention / this.getNumberOfQuestions(lesson).all * 100}
-                  bsStyle={'danger'}
-                  label={this.getNumberOfQuestions(lesson).retention}
-                />
-                <ProgressBar
-                  now={this.getNumberOfQuestions(lesson).unanswered / this.getNumberOfQuestions(lesson).all * 100}
-                  bsStyle={'info'}
-                  label={this.getNumberOfQuestions(lesson).unanswered}
-                />
-                <ProgressBar
-                  now={
-                    100 -
-                    (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered) /
-                      this.getNumberOfQuestions(lesson).all *
-                      100
-                  }
-                  bsStyle={'success'}
-                  label={
-                    this.getNumberOfQuestions(lesson).all -
-                    (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered)
-                  }
-                />
-              </ProgressBar>
-            </Panel.Footer>
-          ) : null}
         </Panel>
       </Col>
     ));
+
+    const adjustedLessons = [];
+    for (let i = 0; i < renderedLessons.length; i++) {
+      adjustedLessons.push(renderedLessons[i]);
+      if ((i + 1) % (12 / mediumColumnSize) === 0) {
+        const fixer = (<div
+          key={`clearfix-md ${i}`}
+          className="clearfix visible-md"
+        />);
+        adjustedLessons.push(fixer);
+      }
+
+      if ((i + 1) % (12 / largeColumnSize) === 0) {
+        const fixer = (<div
+          key={`clearfix-lg ${i}`}
+          className="clearfix visible-lg"
+        />);
+        adjustedLessons.push(fixer);
+      }
+    }
+    return adjustedLessons;
   }
 
   render() {
@@ -286,21 +304,54 @@ export class selectScreen extends React.Component {
           lg={12}
         >
           <Panel>
-            <Panel.Heading className="clearfix">
-              <Panel.Title>Blandade frågor.</Panel.Title>
-            </Panel.Heading>
             <Panel.Body>
-              <p>Blandade frågor från alla dina favoritmarkerade lektioner.</p>
-              <Button
-                onClick={e => {
-                  e.stopPropagation();
-                  this.props.setSelectedLesson(this.props.favoriteLesson);
-                  this.startLesson();
-                }}
-                disabled={this.props.starredLessons.length === 0}
-              >
-                <FontAwesomeIcon icon={faPlay} />
-              </Button>
+              <div className={'exercise'}>
+                <div className={'exercise__header'}>
+                  <h3 className={'exercise__header__title'}>
+                    {'Blandade frågor.'}
+                    {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().retention > 0 ? (
+                      <Badge className="badge--type-todo">{this.getNumberOfFavoriteQuestions().retention}</Badge>
+                    ) : null}
+                    {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().unanswered > 0 ? (
+                      <Badge className="badge--type-new">{this.getNumberOfFavoriteQuestions().unanswered}</Badge>
+                    ) : null}
+                  </h3>
+                </div>
+                {this.isSpacedRepetition() ? (
+                  <div className={'exercise__progress'}>
+                    <ProgressBar
+                      now={
+                        this.getNumberOfFavoriteQuestions().all > 0
+                          ? 100 -
+                            (this.getNumberOfFavoriteQuestions().retention +
+                              this.getNumberOfFavoriteQuestions().unanswered) /
+                              this.getNumberOfFavoriteQuestions().all *
+                              100
+                          : 0
+                      }
+                    />
+                  </div>
+                ) : null}
+                <p className={'exercise__description'}>
+                  {'Blandade frågor från alla dina favoritmarkerade lektioner.'}
+                </p>
+                <div className={'exercise__actions'}>
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      this.props.setSelectedLesson(this.props.favoriteLesson);
+                      this.startLesson();
+                    }}
+                    disabled={this.props.starredLessons.length === 0}
+                    bsClass={'icon-button'}
+                  >
+                    <FontAwesomeIcon
+                      className={'fa-fw'}
+                      icon={faPlay}
+                    />
+                  </Button>
+                </div>
+              </div>
             </Panel.Body>
           </Panel>
         </Col>
