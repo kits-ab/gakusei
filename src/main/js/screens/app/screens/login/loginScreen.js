@@ -84,8 +84,8 @@ export class loginScreen extends React.Component {
       <Grid>
         <Row>
           <Col
-            mdOffset={2}
-            md={8}
+            mdOffset={4}
+            md={4}
           >
             <Form onSubmit={this.handleSubmit}>
               <fieldset>
