@@ -34,9 +34,8 @@ export default class AnswerButtonSet extends React.Component {
       <div>
         <Row>
           <Col
-            xs={6}
-            sm={5}
-            smOffset={1}
+            xs={12}
+            sm={6}
           >
             <AnswerButton
               primaryText={this.props.alternatives[0][0]}
@@ -50,8 +49,8 @@ export default class AnswerButtonSet extends React.Component {
             />
           </Col>
           <Col
-            xs={6}
-            sm={5}
+            xs={12}
+            sm={6}
           >
             <AnswerButton
               primaryText={this.props.alternatives[1][0]}
@@ -64,13 +63,9 @@ export default class AnswerButtonSet extends React.Component {
               name="answerbutton-2"
             />
           </Col>
-        </Row>
-        <br />
-        <Row>
           <Col
-            xs={6}
-            sm={5}
-            smOffset={1}
+            xs={12}
+            sm={6}
           >
             <AnswerButton
               primaryText={this.props.alternatives[2][0]}
@@ -84,8 +79,8 @@ export default class AnswerButtonSet extends React.Component {
             />
           </Col>
           <Col
-            xs={6}
-            sm={5}
+            xs={12}
+            sm={6}
           >
             <AnswerButton
               primaryText={this.props.alternatives[3][0]}

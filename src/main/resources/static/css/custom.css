@@ -99,6 +99,10 @@ html {
   padding: 0;
 }
 
+.answerButton {
+  margin-bottom: 30px;
+}
+
 .icon-button {
   font-size: 1.5em;
   border: none;

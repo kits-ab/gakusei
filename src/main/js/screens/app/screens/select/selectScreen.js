@@ -450,36 +450,32 @@ export class selectScreen extends React.Component {
     }
     return (
       <Grid>
-        <Col
-          xs={11}
-          lg={8}
-          lgOffset={2}
-        >
+        <Col>
           <ControlLabel>{this.getPageHeader()}</ControlLabel>
           <FormGroup>
             <ControlLabel>{this.getPageDescription()}</ControlLabel>
           </FormGroup>
           {this.props.params.type !== 'quiz' && this.props.params.type !== 'grammar' ? (
             <FormGroup>
-              <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
+              <HelpBlock>Gemensamt lektionsläge för dina favoritlektioner</HelpBlock>
               {favoriteLesson}
             </FormGroup>
           ) : null}
           {this.isSpacedRepetition() ? (
             <FormGroup>
-              <HelpBlock> Pågående lektioner </HelpBlock>
+              <HelpBlock>Pågående lektioner</HelpBlock>
               <Row>{lessonsUnfinished}</Row>
               <hr />
-              <HelpBlock> Ej påbörjade lektioner </HelpBlock>
+              <HelpBlock>Ej påbörjade lektioner</HelpBlock>
               <Row>{lessonsUnstarted}</Row>
               <hr />
-              <HelpBlock> Färdiga lektioner </HelpBlock>
+              <HelpBlock>Färdiga lektioner</HelpBlock>
               <Row>{lessonsFinished}</Row>
               <hr />
             </FormGroup>
           ) : (
             <FormGroup>
-              <HelpBlock> Välj lektion att starta </HelpBlock>
+              <HelpBlock>Välj lektion att starta</HelpBlock>
               <Row>{lessonsAll}</Row>
             </FormGroup>
           )}
