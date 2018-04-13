@@ -1,6 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
 
-import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRedirect } from 'react-router';
 import { anchorate } from 'anchorate';
@@ -43,34 +42,70 @@ export default class AppProvider extends React.Component {
         } else {
           this.setState({ rehydrated: true });
         }
-      }) });
+      })
+    });
   }
 
   render() {
     if (this.state.rehydrated) {
-      return (<Provider store={this.props.store}>
-        <Router onUpdate={onUpdate} history={this.props.history}>
-          <Route path="/" component={appScreen}>
-            <IndexRedirect to="home" />
-            <Route path="login" component={loginScreen} />
-            <Route path="logout" component={logoutScreen} />
-            <Route path="play/:type" component={requireAuthentication(playScreen)} />
-            <Route path="select/:type" component={requireAuthentication(selectScreen)} />
-            <Route path="grammar" component={requireAuthentication(grammarScreen)} />
-            {/* <Route path="lists" component={requireAuthentication(listsScreen)} /> */}
-            <Route path="finish/:type" component={requireAuthentication(finishScreen)} />
-            <Route path="home" component={requireAuthentication(homeScreen)} />
-            <Route path="about" component={aboutScreen} />
-            <Route path="start" component={startScreen} />
-          </Route>
-        </Router>
-      </Provider>);
+      return (
+        <Provider store={this.props.store}>
+          <Router
+            onUpdate={onUpdate}
+            history={this.props.history}
+          >
+            <Route
+              path="/"
+              component={appScreen}
+            >
+              <IndexRedirect to="home" />
+              <Route
+                path="login"
+                component={loginScreen}
+              />
+              <Route
+                path="logout"
+                component={logoutScreen}
+              />
+              <Route
+                path="play/:type"
+                component={requireAuthentication(playScreen)}
+              />
+              <Route
+                path="select/:type"
+                component={requireAuthentication(selectScreen)}
+              />
+              <Route
+                path="grammar"
+                component={requireAuthentication(grammarScreen)}
+              />
+              {/* <Route path="lists" component={requireAuthentication(listsScreen)} /> */}
+              <Route
+                path="finish/:type"
+                component={requireAuthentication(finishScreen)}
+              />
+              <Route
+                path="home"
+                component={requireAuthentication(homeScreen)}
+              />
+              <Route
+                path="about"
+                component={aboutScreen}
+              />
+              <Route
+                path="start"
+                component={startScreen}
+              />
+            </Route>
+          </Router>
+        </Provider>
+      );
     }
     return null;
   }
 }
 
 AppProvider.propTypes = {
-  store: React.PropTypes.object.isRequired,
-  history: React.PropTypes.object.isRequired
+  store: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };

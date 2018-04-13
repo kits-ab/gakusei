@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import 'whatwg-fetch';
 import NuggetList from './components/NuggetList';
@@ -40,7 +39,9 @@ export default class listsScreen extends React.Component {
     }
   }
   fetchCustomQuery(event) {
-    const fetchUrl = `/api/filter/nuggets?wordType=${this.state.wordType}&factTypes=${this.state.factType1}&factTypes=${this.state.factType2}&factTypes=${this.state.factType3}&factTypes=${this.state.factType4}`;
+    const fetchUrl = `/api/filter/nuggets?wordType=${this.state.wordType}&factTypes=${this.state.factType1}&factTypes=${
+      this.state.factType2
+    }&factTypes=${this.state.factType3}&factTypes=${this.state.factType4}`;
     fetch(fetchUrl, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(json => this.setState({ nuggetList: json }));
@@ -51,7 +52,10 @@ export default class listsScreen extends React.Component {
       <Grid>
         <Row>
           <Col xs={12}>
-            <QueryInput handleChange={this.updateQueryInput} handleSubmit={this.fetchCustomQuery} />
+            <QueryInput
+              handleChange={this.updateQueryInput}
+              handleSubmit={this.fetchCustomQuery}
+            />
             <br />
             <NuggetList nuggetResults={this.state.nuggetList} />
           </Col>

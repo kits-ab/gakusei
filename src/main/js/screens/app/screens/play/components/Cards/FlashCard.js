@@ -1,4 +1,3 @@
-import React from 'react';
 import { Jumbotron, Button, Row, Col } from 'react-bootstrap';
 import FlashButtonSet from '../FlashButtonSet';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
@@ -40,7 +39,12 @@ class FlashCard extends React.Component {
   render() {
     return (
       <Row>
-        <Col xs={10} xsOffset={1} sm={10} smOffset={1}>
+        <Col
+          xs={10}
+          xsOffset={1}
+          sm={10}
+          smOffset={1}
+        >
           <div className="flip-container">
             <Jumbotron className={`card${this.state.flipped ? ' flipped' : ''}`}>
               <figure className="front">
@@ -62,7 +66,7 @@ class FlashCard extends React.Component {
                   japaneseCharacters={this.props.questionType === 'reading' && this.props.cardType !== 'quiz'}
                   showKanji
                 />
-                <i>Kunde du svaret?</i>
+                Kunde du svaret?
                 <FlashButtonSet
                   correctAlternative={this.props.correctAlternative}
                   buttonStyles={this.props.question.buttonStyles}
@@ -82,7 +86,7 @@ class FlashCard extends React.Component {
               bsSize="large"
               onClick={() => this.flipIt()}
             >
-            &nbsp;Vänd på kortet&nbsp;
+              &nbsp;Vänd på kortet&nbsp;
             </Button>
           </Row>
         </Col>
@@ -91,26 +95,24 @@ class FlashCard extends React.Component {
   }
 }
 
-FlashCard.defaultProps = {
-
-};
+FlashCard.defaultProps = {};
 
 FlashCard.propTypes = {
-  question: React.PropTypes.shape({
-    correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string),
-    shapes: React.PropTypes.arrayOf(React.PropTypes.string),
-    randomizedAlternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
-    buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    resourceRef: React.PropTypes.string
+  question: PropTypes.shape({
+    correctAlternative: PropTypes.arrayOf(PropTypes.string),
+    shapes: PropTypes.arrayOf(PropTypes.string),
+    randomizedAlternatives: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+    buttonStyles: PropTypes.arrayOf(PropTypes.string).isRequired,
+    resourceRef: PropTypes.string
   }).isRequired,
-  buttonsDisabled: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired,
-  questionType: React.PropTypes.string.isRequired,
-  clickCallback: React.PropTypes.func.isRequired,
-  cardType: React.PropTypes.string.isRequired,
-  correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  buttonsDisabled: PropTypes.bool.isRequired,
+  answerType: PropTypes.string.isRequired,
+  questionType: PropTypes.string.isRequired,
+  clickCallback: PropTypes.func.isRequired,
+  cardType: PropTypes.string.isRequired,
+  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired,
   /* eslint-disable react/no-unused-prop-types */
-  questionAnswered: React.PropTypes.bool.isRequired
+  questionAnswered: PropTypes.bool.isRequired
 };
 
 export default FlashCard;

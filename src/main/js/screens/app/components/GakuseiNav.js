@@ -1,6 +1,5 @@
-import React from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { Link, withRouter } from 'react-router';
 
 import Utility from '../../../shared/util/Utility';
@@ -12,12 +11,19 @@ export const Reducers = [Lessons, Security];
 export class GakuseiNav extends React.Component {
   render() {
     return (
-      <Navbar inverse collapseOnSelect>
+      <Navbar
+        inverse
+        collapseOnSelect
+      >
         <Navbar.Header>
           <Navbar.Brand>
             <Link to="/">
               <span>
-                <img height="100%" src="/img/logo/temp_gakusei_logo3.png" alt="Gakusei logo" />
+                <img
+                  height="100%"
+                  src="/img/logo/temp_gakusei_logo3.png"
+                  alt="Gakusei logo"
+                />
                 Gakusei
               </span>
             </Link>
@@ -25,9 +31,13 @@ export class GakuseiNav extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          {this.props.loggedIn ?
+          {this.props.loggedIn ? (
             <Nav>
-              <NavDropdown className="glosorDropdown" title="Glosor" id="basic-nav-dropdown">
+              <NavDropdown
+                className="glosorDropdown"
+                title="Glosor"
+                id="basic-nav-dropdown"
+              >
                 <LinkContainer to="/select/guess">
                   <MenuItem className="guessPlay">Gissa ordet</MenuItem>
                 </LinkContainer>
@@ -37,12 +47,16 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/select/flashcards">
                   <MenuItem className="flashcardPlay">Bildkort</MenuItem>
                 </LinkContainer>
-                  {/* Remove this comment when feature is done
+                {/* Remove this comment when feature is done
                   <LinkContainer to="/select/kanji">
                   <MenuItem className="kanjiPlay">Skriv Kanji</MenuItem>
                 </LinkContainer> */}
               </NavDropdown>
-              <NavDropdown className="grammarDropdown" title="Grammatik" id="basic-nav-dropdown">
+              <NavDropdown
+                className="grammarDropdown"
+                title="Grammatik"
+                id="basic-nav-dropdown"
+              >
                 <LinkContainer to="/select/grammar">
                   <MenuItem className="grammarPlay">Böj verb</MenuItem>
                 </LinkContainer>
@@ -60,37 +74,36 @@ export class GakuseiNav extends React.Component {
                 <NavItem className="about">Om Gakusei</NavItem>
               </LinkContainer>
             </Nav>
-          :
+          ) : (
             <Nav>
               <LinkContainer to="/about">
                 <NavItem>Om Gakusei</NavItem>
               </LinkContainer>
             </Nav>
-          }
-          {this.props.loggedIn ?
+          )}
+          {this.props.loggedIn ? (
+            <p className="navbar-text navbar-right">Inloggad som: {this.props.loggedInUser}</p>
+          ) : null}
+          {this.props.loggedIn ? (
             <Nav pullRight>
-              <NavItem className="logged-in-text">Inloggad som: {this.props.loggedInUser}</NavItem>
               <LinkContainer to={{ pathname: '/logout', query: { currentUrl: this.props.location.pathname } }}>
-                <NavItem className="logoutButton">Logga ut</NavItem>
+                <NavItem className="logout-button">Logga ut</NavItem>
               </LinkContainer>
             </Nav>
-          :
+          ) : (
             <Nav pullRight>
               <LinkContainer to={`/login${this.props.location.search}`}>
-                <NavItem>Logga in / Registrera</NavItem>
+                <NavItem className="login-button">Logga in / Registrera</NavItem>
               </LinkContainer>
-            </Nav>}
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Navbar>
     );
   }
 }
 
-GakuseiNav.defaultProps = Utility.reduxEnabledDefaultProps({
+GakuseiNav.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
-}, Reducers);
-
-GakuseiNav.propTypes = Utility.reduxEnabledPropTypes({
-
-}, Reducers);
+GakuseiNav.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 export default Utility.superConnect(this, Reducers)(withRouter(GakuseiNav));

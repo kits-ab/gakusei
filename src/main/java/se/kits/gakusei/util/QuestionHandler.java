@@ -1,6 +1,7 @@
 package se.kits.gakusei.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import se.kits.gakusei.content.model.*;
 import se.kits.gakusei.content.repository.GrammarTextRepository;
@@ -24,6 +25,14 @@ public class QuestionHandler {
     public List<HashMap<String, Object>> createQuestions(List<Nugget> nuggets, String questionType, String answerType) {
         List<HashMap<String, Object>> questions = nuggets.stream()
                 .map(n -> createQuestion(n, nuggets, questionType, answerType))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        return questions;
+    }
+
+    public List<HashMap<String, Object>> createSpacedRepetitionQuestions(List<Nugget> retentionNuggets, List<Nugget> allLessonNuggets, String questionType, String answerType) {
+        List<HashMap<String, Object>> questions = retentionNuggets.stream()
+                .map(n -> createQuestion(n, allLessonNuggets, questionType, answerType))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         return questions;
@@ -128,23 +137,33 @@ public class QuestionHandler {
         }
     }
 
-    public List<Nugget> chooseNuggets(List<Nugget> nuggetsWithLowSuccessrate,
-                                                List<Nugget> unansweredNuggets,
-                                                List<Nugget> allLessonNuggets,
-                                                int quantity) {
-
-        if (allLessonNuggets.size() <= quantity) {
-            return allLessonNuggets;
+    public List<Nugget> chooseNuggets(List<Nugget> retentionNuggets, List<Nugget> nuggetsWithLowSuccessrate,
+                                      List<Nugget> unansweredNuggets,
+                                      List<Nugget> allLessonNuggets,
+                                      int quantity, boolean spacedRepetition) {
+        List<Nugget> visibleNuggets;
+        List<Nugget> nuggets = new ArrayList<>();
+        if (!spacedRepetition) {
+            if (allLessonNuggets.size() <= quantity) {
+                return allLessonNuggets;
+            } else {
+                nuggets.addAll(unansweredNuggets);
+                nuggets.addAll(nuggetsWithLowSuccessrate);
+                nuggets.addAll(allLessonNuggets);
+                visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
+                        .collect(Collectors.toList());
+                Collections.shuffle(visibleNuggets);
+                return visibleNuggets.subList(0, quantity);
+            }
         } else {
-            List<Nugget> nuggets = new ArrayList<>();
+
+            nuggets.addAll(retentionNuggets);
+            Collections.shuffle(unansweredNuggets);
             nuggets.addAll(unansweredNuggets);
-            nuggets.addAll(nuggetsWithLowSuccessrate);
-            nuggets.addAll(allLessonNuggets);
-            List<Nugget> visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
+            visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
                     .collect(Collectors.toList());
-            Collections.shuffle(visibleNuggets);
-            return visibleNuggets.subList(0, quantity);
         }
+        return visibleNuggets.subList(0, Math.min(nuggets.size(), quantity));
     }
 
     private List<String> createAlternative(Nugget nugget, String type) {

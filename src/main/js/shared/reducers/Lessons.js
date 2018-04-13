@@ -1,5 +1,4 @@
 import 'whatwg-fetch';
-import React from 'react';
 import { REHYDRATE } from 'redux-persist/constants';
 
 import getCSRF from '../../shared/util/getcsrf';
@@ -18,6 +17,7 @@ export const defaultState = {
   lessons: [],
   selectedLesson: { name: '' },
   addressedQuestionsInLessons: null,
+  favoriteLesson: null,
 
   // select/play stuff
   lessonSuccessRate: 0,
@@ -48,6 +48,8 @@ export const defaultState = {
   lessonLength: 0,
 
   answerTextInputFocused: true,
+  spacedRepetition: false,
+  spacedRepetitionModes: ['guess', 'grammar', 'translate', 'flashcards'],
 
   // Things originally in SessionStorage
   correctAttempts: 0,
@@ -59,26 +61,29 @@ export const defaultState = {
 // ----------------
 // PROPTYPES
 export const propTypes = {
-  lessonSuccessRateMessage: React.PropTypes.string.isRequired,
-  currentQuestion: React.PropTypes.shape({
-    shapes: React.PropTypes.array.isRequired,
-    correctAlternative: React.PropTypes.array.isRequired,
-    correctAlternativeNuggetId: React.PropTypes.string,
-    randomizedAlternatives: React.PropTypes.array.isRequired,
-    buttonStyles: React.PropTypes.array.isRequired,
-    buttonsDisabled: React.PropTypes.bool.isRequired,
-    resourceRef: React.PropTypes.shape({
-      type: React.PropTypes.string,
-      location: React.PropTypes.string
-    }) }).isRequired,
-  allButtonsDisabled: React.PropTypes.bool.isRequired,
-  lessonLength: React.PropTypes.number.isRequired,
-  correctAttempts: React.PropTypes.number.isRequired,
-  currentQuestionIndex: React.PropTypes.number.isRequired,
-  calcAnswerButtonStyles: React.PropTypes.func.isRequired,
-  questionType: React.PropTypes.string.isRequired,
-  answerType: React.PropTypes.string.isRequired,
-  answerTextInputFocused: React.PropTypes.bool.isRequired,
+  lessonSuccessRateMessage: PropTypes.string.isRequired,
+  currentQuestion: PropTypes.shape({
+    shapes: PropTypes.array.isRequired,
+    correctAlternative: PropTypes.array.isRequired,
+    correctAlternativeNuggetId: PropTypes.string,
+    randomizedAlternatives: PropTypes.array.isRequired,
+    buttonStyles: PropTypes.array.isRequired,
+    buttonsDisabled: PropTypes.bool.isRequired,
+    resourceRef: PropTypes.shape({
+      type: PropTypes.string,
+      location: PropTypes.string
+    })
+  }).isRequired,
+  allButtonsDisabled: PropTypes.bool.isRequired,
+  lessonLength: PropTypes.number.isRequired,
+  correctAttempts: PropTypes.number.isRequired,
+  currentQuestionIndex: PropTypes.number.isRequired,
+  calcAnswerButtonStyles: PropTypes.func.isRequired,
+  questionType: PropTypes.string.isRequired,
+  answerType: PropTypes.string.isRequired,
+  answerTextInputFocused: PropTypes.bool.isRequired,
+  spacedRepetition: PropTypes.bool.isRequired,
+  spacedRepetitionModes: PropTypes.array.isRequired
 };
 
 // -----------------
@@ -95,6 +100,7 @@ export const INCREMENT_QUESTION_INDEX = 'INCREMENT_QUESTION_INDEX';
 export const RESET_QUESTION_INDEX = 'RESET_QUESTION_INDEX';
 export const RECEIVE_LESSON = 'RECEIVE_LESSON';
 export const RECEIVE_PROCESSED_QUESTION = 'RECEIVE_NEXT_PROCESSED_QUESTION';
+export const RECEIVE_FAVORITE_LESSON = 'RECEIVE_FAVORITE_LESSON';
 export const SET_SELECTED_LESSON = 'SET_SELECTED_LESSON';
 export const SET_GAMEMODE = 'SET_GAMEMODE';
 export const SET_ALL_BUTTONS_DISABLED_STATE = 'SET_ALL_BUTTONS_DISABLED_STATE';
@@ -108,13 +114,14 @@ export const CLEAR_PROCESSED_QUESTION = 'CLEAR_PROCESSED_QUESTION';
 export const SET_QUESTION_LANGUAGE = 'SET_QUESTION_LANGUAGE';
 export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
 export const SET_ADDRESSED_QUESTIONS = 'SET_ADDRESSED_QUESTIONS';
+export const SET_SPACED_REPETITION = 'SET_SPACED_REPETITION';
 
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
 // Use @typeName and isActionType for type detection that works even after serialization/deserialization.
 export function calcLessonSuccessRateMessage() {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const state = getState().lessons;
     const lessonSuccessRate = state.lessonSuccessRate;
 
@@ -122,11 +129,11 @@ export function calcLessonSuccessRateMessage() {
 
     if (state.totalAttempts > 0) {
       const emojiFeedback = {
-        veryBad: String.fromCodePoint(0x1F61E),
-        bad: String.fromCodePoint(0x1F615),
-        average: String.fromCodePoint(0x1F610),
-        good: String.fromCodePoint(0x1F642),
-        veryGood: String.fromCodePoint(0x1F600)
+        veryBad: String.fromCodePoint(0x1f61e),
+        bad: String.fromCodePoint(0x1f615),
+        average: String.fromCodePoint(0x1f610),
+        good: String.fromCodePoint(0x1f642),
+        veryGood: String.fromCodePoint(0x1f600)
       };
 
       lessonSuccessRateMessage = `(${lessonSuccessRate}%)`;
@@ -160,12 +167,12 @@ export function receiveLessonSuccessRate(lessonSuccessRate) {
 }
 
 export function calcLessonSuccessRate() {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const state = getState().lessons;
     let lessonSuccessRate = 0;
 
     if (state.totalAttempts > 0) {
-      lessonSuccessRate = ((state.correctAttempts / state.totalAttempts) * 100).toFixed(0);
+      lessonSuccessRate = (state.correctAttempts / state.totalAttempts * 100).toFixed(0);
     }
 
     dispatch(receiveLessonSuccessRate(lessonSuccessRate));
@@ -181,22 +188,24 @@ export function receiveCorrectAttempt() {
 }
 
 export function calcAnswerButtonStyles() {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const state = getState().lessons;
 
-    const userAnswerWord = state
-      .answeredQuestions[state.currentQuestionIndex]
-      .userAnswer;
+    const userAnswerWord = state.answeredQuestions[state.currentQuestionIndex].userAnswer;
 
-    const newButtonStyles = state.currentQuestion.randomizedAlternatives.map(words =>
-      words.map((word) => {
-        if (state.currentQuestion.correctAlternative.indexOf(word) !== -1) {
-          return 'success';
-        } else if (!userAnswerWord || word.toLowerCase() === userAnswerWord.toLowerCase()) {
-          return 'danger';
-        }
-        return 'default';
-      }).filter(val => val !== 'default').pop() || 'default'
+    const newButtonStyles = state.currentQuestion.randomizedAlternatives.map(
+      words =>
+        words
+          .map(word => {
+            if (state.currentQuestion.correctAlternative.indexOf(word) !== -1) {
+              return 'success';
+            } else if (!userAnswerWord || word.toLowerCase() === userAnswerWord.toLowerCase()) {
+              return 'danger';
+            }
+            return 'default';
+          })
+          .filter(val => val !== 'default')
+          .pop() || 'default'
     );
 
     dispatch({
@@ -215,7 +224,7 @@ export function receiveIncorrectAttempt() {
 }
 
 export function addUserAnswer(userAnswerText, cardData) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const state = getState().lessons;
     const securityState = getState().security;
 
@@ -225,8 +234,9 @@ export function addUserAnswer(userAnswerText, cardData) {
       userAnswerTextFinalized = null;
       userCorrectFinalized = userAnswerText;
     } else {
-      userCorrectFinalized = state.currentQuestion.correctAlternative
-      .some(s => s.toLowerCase() === userAnswerTextFinalized.toLowerCase());
+      userCorrectFinalized = state.currentQuestion.correctAlternative.some(
+        s => s.toLowerCase() === userAnswerTextFinalized.toLowerCase()
+      );
     }
 
     const answeredQuestion = {
@@ -244,27 +254,43 @@ export function addUserAnswer(userAnswerText, cardData) {
     const eventData = {
       page: 'lessons',
       username: securityState.loggedInUser,
-      data: [{
-        eventType: 'userAnswer',
-        eventData: userAnswerText,
-        nuggetId: null
-      }, {
-        eventType: 'correctAlternative',
-        eventData: state.currentQuestion.shapes[0],
-        nuggetId: state.currentQuestion.correctAlternativeNuggetId
-      }, {
-        eventType: 'correctAlternative',
-        eventData: state.currentQuestion.correctAlternative[0],
-        nuggetId: state.currentQuestion.correctAlternativeNuggetId
-      }, {
-        eventType: 'answeredCorrectly',
+      data: [
+        {
+          eventType: 'userAnswer',
+          eventData: userAnswerText,
+          nuggetId: null
+        },
+        {
+          eventType: 'correctAlternative',
+          eventData: state.currentQuestion.shapes[0],
+          nuggetId: state.currentQuestion.correctAlternativeNuggetId
+        },
+        {
+          eventType: 'correctAlternative',
+          eventData: state.currentQuestion.correctAlternative[0],
+          nuggetId: state.currentQuestion.correctAlternativeNuggetId
+        },
+        {
+          eventType: 'answeredCorrectly',
+          eventData: answeredQuestion.userCorrect,
+          nuggetId: state.currentQuestion.correctAlternativeNuggetId
+        }
+      ]
+    };
+
+    if (getState().lessons.spacedRepetition) {
+      eventData.data.push({
+        eventType: 'updateRetention',
         eventData: answeredQuestion.userCorrect,
         nuggetId: state.currentQuestion.correctAlternativeNuggetId
-      }] };
+      });
+    }
 
-    dispatch({ type: ADD_USER_ANSWER,
+    dispatch({
+      type: ADD_USER_ANSWER,
       description: 'Add an answer a user made, along with correct results',
-      answeredQuestion });
+      answeredQuestion
+    });
 
     dispatch(calcLessonSuccessRate());
     dispatch(calcAnswerButtonStyles(userAnswerText));
@@ -281,7 +307,7 @@ export function clearUserAnswers() {
 }
 
 export function resetAttempts() {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch({
       type: RESET_ATTEMPTS,
       description: 'Reset attempts'
@@ -323,7 +349,7 @@ export function incrementQuestionIndex() {
 }
 
 export function receiveProcessedQuestion(currentQuestion) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const securityState = getState().security;
 
     dispatch({
@@ -333,10 +359,21 @@ export function receiveProcessedQuestion(currentQuestion) {
     });
 
     try {
-      Utility.logEvent('lessons', 'question', currentQuestion.shapes, currentQuestion.correctAlternativeNuggetId, securityState.loggedInUser);
+      Utility.logEvent(
+        'lessons',
+        'question',
+        currentQuestion.shapes,
+        currentQuestion.correctAlternativeNuggetId,
+        securityState.loggedInUser
+      );
       for (let i = 0; i < currentQuestion.randomizedAlternatives.length; i += 1) {
-        Utility.logEvent('lessons', 'alternative', currentQuestion.randomizedAlternatives[i], null,
-          securityState.loggedInUser);
+        Utility.logEvent(
+          'lessons',
+          'alternative',
+          currentQuestion.randomizedAlternatives[i],
+          null,
+          securityState.loggedInUser
+        );
       }
       Utility.sendCollectedEvents().catch(() => {
         // Failed to send event data, log us out.
@@ -349,7 +386,7 @@ export function receiveProcessedQuestion(currentQuestion) {
 }
 
 export function processCurrentQuestion() {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const state = getState().lessons;
     const localQuestionIndex = state.currentQuestionIndex;
 
@@ -361,7 +398,8 @@ export function processCurrentQuestion() {
         state.questions[localQuestionIndex].alternative1.map(s => s.toLowerCase()),
         state.questions[localQuestionIndex].alternative2.map(s => s.toLowerCase()),
         state.questions[localQuestionIndex].alternative3.map(s => s.toLowerCase()),
-        state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase())]),
+        state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase())
+      ]),
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonsDisabled: false,
       resourceRef: state.questions[localQuestionIndex].resourceReference || null,
@@ -402,7 +440,8 @@ export function receiveUserSuccessRate(successRate, status, response) {
     successRate,
     status,
     response,
-    lastReceived: Date.now() };
+    lastReceived: Date.now()
+  };
 }
 
 export function receiveUserStarredLessons(result) {
@@ -410,6 +449,14 @@ export function receiveUserStarredLessons(result) {
     type: RECEIVE_USER_STARRED_LESSONS,
     description: 'Recieved user starred lessons',
     result
+  };
+}
+
+export function receiveFavoriteLesson(lesson) {
+  return {
+    type: RECEIVE_FAVORITE_LESSON,
+    description: 'Received favorite lesson',
+    lesson
   };
 }
 
@@ -436,7 +483,7 @@ export function clearProcessedQuestion() {
 }
 
 export function resetLesson() {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(resetAttempts());
     dispatch(resetQuestionIndex());
     dispatch(clearUserAnswers());
@@ -445,7 +492,7 @@ export function resetLesson() {
 }
 
 export function receiveLessons(newLessons) {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch({
       type: SET_LESSONS,
       description: 'Manually set lesson names. Temporary function.',
@@ -455,7 +502,7 @@ export function receiveLessons(newLessons) {
 }
 
 export function setQuestionLanguage(language) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const state = getState().lessons;
 
     if (state.answerType === language) {
@@ -475,7 +522,7 @@ export function setQuestionLanguage(language) {
 }
 
 export function setAnswerLanguage(language) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const state = getState().lessons;
 
     if (state.questionType === language) {
@@ -494,20 +541,23 @@ export function setAnswerLanguage(language) {
 }
 
 export function fetchLessons(type) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const lessonState = getState().lessons;
     const url = type === 'quiz' ? '/api/quizes' : `/api/lessons?lessonType=${type}`;
     return fetch(url, { credentials: 'same-origin' })
-      .then((response) => {
+      .then(response => {
         if (response.ok) {
           return response.json();
         }
         throw new Error();
       })
-      .then((result) => {
+      .then(result => {
         dispatch(receiveLessons(result));
-        if (!lessonState.selectedLesson.name || lessonState.selectedLesson.name === ''
-          || result.every(element => element.name !== lessonState.selectedLesson.name)) {
+        if (
+          !lessonState.selectedLesson.name ||
+          lessonState.selectedLesson.name === '' ||
+          result.every(element => element.name !== lessonState.selectedLesson.name)
+        ) {
           dispatch(setSelectedLesson(result[0]));
         }
       });
@@ -515,7 +565,7 @@ export function fetchLessons(type) {
 }
 
 export function fetchaddressedQuestionsInLessons() {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const securityState = getState().security;
     return fetch(`/api/lessonInfo?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
       .then(response => response.json())
@@ -524,9 +574,8 @@ export function fetchaddressedQuestionsInLessons() {
 }
 
 export function fetchLesson(lessonType) {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     let fetchURL;
-
     switch (lessonType) {
       case 'quiz':
         fetchURL = '/api/quiz';
@@ -542,21 +591,38 @@ export function fetchLesson(lessonType) {
     const lessonState = getState().lessons;
     const securityState = getState().security;
 
-    return new Promise(resolve => fetch(`${fetchURL}?lessonName=${lessonState.selectedLesson.name}&questionType=${lessonState.questionType}&` +
-      `answerType=${lessonState.answerType}&lessonType=${lessonType}&username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
-      .then(response => response.json())
-      .then(
-        (json) => {
+    return new Promise(resolve =>
+      fetch(
+        `${fetchURL}?lessonName=${lessonState.selectedLesson.name}&questionType=${lessonState.questionType}&` +
+          `answerType=${lessonState.answerType}&lessonType=${lessonType}&username=${
+            securityState.loggedInUser
+          }&spacedRepetition=${lessonState.spacedRepetition}`,
+        { credentials: 'same-origin' }
+      )
+        .then(response => response.json())
+        .then(json => {
           dispatch(resetLesson());
           dispatch(receiveLesson(json));
           dispatch(processCurrentQuestion());
           resolve();
-        }));
+        })
+    );
+  };
+}
+
+export function fetchFavoriteLesson(lessonType) {
+  return function(dispatch, getState) {
+    const securityState = getState().security;
+    return fetch(`/api/lessons/favorite?username=${securityState.loggedInUser}&lessonType=${lessonType}`, {
+      credentials: 'same-origin'
+    })
+      .then(response => response.json())
+      .then(result => dispatch(receiveFavoriteLesson(result)));
   };
 }
 
 export function fetchUserStarredLessons() {
-  return function (dispatch, getState) {
+  return function(dispatch, getState) {
     const securityState = getState().security;
     return fetch(`/api/userLessons?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
       .then(response => response.json())
@@ -564,45 +630,58 @@ export function fetchUserStarredLessons() {
   };
 }
 
-export function addStarredLesson(lessonName) {
-  return function (dispatch, getState) {
+export function addStarredLesson(lessonName, lessonType) {
+  return function(dispatch, getState) {
     const xsrfTokenValue = getCSRF();
     const securityState = getState().security;
-    fetch(`/api/userLessons/add?lessonName=${lessonName}&username=${securityState.loggedInUser}`,
-      {
-        credentials: 'same-origin',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': xsrfTokenValue
-        }
-      }).then(() => dispatch(fetchUserStarredLessons()));
+    fetch(`/api/userLessons/add?lessonName=${lessonName}&username=${securityState.loggedInUser}`, {
+      credentials: 'same-origin',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': xsrfTokenValue
+      }
+    })
+      .then(() => dispatch(fetchUserStarredLessons()))
+      .then(() => dispatch(fetchFavoriteLesson(lessonType)));
   };
 }
 
-export function removeStarredLesson(lessonName) {
-  return function (dispatch, getState) {
+export function removeStarredLesson(lessonName, lessonType) {
+  return function(dispatch, getState) {
     const xsrfTokenValue = getCSRF();
     const securityState = getState().security;
-    fetch(`/api/userLessons/remove?lessonName=${lessonName}&username=${securityState.loggedInUser}`,
-      {
-        credentials: 'same-origin',
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': xsrfTokenValue
-        }
-      }).then(() => dispatch(fetchUserStarredLessons()));
+    fetch(`/api/userLessons/remove?lessonName=${lessonName}&username=${securityState.loggedInUser}`, {
+      credentials: 'same-origin',
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': xsrfTokenValue
+      }
+    })
+      .then(() => dispatch(fetchUserStarredLessons()))
+      .then(() => dispatch(fetchFavoriteLesson(lessonType)));
   };
 }
 
 export function fetchUserSuccessRate(username) {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(requestUserSuccessRate());
 
     fetch(`/api/statistics/${username}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(data => dispatch(receiveUserSuccessRate(data, 'success', data)));
+  };
+}
+
+export function toggleSpacedRepetition() {
+  return function(dispatch, getState) {
+    const lessonState = getState().lessons;
+    dispatch({
+      type: SET_SPACED_REPETITION,
+      description: 'Toggles spaced repetition',
+      value: !lessonState.spacedRepetition
+    });
   };
 }
 
@@ -618,6 +697,7 @@ export const actionCreators = {
   fetchLesson,
   fetchLessons,
   fetchaddressedQuestionsInLessons,
+  fetchFavoriteLesson,
   setSelectedLesson,
   setGameMode,
   processCurrentQuestion,
@@ -629,12 +709,14 @@ export const actionCreators = {
   calcAnswerButtonStyles,
   resetLesson,
   receiveLessons,
+  receiveFavoriteLesson,
   setQuestionLanguage,
   setAnswerLanguage,
   fetchUserStarredLessons,
   receiveUserStarredLessons,
   addStarredLesson,
-  removeStarredLesson
+  removeStarredLesson,
+  toggleSpacedRepetition
 };
 
 // ----------------
@@ -716,6 +798,11 @@ export function lessons(state = defaultState, action) {
         currentProcessedQuestionAnswered: false,
         currentProcessedQuestionAnsweredCorrectly: false
       };
+    case RECEIVE_FAVORITE_LESSON:
+      return {
+        ...state,
+        favoriteLesson: action.lesson
+      };
     case SET_SELECTED_LESSON:
       return {
         ...state,
@@ -796,6 +883,11 @@ export function lessons(state = defaultState, action) {
       return {
         ...state,
         requestingSuccessRate: true
+      };
+    case SET_SPACED_REPETITION:
+      return {
+        ...state,
+        spacedRepetition: action.value
       };
   }
 }

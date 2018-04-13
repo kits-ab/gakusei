@@ -1,8 +1,7 @@
-import React from 'react';
 import { Row } from 'react-bootstrap';
 
 class LessonStats extends React.Component {
-  state = { }
+  state = {};
   render() {
     const feedbackList = this.props.feedbackItems.map((item, index) => {
       let correctnessText = null;
@@ -12,7 +11,7 @@ class LessonStats extends React.Component {
         correctnessText = `Ditt tecken innehöll ${item.errorCount} fel.`;
       }
 
-      return (`#${index + 1}: ${correctnessText}`);
+      return `#${index + 1}: ${correctnessText}`;
     });
 
     return (
@@ -24,35 +23,36 @@ class LessonStats extends React.Component {
           <p>
             {this.props.correctAttempts} rätt {this.props.lessonSuccessRateMessage}
           </p>
-          {this.props.lessonType === 'kanji' ?
-            feedbackList.reverse().map((item, index) => {
-            if (index === 0) {
-              return (<h2 key={item}>{item}</h2>);
-            }
-            return (<p>{item}</p>);
-          }) : null}
+          {this.props.lessonType === 'kanji'
+            ? feedbackList.reverse().map((item, index) => {
+              if (index === 0) {
+                return <h2 key={item}>{item}</h2>;
+              }
+              return <p key={item}>{item}</p>;
+            })
+            : null}
         </div>
       </Row>
     );
   }
 }
 
-LessonStats.defaultProps = {
-
-};
+LessonStats.defaultProps = {};
 
 LessonStats.propTypes = {
-  feedbackItems: React.PropTypes.arrayOf(React.PropTypes.shape({
-    correct: React.PropTypes.bool.isRequired,
-    errorCount: React.PropTypes.number.isRequired,
-    text: React.PropTypes.string
-  })).isRequired,
+  feedbackItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      correct: PropTypes.bool.isRequired,
+      errorCount: PropTypes.number.isRequired,
+      text: PropTypes.string
+    })
+  ).isRequired,
 
-  currentQuestionNumber: React.PropTypes.number.isRequired, // Deprecated
-  totalQuestionsNumber: React.PropTypes.number.isRequired,
-  correctAttempts: React.PropTypes.number.isRequired, // Deprecated
-  lessonSuccessRateMessage: React.PropTypes.string.isRequired,
-  lessonType: React.PropTypes.string.isRequired
+  currentQuestionNumber: PropTypes.number.isRequired, // Deprecated
+  totalQuestionsNumber: PropTypes.number.isRequired,
+  correctAttempts: PropTypes.number.isRequired, // Deprecated
+  lessonSuccessRateMessage: PropTypes.string.isRequired,
+  lessonType: PropTypes.string.isRequired
 };
 
 export default LessonStats;

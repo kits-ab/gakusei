@@ -22,9 +22,6 @@ node/
 npm-debug.log
 npm-debug.log.*
 
-# VS Code
-.vscode
-
 # Hide our secret env.json File
 env.json
 
@@ -40,3 +37,4 @@ src/main/resources/static/js/**
 
 # Don't include java log directory
 logs/
+package-lock.json

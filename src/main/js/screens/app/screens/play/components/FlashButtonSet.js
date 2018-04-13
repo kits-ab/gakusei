@@ -1,4 +1,3 @@
-import React from 'react';
 import { Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
 
@@ -21,7 +20,7 @@ export default class FlashButtonSet extends React.Component {
       if (keyDown === '1') {
         this.props.clickCallback(this.props.correctAlternative[0]);
       } else if (keyDown === '2') {
-        this.props.clickCallback('I don\'t know');
+        this.props.clickCallback("I don't know");
       }
     }
   }
@@ -29,7 +28,14 @@ export default class FlashButtonSet extends React.Component {
   render() {
     return (
       <div>
-        <Col xs={4} xsOffset={2} sm={4} smOffset={2} md={3} mdOffset={3} >
+        <Col
+          xs={4}
+          xsOffset={2}
+          sm={4}
+          smOffset={2}
+          md={3}
+          mdOffset={3}
+        >
           <AnswerButton
             answerText={this.props.correctAlternative[0]}
             primaryText={'Ja'}
@@ -41,7 +47,11 @@ export default class FlashButtonSet extends React.Component {
             name="answerbutton-1"
           />
         </Col>
-        <Col xs={4} sm={4} md={3}>
+        <Col
+          xs={4}
+          sm={4}
+          md={3}
+        >
           <AnswerButton
             answerText={'Vet ej'}
             primaryText={'Nej'}
@@ -58,13 +68,11 @@ export default class FlashButtonSet extends React.Component {
   }
 }
 
-FlashButtonSet.defaultProps = {
-
-};
+FlashButtonSet.defaultProps = {};
 
 FlashButtonSet.propTypes = {
-  correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  buttonsDisabled: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired,
-  clickCallback: React.PropTypes.func.isRequired
+  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired,
+  buttonsDisabled: PropTypes.bool.isRequired,
+  answerType: PropTypes.string.isRequired,
+  clickCallback: PropTypes.func.isRequired
 };

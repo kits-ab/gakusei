@@ -1,4 +1,3 @@
-import React from 'react';
 import AnswerButtonSet from '../AnswerButtonSet';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 
@@ -7,7 +6,7 @@ class ButtonsCard extends React.Component {
     super(props);
 
     /* devcode:start */
-    this.onKeys = function (event) {
+    this.onKeys = function(event) {
       const keyDown = event.key;
       if (!this.props.buttonsDisabled) {
         if (keyDown === '0') {
@@ -54,26 +53,24 @@ class ButtonsCard extends React.Component {
   }
 }
 
-ButtonsCard.defaultProps = {
-
-};
+ButtonsCard.defaultProps = {};
 
 ButtonsCard.propTypes = {
-  question: React.PropTypes.shape({
-    shapes: React.PropTypes.arrayOf(React.PropTypes.string),
-    randomizedAlternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
-    buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-    resourceRef: React.PropTypes.shape({
-      type: React.PropTypes.string.isRequired,
-      location: React.PropTypes.string.isRequired
+  question: PropTypes.shape({
+    shapes: PropTypes.arrayOf(PropTypes.string),
+    randomizedAlternatives: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+    buttonStyles: PropTypes.arrayOf(PropTypes.string).isRequired,
+    resourceRef: PropTypes.shape({
+      type: PropTypes.string.isRequired,
+      location: PropTypes.string.isRequired
     }),
-    correctAlternative: React.PropTypes.arrayOf(React.PropTypes.string)
+    correctAlternative: PropTypes.arrayOf(PropTypes.string)
   }).isRequired,
-  buttonsDisabled: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired,
-  questionType: React.PropTypes.string.isRequired,
-  clickCallback: React.PropTypes.func.isRequired,
-  cardType: React.PropTypes.string.isRequired
+  buttonsDisabled: PropTypes.bool.isRequired,
+  answerType: PropTypes.string.isRequired,
+  questionType: PropTypes.string.isRequired,
+  clickCallback: PropTypes.func.isRequired,
+  cardType: PropTypes.string.isRequired
 };
 
 export default ButtonsCard;

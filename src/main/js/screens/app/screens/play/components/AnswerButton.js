@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from 'react-bootstrap';
 import Hypher from 'hypher';
 import swedish from 'hyphenation.sv';
@@ -44,20 +43,22 @@ export default class AnswerButton extends React.Component {
   }
 
   updateAnswerText(text) {
-    this.state = {
+    // eslint-disable-next-line react/no-direct-mutation-state
+    this.setState({
       answerClickFunc: this.props.onAnswerClick.bind(this, text)
-    };
+    });
   }
 
   render() {
     return (
       <Button
-        style={(this.props.buttonSize === 'large' ? { height: '5em' } : { height: '3em' })}
+        style={this.props.buttonSize === 'large' ? { height: '5em' } : { height: '3em' }}
         bsStyle={this.props.buttonStyle}
-        bsSize={this.props.buttonSize} block
+        bsSize={this.props.buttonSize}
+        block
         onClick={this.state.answerClickFunc}
         disabled={this.props.disableButton}
-        className="btn answerbutton btn-no-hover"
+        className="btn answerbutton"
         name={this.props.name}
       >
         {this.getPrimaryText()}
@@ -76,14 +77,14 @@ AnswerButton.defaultProps = {
 };
 
 AnswerButton.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  answerText: React.PropTypes.string,
-  primaryText: React.PropTypes.string.isRequired,
-  secondaryText: React.PropTypes.string,
-  buttonStyle: React.PropTypes.string.isRequired,
-  onAnswerClick: React.PropTypes.func.isRequired,
-  disableButton: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired,
-  japaneseCharacters: React.PropTypes.bool,
-  buttonSize: React.PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  answerText: PropTypes.string,
+  primaryText: PropTypes.string.isRequired,
+  secondaryText: PropTypes.string,
+  buttonStyle: PropTypes.string.isRequired,
+  onAnswerClick: PropTypes.func.isRequired,
+  disableButton: PropTypes.bool.isRequired,
+  answerType: PropTypes.string.isRequired,
+  japaneseCharacters: PropTypes.bool,
+  buttonSize: PropTypes.string.isRequired
 };

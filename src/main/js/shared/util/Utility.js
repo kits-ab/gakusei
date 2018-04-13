@@ -1,17 +1,15 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import getCSRF from './getcsrf';
 
 export default class Utility {
-
-// ----------------
-// REDUX RELATED - Helps return various redux objects
+  // ----------------
+  // REDUX RELATED - Helps return various redux objects
   static generatePropsFromReducer(reducers) {
     let result = {};
-    reducers.forEach((reducer) => {
+    reducers.forEach(reducer => {
       const dynamicPropTypes = {};
-      Object.keys(reducer.actionCreators).forEach((x) => {
-        dynamicPropTypes[x] = React.PropTypes.func.isRequired;
+      Object.keys(reducer.actionCreators).forEach(x => {
+        dynamicPropTypes[x] = PropTypes.func.isRequired;
       });
 
       result = {
@@ -26,9 +24,11 @@ export default class Utility {
 
   static generateDefaultPropsFromReducer(reducers) {
     const result = [];
-    reducers.forEach(reducer => (result.push({
-      ...(reducer.defaultState || reducer.defaultProps)
-    })));
+    reducers.forEach(reducer =>
+      result.push({
+        ...(reducer.defaultState || reducer.defaultProps)
+      })
+    );
 
     return result;
   }
@@ -36,26 +36,21 @@ export default class Utility {
   static generateReducerNamesFromReducer(reducers) {
     const result = [];
     reducers.forEach(reducer =>
-      Object.keys(reducer.reducers).forEach((x) => {
+      Object.keys(reducer.reducers).forEach(x => {
         result.push(x);
       })
-  );
+    );
     return result;
   }
 
   static generateActionCreatorsFromReducer(reducers) {
     const result = [];
-    reducers.forEach(reducer =>
-      result.push(reducer.actionCreators)
-  );
+    reducers.forEach(reducer => result.push(reducer.actionCreators));
     return result;
   }
 
   static reduxEnabledDefaultProps(defaultProps, reducerNames) {
-    return Object.assign({},
-    defaultProps,
-    ...Utility.generateDefaultPropsFromReducer(reducerNames)
-    );
+    return Object.assign({}, defaultProps, ...Utility.generateDefaultPropsFromReducer(reducerNames));
   }
 
   static reduxEnabledPropTypes(propTypes, reducerNames) {
@@ -65,36 +60,38 @@ export default class Utility {
   static superConnect(sender, reducerNames) {
     return connect(
       // Selects which state properties are merged into the component's props
-      state => (
-        Object.assign({},
-          ...Utility.generateReducerNamesFromReducer(reducerNames)
-            .map(reducerStateName => state[reducerStateName])
-        )
-      ),
+      state =>
+        Object.assign(
+          {},
+          ...Utility.generateReducerNamesFromReducer(reducerNames).map(reducerStateName => state[reducerStateName])
+        ),
       // Selects which action creators are merged into the component's props
-      (Object.assign({}, ...Utility.generateActionCreatorsFromReducer(reducerNames))),
+      Object.assign({}, ...Utility.generateActionCreatorsFromReducer(reducerNames))
     );
   }
 
-// ----------------
-// FORM-RELATED
+  // ----------------
+  // FORM-RELATED
 
   static getFormData(form) {
-    return Object.keys(form.target).map(key => (
-      form.target[key].value ?
-      `${encodeURIComponent(form.target[key].name)}=${encodeURIComponent(form.target[key].value)}`
-       : null
-      )).filter(val => val);
+    return Object.keys(form.target)
+      .map(
+        key =>
+          form.target[key].value
+            ? `${encodeURIComponent(form.target[key].name)}=${encodeURIComponent(form.target[key].value)}`
+            : null
+      )
+      .filter(val => val);
   }
 
-// ----------------
-// LOGGING
+  // ----------------
+  // LOGGING
   static collectedEvents = [];
 
   static logEvent(page, eventType, eventData, nuggetId, username, sendImmediately = false) {
     // Because sometimes we log a phonetic and a traditional written version of the same word
     // We log both of these separately to the back-end using the below evaluation
-    const pushFunc = (eventDataValue) => {
+    const pushFunc = eventDataValue => {
       this.collectedEvents.push({
         timestamp: Number(new Date()),
         gamemode: page,
@@ -138,16 +135,15 @@ export default class Utility {
     const xsrfTokenValue = getCSRF();
     const body = JSON.stringify(this.collectedEvents);
     this.collectedEvents = []; // Clear the data
-    return fetch('/api/events2',
-      {
-        credentials: 'same-origin',
-        method: 'POST',
-        body,
-        headers: {
-          'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': xsrfTokenValue
-        }
-      });
+    return fetch('/api/events2', {
+      credentials: 'same-origin',
+      method: 'POST',
+      body,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': xsrfTokenValue
+      }
+    });
   }
 
   // Deprecated
@@ -161,16 +157,15 @@ export default class Utility {
       username
     };
     const xsrfTokenValue = getCSRF();
-    return fetch('/api/events',
-      {
-        credentials: 'same-origin',
-        method: 'POST',
-        body: JSON.stringify(bodyData),
-        headers: {
-          'Content-Type': 'application/json',
-          'X-XSRF-TOKEN': xsrfTokenValue
-        }
-      });
+    return fetch('/api/events', {
+      credentials: 'same-origin',
+      method: 'POST',
+      body: JSON.stringify(bodyData),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': xsrfTokenValue
+      }
+    });
   }
 
   static randomizeOrder(array) {

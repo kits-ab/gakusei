@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Col } from 'react-bootstrap';
 import ButtonsCard from './components/Cards/ButtonsCard';
 import FlashCard from './components/Cards/FlashCard';
@@ -37,11 +36,11 @@ export class playScreen extends React.Component {
 
   updateHintVisibility = () => {
     this.setState({ showHint: !this.state.showHint });
-  }
+  };
 
   checkAnswer(answer, cardData) {
     let cloneCard = 'undefined';
-    let textInputPlayType = ['grammar', 'translate'].includes(this.props.params.type);
+    const textInputPlayType = ['grammar', 'translate'].includes(this.props.params.type);
     if (cardData.type === undefined && Array.isArray(cardData)) {
       cloneCard = cardData.slice(0);
     } else if (typeof cardData !== 'undefined') {
@@ -49,33 +48,30 @@ export class playScreen extends React.Component {
     }
 
     this.props.setAllButtonsDisabledState(true);
-    this.props.addUserAnswer(answer, cloneCard)
-      .catch(() => {
-        this.props.requestUserLogout('/', getCSRF());
-        this.props.verifyUserLoggedIn();
-      });
+    this.props.addUserAnswer(answer, cloneCard).catch(() => {
+      this.props.requestUserLogout('/', getCSRF());
+      this.props.verifyUserLoggedIn();
+    });
 
     if (textInputPlayType) {
       this.props.setAnswerTextInputFocusedState(false);
       if (this.props.currentQuestionIndex === this.props.lessonLength - 1) {
-        setTimeout(
-          () => {
-            this.props.setPageByName(`/finish/${this.props.params.type}`);
-          }, window.customDelay /* not really accessible, just for e2e testing */ || 2000);
+        setTimeout(() => {
+          this.props.setPageByName(`/finish/${this.props.params.type}`);
+        }, window.customDelay /* not really accessible, just for e2e testing */ || 2000);
       } else {
         this.props.setAllButtonsDisabledState(false);
       }
-    } else if (!textInputPlayType && (this.props.currentQuestionIndex < this.props.lessonLength - 1)) {
+    } else if (!textInputPlayType && this.props.currentQuestionIndex < this.props.lessonLength - 1) {
       setTimeout(() => {
         this.props.incrementQuestionIndex();
         this.props.processCurrentQuestion();
         this.props.setAllButtonsDisabledState(false);
       }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
     } else {
-      setTimeout(
-        () => {
-          this.props.setPageByName(`/finish/${this.props.params.type}`);
-        }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
+      setTimeout(() => {
+        this.props.setPageByName(`/finish/${this.props.params.type}`);
+      }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
     }
   }
 
@@ -97,67 +93,81 @@ export class playScreen extends React.Component {
     switch (this.props.params.type) {
       case 'grammar':
       case 'translate':
-        playCard = (<TranslateCard
-          question={this.props.currentQuestion}
-          answerType={this.props.answerType}
-          questionType={this.props.questionType}
-          cardType={this.props.params.type}
-          buttonsDisabled={this.props.allButtonsDisabled}
-          clickCallback={this.checkAnswer}
-          clickNextCallback={this.nextQuestion}
-          inputFocused={this.props.answerTextInputFocused}
-          correctAlternative={this.props.currentQuestion.correctAlternative}
-          questionAnswered={this.props.currentProcessedQuestionAnswered}
-          questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
-          updateHintVisibility={this.updateHintVisibility}
-          showHint={this.state.showHint}
-        />);
+        playCard = (
+          <TranslateCard
+            question={this.props.currentQuestion}
+            answerType={this.props.answerType}
+            questionType={this.props.questionType}
+            cardType={this.props.params.type}
+            buttonsDisabled={this.props.allButtonsDisabled}
+            clickCallback={this.checkAnswer}
+            clickNextCallback={this.nextQuestion}
+            inputFocused={this.props.answerTextInputFocused}
+            correctAlternative={this.props.currentQuestion.correctAlternative}
+            questionAnswered={this.props.currentProcessedQuestionAnswered}
+            questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+            updateHintVisibility={this.updateHintVisibility}
+            showHint={this.state.showHint}
+          />
+        );
         break;
       case 'kanji':
-        playCard = (<WriteCard
-          question={this.props.currentQuestion}
-          answerType={this.props.answerType}
-          questionType={this.props.questionType}
-          cardType={this.props.params.type}
-          buttonsDisabled={this.props.allButtonsDisabled}
-          clickCallback={this.checkAnswer}
-          correctAlternative={this.props.currentQuestion.correctAlternative}
-          questionAnswered={this.props.currentProcessedQuestionAnswered}
-          questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
-        />);
+        playCard = (
+          <WriteCard
+            question={this.props.currentQuestion}
+            answerType={this.props.answerType}
+            questionType={this.props.questionType}
+            cardType={this.props.params.type}
+            buttonsDisabled={this.props.allButtonsDisabled}
+            clickCallback={this.checkAnswer}
+            correctAlternative={this.props.currentQuestion.correctAlternative}
+            questionAnswered={this.props.currentProcessedQuestionAnswered}
+            questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+          />
+        );
         break;
       case 'flashcards':
-        playCard = (<FlashCard
-          question={this.props.currentQuestion}
-          answerType={this.props.answerType}
-          questionType={this.props.questionType}
-          cardType={this.props.params.type}
-          buttonsDisabled={this.props.allButtonsDisabled}
-          clickCallback={this.checkAnswer}
-          correctAlternative={this.props.currentQuestion.correctAlternative}
-          questionAnswered={this.props.currentProcessedQuestionAnswered}
-          questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
-        />);
+        playCard = (
+          <FlashCard
+            question={this.props.currentQuestion}
+            answerType={this.props.answerType}
+            questionType={this.props.questionType}
+            cardType={this.props.params.type}
+            buttonsDisabled={this.props.allButtonsDisabled}
+            clickCallback={this.checkAnswer}
+            correctAlternative={this.props.currentQuestion.correctAlternative}
+            questionAnswered={this.props.currentProcessedQuestionAnswered}
+            questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+          />
+        );
         break;
       case 'guess':
       case 'quiz':
       default:
-        playCard = (<ButtonsCard
-          question={this.props.currentQuestion}
-          answerType={this.props.answerType}
-          questionType={this.props.questionType}
-          cardType={this.props.params.type}
-          buttonsDisabled={this.props.allButtonsDisabled}
-          clickCallback={this.checkAnswer}
-          correctAlternative={this.props.currentQuestion.correctAlternative}
-          questionAnswered={this.props.currentProcessedQuestionAnswered}
-          questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
-        />);
+        playCard = (
+          <ButtonsCard
+            question={this.props.currentQuestion}
+            answerType={this.props.answerType}
+            questionType={this.props.questionType}
+            cardType={this.props.params.type}
+            buttonsDisabled={this.props.allButtonsDisabled}
+            clickCallback={this.checkAnswer}
+            correctAlternative={this.props.currentQuestion.correctAlternative}
+            questionAnswered={this.props.currentProcessedQuestionAnswered}
+            questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+          />
+        );
         break;
     }
     return (
       <Grid className="text-center">
-        <Col xs={12} sm={8} smOffset={2} md={6} mdOffset={3}>
+        <Col
+          xs={12}
+          sm={8}
+          smOffset={2}
+          md={6}
+          mdOffset={3}
+        >
           {playCard}
           <br />
           <LessonStats
@@ -166,24 +176,20 @@ export class playScreen extends React.Component {
             correctAttempts={this.props.correctAttempts}
             lessonSuccessRateMessage={this.props.lessonSuccessRateMessage}
             lessonType={this.props.params.type}
-            feedbackItems={this.props.answeredQuestions.map((answeredQuestion) => {
-                  if (this.props.params.type !== 'kanji') {
-                    return ({
-                        correct: answeredQuestion.userCorrect,
-                        errorCount: answeredQuestion.userCorrect ? 1 : 0,
-                        text: ''
-                    });
-                  }
-                  return (
-                    {
-                        correct: answeredQuestion.userCorrect,
-                        errorCount: answeredQuestion.cardData.filter(line => !line.match.userCorrect).length,
-                        text: answeredQuestion.cardData[answeredQuestion.cardData.length - 1]
-                            .totalMatch.wording
-                    }
-                  );
-                }
-            )}
+            feedbackItems={this.props.answeredQuestions.map(answeredQuestion => {
+              if (this.props.params.type !== 'kanji') {
+                return {
+                  correct: answeredQuestion.userCorrect,
+                  errorCount: answeredQuestion.userCorrect ? 1 : 0,
+                  text: ''
+                };
+              }
+              return {
+                correct: answeredQuestion.userCorrect,
+                errorCount: answeredQuestion.cardData.filter(line => !line.match.userCorrect).length,
+                text: answeredQuestion.cardData[answeredQuestion.cardData.length - 1].totalMatch.wording
+              };
+            })}
           />
         </Col>
       </Grid>
@@ -191,13 +197,8 @@ export class playScreen extends React.Component {
   }
 }
 
-playScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+playScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
-}, Reducers);
-
-playScreen.propTypes = Utility.reduxEnabledPropTypes({
-
-}, Reducers);
-
+playScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
 export default Utility.superConnect(this, Reducers)(playScreen);

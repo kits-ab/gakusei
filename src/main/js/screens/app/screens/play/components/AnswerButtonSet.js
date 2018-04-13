@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
 
@@ -34,7 +33,11 @@ export default class AnswerButtonSet extends React.Component {
     return (
       <div>
         <Row>
-          <Col xs={6} sm={5} smOffset={1}>
+          <Col
+            xs={6}
+            sm={5}
+            smOffset={1}
+          >
             <AnswerButton
               primaryText={this.props.alternatives[0][0]}
               secondaryText={this.props.alternatives[0][1] || null}
@@ -46,7 +49,10 @@ export default class AnswerButtonSet extends React.Component {
               name="answerbutton-1"
             />
           </Col>
-          <Col xs={6} sm={5}>
+          <Col
+            xs={6}
+            sm={5}
+          >
             <AnswerButton
               primaryText={this.props.alternatives[1][0]}
               secondaryText={this.props.alternatives[1][1] || null}
@@ -61,7 +67,11 @@ export default class AnswerButtonSet extends React.Component {
         </Row>
         <br />
         <Row>
-          <Col xs={6} sm={5} smOffset={1}>
+          <Col
+            xs={6}
+            sm={5}
+            smOffset={1}
+          >
             <AnswerButton
               primaryText={this.props.alternatives[2][0]}
               secondaryText={this.props.alternatives[2][1] || null}
@@ -73,7 +83,10 @@ export default class AnswerButtonSet extends React.Component {
               name="answerbutton-3"
             />
           </Col>
-          <Col xs={6} sm={5}>
+          <Col
+            xs={6}
+            sm={5}
+          >
             <AnswerButton
               primaryText={this.props.alternatives[3][0]}
               secondaryText={this.props.alternatives[3][1] || null}
@@ -91,15 +104,13 @@ export default class AnswerButtonSet extends React.Component {
   }
 }
 
-AnswerButtonSet.defaultProps = {
-
-};
+AnswerButtonSet.defaultProps = {};
 
 AnswerButtonSet.propTypes = {
-  alternatives: React.PropTypes.arrayOf(React.PropTypes.arrayOf(React.PropTypes.string)).isRequired,
-  buttonStyles: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  buttonsDisabled: React.PropTypes.bool.isRequired,
-  japaneseCharacters: React.PropTypes.bool.isRequired,
-  answerType: React.PropTypes.string.isRequired,
-  clickCallback: React.PropTypes.func.isRequired
+  alternatives: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+  buttonStyles: PropTypes.arrayOf(PropTypes.string).isRequired,
+  buttonsDisabled: PropTypes.bool.isRequired,
+  japaneseCharacters: PropTypes.bool.isRequired,
+  answerType: PropTypes.string.isRequired,
+  clickCallback: PropTypes.func.isRequired
 };

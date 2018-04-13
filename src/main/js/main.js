@@ -1,6 +1,4 @@
 import 'react-hot-loader/patch';
-import React from 'react';
-import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -10,7 +8,6 @@ import '../resources/static/css/cardflip.css';
 import '../resources/static/css/start.css';
 import AppProvider from './AppProvider';
 import configureStore from './configureStore';
-
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
 // ! Don't have server-rendering yet, might add later
@@ -23,10 +20,13 @@ const indexRoot = document.getElementById('index_root');
 function doRender() {
   ReactDOM.render(
     <AppContainer>
-      <AppProvider store={store} history={history} />
+      <AppProvider
+        store={store}
+        history={history}
+      />
     </AppContainer>,
-  indexRoot
-);
+    indexRoot
+  );
 }
 
 doRender();

@@ -29,7 +29,7 @@ public class UserLessonController {
     private LessonRepository lessonRepository;
 
     @RequestMapping(
-            value = "api/userLessons",
+            value = "/api/userLessons",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
@@ -39,7 +39,7 @@ public class UserLessonController {
     }
 
     @RequestMapping(
-            value = "api/userLessons/add",
+            value = "/api/userLessons/add",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
@@ -54,7 +54,7 @@ public class UserLessonController {
     }
 
     @RequestMapping(
-            value = "api/userLessons/remove",
+            value = "/api/userLessons/remove",
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
@@ -67,7 +67,7 @@ public class UserLessonController {
     }
 
     @RequestMapping(
-            value = "api/userLessons/setFirstDeadline",
+            value = "/api/userLessons/setFirstDeadline",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
@@ -81,7 +81,7 @@ public class UserLessonController {
     }
 
     @RequestMapping(
-            value = "api/userLessons/setSecondDeadline",
+            value = "/api/userLessons/setSecondDeadline",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, ProgressBar } from 'react-bootstrap';
 import { Pie } from 'react-chartjs-2';
 
@@ -14,7 +13,9 @@ export class homeScreen extends React.Component {
       responsive: true,
       maintainAspectRatio: true,
       legend: {
-        onClick: () => { /* Do nothing */ }
+        onClick: () => {
+          /* Do nothing */
+        }
       },
       tooltips: {
         callbacks: {
@@ -38,21 +39,15 @@ export class homeScreen extends React.Component {
   }
 
   getChartData() {
-    const theLabels = [
-      'Andel rätt svar!', 'Andel fel svar'
-    ];
+    const theLabels = ['Andel rätt svar!', 'Andel fel svar'];
 
     return {
       labels: theLabels,
       datasets: [
         {
           label: theLabels,
-          backgroundColor: [
-            'rgba(130,200,130,1.0)', 'rgba(130,170,130,0.4)'
-          ],
-          data: [
-            this.props.successRate, 100 - this.props.successRate
-          ]
+          backgroundColor: ['rgba(130,200,130,1.0)', 'rgba(130,170,130,0.4)'],
+          data: [this.props.successRate, 100 - this.props.successRate]
         }
       ]
     };
@@ -67,20 +62,25 @@ export class homeScreen extends React.Component {
     const headerText = 'Dina favoritlektioner';
 
     if (this.props.starredLessons.length > 0 && this.props.addressedQuestionsInLessons) {
-      const starredLessons = this.props.starredLessons.map((userLesson) => {
+      const starredLessons = this.props.starredLessons.map(userLesson => {
         if (userLesson.lesson.description !== 'quiz') {
           const totalNuggetCount = this.props.addressedQuestionsInLessons[userLesson.lesson.name].all;
           const completeNuggetCount = this.props.addressedQuestionsInLessons[userLesson.lesson.name].correctlyAnswered;
-          const completeNuggetPercentage = ((completeNuggetCount / totalNuggetCount) * 100).toFixed();
+          const completeNuggetPercentage = (completeNuggetCount / totalNuggetCount * 100).toFixed();
           return (
             <ListGroupItem
               key={userLesson.lesson.name}
               onClick={() => this.setLessonAndGo(userLesson.lesson)}
             >
               <h4>{userLesson.lesson.name}</h4>
-              <ProgressBar now={parseInt(completeNuggetPercentage, 10)} label={`${completeNuggetPercentage}% avklarat`} srOnly />
+              <ProgressBar
+                now={parseInt(completeNuggetPercentage, 10)}
+                label={`${completeNuggetPercentage}% avklarat`}
+                srOnly
+              />
               Du har klarat {completeNuggetCount} av {totalNuggetCount} ord
-            </ListGroupItem>);
+            </ListGroupItem>
+          );
         }
         return (
           <ListGroupItem
@@ -88,19 +88,28 @@ export class homeScreen extends React.Component {
             onClick={() => this.setLessonAndGo(userLesson.lesson, 'quiz')}
           >
             <h4>Quiz: {userLesson.lesson.name}</h4>
-            <ProgressBar bsStyle="warning" now={100} srOnly />
-          </ListGroupItem>);
+            <ProgressBar
+              bsStyle="warning"
+              now={100}
+              srOnly
+            />
+          </ListGroupItem>
+        );
       });
 
-      return (<div><h3>{headerText}</h3>
-        <ListGroup>
-          {starredLessons}
-        </ListGroup></div>);
+      return (
+        <div>
+          <h3>{headerText}</h3>
+          <ListGroup>{starredLessons}</ListGroup>
+        </div>
+      );
     }
-    return (<div>
-      <h3>{headerText}</h3>
-      <p>Navigera till speltyperna i menyn för att lägga till lektioner här.</p>
-    </div>);
+    return (
+      <div>
+        <h3>{headerText}</h3>
+        <p>Navigera till speltyperna i menyn för att lägga till lektioner här.</p>
+      </div>
+    );
   }
 
   render() {
@@ -109,10 +118,20 @@ export class homeScreen extends React.Component {
         <h2 name="greeter">Välkommen till Gakusei, {this.props.loggedInUser}!</h2>
         <h3>Din svarsstatistik:</h3>
         <Row>
-          <Col xs={12} xsOffset={0} md={6} mdOffset={3}>
-            { this.props.requestingSuccessRate === false ?
-              <Pie data={this.getChartData()} options={homeScreen.getChartOptions()} /> :
-              <p>Loading...</p> }
+          <Col
+            xs={12}
+            xsOffset={0}
+            md={6}
+            mdOffset={3}
+          >
+            {this.props.requestingSuccessRate === false ? (
+              <Pie
+                data={this.getChartData()}
+                options={homeScreen.getChartOptions()}
+              />
+            ) : (
+              <p>Loading...</p>
+            )}
           </Col>
         </Row>
         {this.showFavorites()}
@@ -121,13 +140,8 @@ export class homeScreen extends React.Component {
   }
 }
 
-homeScreen.defaultProps = Utility.reduxEnabledDefaultProps({
+homeScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
-}, Reducers);
-
-homeScreen.propTypes = Utility.reduxEnabledPropTypes({
-
-}, Reducers);
+homeScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
 export default Utility.superConnect(this, Reducers)(homeScreen);
-

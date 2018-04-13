@@ -1,5 +1,3 @@
-import React from 'react';
-
 // ----------------
 // DEFAULT STATE
 export const defaultState = {
@@ -9,14 +7,13 @@ export const defaultState = {
 // ----------------
 // PROPTYPES
 export const propTypes = {
-  successRate: React.PropTypes.number.isRequired
+  successRate: PropTypes.number.isRequired
 };
 
 // -----------------
 // ACTION CONSTANTS - Just used to differentiate the "actions"
 export const RECEIVE_USER_SUCCESS_RATE = 'RECEIVED_USER_SUCCESS_RATE';
 export const REQUEST_USER_SUCCESS_RATE = 'REQUEST_USER_SUCCESS_RATE';
-
 
 // -----------------
 // ACTION (CREATORS) - These are serializable (hence replayable) descriptions of state transitions.
@@ -29,7 +26,8 @@ export function receiveUserSuccessRate(successRate, status, response) {
     successRate,
     status,
     response,
-    lastReceived: Date.now() };
+    lastReceived: Date.now()
+  };
 }
 
 export function requestUserSuccessRate() {
