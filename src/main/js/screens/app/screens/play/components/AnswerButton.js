@@ -58,7 +58,7 @@ export default class AnswerButton extends React.Component {
         block
         onClick={this.state.answerClickFunc}
         disabled={this.props.disableButton}
-        className="btn answerbutton btn-no-hover"
+        className="btn answerbutton"
         name={this.props.name}
       >
         {this.getPrimaryText()}

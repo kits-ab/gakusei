@@ -10,7 +10,7 @@ export class DisplayQuestion extends React.Component {
       const inflection = this.props.inflection[0];
       return (
         <div>
-          <p className="verbQuestionText">
+          <p className="verb-question-text">
             Ange böjningen för: <strong>{this.props.secondaryText} </strong>
             ({text}, {swedishText})
             <br />på formen: <strong> {inflection} </strong>
@@ -25,7 +25,7 @@ export class DisplayQuestion extends React.Component {
       }
     }
 
-    return <p className="questionText">{text}</p>;
+    return <p className="question-text">{text}</p>;
   }
 
   getResource() {
@@ -110,7 +110,7 @@ export class DisplayQuestion extends React.Component {
             <div>
               <Collapse in={this.props.showHint}>
                 <div>
-                  <Well className="hintText">{explanation}</Well>
+                  <Well className="hint-text">{explanation}</Well>
                 </div>
               </Collapse>
             </div>
