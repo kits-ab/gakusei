@@ -34,7 +34,7 @@ export class appScreen extends React.Component {
                         xs={12}
                         sm={6}
                       >
-                        <h2>Gakusei</h2>
+                        <h2 className="sitemap__group-title">Gakusei</h2>
                         <ul className="sitemap__group">
                           <li>
                             <Link to="/about">Om oss</Link>
@@ -47,7 +47,7 @@ export class appScreen extends React.Component {
                         xs={12}
                         sm={6}
                       >
-                        <h2>Hjälp</h2>
+                        <h2 className="sitemap__group-title">Hjälp</h2>
                         <ul className="sitemap__group">
                           <li>FAQ</li>
                           <li>Användarvilkor</li>

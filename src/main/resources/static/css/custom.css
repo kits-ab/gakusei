@@ -2,30 +2,14 @@ html {
   background-color: #eee;
 }
 
+/* bootstrap override */
 .btn {
   white-space: normal;
-}
-.brandButton {
-  background-color: Transparent;
-  border: none;
-  outline: none;
-}
-
-.btn-no-hover:hover {
-  border-color: #ccc;
-}
-
-.logged-in-text {
-  pointer-events: none;
 }
 
 /* bootstrap override */
 .progress {
   margin-bottom: 0.5em;
-}
-
-.gakusei-logo {
-  margin: 50px;
 }
 
 .page-footer {
@@ -46,10 +30,10 @@ html {
   display: block;
 }
 
-.sitemap h1 {
+.sitemap__header {
   display: none;
 }
-.sitemap h2 {
+.sitemap__group-title {
   font-size: large;
 }
 .sitemap__group {
@@ -99,22 +83,22 @@ html {
 }
 
 @media screen and (min-width: 992px) {
-  .questionText {
+  .question-text {
     font-size: 300% !important;
   }
-  .verbQuestionText {
+  .verb-question-text {
     font-size: 150% !important;
   }
-  .hintText {
+  .hint-text {
     font-size: 100% !important;
   }
 }
 
 @media screen and (max-width: 992px) {
-  .questionText {
+  .question-text {
     font-size: 225% !important;
   }
-  .verbQuestionText {
+  .verb-question-text {
     font-size: 100% !important;
   }
 }
