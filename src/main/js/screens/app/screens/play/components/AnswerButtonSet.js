@@ -18,13 +18,13 @@ export default class AnswerButtonSet extends React.Component {
     const keyDown = event.key;
     if (!this.props.buttonsDisabled) {
       if (keyDown === '1') {
-        this.props.clickCallback(this.props.alternatives[0][0]);
+        this.props.clickCallback(this.props.alternatives[0][0], this.props);
       } else if (keyDown === '2') {
-        this.props.clickCallback(this.props.alternatives[1][0]);
+        this.props.clickCallback(this.props.alternatives[1][0], this.props);
       } else if (keyDown === '3') {
-        this.props.clickCallback(this.props.alternatives[2][0]);
+        this.props.clickCallback(this.props.alternatives[2][0], this.props);
       } else if (keyDown === '4') {
-        this.props.clickCallback(this.props.alternatives[3][0]);
+        this.props.clickCallback(this.props.alternatives[3][0], this.props);
       }
     }
   }
