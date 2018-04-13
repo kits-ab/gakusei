@@ -22,6 +22,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         session.setAttribute("username", authUser.getUsername());
         session.setAttribute("authorities", authentication.getAuthorities());
+        session.setMaxInactiveInterval(-1);
 
         //set our response to OK status
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
