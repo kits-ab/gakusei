@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import se.kits.gakusei.content.model.FavoriteLesson;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.model.UserLesson;
@@ -61,7 +62,7 @@ public class LessonController {
             @RequestParam(name = "questionType", defaultValue = "reading") String questionType,
             @RequestParam(name = "answerType", defaultValue = "swedish") String answerType,
             @RequestParam(name = "username") String username) {
-        HashMap<String, HashMap<String, Integer>> values = getStringHashMapHashMap(questionType, answerType, username);
+        HashMap<String, HashMap<String, Integer>> values = getStringHashMapHashMap(username);
         return new ResponseEntity<>(values, HttpStatus.OK);
     }
 
@@ -70,12 +71,12 @@ public class LessonController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public ResponseEntity<Lesson> getFavoriteLesson(@RequestParam(value = "lessonType", required = false) String lessonType,
+    public ResponseEntity<FavoriteLesson> getFavoriteLesson(@RequestParam(value = "lessonType", required = false) String lessonType,
                                                     @RequestParam(value = "username") String username) {
         return new ResponseEntity<>(getLessonFromFavorites(username), HttpStatus.OK);
     }
 
-    private HashMap<String, HashMap<String, Integer>> getStringHashMapHashMap(String questionType, String answerType, String username) {
+    private HashMap<String, HashMap<String, Integer>> getStringHashMapHashMap(String username) {
         long mark = System.currentTimeMillis();
 
         HashMap<String, HashMap<String, Integer>> values = new HashMap<>();
@@ -140,22 +141,55 @@ public class LessonController {
                 .collect(Collectors.toList());
     }
 
-    @Cacheable("favoriteLesson")
-    public Lesson getLessonFromFavorites(String username) {
-        /*List<Nugget> favoriteNuggets = userLessonRepository.findUsersStarredLessons(username).stream()
-                .map(UserLesson::getLesson)
-                .map(Lesson::getNuggets)
-                .flatMap(List::stream)
-                .filter(n -> !n.isHidden())
+
+    private HashMap<String, Integer> getFavoriteDataHashMap(String username) {
+        List<Lesson> favoriteLessons = userLessonRepository.findUsersStarredLessons(username).stream()
+                .map(UserLesson::getLesson).collect(Collectors.toList());
+        HashMap<String, Integer> lessonData = new HashMap<>();
+
+        List<Nugget> correctlyAnsweredNuggets = favoriteLessons.stream()
+                .map(lesson -> lessonRepository.findCorrectlyAnsweredNuggets(username, lesson.getName()))
+                .flatMap(nuggets -> nuggets.stream())
+                .filter(nugget -> !nugget.isHidden())
                 .distinct()
                 .collect(Collectors.toList());
-*/
-        Lesson favoriteLesson = new Lesson();
-//        favoriteLesson.setNuggets(favoriteNuggets);
+
+        List<Nugget> unansweredNuggets = favoriteLessons.stream()
+                .map(lesson -> lessonRepository.findUnansweredNuggets(username, lesson.getName()))
+                .flatMap(nuggets -> nuggets.stream())
+                .filter(nugget -> !nugget.isHidden())
+                .distinct()
+                .collect(Collectors.toList());
+
+        List<Nugget> allLessonNuggets = favoriteLessons.stream()
+                .map(lesson -> lesson.getNuggets())
+                .flatMap(nuggets -> nuggets.stream())
+                .filter(nugget -> !nugget.isHidden())
+                .distinct()
+                .collect(Collectors.toList());
+
+        List<Nugget> retentionNuggets = favoriteLessons.stream()
+                .map(lesson -> lessonRepository.findNuggetsByRetentionDate(username, lesson.getName()))
+                .flatMap(nuggets -> nuggets.stream())
+                .filter(nugget -> !nugget.isHidden())
+                .distinct()
+                .collect(Collectors.toList());
+
+        lessonData.put("unanswered", unansweredNuggets.size());
+        lessonData.put("correctlyAnswered", correctlyAnsweredNuggets.size());
+        lessonData.put("all", allLessonNuggets.size());
+        lessonData.put("retention", retentionNuggets.size());
+
+        return lessonData;
+    }
+
+    @Cacheable("favoriteLesson")
+    public FavoriteLesson getLessonFromFavorites(String username) {
+        FavoriteLesson favoriteLesson = new FavoriteLesson();
         favoriteLesson.setName("Favoriter");
         favoriteLesson.setId(1337L);
+        favoriteLesson.setNuggetData(getFavoriteDataHashMap(username));
 
         return favoriteLesson;
-
     }
 }

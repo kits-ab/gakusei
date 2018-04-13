@@ -6,11 +6,10 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
-  Glyphicon,
   HelpBlock,
   Panel,
   Badge,
-  Label
+  ProgressBar
 } from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
@@ -22,6 +21,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
 import faStar from '@fortawesome/fontawesome-free-solid/faStar';
 
+import ToggleButton from 'react-toggle-button';
+
 export const Reducers = [Lessons, Security];
 
 export class selectScreen extends React.Component {
@@ -32,7 +33,9 @@ export class selectScreen extends React.Component {
     this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeys);
+
     this.props.fetchLessons(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
@@ -44,10 +47,6 @@ export class selectScreen extends React.Component {
     if (this.props.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
     }
-  }
-
-  componentDidMount() {
-    window.addEventListener('keydown', this.onKeys);
   }
 
   // Triggers when we change between play types but remain in "selection" page
@@ -136,88 +135,167 @@ export class selectScreen extends React.Component {
   }
 
   handleStarredClick(lesson) {
-    return this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-      ? this.props.removeStarredLesson(lesson.name)
-      : this.props.addStarredLesson(lesson.name);
+    this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+      ? this.props.removeStarredLesson(lesson.name, this.props.params.type)
+      : this.props.addStarredLesson(lesson.name, this.props.params.type);
   }
 
-  getNumberOfQuestions(lesson) {
-    if (this.props.spacedRepetitionModes.includes(this.props.params.type) || this.props.params.type === 'grammar') {
-      const { unanswered, retention, all } = this.props.addressedQuestionsInLessons[lesson.name];
-      return { unanswered, retention, all };
+  getNumberOfRetentionQuestions(lesson) {
+    if (
+      this.props.addressedQuestionsInLessons &&
+      this.props.addressedQuestionsInLessons[lesson.name] &&
+      this.props.spacedRepetitionModes.includes(this.props.params.type)
+    ) {
+      return this.props.addressedQuestionsInLessons[lesson.name];
     }
-    return { unanswered: 0, retention: 0, total: 0 };
+    return { unanswered: 0, retention: 0, all: 0 };
+  }
+
+  getNumberOfFavoriteQuestions() {
+    if (
+      this.props.favoriteLesson &&
+      this.props.favoriteLesson.nuggetData &&
+      this.props.spacedRepetitionModes.includes(this.props.params.type)
+    ) {
+      return this.props.favoriteLesson.nuggetData;
+    }
+    return { unanswered: 0, retention: 0, all: 0 };
   }
 
   isLessonUnfinished(lesson) {
+    if (!this.props.addressedQuestionsInLessons) {
+      return false;
+    }
     return (
-      (this.getNumberOfQuestions(lesson).unanswered < this.getNumberOfQuestions(lesson).total &&
-        this.getNumberOfQuestions(lesson).unanswered !== 0) ||
-      this.getNumberOfQuestions(lesson).retention > 0
+      (this.getNumberOfRetentionQuestions(lesson).unanswered < this.getNumberOfRetentionQuestions(lesson).all &&
+        this.getNumberOfRetentionQuestions(lesson).unanswered !== 0) ||
+      this.getNumberOfRetentionQuestions(lesson).retention > 0
     );
   }
 
-  render() {
-    const options = this.props.lessons.map(lesson => (
+  isLessonStarted(lesson) {
+    if (!this.props.addressedQuestionsInLessons) {
+      return true;
+    }
+
+    return !(this.getNumberOfRetentionQuestions(lesson).unanswered === this.getNumberOfRetentionQuestions(lesson).all);
+  }
+
+  renderLessons(lessons) {
+    const mediumColumnSize = 6;
+    const largeColumnSize = 4;
+    const renderedLessons = lessons.map(lesson => (
       <Col
         key={lesson.name}
         xs={12}
-        md={6}
-        lg={4}
+        md={mediumColumnSize}
+        lg={largeColumnSize}
       >
         <Panel>
-          <Panel.Heading className="clearfix">
-            <Panel.Title>
-              {this.props.params.type === 'quiz' ? null : (
+          <Panel.Body>
+            <div className={'exercise'}>
+              <div className={'exercise__header'}>
+                <h3 className={'exercise__header__title'}>
+                  {lesson.name}
+                  {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
+                    <Badge className="badge--type-todo">{this.getNumberOfRetentionQuestions(lesson).retention}</Badge>
+                  ) : null}
+                  {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
+                    <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
+                  ) : null}
+                </h3>
+                {this.props.params.type === 'quiz' ? null : (
+                  <div className={'exercise__header__settings'}>
+                    <Button
+                      bsClass={
+                        this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
+                          ? 'favorite-icon-button favorite-icon-button--active icon-button'
+                          : 'favorite-icon-button icon-button'
+                      }
+                      onClick={e => {
+                        e.stopPropagation();
+                        this.handleStarredClick(lesson);
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        className={'fa-fw'}
+                        icon={faStar}
+                      />
+                    </Button>
+                  </div>
+                )}
+              </div>
+              {this.isSpacedRepetition() ? (
+                <div className={'exercise__progress'}>
+                  <ProgressBar
+                    now={
+                      100 -
+                      (this.getNumberOfRetentionQuestions(lesson).retention +
+                        this.getNumberOfRetentionQuestions(lesson).unanswered) /
+                        this.getNumberOfRetentionQuestions(lesson).all *
+                        100
+                    }
+                  />
+                </div>
+              ) : null}
+              <p className={'exercise__description'}>{lesson.description}</p>
+              <div className={'exercise__actions'}>
                 <Button
-                  bsClass={
-                    this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-                      ? 'favorite-icon-button favorite-icon-button--active'
-                      : 'favorite-icon-button'
-                  }
                   onClick={e => {
                     e.stopPropagation();
-                    this.handleStarredClick(lesson);
+                    this.props.setSelectedLesson(lesson);
+                    this.startLesson();
                   }}
-                  className="pull-right"
+                  disabled={
+                    this.isSpacedRepetition() && !this.isLessonUnfinished(lesson) && this.isLessonStarted(lesson)
+                  }
+                  bsClass={'icon-button'}
                 >
-                  <FontAwesomeIcon icon={faStar} />
+                  <FontAwesomeIcon
+                    className={'fa-fw'}
+                    icon={faPlay}
+                  />
                 </Button>
-              )}
-              {lesson.name}
-              {this.isLessonUnfinished(lesson) && this.isSpacedRepetition() ? (
-                <Badge className="badge--type-todo">{this.getNumberOfQuestions(lesson).retention}</Badge>
-              ) : null}
-              {this.isLessonUnfinished(lesson) && this.isSpacedRepetition() ? (
-                <Badge className="badge--type-new">{this.getNumberOfQuestions(lesson).unanswered}</Badge>
-              ) : null}
-              {this.getNumberOfQuestions(lesson).unanswered === 0 &&
-              this.getNumberOfQuestions(lesson).retention === 0 &&
-              this.isSpacedRepetition() ? (
-                <Label bsStyle="success">Färdig!</Label>
-                ) : null}
-            </Panel.Title>
-          </Panel.Heading>
-          <Panel.Body>
-            <p>{lesson.description}</p>
-            <Button
-              onClick={e => {
-                e.stopPropagation();
-                this.props.setSelectedLesson(lesson);
-                this.startLesson();
-              }}
-              disabled={
-                this.getNumberOfQuestions(lesson).unanswered === 0 &&
-                this.getNumberOfQuestions(lesson).retention === 0 &&
-                this.isSpacedRepetition()
-              }
-            >
-              <FontAwesomeIcon icon={faPlay} />
-            </Button>
+              </div>
+            </div>
           </Panel.Body>
         </Panel>
       </Col>
     ));
+
+    const adjustedLessons = [];
+    for (let i = 0; i < renderedLessons.length; i++) {
+      adjustedLessons.push(renderedLessons[i]);
+      if ((i + 1) % (12 / mediumColumnSize) === 0) {
+        const fixer = (<div
+          key={`clearfix-md ${i}`}
+          className="clearfix visible-md"
+        />);
+        adjustedLessons.push(fixer);
+      }
+
+      if ((i + 1) % (12 / largeColumnSize) === 0) {
+        const fixer = (<div
+          key={`clearfix-lg ${i}`}
+          className="clearfix visible-lg"
+        />);
+        adjustedLessons.push(fixer);
+      }
+    }
+    return adjustedLessons;
+  }
+
+  render() {
+    let lessonsUnfinished, lessonsFinished, lessonsUnstarted, lessonsAll;
+    if (this.isSpacedRepetition()) {
+      lessonsUnfinished = this.renderLessons(this.props.lessons.filter(lesson => this.isLessonUnfinished(lesson)));
+      lessonsFinished = this.renderLessons(
+        this.props.lessons.filter(lesson => !this.isLessonUnfinished(lesson) && this.isLessonStarted(lesson))
+      );
+      lessonsUnstarted = this.renderLessons(this.props.lessons.filter(lesson => !this.isLessonStarted(lesson)));
+    } else {
+      lessonsAll = this.renderLessons(this.props.lessons);
+    }
 
     const favoriteLesson = (
       <Row>
@@ -227,21 +305,54 @@ export class selectScreen extends React.Component {
           lg={12}
         >
           <Panel>
-            <Panel.Heading className="clearfix">
-              <Panel.Title>Blandade frågor.</Panel.Title>
-            </Panel.Heading>
             <Panel.Body>
-              <p>Blandade frågor från alla dina favoritmarkerade lektioner.</p>
-              <Button
-                onClick={e => {
-                  e.stopPropagation();
-                  this.props.setSelectedLesson(this.props.favoriteLesson);
-                  this.startLesson();
-                }}
-                disabled={this.props.starredLessons.length === 0}
-              >
-                <FontAwesomeIcon icon={faPlay} />
-              </Button>
+              <div className={'exercise'}>
+                <div className={'exercise__header'}>
+                  <h3 className={'exercise__header__title'}>
+                    {'Blandade frågor.'}
+                    {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().retention > 0 ? (
+                      <Badge className="badge--type-todo">{this.getNumberOfFavoriteQuestions().retention}</Badge>
+                    ) : null}
+                    {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().unanswered > 0 ? (
+                      <Badge className="badge--type-new">{this.getNumberOfFavoriteQuestions().unanswered}</Badge>
+                    ) : null}
+                  </h3>
+                </div>
+                {this.isSpacedRepetition() ? (
+                  <div className={'exercise__progress'}>
+                    <ProgressBar
+                      now={
+                        this.getNumberOfFavoriteQuestions().all > 0
+                          ? 100 -
+                            (this.getNumberOfFavoriteQuestions().retention +
+                              this.getNumberOfFavoriteQuestions().unanswered) /
+                              this.getNumberOfFavoriteQuestions().all *
+                              100
+                          : 0
+                      }
+                    />
+                  </div>
+                ) : null}
+                <p className={'exercise__description'}>
+                  {'Blandade frågor från alla dina favoritmarkerade lektioner.'}
+                </p>
+                <div className={'exercise__actions'}>
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      this.props.setSelectedLesson(this.props.favoriteLesson);
+                      this.startLesson();
+                    }}
+                    disabled={this.props.starredLessons.length === 0}
+                    bsClass={'icon-button'}
+                  >
+                    <FontAwesomeIcon
+                      className={'fa-fw'}
+                      icon={faPlay}
+                    />
+                  </Button>
+                </div>
+              </div>
             </Panel.Body>
           </Panel>
         </Col>
@@ -325,13 +436,13 @@ export class selectScreen extends React.Component {
               xs={12}
               sm={4}
             >
-              <Button
-                bsStyle="success"
-                active={this.isSpacedRepetition()}
-                onClick={this.handleSpacedRepetition}
-              >
-                Smart inlärningsläge
-              </Button>
+              <HelpBlock>Smart inlärningsläge</HelpBlock>
+              <ToggleButton
+                inactiveLabel={'Av'}
+                activeLabel={'På'}
+                value={this.isSpacedRepetition()}
+                onToggle={this.handleSpacedRepetition}
+              />
             </Col>
           </Row>
         </FormGroup>
@@ -345,24 +456,34 @@ export class selectScreen extends React.Component {
           lgOffset={2}
         >
           <ControlLabel>{this.getPageHeader()}</ControlLabel>
-
           <FormGroup>
             <ControlLabel>{this.getPageDescription()}</ControlLabel>
           </FormGroup>
-
           {this.props.params.type !== 'quiz' && this.props.params.type !== 'grammar' ? (
             <FormGroup>
               <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
               {favoriteLesson}
             </FormGroup>
           ) : null}
-
-          <FormGroup>
-            <HelpBlock>Välj ordsamlingar i listan nedan</HelpBlock>
-            <Row>{options}</Row>
-            {languageSelection}
-          </FormGroup>
-
+          {this.isSpacedRepetition() ? (
+            <FormGroup>
+              <HelpBlock> Pågående lektioner </HelpBlock>
+              <Row>{lessonsUnfinished}</Row>
+              <hr />
+              <HelpBlock> Ej påbörjade lektioner </HelpBlock>
+              <Row>{lessonsUnstarted}</Row>
+              <hr />
+              <HelpBlock> Färdiga lektioner </HelpBlock>
+              <Row>{lessonsFinished}</Row>
+              <hr />
+            </FormGroup>
+          ) : (
+            <FormGroup>
+              <HelpBlock> Välj lektion att starta </HelpBlock>
+              <Row>{lessonsAll}</Row>
+            </FormGroup>
+          )}
+          {languageSelection}
           <br />
         </Col>
       </Grid>
