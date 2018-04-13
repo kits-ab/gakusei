@@ -146,8 +146,7 @@ export class selectScreen extends React.Component {
       this.props.addressedQuestionsInLessons[lesson.name] &&
       this.props.spacedRepetitionModes.includes(this.props.params.type)
     ) {
-      const { unanswered, retention, all } = this.props.addressedQuestionsInLessons[lesson.name];
-      return { unanswered, retention, all };
+      return this.props.addressedQuestionsInLessons[lesson.name];
     }
     return { unanswered: 0, retention: 0, all: 0 };
   }
@@ -158,8 +157,7 @@ export class selectScreen extends React.Component {
       this.props.favoriteLesson.nuggetData &&
       this.props.spacedRepetitionModes.includes(this.props.params.type)
     ) {
-      const { unanswered, retention, all } = this.props.favoriteLesson.nuggetData;
-      return { unanswered, retention, all };
+      return this.props.favoriteLesson.nuggetData;
     }
     return { unanswered: 0, retention: 0, all: 0 };
   }
