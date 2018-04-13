@@ -140,7 +140,7 @@ export class selectScreen extends React.Component {
       : this.props.addStarredLesson(lesson.name, this.props.params.type);
   }
 
-  getNumberOfQuestions(lesson) {
+  getNumberOfRetentionQuestions(lesson) {
     if (
       this.props.addressedQuestionsInLessons &&
       this.props.addressedQuestionsInLessons[lesson.name] &&
@@ -169,18 +169,18 @@ export class selectScreen extends React.Component {
       return false;
     }
     return (
-      (this.getNumberOfQuestions(lesson).unanswered < this.getNumberOfQuestions(lesson).all &&
-        this.getNumberOfQuestions(lesson).unanswered !== 0) ||
-      this.getNumberOfQuestions(lesson).retention > 0
+      (this.getNumberOfRetentionQuestions(lesson).unanswered < this.getNumberOfRetentionQuestions(lesson).all &&
+        this.getNumberOfRetentionQuestions(lesson).unanswered !== 0) ||
+      this.getNumberOfRetentionQuestions(lesson).retention > 0
     );
   }
 
-  isLessonUnstarted(lesson) {
+  isLessonStarted(lesson) {
     if (!this.props.addressedQuestionsInLessons) {
-      return false;
+      return true;
     }
 
-    return this.getNumberOfQuestions(lesson).unanswered === this.getNumberOfQuestions(lesson).all;
+    return !(this.getNumberOfRetentionQuestions(lesson).unanswered === this.getNumberOfRetentionQuestions(lesson).all);
   }
 
   renderLessons(lessons) {
@@ -200,10 +200,10 @@ export class selectScreen extends React.Component {
                 <h3 className={'exercise__header__title'}>
                   {lesson.name}
                   {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
-                    <Badge className="badge--type-todo">{this.getNumberOfQuestions(lesson).retention}</Badge>
+                    <Badge className="badge--type-todo">{this.getNumberOfRetentionQuestions(lesson).retention}</Badge>
                   ) : null}
                   {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
-                    <Badge className="badge--type-new">{this.getNumberOfQuestions(lesson).unanswered}</Badge>
+                    <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
                   ) : null}
                 </h3>
                 {this.props.params.type === 'quiz' ? null : (
@@ -232,8 +232,9 @@ export class selectScreen extends React.Component {
                   <ProgressBar
                     now={
                       100 -
-                      (this.getNumberOfQuestions(lesson).retention + this.getNumberOfQuestions(lesson).unanswered) /
-                        this.getNumberOfQuestions(lesson).all *
+                      (this.getNumberOfRetentionQuestions(lesson).retention +
+                        this.getNumberOfRetentionQuestions(lesson).unanswered) /
+                        this.getNumberOfRetentionQuestions(lesson).all *
                         100
                     }
                   />
@@ -247,7 +248,9 @@ export class selectScreen extends React.Component {
                     this.props.setSelectedLesson(lesson);
                     this.startLesson();
                   }}
-                  disabled={this.isSpacedRepetition() && !this.isLessonUnfinished(lesson)}
+                  disabled={
+                    this.isSpacedRepetition() && !this.isLessonUnfinished(lesson) && this.isLessonStarted(lesson)
+                  }
                   bsClass={'icon-button'}
                 >
                   <FontAwesomeIcon
@@ -289,9 +292,9 @@ export class selectScreen extends React.Component {
     if (this.isSpacedRepetition()) {
       lessonsUnfinished = this.renderLessons(this.props.lessons.filter(lesson => this.isLessonUnfinished(lesson)));
       lessonsFinished = this.renderLessons(
-        this.props.lessons.filter(lesson => !this.isLessonUnfinished(lesson) && !this.isLessonUnstarted(lesson))
+        this.props.lessons.filter(lesson => !this.isLessonUnfinished(lesson) && this.isLessonStarted(lesson))
       );
-      lessonsUnstarted = this.renderLessons(this.props.lessons.filter(lesson => this.isLessonUnstarted(lesson)));
+      lessonsUnstarted = this.renderLessons(this.props.lessons.filter(lesson => !this.isLessonStarted(lesson)));
     } else {
       lessonsAll = this.renderLessons(this.props.lessons);
     }
