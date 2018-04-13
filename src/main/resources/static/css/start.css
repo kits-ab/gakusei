@@ -18,6 +18,7 @@
 
 .introduction {
   display: block;
+  position: relative;
   background: url(/img/front_page/gakusei_background.svg);
   background-size: cover;
   height: 46.25vw;
@@ -26,14 +27,23 @@
 }
 .introduction__container {
   height: 100%;
-  position: relative;
 }
 .introduction__container__text {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   color: white;
   text-shadow: -0.05em -0.05em 0 black, 0.05em -0.05em 0 black, -0.05em 0.05em 0 black, 0.05em 0.05em 0 black;
+}
+.introduction__container__text__title {
+  flex: 1;
+}
+@media screen and (min-width: 992px) {
+  .introduction__container__text {
+    display: block;
+    position: absolute;
+    top: 15%;
+  }
 }
 
 .about-features {
