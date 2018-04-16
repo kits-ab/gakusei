@@ -29,6 +29,7 @@ html {
 
 .exercise__progress .progress {
   height: 0.25em;
+  margin-bottom: 0.5em;
 }
 
 .exercise__description {
@@ -160,9 +161,4 @@ html {
     border-color: #ccc;
     background-position: 0% 0%;
   }
-}
-
-/* bootstrap override */
-.progress {
-  margin-bottom: 0.5em;
 }
