@@ -2,16 +2,6 @@ html {
   background-color: #eee;
 }
 
-/* bootstrap override */
-.btn {
-  white-space: normal;
-}
-
-/* bootstrap override */
-.progress {
-  margin-bottom: 0.5em;
-}
-
 .progress__select {
   height: 0.5em;
 }
@@ -157,4 +147,22 @@ html {
   .verb-question-text {
     font-size: 100% !important;
   }
+}
+
+/* bootstrap override */
+.btn {
+  white-space: normal;
+}
+
+/* Trying to solve sticky hover problem for mobile devices by resetting Bootstrap button appearance */
+@media (hover: none) {
+  .btn:hover {
+    border-color: #ccc;
+    background-position: 0% 0%;
+  }
+}
+
+/* bootstrap override */
+.progress {
+  margin-bottom: 0.5em;
 }
