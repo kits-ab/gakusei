@@ -6,7 +6,6 @@ import {
   FormGroup,
   FormControl,
   ControlLabel,
-  HelpBlock,
   Panel,
   Badge,
   ProgressBar
@@ -63,17 +62,17 @@ export class selectScreen extends React.Component {
   getPageHeader() {
     switch (this.props.params.type) {
       case 'quiz':
-        return <h1>Quiz</h1>;
+        return 'Quiz';
       case 'guess':
-        return <h1>Gissa ordet</h1>;
+        return 'Gissa ordet';
       case 'translate':
-        return <h1>Översätt ordet</h1>;
+        return 'Översätt ordet';
       case 'flashcards':
-        return <h1>Bildkort</h1>;
+        return 'Bildkort';
       case 'kanji':
-        return <h1>Skriv Kanji</h1>;
+        return 'Skriv Kanji';
       case 'grammar':
-        return <h1>Böj verb</h1>;
+        return 'Böj verb';
       default:
         throw new Error('No play type specified');
     }
@@ -82,19 +81,17 @@ export class selectScreen extends React.Component {
   getPageDescription() {
     switch (this.props.params.type) {
       case 'quiz':
-        return <span>Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ</span>;
+        return 'Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ';
       case 'guess':
-        return <span>Välj mellan 4 svarsalternativ för den korrekta översättningen.</span>;
+        return 'Välj mellan 4 svarsalternativ för den korrekta översättningen.';
       case 'translate':
-        return <span>Översätt det visade ordet i fritext.</span>;
+        return 'Översätt det visade ordet i fritext.';
       case 'flashcards':
-        return (
-          <span>Träna dig själv genom att använda kort, med frågan på ena sidan och rätta svaret på den andra.</span>
-        );
+        return 'Träna dig själv genom att använda kort, med frågan på ena sidan och rätta svaret på den andra.';
       case 'kanji':
-        return <span>Försök rita kanji-tecken med korrekta drag och i rätt ordning.</span>;
+        return 'Försök rita kanji-tecken med korrekta drag och i rätt ordning.';
       case 'grammar':
-        return <span>Böj det visade ordet i fritext på angiven verbform.</span>;
+        return 'Böj det visade ordet i fritext på angiven verbform.';
       default:
         throw new Error('No play type specified');
     }
@@ -162,14 +159,13 @@ export class selectScreen extends React.Component {
     return { unanswered: 0, retention: 0, all: 0 };
   }
 
-  isLessonUnfinished(lesson) {
+  isLessonFinished(lesson) {
     if (!this.props.addressedQuestionsInLessons) {
       return false;
     }
     return (
-      (this.getNumberOfRetentionQuestions(lesson).unanswered < this.getNumberOfRetentionQuestions(lesson).all &&
-        this.getNumberOfRetentionQuestions(lesson).unanswered !== 0) ||
-      this.getNumberOfRetentionQuestions(lesson).retention > 0
+      this.getNumberOfRetentionQuestions(lesson).unanswered === 0 &&
+      this.getNumberOfRetentionQuestions(lesson).retention === 0
     );
   }
 
@@ -197,12 +193,16 @@ export class selectScreen extends React.Component {
               <div className={'exercise__header'}>
                 <h3 className={'exercise__header__title'}>
                   {lesson.name}
-                  {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
-                    <Badge className="badge--type-todo">{this.getNumberOfRetentionQuestions(lesson).retention}</Badge>
-                  ) : null}
-                  {this.isSpacedRepetition() && this.isLessonUnfinished(lesson) ? (
-                    <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
-                  ) : null}
+                  {this.isSpacedRepetition() &&
+                  !this.isLessonFinished(lesson) &&
+                  this.getNumberOfRetentionQuestions(lesson).retention > 0 ? (
+                      <Badge className="badge--type-todo">{this.getNumberOfRetentionQuestions(lesson).retention}</Badge>
+                    ) : null}
+                  {this.isSpacedRepetition() &&
+                  !this.isLessonFinished(lesson) &&
+                  this.getNumberOfRetentionQuestions(lesson).unanswered > 0 ? (
+                      <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
+                    ) : null}
                 </h3>
                 {this.props.params.type === 'quiz' ? null : (
                   <div className={'exercise__header__settings'}>
@@ -246,9 +246,7 @@ export class selectScreen extends React.Component {
                     this.props.setSelectedLesson(lesson);
                     this.startLesson();
                   }}
-                  disabled={
-                    this.isSpacedRepetition() && !this.isLessonUnfinished(lesson) && this.isLessonStarted(lesson)
-                  }
+                  disabled={this.isSpacedRepetition() && this.isLessonFinished(lesson) && this.isLessonStarted(lesson)}
                   bsClass={'icon-button'}
                 >
                   <FontAwesomeIcon
@@ -282,15 +280,15 @@ export class selectScreen extends React.Component {
         adjustedLessons.push(fixer);
       }
     }
-    return adjustedLessons;
+    return adjustedLessons ? <Row>{adjustedLessons}</Row> : null;
   }
 
   render() {
     let lessonsUnfinished, lessonsFinished, lessonsUnstarted, lessonsAll;
     if (this.isSpacedRepetition()) {
-      lessonsUnfinished = this.renderLessons(this.props.lessons.filter(lesson => this.isLessonUnfinished(lesson)));
+      lessonsUnfinished = this.renderLessons(this.props.lessons.filter(lesson => !this.isLessonFinished(lesson)));
       lessonsFinished = this.renderLessons(
-        this.props.lessons.filter(lesson => !this.isLessonUnfinished(lesson) && this.isLessonStarted(lesson))
+        this.props.lessons.filter(lesson => this.isLessonFinished(lesson) && this.isLessonStarted(lesson))
       );
       lessonsUnstarted = this.renderLessons(this.props.lessons.filter(lesson => !this.isLessonStarted(lesson)));
     } else {
@@ -405,44 +403,48 @@ export class selectScreen extends React.Component {
               xs={12}
               sm={4}
             >
-              <HelpBlock>Frågespråk</HelpBlock>
-              <FormControl
-                componentClass="select"
-                name="questionType"
-                id="questionLanguageSelection"
-                onChange={this.handleLanguageSelection}
-                value={this.props.questionType}
-                disabled={this.props.params.type === 'kanji'}
-              >
-                {questionLanguages}
-              </FormControl>
+              <FormGroup controlId="questionLanguageSelection">
+                <ControlLabel>Frågespråk</ControlLabel>
+                <FormControl
+                  componentClass="select"
+                  name="questionType"
+                  onChange={this.handleLanguageSelection}
+                  value={this.props.questionType}
+                  disabled={this.props.params.type === 'kanji'}
+                >
+                  {questionLanguages}
+                </FormControl>
+              </FormGroup>
             </Col>
             <Col
               xs={12}
               sm={4}
             >
-              <HelpBlock>Svarspråk</HelpBlock>
-              <FormControl
-                componentClass="select"
-                name="answerType"
-                id="answerLanguageSelection"
-                onChange={this.handleLanguageSelection}
-                value={this.props.answerType}
-              >
-                {answerLanguages}
-              </FormControl>
+              <FormGroup controlId="answerLanguageSelection">
+                <ControlLabel>Svarspråk</ControlLabel>
+                <FormControl
+                  componentClass="select"
+                  name="answerType"
+                  onChange={this.handleLanguageSelection}
+                  value={this.props.answerType}
+                >
+                  {answerLanguages}
+                </FormControl>
+              </FormGroup>
             </Col>
             <Col
               xs={12}
               sm={4}
             >
-              <HelpBlock>Smart inlärningsläge</HelpBlock>
-              <ToggleButton
-                inactiveLabel={'Av'}
-                activeLabel={'På'}
-                value={this.isSpacedRepetition()}
-                onToggle={this.handleSpacedRepetition}
-              />
+              <FormGroup>
+                <ControlLabel>Smart inlärningsläge</ControlLabel>
+                <ToggleButton
+                  inactiveLabel={'Av'}
+                  activeLabel={'På'}
+                  value={this.isSpacedRepetition()}
+                  onToggle={this.handleSpacedRepetition}
+                />
+              </FormGroup>
             </Col>
           </Row>
         </FormGroup>
@@ -455,36 +457,25 @@ export class selectScreen extends React.Component {
           lg={8}
           lgOffset={2}
         >
-          <ControlLabel>{this.getPageHeader()}</ControlLabel>
-          <FormGroup>
-            <ControlLabel>{this.getPageDescription()}</ControlLabel>
-          </FormGroup>
-          {this.props.params.type !== 'quiz' && this.props.params.type !== 'grammar' ? (
-            <FormGroup>
-              <HelpBlock> Gemensamt lektionsläge för dina favoritlektioner </HelpBlock>
-              {favoriteLesson}
-            </FormGroup>
-          ) : null}
+          <h1>{this.getPageHeader()}</h1>
+          <p>{this.getPageDescription()}</p>
+          <h2>Lektioner</h2>
+          {this.props.params.type !== 'quiz' && this.props.params.type !== 'grammar' ? favoriteLesson : null}
           {this.isSpacedRepetition() ? (
-            <FormGroup>
-              <HelpBlock> Pågående lektioner </HelpBlock>
-              <Row>{lessonsUnfinished}</Row>
-              <hr />
-              <HelpBlock> Ej påbörjade lektioner </HelpBlock>
-              <Row>{lessonsUnstarted}</Row>
-              <hr />
-              <HelpBlock> Färdiga lektioner </HelpBlock>
-              <Row>{lessonsFinished}</Row>
-              <hr />
-            </FormGroup>
+            <div>
+              {lessonsUnfinished ? <h3>Pågående lektioner</h3> : null}
+              {lessonsUnfinished}
+
+              {lessonsUnstarted ? <h3>Ej påbörjade lektioner</h3> : null}
+              {lessonsUnstarted}
+
+              {lessonsFinished ? <h3>Färdiga lektioner</h3> : null}
+              {lessonsFinished}
+            </div>
           ) : (
-            <FormGroup>
-              <HelpBlock> Välj lektion att starta </HelpBlock>
-              <Row>{lessonsAll}</Row>
-            </FormGroup>
+            lessonsAll
           )}
           {languageSelection}
-          <br />
         </Col>
       </Grid>
     );
