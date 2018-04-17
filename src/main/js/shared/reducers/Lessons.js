@@ -49,7 +49,7 @@ export const defaultState = {
 
   answerTextInputFocused: true,
   spacedRepetition: false,
-  spacedRepetitionModes: ['guess', 'grammar', 'translate', 'flashcards'],
+  spacedRepetitionModes: ['guess', 'translate', 'flashcards'],
 
   // Things originally in SessionStorage
   correctAttempts: 0,
