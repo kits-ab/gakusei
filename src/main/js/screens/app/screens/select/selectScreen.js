@@ -377,7 +377,7 @@ export class selectScreen extends React.Component {
         Svenska
       </option>
     );
-    /* devcode: start */
+    /* devcode:start */
     answerLanguages.push(
       <option
         key={'english'}
@@ -386,7 +386,7 @@ export class selectScreen extends React.Component {
         Engelska
       </option>
     );
-    /* devcode: end */
+    /* devcode:end */
 
     if (this.props.params.type === 'kanji') {
       questionLanguages = answerLanguages.shift();
