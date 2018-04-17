@@ -39,20 +39,20 @@ export class appScreen extends React.Component {
                           <li>
                             <Link to="/about">Om oss</Link>
                           </li>
-                          <li>Kontakt</li>
-                          <li>Vårt team</li>
+                          {/* <li>Kontakt</li>
+                          <li>Vårt team</li> */}
                         </ul>
                       </Col>
                       <Col
                         xs={12}
                         sm={6}
                       >
-                        <h2 className="sitemap__group-title">Hjälp</h2>
+                        {/* <h2 className="sitemap__group-title">Hjälp</h2>
                         <ul className="sitemap__group">
                           <li>FAQ</li>
                           <li>Användarvilkor</li>
                           <li>Integritetspolicy</li>
-                        </ul>
+                        </ul> */}
                       </Col>
                     </Row>
                   </Grid>

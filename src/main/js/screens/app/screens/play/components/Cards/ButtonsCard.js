@@ -10,7 +10,7 @@ class ButtonsCard extends React.Component {
       const keyDown = event.key;
       if (!this.props.buttonsDisabled) {
         if (keyDown === '0') {
-          this.props.clickCallback(this.props.question.correctAlternative[0]);
+          this.props.clickCallback(this.props.question.correctAlternative[0], this.props);
         }
       }
     }.bind(this);

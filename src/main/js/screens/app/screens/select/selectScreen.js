@@ -452,11 +452,7 @@ export class selectScreen extends React.Component {
     }
     return (
       <Grid>
-        <Col
-          xs={11}
-          lg={8}
-          lgOffset={2}
-        >
+        <Col>
           <h1>{this.getPageHeader()}</h1>
           <p>{this.getPageDescription()}</p>
           <h2>Lektioner</h2>

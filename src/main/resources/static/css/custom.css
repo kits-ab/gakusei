@@ -2,16 +2,6 @@ html {
   background-color: #eee;
 }
 
-/* bootstrap override */
-.btn {
-  white-space: normal;
-}
-
-/* bootstrap override */
-.progress {
-  margin-bottom: 0.5em;
-}
-
 .progress__select {
   height: 0.5em;
 }
@@ -39,6 +29,7 @@ html {
 
 .exercise__progress .progress {
   height: 0.25em;
+  margin-bottom: 0.5em;
 }
 
 .exercise__description {
@@ -99,6 +90,10 @@ html {
   padding: 0;
 }
 
+.answerButton {
+  margin-bottom: 30px;
+}
+
 .icon-button {
   font-size: 1.5em;
   border: none;
@@ -152,5 +147,18 @@ html {
   }
   .verb-question-text {
     font-size: 100% !important;
+  }
+}
+
+/* bootstrap override */
+.btn {
+  white-space: normal;
+}
+
+/* Trying to solve sticky hover problem for mobile devices by resetting Bootstrap button appearance */
+@media (hover: none) {
+  .btn:hover {
+    border-color: #ccc;
+    background-position: 0% 0%;
   }
 }
