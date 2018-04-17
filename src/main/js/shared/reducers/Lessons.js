@@ -503,16 +503,6 @@ export function receiveLessons(newLessons) {
 
 export function setQuestionLanguage(language) {
   return function(dispatch, getState) {
-    const state = getState().lessons;
-
-    if (state.answerType === language) {
-      dispatch({
-        type: SET_ANSWER_LANGUAGE,
-        description: 'Set the answer language',
-        language: state.questionType
-      });
-    }
-
     dispatch({
       type: SET_QUESTION_LANGUAGE,
       description: 'Set the question language',
@@ -523,15 +513,6 @@ export function setQuestionLanguage(language) {
 
 export function setAnswerLanguage(language) {
   return function(dispatch, getState) {
-    const state = getState().lessons;
-
-    if (state.questionType === language) {
-      dispatch({
-        type: SET_QUESTION_LANGUAGE,
-        description: 'Set the answer language',
-        language: state.answerType
-      });
-    }
     dispatch({
       type: SET_ANSWER_LANGUAGE,
       description: 'Set the question language',

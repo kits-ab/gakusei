@@ -1,17 +1,4 @@
-import {
-  Button,
-  Grid,
-  Row,
-  Col,
-  FormGroup,
-  FormControl,
-  Form,
-  ControlLabel,
-  Panel,
-  Badge,
-  ProgressBar,
-  Radio
-} from 'react-bootstrap';
+import { Button, Grid, Row, Col, FormGroup, ControlLabel, Panel, Badge, ProgressBar, Radio } from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
 
@@ -29,7 +16,6 @@ export const Reducers = [Lessons, Security];
 export class selectScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
     this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
   }
@@ -96,22 +82,6 @@ export class selectScreen extends React.Component {
         return 'Böj det visade ordet i fritext på angiven verbform.';
       default:
         throw new Error('No play type specified');
-    }
-  }
-
-  handleLanguageSelection(event) {
-    switch (event.target.name) {
-      case 'selectedLesson':
-        this.props.setSelectedLesson(event.target.value);
-        break;
-      case 'questionType':
-        this.props.setQuestionLanguage(event.target.value);
-        break;
-      case 'answerType':
-        this.props.setAnswerLanguage(event.target.value);
-        break;
-      default:
-        break;
     }
   }
 
@@ -286,35 +256,44 @@ export class selectScreen extends React.Component {
   }
 
   getLanguageSelection() {
-    const languages = [];
-    languages.push(
-      <Radio
-        key={'reading'}
-        value={'reading'}
-        name={'languageSelect'}
-        onChange={this.handleLanguageSelection}
-      >
-        Japanska till Svenska
-      </Radio>
-    );
-    languages.push(
-      <Radio
-        key={'swedish'}
-        value={'swedish'}
-        name={'languageSelect'}
-        onChange={this.handleLanguageSelection}
-      >
-        Svenska till Japanska
-      </Radio>
-    );
+    const RadioLanguage = props => {
+      const changeLanguage = () => {
+        this.props.setQuestionLanguage(props.languageQuestion);
+        this.props.setAnswerLanguage(props.languageAnswer);
+      };
+
+      return (
+        <Radio
+          onChange={changeLanguage}
+          name={props.name}
+          checked={props.languageQuestion === this.props.questionType && props.languageAnswer === this.props.answerType}
+        >
+          {props.text}
+        </Radio>
+      );
+    };
+
     if (this.props.params.type === 'quiz' || this.props.params.type === 'grammar') {
       return <div />;
     } else {
       return (
         <FormGroup>
-          <FormGroup controlId="questionLanguageSelection">
-            <ControlLabel>Frågespråk</ControlLabel>
-            {languages}
+          <FormGroup controlId="languageSelect">
+            <ControlLabel>Språk</ControlLabel>
+            <RadioLanguage
+              key={'reading'}
+              name={'languageSelect'}
+              languageQuestion={'reading'}
+              languageAnswer={'swedish'}
+              text={'Japanska till svenska'}
+            />
+            <RadioLanguage
+              key={'swedish'}
+              name={'languageSelect'}
+              languageQuestion={'swedish'}
+              languageAnswer={'reading'}
+              text={'Svenska till japanska'}
+            />
           </FormGroup>
           <FormGroup>
             <ControlLabel>Smart inlärningsläge</ControlLabel>
