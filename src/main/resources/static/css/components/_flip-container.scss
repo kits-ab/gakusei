@@ -6,7 +6,7 @@
     position: relative;
 }
 
-.card {
+.flip-container__card {
     padding: 1em 0 0 0 !important;
     width: 100%;
     height: 100%;
@@ -16,7 +16,7 @@
     transition: transform 0.75s;
 }
 
-.card figure {
+.flip-container__card__front, .flip-container__card_back {
     width: 100%;
     box-sizing: border-box;
     position: absolute;
@@ -25,26 +25,23 @@
     -moz-backface-visibility: hidden;
 }
 
-.card .front {
-    /*background: red;*/
+.flip-container__card__front {
     transform: rotateX(0deg);
 }
 
-.card .back {
-    /*background: blue;*/
+.flip-container__card__back {
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg) translateZ(1px);
-    /*transform: rotateX(0deg);*/
 }
 
-.card .glyphicon {
+.flip-container__card .glyphicon {
     position: inherit;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
 }
 
-.card.flipped {
+.flip-container__card--flipped {
     transform: rotateY(180deg);
     -webkit-transform: rotateY(180deg) translateZ(1px);
 }

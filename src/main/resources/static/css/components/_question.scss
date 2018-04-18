@@ -1,20 +1,22 @@
-@media screen and (min-width: 992px) {
-    .question-text {
-        font-size: 300% !important;
-    }
-    .verb-question-text {
-        font-size: 150% !important;
-    }
-    .hint-text {
-        font-size: 100% !important;
+.question {
+    &__text {
+        font-size: 225%;
+
+        &--type-verb {
+            font-size: 100%;
+        }
     }
 }
 
-@media screen and (max-width: 992px) {
-    .question-text {
-        font-size: 225% !important;
-    }
-    .verb-question-text {
-        font-size: 100% !important;
+
+@media screen and (min-width: 992px) {
+    .question {
+        &__text {
+            font-size: 300%;
+
+            &--type-verb {
+                font-size: 150%;
+            }
+        }
     }
 }
