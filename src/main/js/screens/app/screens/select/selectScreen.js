@@ -8,6 +8,7 @@ import * as Security from '../../../../shared/reducers/Security';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
 import faStar from '@fortawesome/fontawesome-free-solid/faStar';
+import faArrow from '@fortawesome/fontawesome-free-solid/faArrowRight';
 
 import ToggleButton from 'react-toggle-button';
 
@@ -268,7 +269,13 @@ export class selectScreen extends React.Component {
           name={props.name}
           checked={props.languageQuestion === this.props.questionType && props.languageAnswer === this.props.answerType}
         >
-          {props.text}
+          {props.textQuestion}
+          <FontAwesomeIcon
+            className={'fa-fw'}
+            icon={faArrow}
+            style={{ marginLeft: '0.3em', marginRight: '0.3em' }}
+          />
+          {props.textAnswer}
         </Radio>
       );
     };
@@ -285,14 +292,16 @@ export class selectScreen extends React.Component {
               name={'languageSelect'}
               languageQuestion={'reading'}
               languageAnswer={'swedish'}
-              text={'Japanska -> Svenska'}
+              textQuestion={'Japanska'}
+              textAnswer={'Svenska'}
             />
             <RadioLanguage
               key={'swedish'}
               name={'languageSelect'}
               languageQuestion={'swedish'}
               languageAnswer={'reading'}
-              text={'Svenska -> Japanska'}
+              textQuestion={'Svenska'}
+              textAnswer={'Japanska'}
             />
           </FormGroup>
           <FormGroup>
