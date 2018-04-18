@@ -1,0 +1,46 @@
+.exercise__header {
+    display: flex;
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+    margin-bottom: 0.5em;
+}
+
+.exercise__header__title > .badge {
+    margin-left: 0.4em;
+}
+
+.exercise__header__title {
+    margin: 0;
+    flex: 1;
+    font-size: 1.25em;
+}
+
+.exercise__progress .progress {
+    height: 0.25em;
+    margin-bottom: 0.5em;
+}
+
+.exercise__description {
+    padding-left: 0.25em;
+    padding-right: 0.25em;
+}
+
+.exercise__header + .exercise__description {
+    border-top-color: #ebebeb;
+    border-top-style: solid;
+    border-top-width: 0.25em;
+    padding-top: 0.5em;
+}
+
+.exercise__actions {
+    text-align: right;
+    padding-right: 0.25em;
+    margin-bottom: 0.25em;
+    color: #337ab7;
+}
+
+.exercise__actions .icon-button:disabled {
+    opacity: 0.65;
+    color: rgb(114, 114, 114);
+    cursor: not-allowed;
+}

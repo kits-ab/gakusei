@@ -1,0 +1,20 @@
+@media screen and (min-width: 992px) {
+    .question-text {
+        font-size: 300% !important;
+    }
+    .verb-question-text {
+        font-size: 150% !important;
+    }
+    .hint-text {
+        font-size: 100% !important;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .question-text {
+        font-size: 225% !important;
+    }
+    .verb-question-text {
+        font-size: 100% !important;
+    }
+}

@@ -64,8 +64,13 @@ module.exports = function() {
           exclude
         },
         {
-          test: /\.css$/,
-          use: ['style-loader', { loader: 'css-loader', options: { importLoaders: 1 } }, 'postcss-loader'],
+          test: /\.scss$/,
+          use: [
+            'style-loader',
+            { loader: 'css-loader', options: { importLoaders: 1 } },
+            'postcss-loader',
+            'sass-loader'
+          ],
           exclude
         }
       ]
