@@ -259,23 +259,25 @@ export class selectScreen extends React.Component {
   getLanguageSelection() {
     const RadioLanguage = props => {
       const changeLanguage = () => {
-        this.props.setQuestionLanguage(props.languageQuestion);
-        this.props.setAnswerLanguage(props.languageAnswer);
+        this.props.setQuestionLanguage(props.languageQuestion.id);
+        this.props.setAnswerLanguage(props.languageAnswer.id);
       };
 
       return (
         <Radio
           onChange={changeLanguage}
           name={props.name}
-          checked={props.languageQuestion === this.props.questionType && props.languageAnswer === this.props.answerType}
+          checked={
+            props.languageQuestion.id === this.props.questionType && props.languageAnswer.id === this.props.answerType
+          }
         >
-          {props.textQuestion}
+          {props.languageQuestion.text}
           <FontAwesomeIcon
             className={'fa-fw'}
             icon={faArrow}
             style={{ marginLeft: '0.3em', marginRight: '0.3em' }}
           />
-          {props.textAnswer}
+          {props.languageAnswer.text}
         </Radio>
       );
     };
@@ -290,18 +292,14 @@ export class selectScreen extends React.Component {
             <RadioLanguage
               key={'reading'}
               name={'languageSelect'}
-              languageQuestion={'reading'}
-              languageAnswer={'swedish'}
-              textQuestion={'Japanska'}
-              textAnswer={'Svenska'}
+              languageQuestion={{ id: 'reading', text: 'Japanska' }}
+              languageAnswer={{ id: 'swedish', text: 'Svenska' }}
             />
             <RadioLanguage
               key={'swedish'}
               name={'languageSelect'}
-              languageQuestion={'swedish'}
-              languageAnswer={'reading'}
-              textQuestion={'Svenska'}
-              textAnswer={'Japanska'}
+              languageQuestion={{ id: 'swedish', text: 'Svenska' }}
+              languageAnswer={{ id: 'reading', text: 'Japanska' }}
             />
           </FormGroup>
           <FormGroup>
