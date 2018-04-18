@@ -285,14 +285,14 @@ export class selectScreen extends React.Component {
               name={'languageSelect'}
               languageQuestion={'reading'}
               languageAnswer={'swedish'}
-              text={'Japanska till svenska'}
+              text={'Japanska -> Svenska'}
             />
             <RadioLanguage
               key={'swedish'}
               name={'languageSelect'}
               languageQuestion={'swedish'}
               languageAnswer={'reading'}
-              text={'Svenska till japanska'}
+              text={'Svenska -> Japanska'}
             />
           </FormGroup>
           <FormGroup>

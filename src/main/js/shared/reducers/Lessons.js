@@ -502,7 +502,7 @@ export function receiveLessons(newLessons) {
 }
 
 export function setQuestionLanguage(language) {
-  return function(dispatch, getState) {
+  return function(dispatch) {
     dispatch({
       type: SET_QUESTION_LANGUAGE,
       description: 'Set the question language',
@@ -512,7 +512,7 @@ export function setQuestionLanguage(language) {
 }
 
 export function setAnswerLanguage(language) {
-  return function(dispatch, getState) {
+  return function(dispatch) {
     dispatch({
       type: SET_ANSWER_LANGUAGE,
       description: 'Set the question language',
