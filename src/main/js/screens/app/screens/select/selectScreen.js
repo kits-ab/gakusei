@@ -1,4 +1,17 @@
-import { Button, Grid, Row, Col, FormGroup, ControlLabel, Panel, Badge, ProgressBar, Radio } from 'react-bootstrap';
+import {
+  Button,
+  Grid,
+  Row,
+  Col,
+  FormGroup,
+  ControlLabel,
+  Panel,
+  Badge,
+  ProgressBar,
+  Radio,
+  Form,
+  FormControl
+} from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
 
@@ -272,11 +285,7 @@ export class selectScreen extends React.Component {
           }
         >
           {props.languageQuestion.text}
-          <FontAwesomeIcon
-            className={'fa-fw'}
-            icon={faArrow}
-            style={{ marginLeft: '0.3em', marginRight: '0.3em' }}
-          />
+          <span style={{ marginLeft: '0.3em', marginRight: '0.3em' }}>→</span>
           {props.languageAnswer.text}
         </Radio>
       );
@@ -288,7 +297,6 @@ export class selectScreen extends React.Component {
       return (
         <FormGroup>
           <FormGroup controlId="languageSelect">
-            <ControlLabel>Språk</ControlLabel>
             <RadioLanguage
               key={'reading'}
               name={'languageSelect'}
