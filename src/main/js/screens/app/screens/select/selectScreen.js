@@ -1,17 +1,4 @@
-import {
-  Button,
-  Grid,
-  Row,
-  Col,
-  FormGroup,
-  ControlLabel,
-  Panel,
-  Badge,
-  ProgressBar,
-  Radio,
-  Form,
-  FormControl
-} from 'react-bootstrap';
+import { Button, Grid, Row, Col, FormGroup, ControlLabel, Panel, Badge, ProgressBar, Radio } from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
 
@@ -21,7 +8,6 @@ import * as Security from '../../../../shared/reducers/Security';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
 import faStar from '@fortawesome/fontawesome-free-solid/faStar';
-import faArrow from '@fortawesome/fontawesome-free-solid/faArrowRight';
 
 import ToggleButton from 'react-toggle-button';
 
