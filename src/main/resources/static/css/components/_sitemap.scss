@@ -1,10 +1,14 @@
-.sitemap__header {
-    display: none;
-}
-.sitemap__group-title {
-    font-size: large;
-}
-.sitemap__group {
-    list-style-type: none;
-    padding: 0;
+.sitemap {
+    &__header {
+        display: none;
+    }
+
+    &__group-title {
+        font-size: large;
+    }
+
+    &__group {
+        list-style-type: none;
+        padding: 0;
+    }
 }

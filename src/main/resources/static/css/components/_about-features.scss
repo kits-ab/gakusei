@@ -2,13 +2,13 @@
     margin-top: 80px;
     margin-bottom: 100px;
     font-size: larger;
-}
 
-.about-features__image {
-    width: 120px;
-}
+    &__image {
+        width: 120px;
+    }
 
-.about-features__logo {
-    width: 120px;
-    margin: 50px;
+    &__logo {
+        width: 120px;
+        margin: 50px;
+    }
 }

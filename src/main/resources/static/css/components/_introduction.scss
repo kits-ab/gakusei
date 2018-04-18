@@ -6,22 +6,22 @@
     height: 46.25vw;
     max-height: 100vh;
     min-height: 300px;
-}
 
-.introduction__container {
-    height: 100%;
-}
+    &__container {
+        height: 100%;
 
-.introduction__container__text {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    color: white;
-    text-shadow: -0.05em -0.05em 0 black, 0.05em -0.05em 0 black, -0.05em 0.05em 0 black, 0.05em 0.05em 0 black;
-}
+        &__text {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            color: white;
+            text-shadow: -0.05em -0.05em 0 black, 0.05em -0.05em 0 black, -0.05em 0.05em 0 black, 0.05em 0.05em 0 black;
 
-.introduction__container__text__title {
-    flex: 1;
+            &__title {
+                flex: 1;
+            }
+        }
+    }
 }
 
 @media screen and (min-width: 992px) {

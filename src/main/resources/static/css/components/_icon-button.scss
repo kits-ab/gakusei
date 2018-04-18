@@ -3,16 +3,17 @@
     border: none;
     background: transparent;
     line-height: 0;
-}
 
-.icon-button--type-favorite {
-    color: rgb(221, 221, 221);
-    stroke-width: 0.5em;
-    stroke: rgb(150, 150, 150);
-}
+    &--type-favorite {
+        color: rgb(221, 221, 221);
+        stroke-width: 0.5em;
+        stroke: rgb(150, 150, 150);
+    }
 
-.icon-button--active {
-    color: rgb(255, 215, 107);
-    stroke: rgb(206, 166, 65);
-    stroke-width: 0.5em;
+    &--active {
+        color: rgb(255, 215, 107);
+        stroke: rgb(206, 166, 65);
+        stroke-width: 0.5em;
+    }
+    
 }
