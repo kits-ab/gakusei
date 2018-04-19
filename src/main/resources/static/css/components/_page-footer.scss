@@ -1,0 +1,10 @@
+@import './settings/_colors.scss';
+
+$padding: 48px;
+
+.page-footer {
+    margin-top: 48px;
+    padding-top: $padding;
+    padding-bottom: $padding;
+    background-color: $footer-background-color;
+}

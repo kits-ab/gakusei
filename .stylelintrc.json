@@ -15,7 +15,7 @@
         "at-rule-no-unknown": null,
         "selector-pseudo-class-no-unknown": null,
         "max-line-length": null,
-        "indentation": 2,
+        "indentation": 4,
         "string-quotes": "single"
     }
 }

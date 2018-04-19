@@ -87,13 +87,13 @@ export class GakuseiNav extends React.Component {
           {this.props.loggedIn ? (
             <Nav pullRight>
               <LinkContainer to={{ pathname: '/logout', query: { currentUrl: this.props.location.pathname } }}>
-                <NavItem className="logout-button">Logga ut</NavItem>
+                <NavItem className="menu-button">Logga ut</NavItem>
               </LinkContainer>
             </Nav>
           ) : (
             <Nav pullRight>
               <LinkContainer to={`/login${this.props.location.search}`}>
-                <NavItem className="login-button">Logga in / Registrera</NavItem>
+                <NavItem className="menu-button">Logga in / Registrera</NavItem>
               </LinkContainer>
             </Nav>
           )}

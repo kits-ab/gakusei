@@ -1,9 +1,7 @@
 import 'react-hot-loader/patch';
 import { AppContainer } from 'react-hot-loader';
 
-import '../resources/static/css/custom.css';
-import '../resources/static/css/cardflip.css';
-import '../resources/static/css/start.css';
+import '../resources/static/css/style.scss';
 import AppProvider from './AppProvider';
 import { configureStore, history } from './configureStore';
 
