@@ -15,16 +15,7 @@ export const Reducers = [Lessons, Security];
 export class playScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.checkAnswer = this.checkAnswer.bind(this);
-    this.nextQuestion = this.nextQuestion.bind(this);
 
-    this.state = {
-      showHint: false
-    };
-  }
-
-  componentWillMount() {
-    // Kick user out if data is missing
     if (!this.props.questions || this.props.questions.length === 0) {
       if (this.props.match.params.type) {
         this.props.setPageByName(`/select/${this.props.match.params.type}`);
@@ -32,6 +23,13 @@ export class playScreen extends React.Component {
         this.props.setPageByName('/home');
       }
     }
+
+    this.checkAnswer = this.checkAnswer.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
+
+    this.state = {
+      showHint: false
+    };
   }
 
   updateHintVisibility = () => {
