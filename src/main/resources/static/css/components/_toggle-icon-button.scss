@@ -1,0 +1,15 @@
+@import './settings/_colors.scss';
+@import './tools/_image-button.scss';
+
+.toggle-icon-button {
+    @extend %image-button;
+    
+    stroke-width: 0.5em;
+    color: $toggle-button-inactive-color;
+    stroke: $toggle-button-inactive-border-color;
+
+    &--active {
+        color: $toggle-button-active-color;
+        stroke: $toggle-button-active-border-color;
+    }
+}

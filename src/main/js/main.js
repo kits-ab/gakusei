@@ -3,9 +3,7 @@ import { AppContainer } from 'react-hot-loader';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import '../resources/static/css/custom.css';
-import '../resources/static/css/cardflip.css';
-import '../resources/static/css/start.css';
+import '../resources/static/css/style.scss';
 import AppProvider from './AppProvider';
 import configureStore from './configureStore';
 

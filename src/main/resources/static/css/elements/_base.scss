@@ -1,0 +1,14 @@
+
+@import './settings/_colors.scss';
+
+html {
+    background-color: $footer-background-color;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+    select,
+    textarea,
+    input {
+        font-size: 1.2em !important;
+    }
+}

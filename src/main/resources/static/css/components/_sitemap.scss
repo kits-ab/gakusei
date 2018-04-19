@@ -1,0 +1,14 @@
+.sitemap {
+    &__header {
+        display: none;
+    }
+
+    &__group-title {
+        font-size: large;
+    }
+
+    &__group {
+        list-style-type: none;
+        padding: 0;
+    }
+}
