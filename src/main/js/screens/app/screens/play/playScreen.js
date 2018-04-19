@@ -23,7 +23,7 @@ export class playScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // Kick user out if data is missing
     if (!this.props.questions || this.props.questions.length === 0) {
       if (this.props.match.params.type) {
