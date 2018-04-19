@@ -2,9 +2,10 @@
 
 import { Provider } from 'react-redux';
 import { Route, Redirect } from 'react-router';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { Switch, withRouter } from 'react-router-dom';
 import { anchorate } from 'anchorate';
 import { persistStore } from 'redux-persist';
+import { ConnectedRouter } from 'react-router-redux';
 
 import { requireAuthentication } from './shared/components/AuthenticatedComponent';
 
@@ -19,6 +20,8 @@ import logoutScreen from './screens/app/screens/logout';
 import playScreen from './screens/app/screens/play';
 import selectScreen from './screens/app/screens/select';
 import startScreen from './screens/app/screens/start';
+
+const AppScreenBlocked = withRouter(AppScreen);
 
 export default class AppProvider extends React.Component {
   constructor(props) {
@@ -51,8 +54,8 @@ export default class AppProvider extends React.Component {
     if (this.state.rehydrated) {
       return (
         <Provider store={this.props.store}>
-          <BrowserRouter onUpdate={() => anchorate}>
-            <AppScreen>
+          <ConnectedRouter history={this.props.history}>
+            <AppScreenBlocked>
               <Switch>
                 <Route
                   path="/login"
@@ -91,9 +94,13 @@ export default class AppProvider extends React.Component {
                   path="/"
                   component={startScreen}
                 />
+                <Redirect
+                  from="*"
+                  to="/"
+                />
               </Switch>
-            </AppScreen>
-          </BrowserRouter>
+            </AppScreenBlocked>
+          </ConnectedRouter>
         </Provider>
       );
     }

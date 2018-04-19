@@ -6,14 +6,14 @@ import thunkMiddleware from 'redux-thunk';
 
 import rootReducer from './shared/reducers';
 
-export default function configureStore(initialState) {
+export const history = createBrowserHistory();
+
+export function configureStore(initialState) {
   const windowIfDefined = typeof window === 'undefined' ? null : window;
 
   /* devcode: start */
   const devToolsExtension = windowIfDefined && windowIfDefined.devToolsExtension;
   /* devcode: end */
-
-  const history = createBrowserHistory();
 
   const enhancer = compose(
     applyMiddleware(thunkMiddleware, routerMiddleware(history)),
