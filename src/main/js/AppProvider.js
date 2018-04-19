@@ -90,6 +90,10 @@ export default class AppProvider extends React.Component {
                   component={aboutScreen}
                 />
                 <Route
+                  path="/start"
+                  component={startScreen}
+                />
+                <Route
                   exact
                   path="/"
                   component={requireAuthentication(homeScreen, startScreen)}
