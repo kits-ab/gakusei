@@ -1,3 +1,5 @@
+@import './settings/_colors.scss';
+
 .btn {
     white-space: normal;
 }
@@ -5,7 +7,7 @@
 /* Trying to solve sticky hover problem for mobile devices by resetting Bootstrap button appearance */
 @media (hover: none) {
     .btn:hover {
-        border-color: #ccc;
+        border-color: $bootstrap-btn-border-color;
         background-position: 0% 0%;
     }
 }

@@ -1,11 +1,13 @@
 
 @import './settings/_colors.scss';
 
+$padding: 0.25em;
+
 .exercise {
     &__header {
         display: flex;
-        padding-left: 0.25em;
-        padding-right: 0.25em;
+        padding-left: $padding;
+        padding-right: $padding;
         margin-bottom: 0.5em;
 
         &__title {
@@ -27,8 +29,8 @@
     }
 
     &__description {
-        padding-left: 0.25em;
-        padding-right: 0.25em;
+        padding-left: $padding;
+        padding-right: $padding;
     }
     
     &__header + &__description {
@@ -40,8 +42,8 @@
     
     &__actions {
         text-align: right;
-        padding-right: 0.25em;
-        margin-bottom: 0.25em;
+        padding-right: $padding;
+        margin-bottom: $padding;
         color: $action-color;
 
         .icon-button:disabled {

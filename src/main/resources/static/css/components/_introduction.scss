@@ -1,4 +1,7 @@
 @import './settings/_colors.scss';
+@import './settings/_sizes.scss';
+
+$shadow-height: 20px;
 
 .introduction {
     display: block;
@@ -9,7 +12,7 @@
     max-height: 100vh;
     min-height: 300px;
 
-    margin-top: -20px; // Cover header margin
+    margin-top: -$bootstrap-navbar-margin-bottom; // Cover header margin
 
     // Chrome seems to calculate background size incorrectly, leaving a white pixel on each side
     margin-left: -1px;
@@ -35,7 +38,7 @@
     &::before {
         content: ' ';
         display: block;
-        height: 20px;
+        height: $shadow-height;
         position: absolute;
         top: 0;
         left: 0;
@@ -44,7 +47,7 @@
     }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: $small-device-breaking-point) {
     .introduction__container__text {
         display: block;
         position: absolute;

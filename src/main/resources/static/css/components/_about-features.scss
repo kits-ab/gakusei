@@ -1,14 +1,16 @@
+$image-size: 120px;
+
 .about-features {
     margin-top: 80px;
     margin-bottom: 100px;
     font-size: larger;
 
     &__image {
-        width: 120px;
+        width: $image-size;
     }
 
     &__logo {
-        width: 120px;
+        width: $image-size;
         margin: 50px;
     }
 }
