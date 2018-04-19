@@ -33,8 +33,6 @@ export class selectScreen extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('keydown', this.onKeys);
-
     this.props.fetchLessons(this.props.match.params.type).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
@@ -53,10 +51,6 @@ export class selectScreen extends React.Component {
     if (this.props.match.params.type !== nextProps.match.params.type) {
       this.props.fetchLessons(nextProps.match.params.type).catch(() => this.props.verifyUserLoggedIn());
     }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeys);
   }
 
   getPageHeader() {
