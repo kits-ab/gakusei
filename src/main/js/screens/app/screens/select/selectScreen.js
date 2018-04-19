@@ -257,21 +257,21 @@ export class selectScreen extends React.Component {
 
   getLanguageSelection() {
     const RadioLanguage = props => {
-      const changeLanguage = () => {
-        this.props.setQuestionLanguage(props.languageQuestion.id);
-        this.props.setAnswerLanguage(props.languageAnswer.id);
+      const setLanguage = (questionLanguage, answerLanguage) => {
+        this.props.setQuestionLanguage(questionLanguage);
+        this.props.setAnswerLanguage(answerLanguage);
       };
 
       return (
         <Radio
-          onChange={changeLanguage}
+          onChange={() => setLanguage(props.languageQuestion.id, props.languageAnswer.id)}
           name={props.name}
           checked={
             props.languageQuestion.id === this.props.questionType && props.languageAnswer.id === this.props.answerType
           }
         >
           {props.languageQuestion.text}
-          <span style={{ marginLeft: '0.3em', marginRight: '0.3em' }}>→</span>
+          <span> → </span>
           {props.languageAnswer.text}
         </Radio>
       );
