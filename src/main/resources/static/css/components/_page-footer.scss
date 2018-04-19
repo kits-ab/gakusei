@@ -1,6 +1,8 @@
+@import './settings/_colors.scss';
+
 .page-footer {
     margin-top: 48px;
     padding-top: 48px;
     padding-bottom: 48px;
-    background-color: #eee;
+    background-color: $footer-background-color;
 }

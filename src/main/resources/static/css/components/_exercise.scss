@@ -1,4 +1,6 @@
 
+@import './settings/_colors.scss';
+
 .exercise {
     &__header {
         display: flex;
@@ -30,7 +32,7 @@
     }
     
     &__header + &__description {
-        border-top-color: #ebebeb;
+        border-top-color: $divider-color;
         border-top-style: solid;
         border-top-width: 0.25em;
         padding-top: 0.5em;
@@ -40,11 +42,11 @@
         text-align: right;
         padding-right: 0.25em;
         margin-bottom: 0.25em;
-        color: #337ab7;
+        color: $action-color;
 
         .icon-button:disabled {
             opacity: 0.65;
-            color: rgb(114, 114, 114);
+            color: $action-disabled-color;
             cursor: not-allowed;
         }
     }

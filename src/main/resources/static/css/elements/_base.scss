@@ -1,5 +1,8 @@
+
+@import './settings/_colors.scss';
+
 html {
-    background-color: #eee;
+    background-color: $footer-background-color;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {

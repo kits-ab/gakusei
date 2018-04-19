@@ -1,3 +1,5 @@
+@import './settings/_colors.scss';
+
 .icon-button {
     font-size: 1.5em;
     border: none;
@@ -5,15 +7,14 @@
     line-height: 0;
 
     &--type-favorite {
-        color: rgb(221, 221, 221);
+        color: $favorite-inactive-color;
         stroke-width: 0.5em;
-        stroke: rgb(150, 150, 150);
+        stroke: $favorite-inactive-border-color;
     }
 
     &--active {
-        color: rgb(255, 215, 107);
-        stroke: rgb(206, 166, 65);
+        color: $favorite-active-color;
+        stroke: $favorite-active-border-color;
         stroke-width: 0.5em;
     }
-    
 }

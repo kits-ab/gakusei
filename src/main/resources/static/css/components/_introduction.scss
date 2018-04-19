@@ -1,11 +1,17 @@
+@import './settings/_colors.scss';
+
 .introduction {
     display: block;
     position: relative;
-    background: url(/img/front_page/gakusei_background.svg);
+    background-image: url(/img/front_page/gakusei_background.svg);
     background-size: cover;
     height: 46.25vw;
     max-height: 100vh;
     min-height: 300px;
+
+    // Chrome seems to calculate background size incorrectly, leaving a white pixel on each side
+    margin-left: -1px;
+    margin-right: -1px;
 
     &__container {
         height: 100%;
@@ -14,13 +20,24 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            color: white;
+            color: $introduction-text-color;
             text-shadow: -0.05em -0.05em 0 black, 0.05em -0.05em 0 black, -0.05em 0.05em 0 black, 0.05em 0.05em 0 black;
 
             &__title {
                 flex: 1;
             }
         }
+    }
+
+    &::before {
+        content: ' ';
+        display: block;
+        height: 21px;
+        position: absolute;
+        top: -20px;
+        left: 0;
+        right: 0;
+        background-image: linear-gradient(#222222, #004177);
     }
 }
 
