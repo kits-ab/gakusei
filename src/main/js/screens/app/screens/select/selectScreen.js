@@ -1,15 +1,4 @@
-import {
-  Button,
-  Grid,
-  Row,
-  Col,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  Panel,
-  Badge,
-  ProgressBar
-} from 'react-bootstrap';
+import { Button, Grid, Row, Col, FormGroup, ControlLabel, Panel, Badge, ProgressBar, Radio } from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
 
@@ -27,7 +16,6 @@ export const Reducers = [Lessons, Security];
 export class selectScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.handleLanguageSelection = this.handleLanguageSelection.bind(this);
     this.handleStarredClick = this.handleStarredClick.bind(this);
     this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
   }
@@ -97,22 +85,6 @@ export class selectScreen extends React.Component {
     }
   }
 
-  handleLanguageSelection(event) {
-    switch (event.target.name) {
-      case 'selectedLesson':
-        this.props.setSelectedLesson(event.target.value);
-        break;
-      case 'questionType':
-        this.props.setQuestionLanguage(event.target.value);
-        break;
-      case 'answerType':
-        this.props.setAnswerLanguage(event.target.value);
-        break;
-      default:
-        break;
-    }
-  }
-
   startLesson() {
     try {
       this.props.fetchLesson(this.props.params.type).then(() => {
@@ -177,7 +149,7 @@ export class selectScreen extends React.Component {
     return !(this.getNumberOfRetentionQuestions(lesson).unanswered === this.getNumberOfRetentionQuestions(lesson).all);
   }
 
-  renderLessons(lessons) {
+  getLessons(lessons) {
     const mediumColumnSize = 6;
     const largeColumnSize = 4;
     const renderedLessons = lessons.map(lesson => (
@@ -283,16 +255,71 @@ export class selectScreen extends React.Component {
     return adjustedLessons ? <Row>{adjustedLessons}</Row> : null;
   }
 
+  getLanguageSelection() {
+    const RadioLanguage = props => {
+      const setLanguage = (questionLanguage, answerLanguage) => {
+        this.props.setQuestionLanguage(questionLanguage);
+        this.props.setAnswerLanguage(answerLanguage);
+      };
+
+      return (
+        <Radio
+          onChange={() => setLanguage(props.languageQuestion.id, props.languageAnswer.id)}
+          name={props.name}
+          checked={
+            props.languageQuestion.id === this.props.questionType && props.languageAnswer.id === this.props.answerType
+          }
+        >
+          {props.languageQuestion.text}
+          <span> → </span>
+          {props.languageAnswer.text}
+        </Radio>
+      );
+    };
+
+    if (this.props.params.type === 'quiz' || this.props.params.type === 'grammar') {
+      return null;
+    } else {
+      return (
+        <FormGroup>
+          <FormGroup controlId="languageSelect">
+            <RadioLanguage
+              key={'reading'}
+              name={'languageSelect'}
+              languageQuestion={{ id: 'reading', text: 'Japanska' }}
+              languageAnswer={{ id: 'swedish', text: 'Svenska' }}
+            />
+            <RadioLanguage
+              key={'swedish'}
+              name={'languageSelect'}
+              languageQuestion={{ id: 'swedish', text: 'Svenska' }}
+              languageAnswer={{ id: 'reading', text: 'Japanska' }}
+            />
+          </FormGroup>
+          <FormGroup>
+            <ControlLabel>Smart inlärningsläge</ControlLabel>
+            <ToggleButton
+              inactiveLabel={'Av'}
+              activeLabel={'På'}
+              value={this.isSpacedRepetition()}
+              onToggle={this.handleSpacedRepetition}
+            />
+          </FormGroup>
+        </FormGroup>
+      );
+    }
+  }
+
   render() {
     let lessonsUnfinished, lessonsFinished, lessonsUnstarted, lessonsAll;
     if (this.isSpacedRepetition()) {
-      lessonsUnfinished = this.renderLessons(this.props.lessons.filter(lesson => !this.isLessonFinished(lesson)));
-      lessonsFinished = this.renderLessons(
+      lessonsUnfinished = this.getLessons(this.props.lessons.filter(lesson => !this.isLessonFinished(lesson)));
+      lessonsFinished = this.getLessons(
         this.props.lessons.filter(lesson => this.isLessonFinished(lesson) && this.isLessonStarted(lesson))
       );
-      lessonsUnstarted = this.renderLessons(this.props.lessons.filter(lesson => !this.isLessonStarted(lesson)));
+      lessonsUnstarted = this.getLessons(this.props.lessons.filter(lesson => !this.isLessonStarted(lesson)));
     } else {
-      lessonsAll = this.renderLessons(this.props.lessons);
+      lessonsAll = this.getLessons(this.props.lessons);
     }
 
     const favoriteLesson = (
@@ -357,104 +384,12 @@ export class selectScreen extends React.Component {
       </Row>
     );
 
-    const answerLanguages = [];
-    let questionLanguages = [];
-    answerLanguages.push(
-      <option
-        key={'reading'}
-        value={'reading'}
-      >
-        Japanska
-      </option>
-    );
-    answerLanguages.push(
-      <option
-        key={'swedish'}
-        value={'swedish'}
-      >
-        Svenska
-      </option>
-    );
-    /* devcode: start */
-    answerLanguages.push(
-      <option
-        key={'english'}
-        value={'english'}
-      >
-        Engelska
-      </option>
-    );
-    /* devcode: end */
-
-    if (this.props.params.type === 'kanji') {
-      questionLanguages = answerLanguages.shift();
-    } else {
-      questionLanguages = answerLanguages;
-    }
-
-    let languageSelection;
-    if (this.props.params.type === 'quiz' || this.props.params.type === 'grammar') {
-      languageSelection = <div />;
-    } else {
-      languageSelection = (
-        <FormGroup>
-          <Row>
-            <Col
-              xs={12}
-              sm={4}
-            >
-              <FormGroup controlId="questionLanguageSelection">
-                <ControlLabel>Frågespråk</ControlLabel>
-                <FormControl
-                  componentClass="select"
-                  name="questionType"
-                  onChange={this.handleLanguageSelection}
-                  value={this.props.questionType}
-                  disabled={this.props.params.type === 'kanji'}
-                >
-                  {questionLanguages}
-                </FormControl>
-              </FormGroup>
-            </Col>
-            <Col
-              xs={12}
-              sm={4}
-            >
-              <FormGroup controlId="answerLanguageSelection">
-                <ControlLabel>Svarspråk</ControlLabel>
-                <FormControl
-                  componentClass="select"
-                  name="answerType"
-                  onChange={this.handleLanguageSelection}
-                  value={this.props.answerType}
-                >
-                  {answerLanguages}
-                </FormControl>
-              </FormGroup>
-            </Col>
-            <Col
-              xs={12}
-              sm={4}
-            >
-              <FormGroup>
-                <ControlLabel>Smart inlärningsläge</ControlLabel>
-                <ToggleButton
-                  inactiveLabel={'Av'}
-                  activeLabel={'På'}
-                  value={this.isSpacedRepetition()}
-                  onToggle={this.handleSpacedRepetition}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-        </FormGroup>
-      );
-    }
     return (
       <Grid>
         <Col>
           <h1>{this.getPageHeader()}</h1>
           <p>{this.getPageDescription()}</p>
+          {this.getLanguageSelection()}
           <h2>Lektioner</h2>
           {this.props.params.type !== 'quiz' && this.props.params.type !== 'grammar' ? favoriteLesson : null}
           {this.isSpacedRepetition() ? (
@@ -471,7 +406,6 @@ export class selectScreen extends React.Component {
           ) : (
             lessonsAll
           )}
-          {languageSelection}
         </Col>
       </Grid>
     );
