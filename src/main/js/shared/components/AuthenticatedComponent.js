@@ -1,6 +1,7 @@
 import Utility from '../../shared/util/Utility';
 import * as Security from '../../shared/reducers/Security';
 import * as Lessons from '../../shared/reducers/Lessons';
+import { Redirect } from 'react-router';
 
 export const Reducers = [Security, Lessons];
 
@@ -23,7 +24,19 @@ export function requireAuthentication(Component) {
     }
 
     render() {
-      return <div>{this.props.loggedIn ? <Component {...this.props} /> : null}</div>;
+      return (
+        <div>
+          {this.props.loggedIn ? (
+            <Component {...this.props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: '/start'
+              }}
+            />
+          )}
+        </div>
+      );
     }
   }
 

@@ -66,7 +66,11 @@ export default class Utility {
           ...Utility.generateReducerNamesFromReducer(reducerNames).map(reducerStateName => state[reducerStateName])
         ),
       // Selects which action creators are merged into the component's props
-      Object.assign({}, ...Utility.generateActionCreatorsFromReducer(reducerNames))
+      Object.assign({}, ...Utility.generateActionCreatorsFromReducer(reducerNames)),
+      null,
+      {
+        pure: false
+      }
     );
   }
 

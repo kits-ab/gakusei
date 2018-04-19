@@ -1,6 +1,6 @@
 import 'react-hot-loader/patch';
 import { AppContainer } from 'react-hot-loader';
-import { browserHistory } from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import '../resources/static/css/custom.css';
@@ -13,7 +13,7 @@ import configureStore from './configureStore';
 // ! Don't have server-rendering yet, might add later
 const initialState = window.initialReduxState;
 const store = configureStore(initialState);
-const history = syncHistoryWithStore(browserHistory, store);
+const history = syncHistoryWithStore(createBrowserHistory(), store);
 
 const indexRoot = document.getElementById('index_root');
 

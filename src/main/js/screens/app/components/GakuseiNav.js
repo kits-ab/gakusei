@@ -1,6 +1,6 @@
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Link, withRouter } from 'react-router';
+import { Link, withRouter } from 'react-router-dom';
 
 import Utility from '../../../shared/util/Utility';
 import * as Security from '../../../shared/reducers/Security';

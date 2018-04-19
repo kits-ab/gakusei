@@ -35,23 +35,23 @@ export class selectScreen extends React.Component {
   componentDidMount() {
     window.addEventListener('keydown', this.onKeys);
 
-    this.props.fetchLessons(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchLessons(this.props.match.params.type).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchFavoriteLesson(this.props.params.type).catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchFavoriteLesson(this.props.match.params.type).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchaddressedQuestionsInLessons();
 
-    if (this.props.params.type === 'kanji') {
+    if (this.props.match.params.type === 'kanji') {
       this.props.setQuestionLanguage('reading');
     }
   }
 
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
-    if (this.props.params.type !== nextProps.params.type) {
-      this.props.fetchLessons(nextProps.params.type).catch(() => this.props.verifyUserLoggedIn());
+    if (this.props.match.params.type !== nextProps.match.params.type) {
+      this.props.fetchLessons(nextProps.match.params.type).catch(() => this.props.verifyUserLoggedIn());
     }
   }
 
@@ -60,7 +60,7 @@ export class selectScreen extends React.Component {
   }
 
   getPageHeader() {
-    switch (this.props.params.type) {
+    switch (this.props.match.params.type) {
       case 'quiz':
         return 'Quiz';
       case 'guess':
@@ -79,7 +79,7 @@ export class selectScreen extends React.Component {
   }
 
   getPageDescription() {
-    switch (this.props.params.type) {
+    switch (this.props.match.params.type) {
       case 'quiz':
         return 'Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ';
       case 'guess':
@@ -115,8 +115,8 @@ export class selectScreen extends React.Component {
 
   startLesson() {
     try {
-      this.props.fetchLesson(this.props.params.type).then(() => {
-        this.props.setPageByName(`/play/${this.props.params.type}`);
+      this.props.fetchLesson(this.props.match.params.type).then(() => {
+        this.props.setPageByName(`/play/${this.props.match.params.type}`);
       });
     } catch (err) {
       this.props.verifyUserLoggedIn();
@@ -128,20 +128,20 @@ export class selectScreen extends React.Component {
   }
 
   isSpacedRepetition() {
-    return this.props.spacedRepetition && this.props.spacedRepetitionModes.includes(this.props.params.type);
+    return this.props.spacedRepetition && this.props.spacedRepetitionModes.includes(this.props.match.params.type);
   }
 
   handleStarredClick(lesson) {
     this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-      ? this.props.removeStarredLesson(lesson.name, this.props.params.type)
-      : this.props.addStarredLesson(lesson.name, this.props.params.type);
+      ? this.props.removeStarredLesson(lesson.name, this.props.match.params.type)
+      : this.props.addStarredLesson(lesson.name, this.props.match.params.type);
   }
 
   getNumberOfRetentionQuestions(lesson) {
     if (
       this.props.addressedQuestionsInLessons &&
       this.props.addressedQuestionsInLessons[lesson.name] &&
-      this.props.spacedRepetitionModes.includes(this.props.params.type)
+      this.props.spacedRepetitionModes.includes(this.props.match.params.type)
     ) {
       return this.props.addressedQuestionsInLessons[lesson.name];
     }
@@ -152,7 +152,7 @@ export class selectScreen extends React.Component {
     if (
       this.props.favoriteLesson &&
       this.props.favoriteLesson.nuggetData &&
-      this.props.spacedRepetitionModes.includes(this.props.params.type)
+      this.props.spacedRepetitionModes.includes(this.props.match.params.type)
     ) {
       return this.props.favoriteLesson.nuggetData;
     }
@@ -204,7 +204,7 @@ export class selectScreen extends React.Component {
                       <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
                     ) : null}
                 </h3>
-                {this.props.params.type === 'quiz' ? null : (
+                {this.props.match.params.type === 'quiz' ? null : (
                   <div className={'exercise__header__settings'}>
                     <Button
                       bsClass={
@@ -386,14 +386,14 @@ export class selectScreen extends React.Component {
     );
     /* devcode: end */
 
-    if (this.props.params.type === 'kanji') {
+    if (this.props.match.params.type === 'kanji') {
       questionLanguages = answerLanguages.shift();
     } else {
       questionLanguages = answerLanguages;
     }
 
     let languageSelection;
-    if (this.props.params.type === 'quiz' || this.props.params.type === 'grammar') {
+    if (this.props.match.params.type === 'quiz' || this.props.match.params.type === 'grammar') {
       languageSelection = <div />;
     } else {
       languageSelection = (
@@ -410,7 +410,7 @@ export class selectScreen extends React.Component {
                   name="questionType"
                   onChange={this.handleLanguageSelection}
                   value={this.props.questionType}
-                  disabled={this.props.params.type === 'kanji'}
+                  disabled={this.props.match.params.type === 'kanji'}
                 >
                   {questionLanguages}
                 </FormControl>
@@ -456,7 +456,9 @@ export class selectScreen extends React.Component {
           <h1>{this.getPageHeader()}</h1>
           <p>{this.getPageDescription()}</p>
           <h2>Lektioner</h2>
-          {this.props.params.type !== 'quiz' && this.props.params.type !== 'grammar' ? favoriteLesson : null}
+          {this.props.match.params.type !== 'quiz' && this.props.match.params.type !== 'grammar'
+            ? favoriteLesson
+            : null}
           {this.isSpacedRepetition() ? (
             <div>
               {lessonsUnfinished ? <h3>Pågående lektioner</h3> : null}
