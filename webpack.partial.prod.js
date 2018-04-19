@@ -30,7 +30,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
-    new UglifyJsPlugin(),
+    new UglifyJsPlugin({ sourceMap: true }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new HtmlWebpackPlugin({
       filename: '../../templates/index.html',
