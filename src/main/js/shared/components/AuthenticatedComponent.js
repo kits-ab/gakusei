@@ -5,38 +5,20 @@ import { Redirect } from 'react-router';
 
 export const Reducers = [Security, Lessons];
 
-export function requireAuthentication(Component) {
+export function requireAuthentication(Component, ReplacementComponent = null) {
   class AuthenticatedComponent extends React.Component {
-    componentWillMount() {
-      this.checkAuth(this.props.loggedIn);
-    }
-
-    componentWillReceiveProps(nextProps) {
-      this.checkAuth(nextProps.loggedIn);
-    }
-
-    checkAuth(isAuthenticated) {
-      if (!isAuthenticated) {
-        const redirectAfterLogin = this.props.location.pathname;
-        this.props.setPageByName('start', { redirectUrl: redirectAfterLogin });
-        // this.props.dispatch(pushState(null, `/login?next=${redirectAfterLogin}`));
+    getComponent() {
+      if (this.props.loggedIn) {
+        return <Component {...this.props} />;
+      } else if (ReplacementComponent) {
+        return <ReplacementComponent {...this.props} />;
+      } else {
+        return <Redirect to="/" />;
       }
     }
 
     render() {
-      return (
-        <div>
-          {this.props.loggedIn ? (
-            <Component {...this.props} />
-          ) : (
-            <Redirect
-              to={{
-                pathname: '/start'
-              }}
-            />
-          )}
-        </div>
-      );
+      return <div>{this.getComponent()}</div>;
     }
   }
 

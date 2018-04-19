@@ -92,7 +92,7 @@ export default class AppProvider extends React.Component {
                 <Route
                   exact
                   path="/"
-                  component={startScreen}
+                  component={requireAuthentication(homeScreen, startScreen)}
                 />
                 <Redirect
                   from="*"
