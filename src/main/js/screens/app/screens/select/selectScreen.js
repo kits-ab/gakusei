@@ -209,8 +209,8 @@ export class selectScreen extends React.Component {
                     <Button
                       bsClass={
                         this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-                          ? 'favorite-icon-button favorite-icon-button--active icon-button'
-                          : 'favorite-icon-button icon-button'
+                          ? 'toggle-icon-button toggle-icon-button--active'
+                          : 'toggle-icon-button'
                       }
                       onClick={e => {
                         e.stopPropagation();

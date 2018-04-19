@@ -1,0 +1,10 @@
+@import './settings/_colors.scss';
+
+.menu-button {
+    margin-top: -1px;
+    border-top: 1px solid #1c7f20;
+    color: $menu-button-color;
+    background: $menu-button-background-color;
+    background: linear-gradient(#4caf50, #1c7f20);
+    box-shadow: inset 0 0 1px #000000;
+}

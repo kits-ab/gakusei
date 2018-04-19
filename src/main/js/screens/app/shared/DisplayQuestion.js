@@ -9,13 +9,11 @@ export class DisplayQuestion extends React.Component {
       const swedishText = this.props.inflection[1];
       const inflection = this.props.inflection[0];
       return (
-        <div>
-          <p className="verb-question-text">
-            Ange böjningen för: <strong>{this.props.secondaryText} </strong>
-            ({text}, {swedishText})
-            <br />på formen: <strong> {inflection} </strong>
-          </p>
-        </div>
+        <p className="question__text question__text--type-verb">
+          Ange böjningen för: <strong>{this.props.secondaryText} </strong>
+          ({text}, {swedishText})
+          <br />på formen: <strong> {inflection} </strong>
+        </p>
       );
     } else if (this.props.secondaryText && this.props.secondaryText !== text) {
       if (this.props.japaneseCharacters) {
@@ -25,7 +23,7 @@ export class DisplayQuestion extends React.Component {
       }
     }
 
-    return <p className="question-text">{text}</p>;
+    return <p className="question__text">{text}</p>;
   }
 
   getResource() {
@@ -74,7 +72,10 @@ export class DisplayQuestion extends React.Component {
     };
 
     return (
-      <div style={generalStyle}>
+      <div
+        className="question"
+        style={generalStyle}
+      >
         {this.props.showKanji ? resource : null}
         {questionText}
         <div>
@@ -110,7 +111,7 @@ export class DisplayQuestion extends React.Component {
             <div>
               <Collapse in={this.props.showHint}>
                 <div>
-                  <Well className="hint-text">{explanation}</Well>
+                  <Well className="question__hint">{explanation}</Well>
                 </div>
               </Collapse>
             </div>

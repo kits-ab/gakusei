@@ -1,0 +1,5 @@
+@import './tools/_image-button.scss';
+
+.icon-button {
+    @extend %image-button;
+}

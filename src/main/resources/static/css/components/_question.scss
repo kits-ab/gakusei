@@ -1,0 +1,23 @@
+@import './settings/_sizes.scss';
+
+.question {
+    &__text {
+        font-size: 225%;
+
+        &--type-verb {
+            font-size: 100%;
+        }
+    }
+}
+
+@media screen and (min-width: $small-device-breaking-point) {
+    .question {
+        &__text {
+            font-size: 300%;
+
+            &--type-verb {
+                font-size: 150%;
+            }
+        }
+    }
+}

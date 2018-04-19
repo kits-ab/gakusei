@@ -1,0 +1,11 @@
+@import './settings/_colors.scss';
+
+.badge {
+    &--type-todo {
+        background-color: $todo-color;
+    }
+
+    &--type-new {
+        background-color: $new-color;
+    }
+}
