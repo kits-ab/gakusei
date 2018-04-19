@@ -278,7 +278,7 @@ export class selectScreen extends React.Component {
     };
 
     if (this.props.params.type === 'quiz' || this.props.params.type === 'grammar') {
-      return <div />;
+      return null;
     } else {
       return (
         <FormGroup>
