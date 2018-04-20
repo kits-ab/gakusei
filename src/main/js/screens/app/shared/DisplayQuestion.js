@@ -1,4 +1,7 @@
-import { Glyphicon, Button, Collapse, Well } from 'react-bootstrap';
+import { Button, Collapse, Well } from 'react-bootstrap';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import faVolumeUp from '@fortawesome/fontawesome-free-solid/faVolumeUp';
+import faQuestion from '@fortawesome/fontawesome-free-solid/faQuestion';
 import Speech from '../../../shared/util/Speech';
 
 export class DisplayQuestion extends React.Component {
@@ -56,67 +59,42 @@ export class DisplayQuestion extends React.Component {
     const questionText = this.getQuestionText();
     const resource = this.getResource();
     const explanation = this.props.explanationText;
-    const speechButtonStyle = {
-      fontSize: this.props.smallerText ? '1.0em' : '1.6em',
-      position: 'inherit',
-      verticalAlign: 'middle',
-      padding: '2px 1px 2px 1px'
-    };
-    const buttonStyle = {
-      position: 'inherit',
-      verticalAlign: 'middle',
-      margin: '5px 5px 10px 5px'
-    };
-    const generalStyle = {
-      fontSize: this.props.smallerText ? '0.5em' : '1.0em'
-    };
 
     return (
-      <div
-        className="question"
-        style={generalStyle}
-      >
+      <div className={'question' + (this.props.smallerText ? ' question--small' : '')}>
         {this.props.showKanji ? resource : null}
         {questionText}
-        <div>
-          {this.props.japaneseCharacters && this.props.showSpeechButton ? (
-            <span>
+        {this.props.japaneseCharacters && this.props.showSpeechButton ? (
+          <div className="question__actions">
+            <Button
+              className="question__actions__action"
+              bsStyle="info"
+              bsSize="xsmall"
+              onClick={() => Speech.say(this.props.primaryText)}
+            >
+              <FontAwesomeIcon icon={faVolumeUp} />
+            </Button>
+            {explanation ? (
               <Button
-                style={buttonStyle}
+                className="question__actions__action"
                 bsStyle="info"
                 bsSize="xsmall"
-                onClick={() => Speech.say(this.props.primaryText)}
+                onClick={() => this.props.updateHintVisibility()}
               >
-                <Glyphicon
-                  style={speechButtonStyle}
-                  glyph="volume-up"
-                />
+                <FontAwesomeIcon icon={faQuestion} />
               </Button>
-              {explanation ? (
-                <Button
-                  style={buttonStyle}
-                  bsStyle="info"
-                  bsSize="xsmall"
-                  onClick={() => this.props.updateHintVisibility()}
-                >
-                  <Glyphicon
-                    style={speechButtonStyle}
-                    glyph={'question-sign'}
-                  />
-                </Button>
-              ) : null}
-            </span>
-          ) : null}
-          {explanation ? (
-            <div>
-              <Collapse in={this.props.showHint}>
-                <div>
-                  <Well className="question__hint">{explanation}</Well>
-                </div>
-              </Collapse>
-            </div>
-          ) : null}
-        </div>
+            ) : null}
+          </div>
+        ) : null}
+        {explanation ? (
+          <div>
+            <Collapse in={this.props.showHint}>
+              <div>
+                <Well className="question__hint">{explanation}</Well>
+              </div>
+            </Collapse>
+          </div>
+        ) : null}
       </div>
     );
   }
