@@ -20,18 +20,18 @@ $shadow-height: 20px;
 
     &__container {
         height: 100%;
+    }
 
-        &__text {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            color: $introduction-text-color;
-            text-shadow: -0.05em -0.05em 0 black, 0.05em -0.05em 0 black, -0.05em 0.05em 0 black, 0.05em 0.05em 0 black;
+    &__text {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        color: $introduction-text-color;
+        text-shadow: -0.05em -0.05em 0 black, 0.05em -0.05em 0 black, -0.05em 0.05em 0 black, 0.05em 0.05em 0 black;
+    }
 
-            &__title {
-                flex: 1;
-            }
-        }
+    &__title {
+        flex: 1;
     }
 
     // Shadow gradient
@@ -48,7 +48,7 @@ $shadow-height: 20px;
 }
 
 @media screen and (min-width: $small-device-breaking-point) {
-    .introduction__container__text {
+    .introduction__text {
         display: block;
         position: absolute;
         top: 15%;

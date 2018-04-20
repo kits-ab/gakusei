@@ -9,15 +9,15 @@ $padding: 0.25em;
         padding-left: $padding;
         padding-right: $padding;
         margin-bottom: 0.5em;
+    }
 
-        &__title {
-            margin: 0;
-            flex: 1;
-            font-size: 1.25em;
+    &__title {
+        margin: 0;
+        flex: 1;
+        font-size: 1.25em;
 
-            > .badge {
-                margin-left: 0.4em;
-            }
+        > .badge {
+            margin-left: 0.4em;
         }
     }
 

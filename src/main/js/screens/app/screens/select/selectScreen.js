@@ -163,7 +163,7 @@ export class selectScreen extends React.Component {
           <Panel.Body>
             <div className={'exercise'}>
               <div className={'exercise__header'}>
-                <h3 className={'exercise__header__title'}>
+                <h3 className={'exercise__title'}>
                   {lesson.name}
                   {this.isSpacedRepetition() &&
                   !this.isLessonFinished(lesson) &&
@@ -177,7 +177,7 @@ export class selectScreen extends React.Component {
                     ) : null}
                 </h3>
                 {this.props.params.type === 'quiz' ? null : (
-                  <div className={'exercise__header__settings'}>
+                  <div>
                     <Button
                       bsClass={
                         this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)

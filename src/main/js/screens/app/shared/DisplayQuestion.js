@@ -67,7 +67,7 @@ export class DisplayQuestion extends React.Component {
         {this.props.japaneseCharacters && this.props.showSpeechButton ? (
           <div className="question__actions">
             <Button
-              className="question__actions__action"
+              className="question__action"
               bsStyle="info"
               bsSize="xsmall"
               onClick={() => Speech.say(this.props.primaryText)}
@@ -76,7 +76,7 @@ export class DisplayQuestion extends React.Component {
             </Button>
             {explanation ? (
               <Button
-                className="question__actions__action"
+                className="question__action"
                 bsStyle="info"
                 bsSize="xsmall"
                 onClick={() => this.props.updateHintVisibility()}
