@@ -32,13 +32,6 @@
             -moz-backface-visibility: hidden;
         }
 
-        .glyphicon {
-            position: inherit;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            -moz-backface-visibility: hidden;
-        }
-
         &--flipped {
             transform: rotateY(180deg);
             -webkit-transform: rotateY(180deg) translateZ(1px);
