@@ -26,7 +26,7 @@ export class loginScreen extends React.Component {
 
   componentWillMount() {
     if (this.props.loggedIn) {
-      this.props.setPageByName(this.props.location.query.redirectUrl);
+      this.props.setPageByName('/');
     } else {
       this.props.clearAuthResponse();
     }
@@ -57,9 +57,9 @@ export class loginScreen extends React.Component {
     formData.preventDefault();
 
     if (this.state.submitLogin) {
-      this.props.requestUserLogin(formData, '/');
+      this.props.requestUserLogin(formData, this.props.redirectUrl || '/');
     } else {
-      this.props.requestUserRegister(formData, '/');
+      this.props.requestUserRegister(formData, this.props.redirectUrl || '/');
     }
   }
 

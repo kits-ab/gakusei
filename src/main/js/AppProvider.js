@@ -59,7 +59,7 @@ export default class AppProvider extends React.Component {
               <Switch>
                 <Route
                   path="/login"
-                  component={requireAuthentication(homeScreen, loginScreen)}
+                  component={loginScreen}
                 />
                 <Route
                   path="/logout"

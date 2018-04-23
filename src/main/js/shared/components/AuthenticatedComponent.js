@@ -11,9 +11,15 @@ export function requireAuthentication(Component, ReplacementComponent = null) {
       if (this.props.loggedIn) {
         return <Component {...this.props} />;
       } else if (ReplacementComponent) {
+        this.props.redirectUrl !== this.props.location.pathname
+          ? this.props.setRedirectUrl(this.props.location.pathname)
+          : null;
         return <ReplacementComponent {...this.props} />;
       } else {
-        return <Redirect to="/" />;
+        this.props.redirectUrl !== this.props.location.pathname
+          ? this.props.setRedirectUrl(this.props.location.pathname)
+          : null;
+        return <Redirect to={'/login'} />;
       }
     }
 
