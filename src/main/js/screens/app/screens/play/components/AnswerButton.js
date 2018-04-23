@@ -52,13 +52,12 @@ export default class AnswerButton extends React.Component {
   render() {
     return (
       <Button
-        style={this.props.buttonSize === 'large' ? { height: '5em' } : { height: '3em' }}
         bsStyle={this.props.buttonStyle}
         bsSize={this.props.buttonSize}
         block
         onClick={this.state.answerClickFunc}
         disabled={this.props.disableButton}
-        className="btn answer-button"
+        className={'btn answer-button' + (this.props.buttonSize === 'large' ? ' answer-button--large' : '')}
         name={this.props.name}
       >
         {this.getPrimaryText()}

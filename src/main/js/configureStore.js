@@ -17,7 +17,9 @@ export function configureStore(initialState) {
 
   const enhancer = compose(
     applyMiddleware(thunkMiddleware, routerMiddleware(history)),
-    devToolsExtension ? devToolsExtension() : f => f,
+    /* devcode:start */
+    typeof devToolsExtension !== undefined ? devToolsExtension() : f => f,
+    /* devcode:end */
     autoRehydrate()
   );
 

@@ -6,9 +6,9 @@ export default class startScreen extends React.Component {
       <div>
         <Jumbotron className="introduction">
           <Grid className="introduction__container">
-            <div className="introduction__container__text">
-              <h1 className="introduction__container__text__title">Bli student och lär dig japanska!</h1>
-              <p className="introduction__container__text__description">
+            <div className="introduction__text">
+              <h1 className="introduction__title">Bli student och lär dig japanska!</h1>
+              <p className="introduction__description">
                 Ta del av Gakuseis inlärningsmaterial och lär dig japanska redan idag!
               </p>
             </div>
