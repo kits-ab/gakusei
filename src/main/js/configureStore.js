@@ -9,10 +9,8 @@ import rootReducer from './shared/reducers';
 export const history = createBrowserHistory();
 
 export function configureStore(initialState) {
-  const windowIfDefined = typeof window === undefined ? null : window;
-
   /* devcode:start */
-  const devToolsExtension = windowIfDefined && windowIfDefined.devToolsExtension;
+  const devToolsExtension = window && window.devToolsExtension;
   /* devcode:end */
 
   const enhancer = compose(
