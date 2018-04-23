@@ -15,6 +15,15 @@ export const Reducers = [Lessons, Security];
 export class playScreen extends React.Component {
   constructor(props) {
     super(props);
+
+    if (!this.props.questions || this.props.questions.length === 0) {
+      if (this.props.match.params.type) {
+        this.props.setPageByName(`/select/${this.props.match.params.type}`);
+      } else {
+        this.props.setPageByName('/home');
+      }
+    }
+
     this.checkAnswer = this.checkAnswer.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
 
@@ -23,24 +32,13 @@ export class playScreen extends React.Component {
     };
   }
 
-  componentDidMount() {
-    // Kick user out if data is missing
-    if (!this.props.questions || this.props.questions.length === 0) {
-      if (this.props.params.type) {
-        this.props.setPageByName(`/select/${this.props.params.type}`);
-      } else {
-        this.props.setPageByName('/home');
-      }
-    }
-  }
-
   updateHintVisibility = () => {
     this.setState({ showHint: !this.state.showHint });
   };
 
   checkAnswer(answer, cardData) {
     let cloneCard = 'undefined';
-    const textInputPlayType = ['grammar', 'translate'].includes(this.props.params.type);
+    const textInputPlayType = ['grammar', 'translate'].includes(this.props.match.params.type);
     if (cardData.type === undefined && Array.isArray(cardData)) {
       cloneCard = cardData.slice(0);
     } else if (typeof cardData !== 'undefined') {
@@ -57,7 +55,7 @@ export class playScreen extends React.Component {
       this.props.setAnswerTextInputFocusedState(false);
       if (this.props.currentQuestionIndex === this.props.lessonLength - 1) {
         setTimeout(() => {
-          this.props.setPageByName(`/finish/${this.props.params.type}`);
+          this.props.setPageByName(`/finish/${this.props.match.params.type}`);
         }, window.customDelay /* not really accessible, just for e2e testing */ || 2000);
       } else {
         this.props.setAllButtonsDisabledState(false);
@@ -70,7 +68,7 @@ export class playScreen extends React.Component {
       }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
     } else {
       setTimeout(() => {
-        this.props.setPageByName(`/finish/${this.props.params.type}`);
+        this.props.setPageByName(`/finish/${this.props.match.params.type}`);
       }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
     }
   }
@@ -84,13 +82,13 @@ export class playScreen extends React.Component {
       this.props.setAnswerTextInputFocusedState(true);
       this.props.setAllButtonsDisabledState(false);
     } else {
-      this.props.setPageByName(`/finish/${this.props.params.type}`);
+      this.props.setPageByName(`/finish/${this.props.match.params.type}`);
     }
   }
 
   render() {
     let playCard = null;
-    switch (this.props.params.type) {
+    switch (this.props.match.params.type) {
       case 'grammar':
       case 'translate':
         playCard = (
@@ -98,7 +96,7 @@ export class playScreen extends React.Component {
             question={this.props.currentQuestion}
             answerType={this.props.answerType}
             questionType={this.props.questionType}
-            cardType={this.props.params.type}
+            cardType={this.props.match.params.type}
             buttonsDisabled={this.props.allButtonsDisabled}
             clickCallback={this.checkAnswer}
             clickNextCallback={this.nextQuestion}
@@ -117,7 +115,7 @@ export class playScreen extends React.Component {
             question={this.props.currentQuestion}
             answerType={this.props.answerType}
             questionType={this.props.questionType}
-            cardType={this.props.params.type}
+            cardType={this.props.match.params.type}
             buttonsDisabled={this.props.allButtonsDisabled}
             clickCallback={this.checkAnswer}
             correctAlternative={this.props.currentQuestion.correctAlternative}
@@ -132,7 +130,7 @@ export class playScreen extends React.Component {
             question={this.props.currentQuestion}
             answerType={this.props.answerType}
             questionType={this.props.questionType}
-            cardType={this.props.params.type}
+            cardType={this.props.match.params.type}
             buttonsDisabled={this.props.allButtonsDisabled}
             clickCallback={this.checkAnswer}
             correctAlternative={this.props.currentQuestion.correctAlternative}
@@ -149,7 +147,7 @@ export class playScreen extends React.Component {
             question={this.props.currentQuestion}
             answerType={this.props.answerType}
             questionType={this.props.questionType}
-            cardType={this.props.params.type}
+            cardType={this.props.match.params.type}
             buttonsDisabled={this.props.allButtonsDisabled}
             clickCallback={this.checkAnswer}
             correctAlternative={this.props.currentQuestion.correctAlternative}
@@ -175,9 +173,9 @@ export class playScreen extends React.Component {
             totalQuestionsNumber={this.props.lessonLength}
             correctAttempts={this.props.correctAttempts}
             lessonSuccessRateMessage={this.props.lessonSuccessRateMessage}
-            lessonType={this.props.params.type}
+            lessonType={this.props.match.params.type}
             feedbackItems={this.props.answeredQuestions.map(answeredQuestion => {
-              if (this.props.params.type !== 'kanji') {
+              if (this.props.match.params.type !== 'kanji') {
                 return {
                   correct: answeredQuestion.userCorrect,
                   errorCount: answeredQuestion.userCorrect ? 1 : 0,

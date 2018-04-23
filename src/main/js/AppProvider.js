@@ -1,13 +1,15 @@
 /* eslint-disable react/forbid-prop-types */
 
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRedirect } from 'react-router';
+import { Route, Redirect } from 'react-router';
+import { Switch, withRouter } from 'react-router-dom';
 import { anchorate } from 'anchorate';
 import { persistStore } from 'redux-persist';
+import { ConnectedRouter } from 'react-router-redux';
 
 import { requireAuthentication } from './shared/components/AuthenticatedComponent';
 
-import appScreen from './screens/app';
+import AppScreen from './screens/app';
 import aboutScreen from './screens/app/screens/about';
 // import listsScreen from './screens/app/screens/lists';
 import grammarScreen from './screens/app/screens/grammar';
@@ -19,9 +21,7 @@ import playScreen from './screens/app/screens/play';
 import selectScreen from './screens/app/screens/select';
 import startScreen from './screens/app/screens/start';
 
-function onUpdate() {
-  anchorate(); // To have href's that can scroll to page sections
-}
+const AppScreenRoutered = withRouter(AppScreen);
 
 export default class AppProvider extends React.Component {
   constructor(props) {
@@ -46,58 +46,65 @@ export default class AppProvider extends React.Component {
     });
   }
 
+  componentDidUpdate() {
+    anchorate(); // To have href's that can scroll to page sections
+  }
+
   render() {
     if (this.state.rehydrated) {
       return (
         <Provider store={this.props.store}>
-          <Router
-            onUpdate={onUpdate}
-            history={this.props.history}
-          >
-            <Route
-              path="/"
-              component={appScreen}
-            >
-              <IndexRedirect to="home" />
-              <Route
-                path="login"
-                component={loginScreen}
-              />
-              <Route
-                path="logout"
-                component={logoutScreen}
-              />
-              <Route
-                path="play/:type"
-                component={requireAuthentication(playScreen)}
-              />
-              <Route
-                path="select/:type"
-                component={requireAuthentication(selectScreen)}
-              />
-              <Route
-                path="grammar"
-                component={requireAuthentication(grammarScreen)}
-              />
-              {/* <Route path="lists" component={requireAuthentication(listsScreen)} /> */}
-              <Route
-                path="finish/:type"
-                component={requireAuthentication(finishScreen)}
-              />
-              <Route
-                path="home"
-                component={requireAuthentication(homeScreen)}
-              />
-              <Route
-                path="about"
-                component={aboutScreen}
-              />
-              <Route
-                path="start"
-                component={startScreen}
-              />
-            </Route>
-          </Router>
+          <ConnectedRouter history={this.props.history}>
+            <AppScreenRoutered>
+              <Switch>
+                <Route
+                  path="/login"
+                  component={loginScreen}
+                />
+                <Route
+                  path="/logout"
+                  component={logoutScreen}
+                />
+                <Route
+                  path="/play/:type"
+                  component={requireAuthentication(playScreen)}
+                />
+                <Route
+                  path="/select/:type"
+                  component={requireAuthentication(selectScreen)}
+                />
+                <Route
+                  path="/grammar"
+                  component={requireAuthentication(grammarScreen)}
+                />
+                <Route
+                  path="/finish/:type"
+                  component={requireAuthentication(finishScreen)}
+                />
+                <Route
+                  path="/home"
+                  component={requireAuthentication(homeScreen)}
+                />
+                <Route
+                  path="/about"
+                  component={aboutScreen}
+                />
+                <Route
+                  path="/start"
+                  component={startScreen}
+                />
+                <Route
+                  exact
+                  path="/"
+                  component={requireAuthentication(homeScreen, startScreen)}
+                />
+                <Redirect
+                  from="*"
+                  to="/"
+                />
+              </Switch>
+            </AppScreenRoutered>
+          </ConnectedRouter>
         </Provider>
       );
     }
@@ -106,6 +113,5 @@ export default class AppProvider extends React.Component {
 }
 
 AppProvider.propTypes = {
-  store: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  store: PropTypes.object.isRequired
 };
