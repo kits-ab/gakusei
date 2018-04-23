@@ -166,14 +166,18 @@ export default class aboutScreen extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Panel
-              collapsible
-              header="Licenser"
-            >
-              <ListGroup>
-                {this.state.backend_licenses}
-                {this.state.frontend_licenses}
-              </ListGroup>
+            <Panel>
+              <Panel.Heading>
+                <Panel.Title toggle>Licenser</Panel.Title>
+              </Panel.Heading>
+              <Panel.Collapse>
+                <Panel.Body>
+                  <ListGroup>
+                    {this.state.backend_licenses}
+                    {this.state.frontend_licenses}
+                  </ListGroup>
+                </Panel.Body>
+              </Panel.Collapse>
             </Panel>
           </Row>
         </Grid>
