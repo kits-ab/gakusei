@@ -9,7 +9,7 @@ import rootReducer from './shared/reducers';
 export const history = createBrowserHistory();
 
 export function configureStore(initialState) {
-  const windowIfDefined = typeof window === 'undefined' ? null : window;
+  const windowIfDefined = typeof window === undefined ? null : window;
 
   /* devcode:start */
   const devToolsExtension = windowIfDefined && windowIfDefined.devToolsExtension;
@@ -18,7 +18,7 @@ export function configureStore(initialState) {
   const enhancer = compose(
     applyMiddleware(thunkMiddleware, routerMiddleware(history)),
     /* devcode:start */
-    typeof devToolsExtension !== undefined ? devToolsExtension() : f => f,
+    devToolsExtension ? devToolsExtension() : f => f,
     /* devcode:end */
     autoRehydrate()
   );
