@@ -18,7 +18,7 @@ export function requireAuthentication(Component, ReplacementComponent = null) {
     }
 
     render() {
-      return <div>{this.getComponent()}</div>;
+      return this.getComponent();
     }
   }
 
