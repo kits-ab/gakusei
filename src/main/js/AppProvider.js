@@ -21,7 +21,7 @@ import playScreen from './screens/app/screens/play';
 import selectScreen from './screens/app/screens/select';
 import startScreen from './screens/app/screens/start';
 
-const AppScreenBlocked = withRouter(AppScreen);
+const AppScreenRoutered = withRouter(AppScreen);
 
 export default class AppProvider extends React.Component {
   constructor(props) {
@@ -55,7 +55,7 @@ export default class AppProvider extends React.Component {
       return (
         <Provider store={this.props.store}>
           <ConnectedRouter history={this.props.history}>
-            <AppScreenBlocked>
+            <AppScreenRoutered>
               <Switch>
                 <Route
                   path="/login"
@@ -103,7 +103,7 @@ export default class AppProvider extends React.Component {
                   to="/"
                 />
               </Switch>
-            </AppScreenBlocked>
+            </AppScreenRoutered>
           </ConnectedRouter>
         </Provider>
       );
