@@ -17,7 +17,8 @@ export const defaultState = {
   loggedIn: false,
   loggedInUser: '',
   currentPageName: '',
-  currentPage: null
+  currentPage: null,
+  redirectUrl: null
 };
 
 // ----------------
@@ -37,11 +38,19 @@ export const RECEIVE_AUTH_RESPONSE = 'RECEIVE_AUTH_RESPONSE';
 export const SET_LOGGING_IN = 'SET_LOGGING_IN';
 export const SET_REGISTERING = 'SET_REGISTERING';
 export const CLEAR_AUTH_RESPONSE = 'CLEAR_AUTH_RESPONSE';
+export const SET_REDIRECT_URL = 'SET_REDIRECT_URL';
 
 // -----------------
 // ACTION (CREATORS) - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
 // Use @typeName and isActionType for type detection that works even after serialization/deserialization.
+
+export function setRedirectUrl(url) {
+  return {
+    type: SET_REDIRECT_URL,
+    url
+  };
+}
 
 export function clearAuthResponse() {
   return {
@@ -193,6 +202,7 @@ export function requestUserLogin(data, redirectUrl) {
             break;
           case 200:
             dispatch(receiveAuthResponse(true, 'Inloggad, tar dig vidare..'));
+            dispatch(setRedirectUrl(null));
             dispatch(fetchLoggedInUser()).then(() => {
               dispatch(setPageByName(redirectUrl || '/'));
             });
@@ -277,7 +287,8 @@ export const actionCreators = {
   setPageByName,
   reloadCurrentRoute,
   verifyUserLoggedIn,
-  clearAuthResponse
+  clearAuthResponse,
+  setRedirectUrl
 };
 
 // ----------------
@@ -344,6 +355,11 @@ export function security(state = defaultState, action) {
         ...state,
         authSuccess: null,
         authResponse: null
+      };
+    case SET_REDIRECT_URL:
+      return {
+        ...state,
+        redirectUrl: action.url
       };
   }
 }

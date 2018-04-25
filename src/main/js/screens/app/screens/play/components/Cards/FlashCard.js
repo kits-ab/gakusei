@@ -46,8 +46,10 @@ class FlashCard extends React.Component {
           smOffset={1}
         >
           <div className="flip-container">
-            <Jumbotron className={`card${this.state.flipped ? ' flipped' : ''}`}>
-              <figure className="front">
+            <Jumbotron
+              className={`flip-container__content${this.state.flipped ? ' flip-container__content--flipped' : ''}`}
+            >
+              <figure className="flip-container__front">
                 <DisplayQuestion
                   style={{ verticalAlign: 'center' }}
                   primaryText={this.props.question.shapes[0]}
@@ -58,7 +60,7 @@ class FlashCard extends React.Component {
                   showKanji
                 />
               </figure>
-              <figure className="back">
+              <figure className="flip-container__back">
                 <DisplayQuestion
                   primaryText={this.props.question.correctAlternative[0]}
                   secondaryText={this.props.question.correctAlternative[1]}

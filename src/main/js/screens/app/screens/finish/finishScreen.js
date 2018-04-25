@@ -18,8 +18,8 @@ export class finishScreen extends React.Component {
   componentDidMount() {
     // Kick user out if data is missing
     if (!this.props.answeredQuestions || this.props.answeredQuestions.length === 0) {
-      if (this.props.params.type) {
-        this.props.setPageByName(`/select/${this.props.params.type}`);
+      if (this.props.match.params.type) {
+        this.props.setPageByName(`/select/${this.props.match.params.type}`);
       } else {
         this.props.setPageByName('/home');
       }
@@ -45,15 +45,15 @@ export class finishScreen extends React.Component {
 
   backtoSelection() {
     this.props
-      .fetchLesson(this.props.params.type)
+      .fetchLesson(this.props.match.params.type)
       .catch(this.props.verifyUserLoggedIn())
-      .then(this.props.setPageByName(`/select/${this.props.params.type}`));
+      .then(this.props.setPageByName(`/select/${this.props.match.params.type}`));
   }
   playAgain() {
     this.props
-      .fetchLesson(this.props.params.type)
+      .fetchLesson(this.props.match.params.type)
       .catch(this.props.verifyUserLoggedIn())
-      .then(this.props.setPageByName(`/play/${this.props.params.type}`));
+      .then(this.props.setPageByName(`/play/${this.props.match.params.type}`));
   }
 
   showResults() {
@@ -78,7 +78,7 @@ export class finishScreen extends React.Component {
             secondaryText={qa.shapes[1] || null}
             resourceRef={qa.resourceRef}
             japaneseCharacters={qa.questionType === 'reading'}
-            showSpeechButton={this.props.params.type !== 'quiz'}
+            showSpeechButton={this.props.match.params.type !== 'quiz'}
             smallerText
           />
           {yourAnswerText}

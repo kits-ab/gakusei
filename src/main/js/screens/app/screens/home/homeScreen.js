@@ -120,7 +120,6 @@ export class homeScreen extends React.Component {
         <Row>
           <Col
             xs={12}
-            xsOffset={0}
             md={6}
             mdOffset={3}
           >

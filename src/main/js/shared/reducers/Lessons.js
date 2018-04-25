@@ -49,7 +49,7 @@ export const defaultState = {
 
   answerTextInputFocused: true,
   spacedRepetition: false,
-  spacedRepetitionModes: ['guess', 'grammar', 'translate', 'flashcards'],
+  spacedRepetitionModes: ['guess', 'translate', 'flashcards'],
 
   // Things originally in SessionStorage
   correctAttempts: 0,
@@ -502,17 +502,7 @@ export function receiveLessons(newLessons) {
 }
 
 export function setQuestionLanguage(language) {
-  return function(dispatch, getState) {
-    const state = getState().lessons;
-
-    if (state.answerType === language) {
-      dispatch({
-        type: SET_ANSWER_LANGUAGE,
-        description: 'Set the answer language',
-        language: state.questionType
-      });
-    }
-
+  return function(dispatch) {
     dispatch({
       type: SET_QUESTION_LANGUAGE,
       description: 'Set the question language',
@@ -522,16 +512,7 @@ export function setQuestionLanguage(language) {
 }
 
 export function setAnswerLanguage(language) {
-  return function(dispatch, getState) {
-    const state = getState().lessons;
-
-    if (state.questionType === language) {
-      dispatch({
-        type: SET_QUESTION_LANGUAGE,
-        description: 'Set the answer language',
-        language: state.answerType
-      });
-    }
+  return function(dispatch) {
     dispatch({
       type: SET_ANSWER_LANGUAGE,
       description: 'Set the question language',

@@ -26,7 +26,7 @@ export class loginScreen extends React.Component {
 
   componentWillMount() {
     if (this.props.loggedIn) {
-      this.props.setPageByName(this.props.location.query.redirectUrl);
+      this.props.setPageByName('/');
     } else {
       this.props.clearAuthResponse();
     }
@@ -57,9 +57,9 @@ export class loginScreen extends React.Component {
     formData.preventDefault();
 
     if (this.state.submitLogin) {
-      this.props.requestUserLogin(formData, this.props.location.query.redirectUrl);
+      this.props.requestUserLogin(formData, this.props.redirectUrl || '/');
     } else {
-      this.props.requestUserRegister(formData, this.props.location.query.redirectUrl);
+      this.props.requestUserRegister(formData, this.props.redirectUrl || '/');
     }
   }
 
@@ -84,8 +84,8 @@ export class loginScreen extends React.Component {
       <Grid>
         <Row>
           <Col
-            mdOffset={2}
-            md={8}
+            mdOffset={4}
+            md={4}
           >
             <Form onSubmit={this.handleSubmit}>
               <fieldset>

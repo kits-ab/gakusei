@@ -1,0 +1,36 @@
+@import './settings/_sizes.scss';
+
+.question {
+    &__actions {
+        margin-top: 15px;
+    }
+
+    &__action {
+        font-size: 1.25em;
+        margin: 0 5px 10px 5px;
+    }
+
+    &__text {
+        font-size: 225% !important;
+
+        &--type-verb {
+            font-size: 100% !important;
+        }
+    }
+
+    &--small {
+        font-size: 0.5em;
+    }
+}
+
+@media screen and (min-width: $small-device-breaking-point) {
+    .question {
+        &__text {
+            font-size: 300% !important;
+
+            &--type-verb {
+                font-size: 150% !important;
+            }
+        }
+    }
+}
