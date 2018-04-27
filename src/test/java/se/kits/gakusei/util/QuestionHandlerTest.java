@@ -86,4 +86,12 @@ public class QuestionHandlerTest {
         assertTrue(visibleNuggets.size() >= quantity ? chosen.size() == quantity : chosen.size() == visibleNuggets
                 .size());
     }
+
+    @Test
+    public void testChooseRetentionNuggets() {
+        int quantity = 5;
+        List<Nugget> chosen = questionHandler.chooseRetentionNuggets(visibleNuggets, visibleNuggets, quantity);
+        assertTrue(visibleNuggets.size() >= quantity ? chosen.size() == quantity : chosen.size() == visibleNuggets
+                .size());
+    }
 }
