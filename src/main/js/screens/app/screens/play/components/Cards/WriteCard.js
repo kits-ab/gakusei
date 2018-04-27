@@ -1,6 +1,8 @@
 import { Row, Col } from 'react-bootstrap';
 
 import DrawArea from '../DrawArea';
+import FlashButtonSet from '../FlashButtonSet';
+import React from 'react';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 
 class WriteCard extends React.Component {
@@ -30,8 +32,7 @@ class WriteCard extends React.Component {
     if (!prevState.matchingDone && this.state.matchingDone) {
       // Only call this when we have the entire sign
       const passed = this.state.matches.every(matchObj => matchObj.match.userCorrect);
-
-      this.props.clickCallback(passed, this.state.matches);
+      //this.props.clickCallback(passed, this.state.matches);
     }
   }
 
@@ -79,9 +80,23 @@ class WriteCard extends React.Component {
               signToDraw={this.props.question.correctAlternative[this.props.question.correctAlternative.length - 1]}
               newMatch={this.onMatch}
               matches={this.state.matches}
-              highlightErrors={this.state.matchingDone}
-              buttonsDisabled={this.props.buttonsDisabled}
+              highlightErrors={false}
+              buttonsDisabled={this.props.buttonsDisabled || this.state.matchingDone}
             />
+          </Row>
+          <Row>
+            {this.state.matchingDone ? (
+              <React.Fragment>
+                Ritade du korrekt?
+                <FlashButtonSet
+                  correctAlternative={this.props.correctAlternative}
+                  buttonStyles={this.props.question.buttonStyles}
+                  buttonsDisabled={this.props.buttonsDisabled}
+                  answerType={this.props.answerType}
+                  clickCallback={this.props.clickCallback}
+                />
+              </React.Fragment>
+            ) : null}
           </Row>
         </Col>
       </Row>
