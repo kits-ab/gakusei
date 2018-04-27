@@ -28,6 +28,10 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
             @Param("username") String username,
             @Param("lessonName") String lessonName);
 
+    List<Nugget> findUnansweredRetentionNuggets (
+            @Param("username") String username,
+            @Param("lessonName") String lessonName);
+
     List<Nugget> findVerbNuggets (@Param("lessonId") Long lessonId);
 
     List<Lesson> findAllByOrderByName();
