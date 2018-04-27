@@ -143,6 +143,10 @@ export class selectScreen extends React.Component {
     return !(this.getNumberOfRetentionQuestions(lesson).unanswered === this.getNumberOfRetentionQuestions(lesson).all);
   }
 
+  isLessonStarred(lesson) {
+    return this.props.starredLessons.filter(starred => starred.lesson.id === lesson.id).length > 0;
+  }
+
   getLessons(lessons) {
     const mediumColumnSize = 6;
     const largeColumnSize = 4;
@@ -305,13 +309,15 @@ export class selectScreen extends React.Component {
   }
 
   render() {
-    let lessonsUnfinished, lessonsFinished, lessonsUnstarted, lessonsAll;
+    let lessonsFavorite, lessonsFavoriteDone, lessonsNotFavorite, lessonsAll;
     if (this.isSpacedRepetition()) {
-      lessonsUnfinished = this.getLessons(this.props.lessons.filter(lesson => !this.isLessonFinished(lesson)));
-      lessonsFinished = this.getLessons(
-        this.props.lessons.filter(lesson => this.isLessonFinished(lesson) && this.isLessonStarted(lesson))
+      lessonsFavorite = this.getLessons(
+        this.props.lessons.filter(lesson => this.isLessonStarred(lesson) && !this.isLessonFinished(lesson))
       );
-      lessonsUnstarted = this.getLessons(this.props.lessons.filter(lesson => !this.isLessonStarted(lesson)));
+      lessonsFavoriteDone = this.getLessons(
+        this.props.lessons.filter(lesson => this.isLessonStarred(lesson) && this.isLessonFinished(lesson))
+      );
+      lessonsNotFavorite = this.getLessons(this.props.lessons.filter(lesson => !this.isLessonStarred(lesson)));
     } else {
       lessonsAll = this.getLessons(this.props.lessons);
     }
@@ -390,14 +396,14 @@ export class selectScreen extends React.Component {
             : null}
           {this.isSpacedRepetition() ? (
             <div>
-              {lessonsUnfinished ? <h3>Pågående lektioner</h3> : null}
-              {lessonsUnfinished}
+              {lessonsFavorite ? <h3>Pågående lektioner</h3> : null}
+              {lessonsFavorite}
 
-              {lessonsUnstarted ? <h3>Ej påbörjade lektioner</h3> : null}
-              {lessonsUnstarted}
+              {lessonsFavoriteDone ? <h3>Färdiga lektioner</h3> : null}
+              {lessonsFavoriteDone}
 
-              {lessonsFinished ? <h3>Färdiga lektioner</h3> : null}
-              {lessonsFinished}
+              {lessonsNotFavorite ? <h3>Övriga lektioner</h3> : null}
+              {lessonsNotFavorite}
             </div>
           ) : (
             lessonsAll
