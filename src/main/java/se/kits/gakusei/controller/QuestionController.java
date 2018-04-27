@@ -54,7 +54,7 @@ public class QuestionController {
             questions = getCachedQuestionsFromLesson(lessonName, lessonType,
                     questionType, answerType, username, spacedRepetition);
         } else {
-            questions = getCachedQuestionsFromFavoriteLesson(lessonType, questionType, answerType, username);
+            questions = getCachedQuestionsFromFavoriteLesson(lessonType, questionType, answerType, username, spacedRepetition);
         }
 
         return questions.isEmpty() ?
@@ -63,12 +63,17 @@ public class QuestionController {
     }
 
     private List<HashMap<String, Object>> getCachedQuestionsFromFavoriteLesson(
-            String lessonType, String questionType, String answerType, String username) {
+            String lessonType, String questionType, String answerType, String username, boolean spacedRepetition) {
         //get all favorites, for each get unanswered and hard ones
 
         List<Nugget> allLessonNuggets;
         List<Lesson> favoriteLessons = userLessonRepository.findUsersStarredLessons(username)
                 .stream().map(UserLesson::getLesson).collect(Collectors.toList());
+
+        List<Nugget> retentionNuggets = favoriteLessons.stream()
+                .map(lesson -> lessonRepository.findNuggetsByRetentionDate(username, lesson.getName()))
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
 
         List<Nugget> unansweredNuggets = favoriteLessons.stream()
                 .map(lesson -> lessonRepository.findUnansweredNuggets(username, lesson.getName()))
@@ -92,8 +97,8 @@ public class QuestionController {
                     .collect(Collectors.toList());
         }
 
-        List<Nugget> favoriteNuggets = questionHandler.chooseNuggets(null, nuggetsWithLowSuccessrate,
-                unansweredNuggets, allLessonNuggets, quantity, false);
+        List<Nugget> favoriteNuggets = questionHandler.chooseNuggets(retentionNuggets, nuggetsWithLowSuccessrate,
+                unansweredNuggets, allLessonNuggets, quantity, spacedRepetition);
 
         if (lessonType.equals("grammar")) {
             return questionHandler.createGrammarQuestions(
