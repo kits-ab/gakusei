@@ -48,7 +48,7 @@ export const defaultState = {
   lessonLength: 0,
 
   answerTextInputFocused: true,
-  spacedRepetition: false,
+  spacedRepetition: true,
   spacedRepetitionModes: ['guess', 'translate', 'flashcards'],
 
   // Things originally in SessionStorage
