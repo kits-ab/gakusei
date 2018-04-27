@@ -1,6 +1,7 @@
 package se.kits.gakusei.controller;
 
 import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,7 @@ import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.UserLessonRepository;
 import se.kits.gakusei.test_tools.TestTools;
 import se.kits.gakusei.util.QuestionHandler;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -64,14 +66,13 @@ public class QuestionControllerTest {
     }
 
 
-
     @Test
     public void testGetQuestionsFromLessonOK() throws Exception {
         Mockito.when(lessonRepository.findNuggetsByRetentionDate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
-        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, nuggets, quantity, false)).thenReturn(nuggets);
+        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, questionType, answerType))
                 .thenReturn(questionList);
 
@@ -89,7 +90,7 @@ public class QuestionControllerTest {
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
-        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, nuggets, quantity, false)).thenReturn(nuggets);
+        Mockito.when(questionHandler.chooseNuggets(nuggets, nuggets, nuggets, quantity)).thenReturn(nuggets);
         Mockito.when(questionHandler.createQuestions(nuggets, questionType, answerType))
                 .thenReturn(questionList);
 

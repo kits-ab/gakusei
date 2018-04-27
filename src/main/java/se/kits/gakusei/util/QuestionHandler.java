@@ -51,7 +51,7 @@ public class QuestionHandler {
 
         List<String> correctAlternative = createAlternative(nugget, answerType);
 
-        for(int i = 0; optimalNuggets.size() < 3 && i < copyOfNuggets.size(); i++) {
+        for (int i = 0; optimalNuggets.size() < 3 && i < copyOfNuggets.size(); i++) {
             if (copyOfNuggets.get(i).getWordType().equals(nugget.getWordType())) {
                 optimalNuggets.push(copyOfNuggets.get(i));
             } else if (copyOfNuggets.size() - (i + 1) <= 4 - optimalNuggets.size()) {
@@ -78,7 +78,7 @@ public class QuestionHandler {
     public List<HashMap<String, Object>> createGrammarQuestions(Lesson lesson,
                                                                 List<Nugget> nuggets,
                                                                 String questionType,
-                                                                String answerType){
+                                                                String answerType) {
         return nuggets.stream().
                 map(n -> createGrammarQuestion(lesson, n, questionType, answerType)).
                 filter(Objects::nonNull).
@@ -88,7 +88,7 @@ public class QuestionHandler {
     private HashMap<String, Object> createGrammarQuestion(Lesson lesson,
                                                           Nugget nugget,
                                                           String questionType,
-                                                          String answerType){
+                                                          String answerType) {
         HashMap<String, Object> questionMap = new HashMap<>();
 
         List<Inflection> inflections = inflectionRepository.findByLessonId(lesson.getId());
@@ -98,7 +98,7 @@ public class QuestionHandler {
 
         List<String> question = createAlternative(nugget, questionType);
 
-        if(!grammarTexts.isEmpty()){
+        if (!grammarTexts.isEmpty()) {
             question.add(grammarTexts.get(0).getSeShort());
             question.addAll(createAlternative(nugget, answerType));
             questionMap.put("explanationText", grammarTexts.get(0).getSeLong());
@@ -106,9 +106,9 @@ public class QuestionHandler {
             question.add(selectedInflection.getInflectionMethod());
             question.addAll(createAlternative(nugget, answerType));
         }
-        
+
         String inflectedVerb = inflectVerb(selectedInflection, question.get(1));
-        if(inflectedVerb == null){
+        if (inflectedVerb == null) {
             return null;
         }
 
@@ -122,7 +122,7 @@ public class QuestionHandler {
         return questionMap;
     }
 
-    private String inflectVerb(Inflection inflection, String baseVerb){
+    private String inflectVerb(Inflection inflection, String baseVerb) {
         try {
             Verb verb = new Verb(baseVerb);
             Method methodToInvoke = verb.getClass().getMethod(inflection.getInflectionMethod());
@@ -137,32 +137,36 @@ public class QuestionHandler {
         }
     }
 
-    public List<Nugget> chooseNuggets(List<Nugget> retentionNuggets, List<Nugget> nuggetsWithLowSuccessrate,
-                                      List<Nugget> unansweredNuggets,
-                                      List<Nugget> allLessonNuggets,
-                                      int quantity, boolean spacedRepetition) {
+    public List<Nugget> chooseRetentionNuggets(List<Nugget> retentionNuggets, List<Nugget> unansweredNuggets, int quantity) {
         List<Nugget> visibleNuggets;
         List<Nugget> nuggets = new ArrayList<>();
-        if (!spacedRepetition) {
-            if (allLessonNuggets.size() <= quantity) {
-                return allLessonNuggets;
-            } else {
-                nuggets.addAll(unansweredNuggets);
-                nuggets.addAll(nuggetsWithLowSuccessrate);
-                nuggets.addAll(allLessonNuggets);
-                visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
-                        .collect(Collectors.toList());
-                Collections.shuffle(visibleNuggets);
-                return visibleNuggets.subList(0, quantity);
-            }
-        } else {
 
-            nuggets.addAll(retentionNuggets);
-            Collections.shuffle(unansweredNuggets);
+        nuggets.addAll(retentionNuggets);
+        Collections.shuffle(unansweredNuggets);
+        nuggets.addAll(unansweredNuggets);
+        visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
+                .collect(Collectors.toList());
+
+        return visibleNuggets.subList(0, Math.min(nuggets.size(), quantity));
+    }
+
+    public List<Nugget> chooseNuggets(List<Nugget> nuggetsWithLowSuccessrate,
+                                      List<Nugget> unansweredNuggets,
+                                      List<Nugget> allLessonNuggets,
+                                      int quantity) {
+        List<Nugget> visibleNuggets;
+        List<Nugget> nuggets = new ArrayList<>();
+        if (allLessonNuggets.size() <= quantity) {
+            return allLessonNuggets;
+        } else {
             nuggets.addAll(unansweredNuggets);
+            nuggets.addAll(nuggetsWithLowSuccessrate);
+            nuggets.addAll(allLessonNuggets);
             visibleNuggets = nuggets.stream().filter(nugget -> !nugget.isHidden()).distinct()
                     .collect(Collectors.toList());
+            Collections.shuffle(visibleNuggets);
         }
+
         return visibleNuggets.subList(0, Math.min(nuggets.size(), quantity));
     }
 
@@ -175,7 +179,7 @@ public class QuestionHandler {
             } else {
                 String methodName = "get" + Character.toString(Character.toUpperCase(type.charAt(0))) +
                         type.substring(1);
-                alternative.add((String)nugget.getClass().getMethod(methodName).invoke(nugget));
+                alternative.add((String) nugget.getClass().getMethod(methodName).invoke(nugget));
             }
 
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {

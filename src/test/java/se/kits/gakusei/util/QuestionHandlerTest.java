@@ -82,7 +82,15 @@ public class QuestionHandlerTest {
     @Test
     public void testChooseNuggets() {
         int quantity = 5;
-        List<Nugget> chosen = questionHandler.chooseNuggets(visibleNuggets, visibleNuggets, visibleNuggets, visibleNuggets, quantity, false);
+        List<Nugget> chosen = questionHandler.chooseNuggets(visibleNuggets, visibleNuggets, visibleNuggets, quantity);
+        assertTrue(visibleNuggets.size() >= quantity ? chosen.size() == quantity : chosen.size() == visibleNuggets
+                .size());
+    }
+
+    @Test
+    public void testChooseRetentionNuggets() {
+        int quantity = 5;
+        List<Nugget> chosen = questionHandler.chooseRetentionNuggets(visibleNuggets, visibleNuggets, quantity);
         assertTrue(visibleNuggets.size() >= quantity ? chosen.size() == quantity : chosen.size() == visibleNuggets
                 .size());
     }

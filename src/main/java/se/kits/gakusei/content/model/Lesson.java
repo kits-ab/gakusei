@@ -47,6 +47,15 @@ import java.util.List;
                         "WHERE wt.type = 'verb' AND ln.lesson_id = :lessonId) ",
                 resultClass = Nugget.class),
         @NamedNativeQuery(
+                name = "Lesson.findUnansweredRetentionNuggets",
+                query = "SELECT contentschema.nuggets.* FROM contentschema.nuggets\n" +
+                        "                        WHERE nuggets.id IN \n" +
+                        "\t\t\t\t\t\t(SELECT lessons_nuggets.nugget_id FROM contentschema.lessons_nuggets\n" +
+                        "                        LEFT JOIN progresstrackinglist ON progresstrackinglist.nugget_id = lessons_nuggets.nugget_id\n" +
+                        "                        WHERE (user_ref = :username OR user_ref IS NULL) AND retention_date IS NULL\n" +
+                        "                        AND lesson_id IN (SELECT id FROM contentschema.lessons WHERE name = :lessonName))",
+                resultClass = Nugget.class),
+        @NamedNativeQuery(
                 name = "Lesson.findNuggetsByRetentionDate",
                 query = "SELECT contentschema.nuggets.* FROM contentschema.nuggets\n" +
                         "WHERE nuggets.id IN (SELECT progresstrackinglist.nugget_id FROM progresstrackinglist \n" +
