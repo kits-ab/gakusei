@@ -47,10 +47,6 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/select/flashcards">
                   <MenuItem className="flashcardPlay">Bildkort</MenuItem>
                 </LinkContainer>
-                {/* Remove this comment when feature is done
-                  <LinkContainer to="/select/kanji">
-                  <MenuItem className="kanjiPlay">Skriv Kanji</MenuItem>
-                </LinkContainer> */}
               </NavDropdown>
               <NavDropdown
                 className="grammarDropdown"
@@ -64,6 +60,11 @@ export class GakuseiNav extends React.Component {
                   <NavItem className="grammarHelp">Texter om grammatik</NavItem>
                 </LinkContainer>
               </NavDropdown>
+              <Nav>
+                <LinkContainer to="/select/kanji">
+                  <MenuItem className="kanjiPlay">Kanji</MenuItem>
+                </LinkContainer>
+              </Nav>
               <LinkContainer to="/select/quiz">
                 <NavItem className="quizPlay">Quiz</NavItem>
               </LinkContainer>
