@@ -278,7 +278,7 @@ export class selectScreen extends React.Component {
     if (this.props.match.params.type === 'quiz' || this.props.match.params.type === 'grammar') {
       return null;
     } else {
-      return (
+      return this.props.spacedRepetitionModes.includes(this.props.match.params.type) ? (
         <FormGroup>
           <FormGroup controlId="languageSelect">
             <RadioLanguage
@@ -304,7 +304,7 @@ export class selectScreen extends React.Component {
             />
           </FormGroup>
         </FormGroup>
-      );
+      ) : null;
     }
   }
 
@@ -391,9 +391,7 @@ export class selectScreen extends React.Component {
           <p>{this.getPageDescription()}</p>
           {this.getLanguageSelection()}
           <h2>Lektioner</h2>
-          {this.props.match.params.type !== 'quiz' && this.props.match.params.type !== 'grammar'
-            ? favoriteLesson
-            : null}
+          {!['quiz', 'grammar', 'kanji'].includes(this.props.match.params.type) ? favoriteLesson : null}
           {this.isSpacedRepetition() ? (
             <div>
               {lessonsFavorite ? <h3>Pågående lektioner</h3> : null}
