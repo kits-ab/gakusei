@@ -175,7 +175,12 @@ export class playScreen extends React.Component {
             lessonSuccessRateMessage={this.props.lessonSuccessRateMessage}
             lessonType={this.props.match.params.type}
             feedbackItems={this.props.answeredQuestions.map(answeredQuestion => {
-              if (this.props.match.params.type !== 'kanji') {
+              return {
+                correct: answeredQuestion.userCorrect,
+                errorCount: answeredQuestion.userCorrect ? 1 : 0,
+                text: ''
+              };
+              /*               if (this.props.match.params.type !== 'kanjii') {
                 return {
                   correct: answeredQuestion.userCorrect,
                   errorCount: answeredQuestion.userCorrect ? 1 : 0,
@@ -186,7 +191,7 @@ export class playScreen extends React.Component {
                 correct: answeredQuestion.userCorrect,
                 errorCount: answeredQuestion.cardData.filter(line => !line.match.userCorrect).length,
                 text: answeredQuestion.cardData[answeredQuestion.cardData.length - 1].totalMatch.wording
-              };
+              }; */
             })}
           />
         </Col>

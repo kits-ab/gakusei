@@ -60,17 +60,16 @@ export class GakuseiNav extends React.Component {
                   <NavItem className="grammarHelp">Texter om grammatik</NavItem>
                 </LinkContainer>
               </NavDropdown>
-              <Nav>
-                <LinkContainer to="/select/kanji">
-                  <MenuItem className="kanjiPlay">Kanji</MenuItem>
-                </LinkContainer>
-              </Nav>
+
+              <LinkContainer to="/select/kanji">
+                <NavItem className="kanjiPlay">Kanji</NavItem>
+              </LinkContainer>
               <LinkContainer to="/select/quiz">
                 <NavItem className="quizPlay">Quiz</NavItem>
               </LinkContainer>
               {/* <LinkContainer to="/lists">
-                <NavItem>Lista ord</NavItem>
-              </LinkContainer> */}
+                  <NavItem>Lista ord</NavItem>
+                </LinkContainer> */}
               <LinkContainer to="/about">
                 <NavItem className="about">Om Gakusei</NavItem>
               </LinkContainer>
@@ -82,22 +81,20 @@ export class GakuseiNav extends React.Component {
               </LinkContainer>
             </Nav>
           )}
-          {this.props.loggedIn ? (
-            <p className="navbar-text navbar-right">Inloggad som: {this.props.loggedInUser}</p>
-          ) : null}
-          {this.props.loggedIn ? (
-            <Nav pullRight>
+          <Nav pullRight>
+            {this.props.loggedIn ? (
+              <p className="navbar-text navbar-right">Inloggad som: {this.props.loggedInUser}</p>
+            ) : null}
+            {this.props.loggedIn ? (
               <LinkContainer to={{ pathname: '/logout', query: { currentUrl: this.props.location.pathname } }}>
                 <NavItem className="menu-button">Logga ut</NavItem>
               </LinkContainer>
-            </Nav>
-          ) : (
-            <Nav pullRight>
+            ) : (
               <LinkContainer to={`/login${this.props.location.search}`}>
                 <NavItem className="menu-button">Logga in / Registrera</NavItem>
               </LinkContainer>
-            </Nav>
-          )}
+            )}
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     );

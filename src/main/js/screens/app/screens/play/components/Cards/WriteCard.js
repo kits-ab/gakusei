@@ -87,7 +87,7 @@ class WriteCard extends React.Component {
           <Row>
             {this.state.matchingDone ? (
               <React.Fragment>
-                Ritade du korrekt?
+                Ritade du rätt?
                 <FlashButtonSet
                   correctAlternative={this.props.correctAlternative}
                   buttonStyles={this.props.question.buttonStyles}

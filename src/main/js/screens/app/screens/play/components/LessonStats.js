@@ -23,14 +23,14 @@ class LessonStats extends React.Component {
           <p>
             {this.props.correctAttempts} rätt {this.props.lessonSuccessRateMessage}
           </p>
-          {this.props.lessonType === 'kanji'
+          {/* {this.props.lessonType === 'kanji'
             ? feedbackList.reverse().map((item, index) => {
               if (index === 0) {
                 return <h2 key={item}>{item}</h2>;
               }
               return <p key={item}>{item}</p>;
             })
-            : null}
+            : null} */}
         </div>
       </Row>
     );
