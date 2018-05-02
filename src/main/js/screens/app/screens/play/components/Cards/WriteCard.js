@@ -82,6 +82,7 @@ class WriteCard extends React.Component {
               matches={this.state.matches}
               highlightErrors={false}
               buttonsDisabled={this.props.buttonsDisabled || this.state.matchingDone}
+              difficulty={this.props.difficulty}
             />
           </Row>
           <Row>
@@ -116,7 +117,8 @@ WriteCard.propTypes = {
   }).isRequired,
   buttonsDisabled: PropTypes.bool.isRequired,
   clickCallback: PropTypes.func.isRequired,
-  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired
+  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired,
+  difficulty: PropTypes.string.isRequired
 };
 
 export default WriteCard;

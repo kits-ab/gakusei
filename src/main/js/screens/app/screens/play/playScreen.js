@@ -121,6 +121,7 @@ export class playScreen extends React.Component {
             correctAlternative={this.props.currentQuestion.correctAlternative}
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+            difficulty={this.props.kanjiDifficulty}
           />
         );
         break;
