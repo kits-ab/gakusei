@@ -309,7 +309,7 @@ export class selectScreen extends React.Component {
   }
 
   render() {
-    let lessonsFavorite, lessonsFavoriteDone, lessonsNotFavorite, lessonsAll;
+    let lessonsFavorite, lessonsFavoriteDone, lessonsNotFavorite;
     if (this.isSpacedRepetition()) {
       lessonsFavorite = this.getLessons(
         this.props.lessons.filter(lesson => this.isLessonStarred(lesson) && !this.isLessonFinished(lesson))
@@ -319,7 +319,9 @@ export class selectScreen extends React.Component {
       );
       lessonsNotFavorite = this.getLessons(this.props.lessons.filter(lesson => !this.isLessonStarred(lesson)));
     } else {
-      lessonsAll = this.getLessons(this.props.lessons);
+      lessonsFavorite = this.getLessons(this.props.lessons.filter(lesson => this.isLessonStarred(lesson)));
+      lessonsNotFavorite = this.getLessons(this.props.lessons.filter(lesson => !this.isLessonStarred(lesson)));
+      lessonsFavoriteDone = undefined;
     }
 
     const favoriteLesson = (
@@ -392,20 +394,24 @@ export class selectScreen extends React.Component {
           {this.getLanguageSelection()}
           <h2>Lektioner</h2>
           {!['quiz', 'grammar', 'kanji'].includes(this.props.match.params.type) ? favoriteLesson : null}
-          {this.isSpacedRepetition() ? (
-            <div>
-              {lessonsFavorite ? <h3>Pågående lektioner</h3> : null}
-              {lessonsFavorite}
 
-              {lessonsFavoriteDone ? <h3>Färdiga lektioner</h3> : null}
-              {lessonsFavoriteDone}
-
-              {lessonsNotFavorite ? <h3>Övriga lektioner</h3> : null}
-              {lessonsNotFavorite}
-            </div>
-          ) : (
-            lessonsAll
-          )}
+          <div>
+            {lessonsFavorite ? (
+              <div>
+                <h3>Pågående lektioner</h3> {lessonsFavorite}
+              </div>
+            ) : null}
+            {lessonsFavoriteDone ? (
+              <div>
+                <h3>Färdiga lektioner</h3> {lessonsFavoriteDone}
+              </div>
+            ) : null}
+            {lessonsNotFavorite ? (
+              <div>
+                <h3>Övriga lektioner</h3> {lessonsNotFavorite}
+              </div>
+            ) : null}
+          </div>
         </Col>
       </Grid>
     );
