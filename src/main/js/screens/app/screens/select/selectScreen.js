@@ -308,6 +308,39 @@ export class selectScreen extends React.Component {
     }
   }
 
+  getKanjiSettingsSelection() {
+    return this.props.match.params.type === 'kanji' ? (
+      <FormGroup>
+        <FormGroup controlId="difficultySelect">
+          <Radio
+            key={'easy'}
+            name={'difficultySelect'}
+            onChange={() => this.props.setKanjiDifficulty('easy')}
+            checked={this.props.kanjiDifficulty === 'easy'}
+          >
+            Enkelt - Följ en bana
+          </Radio>
+          <Radio
+            key={'medium'}
+            name={'difficultySelect'}
+            onChange={() => this.props.setKanjiDifficulty('medium')}
+            checked={this.props.kanjiDifficulty === 'medium'}
+          >
+            Medium - Rita med ledtrådar
+          </Radio>
+          <Radio
+            key={'hard'}
+            name={'difficultySelect'}
+            onChange={() => this.props.setKanjiDifficulty('hard')}
+            checked={this.props.kanjiDifficulty === 'hard'}
+          >
+            Svårt - Rita på frihand
+          </Radio>
+        </FormGroup>
+      </FormGroup>
+    ) : null;
+  }
+
   render() {
     let lessonsFavorite, lessonsFavoriteDone, lessonsNotFavorite;
     if (this.isSpacedRepetition()) {
@@ -392,6 +425,7 @@ export class selectScreen extends React.Component {
           <h1>{this.getPageHeader()}</h1>
           <p>{this.getPageDescription()}</p>
           {this.getLanguageSelection()}
+          {this.getKanjiSettingsSelection()}
           <h2>Lektioner</h2>
           {!['quiz', 'grammar', 'kanji'].includes(this.props.match.params.type) ? favoriteLesson : null}
 

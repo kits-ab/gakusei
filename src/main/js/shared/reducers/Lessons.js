@@ -27,6 +27,8 @@ export const defaultState = {
   questionType: 'reading',
   answerType: 'swedish',
 
+  kanjiDifficulty: 'easy',
+
   questions: [],
   currentQuestion: {
     shapes: [],
@@ -83,7 +85,8 @@ export const propTypes = {
   answerType: PropTypes.string.isRequired,
   answerTextInputFocused: PropTypes.bool.isRequired,
   spacedRepetition: PropTypes.bool.isRequired,
-  spacedRepetitionModes: PropTypes.array.isRequired
+  spacedRepetitionModes: PropTypes.array.isRequired,
+  kanjiDifficulty: PropTypes.string.isRequired
 };
 
 // -----------------
@@ -115,6 +118,7 @@ export const SET_QUESTION_LANGUAGE = 'SET_QUESTION_LANGUAGE';
 export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
 export const SET_ADDRESSED_QUESTIONS = 'SET_ADDRESSED_QUESTIONS';
 export const SET_SPACED_REPETITION = 'SET_SPACED_REPETITION';
+export const SET_KANJI_DIFFICULTY = 'SET_KANJI_DIFFICULTY';
 
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
@@ -521,6 +525,16 @@ export function setAnswerLanguage(language) {
   };
 }
 
+export function setKanjiDifficulty(difficulty) {
+  return function(dispatch) {
+    dispatch({
+      type: SET_KANJI_DIFFICULTY,
+      description: 'Set the kanji writing difficulty',
+      difficulty
+    });
+  };
+}
+
 export function fetchLessons(type) {
   return function(dispatch, getState) {
     const lessonState = getState().lessons;
@@ -697,7 +711,8 @@ export const actionCreators = {
   receiveUserStarredLessons,
   addStarredLesson,
   removeStarredLesson,
-  toggleSpacedRepetition
+  toggleSpacedRepetition,
+  setKanjiDifficulty
 };
 
 // ----------------
@@ -869,6 +884,11 @@ export function lessons(state = defaultState, action) {
       return {
         ...state,
         spacedRepetition: action.value
+      };
+    case SET_KANJI_DIFFICULTY:
+      return {
+        ...state,
+        kanjiDifficulty: action.difficulty
       };
   }
 }
