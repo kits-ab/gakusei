@@ -212,7 +212,8 @@ export class selectScreen extends React.Component {
                   <ProgressBar
                     now={
                       this.props.addressedQuestionsInLessons &&
-                      Object.keys(this.props.addressedQuestionsInLessons).length > 0
+                      Object.keys(this.props.addressedQuestionsInLessons).length > 0 &&
+                      !['quiz', 'kanji'].includes(this.props.match.params.type)
                         ? parseInt(
                           (
                             this.props.addressedQuestionsInLessons[lesson.name].correctlyAnswered /
