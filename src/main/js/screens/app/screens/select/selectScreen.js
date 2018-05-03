@@ -326,7 +326,7 @@ export class selectScreen extends React.Component {
             onChange={() => this.props.setKanjiDifficulty('medium')}
             checked={this.props.kanjiDifficulty === 'medium'}
           >
-            Medium - Rita med ledtrådar
+            Medium - Rita med hjälp
           </Radio>
           <Radio
             key={'hard'}

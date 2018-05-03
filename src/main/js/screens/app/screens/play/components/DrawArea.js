@@ -92,7 +92,7 @@ export default class DrawArea extends React.Component {
         action(canvas, data) {
           let lineColor = 'LightGray';
 
-          data.difficulty !== 'hard' || data.answerPoints.length === data.existingPoints.length
+          !['medium', 'hard'].includes(data.difficulty) || data.answerPoints.length === data.existingPoints.length
             ? data.answerPoints.forEach((answerPoint, i) => {
               if (i >= data.existingPoints.length) {
                 lineColor = 'LightGray';

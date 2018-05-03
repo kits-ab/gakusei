@@ -71,7 +71,7 @@ class WriteCard extends React.Component {
             <DisplayQuestion
               style={{ verticalAlign: 'center' }}
               primaryText={this.props.question.shapes[0]}
-              secondaryText={this.props.question.shapes[1] || null}
+              secondaryText={!['hard'].includes(this.props.difficulty) ? this.props.question.shapes[1] || null : null}
               japaneseCharacters={false}
             />
           </Row>
