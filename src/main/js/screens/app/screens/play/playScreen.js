@@ -26,15 +26,23 @@ export class playScreen extends React.Component {
 
     this.checkAnswer = this.checkAnswer.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.getCanvasURL = this.getCanvasURL.bind(this);
 
     this.state = {
-      showHint: false
+      showHint: false,
+      lastDrawnCanvas: null
     };
   }
 
   updateHintVisibility = () => {
     this.setState({ showHint: !this.state.showHint });
   };
+
+  getCanvasURL(url) {
+    this.setState({
+      lastDrawn: url
+    });
+  }
 
   checkAnswer(answer, cardData) {
     let cloneCard = 'undefined';
@@ -122,6 +130,7 @@ export class playScreen extends React.Component {
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
             difficulty={this.props.kanjiDifficulty}
+            canvasUrlCallback={this.getCanvasURL}
           />
         );
         break;

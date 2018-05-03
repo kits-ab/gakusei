@@ -83,6 +83,7 @@ class WriteCard extends React.Component {
               highlightErrors={false}
               buttonsDisabled={this.props.buttonsDisabled || this.state.matchingDone}
               difficulty={this.props.difficulty}
+              canvasUrlCallback={this.props.canvasUrlCallback}
             />
           </Row>
           <Row>

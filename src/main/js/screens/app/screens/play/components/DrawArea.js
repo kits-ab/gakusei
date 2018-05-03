@@ -246,6 +246,7 @@ export default class DrawArea extends React.Component {
         newUserPath={this.onNewUserPath}
         drawActions={this.getDrawActions()}
         inputDisabled={this.props.buttonsDisabled}
+        canvasUrlCallback={this.props.canvasUrlCallback}
       />
     );
   }
