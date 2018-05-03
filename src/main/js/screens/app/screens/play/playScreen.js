@@ -39,9 +39,11 @@ export class playScreen extends React.Component {
   };
 
   getCanvasURL(url) {
-    this.setState({
-      lastDrawn: url
-    });
+    this.state.lastDrawnCanvas !== url
+      ? this.setState({
+        lastDrawn: url
+      })
+      : null;
   }
 
   checkAnswer(answer, cardData) {
@@ -58,6 +60,10 @@ export class playScreen extends React.Component {
       this.props.requestUserLogout('/', getCSRF());
       this.props.verifyUserLoggedIn();
     });
+
+    if (this.props.match.params.type === 'kanji') {
+      console.log('we gold now');
+    }
 
     if (textInputPlayType) {
       this.props.setAnswerTextInputFocusedState(false);

@@ -211,7 +211,8 @@ export class selectScreen extends React.Component {
                 <div className={'exercise__progress'}>
                   <ProgressBar
                     now={
-                      this.props.addressedQuestionsInLessons
+                      this.props.addressedQuestionsInLessons &&
+                      Object.keys(this.props.addressedQuestionsInLessons).length > 0
                         ? parseInt(
                           (
                             this.props.addressedQuestionsInLessons[lesson.name].correctlyAnswered /
