@@ -207,7 +207,20 @@ export class selectScreen extends React.Component {
                     }
                   />
                 </div>
-              ) : null}
+              ) : (
+                <div className={'exercise__progress'}>
+                  <ProgressBar
+                    now={parseInt(
+                      (
+                        this.props.addressedQuestionsInLessons[lesson.name].correctlyAnswered /
+                        this.props.addressedQuestionsInLessons[lesson.name].all *
+                        100
+                      ).toFixed(),
+                      10
+                    )}
+                  />
+                </div>
+              )}
               <p className={'exercise__description'}>{lesson.description}</p>
               <div className={'exercise__actions'}>
                 <Button
