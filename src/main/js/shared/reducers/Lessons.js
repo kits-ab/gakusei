@@ -680,6 +680,30 @@ export function toggleSpacedRepetition() {
   };
 }
 
+export function addUserKanjiDrawing(drawURL) {
+  return function(dispatch, getState) {
+    const xsrfTokenValue = getCSRF();
+    const securityState = getState().security;
+    const body = JSON.stringify({
+      timestamp: Number(new Date()),
+      nuggetid: getState().lessons.currentQuestion.correctAlternativeNuggetId,
+      username: securityState.loggedInUser,
+      data: drawURL,
+      difficulty: getState().lessons.kanjiDifficulty
+    });
+    console.log(body);
+    fetch(`/api/kanji-drawings`, {
+      credentials: 'same-origin',
+      method: 'POST',
+      body,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': xsrfTokenValue
+      }
+    });
+  };
+}
+
 export const actionCreators = {
   requestUserSuccessRate,
   fetchUserSuccessRate,
@@ -712,7 +736,8 @@ export const actionCreators = {
   addStarredLesson,
   removeStarredLesson,
   toggleSpacedRepetition,
-  setKanjiDifficulty
+  setKanjiDifficulty,
+  addUserKanjiDrawing
 };
 
 // ----------------

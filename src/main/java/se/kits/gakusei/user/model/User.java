@@ -33,6 +33,12 @@ public class User implements Serializable{
     @JsonProperty(value = "events")
     private List<Event> events;
 
+    @JsonManagedReference(value = "events")
+    @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JsonProperty(value = "kanji_drawings")
+    private List<Event> kanjiDrawings;
+
     @JsonManagedReference(value = "progress")
     @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
@@ -100,5 +106,13 @@ public class User implements Serializable{
 
     public void setUsersLessons(List<UserLesson> usersLessons) {
         this.usersLessons = usersLessons;
+    }
+
+    public List<Event> getKanjiDrawings() {
+        return kanjiDrawings;
+    }
+
+    public void setKanjiDrawings(List<Event> kanjiDrawings) {
+        this.kanjiDrawings = kanjiDrawings;
     }
 }

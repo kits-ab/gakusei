@@ -41,7 +41,7 @@ export class playScreen extends React.Component {
   getCanvasURL(url) {
     this.state.lastDrawnCanvas !== url
       ? this.setState({
-        lastDrawn: url
+        lastDrawnCanvas: url
       })
       : null;
   }
@@ -62,7 +62,7 @@ export class playScreen extends React.Component {
     });
 
     if (this.props.match.params.type === 'kanji') {
-      console.log('we gold now');
+      this.props.addUserKanjiDrawing(this.state.lastDrawnCanvas);
     }
 
     if (textInputPlayType) {
