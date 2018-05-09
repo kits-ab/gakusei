@@ -35,7 +35,7 @@ public class CSV {
 
         Map<String, List<String[]>> result = new HashMap<String, List<String[]>>();
 
-        parser.parse(new InputStreamReader(csvInput));
+        parser.parse(csvInput, "UTF-8");
 
         List<String[]> headerList = new ArrayList<String[]>();
 
