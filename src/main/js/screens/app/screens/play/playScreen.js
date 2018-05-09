@@ -20,7 +20,7 @@ export class playScreen extends React.Component {
       if (this.props.match.params.type) {
         this.props.setPageByName(`/select/${this.props.match.params.type}`);
       } else {
-        this.props.setPageByName('/home');
+        this.props.setPageByName(`/`);
       }
     }
 

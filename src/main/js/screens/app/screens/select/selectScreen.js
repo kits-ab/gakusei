@@ -18,31 +18,42 @@ export class selectScreen extends React.Component {
     super(props);
     this.handleStarredClick = this.handleStarredClick.bind(this);
     this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
+
+    this.state = {
+      playType: this.props.match.params.type || 'guess'
+    };
+
+    if (!this.props.match.params.type) {
+      this.props.setPageByName(`/select/guess`);
+    }
   }
 
   componentDidMount() {
-    this.props.fetchLessons(this.props.match.params.type).catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchLessons(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchFavoriteLesson(this.props.match.params.type).catch(() => this.props.verifyUserLoggedIn());
+    this.props.fetchFavoriteLesson(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchaddressedQuestionsInLessons();
 
-    if (this.props.match.params.type === 'kanji') {
+    if (this.state.playType === 'kanji') {
       this.props.setQuestionLanguage('reading');
     }
   }
 
   // Triggers when we change between play types but remain in "selection" page
   componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.type !== nextProps.match.params.type) {
+    if (this.state.playType !== nextProps.match.params.type) {
       this.props.fetchLessons(nextProps.match.params.type).catch(() => this.props.verifyUserLoggedIn());
+      this.setState({
+        playType: nextProps.match.params.type
+      });
     }
   }
 
   getPageHeader() {
-    switch (this.props.match.params.type) {
+    switch (this.state.playType) {
       case 'quiz':
         return 'Quiz';
       case 'guess':
@@ -61,7 +72,7 @@ export class selectScreen extends React.Component {
   }
 
   getPageDescription() {
-    switch (this.props.match.params.type) {
+    switch (this.state.playType) {
       case 'quiz':
         return 'Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ';
       case 'guess':
@@ -81,8 +92,8 @@ export class selectScreen extends React.Component {
 
   startLesson() {
     try {
-      this.props.fetchLesson(this.props.match.params.type).then(() => {
-        this.props.setPageByName(`/play/${this.props.match.params.type}`);
+      this.props.fetchLesson(this.state.playType).then(() => {
+        this.props.setPageByName(`/play/${this.state.playType}`);
       });
     } catch (err) {
       this.props.verifyUserLoggedIn();
@@ -94,20 +105,20 @@ export class selectScreen extends React.Component {
   }
 
   isSpacedRepetition() {
-    return this.props.spacedRepetition && this.props.spacedRepetitionModes.includes(this.props.match.params.type);
+    return this.props.spacedRepetition && this.props.spacedRepetitionModes.includes(this.state.playType);
   }
 
   handleStarredClick(lesson) {
     this.props.starredLessons.map(userLesson => userLesson.lesson.name).includes(lesson.name)
-      ? this.props.removeStarredLesson(lesson.name, this.props.match.params.type)
-      : this.props.addStarredLesson(lesson.name, this.props.match.params.type);
+      ? this.props.removeStarredLesson(lesson.name, this.state.playType)
+      : this.props.addStarredLesson(lesson.name, this.state.playType);
   }
 
   getNumberOfRetentionQuestions(lesson) {
     if (
       this.props.addressedQuestionsInLessons &&
       this.props.addressedQuestionsInLessons[lesson.name] &&
-      this.props.spacedRepetitionModes.includes(this.props.match.params.type)
+      this.props.spacedRepetitionModes.includes(this.state.playType)
     ) {
       return this.props.addressedQuestionsInLessons[lesson.name];
     }
@@ -118,7 +129,7 @@ export class selectScreen extends React.Component {
     if (
       this.props.favoriteLesson &&
       this.props.favoriteLesson.nuggetData &&
-      this.props.spacedRepetitionModes.includes(this.props.match.params.type)
+      this.props.spacedRepetitionModes.includes(this.state.playType)
     ) {
       return this.props.favoriteLesson.nuggetData;
     }
@@ -174,7 +185,7 @@ export class selectScreen extends React.Component {
                       <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
                     ) : null}
                 </h3>
-                {this.props.match.params.type === 'quiz' ? null : (
+                {this.state.playType === 'quiz' ? null : (
                   <div>
                     <Button
                       bsClass={
@@ -213,7 +224,7 @@ export class selectScreen extends React.Component {
                     now={
                       this.props.addressedQuestionsInLessons &&
                       Object.keys(this.props.addressedQuestionsInLessons).length > 0 &&
-                      !['quiz', 'kanji', 'grammar'].includes(this.props.match.params.type)
+                      !['quiz', 'kanji', 'grammar'].includes(this.state.playType)
                         ? parseInt(
                           (
                             this.props.addressedQuestionsInLessons[lesson.name].correctlyAnswered /
@@ -294,10 +305,10 @@ export class selectScreen extends React.Component {
       );
     };
 
-    if (this.props.match.params.type === 'quiz' || this.props.match.params.type === 'grammar') {
+    if (this.state.playType === 'quiz' || this.state.playType === 'grammar') {
       return null;
     } else {
-      return this.props.spacedRepetitionModes.includes(this.props.match.params.type) ? (
+      return this.props.spacedRepetitionModes.includes(this.state.playType) ? (
         <FormGroup>
           <FormGroup controlId="languageSelect">
             <RadioLanguage
@@ -328,7 +339,7 @@ export class selectScreen extends React.Component {
   }
 
   getKanjiSettingsSelection() {
-    return this.props.match.params.type === 'kanji' ? (
+    return this.state.playType === 'kanji' ? (
       <FormGroup>
         <FormGroup controlId="difficultySelect">
           <Radio
@@ -446,7 +457,7 @@ export class selectScreen extends React.Component {
           {this.getLanguageSelection()}
           {this.getKanjiSettingsSelection()}
           <h2>Lektioner</h2>
-          {!['quiz', 'grammar', 'kanji'].includes(this.props.match.params.type) ? favoriteLesson : null}
+          {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? favoriteLesson : null}
 
           <div>
             {lessonsFavorite ? (

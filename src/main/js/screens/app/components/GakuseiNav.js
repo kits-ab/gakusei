@@ -41,14 +41,14 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/select/guess">
                   <MenuItem className="guessPlay">Gissa ordet</MenuItem>
                 </LinkContainer>
-                <LinkContainer to="/select/translate">
+                {/* <LinkContainer to="/select/translate">
                   <MenuItem className="translatePlay">Översätt ordet</MenuItem>
-                </LinkContainer>
+                </LinkContainer> */}
                 <LinkContainer to="/select/flashcards">
                   <MenuItem className="flashcardPlay">Bildkort</MenuItem>
                 </LinkContainer>
               </NavDropdown>
-              <NavDropdown
+              {/* <NavDropdown
                 className="grammarDropdown"
                 title="Grammatik"
                 id="basic-nav-dropdown"
@@ -59,7 +59,7 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/grammar">
                   <NavItem className="grammarHelp">Texter om grammatik</NavItem>
                 </LinkContainer>
-              </NavDropdown>
+              </NavDropdown> */}
 
               <LinkContainer to="/select/kanji">
                 <NavItem className="kanjiPlay">Kanji</NavItem>
