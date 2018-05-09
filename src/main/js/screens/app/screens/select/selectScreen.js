@@ -213,7 +213,7 @@ export class selectScreen extends React.Component {
                     now={
                       this.props.addressedQuestionsInLessons &&
                       Object.keys(this.props.addressedQuestionsInLessons).length > 0 &&
-                      !['quiz', 'kanji'].includes(this.props.match.params.type)
+                      !['quiz', 'kanji', 'grammar'].includes(this.props.match.params.type)
                         ? parseInt(
                           (
                             this.props.addressedQuestionsInLessons[lesson.name].correctlyAnswered /
