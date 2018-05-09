@@ -691,7 +691,7 @@ export function addUserKanjiDrawing(drawURL) {
       data: drawURL,
       difficulty: getState().lessons.kanjiDifficulty
     });
-    console.log(body);
+
     fetch(`/api/kanji-drawings`, {
       credentials: 'same-origin',
       method: 'POST',
