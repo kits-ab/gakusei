@@ -95,7 +95,7 @@ The following happens on deploy:
 * `pkill --pidfile <pidfile>` is executed to terminate the running process with the pid in `<pidfile>`.
 * `nohup java -jar <new>.jar --spring.profiles.active='postgres,enable-resource-caching' &> <logfile> & echo &! > <pidfile>` is executed to run the new jar (with the postgres and enable-resource-caching profiles active), redirect the output to the logfile and save the pid to file.
 
-#### Other usefull scripts
+#### Other useful scripts
 Other bash scripts than the deploy script are available in the `Scripts` directory:
 * `backup_gakusei.sh`
 * `restart_gakusei.sh`
@@ -111,6 +111,9 @@ nginx listens to incoming http requests on port 80 and https requests on port 44
 All incoming http requests are rewritten to https URIs and redirected to port 443. <br>
 Subsequently the requests are proxied to Tomcat serving Gakusei on localhost:8080.
 
+### Monit
+Monit is a free open-source proccess supervision tool. It is used on the Gakusei servers in order to run the start up script when Gakusei is down. `monit status` shows the status of the server. The configuration for monit is in `/etc/monitrc` 
+
 ## System overview <a name="system"/>
 The following picture gives a brief overview of the projects structure:
 
@@ -121,7 +124,7 @@ The following picture gives a brief overview of the projects structure:
 - React Redux
 - React Router
 - React Bootstrap
-- ~~Browserify~~ now Webpack 2!
+- Webpack
 
 Webpack packages everything into a bundle file (except for most resource files, they'll get merged in eventually as well), which is served via a single index.html file given either by the back-end in production (thymeleaf, inside `templates/` dir) or by the webpack dev server front-end on port 7777 (`templates/webpack_index.html`).
 
