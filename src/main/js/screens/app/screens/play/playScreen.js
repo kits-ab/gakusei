@@ -115,7 +115,7 @@ export class playScreen extends React.Component {
             clickCallback={this.checkAnswer}
             clickNextCallback={this.nextQuestion}
             inputFocused={this.props.answerTextInputFocused}
-            correctAlternative={this.props.currentQuestion.correctAlternative}
+            correctAlternative={this.props.currentQuestion.correctAlternative[0]}
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
             updateHintVisibility={this.updateHintVisibility}
@@ -132,7 +132,7 @@ export class playScreen extends React.Component {
             cardType={this.props.match.params.type}
             buttonsDisabled={this.props.allButtonsDisabled}
             clickCallback={this.checkAnswer}
-            correctAlternative={this.props.currentQuestion.correctAlternative}
+            correctAlternative={this.props.currentQuestion.correctAlternative[0]}
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
             difficulty={this.props.kanjiDifficulty}
@@ -149,7 +149,7 @@ export class playScreen extends React.Component {
             cardType={this.props.match.params.type}
             buttonsDisabled={this.props.allButtonsDisabled}
             clickCallback={this.checkAnswer}
-            correctAlternative={this.props.currentQuestion.correctAlternative}
+            correctAlternative={this.props.currentQuestion.correctAlternative[0]}
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
           />
@@ -166,7 +166,7 @@ export class playScreen extends React.Component {
             cardType={this.props.match.params.type}
             buttonsDisabled={this.props.allButtonsDisabled}
             clickCallback={this.checkAnswer}
-            correctAlternative={this.props.currentQuestion.correctAlternative}
+            correctAlternative={this.props.currentQuestion.correctAlternative[0]}
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
           />

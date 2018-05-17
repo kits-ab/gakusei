@@ -49,7 +49,8 @@ public class QuestionHandler {
         copyOfNuggets.remove(nugget);
         Collections.shuffle(copyOfNuggets);
 
-        List<String> correctAlternative = createAlternative(nugget, answerType);
+        List<List<String>> correctAlternative = new ArrayList<>();
+        correctAlternative.add(createAlternative(nugget, answerType));
 
         for (int i = 0; optimalNuggets.size() < 3 && i < copyOfNuggets.size(); i++) {
             if (copyOfNuggets.get(i).getWordType().equals(nugget.getWordType())) {
@@ -60,6 +61,14 @@ public class QuestionHandler {
         }
         List<List<String>> incorrectAlternatives = new ArrayList<>(optimalNuggets.stream().map(n
                 -> createAlternative(n, answerType)).collect(Collectors.toList()));
+
+        //Naive way of checking for synonyms.
+        correctAlternative.addAll(optimalNuggets.stream()
+                .filter(n -> n.getSwedish().equals(nugget.getSwedish())
+                        || (n.getJpRead().equals(nugget.getJpRead())
+                        && n.getJpWrite().equals(nugget.getJpWrite())))
+                .map(n -> createAlternative(n, answerType))
+                .collect(Collectors.toList()));
 
         if (incorrectAlternatives.size() == 3) {
             List<String> question = createAlternative(nugget, questionType);

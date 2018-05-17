@@ -201,7 +201,7 @@ export function calcAnswerButtonStyles() {
       words =>
         words
           .map(word => {
-            if (state.currentQuestion.correctAlternative.indexOf(word) !== -1) {
+            if (state.currentQuestion.correctAlternative.some(s => s.includes(word))) {
               return 'success';
             } else if (!userAnswerWord || word.toLowerCase() === userAnswerWord.toLowerCase()) {
               return 'danger';
@@ -238,8 +238,8 @@ export function addUserAnswer(userAnswerText, cardData) {
       userAnswerTextFinalized = null;
       userCorrectFinalized = userAnswerText;
     } else {
-      userCorrectFinalized = state.currentQuestion.correctAlternative.some(
-        s => s.toLowerCase() === userAnswerTextFinalized.toLowerCase()
+      userCorrectFinalized = state.currentQuestion.correctAlternative.some(s =>
+        s.some(so => so.toLowerCase() === userAnswerTextFinalized.toLowerCase())
       );
     }
 
@@ -396,13 +396,15 @@ export function processCurrentQuestion() {
 
     const currentQuestion = {
       shapes: state.questions[localQuestionIndex].question.map(s => s),
-      correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase()),
+      correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s =>
+        s.map(so => so.toLowerCase())
+      ),
       correctAlternativeNuggetId: state.questions[localQuestionIndex].questionNuggetId,
       randomizedAlternatives: Utility.randomizeOrder([
         state.questions[localQuestionIndex].alternative1.map(s => s.toLowerCase()),
         state.questions[localQuestionIndex].alternative2.map(s => s.toLowerCase()),
         state.questions[localQuestionIndex].alternative3.map(s => s.toLowerCase()),
-        state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase())
+        state.questions[localQuestionIndex].correctAlternative[0].map(s => s.toLowerCase())
       ]),
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonsDisabled: false,
