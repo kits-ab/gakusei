@@ -101,7 +101,7 @@ FlashCard.defaultProps = {};
 
 FlashCard.propTypes = {
   question: PropTypes.shape({
-    correctAlternative: PropTypes.arrayOf(PropTypes.string),
+    correctAlternative: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     shapes: PropTypes.arrayOf(PropTypes.string),
     randomizedAlternatives: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
     buttonStyles: PropTypes.arrayOf(PropTypes.string).isRequired,

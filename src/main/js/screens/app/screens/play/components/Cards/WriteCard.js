@@ -77,7 +77,7 @@ class WriteCard extends React.Component {
           </Row>
           <Row>
             <DrawArea
-              signToDraw={this.props.question.correctAlternative[this.props.question.correctAlternative.length - 1]}
+              signToDraw={this.props.correctAlternative[this.props.correctAlternative.length - 1]}
               newMatch={this.onMatch}
               matches={this.state.matches}
               highlightErrors={false}
@@ -110,7 +110,7 @@ WriteCard.defaultProps = {};
 
 WriteCard.propTypes = {
   question: PropTypes.shape({
-    correctAlternative: PropTypes.arrayOf(PropTypes.string),
+    correctAlternative: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     shapes: PropTypes.arrayOf(PropTypes.string),
     randomizedAlternatives: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
     buttonStyles: PropTypes.arrayOf(PropTypes.string).isRequired,

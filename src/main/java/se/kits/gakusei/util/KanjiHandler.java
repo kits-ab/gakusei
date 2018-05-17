@@ -35,7 +35,7 @@ public class KanjiHandler {
         question.add(kanji.getKanji());
 
         questionMap.put("question", question);
-        questionMap.put("correctAlternative", Collections.singletonList(kanji.getKanji()));
+        questionMap.put("correctAlternative", Collections.singletonList(Collections.singletonList(kanji.getKanji())));
         questionMap.put("alternative1", Collections.EMPTY_LIST);
         questionMap.put("alternative2", Collections.EMPTY_LIST);
         questionMap.put("alternative3", Collections.EMPTY_LIST);
