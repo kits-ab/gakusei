@@ -44,7 +44,7 @@ In the instructions below, it is assumed that the aforementioned tools are avail
 
 ### Get the front-end running in a development environment
 
-Install [nodejs](https://nodejs.org/en/), any version is fine.
+Install [nodejs](https://nodejs.org/en/), any recent version is fine.
 
 1. Navigate to project directory in a terminal (eg. `cd IdeaProjects/gakusei`)
 2. In terminal, write `npm install` to install all needed dependencies
@@ -112,7 +112,7 @@ All incoming http requests are rewritten to https URIs and redirected to port 44
 Subsequently the requests are proxied to Tomcat serving Gakusei on localhost:8080.
 
 ### Monit
-Monit is a free open-source proccess supervision tool. It is used on the Gakusei servers in order to run the start up script when Gakusei is down. `monit status` shows the status of the server. The configuration for monit is in `/etc/monitrc` 
+Monit is a free open-source proccess supervision tool. It is used on the Gakusei servers in order to run the start up script when Gakusei is down. `monit status` shows the status of the server. The configuration for monit is in `/etc/monitrc`. 
 
 ## System overview <a name="system"/>
 The following picture gives a brief overview of the projects structure:
