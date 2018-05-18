@@ -2,16 +2,19 @@ package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.*;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-@Entity
-@Table(name="nuggets", schema = "contentschema")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Nugget implements Serializable{
+import javax.persistence.*;
 
+@Entity
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id"
+)
+@Table(name = "nuggets", schema = "contentschema")
+public class Nugget implements Serializable {
     @Id
     private String id = UUID.randomUUID().toString();
 
@@ -19,22 +22,34 @@ public class Nugget implements Serializable{
 
     private boolean hidden = false;
 
-    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
-            name = "nugget_books",
-            schema = "contentschema",
-            joinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"nugget_id", "book_id"})
+        name = "nugget_books",
+        schema = "contentschema",
+        joinColumns = @JoinColumn(
+            name = "nugget_id",
+            referencedColumnName = "id"
+        )
+        ,
+        inverseJoinColumns = @JoinColumn(
+            name = "book_id",
+            referencedColumnName = "id"
+        )
+        ,
+        uniqueConstraints = @UniqueConstraint(
+            columnNames = { "nugget_id", "book_id"
+            }
+        )
+
     )
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Book> books;
 
-    @ManyToOne
     @JoinColumn(name = "word_type_ref")
+    @ManyToOne
     private WordType wordType;
 
-    @ManyToMany(mappedBy = "nuggets")
     @JsonIgnore
+    @ManyToMany(mappedBy = "nuggets")
     private List<Lesson> lessons;
 
     private String swedish;
@@ -45,7 +60,7 @@ public class Nugget implements Serializable{
 
     private String jpWrite;
 
-    public Nugget(){}
+    public Nugget() {}
 
     public String getDescription() {
         return description;
@@ -130,13 +145,18 @@ public class Nugget implements Serializable{
         } else if (object == this) {
             return true;
         } else {
-            Nugget nugget = (Nugget)object;
-            return nugget.getWordType().getType().equals(wordType.getType()) &&
-                    nugget.getDescription().equals(description) &&
-                    nugget.getSwedish().equals(swedish) &&
-                    nugget.getEnglish().equals(english) &&
-                    nugget.getJpRead().equals(jpRead) &&
-                    nugget.getJpWrite().equals(jpWrite);
+            Nugget nugget = (Nugget) object;
+            return nugget.getWordType().getType().equals(
+                wordType.getType()
+            ) && nugget.getDescription().equals(
+                description
+            ) && nugget.getSwedish().equals(swedish) && nugget.getEnglish(
+
+            ).equals(english) && nugget.getJpRead().equals(
+                jpRead
+            ) && nugget.getJpWrite().equals(jpWrite);
         }
     }
+
 }
+

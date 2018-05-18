@@ -1,14 +1,14 @@
 package se.kits.gakusei.content.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "quiz_nugget", schema = "contentschema")
-public class QuizNugget implements Serializable{
-
-    @Id
+public class QuizNugget implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private long id;
 
     @Column(nullable = false)
@@ -16,11 +16,11 @@ public class QuizNugget implements Serializable{
 
     private String correctAnswer;
 
+    @JoinColumn(name = "quiz_ref")
     @ManyToOne
-    @JoinColumn(name="quiz_ref")
     private Quiz quiz;
 
-    public QuizNugget() { }
+    public QuizNugget() {}
 
     public long getId() {
         return id;
@@ -53,4 +53,6 @@ public class QuizNugget implements Serializable{
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
     }
+
 }
+

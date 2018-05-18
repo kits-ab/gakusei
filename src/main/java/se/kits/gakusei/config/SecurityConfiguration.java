@@ -17,18 +17,20 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+@EnableWebSecurity
+public class SecurityConfiguration
+    extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(this.userDetailsService)
-                .passwordEncoder(passwordEncoder());
+    protected void configure(AuthenticationManagerBuilder auth)
+        throws
+            Exception {
+        auth.userDetailsService(this.userDetailsService).passwordEncoder(
+            passwordEncoder()
+        );
     }
 
     @Bean
@@ -37,34 +39,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("/js/**");
+        web.ignoring().antMatchers("/js/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/registeruser", "/username", "/js/*", "/license/*", "/img/logo/*").permitAll()
-                .antMatchers("/logout").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-                .and()
-                .formLogin()
-                    .loginPage("/")
-                    .loginProcessingUrl("/auth")
-                    .failureHandler(new CustomAuthenticationFailureHandler())
-                    .successHandler(new CustomAuthenticationSuccessHandler())
-                    .permitAll()
-                    .and()
-                .httpBasic()
-                .and()
-                .headers()
-                .frameOptions().sameOrigin()
-                .and()
-                .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
-                .logout()
-                    .logoutSuccessUrl("/");
+        http.authorizeRequests().antMatchers(
+            "/registeruser",
+            "/username",
+            "/js/*",
+            "/license/*",
+            "/img/logo/*"
+        ).permitAll().antMatchers("/logout").hasAnyAuthority(
+            "ROLE_USER",
+            "ROLE_ADMIN"
+        ).and().formLogin().loginPage("/").loginProcessingUrl(
+            "/auth"
+        ).failureHandler(
+            new CustomAuthenticationFailureHandler()
+        ).successHandler(new CustomAuthenticationSuccessHandler()).permitAll(
+
+        ).and().httpBasic().and().headers().frameOptions().sameOrigin().and(
+
+        ).csrf().csrfTokenRepository(
+            CookieCsrfTokenRepository.withHttpOnlyFalse()
+        ).and().logout().logoutSuccessUrl("/");
     }
+
 }
+

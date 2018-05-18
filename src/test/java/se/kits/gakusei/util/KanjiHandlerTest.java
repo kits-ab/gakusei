@@ -35,7 +35,7 @@ public class KanjiHandlerTest {
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative1")).isEmpty()));
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative2")).isEmpty()));
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative3")).isEmpty()));
-        assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("correctAlternative")).get(0).startsWith
+        assertTrue(questions.stream().allMatch(q -> ((List<List<String>>) q.get("correctAlternative")).get(0).get(0).startsWith
                 ("sign_test")));
     }
 
@@ -45,14 +45,14 @@ public class KanjiHandlerTest {
         HashMap<String, Object> dto = KanjiHandler.createKanjiQuestion(kanji);
 
         assertTrue(((List<String>) dto.get("question")).get(0).startsWith("swe_test"));
-        assertTrue(((List<String>) dto.get("correctAlternative")).get(0).startsWith("sign_test"));
+        assertTrue(((List<List<String>>) dto.get("correctAlternative")).get(0).get(0).startsWith("sign_test"));
         Stream.of(dto.get("alternative1"),
                 dto.get("alternative2"),
                 dto.get("alternative3"))
                 .forEach(alt -> assertTrue(((List<String>) alt).isEmpty()));
 
         String q = ((List<String>) dto.get("question")).get(1);
-        String ca = ((List<String>) dto.get("correctAlternative")).get(0);
+        String ca = ((List<List<String>>) dto.get("correctAlternative")).get(0).get(0);
         assertEquals(q.charAt(q.length()-1), ca.charAt(ca.length()-1));
 
     }

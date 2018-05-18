@@ -2,18 +2,20 @@ package se.kits.gakusei.user.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import se.kits.gakusei.content.model.UserLesson;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import se.kits.gakusei.content.model.UserLesson;
+
 @Entity
 @Table(name = "users")
-public class User implements Serializable{
-
+public class User implements Serializable {
     private static final long serialVersionUID = 6433155328293181762L;
 
     @Id
@@ -27,32 +29,31 @@ public class User implements Serializable{
     @JsonProperty(value = "role")
     private String role;
 
-    @JsonManagedReference(value = "events")
-    @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonManagedReference(value = "events")
     @JsonProperty(value = "events")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Event> events;
 
-    @JsonManagedReference(value = "events")
-    @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonManagedReference(value = "events")
     @JsonProperty(value = "kanji_drawings")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Event> kanjiDrawings;
 
-    @JsonManagedReference(value = "progress")
-    @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonManagedReference(value = "progress")
     @JsonProperty(value = "progressTrackingList")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<ProgressTracking> progressTrackingList;
 
-    @JsonManagedReference(value = "userlesson")
-    @OneToMany(mappedBy="user", fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonManagedReference(value = "userlesson")
     @JsonProperty(value = "usersLessons")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<UserLesson> usersLessons;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String username, String password, String role) {
         this.username = username;
@@ -96,7 +97,9 @@ public class User implements Serializable{
         return progressTrackingList;
     }
 
-    public void setProgressTrackingList(List<ProgressTracking> progressTrackingList) {
+    public void setProgressTrackingList(
+        List<ProgressTracking> progressTrackingList
+    ) {
         this.progressTrackingList = progressTrackingList;
     }
 
@@ -115,4 +118,6 @@ public class User implements Serializable{
     public void setKanjiDrawings(List<Event> kanjiDrawings) {
         this.kanjiDrawings = kanjiDrawings;
     }
+
 }
+

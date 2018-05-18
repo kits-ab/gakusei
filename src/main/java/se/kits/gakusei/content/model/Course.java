@@ -1,18 +1,20 @@
 package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+
+import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "courses", schema = "contentschema")
 public class Course implements Serializable {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -20,15 +22,24 @@ public class Course implements Serializable {
 
     private String description;
 
-    @ManyToOne
     @JoinColumn(name = "parent_ref")
+    @ManyToOne
     private Course parent;
 
-    @ManyToMany
     @JoinTable(
-            name = "prerequisites",
-            joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "prerequisite_id", referencedColumnName = "id"))
+        name = "prerequisites",
+        joinColumns = @JoinColumn(
+            name = "course_id",
+            referencedColumnName = "id"
+        )
+        ,
+        inverseJoinColumns = @JoinColumn(
+            name = "prerequisite_id",
+            referencedColumnName = "id"
+        )
+
+    )
+    @ManyToMany
     private List<Course> prerequisites;
 
     private int courseOrder;
@@ -36,13 +47,12 @@ public class Course implements Serializable {
     @Column(nullable = false, unique = true)
     private String courseCode;
 
-    @OneToMany(mappedBy="course", fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "courselesson")
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonManagedReference(value = "courselesson")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<Lesson> lessons;
 
-    public Course(){
-    }
+    public Course() {}
 
     public Long getId() {
         return id;
@@ -103,4 +113,6 @@ public class Course implements Serializable {
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
+
 }
+

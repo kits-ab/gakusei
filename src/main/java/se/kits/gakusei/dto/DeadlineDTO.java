@@ -1,12 +1,11 @@
 package se.kits.gakusei.dto;
 
 public class DeadlineDTO {
-
     private String username;
     private String lessonName;
     private long deadline;
 
-    public DeadlineDTO(){}
+    public DeadlineDTO() {}
 
     public String getUsername() {
         return username;
@@ -31,4 +30,6 @@ public class DeadlineDTO {
     public void setDeadline(long deadline) {
         this.deadline = deadline;
     }
+
 }
+

@@ -2,14 +2,14 @@ package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "kanjis", schema = "contentschema")
 public class Kanji {
-
     @Id
     private String id = UUID.randomUUID().toString();
 
@@ -17,14 +17,26 @@ public class Kanji {
 
     private boolean hidden = false;
 
-    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "kanji_books",
-            schema = "contentschema",
-            joinColumns = @JoinColumn(name = "kanji_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"kanji_id", "book_id"})
+        name = "kanji_books",
+        schema = "contentschema",
+        joinColumns = @JoinColumn(
+            name = "kanji_id",
+            referencedColumnName = "id"
+        )
+        ,
+        inverseJoinColumns = @JoinColumn(
+            name = "book_id",
+            referencedColumnName = "id"
+        )
+        ,
+        uniqueConstraints = @UniqueConstraint(
+            columnNames = { "kanji_id", "book_id"
+            }
+        )
+
     )
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Book> books;
 
     private String swedish;
@@ -33,8 +45,8 @@ public class Kanji {
 
     private String kanji;
 
-    @ManyToMany(mappedBy = "kanjis")
     @JsonIgnore
+    @ManyToMany(mappedBy = "kanjis")
     private List<Lesson> lessons;
 
     public String getId() {
@@ -96,4 +108,6 @@ public class Kanji {
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
+
 }
+

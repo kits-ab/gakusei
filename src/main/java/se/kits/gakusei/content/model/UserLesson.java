@@ -2,29 +2,37 @@ package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import se.kits.gakusei.user.model.User;
+
+import java.sql.Timestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+
+import se.kits.gakusei.user.model.User;
 
 @Entity
-@Table(name = "user_lesson", uniqueConstraints = @UniqueConstraint(columnNames = {"lesson_ref", "user_ref"}))
-public class UserLesson {
+@Table(
+    name = "user_lesson",
+    uniqueConstraints = @UniqueConstraint(
+        columnNames = { "lesson_ref", "user_ref"
+        }
+    )
 
-    @Id
+)
+public class UserLesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
-    @ManyToOne
-    @JsonBackReference(value = "userlesson")
     @JoinColumn(name = "user_ref")
+    @JsonBackReference(value = "userlesson")
+    @ManyToOne
     private User user;
 
-    @NotNull
-    @ManyToOne
     //@JsonManagedReference(value = "ullessons")
     @JoinColumn(name = "lesson_ref")
+    @ManyToOne
+    @NotNull
     private Lesson lesson;
 
     @Column
@@ -79,4 +87,6 @@ public class UserLesson {
     public void setSecondDeadline(Timestamp secondDeadline) {
         this.secondDeadline = secondDeadline;
     }
+
 }
+

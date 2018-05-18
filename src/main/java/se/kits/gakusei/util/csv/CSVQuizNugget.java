@@ -1,16 +1,15 @@
 package se.kits.gakusei.util.csv;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import se.kits.gakusei.content.model.IncorrectAnswer;
 import se.kits.gakusei.content.model.Quiz;
 import se.kits.gakusei.content.model.QuizNugget;
 import se.kits.gakusei.util.ParserFailureException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class CSVQuizNugget {
-
     private String[] values;
 
     private final int NAME_INDEX = 0;
@@ -23,15 +22,18 @@ public class CSVQuizNugget {
 
     private final int EXPECTED_NUMBER_OF_INCORRECT_ANSWERS = 3;
 
-    public CSVQuizNugget(String[] values){
+    public CSVQuizNugget(String[] values) {
         this.values = values;
         initialCheck();
     }
 
-    private void initialCheck(){
-        if(values.length != EXPECTED_NUMBER_OF_VALUES){
-            throw new ParserFailureException("Unexpected number of values in row: " + Arrays.toString(values)
-                    + "\nExpected " + EXPECTED_NUMBER_OF_VALUES + " but got " + values.length);
+    private void initialCheck() {
+        if (values.length != EXPECTED_NUMBER_OF_VALUES) {
+            throw new ParserFailureException(
+                "Unexpected number of values in row: " + Arrays.toString(
+                    values
+                ) + "\nExpected " + EXPECTED_NUMBER_OF_VALUES + " but got " + values.length
+            );
         }
     }
 
@@ -52,23 +54,32 @@ public class CSVQuizNugget {
         return quizNugget;
     }
 
-    public Iterable<IncorrectAnswer> getIncorrectAnswers(QuizNugget quizNugget) {
+    public Iterable<IncorrectAnswer> getIncorrectAnswers(
+        QuizNugget quizNugget
+    ) {
         List<IncorrectAnswer> ias = new ArrayList<>();
         String s = values[INCORRECT_ANSWERS_INDEX];
         // List of incorrect answers is comma separated
-        String [] stringIas = s.split(",");
+        String[] stringIas = s.split(",");
         if (stringIas.length < EXPECTED_NUMBER_OF_INCORRECT_ANSWERS) {
-            throw new ParserFailureException("Too few incorrect answers provided in row: " + Arrays.toString(values) +
-                    "\nExpected " + Integer.toString(EXPECTED_NUMBER_OF_INCORRECT_ANSWERS) +
-                    " but got " + Integer.toString(stringIas.length));
+            throw new ParserFailureException(
+                "Too few incorrect answers provided in row: " + Arrays.toString(
+                    values
+                ) + "\nExpected " + Integer.toString(
+                    EXPECTED_NUMBER_OF_INCORRECT_ANSWERS
+                ) + " but got " + Integer.toString(stringIas.length)
+            );
         }
-        for (String ia: stringIas) {
+        for (String ia : stringIas) {
             ias.add(getIncorrectAnswer(ia.trim(), quizNugget));
         }
         return ias;
     }
 
-    private IncorrectAnswer getIncorrectAnswer(String s, QuizNugget quizNugget) {
+    private IncorrectAnswer getIncorrectAnswer(
+        String s,
+        QuizNugget quizNugget
+    ) {
         IncorrectAnswer ia = new IncorrectAnswer();
         ia.setIncorrectAnswer(s);
         ia.setQuizNugget(quizNugget);
@@ -76,3 +87,4 @@ public class CSVQuizNugget {
     }
 
 }
+

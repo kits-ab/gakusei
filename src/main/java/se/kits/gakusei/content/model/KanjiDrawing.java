@@ -1,19 +1,19 @@
 package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import se.kits.gakusei.user.model.User;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.*;
+
+import se.kits.gakusei.user.model.User;
 
 @Entity
 @Table(name = "kanji_drawings")
 public class KanjiDrawing implements Serializable {
-
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private long id;
 
     @Column(nullable = false, name = "timestamp")
@@ -22,9 +22,9 @@ public class KanjiDrawing implements Serializable {
     @Column(nullable = false, name = "image_data")
     private String imageData;
 
+    @JoinColumn(name = "user_ref")
     @JsonBackReference(value = "kanji_drawings")
     @ManyToOne
-    @JoinColumn(name = "user_ref")
     private User user;
 
     @Column(nullable = false, name = "nugget_id")
@@ -33,8 +33,7 @@ public class KanjiDrawing implements Serializable {
     @Column(nullable = false, name = "difficulty")
     private String difficulty;
 
-    public KanjiDrawing() {
-    }
+    public KanjiDrawing() {}
 
     public long getId() {
         return id;
@@ -83,4 +82,6 @@ public class KanjiDrawing implements Serializable {
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
+
 }
+

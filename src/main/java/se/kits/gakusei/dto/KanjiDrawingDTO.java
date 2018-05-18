@@ -1,14 +1,13 @@
 package se.kits.gakusei.dto;
 
 public class KanjiDrawingDTO {
-
     private long timestamp;
     private String data;
     private String nuggetid;
     private String username;
     private String difficulty;
 
-    public KanjiDrawingDTO(){}
+    public KanjiDrawingDTO() {}
 
     public long getTimestamp() {
         return timestamp;
@@ -26,7 +25,7 @@ public class KanjiDrawingDTO {
         this.data = data;
     }
 
-    public String  getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -49,4 +48,6 @@ public class KanjiDrawingDTO {
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
+
 }
+

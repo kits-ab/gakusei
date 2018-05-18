@@ -2,7 +2,8 @@ package se.kits.gakusei.content.model;
 
 import java.util.HashMap;
 
-public class FavoriteLesson extends Lesson {
+public class FavoriteLesson
+    extends Lesson {
 
     public HashMap<String, Integer> getNuggetData() {
         return nuggetData;
@@ -18,5 +19,5 @@ public class FavoriteLesson extends Lesson {
         super();
     }
 
-
 }
+

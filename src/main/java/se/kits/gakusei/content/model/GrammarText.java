@@ -7,7 +7,6 @@ import javax.persistence.Table;
 @Entity
 @Table(schema = "contentschema", name = "grammar_texts")
 public class GrammarText {
-
     @Id
     private String id;
 
@@ -108,4 +107,6 @@ public class GrammarText {
     public void setInflectionMethod(String inflectionMethod) {
         this.inflectionMethod = inflectionMethod;
     }
+
 }
+

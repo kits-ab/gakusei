@@ -8,12 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @Controller
 public class RegisterUserController {
-
     @Autowired
     UserRepository userRepo;
 
@@ -21,12 +21,16 @@ public class RegisterUserController {
     PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "/registeruser", method = RequestMethod.POST)
-    public ResponseEntity<String> registerUser(@RequestBody String input) {
+    public ResponseEntity<String> registerUser(
+        @RequestBody
+        String input
+    ) {
         User user = null;
         User existingUser = null;
 
         String[] values = input.split("&");
-        if (values != null && values.length > 1) {
+        if (values != null && values.length > 1) // TODO: Validate User fields
+        {
             String[] usernameKeyValue = values[0].split("=");
             String[] passwordKeyValue = values[1].split("=");
             if (usernameKeyValue.length > 1 && passwordKeyValue.length > 1) {
@@ -37,19 +41,29 @@ public class RegisterUserController {
                 user.setPassword(passwordEncoder.encode(password));
                 user.setRole("ROLE_USER");
             }
-            // TODO: Validate User fields
-        }
-        // Check if User exists
+        }// Check if User exists
+
         if (user == null) {
-            return new ResponseEntity<String>("Form data was incorrect", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(
+                "Form data was incorrect",
+                HttpStatus.BAD_REQUEST
+            );
         } else {
             existingUser = userRepo.findByUsername(user.getUsername());
         }
-        if(existingUser != null) {
-            //TODO: show user that the username is taken
-            return new ResponseEntity<String>("Username already in use", HttpStatus.UNPROCESSABLE_ENTITY);
+        if (existingUser != null) {//TODO: show user that the username is taken
+
+            return new ResponseEntity<String>(
+                "Username already in use",
+                HttpStatus.UNPROCESSABLE_ENTITY
+            );
         }
         userRepo.save(user);
-        return new ResponseEntity<String>("User created: " + user.getUsername(), HttpStatus.CREATED);
+        return new ResponseEntity<String>(
+            "User created: " + user.getUsername(),
+            HttpStatus.CREATED
+        );
     }
+
 }
+

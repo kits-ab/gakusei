@@ -1,7 +1,6 @@
 package se.kits.gakusei.dto;
 
 public class EventDTO {
-
     private long timestamp;
     private String gamemode;
     private String type;
@@ -9,7 +8,7 @@ public class EventDTO {
     private String nuggetid;
     private String username;
 
-    public EventDTO(){}
+    public EventDTO() {}
 
     public long getTimestamp() {
         return timestamp;
@@ -43,7 +42,7 @@ public class EventDTO {
         this.data = data;
     }
 
-    public String  getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -58,4 +57,6 @@ public class EventDTO {
     public void setNuggetid(String nuggetid) {
         this.nuggetid = nuggetid;
     }
+
 }
+
