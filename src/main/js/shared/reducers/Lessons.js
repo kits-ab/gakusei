@@ -58,7 +58,8 @@ export const defaultState = {
   totalAttempts: 0,
   currentQuestionIndex: 0,
   currentProcessedQuestionAnswered: false,
-  currentProcessedQuestionAnsweredCorrectly: false
+  currentProcessedQuestionAnsweredCorrectly: false,
+  isFetchingLesson: false
 };
 // ----------------
 // PROPTYPES
@@ -86,7 +87,8 @@ export const propTypes = {
   answerTextInputFocused: PropTypes.bool.isRequired,
   spacedRepetition: PropTypes.bool.isRequired,
   spacedRepetitionModes: PropTypes.array.isRequired,
-  kanjiDifficulty: PropTypes.string.isRequired
+  kanjiDifficulty: PropTypes.string.isRequired,
+  isFetchingLesson: PropTypes.bool.isRequired
 };
 
 // -----------------
@@ -119,7 +121,9 @@ export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
 export const SET_ADDRESSED_QUESTIONS = 'SET_ADDRESSED_QUESTIONS';
 export const SET_SPACED_REPETITION = 'SET_SPACED_REPETITION';
 export const SET_KANJI_DIFFICULTY = 'SET_KANJI_DIFFICULTY';
-
+export const GET_LESSON_REQUEST = 'GET_LESSON_REQUEST';
+export const GET_LESSON_SUCCESS = 'GET_LESSON_SUCCESS';
+export const GET_LESSON_FAILURE = 'GET_LESSON_FAILURE';
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
@@ -588,6 +592,11 @@ export function fetchLesson(lessonType) {
     const lessonState = getState().lessons;
     const securityState = getState().security;
 
+    dispatch({
+      type: GET_LESSON_REQUEST,
+      description: 'A lesson has been requested.'
+    });
+
     return new Promise(resolve =>
       fetch(
         `${fetchURL}?lessonName=${lessonState.selectedLesson.name}&questionType=${lessonState.questionType}&` +
@@ -601,8 +610,12 @@ export function fetchLesson(lessonType) {
           dispatch(resetLesson());
           dispatch(receiveLesson(json));
           dispatch(processCurrentQuestion());
-          resolve();
+          dispatch({
+            type: GET_LESSON_SUCCESS,
+            description: 'The requested lesson has been retrieved successfully.'
+          });
         })
+        .then(resolve())
     );
   };
 }
