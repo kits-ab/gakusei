@@ -16,7 +16,7 @@ To build the project, it is recommended to use `npm`, a nodejs-based general com
 In the instructions below, it is assumed that the aforementioned tools are available.
 
 ## Instructions <a name="instructions"/>
-**Quick Note:** If you are just looking to make the application run ASAP, without a persistent database or anything, do `mvn package -Pproduction` (you still need java 8 and maven)
+**Quick Note:** If you are just looking to make the application run ASAP, without a persistent database or anything, do `mvn package -Pproduction` (The only requirements are maven and java 8.)
 
 `git clone` this project (how to get git: `apt-get install git` using *nix or using [Git for Windows/Mac/Solaris/Linux](https://git-scm.com/downloads)), or just download as zip and unzip it somewhere.
 
@@ -44,7 +44,7 @@ In the instructions below, it is assumed that the aforementioned tools are avail
 
 ### Get the front-end running in a development environment
 
-Install [nodejs](https://nodejs.org/en/), any version is fine.
+Install [nodejs](https://nodejs.org/en/), any recent version is fine (>=v8.4.0)
 
 1. Navigate to project directory in a terminal (eg. `cd IdeaProjects/gakusei`)
 2. In terminal, write `npm install` to install all needed dependencies
@@ -112,7 +112,7 @@ All incoming http requests are rewritten to https URIs and redirected to port 44
 Subsequently the requests are proxied to Tomcat serving Gakusei on localhost:8080.
 
 ### Monit
-Monit is a free open-source proccess supervision tool. It is used on the Gakusei servers in order to run the start up script when Gakusei is down. `monit status` shows the status of the server. The configuration for monit is in `/etc/monitrc` 
+Monit is a free open-source proccess supervision tool. It is used on the Gakusei servers in order to run the start up script when Gakusei is down. `monit status` shows the status of the server. The configuration for monit is in `/etc/monitrc`. 
 
 ## System overview <a name="system"/>
 The following picture gives a brief overview of the projects structure:
