@@ -614,8 +614,8 @@ export function fetchLesson(lessonType) {
             type: GET_LESSON_SUCCESS,
             description: 'The requested lesson has been retrieved successfully.'
           });
+          resolve();
         })
-        .then(resolve())
     );
   };
 }
