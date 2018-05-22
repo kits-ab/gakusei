@@ -930,6 +930,21 @@ export function lessons(state = defaultState, action) {
         ...state,
         kanjiDifficulty: action.difficulty
       };
+    case GET_LESSON_REQUEST:
+      return {
+        ...state,
+        isFetchingLesson: true
+      };
+    case GET_LESSON_SUCCESS:
+      return {
+        ...state,
+        isFetchingLesson: false
+      };
+    case GET_LESSON_FAILURE:
+      return {
+        ...state,
+        isFetchingLesson: false
+      };
   }
 }
 

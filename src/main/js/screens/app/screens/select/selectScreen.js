@@ -91,12 +91,14 @@ export class selectScreen extends React.Component {
   }
 
   startLesson() {
-    try {
-      this.props.fetchLesson(this.state.playType).then(() => {
-        this.props.setPageByName(`/play/${this.state.playType}`);
-      });
-    } catch (err) {
-      this.props.verifyUserLoggedIn();
+    if (!this.props.isFetchingLesson) {
+      try {
+        this.props.fetchLesson(this.state.playType).then(() => {
+          this.props.setPageByName(`/play/${this.state.playType}`);
+        });
+      } catch (err) {
+        this.props.verifyUserLoggedIn();
+      }
     }
   }
 
