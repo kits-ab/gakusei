@@ -23,6 +23,7 @@ import se.kits.gakusei.content.repository.InflectionRepository;
 import se.kits.gakusei.content.repository.KanjiRepository;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.UserLessonRepository;
+import se.kits.gakusei.util.LessonHandler;
 
 @RestController
 public class LessonController {
@@ -40,6 +41,9 @@ public class LessonController {
     @Autowired
     private UserLessonRepository userLessonRepository;
 
+    @Autowired
+    private LessonHandler lessonHandler;
+
     @RequestMapping(
         value = "/api/lessons",
         method = RequestMethod.GET,
@@ -50,12 +54,12 @@ public class LessonController {
         String lessonType
     ) {
         if (lessonType.equals("grammar")) {
-            return new ResponseEntity<>(getGrammarLessons(), HttpStatus.OK);
+            return new ResponseEntity<>(lessonHandler.getGrammarLessons(), HttpStatus.OK);
         } else if (lessonType.equals("kanji")) {
-            return new ResponseEntity<>(getKanjiLessons(), HttpStatus.OK);
+            return new ResponseEntity<>(lessonHandler.getKanjiLessons(), HttpStatus.OK);
         }
         return new ResponseEntity<>(
-            getLessonsWithEnoughNuggets(),
+            lessonHandler.getLessonsWithEnoughNuggets(),
             HttpStatus.OK
         );
     }
@@ -94,7 +98,7 @@ public class LessonController {
         String username
     ) {
         return new ResponseEntity<>(
-            getLessonFromFavorites(username),
+            lessonHandler.getLessonFromFavorites(username, getFavoriteDataHashMap(username)),
             HttpStatus.OK
         );
     }
@@ -105,7 +109,7 @@ public class LessonController {
         long mark = System.currentTimeMillis();
 
         HashMap<String, HashMap<String, Integer>> values = new HashMap<>();
-        List<Lesson> tmpLessons = getLessonsWithEnoughNuggets();
+        List<Lesson> tmpLessons = lessonHandler.getLessonsWithEnoughNuggets();
         logger.info(
             "Getting vocabulary lessons took {} ms.",
             System.currentTimeMillis() - mark
@@ -124,7 +128,7 @@ public class LessonController {
                 username,
                 tmpLesson.getName()
             ).stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-            List<Nugget> allLessonNuggets = getNuggets(tmpLesson);
+            List<Nugget> allLessonNuggets = lessonHandler.getNuggets(tmpLesson);
             List<
                 Nugget
             > retentionNuggets = lessonRepository.findNuggetsByRetentionDate(
@@ -158,36 +162,6 @@ public class LessonController {
             System.currentTimeMillis() - mark
         );
         return values;
-    }
-
-    @Cacheable("lessonInfoNuggets")
-    public List<Nugget> getNuggets(Lesson tmpLesson) {
-        return tmpLesson.getNuggets().stream().filter(
-            n -> !n.isHidden()
-        ).collect(Collectors.toList());
-    }
-
-    @Cacheable("lessons")
-    public List<Lesson> getLessonsWithEnoughNuggets() {
-        return lessonRepository.findAllByOrderByName().stream().filter(
-            lesson -> lesson.getNuggets().size() >= 4
-        ).collect(Collectors.toList());
-    }
-
-    @Cacheable("grammarLessons")
-    public List<Lesson> getGrammarLessons() {
-        return getLessonsWithEnoughNuggets().stream().filter(
-            lesson -> !inflectionRepository.findByLessonId(
-                lesson.getId()
-            ).isEmpty()
-        ).collect(Collectors.toList());
-    }
-
-    @Cacheable("kanjiLessons")
-    public List<Lesson> getKanjiLessons() {
-        return lessonRepository.findAllByOrderByName().stream().filter(
-            lesson -> !lesson.getKanjis().isEmpty()
-        ).collect(Collectors.toList());
     }
 
     private HashMap<String, Integer> getFavoriteDataHashMap(String username) {
@@ -234,15 +208,7 @@ public class LessonController {
         return lessonData;
     }
 
-    @Cacheable("favoriteLesson")
-    public FavoriteLesson getLessonFromFavorites(String username) {
-        FavoriteLesson favoriteLesson = new FavoriteLesson();
-        favoriteLesson.setName("Favoriter");
-        favoriteLesson.setId(1337L);
-        favoriteLesson.setNuggetData(getFavoriteDataHashMap(username));
 
-        return favoriteLesson;
-    }
 
 }
 

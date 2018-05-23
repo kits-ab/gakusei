@@ -2,6 +2,7 @@ package se.kits.gakusei.content.repository;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -28,13 +29,14 @@ public interface LessonRepository
         String lessonName
     );
 
+    @Cacheable("lessonNuggetsCorrect")
     List<Nugget> findCorrectlyAnsweredNuggets(
         @Param("username")
         String username,
         @Param("lessonName")
         String lessonName
     );
-
+    @Cacheable("lessonNuggetsRetentionDate")
     List<Nugget> findNuggetsByRetentionDate(
         @Param("username")
         String username,
@@ -42,6 +44,7 @@ public interface LessonRepository
         String lessonName
     );
 
+    @Cacheable("lessonNuggetsRetentionUnanswered")
     List<Nugget> findUnansweredRetentionNuggets(
         @Param("username")
         String username,
