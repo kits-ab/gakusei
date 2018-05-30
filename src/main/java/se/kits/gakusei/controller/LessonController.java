@@ -116,46 +116,29 @@ public class LessonController {
         );
         mark = System.currentTimeMillis();
         for (Lesson tmpLesson : tmpLessons) {
-            List<
-                Nugget
-            > correctlyAnsweredNuggets = lessonRepository.findCorrectlyAnsweredNuggets(
-                username,
-                tmpLesson.getName()
-            ).stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-            List<
-                Nugget
-            > unansweredNuggets = lessonRepository.findUnansweredRetentionNuggets(
-                username,
-                tmpLesson.getName()
-            ).stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-            List<Nugget> allLessonNuggets = lessonHandler.getNuggets(tmpLesson);
-            List<
-                Nugget
-            > retentionNuggets = lessonRepository.findNuggetsByRetentionDate(
-                username,
-                tmpLesson.getName()
-            ).stream().filter(n -> !n.isHidden()).collect(Collectors.toList());
-            for (Nugget n : correctlyAnsweredNuggets) {
-                logger.debug("ca :" + n.getId());
-            }
-            for (Nugget n : unansweredNuggets) {
-                logger.debug("un:" + n.getId());
-            }
+            Integer numCorrectlyAnswered = lessonRepository.findNumberOfCorrectlyAnsweredNuggets(username, tmpLesson.getName());
+            Integer numUnansweredRetention = lessonRepository.findNumberOfUnansweredRetentionNuggets(username, tmpLesson.getName());
+            Integer numRetentionNuggets = lessonRepository.findNumberOfNuggetsByRetentionDate(username, tmpLesson.getName());
+
             logger.info(
                 "Un count for {}: {}",
                 tmpLesson.getName(),
-                unansweredNuggets.size()
+                numUnansweredRetention
             );
             HashMap<String, Integer> lessonData = new HashMap<>();
-            lessonData.put("unanswered", unansweredNuggets.size());
+            lessonData.put("all", tmpLesson.getNuggets().size());
+            lessonData.put("unanswered", numUnansweredRetention);
             lessonData.put(
                 "correctlyAnswered",
-                correctlyAnsweredNuggets.size()
+                numCorrectlyAnswered
             );
-            lessonData.put("all", allLessonNuggets.size());
-            lessonData.put("retention", retentionNuggets.size());
+            lessonData.put("retention", numRetentionNuggets);
 
             values.put(tmpLesson.getName(), lessonData);
+//            logger.info(
+//                    "Correct: {} Lesson: {}",
+//                    lessonRepository.findNumberOfCorrectlyAnsweredNuggets(username, tmpLesson.getName()),
+//                    tmpLesson.getName());
         }
         logger.info(
             "Collecting lesson nuggets took {} ms",

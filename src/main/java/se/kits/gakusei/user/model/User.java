@@ -32,25 +32,25 @@ public class User implements Serializable {
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonManagedReference(value = "events")
     @JsonProperty(value = "events")
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Event> events;
 
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonManagedReference(value = "events")
     @JsonProperty(value = "kanji_drawings")
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Event> kanjiDrawings;
 
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonManagedReference(value = "progress")
     @JsonProperty(value = "progressTrackingList")
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<ProgressTracking> progressTrackingList;
 
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonManagedReference(value = "userlesson")
     @JsonProperty(value = "usersLessons")
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserLesson> usersLessons;
 
     public User() {}
