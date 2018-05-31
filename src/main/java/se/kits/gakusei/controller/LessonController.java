@@ -126,7 +126,7 @@ public class LessonController {
                 numUnansweredRetention
             );
             HashMap<String, Integer> lessonData = new HashMap<>();
-            lessonData.put("all", tmpLesson.getNuggets().size());
+            lessonData.put("all", lessonRepository.findNumberOfNuggetsByName(tmpLesson.getName()));
             lessonData.put("unanswered", numUnansweredRetention);
             lessonData.put(
                 "correctlyAnswered",

@@ -37,9 +37,11 @@ public class UserLessonController {
         @RequestParam(value = "username")
         String username
     ) {
-        return new ResponseEntity<List<UserLesson>>(
-            userLessonRepository.findUsersStarredLessons(username),
-            HttpStatus.OK
+        List<UserLesson> userLessons = userLessonRepository.findUsersStarredLessons(username);
+        userLessons.stream().forEach(ul -> ul.getLesson().clearNuggets());
+        return new ResponseEntity<>(
+                userLessons,
+                HttpStatus.OK
         );
     }
 

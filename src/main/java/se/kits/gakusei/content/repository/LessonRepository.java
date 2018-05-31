@@ -29,14 +29,23 @@ public interface LessonRepository
                     String lessonName
     );
 
-    @Cacheable("lessonNuggetsCorrect")
+    @Query(value = "SELECT COUNT(contentschema.nuggets.id) FROM contentschema.nuggets \n" +
+            "LEFT JOIN contentschema.lessons_nuggets ON lessons_nuggets.nugget_id = nuggets.id \n" +
+            "LEFT JOIN contentschema.lessons ON lessons_nuggets.lesson_id = lessons.id\n" +
+            "WHERE lessons.name = :lessonName", nativeQuery = true)
+    @Cacheable("numberOfLessonNuggets")
+    Integer findNumberOfNuggetsByName(
+            @Param("lessonName") String lessonName
+    );
+
     List<Nugget> findCorrectlyAnsweredNuggets(
             @Param("username")
                     String username,
             @Param("lessonName")
                     String lessonName
     );
-    @Cacheable("lessonNuggetsRetentionDate")
+
+
     List<Nugget> findNuggetsByRetentionDate(
             @Param("username")
                     String username,
@@ -44,7 +53,6 @@ public interface LessonRepository
                     String lessonName
     );
 
-    @Cacheable("lessonNuggetsRetentionUnanswered")
     List<Nugget> findUnansweredRetentionNuggets(
             @Param("username")
                     String username,

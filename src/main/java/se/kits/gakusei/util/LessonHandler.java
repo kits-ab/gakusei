@@ -11,6 +11,8 @@ import se.kits.gakusei.content.repository.KanjiRepository;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.UserLessonRepository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,9 +41,11 @@ public class LessonHandler {
 
     @Cacheable("lessons")
     public List<Lesson> getLessonsWithEnoughNuggets() {
-        return lessonRepository.findAllByOrderByName().stream().filter(
+        List<Lesson> lessons = lessonRepository.findAllByOrderByName();
+        lessons.stream().filter(
                 lesson -> lesson.getNuggets().size() >= 4
-        ).collect(Collectors.toList());
+        ).forEach(lesson -> lesson.clearNuggets());
+        return lessons;
     }
 
     @Cacheable("grammarLessons")
@@ -60,7 +64,6 @@ public class LessonHandler {
         ).collect(Collectors.toList());
     }
 
-    @Cacheable("favoriteLesson")
     public FavoriteLesson getLessonFromFavorites(String username, HashMap<String, Integer> hashMap) {
         FavoriteLesson favoriteLesson = new FavoriteLesson();
         favoriteLesson.setName("Favoriter");

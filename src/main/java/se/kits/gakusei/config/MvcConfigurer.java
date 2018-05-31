@@ -25,7 +25,7 @@ public class MvcConfigurer
         if (caching) {
             // Caching enabled via spring profile in application.yml
             cacheControl = CacheControl.maxAge(
-                ttl,
+                3600,
                 TimeUnit.SECONDS
             ).cachePublic();
         } else {

@@ -118,7 +118,7 @@ public class Lesson implements Serializable {
         )
 
     )
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Kanji> kanjis;
 
     @Fetch(value = FetchMode.SUBSELECT)
@@ -187,6 +187,10 @@ public class Lesson implements Serializable {
 
     public void setKanjis(List<Kanji> kanjis) {
         this.kanjis = kanjis;
+    }
+
+    public void clearNuggets() {
+        this.nuggets = null;
     }
 
 }

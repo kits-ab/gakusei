@@ -41,7 +41,7 @@ public class Nugget implements Serializable {
         )
 
     )
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Book> books;
 
     @JoinColumn(name = "word_type_ref")
