@@ -33,7 +33,7 @@ public interface LessonRepository
             "LEFT JOIN contentschema.lessons_nuggets ON lessons_nuggets.nugget_id = nuggets.id \n" +
             "LEFT JOIN contentschema.lessons ON lessons_nuggets.lesson_id = lessons.id\n" +
             "WHERE lessons.name = :lessonName", nativeQuery = true)
-    @Cacheable("numberOfLessonNuggets")
+    @Cacheable("lessons.numbers")
     Integer findNumberOfNuggetsByName(
             @Param("lessonName") String lessonName
     );
