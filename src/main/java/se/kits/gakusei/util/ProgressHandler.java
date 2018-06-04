@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Component;
 
 import se.kits.gakusei.user.model.Event;
@@ -123,6 +125,15 @@ public class ProgressHandler {
         pt.setRetentionInterval(retInterval);
         pt.setRetentionDate(retTimeStamp);
         progressTrackingRepository.save(pt);
+    }
+
+    @Caching(evict = {
+            @CacheEvict("lessons.retention.correct"),
+            @CacheEvict("lessons.retention.unanswered"),
+            @CacheEvict("lessons.retention.retention")
+    })
+    public void evictCache(String username, String lesson) {
+        //Used to clear cache when adding answers, method parameters are used as keys.
     }
 
 }

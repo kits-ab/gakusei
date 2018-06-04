@@ -51,6 +51,8 @@ public class Event implements Serializable {
     @Column(nullable = false)
     private String data;
 
+    private String lesson;
+
     @Column
     private String nuggetId;
 
@@ -117,5 +119,12 @@ public class Event implements Serializable {
         this.nuggetId = nuggetId;
     }
 
+    public String getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(String lesson) {
+        this.lesson = lesson;
+    }
 }
 

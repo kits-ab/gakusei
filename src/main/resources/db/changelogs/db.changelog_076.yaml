@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 76
+    author: Anton Myrholm
+    changes:
+        - addColumn:
+              columns:
+              - column:
+                  name: lesson
+                  type: VARCHAR(256)
+              schemaName: public
+              tableName: events

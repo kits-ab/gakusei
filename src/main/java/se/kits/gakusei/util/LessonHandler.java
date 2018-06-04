@@ -75,5 +75,27 @@ public class LessonHandler {
         return favoriteLesson;
     }
 
+    //Cacheable wrappers for the database queries.
+    @Cacheable("lessons.retention.correct")
+    public Integer getNumberOfCorrectNuggets(String username, String lessonName){
+        return lessonRepository.findNumberOfCorrectlyAnsweredNuggets(username, lessonName);
+    }
+
+    @Cacheable("lessons.retention.unanswered")
+    public Integer getNumberOfUnansweredRetentionNuggets(String username, String lessonName){
+        return lessonRepository.findNumberOfUnansweredRetentionNuggets(username, lessonName);
+    }
+
+    @Cacheable("lessons.retention.retention")
+    public Integer getNumberOfRetentionNuggets(String username, String lessonName){
+        return lessonRepository.findNumberOfNuggetsByRetentionDate(username, lessonName);
+    }
+
+    @Cacheable("lessons.numbers")
+    public Integer findNumberOfNuggetsByName(String lessonName){
+        return lessonRepository.findNumberOfNuggetsByName(lessonName);
+    }
+
+
 
 }

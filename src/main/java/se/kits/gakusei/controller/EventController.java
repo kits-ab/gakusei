@@ -93,6 +93,7 @@ public class EventController {
         }
         event.setUser(user);
         event.setGamemode(eventDTO.getGamemode());
+        event.setLesson(eventDTO.getLesson());
         event.setType(eventDTO.getType());
         event.setData(eventDTO.getData());
         event.setNuggetId(eventDTO.getNuggetid());
@@ -110,6 +111,7 @@ public class EventController {
         }
         if (event.getType().equalsIgnoreCase("updateRetention")) {
             progressHandler.updateRetention(event);
+            progressHandler.evictCache(user.getUsername(), event.getLesson());
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

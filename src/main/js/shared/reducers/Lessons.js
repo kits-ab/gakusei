@@ -262,6 +262,7 @@ export function addUserAnswer(userAnswerText, cardData) {
     const eventData = {
       page: 'lessons',
       username: securityState.loggedInUser,
+      lesson: state.selectedLesson.name,
       data: [
         {
           eventType: 'userAnswer',

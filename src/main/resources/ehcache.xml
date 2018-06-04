@@ -8,7 +8,7 @@
             <ttl unit="seconds">1800</ttl>
         </expiry>
         <heap unit="entries">1000</heap>
-        <jsr107:mbeans enable-statistics="true"/>
+        <jsr107:mbeans enable-management="true" enable-statistics="true"/>
     </cache>
 
     <cache alias="lessons.numbers">
@@ -16,15 +16,31 @@
             <ttl unit="seconds">1800</ttl>
         </expiry>
         <heap unit="entries">1000</heap>
-        <jsr107:mbeans enable-statistics="true"/>
+        <jsr107:mbeans enable-management="true" enable-statistics="true"/>
     </cache>
 
-    <cache alias="lessons.retention.numbers">
+    <cache alias="lessons.retention.correct">
         <expiry>
             <ttl unit="seconds">1800</ttl>
         </expiry>
         <heap unit="entries">1000</heap>
-        <jsr107:mbeans enable-statistics="true"/>
+        <jsr107:mbeans enable-management="true" enable-statistics="true"/>
+    </cache>
+
+    <cache alias="lessons.retention.unanswered">
+        <expiry>
+            <ttl unit="seconds">1800</ttl>
+        </expiry>
+        <heap unit="entries">1000</heap>
+        <jsr107:mbeans enable-management="true" enable-statistics="true"/>
+    </cache>
+
+    <cache alias="lessons.retention.retention">
+        <expiry>
+            <ttl unit="seconds">1800</ttl>
+        </expiry>
+        <heap unit="entries">1000</heap>
+        <jsr107:mbeans enable-management="true" enable-statistics="true"/>
     </cache>
 
 </config>

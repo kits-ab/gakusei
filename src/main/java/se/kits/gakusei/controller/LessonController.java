@@ -117,9 +117,10 @@ public class LessonController {
         );
         mark = System.currentTimeMillis();
         for (Lesson tmpLesson : tmpLessons) {
-            Integer numCorrectlyAnswered = lessonRepository.findNumberOfCorrectlyAnsweredNuggets(username, tmpLesson.getName());
-            Integer numUnansweredRetention = lessonRepository.findNumberOfUnansweredRetentionNuggets(username, tmpLesson.getName());
-            Integer numRetentionNuggets = lessonRepository.findNumberOfNuggetsByRetentionDate(username, tmpLesson.getName());
+            Integer numNuggetsByName = lessonHandler.findNumberOfNuggetsByName(tmpLesson.getName());
+            Integer numCorrectlyAnswered = lessonHandler.getNumberOfCorrectNuggets(username, tmpLesson.getName());
+            Integer numUnansweredRetention = lessonHandler.getNumberOfUnansweredRetentionNuggets(username, tmpLesson.getName());
+            Integer numRetentionNuggets = lessonHandler.getNumberOfRetentionNuggets(username, tmpLesson.getName());
 
             logger.info(
                     "Un count for {}: {}",
@@ -127,7 +128,7 @@ public class LessonController {
                     numUnansweredRetention
             );
             HashMap<String, Integer> lessonData = new HashMap<>();
-            lessonData.put("all", lessonRepository.findNumberOfNuggetsByName(tmpLesson.getName()));
+            lessonData.put("all", numNuggetsByName);
             lessonData.put("unanswered", numUnansweredRetention);
             lessonData.put(
                     "correctlyAnswered",
@@ -136,10 +137,7 @@ public class LessonController {
             lessonData.put("retention", numRetentionNuggets);
 
             values.put(tmpLesson.getName(), lessonData);
-//            logger.info(
-//                    "Correct: {} Lesson: {}",
-//                    lessonRepository.findNumberOfCorrectlyAnsweredNuggets(username, tmpLesson.getName()),
-//                    tmpLesson.getName());
+
         }
         logger.info(
                 "Collecting lesson nuggets took {} ms",

@@ -7,6 +7,7 @@ public class EventDTO {
     private String data;
     private String nuggetid;
     private String username;
+    private String lesson;
 
     public EventDTO() {}
 
@@ -58,5 +59,12 @@ public class EventDTO {
         this.nuggetid = nuggetid;
     }
 
+    public String getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(String lesson) {
+        this.lesson = lesson;
+    }
 }
 
