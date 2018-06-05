@@ -1,6 +1,10 @@
 logging:
   file: log.txt
 spring:
+  cache:
+    type: none
+---
+spring:
   profiles:
     active: development
   data:
@@ -56,6 +60,7 @@ spring:
   caching: true
   cache-ttl: 3600
   cache:
+    type: jcache
     jcache:
       config: ehcache.xml
 
