@@ -131,10 +131,13 @@ Webpack packages everything into a bundle file (except for most resource files, 
 ### Backend
 - Spring Boot
 - Maven
+- Ehcache
 
 The backend is a Spring Boot application. The frontend's REST requests are received by the controllers which handles the
 request. The controllers uses modules with business logic and repositories with the database connections in order to
 handle the requests and returning a response.
+
+Ehcache is a very popular caching tool used to make the app run faster. The configuration for the cache is in ehcache.xml. Ehcache is only enabled if the `enable-resource-caching` profile is active which is highly recommended. Spring automatically configures Ehcache and only the `@EnableCaching` and `@Cacheable` annotations are required to use the cache. See the spring documentation on how to invalidate the cache if needed.
 
 ### Misc
 In the project's Spring Boot configuration file (src/main/resources/application.yml) the data initialization and event
