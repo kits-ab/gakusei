@@ -66,7 +66,6 @@ public class KanjiController {
         return kanjiHandler.createKanjiQuestions(chosenKanjis);
     }
 
-    @Cacheable("kanjis")
     public List<Kanji> cachedFindKanjis(String lessonName) {
         return lessonRepository.findByName(lessonName).getKanjis();
     }

@@ -56,7 +56,6 @@ public class NuggetController {
         );
     }
 
-    @Cacheable("allWordTypeNuggets")
     public List<Nugget> cachedNuggetsOfAllWordTypes() {
         long mark = System.currentTimeMillis();
         List<Nugget> result = nuggetRepository.findAll().stream().filter(
@@ -69,7 +68,6 @@ public class NuggetController {
         return result;
     }
 
-    @Cacheable("oneWordTypeNugget")
     public List<Nugget> cachedNuggetsOfWordType(String type) {
         long mark = System.currentTimeMillis();
         List<Nugget> result = new ArrayList<>();
