@@ -135,7 +135,7 @@ export default class Canvas extends React.Component {
   mouseup() {
     if (!this.props.inputDisabled && this.state.isDrawing) {
       this.props.newUserPath(this.state.points);
-
+      this.props.canvasUrlCallback(this.canvas.toDataURL());
       this.setState({
         isMouseDown: false,
         isDrawing: false,

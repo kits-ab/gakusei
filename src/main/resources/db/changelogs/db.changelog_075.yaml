@@ -1,0 +1,45 @@
+databaseChangeLog:
+- changeSet:
+    id: 75
+    author: Anton Myrholm
+    preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                schemaName: public
+                tableName: kanji_drawings
+    changes:
+        - createTable:
+            schemaName: public
+            tableName: kanji_drawings
+            columns:
+                - column:
+                    autoIncrement: true
+                    name: id
+                    type: serial
+                    constraints:
+                        primaryKey: true
+                        primaryKeyName: kanji_drawings_pkey
+                - column:
+                    constraints:
+                        nullable: false
+                    name: user_ref
+                    type: VARCHAR(32)
+                - column:
+                    constraints:
+                        nullable: false
+                    name: nugget_id
+                    type: VARCHAR(256)
+                - column:
+                    name: difficulty
+                    type: VARCHAR(32)
+                - column:
+                    constraints:
+                        nullable: false
+                    name: image_data
+                    type: text
+                - column:
+                    constraints:
+                        nullable: false
+                    name: timestamp
+                    type: TIMESTAMP(6) WITHOUT TIME ZONE

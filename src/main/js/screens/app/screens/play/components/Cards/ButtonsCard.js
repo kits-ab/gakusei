@@ -64,7 +64,7 @@ ButtonsCard.propTypes = {
       type: PropTypes.string.isRequired,
       location: PropTypes.string.isRequired
     }),
-    correctAlternative: PropTypes.arrayOf(PropTypes.string)
+    correctAlternative: PropTypes.array
   }).isRequired,
   buttonsDisabled: PropTypes.bool.isRequired,
   answerType: PropTypes.string.isRequired,

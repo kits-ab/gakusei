@@ -1,30 +1,30 @@
 package se.kits.gakusei.content.model;
 
-import se.sandboge.japanese.conjugation.Verb;
-
-import javax.annotation.Generated;
-import javax.persistence.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Generated;
+import javax.persistence.*;
+
+import se.sandboge.japanese.conjugation.Verb;
+
 @Entity
 @Table(name = "inflections", schema = "contentschema")
 public class Inflection {
-
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "lesson_ref")
+    @ManyToOne
     private Lesson lesson;
 
     private String inflectionMethod;
 
-    public Inflection() { }
+    public Inflection() {}
 
     public Long getId() {
         return id;
@@ -49,19 +49,19 @@ public class Inflection {
     public static List<String> getAllInflectionMethods() {
         List<String> inflectionMethods = new ArrayList<>();
         Method[] allMethods = Verb.class.getDeclaredMethods();
-
-        for(Method method : allMethods){
-            if(isInflection(method)){
+        for (Method method : allMethods) {
+            if (isInflection(method)) {
                 inflectionMethods.add(method.getName());
             }
         }
-
         return inflectionMethods;
     }
 
-    private static boolean isInflection(Method method){
-        return Modifier.isPublic(method.getModifiers())
-                && !Modifier.isStatic(method.getModifiers())
-                && method.getGenericReturnType().equals(String.class);
+    private static boolean isInflection(Method method) {
+        return Modifier.isPublic(method.getModifiers()) && !Modifier.isStatic(
+            method.getModifiers()
+        ) && method.getGenericReturnType().equals(String.class);
     }
+
 }
+

@@ -1,21 +1,20 @@
 package se.kits.gakusei.content.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name="books", schema = "contentschema")
-public class Book implements Serializable{
+import javax.persistence.*;
 
-    @Id
+@Entity
+@Table(name = "books", schema = "contentschema")
+public class Book implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
     @Column(nullable = false, unique = true)
     private String title;
 
-    public Book() {
-    }
+    public Book() {}
 
     public Long getId() {
         return id;
@@ -29,5 +28,5 @@ public class Book implements Serializable{
         this.title = title;
     }
 
-
 }
+

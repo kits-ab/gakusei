@@ -60,9 +60,7 @@ export default class AnswerButton extends React.Component {
         className={'btn answer-button' + (this.props.buttonSize === 'large' ? ' answer-button--large' : '')}
         name={this.props.name}
       >
-        {this.getPrimaryText()}
-        <br />
-        {this.getSecondaryText()}
+        {this.getPrimaryText()} {this.getSecondaryText()}
       </Button>
     );
   }

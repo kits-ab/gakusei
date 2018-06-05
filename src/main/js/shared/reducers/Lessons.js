@@ -27,6 +27,8 @@ export const defaultState = {
   questionType: 'reading',
   answerType: 'swedish',
 
+  kanjiDifficulty: 'easy',
+
   questions: [],
   currentQuestion: {
     shapes: [],
@@ -56,7 +58,8 @@ export const defaultState = {
   totalAttempts: 0,
   currentQuestionIndex: 0,
   currentProcessedQuestionAnswered: false,
-  currentProcessedQuestionAnsweredCorrectly: false
+  currentProcessedQuestionAnsweredCorrectly: false,
+  isFetchingLesson: false
 };
 // ----------------
 // PROPTYPES
@@ -83,7 +86,9 @@ export const propTypes = {
   answerType: PropTypes.string.isRequired,
   answerTextInputFocused: PropTypes.bool.isRequired,
   spacedRepetition: PropTypes.bool.isRequired,
-  spacedRepetitionModes: PropTypes.array.isRequired
+  spacedRepetitionModes: PropTypes.array.isRequired,
+  kanjiDifficulty: PropTypes.string.isRequired,
+  isFetchingLesson: PropTypes.bool.isRequired
 };
 
 // -----------------
@@ -115,7 +120,10 @@ export const SET_QUESTION_LANGUAGE = 'SET_QUESTION_LANGUAGE';
 export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
 export const SET_ADDRESSED_QUESTIONS = 'SET_ADDRESSED_QUESTIONS';
 export const SET_SPACED_REPETITION = 'SET_SPACED_REPETITION';
-
+export const SET_KANJI_DIFFICULTY = 'SET_KANJI_DIFFICULTY';
+export const GET_LESSON_REQUEST = 'GET_LESSON_REQUEST';
+export const GET_LESSON_SUCCESS = 'GET_LESSON_SUCCESS';
+export const GET_LESSON_FAILURE = 'GET_LESSON_FAILURE';
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
@@ -197,7 +205,7 @@ export function calcAnswerButtonStyles() {
       words =>
         words
           .map(word => {
-            if (state.currentQuestion.correctAlternative.indexOf(word) !== -1) {
+            if (state.currentQuestion.correctAlternative.some(s => s.includes(word))) {
               return 'success';
             } else if (!userAnswerWord || word.toLowerCase() === userAnswerWord.toLowerCase()) {
               return 'danger';
@@ -234,8 +242,8 @@ export function addUserAnswer(userAnswerText, cardData) {
       userAnswerTextFinalized = null;
       userCorrectFinalized = userAnswerText;
     } else {
-      userCorrectFinalized = state.currentQuestion.correctAlternative.some(
-        s => s.toLowerCase() === userAnswerTextFinalized.toLowerCase()
+      userCorrectFinalized = state.currentQuestion.correctAlternative.some(s =>
+        s.some(so => so.toLowerCase() === userAnswerTextFinalized.toLowerCase())
       );
     }
 
@@ -254,6 +262,7 @@ export function addUserAnswer(userAnswerText, cardData) {
     const eventData = {
       page: 'lessons',
       username: securityState.loggedInUser,
+      lesson: state.selectedLesson.name,
       data: [
         {
           eventType: 'userAnswer',
@@ -392,13 +401,15 @@ export function processCurrentQuestion() {
 
     const currentQuestion = {
       shapes: state.questions[localQuestionIndex].question.map(s => s),
-      correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase()),
+      correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s =>
+        s.map(so => so.toLowerCase())
+      ),
       correctAlternativeNuggetId: state.questions[localQuestionIndex].questionNuggetId,
       randomizedAlternatives: Utility.randomizeOrder([
         state.questions[localQuestionIndex].alternative1.map(s => s.toLowerCase()),
         state.questions[localQuestionIndex].alternative2.map(s => s.toLowerCase()),
         state.questions[localQuestionIndex].alternative3.map(s => s.toLowerCase()),
-        state.questions[localQuestionIndex].correctAlternative.map(s => s.toLowerCase())
+        state.questions[localQuestionIndex].correctAlternative[0].map(s => s.toLowerCase())
       ]),
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonsDisabled: false,
@@ -521,6 +532,16 @@ export function setAnswerLanguage(language) {
   };
 }
 
+export function setKanjiDifficulty(difficulty) {
+  return function(dispatch) {
+    dispatch({
+      type: SET_KANJI_DIFFICULTY,
+      description: 'Set the kanji writing difficulty',
+      difficulty
+    });
+  };
+}
+
 export function fetchLessons(type) {
   return function(dispatch, getState) {
     const lessonState = getState().lessons;
@@ -572,6 +593,11 @@ export function fetchLesson(lessonType) {
     const lessonState = getState().lessons;
     const securityState = getState().security;
 
+    dispatch({
+      type: GET_LESSON_REQUEST,
+      description: 'A lesson has been requested.'
+    });
+
     return new Promise(resolve =>
       fetch(
         `${fetchURL}?lessonName=${lessonState.selectedLesson.name}&questionType=${lessonState.questionType}&` +
@@ -585,6 +611,10 @@ export function fetchLesson(lessonType) {
           dispatch(resetLesson());
           dispatch(receiveLesson(json));
           dispatch(processCurrentQuestion());
+          dispatch({
+            type: GET_LESSON_SUCCESS,
+            description: 'The requested lesson has been retrieved successfully.'
+          });
           resolve();
         })
     );
@@ -666,6 +696,30 @@ export function toggleSpacedRepetition() {
   };
 }
 
+export function addUserKanjiDrawing(drawURL) {
+  return function(dispatch, getState) {
+    const xsrfTokenValue = getCSRF();
+    const securityState = getState().security;
+    const body = JSON.stringify({
+      timestamp: Number(new Date()),
+      nuggetid: getState().lessons.currentQuestion.correctAlternativeNuggetId,
+      username: securityState.loggedInUser,
+      data: drawURL,
+      difficulty: getState().lessons.kanjiDifficulty
+    });
+
+    fetch(`/api/kanji-drawings`, {
+      credentials: 'same-origin',
+      method: 'POST',
+      body,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': xsrfTokenValue
+      }
+    });
+  };
+}
+
 export const actionCreators = {
   requestUserSuccessRate,
   fetchUserSuccessRate,
@@ -697,7 +751,9 @@ export const actionCreators = {
   receiveUserStarredLessons,
   addStarredLesson,
   removeStarredLesson,
-  toggleSpacedRepetition
+  toggleSpacedRepetition,
+  setKanjiDifficulty,
+  addUserKanjiDrawing
 };
 
 // ----------------
@@ -869,6 +925,26 @@ export function lessons(state = defaultState, action) {
       return {
         ...state,
         spacedRepetition: action.value
+      };
+    case SET_KANJI_DIFFICULTY:
+      return {
+        ...state,
+        kanjiDifficulty: action.difficulty
+      };
+    case GET_LESSON_REQUEST:
+      return {
+        ...state,
+        isFetchingLesson: true
+      };
+    case GET_LESSON_SUCCESS:
+      return {
+        ...state,
+        isFetchingLesson: false
+      };
+    case GET_LESSON_FAILURE:
+      return {
+        ...state,
+        isFetchingLesson: false
       };
   }
 }

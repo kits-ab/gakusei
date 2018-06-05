@@ -54,6 +54,10 @@ liquibase:
 spring:
   profiles: enable-resource-caching
   caching: true
+  cache-ttl: 3600
+  cache:
+    jcache:
+      config: ehcache.xml
 
 ---
 

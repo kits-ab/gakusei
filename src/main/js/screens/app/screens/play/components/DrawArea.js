@@ -86,19 +86,22 @@ export default class DrawArea extends React.Component {
       {
         data: {
           answerPoints: this.state.correctAlternative.pathPoints,
-          existingPoints: this.state.userAnswer.existingPoints
+          existingPoints: this.state.userAnswer.existingPoints,
+          difficulty: this.props.difficulty
         },
         action(canvas, data) {
           let lineColor = 'LightGray';
 
-          data.answerPoints.forEach((answerPoint, i) => {
-            if (i >= data.existingPoints.length) {
-              lineColor = 'LightGray';
-            } else {
-              lineColor = 'LightGray';
-            }
-            this.drawPoints(data.answerPoints[i], lineColor);
-          });
+          !['medium', 'hard'].includes(data.difficulty) || data.answerPoints.length === data.existingPoints.length
+            ? data.answerPoints.forEach((answerPoint, i) => {
+              if (i >= data.existingPoints.length) {
+                lineColor = 'LightGray';
+              } else {
+                lineColor = 'LightGray';
+              }
+              this.drawPoints(data.answerPoints[i], lineColor);
+            })
+            : null;
         }
       },
       // Draw the lines the user has previously made
@@ -126,13 +129,18 @@ export default class DrawArea extends React.Component {
       {
         data: {
           numberPoints: this.state.correctAlternative.numberPoints,
+          answerPoints: this.state.correctAlternative.pathPoints,
           existingPoints: this.state.userAnswer.existingPoints,
           highlightErrors: this.props.highlightErrors,
-          matches: this.props.matches
+          matches: this.props.matches,
+          difficulty: this.props.difficulty
         },
         action(canvas, data) {
           // Answer numbers
-          if (data.numberPoints.length > 0) {
+          if (
+            data.numberPoints.length > 0 &&
+            (!['medium', 'hard'].includes(data.difficulty) || data.answerPoints.length === data.existingPoints.length)
+          ) {
             data.numberPoints.forEach((numberPoint, i) => {
               let textColor = null;
               let boxColor = null;
@@ -146,7 +154,7 @@ export default class DrawArea extends React.Component {
                   boxColor = 'Orange';
                 } else if (currentNumber < data.existingPoints.length + 1) {
                   boxColor = null;
-                  textColor = 'LightGray';
+                  textColor = 'Black';
                   // boxColor = 'LightGray';
                 } else {
                   boxColor = null;
@@ -238,6 +246,7 @@ export default class DrawArea extends React.Component {
         newUserPath={this.onNewUserPath}
         drawActions={this.getDrawActions()}
         inputDisabled={this.props.buttonsDisabled}
+        canvasUrlCallback={this.props.canvasUrlCallback}
       />
     );
   }
@@ -252,5 +261,6 @@ DrawArea.propTypes = {
   matches: PropTypes.arrayOf(PropTypes.object).isRequired,
   highlightErrors: PropTypes.bool,
   newMatch: PropTypes.func.isRequired,
-  buttonsDisabled: PropTypes.bool.isRequired
+  buttonsDisabled: PropTypes.bool.isRequired,
+  difficulty: PropTypes.string.isRequired
 };

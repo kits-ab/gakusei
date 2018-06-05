@@ -1,6 +1,8 @@
 import { Row, Col } from 'react-bootstrap';
 
 import DrawArea from '../DrawArea';
+import FlashButtonSet from '../FlashButtonSet';
+import React from 'react';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 
 class WriteCard extends React.Component {
@@ -30,8 +32,7 @@ class WriteCard extends React.Component {
     if (!prevState.matchingDone && this.state.matchingDone) {
       // Only call this when we have the entire sign
       const passed = this.state.matches.every(matchObj => matchObj.match.userCorrect);
-
-      this.props.clickCallback(passed, this.state.matches);
+      //this.props.clickCallback(passed, this.state.matches);
     }
   }
 
@@ -70,18 +71,34 @@ class WriteCard extends React.Component {
             <DisplayQuestion
               style={{ verticalAlign: 'center' }}
               primaryText={this.props.question.shapes[0]}
-              secondaryText={this.props.question.shapes[1] || null}
+              secondaryText={!['hard'].includes(this.props.difficulty) ? this.props.question.shapes[1] || null : null}
               japaneseCharacters={false}
             />
           </Row>
           <Row>
             <DrawArea
-              signToDraw={this.props.question.correctAlternative[this.props.question.correctAlternative.length - 1]}
+              signToDraw={this.props.correctAlternative[this.props.correctAlternative.length - 1]}
               newMatch={this.onMatch}
               matches={this.state.matches}
-              highlightErrors={this.state.matchingDone}
-              buttonsDisabled={this.props.buttonsDisabled}
+              highlightErrors={false}
+              buttonsDisabled={this.props.buttonsDisabled || this.state.matchingDone}
+              difficulty={this.props.difficulty}
+              canvasUrlCallback={this.props.canvasUrlCallback}
             />
+          </Row>
+          <Row>
+            {this.state.matchingDone ? (
+              <React.Fragment>
+                Ritade du rätt?
+                <FlashButtonSet
+                  correctAlternative={this.props.correctAlternative}
+                  buttonStyles={this.props.question.buttonStyles}
+                  buttonsDisabled={this.props.buttonsDisabled}
+                  answerType={this.props.answerType}
+                  clickCallback={this.props.clickCallback}
+                />
+              </React.Fragment>
+            ) : null}
           </Row>
         </Col>
       </Row>
@@ -93,7 +110,7 @@ WriteCard.defaultProps = {};
 
 WriteCard.propTypes = {
   question: PropTypes.shape({
-    correctAlternative: PropTypes.arrayOf(PropTypes.string),
+    correctAlternative: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     shapes: PropTypes.arrayOf(PropTypes.string),
     randomizedAlternatives: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
     buttonStyles: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -101,7 +118,8 @@ WriteCard.propTypes = {
   }).isRequired,
   buttonsDisabled: PropTypes.bool.isRequired,
   clickCallback: PropTypes.func.isRequired,
-  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired
+  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired,
+  difficulty: PropTypes.string.isRequired
 };
 
 export default WriteCard;

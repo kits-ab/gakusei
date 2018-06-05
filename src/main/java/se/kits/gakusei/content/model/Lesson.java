@@ -1,15 +1,20 @@
 package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
-@Table(name = "lessons", schema = "contentschema")
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id"
+)
 @NamedNativeQueries({
         @NamedNativeQuery(
                 name = "Lesson.findNuggetsBySuccessrate",
@@ -49,11 +54,12 @@ import java.util.List;
         @NamedNativeQuery(
                 name = "Lesson.findUnansweredRetentionNuggets",
                 query = "SELECT contentschema.nuggets.* FROM contentschema.nuggets\n" +
-                        "                        WHERE nuggets.id IN \n" +
-                        "\t\t\t\t\t\t(SELECT lessons_nuggets.nugget_id FROM contentschema.lessons_nuggets\n" +
-                        "                        LEFT JOIN progresstrackinglist ON progresstrackinglist.nugget_id = lessons_nuggets.nugget_id\n" +
-                        "                        WHERE (user_ref = :username OR user_ref IS NULL) AND retention_date IS NULL\n" +
-                        "                        AND lesson_id IN (SELECT id FROM contentschema.lessons WHERE name = :lessonName))",
+                        "WHERE nuggets.id NOT IN\n" +
+                        "(SELECT lessons_nuggets.nugget_id FROM contentschema.lessons_nuggets\n" +
+                        "LEFT JOIN progresstrackinglist ON progresstrackinglist.nugget_id = lessons_nuggets.nugget_id\n" +
+                        "WHERE (user_ref = :username) AND retention_date IS NOT NULL\n" +
+                        "AND lesson_id IN (SELECT id FROM contentschema.lessons WHERE name = :lessonName))\n" +
+                        "AND nuggets.id IN (SELECT nugget_id FROM contentschema.lessons_nuggets RIGHT JOIN contentschema.lessons ON lessons_nuggets.lesson_id = lessons.id WHERE name = :lessonName)",
                 resultClass = Nugget.class),
         @NamedNativeQuery(
                 name = "Lesson.findNuggetsByRetentionDate",
@@ -64,11 +70,10 @@ import java.util.List;
                         "\tAND lesson_id IN (SELECT id FROM contentschema.lessons WHERE name = :lessonName) ORDER BY retention_date ASC)",
                 resultClass = Nugget.class)
 })
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(name = "lessons", schema = "contentschema")
 public class Lesson implements Serializable {
-
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -76,37 +81,57 @@ public class Lesson implements Serializable {
 
     private String description;
 
-    @ManyToMany
     //@JsonManagedReference(value = "lessonnugget")
     @JoinTable(
-            name = "lessons_nuggets",
-            schema = "contentschema",
-            joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"))
+        name = "lessons_nuggets",
+        schema = "contentschema",
+        joinColumns = @JoinColumn(
+            name = "lesson_id",
+            referencedColumnName = "id"
+        )
+        ,
+        inverseJoinColumns = @JoinColumn(
+            name = "nugget_id",
+            referencedColumnName = "id"
+        )
+
+    )
+    @ManyToMany
     private List<Nugget> nuggets;
 
-    @ManyToMany
     @JoinTable(
-            name = "lessons_kanjis",
-            schema = "contentschema",
-            joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "kanji_id", referencedColumnName = "id"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"lesson_id", "kanji_id"})
+        name = "lessons_kanjis",
+        schema = "contentschema",
+        joinColumns = @JoinColumn(
+            name = "lesson_id",
+            referencedColumnName = "id"
+        )
+        ,
+        inverseJoinColumns = @JoinColumn(
+            name = "kanji_id",
+            referencedColumnName = "id"
+        )
+        ,
+        uniqueConstraints = @UniqueConstraint(
+            columnNames = { "lesson_id", "kanji_id"
+            }
+        )
+
     )
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Kanji> kanjis;
 
-    @JsonIgnore
-    @OneToMany(mappedBy="lesson", fetch = FetchType.LAZY)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnore
+    @OneToMany(mappedBy = "lesson", fetch = FetchType.LAZY)
     private List<UserLesson> userLessons;
 
-    @ManyToOne
+    @JoinColumn(name = "course_ref")
     @JsonBackReference(value = "courselesson")
-    @JoinColumn(name="course_ref")
+    @ManyToOne
     private Course course;
 
-    public Lesson() {
-    }
+    public Lesson() {}
 
     public Long getId() {
         return id;
@@ -163,4 +188,10 @@ public class Lesson implements Serializable {
     public void setKanjis(List<Kanji> kanjis) {
         this.kanjis = kanjis;
     }
+
+    public void clearNuggets() {
+        this.nuggets = null;
+    }
+
 }
+

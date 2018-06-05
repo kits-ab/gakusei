@@ -41,18 +41,14 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/select/guess">
                   <MenuItem className="guessPlay">Gissa ordet</MenuItem>
                 </LinkContainer>
-                <LinkContainer to="/select/translate">
+                {/* <LinkContainer to="/select/translate">
                   <MenuItem className="translatePlay">Översätt ordet</MenuItem>
-                </LinkContainer>
+                </LinkContainer> */}
                 <LinkContainer to="/select/flashcards">
                   <MenuItem className="flashcardPlay">Bildkort</MenuItem>
                 </LinkContainer>
-                {/* Remove this comment when feature is done
-                  <LinkContainer to="/select/kanji">
-                  <MenuItem className="kanjiPlay">Skriv Kanji</MenuItem>
-                </LinkContainer> */}
               </NavDropdown>
-              <NavDropdown
+              {/* <NavDropdown
                 className="grammarDropdown"
                 title="Grammatik"
                 id="basic-nav-dropdown"
@@ -63,13 +59,17 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/grammar">
                   <NavItem className="grammarHelp">Texter om grammatik</NavItem>
                 </LinkContainer>
-              </NavDropdown>
+              </NavDropdown> */}
+
+              <LinkContainer to="/select/kanji">
+                <NavItem className="kanjiPlay">Kanji</NavItem>
+              </LinkContainer>
               <LinkContainer to="/select/quiz">
                 <NavItem className="quizPlay">Quiz</NavItem>
               </LinkContainer>
               {/* <LinkContainer to="/lists">
-                <NavItem>Lista ord</NavItem>
-              </LinkContainer> */}
+                  <NavItem>Lista ord</NavItem>
+                </LinkContainer> */}
               <LinkContainer to="/about">
                 <NavItem className="about">Om Gakusei</NavItem>
               </LinkContainer>
@@ -81,22 +81,19 @@ export class GakuseiNav extends React.Component {
               </LinkContainer>
             </Nav>
           )}
-          {this.props.loggedIn ? (
-            <p className="navbar-text navbar-right">Inloggad som: {this.props.loggedInUser}</p>
-          ) : null}
-          {this.props.loggedIn ? (
-            <Nav pullRight>
+
+          {this.props.loggedIn ? <Navbar.Text pullRight>Inloggad som: {this.props.loggedInUser}</Navbar.Text> : null}
+          <Nav pullRight>
+            {this.props.loggedIn ? (
               <LinkContainer to={{ pathname: '/logout', query: { currentUrl: this.props.location.pathname } }}>
                 <NavItem className="menu-button">Logga ut</NavItem>
               </LinkContainer>
-            </Nav>
-          ) : (
-            <Nav pullRight>
+            ) : (
               <LinkContainer to={`/login${this.props.location.search}`}>
                 <NavItem className="menu-button">Logga in / Registrera</NavItem>
               </LinkContainer>
-            </Nav>
-          )}
+            )}
+          </Nav>
         </Navbar.Collapse>
       </Navbar>
     );

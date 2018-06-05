@@ -1,15 +1,13 @@
 package se.kits.gakusei.dto;
 
-public class EventDTO {
+public class KanjiDrawingDTO {
     private long timestamp;
-    private String gamemode;
-    private String type;
     private String data;
     private String nuggetid;
     private String username;
-    private String lesson;
+    private String difficulty;
 
-    public EventDTO() {}
+    public KanjiDrawingDTO() {}
 
     public long getTimestamp() {
         return timestamp;
@@ -17,22 +15,6 @@ public class EventDTO {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
-    }
-
-    public String getGamemode() {
-        return gamemode;
-    }
-
-    public void setGamemode(String gamemode) {
-        this.gamemode = gamemode;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getData() {
@@ -59,12 +41,13 @@ public class EventDTO {
         this.nuggetid = nuggetid;
     }
 
-    public String getLesson() {
-        return lesson;
+    public String getDifficulty() {
+        return difficulty;
     }
 
-    public void setLesson(String lesson) {
-        this.lesson = lesson;
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
+
 }
 

@@ -2,21 +2,21 @@ package se.kits.gakusei.user.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.*;
+
 @Entity
 @Table(name = "progresstrackinglist")
-public class ProgressTracking implements Serializable{
-
-    @Id
+public class ProgressTracking implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private long id;
 
-    @ManyToOne
-    @JsonBackReference(value = "progress")
     @JoinColumn(name = "user_ref")
+    @JsonBackReference(value = "progress")
+    @ManyToOne
     private User user;
 
     @Column(name = "nugget_id")
@@ -43,7 +43,7 @@ public class ProgressTracking implements Serializable{
     @Column(name = "retention_date")
     private Timestamp retentionDate;
 
-    public ProgressTracking(){}
+    public ProgressTracking() {}
 
     public long getId() {
         return id;
@@ -125,5 +125,5 @@ public class ProgressTracking implements Serializable{
         this.retentionDate = retention_date;
     }
 
-
 }
+

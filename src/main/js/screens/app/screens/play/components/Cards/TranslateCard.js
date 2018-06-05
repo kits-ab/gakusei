@@ -47,7 +47,6 @@ ButtonsCard.propTypes = {
   clickCallback: PropTypes.func.isRequired,
   clickNextCallback: PropTypes.func.isRequired,
   cardType: PropTypes.string.isRequired,
-  correctAlternative: PropTypes.arrayOf(PropTypes.string).isRequired,
   questionAnswered: PropTypes.bool.isRequired,
   questionAnsweredCorrectly: PropTypes.bool.isRequired,
   inputFocused: PropTypes.bool.isRequired,

@@ -115,7 +115,8 @@ export class homeScreen extends React.Component {
   render() {
     return (
       <Grid className="text-center">
-        <h2 name="greeter">Välkommen till Gakusei, {this.props.loggedInUser}!</h2>
+        <h2 name="greeter">Välkommen, {this.props.loggedInUser}!</h2>
+        {this.showFavorites()}
         <h3>Din svarsstatistik:</h3>
         <Row>
           <Col
@@ -133,7 +134,6 @@ export class homeScreen extends React.Component {
             )}
           </Col>
         </Row>
-        {this.showFavorites()}
       </Grid>
     );
   }

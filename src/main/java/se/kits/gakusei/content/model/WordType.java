@@ -1,21 +1,20 @@
 package se.kits.gakusei.content.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name="word_types", schema = "contentschema")
-public class WordType implements Serializable{
+import javax.persistence.*;
 
-    @Id
+@Entity
+@Table(name = "word_types", schema = "contentschema")
+public class WordType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
     @Column(nullable = false, unique = true)
     private String type;
 
-    public WordType() {
-    }
+    public WordType() {}
 
     public Long getId() {
         return id;
@@ -29,5 +28,5 @@ public class WordType implements Serializable{
         this.type = type;
     }
 
-
 }
+

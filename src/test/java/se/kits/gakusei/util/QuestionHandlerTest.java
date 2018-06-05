@@ -22,7 +22,7 @@ public class QuestionHandlerTest {
     private List<Nugget> visibleNuggets;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         nuggets = TestTools.generateNuggets();
         questionType = "swedish";
         answerType = "english";
@@ -40,11 +40,11 @@ public class QuestionHandlerTest {
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative1")).get(0).startsWith("eng_test")));
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative2")).get(0).startsWith("eng_test")));
         assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("alternative3")).get(0).startsWith("eng_test")));
-        assertTrue(questions.stream().allMatch(q -> ((List<String>) q.get("correctAlternative")).get(0).startsWith("eng_test")));
+        assertTrue(questions.stream().allMatch(q -> ((List<List<String>>) q.get("correctAlternative")).get(0).get(0).startsWith("eng_test")));
     }
 
     @Test
-    public void testCreateQuestion() throws Exception {
+    public void testCreateQuestion() {
         Nugget nugget = visibleNuggets.get(0);
 
         HashMap<String, Object> dto = questionHandler.createQuestion(nugget, visibleNuggets, questionType, answerType);
@@ -53,11 +53,11 @@ public class QuestionHandlerTest {
         Stream.of(dto.get("alternative1"),
                 dto.get("alternative2"),
                 dto.get("alternative3"),
-                dto.get("correctAlternative"))
+                ((List<String>)dto.get("correctAlternative")).get(0))
                 .forEach(alt -> assertTrue(((List<String>) alt).get(0).startsWith("eng_test")));
 
         String q = ((List<String>) dto.get("question")).get(0);
-        String ca = ((List<String>) dto.get("correctAlternative")).get(0);
+        String ca = ((List<List<String>>) dto.get("correctAlternative")).get(0).get(0);
         assertEquals(q.charAt(q.length()-1), ca.charAt(ca.length()-1));
 
         Set<String> ids = new HashSet<>(Arrays.asList(
@@ -70,7 +70,7 @@ public class QuestionHandlerTest {
     }
 
     @Test
-    public void testCreateQuestionNullReturn() throws Exception {
+    public void testCreateQuestionNullReturn() {
         List<Nugget> tooFewNuggets = visibleNuggets.subList(0, 2);
         Nugget nugget = tooFewNuggets.get(0);
 

@@ -1,10 +1,15 @@
 package se.kits.gakusei.util;
 
+import java.sql.Timestamp;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Component;
+
 import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.ProgressTracking;
 import se.kits.gakusei.user.model.User;
@@ -12,11 +17,8 @@ import se.kits.gakusei.user.repository.EventRepository;
 import se.kits.gakusei.user.repository.ProgressTrackingRepository;
 import se.kits.gakusei.user.repository.UserRepository;
 
-import java.sql.Timestamp;
-
 @Component
 public class ProgressHandler {
-
     private Logger logger = LoggerFactory.getLogger(ProgressHandler.class);
 
     @Value("${gakusei.retention-factor-min}")
@@ -35,12 +37,17 @@ public class ProgressHandler {
         if (event.getNuggetId() == null) {
             return;
         }
+        User user = userRepository.findByUsername(
+            event.getUser().getUsername()
+        );
+        Timestamp latestTS = eventRepository.getLatestAnswerTimestamp(
+            user.getUsername()
+        );
 
-        User user = userRepository.findByUsername(event.getUser().getUsername());
-        Timestamp latestTS = eventRepository.getLatestAnswerTimestamp(user.getUsername());
-
-        ProgressTracking pt = progressTrackingRepository.findByUserAndNuggetID(user,
-                event.getNuggetId());
+        ProgressTracking pt = progressTrackingRepository.findByUserAndNuggetID(
+            user,
+            event.getNuggetId()
+        );
         if (pt != null) {
             if (event.getData().trim().equalsIgnoreCase("true")) {
                 pt.setCorrectCount(pt.getCorrectCount() + 1L);
@@ -62,31 +69,40 @@ public class ProgressHandler {
         pt.setLatestTimestamp(latestTS);
         pt.setLatestResult(Boolean.parseBoolean(event.getData()));
         progressTrackingRepository.save(pt);
-
     }
 
     public void updateRetention(Event event) {
-        User user = userRepository.findByUsername(event.getUser().getUsername());
-        ProgressTracking pt = progressTrackingRepository.findByUserAndNuggetID(user,
-                event.getNuggetId());
+        User user = userRepository.findByUsername(
+            event.getUser().getUsername()
+        );
+        ProgressTracking pt = progressTrackingRepository.findByUserAndNuggetID(
+            user,
+            event.getNuggetId()
+        );
 
         // Magic numbers in here are from the Super Memo 2 implementation article.
         String username = event.getUser().getUsername();
         String nuggetId = event.getNuggetId();
-        int timePeriod = eventRepository.getAnswerTimePeriod(username, nuggetId);
+        int timePeriod = eventRepository.getAnswerTimePeriod(
+            username,
+            nuggetId
+        );
 
         double retFactor = pt.getRetentionFactor();
         int quality = 1;
         if (event.getData().trim().equalsIgnoreCase("true")) {
             if (timePeriod < 5) {
                 quality = 5;
-            } else if(timePeriod < 10) {
+            } else if (timePeriod < 10) {
                 quality = 4;
             } else {
                 quality = 3;
             }
         }
-        retFactor = Math.max(retFactor - 0.8 + 0.28 * quality - 0.02 * quality * quality, retFactorMin);
+        retFactor = Math.max(
+            retFactor - 0.8 + 0.28 * quality - 0.02 * quality * quality,
+            retFactorMin
+        );
 
         double retInterval = pt.getRetentionInterval();
 
@@ -100,13 +116,25 @@ public class ProgressHandler {
             // Update the retention interval to I(n) := I(n-1) * retentionFactor, with random fuzz to avoid patterns
             retInterval = retInterval * retFactor + (Math.random() / 24);
         }
-
         Timestamp retTimeStamp = pt.getLatestTimestamp();
-        retTimeStamp.setTime(Math.round(retTimeStamp.getTime()+retInterval*24*3600*1000));
+        retTimeStamp.setTime(
+            Math.round(retTimeStamp.getTime() + retInterval * 24 * 3600 * 1000)
+        );
 
         pt.setRetentionFactor(retFactor);
         pt.setRetentionInterval(retInterval);
         pt.setRetentionDate(retTimeStamp);
         progressTrackingRepository.save(pt);
     }
+
+    @Caching(evict = {
+            @CacheEvict("lessons.retention.correct"),
+            @CacheEvict("lessons.retention.unanswered"),
+            @CacheEvict("lessons.retention.retention")
+    })
+    public void evictCache(String username, String lesson) {
+        //Used to clear cache when adding answers, method parameters are used as keys.
+    }
+
 }
+

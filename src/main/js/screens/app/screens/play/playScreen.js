@@ -20,21 +20,31 @@ export class playScreen extends React.Component {
       if (this.props.match.params.type) {
         this.props.setPageByName(`/select/${this.props.match.params.type}`);
       } else {
-        this.props.setPageByName('/home');
+        this.props.setPageByName(`/`);
       }
     }
 
     this.checkAnswer = this.checkAnswer.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.getCanvasURL = this.getCanvasURL.bind(this);
 
     this.state = {
-      showHint: false
+      showHint: false,
+      lastDrawnCanvas: null
     };
   }
 
   updateHintVisibility = () => {
     this.setState({ showHint: !this.state.showHint });
   };
+
+  getCanvasURL(url) {
+    this.state.lastDrawnCanvas !== url
+      ? this.setState({
+        lastDrawnCanvas: url
+      })
+      : null;
+  }
 
   checkAnswer(answer, cardData) {
     let cloneCard = 'undefined';
@@ -50,6 +60,10 @@ export class playScreen extends React.Component {
       this.props.requestUserLogout('/', getCSRF());
       this.props.verifyUserLoggedIn();
     });
+
+    if (this.props.match.params.type === 'kanji') {
+      this.props.addUserKanjiDrawing(this.state.lastDrawnCanvas);
+    }
 
     if (textInputPlayType) {
       this.props.setAnswerTextInputFocusedState(false);
@@ -101,7 +115,7 @@ export class playScreen extends React.Component {
             clickCallback={this.checkAnswer}
             clickNextCallback={this.nextQuestion}
             inputFocused={this.props.answerTextInputFocused}
-            correctAlternative={this.props.currentQuestion.correctAlternative}
+            correctAlternative={this.props.currentQuestion.correctAlternative[0]}
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
             updateHintVisibility={this.updateHintVisibility}
@@ -118,9 +132,11 @@ export class playScreen extends React.Component {
             cardType={this.props.match.params.type}
             buttonsDisabled={this.props.allButtonsDisabled}
             clickCallback={this.checkAnswer}
-            correctAlternative={this.props.currentQuestion.correctAlternative}
+            correctAlternative={this.props.currentQuestion.correctAlternative[0]}
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+            difficulty={this.props.kanjiDifficulty}
+            canvasUrlCallback={this.getCanvasURL}
           />
         );
         break;
@@ -133,7 +149,7 @@ export class playScreen extends React.Component {
             cardType={this.props.match.params.type}
             buttonsDisabled={this.props.allButtonsDisabled}
             clickCallback={this.checkAnswer}
-            correctAlternative={this.props.currentQuestion.correctAlternative}
+            correctAlternative={this.props.currentQuestion.correctAlternative[0]}
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
           />
@@ -150,7 +166,7 @@ export class playScreen extends React.Component {
             cardType={this.props.match.params.type}
             buttonsDisabled={this.props.allButtonsDisabled}
             clickCallback={this.checkAnswer}
-            correctAlternative={this.props.currentQuestion.correctAlternative}
+            correctAlternative={this.props.currentQuestion.correctAlternative[0]}
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
           />
@@ -175,7 +191,12 @@ export class playScreen extends React.Component {
             lessonSuccessRateMessage={this.props.lessonSuccessRateMessage}
             lessonType={this.props.match.params.type}
             feedbackItems={this.props.answeredQuestions.map(answeredQuestion => {
-              if (this.props.match.params.type !== 'kanji') {
+              return {
+                correct: answeredQuestion.userCorrect,
+                errorCount: answeredQuestion.userCorrect ? 1 : 0,
+                text: ''
+              };
+              /*               if (this.props.match.params.type !== 'kanjii') {
                 return {
                   correct: answeredQuestion.userCorrect,
                   errorCount: answeredQuestion.userCorrect ? 1 : 0,
@@ -186,7 +207,7 @@ export class playScreen extends React.Component {
                 correct: answeredQuestion.userCorrect,
                 errorCount: answeredQuestion.cardData.filter(line => !line.match.userCorrect).length,
                 text: answeredQuestion.cardData[answeredQuestion.cardData.length - 1].totalMatch.wording
-              };
+              }; */
             })}
           />
         </Col>

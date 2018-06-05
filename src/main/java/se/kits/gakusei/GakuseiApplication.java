@@ -11,4 +11,6 @@ public class GakuseiApplication {
     public static void main(String[] args) {
         SpringApplication.run(GakuseiApplication.class, args);
     }
+
 }
+
