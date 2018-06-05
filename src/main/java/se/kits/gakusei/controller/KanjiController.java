@@ -20,7 +20,7 @@ import se.kits.gakusei.util.KanjiHandler;
 
 @RestController
 public class KanjiController {
-    @Value("${gakusei.questions-quantity}")
+    @Value("${gakusei.kanji-quantity}")
     private int quantity;
 
     private LessonRepository lessonRepository;

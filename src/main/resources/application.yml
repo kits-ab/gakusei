@@ -14,6 +14,7 @@ gakusei:
   data-init: false
   event-logging: true
   questions-quantity: 20
+  kanji-quantity: 5
   retention-factor-min: 1.3
 
 
