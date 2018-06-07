@@ -46,9 +46,8 @@ public class LessonHandler {
     @Cacheable("lessons")
     public List<Lesson> getLessonsWithEnoughNuggets() {
         List<Lesson> lessons = lessonRepository.findAllByOrderByName();
-        lessons.stream().filter(
-                lesson -> lesson.getNuggets().size() >= 4
-        ).forEach(lesson -> lesson.clearNuggets());
+        lessons = lessons.stream().filter(lesson -> lesson.getNuggets().size() >= 4 && lesson.getKanjis().isEmpty()).collect(Collectors.toList());
+        lessons.stream().forEach(lesson -> lesson.clearNuggets());
         return lessons;
     }
 
@@ -60,6 +59,7 @@ public class LessonHandler {
         ).collect(Collectors.toList());
     }
 
+    @Cacheable("kanjilessons")
     public List<Lesson> getKanjiLessons() {
         return lessonRepository.findAllByOrderByName().stream().filter(
                 lesson -> !lesson.getKanjis().isEmpty()
@@ -77,25 +77,24 @@ public class LessonHandler {
 
     //Cacheable wrappers for the database queries.
     @Cacheable("lessons.retention.correct")
-    public Integer getNumberOfCorrectNuggets(String username, String lessonName){
+    public Integer getNumberOfCorrectNuggets(String username, String lessonName) {
         return lessonRepository.findNumberOfCorrectlyAnsweredNuggets(username, lessonName);
     }
 
     @Cacheable("lessons.retention.unanswered")
-    public Integer getNumberOfUnansweredRetentionNuggets(String username, String lessonName){
+    public Integer getNumberOfUnansweredRetentionNuggets(String username, String lessonName) {
         return lessonRepository.findNumberOfUnansweredRetentionNuggets(username, lessonName);
     }
 
     @Cacheable("lessons.retention.retention")
-    public Integer getNumberOfRetentionNuggets(String username, String lessonName){
+    public Integer getNumberOfRetentionNuggets(String username, String lessonName) {
         return lessonRepository.findNumberOfNuggetsByRetentionDate(username, lessonName);
     }
 
     @Cacheable("lessons.numbers")
-    public Integer findNumberOfNuggetsByName(String lessonName){
+    public Integer findNumberOfNuggetsByName(String lessonName) {
         return lessonRepository.findNumberOfNuggetsByName(lessonName);
     }
-
 
 
 }

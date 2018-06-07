@@ -72,17 +72,15 @@ public class LessonController {
     public ResponseEntity<
         HashMap<String, HashMap<String, Integer>>
     > getQuestionInfo(
-        @RequestParam(name = "questionType", defaultValue = "reading")
-        String questionType,
-        @RequestParam(name = "answerType", defaultValue = "swedish")
-        String answerType,
+        @RequestParam(name = "lessonType", defaultValue = "guess")
+        String lessonType,
         @RequestParam(name = "username")
         String username
     ) {
         HashMap<
             String,
             HashMap<String, Integer>
-        > values = getStringHashMapHashMap(username);
+        > values = getStringHashMapHashMap(username, lessonType);
         return new ResponseEntity<>(values, HttpStatus.OK);
     }
 
@@ -105,22 +103,32 @@ public class LessonController {
 
 
     public HashMap<String, HashMap<String, Integer>> getStringHashMapHashMap(
-            String username
+            String username, String lessonType
     ) {
         long mark = System.currentTimeMillis();
 
         HashMap<String, HashMap<String, Integer>> values = new HashMap<>();
-        List<Lesson> tmpLessons = lessonHandler.getLessonsWithEnoughNuggets();
+        List<Lesson> tmpLessons;
+
+        if(lessonType.equals("kanji")){
+            tmpLessons = lessonHandler.getKanjiLessons();
+        } else {
+            tmpLessons = lessonHandler.getLessonsWithEnoughNuggets();
+        }
+
         logger.info(
                 "Getting vocabulary lessons took {} ms.",
                 System.currentTimeMillis() - mark
         );
         mark = System.currentTimeMillis();
         for (Lesson tmpLesson : tmpLessons) {
+
             Integer numNuggetsByName = lessonHandler.findNumberOfNuggetsByName(tmpLesson.getName());
             Integer numCorrectlyAnswered = lessonHandler.getNumberOfCorrectNuggets(username, tmpLesson.getName());
             Integer numUnansweredRetention = lessonHandler.getNumberOfUnansweredRetentionNuggets(username, tmpLesson.getName());
             Integer numRetentionNuggets = lessonHandler.getNumberOfRetentionNuggets(username, tmpLesson.getName());
+
+            
 
             logger.info(
                     "Un count for {}: {}",

@@ -11,6 +11,14 @@
         <jsr107:mbeans enable-management="true" enable-statistics="true"/>
     </cache>
 
+    <cache alias="kanjilessons">
+        <expiry>
+            <ttl unit="seconds">1800</ttl>
+        </expiry>
+        <heap unit="entries">1000</heap>
+        <jsr107:mbeans enable-management="true" enable-statistics="true"/>
+    </cache>
+
     <cache alias="lessons.numbers">
         <expiry>
             <ttl unit="seconds">1800</ttl>

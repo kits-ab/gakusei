@@ -35,7 +35,7 @@ export class selectScreen extends React.Component {
 
     this.props.fetchFavoriteLesson(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
-    this.props.fetchaddressedQuestionsInLessons();
+    this.props.fetchaddressedQuestionsInLessons(this.state.playType);
 
     if (this.state.playType === 'kanji') {
       this.props.setQuestionLanguage('reading');
@@ -307,25 +307,30 @@ export class selectScreen extends React.Component {
       );
     };
 
+    const languageSelection =
+      this.state.playType !== 'kanji' ? (
+        <FormGroup controlId="languageSelect">
+          <RadioLanguage
+            key={'reading'}
+            name={'languageSelect'}
+            languageQuestion={{ id: 'reading', text: 'Japanska' }}
+            languageAnswer={{ id: 'swedish', text: 'Svenska' }}
+          />
+          <RadioLanguage
+            key={'swedish'}
+            name={'languageSelect'}
+            languageQuestion={{ id: 'swedish', text: 'Svenska' }}
+            languageAnswer={{ id: 'reading', text: 'Japanska' }}
+          />
+        </FormGroup>
+      ) : null;
+
     if (this.state.playType === 'quiz' || this.state.playType === 'grammar') {
       return null;
     } else {
       return this.props.spacedRepetitionModes.includes(this.state.playType) ? (
         <FormGroup>
-          <FormGroup controlId="languageSelect">
-            <RadioLanguage
-              key={'reading'}
-              name={'languageSelect'}
-              languageQuestion={{ id: 'reading', text: 'Japanska' }}
-              languageAnswer={{ id: 'swedish', text: 'Svenska' }}
-            />
-            <RadioLanguage
-              key={'swedish'}
-              name={'languageSelect'}
-              languageQuestion={{ id: 'swedish', text: 'Svenska' }}
-              languageAnswer={{ id: 'reading', text: 'Japanska' }}
-            />
-          </FormGroup>
+          {languageSelection}
           <FormGroup>
             <ControlLabel>Smart inlärningsläge</ControlLabel>
             <ToggleButton
@@ -456,8 +461,8 @@ export class selectScreen extends React.Component {
         <Col>
           <h1>{this.getPageHeader()}</h1>
           <p>{this.getPageDescription()}</p>
-          {this.getLanguageSelection()}
           {this.getKanjiSettingsSelection()}
+          {this.getLanguageSelection()}
           <h2>Lektioner</h2>
           {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? favoriteLesson : null}
 

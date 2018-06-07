@@ -51,7 +51,7 @@ export const defaultState = {
 
   answerTextInputFocused: true,
   spacedRepetition: true,
-  spacedRepetitionModes: ['guess', 'translate', 'flashcards'],
+  spacedRepetitionModes: ['guess', 'translate', 'flashcards', 'kanji'],
 
   // Things originally in SessionStorage
   correctAttempts: 0,
@@ -566,10 +566,10 @@ export function fetchLessons(type) {
   };
 }
 
-export function fetchaddressedQuestionsInLessons() {
+export function fetchaddressedQuestionsInLessons(type) {
   return function(dispatch, getState) {
-    const securityState = getState().security;
-    return fetch(`/api/lessonInfo?username=${securityState.loggedInUser}`, { credentials: 'same-origin' })
+    const username = getState().security.loggedInUser;
+    return fetch(`/api/lessonInfo?username=${username}&lessonType=${type}`, { credentials: 'same-origin' })
       .then(response => response.json())
       .then(result => dispatch(setAddressedQuestions(result)));
   };
