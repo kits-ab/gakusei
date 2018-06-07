@@ -116,7 +116,6 @@ export default class Utility {
   }
 
   static logEvents(logData, sendImmediately) {
-    console.log(logData);
     for (let i = 0; i < logData.data.length; i++) {
       this.logEvent(
         logData.page,
