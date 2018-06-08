@@ -193,5 +193,7 @@ public class Lesson implements Serializable {
         this.nuggets = null;
     }
 
+    public void clearKanjis() {this.kanjis = null; }
+
 }
 

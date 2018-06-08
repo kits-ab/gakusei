@@ -61,9 +61,11 @@ public class LessonHandler {
 
     @Cacheable("kanjilessons")
     public List<Lesson> getKanjiLessons() {
-        return lessonRepository.findAllByOrderByName().stream().filter(
-                lesson -> !lesson.getKanjis().isEmpty()
-        ).collect(Collectors.toList());
+        List<Lesson> lessons = lessonRepository.findAllByOrderByName().stream().filter(
+                lesson -> !lesson.getKanjis().isEmpty()).collect(Collectors.toList());
+        lessons.stream().forEach(lesson -> lesson.clearKanjis());
+        lessons.stream().forEach(lesson -> lesson.clearNuggets());
+        return lessons;
     }
 
     public FavoriteLesson getLessonFromFavorites(String username, HashMap<String, Integer> hashMap) {

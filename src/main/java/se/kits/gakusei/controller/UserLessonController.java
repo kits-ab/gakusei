@@ -39,6 +39,7 @@ public class UserLessonController {
     ) {
         List<UserLesson> userLessons = userLessonRepository.findUsersStarredLessons(username);
         userLessons.stream().forEach(ul -> ul.getLesson().clearNuggets());
+        userLessons.stream().forEach(ul -> ul.getLesson().clearKanjis());
         return new ResponseEntity<>(
                 userLessons,
                 HttpStatus.OK
