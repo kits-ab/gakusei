@@ -46,6 +46,7 @@ export class selectScreen extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.state.playType !== nextProps.match.params.type) {
       this.props.fetchLessons(nextProps.match.params.type).catch(() => this.props.verifyUserLoggedIn());
+      this.props.fetchaddressedQuestionsInLessons(nextProps.match.params.type);
       this.setState({
         playType: nextProps.match.params.type
       });

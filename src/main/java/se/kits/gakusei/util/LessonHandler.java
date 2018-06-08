@@ -96,5 +96,27 @@ public class LessonHandler {
         return lessonRepository.findNumberOfNuggetsByName(lessonName);
     }
 
+    // Kanji equivalents
+    @Cacheable("lessons.kanji.numbers")
+    public Integer findNumberOfKanjisByName(String lessonName) {
+        return lessonRepository.findNumberOfKanjisByName(lessonName);
+    }
+
+    @Cacheable("lessons.kanji.retention.correct")
+    public Integer getNumberOfCorrectKanjis(String username, String lessonName) {
+        return lessonRepository.findNumberOfCorrectlyAnsweredKanjis(username, lessonName);
+    }
+
+    @Cacheable("lessons.kanji.retention.retention")
+    public Integer getNumberOfRetentionKanjis(String username, String lessonName) {
+        return lessonRepository.findNumberOfKanjisByRetentionDate(username, lessonName);
+    }
+
+    @Cacheable("lessons.kanji.retention.unanswered")
+    public Integer getNumberOfUnansweredRetentionKanjis(String username, String lessonName) {
+        return lessonRepository.findNumberOfUnansweredRetentionKanjis(username, lessonName);
+    }
+
+
 
 }

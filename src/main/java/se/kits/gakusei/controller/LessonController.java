@@ -123,12 +123,23 @@ public class LessonController {
         mark = System.currentTimeMillis();
         for (Lesson tmpLesson : tmpLessons) {
 
-            Integer numNuggetsByName = lessonHandler.findNumberOfNuggetsByName(tmpLesson.getName());
-            Integer numCorrectlyAnswered = lessonHandler.getNumberOfCorrectNuggets(username, tmpLesson.getName());
-            Integer numUnansweredRetention = lessonHandler.getNumberOfUnansweredRetentionNuggets(username, tmpLesson.getName());
-            Integer numRetentionNuggets = lessonHandler.getNumberOfRetentionNuggets(username, tmpLesson.getName());
+            Integer numNuggetsByName;
+            Integer numCorrectlyAnswered;
+            Integer numUnansweredRetention;
+            Integer numRetentionNuggets;
 
-            
+            if(lessonType.equals("kanji")) {
+                numNuggetsByName =  lessonHandler.findNumberOfKanjisByName(tmpLesson.getName());
+                numCorrectlyAnswered = lessonHandler.getNumberOfCorrectKanjis(username, tmpLesson.getName());
+                numUnansweredRetention = lessonHandler.getNumberOfUnansweredRetentionKanjis(username, tmpLesson.getName());
+                numRetentionNuggets = lessonHandler.getNumberOfRetentionKanjis(username, tmpLesson.getName());
+
+            } else {
+                numNuggetsByName = lessonHandler.findNumberOfNuggetsByName(tmpLesson.getName());
+                numCorrectlyAnswered = lessonHandler.getNumberOfCorrectNuggets(username, tmpLesson.getName());
+                numUnansweredRetention = lessonHandler.getNumberOfUnansweredRetentionNuggets(username, tmpLesson.getName());
+                numRetentionNuggets = lessonHandler.getNumberOfRetentionNuggets(username, tmpLesson.getName());
+            }
 
             logger.info(
                     "Un count for {}: {}",

@@ -51,4 +51,36 @@
         <jsr107:mbeans enable-management="true" enable-statistics="true"/>
     </cache>
 
+    <cache alias="lessons.kanji.numbers">
+        <expiry>
+            <ttl unit="seconds">1800</ttl>
+        </expiry>
+        <heap unit="entries">1000</heap>
+        <jsr107:mbeans enable-management="true" enable-statistics="true"/>
+    </cache>
+
+    <cache alias="lessons.kanji.retention.correct">
+        <expiry>
+            <ttl unit="seconds">1800</ttl>
+        </expiry>
+        <heap unit="entries">1000</heap>
+        <jsr107:mbeans enable-management="true" enable-statistics="true"/>
+    </cache>
+
+    <cache alias="lessons.kanji.retention.unanswered">
+        <expiry>
+            <ttl unit="seconds">1800</ttl>
+        </expiry>
+        <heap unit="entries">1000</heap>
+        <jsr107:mbeans enable-management="true" enable-statistics="true"/>
+    </cache>
+
+    <cache alias="lessons.kanji.retention.retention">
+        <expiry>
+            <ttl unit="seconds">1800</ttl>
+        </expiry>
+        <heap unit="entries">1000</heap>
+        <jsr107:mbeans enable-management="true" enable-statistics="true"/>
+    </cache>
+
 </config>
