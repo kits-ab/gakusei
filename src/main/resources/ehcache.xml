@@ -5,7 +5,7 @@
 							http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
     <cache alias="lessons">
         <expiry>
-            <ttl unit="seconds">1800</ttl>
+            <ttl unit="seconds">3600</ttl>
         </expiry>
         <heap unit="entries">1000</heap>
         <jsr107:mbeans enable-management="true" enable-statistics="true"/>
@@ -21,7 +21,7 @@
 
     <cache alias="lessons.numbers">
         <expiry>
-            <ttl unit="seconds">1800</ttl>
+            <ttl unit="seconds">3600</ttl>
         </expiry>
         <heap unit="entries">1000</heap>
         <jsr107:mbeans enable-management="true" enable-statistics="true"/>
@@ -53,7 +53,7 @@
 
     <cache alias="lessons.kanji.numbers">
         <expiry>
-            <ttl unit="seconds">1800</ttl>
+            <ttl unit="seconds">3600</ttl>
         </expiry>
         <heap unit="entries">1000</heap>
         <jsr107:mbeans enable-management="true" enable-statistics="true"/>
