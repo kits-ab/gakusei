@@ -54,5 +54,25 @@ public class KanjiHandler {
         return questionMap;
     }
 
+    public List<Kanji> chooseKanjis(List<Kanji> unansweredKanjis, List<Kanji> retentionKanjis, int quantity) {
+        List<Kanji> visibleKanjis = new ArrayList<>();
+        List<Kanji> visibleRetentionKanjis = retentionKanjis.stream().filter(
+                kanji -> !kanji.isHidden()
+        ).collect(Collectors.toList());
+
+        List<Kanji> visibleUnansweredKanjis = unansweredKanjis.stream().filter(
+                kanji -> !kanji.isHidden()
+        ).collect(Collectors.toList());
+
+        Collections.shuffle(visibleUnansweredKanjis);
+
+        visibleKanjis.addAll(visibleRetentionKanjis);
+        visibleKanjis.addAll(visibleUnansweredKanjis);
+
+        if (visibleKanjis.size() <= quantity) {
+            return visibleKanjis;
+        }
+        return visibleKanjis.subList(0, quantity);
+    }
 }
 

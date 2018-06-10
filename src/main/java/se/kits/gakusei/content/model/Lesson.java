@@ -68,7 +68,26 @@ import org.hibernate.annotations.FetchMode;
                         "\tINNER JOIN contentschema.lessons_nuggets ON progresstrackinglist.nugget_id = lessons_nuggets.nugget_id\n" +
                         "\tWHERE user_ref = :username AND progresstrackinglist.retention_date <= current_timestamp \n" +
                         "\tAND lesson_id IN (SELECT id FROM contentschema.lessons WHERE name = :lessonName) ORDER BY retention_date ASC)",
-                resultClass = Nugget.class)
+                resultClass = Nugget.class),
+        @NamedNativeQuery(
+                name = "Lesson.findKanjisByRetentionDate",
+                query = "SELECT contentschema.kanjis.* FROM contentschema.kanjis\n" +
+                "WHERE kanjis.id IN (SELECT progresstrackinglist.nugget_id FROM progresstrackinglist\n" +
+                "INNER JOIN contentschema.lessons_kanjis ON progresstrackinglist.nugget_id = lessons_kanjis.kanji_id\n" +
+                "WHERE user_ref = :username AND progresstrackinglist.retention_date <= current_timestamp\n" +
+                "AND lesson_id IN (SELECT id FROM contentschema.lessons WHERE name = :lessonName) ORDER BY retention_date ASC)",
+                resultClass = Kanji.class),
+        @NamedNativeQuery(
+                name = "Lesson.findUnansweredRetentionKanjis",
+                query = "SELECT contentschema.kanjis.* FROM contentschema.kanjis\n" +
+                "WHERE kanjis.id NOT IN\n" +
+                "(SELECT lessons_kanjis.kanji_id FROM contentschema.lessons_kanjis\n" +
+                "LEFT JOIN progresstrackinglist ON progresstrackinglist.nugget_id = lessons_kanjis.kanji_id\n" +
+                "WHERE (user_ref = :username) AND retention_date IS NOT NULL\n" +
+                "AND lesson_id IN (SELECT id FROM contentschema.lessons WHERE name = :lessonName))\n" +
+                "AND kanjis.id IN (SELECT kanji_id FROM contentschema.lessons_kanjis RIGHT JOIN contentschema.lessons ON lessons_kanjis.lesson_id = lessons.id WHERE name = :lessonName)",
+
+                resultClass = Kanji.class)
 })
 @Table(name = "lessons", schema = "contentschema")
 public class Lesson implements Serializable {

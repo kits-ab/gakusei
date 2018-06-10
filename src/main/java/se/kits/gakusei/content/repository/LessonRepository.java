@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import se.kits.gakusei.content.model.Kanji;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 
@@ -159,6 +160,19 @@ public interface LessonRepository
                     String lessonName
     );
 
+    List<Kanji> findKanjisByRetentionDate(
+            @Param("username")
+                    String username,
+            @Param("lessonName")
+                    String lessonName
+    );
+    
+    List<Kanji> findUnansweredRetentionKanjis(
+            @Param("username")
+                    String username,
+            @Param("lessonName")
+                    String lessonName
+    );
 
 }
 
