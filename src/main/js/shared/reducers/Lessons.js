@@ -121,9 +121,7 @@ export const SET_ANSWER_LANGUAGE = 'SET_ANSWER_LANGUAGE';
 export const SET_ADDRESSED_QUESTIONS = 'SET_ADDRESSED_QUESTIONS';
 export const SET_SPACED_REPETITION = 'SET_SPACED_REPETITION';
 export const SET_KANJI_DIFFICULTY = 'SET_KANJI_DIFFICULTY';
-export const GET_LESSON_REQUEST = 'GET_LESSON_REQUEST';
-export const GET_LESSON_SUCCESS = 'GET_LESSON_SUCCESS';
-export const GET_LESSON_FAILURE = 'GET_LESSON_FAILURE';
+export const SET_FETCHING_LESSON = 'SET_FETCHING_LESSON';
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
@@ -594,8 +592,9 @@ export function fetchLesson(lessonType) {
     const securityState = getState().security;
 
     dispatch({
-      type: GET_LESSON_REQUEST,
-      description: 'A lesson has been requested.'
+      type: SET_FETCHING_LESSON,
+      description: 'A lesson has been requested.',
+      value: true
     });
 
     return new Promise(resolve =>
@@ -612,8 +611,9 @@ export function fetchLesson(lessonType) {
           dispatch(receiveLesson(json));
           dispatch(processCurrentQuestion());
           dispatch({
-            type: GET_LESSON_SUCCESS,
-            description: 'The requested lesson has been retrieved successfully.'
+            type: SET_FETCHING_LESSON,
+            description: 'The requested lesson has been retrieved successfully.',
+            value: false
           });
           resolve();
         })
@@ -716,6 +716,16 @@ export function addUserKanjiDrawing(drawURL) {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': xsrfTokenValue
       }
+    });
+  };
+}
+
+export function setFetchingLesson(value) {
+  return function(dispatch) {
+    dispatch({
+      type: SET_FETCHING_LESSON,
+      description: 'The requested lesson has been retrieved successfully.',
+      value
     });
   };
 }
@@ -931,20 +941,10 @@ export function lessons(state = defaultState, action) {
         ...state,
         kanjiDifficulty: action.difficulty
       };
-    case GET_LESSON_REQUEST:
+    case SET_FETCHING_LESSON:
       return {
         ...state,
-        isFetchingLesson: true
-      };
-    case GET_LESSON_SUCCESS:
-      return {
-        ...state,
-        isFetchingLesson: false
-      };
-    case GET_LESSON_FAILURE:
-      return {
-        ...state,
-        isFetchingLesson: false
+        isFetchingLesson: action.value
       };
   }
 }

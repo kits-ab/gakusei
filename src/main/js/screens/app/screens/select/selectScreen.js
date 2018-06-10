@@ -50,6 +50,7 @@ export class selectScreen extends React.Component {
       this.setState({
         playType: nextProps.match.params.type
       });
+      this.props.isFetchingLesson ? this.props.setFetchingLesson(false) : null;
     }
   }
 
