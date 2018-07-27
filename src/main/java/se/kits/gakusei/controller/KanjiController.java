@@ -20,7 +20,7 @@ import se.kits.gakusei.util.KanjiHandler;
 
 @RestController
 public class KanjiController {
-    @Value("${gakusei.questions-quantity}")
+    @Value("${gakusei.kanji-quantity}")
     private int quantity;
 
     private LessonRepository lessonRepository;
@@ -44,11 +44,17 @@ public class KanjiController {
         @RequestParam(value = "lessonName")
         String lessonName,
         @RequestParam(name = "username")
-        String username
+        String username,
+        @RequestParam(
+                name = "spacedRepetition",
+                required = false,
+                defaultValue = "false"
+        )
+        boolean spacedRepetition
     ) {
         List<
             HashMap<String, Object>
-        > questions = getCachedKanjiQuestionsFromLesson(lessonName, username);
+        > questions = getCachedKanjiQuestionsFromLesson(lessonName, username, spacedRepetition);
         return questions.isEmpty() ? new ResponseEntity<>(
             HttpStatus.INTERNAL_SERVER_ERROR
         ) : new ResponseEntity<>(questions, HttpStatus.OK);
@@ -56,13 +62,29 @@ public class KanjiController {
 
     private List<HashMap<String, Object>> getCachedKanjiQuestionsFromLesson(
         String lessonName,
-        String username
+        String username,
+        boolean spacedRepetition
+
     ) {
         List<Kanji> allLessonKanjis = cachedFindKanjis(lessonName);
-        List<Kanji> chosenKanjis = kanjiHandler.chooseKanjis(
-            allLessonKanjis,
-            quantity
-        );
+        List<Kanji> chosenKanjis;
+
+
+
+        if(!spacedRepetition){
+            chosenKanjis = kanjiHandler.chooseKanjis(
+                    allLessonKanjis,
+                    quantity
+            );
+        } else {
+            List<Kanji> unansweredKanjis = lessonRepository.findUnansweredRetentionKanjis(username, lessonName);
+            List<Kanji> retentionKanjis = lessonRepository.findKanjisByRetentionDate(username, lessonName);
+
+            chosenKanjis = kanjiHandler.chooseKanjis(unansweredKanjis, retentionKanjis, quantity);
+        }
+
+
+
         return kanjiHandler.createKanjiQuestions(chosenKanjis);
     }
 

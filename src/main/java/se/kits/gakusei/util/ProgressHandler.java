@@ -130,7 +130,10 @@ public class ProgressHandler {
     @Caching(evict = {
             @CacheEvict("lessons.retention.correct"),
             @CacheEvict("lessons.retention.unanswered"),
-            @CacheEvict("lessons.retention.retention")
+            @CacheEvict("lessons.retention.retention"),
+            @CacheEvict("lessons.kanji.retention.correct"),
+            @CacheEvict("lessons.kanji.retention.unanswered"),
+            @CacheEvict("lessons.kanji.retention.retention")
     })
     public void evictCache(String username, String lesson) {
         //Used to clear cache when adding answers, method parameters are used as keys.

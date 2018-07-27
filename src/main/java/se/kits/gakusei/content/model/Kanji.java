@@ -1,15 +1,22 @@
 package se.kits.gakusei.content.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.*;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 @Table(name = "kanjis", schema = "contentschema")
-public class Kanji {
+public class Kanji implements Serializable {
     @Id
     private String id = UUID.randomUUID().toString();
 

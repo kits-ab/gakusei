@@ -39,7 +39,7 @@ In the instructions below, it is assumed that the aforementioned tools are avail
 2. In Postgres, create a user with name/password *gakusei*
 3. In Postgres, create a database with the name *gakusei* with the user *gakusei* as owner (or appropriate privileges)
 4. In Postgres, create a schema called *contentschema* in database *gakusei*
-5. Start the back-end with ```mvn spring-boot:run -Drun.profiles=postgres``` instead of ```mvn spring-boot:run```
+5. Start the back-end with ```mvn spring-boot:run -Drun.profiles=postgres``` or ```mvn spring-boot:run -Drun.profiles="postgres, enable-resource-caching"``` (if you want caching) instead of ```mvn spring-boot:run```
 
 **Note #1:** Data initialization is set manually to true or false in application.yml. Starting the server twice with data init set to true may put redundant data in your database, so make sure to only do it once. If you need to refresh your database, you will have to wipe and delete/drop all tables as well. 
 
@@ -134,10 +134,13 @@ Webpack packages everything into a bundle file (except for most resource files, 
 ### Backend
 - Spring Boot
 - Maven
+- Ehcache
 
 The backend is a Spring Boot application. The frontend's REST requests are received by the controllers which handles the
 request. The controllers uses modules with business logic and repositories with the database connections in order to
 handle the requests and returning a response.
+
+Ehcache is a very popular caching tool used to make the app run faster. The configuration for the cache is in ehcache.xml. Ehcache is only enabled if the `enable-resource-caching` profile is active which is highly recommended. Spring automatically configures Ehcache and only the `@EnableCaching` and `@Cacheable` annotations are required to use the cache. See the spring documentation on how to invalidate the cache if needed.
 
 ### Misc
 In the project's Spring Boot configuration file (src/main/resources/application.yml) the data initialization and event

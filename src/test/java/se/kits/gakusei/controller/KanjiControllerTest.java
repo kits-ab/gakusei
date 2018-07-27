@@ -65,7 +65,7 @@ public class KanjiControllerTest {
         Mockito.when(kanjiHandler.createKanjiQuestions(visibleKanjis)).thenReturn(questionList);
 
         ResponseEntity<List<HashMap<String, Object>>> re = kanjiController.getKanjiQuestionsFromLesson(lessonName,
-                userName);
+                userName, false);
 
         assertEquals(questionList, re.getBody());
         assertEquals(HttpStatus.OK, re.getStatusCode());
@@ -80,7 +80,7 @@ public class KanjiControllerTest {
         Mockito.when(kanjiHandler.createKanjiQuestions(visibleKanjis)).thenReturn(questionList);
 
         ResponseEntity<List<HashMap<String, Object>>> re = kanjiController.getKanjiQuestionsFromLesson(lessonName,
-                userName);
+                userName, false);
 
         assertNull(re.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());
