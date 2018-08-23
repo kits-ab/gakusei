@@ -178,7 +178,7 @@ export function calcLessonSuccessRate() {
     let lessonSuccessRate = 0;
 
     if (state.totalAttempts > 0) {
-      lessonSuccessRate = (state.correctAttempts / state.totalAttempts * 100).toFixed(0);
+      lessonSuccessRate = ((state.correctAttempts / state.totalAttempts) * 100).toFixed(0);
     }
 
     dispatch(receiveLessonSuccessRate(lessonSuccessRate));
@@ -399,15 +399,13 @@ export function processCurrentQuestion() {
 
     const currentQuestion = {
       shapes: state.questions[localQuestionIndex].question.map(s => s),
-      correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s =>
-        s.map(so => so.toLowerCase())
-      ),
+      correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s => s.map(so => so)),
       correctAlternativeNuggetId: state.questions[localQuestionIndex].questionNuggetId,
       randomizedAlternatives: Utility.randomizeOrder([
-        state.questions[localQuestionIndex].alternative1.map(s => s.toLowerCase()),
-        state.questions[localQuestionIndex].alternative2.map(s => s.toLowerCase()),
-        state.questions[localQuestionIndex].alternative3.map(s => s.toLowerCase()),
-        state.questions[localQuestionIndex].correctAlternative[0].map(s => s.toLowerCase())
+        state.questions[localQuestionIndex].alternative1.map(s => s),
+        state.questions[localQuestionIndex].alternative2.map(s => s),
+        state.questions[localQuestionIndex].alternative3.map(s => s),
+        state.questions[localQuestionIndex].correctAlternative[0].map(s => s)
       ]),
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonsDisabled: false,
