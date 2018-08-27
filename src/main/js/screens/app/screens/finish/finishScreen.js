@@ -116,13 +116,13 @@ export class finishScreen extends React.Component {
             mdOffset={2}
           >
             <div className="text-center">
-              <Button
+              {/* <Button
                 bsStyle="info"
                 className="tryAgainButton"
                 onClick={this.playAgain}
               >
                 Försök igen
-              </Button>{' '}
+              </Button>{' '} */}
               <Button
                 bsStyle="info"
                 className="backToSelectScreenButton"
