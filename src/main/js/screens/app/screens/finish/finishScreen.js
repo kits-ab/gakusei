@@ -24,7 +24,6 @@ export class finishScreen extends React.Component {
         this.props.setPageByName('/home');
       }
     }
-
     this.logEvents();
   }
 
@@ -45,7 +44,7 @@ export class finishScreen extends React.Component {
 
   backtoSelection() {
     this.props
-      .fetchLesson(this.props.match.params.type)
+      .fetchLessons(this.props.match.params.type)
       .catch(this.props.verifyUserLoggedIn())
       .then(this.props.setPageByName(`/select/${this.props.match.params.type}`));
   }
