@@ -51,6 +51,7 @@ Install [nodejs](https://nodejs.org/en/), any recent version is fine (>=v8.4.0)
 3. Now you can choose to either
 * Do `npm start` to open a web server at http://localhost:7777. Any changes will automatically update, so no need to run the command again.
 * Do `npm run compile` to simply compile the files, and visit the back-end server on http://localhost:8080 with reduced developer convenience. For every change you make in the front-end, you will need to run the command again.  
+
 **Note #1:** The following tools are useful for debugging the frontend: [Redux-devtools](https://github.com/zalmoxisus/redux-devtools-extension), and [React-devtools](https://github.com/facebook/react-devtools)  
 
 ### Package the project and run locally
