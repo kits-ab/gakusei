@@ -33,7 +33,7 @@ public interface LessonRepository
     @Query(value = "SELECT COUNT(contentschema.nuggets.id) FROM contentschema.nuggets \n" +
             "LEFT JOIN contentschema.lessons_nuggets ON lessons_nuggets.nugget_id = nuggets.id \n" +
             "LEFT JOIN contentschema.lessons ON lessons_nuggets.lesson_id = lessons.id\n" +
-            "WHERE lessons.name = :lessonName", nativeQuery = true)
+            "WHERE contentschema.nuggets.hidden is false and lessons.name = :lessonName", nativeQuery = true)
     @Cacheable("lessons.numbers")
     Integer findNumberOfNuggetsByName(
             @Param("lessonName") String lessonName
@@ -105,7 +105,7 @@ public interface LessonRepository
     );
 
     @Query(value = "SELECT COUNT(contentschema.nuggets.id) FROM contentschema.nuggets\n" +
-            "WHERE nuggets.id NOT IN\n" +
+            "WHERE nuggets.hidden IS FALSE AND nuggets.id NOT IN\n" +
             "(SELECT lessons_nuggets.nugget_id FROM contentschema.lessons_nuggets\n" +
             "LEFT JOIN progresstrackinglist ON progresstrackinglist.nugget_id = lessons_nuggets.nugget_id\n" +
             "WHERE (user_ref = :username) AND retention_date IS NOT NULL\n" +

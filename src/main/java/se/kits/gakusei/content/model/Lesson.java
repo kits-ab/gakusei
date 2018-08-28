@@ -28,7 +28,7 @@ import org.hibernate.annotations.FetchMode;
                 resultClass = Nugget.class),
         @NamedNativeQuery(
                 name = "Lesson.findUnansweredNuggets",
-                query = "select * from contentschema.nuggets where id not in " +
+                query = "select * from contentschema.nuggets where hidden is false and id not in " +
                         "(select nugget_id from progresstrackinglist where user_ref = :username)" +
                         "and id in " +
                         "(select ln.nugget_id from contentschema.lessons l, contentschema.lessons_nuggets ln" +
