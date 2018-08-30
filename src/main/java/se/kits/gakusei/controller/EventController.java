@@ -111,7 +111,6 @@ public class EventController {
         }
         if (event.getType().equalsIgnoreCase("updateRetention")) {
             progressHandler.updateRetention(event);
-            progressHandler.evictCache(user.getUsername(), event.getLesson());
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
