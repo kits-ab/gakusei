@@ -13,6 +13,9 @@ A beta version of Gakusei can be tested at [gakusei.daigaku.se](http://gakusei.d
 
 ## Prerequisites <a name="prereq"/>
 To build the project, it is recommended to use `npm`, a nodejs-based general command line utility, and maven (`mvn`), a command line utility for Java.
+
+Gakusei is also dependent on a [grammar library](https://github.com/psandboge/japanese-grammar-utils) which generates inflections for verbs (among other things). In order to build the project, you must install this library in your local m2 repository. Do this by cloning or downloading it and run `mvn clean install` in its root directory.
+
 In the instructions below, it is assumed that the aforementioned tools are available.
 
 ## Instructions <a name="instructions"/> 
