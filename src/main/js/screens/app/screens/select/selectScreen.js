@@ -443,8 +443,8 @@ export class selectScreen extends React.Component {
                       this.startLesson();
                     }}
                     disabled={
-                      this.props.starredLessons.length === 0 || this.getNumberOfFavoriteQuestions().unanswered == 0 
-                      && this.getNumberOfFavoriteQuestions().retention == 0
+                      this.props.starredLessons.length === 0 || this.getNumberOfFavoriteQuestions().unanswered === 0 
+                      && this.getNumberOfFavoriteQuestions().retention === 0
                     }
                     bsClass={'icon-button'}
                   >
