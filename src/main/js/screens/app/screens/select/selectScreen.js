@@ -215,9 +215,9 @@ export class selectScreen extends React.Component {
                   <ProgressBar
                     now={
                       100 -
-                      (this.getNumberOfRetentionQuestions(lesson).retention +
+                      ((this.getNumberOfRetentionQuestions(lesson).retention +
                         this.getNumberOfRetentionQuestions(lesson).unanswered) /
-                        this.getNumberOfRetentionQuestions(lesson).all *
+                        this.getNumberOfRetentionQuestions(lesson).all) *
                         100
                     }
                   />
@@ -229,14 +229,14 @@ export class selectScreen extends React.Component {
                       this.props.addressedQuestionsInLessons &&
                       Object.keys(this.props.addressedQuestionsInLessons).length > 0 &&
                       !['quiz', 'kanji', 'grammar'].includes(this.state.playType)
-                        ? parseInt(
+                        ? 0 /*parseInt(
                           (
                             this.props.addressedQuestionsInLessons[lesson.name].correctlyAnswered /
                               this.props.addressedQuestionsInLessons[lesson.name].all *
                               100
                           ).toFixed(),
                           10
-                        )
+                        )*/
                         : 0
                     }
                   />
@@ -423,9 +423,9 @@ export class selectScreen extends React.Component {
                       now={
                         this.getNumberOfFavoriteQuestions().all > 0
                           ? 100 -
-                            (this.getNumberOfFavoriteQuestions().retention +
+                            ((this.getNumberOfFavoriteQuestions().retention +
                               this.getNumberOfFavoriteQuestions().unanswered) /
-                              this.getNumberOfFavoriteQuestions().all *
+                              this.getNumberOfFavoriteQuestions().all) *
                               100
                           : 0
                       }
@@ -442,7 +442,10 @@ export class selectScreen extends React.Component {
                       this.props.setSelectedLesson(this.props.favoriteLesson);
                       this.startLesson();
                     }}
-                    disabled={this.props.starredLessons.length === 0}
+                    disabled={
+                      this.props.starredLessons.length === 0 || this.getNumberOfFavoriteQuestions().unanswered === 0 
+                      && this.getNumberOfFavoriteQuestions().retention === 0
+                    }
                     bsClass={'icon-button'}
                   >
                     <FontAwesomeIcon

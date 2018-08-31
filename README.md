@@ -13,12 +13,9 @@ A beta version of Gakusei can be tested at [gakusei.daigaku.se](http://gakusei.d
 
 ## Prerequisites <a name="prereq"/>
 To build the project, it is recommended to use `npm`, a nodejs-based general command line utility, and maven (`mvn`), a command line utility for Java.
-
-Gakusei is also dependent on a [grammar library](https://github.com/psandboge/japanese-grammar-utils) which generates inflections for verbs (among other things). In order to build the project, you must install this library in your local m2 repository. Do this by cloning or downloading it and run `mvn clean install` in its root directory.
-
 In the instructions below, it is assumed that the aforementioned tools are available.
 
-## Instructions <a name="instructions"/>
+## Instructions <a name="instructions"/> 
 **Quick Note:** If you are just looking to make the application run ASAP, without a persistent database or anything, do `mvn package -Pproduction` (The only requirements are maven and java 8.)
 
 `git clone` this project (how to get git: `apt-get install git` using *nix or using [Git for Windows/Mac/Solaris/Linux](https://git-scm.com/downloads)), or just download as zip and unzip it somewhere.
@@ -53,7 +50,9 @@ Install [nodejs](https://nodejs.org/en/), any recent version is fine (>=v8.4.0)
 2. In terminal, write `npm install` to install all needed dependencies
 3. Now you can choose to either
 * Do `npm start` to open a web server at http://localhost:7777. Any changes will automatically update, so no need to run the command again.
-* Do `npm run compile` to simply compile the files, and visit the back-end server on http://localhost:8080 with reduced developer convenience. For every change you make in the front-end, you will need to run the command again.
+* Do `npm run compile` to simply compile the files, and visit the back-end server on http://localhost:8080 with reduced developer convenience. For every change you make in the front-end, you will need to run the command again.  
+
+**Note #1:** The following tools are useful for debugging the frontend: [Redux-devtools](https://github.com/zalmoxisus/redux-devtools-extension), and [React-devtools](https://github.com/facebook/react-devtools)  
 
 ### Package the project and run locally
 Since we will create a single .jar file with all resources embedded, we will need to compile the front-end to the back-end resources first. We can use the pre-made maven profiles for this purpose.

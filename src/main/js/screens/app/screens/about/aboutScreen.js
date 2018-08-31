@@ -142,7 +142,8 @@ export default class aboutScreen extends React.Component {
                     href="https://www.kits.se"
                   >
                     Kits
-                  </a>. Besök gärna projektets{' '}
+                  </a>
+                  . Besök gärna projektets{' '}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -160,7 +161,8 @@ export default class aboutScreen extends React.Component {
                     href="https://opensource.org/licenses/mit-license.php"
                   >
                     MIT
-                  </a>. Nedan följer en lista på licenser för de moduler som projektet använder sig av.
+                  </a>
+                  . Nedan följer en lista på licenser för de moduler som projektet använder sig av.
                 </p>
               </div>
             </Col>
@@ -175,6 +177,38 @@ export default class aboutScreen extends React.Component {
                   <ListGroup>
                     {this.state.backend_licenses}
                     {this.state.frontend_licenses}
+                    <ListGroup>
+                      <ListGroupItem>
+                        Modul: <a href="https://kanjivg.tagaini.net/">KanjiVG</a>
+                        <br />
+                        Repository: <a href="https://github.com/KanjiVG/kanjivg">https://github.com/KanjiVG/kanjivg</a>
+                        <br />
+                        Licens(er):
+                        <br />
+                        <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        Modul: <a href="http://www.tanos.co.uk/jlpt/"> The Japanese Language Proficiency Test (JLPT)</a>
+                        <br />
+                        Licens(er):
+                        <br />
+                        <a href="https://creativecommons.org/licenses/by/2.5/">Creative Commons BY</a>
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        Modul: <a href="http://www.edrdg.org/edrdg/index.html">JMDict</a>
+                        <br />
+                        Licens(er):
+                        <br />
+                        <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+                      </ListGroupItem>
+                      <ListGroupItem>
+                        Modul: <a href="http://www.edrdg.org/edrdg/index.html">KanjiDict</a>
+                        <br />
+                        Licens(er):
+                        <br />
+                        <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+                      </ListGroupItem>
+                    </ListGroup>
                   </ListGroup>
                 </Panel.Body>
               </Panel.Collapse>

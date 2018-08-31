@@ -192,7 +192,8 @@ public class QuestionHandler {
             nugget -> !nugget.isHidden()
         ).distinct().collect(Collectors.toList());
 
-        return visibleNuggets.subList(0, Math.min(nuggets.size(), quantity));
+
+        return visibleNuggets.subList(0, Math.min(visibleNuggets.size(), quantity));
     }
 
     public List<Nugget> chooseNuggets(

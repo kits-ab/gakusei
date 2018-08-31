@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,10 @@ public class UserLessonController {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
+    @CacheEvict(value = {"lessons.retention.correct", "lessons.retention.unanswered",
+            "lessons.retention.retention", "lessons.kanji.retention.correct",
+            "lessons.kanji.retention.unanswered", "lessons.kanji.retention.retention"},
+            allEntries = true, beforeInvocation = true)
     public ResponseEntity<List<UserLesson>> getUserLesson(
         @RequestParam(value = "username")
         String username
