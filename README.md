@@ -15,7 +15,7 @@ A beta version of Gakusei can be tested at [gakusei.daigaku.se](http://gakusei.d
 To build the project, it is recommended to use `npm`, a nodejs-based general command line utility, and maven (`mvn`), a command line utility for Java.
 In the instructions below, it is assumed that the aforementioned tools are available.
 
-## Instructions <a name="instructions"/>
+## Instructions <a name="instructions"/> 
 **Quick Note:** If you are just looking to make the application run ASAP, without a persistent database or anything, do `mvn package -Pproduction` (The only requirements are maven and java 8.)
 
 `git clone` this project (how to get git: `apt-get install git` using *nix or using [Git for Windows/Mac/Solaris/Linux](https://git-scm.com/downloads)), or just download as zip and unzip it somewhere.
