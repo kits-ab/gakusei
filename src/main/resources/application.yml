@@ -66,7 +66,7 @@ spring:
   cache:
     type: jcache
     jcache:
-      config: ehcache.xml
+      config: classpath:ehcache.xml
 
 ---
 
