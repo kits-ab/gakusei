@@ -59,7 +59,7 @@ public class CourseControllerTest {
 
     @Test
     public void testGetCourseByIDOK() throws Exception {
-        Mockito.when(courseRepository.findOne(testCourse.getId())).thenReturn(testCourse);
+        Mockito.when(courseRepository.findById(testCourse.getId()).get()).thenReturn(testCourse);
 
         ResponseEntity<Course> re = courseController.getCourseByID(testCourse.getId());
 
@@ -69,7 +69,7 @@ public class CourseControllerTest {
 
     @Test
     public void testGetCourseByIDNotFound() {
-        Mockito.when(courseRepository.findOne(testCourse.getId())).thenReturn(null);
+        Mockito.when(courseRepository.findById(testCourse.getId()).get()).thenReturn(null);
 
         ResponseEntity<Course> re = courseController.getCourseByID(testCourse.getId());
 

@@ -242,7 +242,8 @@ public class DataInit implements ApplicationRunner {
         users.add(
             new User("admin", passwordEncoder.encode("gakusei"), "ROLE_ADMIN")
         );
-        userRepository.save(users);
+        //userRepository.save(users);
+        userRepository.saveAll(users);
     }
 
     private void createLessons() {
@@ -262,7 +263,7 @@ public class DataInit implements ApplicationRunner {
     }
 
     private void createLessonsByBooks() {
-        lessonRepository.save(
+        lessonRepository.saveAll(
             StreamSupport.stream(
                 bookRepository.findAll().spliterator(),
                 false
@@ -312,7 +313,7 @@ public class DataInit implements ApplicationRunner {
             QuizNugget quizNugget = quizNuggetRepository.save(
                 csvQuizNugget.getQuizNugget(quiz)
             );
-            incorrectAnswerRepository.save(
+            incorrectAnswerRepository.saveAll(
                 csvQuizNugget.getIncorrectAnswers(quizNugget)
             );
         }

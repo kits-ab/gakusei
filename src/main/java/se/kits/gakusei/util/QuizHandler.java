@@ -52,7 +52,7 @@ public class QuizHandler {
 
     public HashMap<String, Object> getQuizNugget(Long quizNuggetId) {
         HashMap<String, Object> myQuizNugget = convertQuizNugget(
-            quizNuggetRepository.findOne(quizNuggetId)
+            quizNuggetRepository.findById(quizNuggetId).get()
         );
         myQuizNugget.put(
             QN_INCORRECT_ANSWERS,
