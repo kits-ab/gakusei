@@ -34,10 +34,13 @@ spring:
     hibernate:
       ddl-auto: update
 
+
 gakusei:
   data-init: true
+---
 
-liquibase:
+spring:
+  liquibase:
       change-log: classpath:/db/db.changelog-master.yaml
       enabled: false
 
@@ -51,7 +54,7 @@ spring:
     password: gakusei
     driver-class-name: org.postgresql.Driver
 
-liquibase:
+  liquibase:
       change-log: classpath:/db/db.changelog-master.yaml
       enabled: true
 ---
@@ -63,7 +66,7 @@ spring:
   cache:
     type: jcache
     jcache:
-      config: ehcache.xml
+      config: classpath:ehcache.xml
 
 ---
 

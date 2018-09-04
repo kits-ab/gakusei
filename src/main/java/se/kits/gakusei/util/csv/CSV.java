@@ -1,5 +1,6 @@
 package se.kits.gakusei.util.csv;
 
+import com.univocity.parsers.common.processor.ConcurrentRowProcessor;
 import com.univocity.parsers.common.processor.RowListProcessor;
 import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
@@ -30,7 +31,7 @@ public class CSV {
         RowListProcessor rowProcessor = new RowListProcessor();
 
         settings.setLineSeparatorDetectionEnabled(true);
-        settings.setRowProcessor(rowProcessor);
+        settings.setProcessor(new ConcurrentRowProcessor(rowProcessor));
         settings.setHeaderExtractionEnabled(true);
 
         CsvParser parser = new CsvParser(settings);
