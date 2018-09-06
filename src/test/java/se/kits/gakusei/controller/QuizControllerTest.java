@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -93,7 +93,7 @@ public class QuizControllerTest {
 
     @Test
     public void testGetFirstPageOfQuizzesOK() {
-        Pageable pageRequest = new PageRequest(0, pageSize);
+        Pageable pageRequest = PageRequest.of(0, pageSize);
         Page<Quiz> firstPage = TestTools.generateQuizzesPage(manyQuizzes, pageRequest);
         Mockito.when(quizRepository.findAll(pageRequest)).thenReturn(firstPage);
         ResponseEntity<Iterable<Quiz>> re = quizController.getQuizzesPage(0);
@@ -104,7 +104,7 @@ public class QuizControllerTest {
     @Test
     public void testGetLastPageOfQuizzesOK() {
         int lastPageIndex = manyQuizzes.size() / pageSize;
-        Pageable pageRequest = new PageRequest(lastPageIndex, pageSize);
+        Pageable pageRequest = PageRequest.of(lastPageIndex, pageSize);
         Page<Quiz> lastPage = TestTools.generateQuizzesPage(manyQuizzes, pageRequest);
         Mockito.when(quizRepository.findAll(pageRequest)).thenReturn(lastPage);
         ResponseEntity<Iterable<Quiz>> re = quizController.getQuizzesPage(lastPageIndex);
@@ -114,7 +114,7 @@ public class QuizControllerTest {
 
     @Test
     public void testGetFirstPageOfQuizzesByNameOK() {
-        Pageable pageRequest = new PageRequest(0, pageSize);
+        Pageable pageRequest = PageRequest.of(0, pageSize);
         Page<Quiz> firstMatchingPage = TestTools.generateQuizzesPage(manyQuizzes, pageRequest);
         Mockito.when(quizRepository.findByNameContainingIgnoreCase(searchString, pageRequest)).
                 thenReturn(firstMatchingPage.getContent());
