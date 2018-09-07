@@ -15,6 +15,7 @@ import se.kits.gakusei.content.repository.CourseRepository;
 import se.kits.gakusei.test_tools.TestTools;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -57,9 +58,9 @@ public class CourseControllerTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());
     }
 
-    /*@Test
+    @Test
     public void testGetCourseByIDOK() throws Exception {
-        //Mockito.when(courseRepository.findById(testCourse.getId()).orElse(null)).thenReturn(testCourse);
+        Mockito.when(courseRepository.findById(testCourse.getId())).thenReturn(Optional.of(testCourse));
         Mockito.doReturn(testCourse).when(courseRepository.findById(Mockito.anyLong()));
 
         ResponseEntity<Course> re = courseController.getCourseByID(testCourse.getId());
@@ -70,12 +71,12 @@ public class CourseControllerTest {
 
     @Test
     public void testGetCourseByIDNotFound() {
-        Mockito.when(courseRepository.findById(testCourse.getId())).thenReturn(null);
+        Mockito.when(courseRepository.findById(testCourse.getId())).thenReturn(Optional.empty());
 
         ResponseEntity<Course> re = courseController.getCourseByID(testCourse.getId());
 
         assertEquals(HttpStatus.NOT_FOUND, re.getStatusCode());
-    }*/
+    }
 
     @Test
     public void testGetCourseByNameOK() throws Exception {
