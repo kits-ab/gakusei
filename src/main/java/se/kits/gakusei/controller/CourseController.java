@@ -41,7 +41,7 @@ public class CourseController {
         @PathVariable(value = "courseID")
         Long courseID
     ) {
-        Course course = courseRepository.findById(courseID).get();
+        Course course = courseRepository.findById(courseID).orElse(null);
 
         return createResponseEntity(course);
     }
