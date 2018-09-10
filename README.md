@@ -15,14 +15,14 @@ A beta version of Gakusei can be tested at [gakusei.daigaku.se](http://gakusei.d
 To build the project, it is recommended to use `npm`, a nodejs-based general command line utility, and maven (`mvn`), a command line utility for Java.
 In the instructions below, it is assumed that the aforementioned tools are available.
 
-## Instructions <a name="instructions"/> 
-**Quick Note:** If you are just looking to make the application run ASAP, without a persistent database or anything, do `mvn package -Pproduction` (The only requirements are maven and java 8.)
+## Instructions <a name="instructions"/>
+**Quick Note:** If you are just looking to make the application run ASAP, without a persistent database or anything, do `mvn package -Pproduction` (The only requirements are maven and java 10.)
 
 `git clone` this project (how to get git: `apt-get install git` using *nix or using [Git for Windows/Mac/Solaris/Linux](https://git-scm.com/downloads)), or just download as zip and unzip it somewhere.
 
 ### Get the back-end running in a development environment
 
-* You will need [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* You will need [Java 10](http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
 
 #### Simple: Using in-memory database (H2)
 
@@ -36,11 +36,12 @@ In the instructions below, it is assumed that the aforementioned tools are avail
 2. In Postgres, create a user with name/password *gakusei*
 3. In Postgres, create a database with the name *gakusei* with the user *gakusei* as owner (or appropriate privileges)
 4. In Postgres, create a schema called *contentschema* in database *gakusei*
-5. Start the back-end with ```mvn spring-boot:run -Drun.profiles=postgres``` or ```mvn spring-boot:run -Drun.profiles="postgres, enable-resource-caching"``` (if you want caching) instead of ```mvn spring-boot:run```
+5.(Java10) Start the back-end with ```mvn spring-boot:run -Dspring-boot.run.profiles=postgres``` or ```mvn spring-boot:run -Dspring-boot.run.profiles=postgres,enable-resource-caching```
 
-**Note #1:** Data initialization is set manually to true or false in application.yml. Starting the server twice with data init set to true may put redundant data in your database, so make sure to only do it once. If you need to refresh your database, you will have to wipe and delete/drop all tables as well. 
+**Note #1:** Data initialization is set manually to true or false in application.yml. Starting the server twice with data init set to true may put redundant data in your database, so make sure to only do it once. If you need to refresh your database, you will have to wipe and delete/drop all tables as well.
 
-**Note #2:** You should also be able to just run as a Java application in your IDE of choice, specifying `--spring.profiles.active=postgres` as argument to enable postgres.
+
+**Note #2:** You should also be able to just run as a Java application in your IDE of choice, specifying ##TODO"Update command"`--spring.profiles.active=postgres` as argument to enable postgres.
 
 ### Get the front-end running in a development environment
 
@@ -78,7 +79,7 @@ master  -> gakusei.daigaku.se
 develop -> staging.daigaku.se
 ```
 * ssh to the specified server
-* run `deploy_gakusei.sh` located in the Scripts directory 
+* run `deploy_gakusei.sh` located in the Scripts directory
 
 ### Staging and production servers
 The staging and production environments have similar setups. They are CentOs Linux 7 (Core) servers hosted by [Linode](https://www.linode.com/), with an [nginx](http://nginx.org/) web server.
@@ -107,14 +108,14 @@ Other bash scripts than the deploy script are available in the `Scripts` directo
 #### nginx
 The main nginx configuration file (`nginx.conf`) is located in `etc/nginx/`. Linode has a guide that covers most of the directives and setup: https://www.linode.com/docs/web-servers/nginx/how-to-configure-nginx.
 
-The virtual domains ([server block](https://www.linode.com/docs/web-servers/nginx/how-to-configure-nginx#server-virtual-domains-configuration)) configuration is located in `sites-available`. 
+The virtual domains ([server block](https://www.linode.com/docs/web-servers/nginx/how-to-configure-nginx#server-virtual-domains-configuration)) configuration is located in `sites-available`.
 
 nginx listens to incoming http requests on port 80 and https requests on port 443. <br>
 All incoming http requests are rewritten to https URIs and redirected to port 443. <br>
 Subsequently the requests are proxied to Tomcat serving Gakusei on localhost:8080.
 
 ### Monit
-Monit is a free open-source proccess supervision tool. It is used on the Gakusei servers in order to run the start up script when Gakusei is down. `monit status` shows the status of the server. The configuration for monit is in `/etc/monitrc`. 
+Monit is a free open-source proccess supervision tool. It is used on the Gakusei servers in order to run the start up script when Gakusei is down. `monit status` shows the status of the server. The configuration for monit is in `/etc/monitrc`.
 
 ## System overview <a name="system"/>
 The following picture gives a brief overview of the projects structure:
@@ -144,5 +145,4 @@ Ehcache is a very popular caching tool used to make the app run faster. The conf
 ### Misc
 In the project's Spring Boot configuration file (src/main/resources/application.yml) the data initialization and event
 logging can be turned on and off. Data initialization is only for the development environment, as actual data is not shipped in this project.
-
 Any changes to data structure is done via liquibase's changeset file. Make sure your changes are incremental (one changeset for each new change) after you've published your application somewhere, otherwise liquibase will think you've done something wrong modifying existing changesets, and will refuse to continue.
