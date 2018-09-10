@@ -40,7 +40,7 @@ public class BookController {
         @PathVariable(value = "bookId")
         Long bookId
     ) {
-        Book book = bookRepository.findOne(bookId);
+        Book book = bookRepository.findById(bookId).get();
 
         if (book != null) {
             return new ResponseEntity<>(book, HttpStatus.OK);
