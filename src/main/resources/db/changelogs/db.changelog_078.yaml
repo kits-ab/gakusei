@@ -1,0 +1,19 @@
+databaseChangeLog:
+- changeSet:
+    id: 78
+    author: lars
+    preConditions:
+    - onFail: MARK_RAN
+    - not:
+      - columnExists:
+          schemaName: contentschema
+          tableName: kanjis
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: reading
+            type: varchar(127)
+        schemaName: contentschema
+        tableName: kanjis
+
