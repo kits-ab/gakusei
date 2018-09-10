@@ -141,7 +141,7 @@ public class ProgressHandlerTest {
         ProgressTracking spyPT = spy(progressTracking);
         Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "false");
         when(userRepository.findByUsername(username)).thenReturn(user);
-        when(nuggetRepository.findAll()).thenReturn(nuggets);
+        //TODO: Remove? Unnecessary Stubbing: when(nuggetRepository.findAll()).thenReturn(nuggets);
         when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(spyPT);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
@@ -159,7 +159,7 @@ public class ProgressHandlerTest {
         Timestamp timestampSql = new Timestamp(timestamp);
         Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "true");
         when(userRepository.findByUsername(username)).thenReturn(user);
-        when(nuggetRepository.findAll()).thenReturn(nuggets);
+        //TODO: Remove? Unnecessary Stubbing: when(nuggetRepository.findAll()).thenReturn(nuggets);
         when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(null);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);
@@ -177,7 +177,7 @@ public class ProgressHandlerTest {
         Timestamp timestampSql = new Timestamp(timestamp);
         Event event = createEvent(timestamp, user, gamemode, "answeredCorrectly", nuggets.get(1).getId(), "false");
         when(userRepository.findByUsername(username)).thenReturn(user);
-        when(nuggetRepository.findAll()).thenReturn(nuggets);
+        //TODO: Remove? Unnecessary Stubbing: when(nuggetRepository.findAll()).thenReturn(nuggets);
         when(progressTrackingRepository.findByUserAndNuggetID(user, nuggets.get(1).getId()))
                 .thenReturn(null);
         when(eventRepository.getLatestAnswerTimestamp(username)).thenReturn(timestampSql);

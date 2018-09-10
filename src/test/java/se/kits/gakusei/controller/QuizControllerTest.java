@@ -77,7 +77,7 @@ public class QuizControllerTest {
 
     @Test
     public void testGetQuizQuestionsLessonNameNull() {
-        Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(null);
+        //TODO: Remove? Unnecessary Stubbing: Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(null);
         ResponseEntity<List<HashMap<String, Object>>> re = quizController.getQuizQuestions(lessonName);
         assertEquals(null, re.getBody());
         assertEquals(HttpStatus.NOT_FOUND, re.getStatusCode());
