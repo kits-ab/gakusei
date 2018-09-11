@@ -440,11 +440,14 @@ export class selectScreen extends React.Component {
                     onClick={e => {
                       e.stopPropagation();
                       this.props.setSelectedLesson(this.props.favoriteLesson);
+                      console.log(this.props.setSelectedLesson);
+                      console.log(this.props.favoriteLesson);
                       this.startLesson();
                     }}
                     disabled={
-                      this.props.starredLessons.length === 0 || this.getNumberOfFavoriteQuestions().unanswered === 0 
-                      && this.getNumberOfFavoriteQuestions().retention === 0
+                      this.props.starredLessons.length === 0 ||
+                      (this.getNumberOfFavoriteQuestions().unanswered === 0 &&
+                        this.getNumberOfFavoriteQuestions().retention === 0)
                     }
                     bsClass={'icon-button'}
                   >

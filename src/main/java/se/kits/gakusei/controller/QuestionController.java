@@ -95,12 +95,24 @@ public class QuestionController {
         boolean spacedRepetition
     ) {//get all favorites, for each get unanswered and hard ones
 
-        List<
-            Lesson
-        > favoriteLessons = userLessonRepository.findUsersStarredLessons(
-            username
-        ).stream().map(UserLesson::getLesson).collect(Collectors.toList());
+        List<Lesson> favoriteLessons = userLessonRepository.findUsersStarredLessons(
+            username).stream().map(UserLesson::getLesson).collect(Collectors.toList());
         List<Nugget> favoriteNuggets;
+        List<Nugget> allLessonNuggets;
+        //Create list for Extra alternatives for incorrect answers
+        if (!lessonType.equals("grammar")) {
+            allLessonNuggets = favoriteLessons.stream().map(
+                    lesson -> cachedFindNuggets(lesson.getName())
+            ).flatMap(List::stream).collect(Collectors.toList());
+        } else {
+            allLessonNuggets = favoriteLessons.stream().map(
+                    lesson -> cachedFindVerbNuggets(lesson.getName())
+            ).flatMap(List::stream).collect(Collectors.toList());
+            Collections.shuffle(allLessonNuggets);
+            if (spacedRepetition && allLessonNuggets.size()>30){//Reduce size of alternatives
+                allLessonNuggets = allLessonNuggets.subList(0, 30);
+            }
+        }
         if (spacedRepetition) {
             List<Nugget> retentionNuggets = favoriteLessons.stream().map(
                 lesson -> lessonRepository.findNuggetsByRetentionDate(
@@ -122,16 +134,7 @@ public class QuestionController {
                 quantity
             );
         } else {
-            List<Nugget> allLessonNuggets;
-            if (!lessonType.equals("grammar")) {
-                allLessonNuggets = favoriteLessons.stream().map(
-                    lesson -> cachedFindNuggets(lesson.getName())
-                ).flatMap(List::stream).collect(Collectors.toList());
-            } else {
-                allLessonNuggets = favoriteLessons.stream().map(
-                    lesson -> cachedFindVerbNuggets(lesson.getName())
-                ).flatMap(List::stream).collect(Collectors.toList());
-            }
+
             List<Nugget> unansweredNuggets = favoriteLessons.stream().map(
                 lesson -> lessonRepository.findUnansweredNuggets(
                     username,
@@ -162,8 +165,9 @@ public class QuestionController {
             );
             //TODO: Fix favorite-mode for grammar questions.
         } else {
-            return questionHandler.createQuestions(
+            return questionHandler.createSpacedRepetitionQuestions(
                 favoriteNuggets,
+                allLessonNuggets,
                 questionType,
                 answerType
             );
