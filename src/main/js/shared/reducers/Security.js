@@ -57,7 +57,7 @@ export function fetchAnnouncement() {
   return function(dispatch) {
     return fetch(`/api/announcement`)
       .then(response => response.json())
-      .then(result => dispatch(recieveAnnouncement(result)));
+      .then(result => console.log(result));
   };
 }
 

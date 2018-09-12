@@ -22,7 +22,7 @@ public class Announcement implements Serializable {
     @Column
     private String text;
 
-    public Announcement() {};
+    public Announcement() {}
 
     public Long getId() {
         return id;

@@ -6,7 +6,7 @@ export default class startScreen extends React.Component {
   }
 
   render() {
-    const infotextOn = true;
+    const infotextOn = false;
     return (
       <div>
         <Jumbotron className="introduction">

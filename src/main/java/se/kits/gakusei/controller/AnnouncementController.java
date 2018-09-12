@@ -12,7 +12,8 @@ import se.kits.gakusei.content.model.Announcement;
 import se.kits.gakusei.content.repository.AnnouncementRepository;
 
 import java.time.LocalDateTime;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class AnnouncementController {
@@ -25,11 +26,25 @@ public class AnnouncementController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<Iterable<Announcement>> getAnnouncement() {
-        Iterable<Announcement> actualAnnouncements = announcementRepository
-                .findAnnouncementByStartDateIsBeforeAndEndDateIsAfter(LocalDateTime.now());
-        if (actualAnnouncements != null) {
-            return new ResponseEntity<>(actualAnnouncements, HttpStatus.OK);
-        } else {
+        Iterable<Announcement> allAnnouncements = announcementRepository.findAll();
+
+
+        /*List<Announcement> ActualAnnouncements= new ArrayList<>();
+        LocalDateTime date = LocalDateTime.now();
+        for (Announcement a:allAnnouncements) {
+            if (date.isAfter(a.getStartDate().toLocalDateTime())
+                && date.isBefore(a.getEndDate().toLocalDateTime())){
+                ActualAnnouncements.add(a);
+            }
+        }
+        if (ActualAnnouncements != null) {
+            return new ResponseEntity<>(ActualAnnouncements, HttpStatus.OK);
+        } else if (allAnnouncements != null){
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } */
+            if (allAnnouncements != null) {
+                return new ResponseEntity<>(allAnnouncements, HttpStatus.OK);
+            }else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
