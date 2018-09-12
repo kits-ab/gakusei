@@ -1,12 +1,22 @@
 import { Grid, Row, Col, Jumbotron, Button, ButtonGroup } from 'react-bootstrap';
 
 export default class startScreen extends React.Component {
+  componentDidMount() {
+    this.props.fetchAnnouncement();
+  }
+
   render() {
+    const infotextOn = true;
     return (
       <div>
         <Jumbotron className="introduction">
           <Grid className="introduction__container">
             <div className="introduction__text">
+              <div>
+                {infotextOn == true && (
+                  <p style={{ color: '#ffb014', textAlign: 'center' }}>{this.props.announcement.text}</p>
+                )}
+              </div>
               <h1 className="introduction__title">Bli student och lär dig japanska!</h1>
               <p className="introduction__description">
                 Ta del av Gakuseis inlärningsmaterial och lär dig japanska redan idag!
