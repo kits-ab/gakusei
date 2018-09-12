@@ -6,12 +6,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import se.kits.gakusei.content.model.*;
 import se.kits.gakusei.content.repository.GrammarTextRepository;
 import se.kits.gakusei.content.repository.InflectionRepository;
+import se.kits.gakusei.content.repository.NuggetRepository;
 import se.sandboge.japanese.conjugation.Verb;
 
 @Component
@@ -21,6 +21,12 @@ public class QuestionHandler {
 
     @Autowired
     InflectionRepository inflectionRepository;
+
+    @Autowired
+    ProgressHandler progressHandler;
+
+    @Autowired
+    NuggetRepository nuggetRepository;
 
     public List<HashMap<String, Object>> createQuestions(
         List<Nugget> nuggets,
@@ -243,6 +249,28 @@ public class QuestionHandler {
             e.printStackTrace();
         }
         return alternative;
+    }
+
+    //skapar createWrongAnswersQuestions
+    public Iterable<Nugget> wrongAnswers(String username, String lessonType){
+        List<String> wrongNuggets = progressHandler.getWrongAnswers(username, lessonType);
+        //får in en lista av felsvarade nuggets
+        for(int i = 0; i<wrongNuggets.size(); i++){
+            System.out.println(wrongNuggets.get(i));
+        }
+
+        //alla nuggets som man har svarat fel på
+        return nuggetRepository.findAllById(wrongNuggets);
+
+        //nu har vi alla nuggets
+        //kanske bara kan skicka vidare dem?
+
+        //the tricky part
+        //create questions...
+
+        //fel kanjis kommer också in i last_result
+        //vi behöver sortera på lessonType?
+
     }
 
 }

@@ -443,9 +443,49 @@ export class selectScreen extends React.Component {
                       this.startLesson();
                     }}
                     disabled={
-                      this.props.starredLessons.length === 0 || this.getNumberOfFavoriteQuestions().unanswered === 0 
-                      && this.getNumberOfFavoriteQuestions().retention === 0
+                      this.props.starredLessons.length === 0 ||
+                      (this.getNumberOfFavoriteQuestions().unanswered === 0 &&
+                        this.getNumberOfFavoriteQuestions().retention === 0)
                     }
+                    bsClass={'icon-button'}
+                  >
+                    <FontAwesomeIcon
+                      className={'fa-fw'}
+                      icon={faPlay}
+                    />
+                  </Button>
+                </div>
+              </div>
+            </Panel.Body>
+          </Panel>
+        </Col>
+      </Row>
+    );
+
+    // Lektion med frågor man har svarat fel på
+    const incorrectAnswers = (
+      <Row>
+        <Col
+          xs={12}
+          md={12}
+          lg={12}
+        >
+          <Panel>
+            <Panel.Body>
+              <div className={'exercise'}>
+                <div className={'exercise__header'}>
+                  <h3 className={'exercise__header__title'}>{'Felsvarade frågor'}</h3>
+                </div>
+                <div className={'exercise__progress'}>
+                  <ProgressBar />
+                </div>
+                <p className={'exercise__description'}>{'Frågor du har svarat fel på'}</p>
+                <div className={'exercise__actions'}>
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      console.log('hej');
+                    }}
                     bsClass={'icon-button'}
                   >
                     <FontAwesomeIcon
@@ -470,6 +510,7 @@ export class selectScreen extends React.Component {
           {this.getLanguageSelection()}
           <h2>Lektioner</h2>
           {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? favoriteLesson : null}
+          {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? incorrectAnswers : null}
 
           <div>
             {lessonsFavorite ? (

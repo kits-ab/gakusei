@@ -1,6 +1,8 @@
 package se.kits.gakusei.util;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.ProgressTracking;
 import se.kits.gakusei.user.model.User;
@@ -126,5 +129,24 @@ public class ProgressHandler {
         progressTrackingRepository.save(pt);
     }
 
+    //kollar vilka svar som är felsvarade
+    public List<String> getWrongAnswers(String username, String lessonType){
+        // skapar lista från tabllen progresstracking
+        List<ProgressTracking> allProgress = new ArrayList<>();
+        progressTrackingRepository.findAll().forEach(allProgress::add);
+        List<String> wrongNuggets = new ArrayList<>();
+
+        //loopar igenom och kollar vad en viss användare har svarat
+        for(int i = 0; i < allProgress.size(); i++){
+            if(allProgress.get(i).getUser().getUsername().equals(username)){
+                if(allProgress.get(i).isLatestResult() == false){
+                    System.out.println("user: " + allProgress.get(i).getUser().getUsername() + " last result: " + allProgress.get(i).isLatestResult());
+                    //lägg in nuggets som är felsvarade i en lista och returna den listan
+                    wrongNuggets.add(allProgress.get(i).getNuggetID());
+                }
+            }
+        }
+        return wrongNuggets;
+    }
 }
 
