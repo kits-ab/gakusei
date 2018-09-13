@@ -29,7 +29,7 @@ public class AnnouncementController {
         Iterable<Announcement> allAnnouncements = announcementRepository.findAll();
 
 
-        /*List<Announcement> ActualAnnouncements= new ArrayList<>();
+        List<Announcement> ActualAnnouncements= new ArrayList<>();
         LocalDateTime date = LocalDateTime.now();
         for (Announcement a:allAnnouncements) {
             if (date.isAfter(a.getStartDate().toLocalDateTime())
@@ -41,10 +41,7 @@ public class AnnouncementController {
             return new ResponseEntity<>(ActualAnnouncements, HttpStatus.OK);
         } else if (allAnnouncements != null){
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        } */
-            if (allAnnouncements != null) {
-                return new ResponseEntity<>(allAnnouncements, HttpStatus.OK);
-            }else {
+        }else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

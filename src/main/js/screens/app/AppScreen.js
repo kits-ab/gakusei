@@ -11,11 +11,26 @@ export class AppScreen extends React.Component {
   componentWillMount() {
     this.props.fetchLoggedInUser();
   }
+  componentDidMount() {
+    this.props.fetchAnnouncement();
+  }
 
   render() {
     return (
       <div>
         <header>
+          <div>
+            {this.props.announcement.map((announcement, i) => {
+              return (
+                <p
+                  key={i}
+                  className="announcement"
+                >
+                  {announcement.text}
+                </p>
+              );
+            })}
+          </div>
           <GakuseiNav />
         </header>
         <main>{this.props.children}</main>

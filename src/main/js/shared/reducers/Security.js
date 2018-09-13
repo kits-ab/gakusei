@@ -20,7 +20,7 @@ export const defaultState = {
   currentPageName: '',
   currentPage: null,
   redirectUrl: null,
-  announcement: null
+  announcement: []
 };
 
 // ----------------
@@ -57,7 +57,7 @@ export function fetchAnnouncement() {
   return function(dispatch) {
     return fetch(`/api/announcement`)
       .then(response => response.json())
-      .then(result => console.log(result));
+      .then(result => dispatch(recieveAnnouncement(result)));
   };
 }
 
