@@ -1,4 +1,5 @@
 import GakuseiNav from './components/GakuseiNav';
+import InfoBanner from './components/InfoBanner';
 
 import Utility from '../../shared/util/Utility';
 import * as Security from '../../shared/reducers/Security';
@@ -10,8 +11,6 @@ export const Reducers = [Security];
 export class AppScreen extends React.Component {
   componentWillMount() {
     this.props.fetchLoggedInUser();
-  }
-  componentDidMount() {
     this.props.fetchAnnouncement();
   }
 
@@ -19,18 +18,7 @@ export class AppScreen extends React.Component {
     return (
       <div>
         <header>
-          <div>
-            {this.props.announcement.map((announcement, i) => {
-              return (
-                <p
-                  key={i}
-                  className="announcement"
-                >
-                  {announcement.text}
-                </p>
-              );
-            })}
-          </div>
+          <InfoBanner />
           <GakuseiNav />
         </header>
         <main>{this.props.children}</main>

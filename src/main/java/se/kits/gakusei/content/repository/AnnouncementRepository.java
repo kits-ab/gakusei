@@ -10,5 +10,5 @@ public interface AnnouncementRepository
         extends CrudRepository<Announcement, Long> {
 
         Announcement findById(long id);
-        Announcement findAllWhereStartDateAfterAndEndDateBefore(Timestamp timestamp);
+        //Announcement findAllWhereStartDateAfterAndEndDateBefore(Timestamp timestamp);
 }
