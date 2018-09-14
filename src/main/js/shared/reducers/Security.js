@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 import { push } from 'react-router-redux';
 import { REHYDRATE } from 'redux-persist/constants';
 import Utility from '../../shared/util/Utility';
+import { receiveFavoriteLesson, setAddressedQuestions } from './Lessons';
 
 // ----------------
 // DEFAULT STATE
@@ -18,7 +19,8 @@ export const defaultState = {
   loggedInUser: '',
   currentPageName: '',
   currentPage: null,
-  redirectUrl: null
+  redirectUrl: null,
+  announcement: []
 };
 
 // ----------------
@@ -39,11 +41,25 @@ export const SET_LOGGING_IN = 'SET_LOGGING_IN';
 export const SET_REGISTERING = 'SET_REGISTERING';
 export const CLEAR_AUTH_RESPONSE = 'CLEAR_AUTH_RESPONSE';
 export const SET_REDIRECT_URL = 'SET_REDIRECT_URL';
+export const RECIEVE_ANNOUNCEMENT = 'RECIEVE_ANNOUNCEMENT';
 
 // -----------------
 // ACTION (CREATORS) - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
 // Use @typeName and isActionType for type detection that works even after serialization/deserialization.
+export function recieveAnnouncement(announcement) {
+  return {
+    type: RECIEVE_ANNOUNCEMENT,
+    announcement
+  };
+}
+export function fetchAnnouncement() {
+  return function(dispatch) {
+    return fetch(`/api/announcement`)
+      .then(response => response.json())
+      .then(result => dispatch(recieveAnnouncement(result)));
+  };
+}
 
 export function setRedirectUrl(url) {
   return {
@@ -288,7 +304,8 @@ export const actionCreators = {
   reloadCurrentRoute,
   verifyUserLoggedIn,
   clearAuthResponse,
-  setRedirectUrl
+  setRedirectUrl,
+  fetchAnnouncement
 };
 
 // ----------------
@@ -360,6 +377,11 @@ export function security(state = defaultState, action) {
       return {
         ...state,
         redirectUrl: action.url
+      };
+    case RECIEVE_ANNOUNCEMENT:
+      return {
+        ...state,
+        announcement: action.announcement
       };
   }
 }
