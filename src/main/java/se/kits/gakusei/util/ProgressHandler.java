@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import se.kits.gakusei.content.model.Nugget;
+import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.ProgressTracking;
 import se.kits.gakusei.user.model.User;
@@ -34,6 +35,9 @@ public class ProgressHandler {
 
     @Autowired
     private ProgressTrackingRepository progressTrackingRepository;
+
+    @Autowired
+    private NuggetRepository nuggetRepository;
 
     public void trackProgress(Event event) {
         if (event.getNuggetId() == null) {
@@ -130,22 +134,22 @@ public class ProgressHandler {
     }
 
     //kollar vilka svar som är felsvarade
-    public List<String> getWrongAnswers(String username, String lessonType){
+    public List<Nugget> getWrongAnswers(String username, String lessonType){
         // skapar lista från tabllen progresstracking
         List<ProgressTracking> allProgress = new ArrayList<>();
-        progressTrackingRepository.findAll().forEach(allProgress::add);
-        List<String> wrongNuggets = new ArrayList<>();
-
-        //loopar igenom och kollar vad en viss användare har svarat
-        for(int i = 0; i < allProgress.size(); i++){
-            if(allProgress.get(i).getUser().getUsername().equals(username)){
-                if(allProgress.get(i).isLatestResult() == false){
-                    System.out.println("user: " + allProgress.get(i).getUser().getUsername() + " last result: " + allProgress.get(i).isLatestResult());
-                    //lägg in nuggets som är felsvarade i en lista och returna den listan
-                    wrongNuggets.add(allProgress.get(i).getNuggetID());
+        // hämtar alla med latest_resutl = false och det username man får in och lägger i en lista
+        progressTrackingRepository.findAllByLatestResultAndUserUsernameEquals(false, username).forEach(allProgress::add);
+        List<Nugget> wrongNuggets = new ArrayList<>();
+        Iterable<Nugget> guesslist = nuggetRepository.findAll();
+        //itererar igenom alla items man fick från progresstracking och jämför med alla Nuggets för att hitta vilka som felsvar som är nuggets.
+        for (ProgressTracking item:allProgress) {
+            for(Nugget nugget:guesslist){
+                if (item.getNuggetID().equals(nugget.getId())){
+                    wrongNuggets.add(nugget);
                 }
             }
         }
+        //returnerar en lista av nuggets som en viss användare har svarat fel på.
         return wrongNuggets;
     }
 }

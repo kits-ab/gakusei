@@ -252,15 +252,18 @@ public class QuestionHandler {
     }
 
     //skapar createWrongAnswersQuestions
-    public Iterable<Nugget> wrongAnswers(String username, String lessonType){
-        List<String> wrongNuggets = progressHandler.getWrongAnswers(username, lessonType);
-        //får in en lista av felsvarade nuggets
-        for(int i = 0; i<wrongNuggets.size(); i++){
-            System.out.println(wrongNuggets.get(i));
-        }
+    public List<HashMap<String, Object>> wrongAnswers(String username, String lessonType, String questionType, String answerType){
+        List<Nugget> wrongNuggets = progressHandler.getWrongAnswers(username, lessonType);
+        System.out.println("questionType " + questionType);
+        System.out.println("answerType " + answerType);
+        //skapar frågorna med wrongNuggets som utgångspunkt
+        List<HashMap<String, Object>> questions = wrongNuggets.stream().map(
+                n -> createQuestion(n, wrongNuggets, questionType, answerType)
+        ).filter(Objects::nonNull).collect(Collectors.toList());
+        return questions;
 
         //alla nuggets som man har svarat fel på
-        return nuggetRepository.findAllById(wrongNuggets);
+        //return wrongNuggets;
 
         //nu har vi alla nuggets
         //kanske bara kan skicka vidare dem?
@@ -268,8 +271,6 @@ public class QuestionHandler {
         //the tricky part
         //create questions...
 
-        //fel kanjis kommer också in i last_result
-        //vi behöver sortera på lessonType?
 
     }
 
