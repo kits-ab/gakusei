@@ -74,9 +74,9 @@ Requirements:
 * Logstash
 * Logstash jdbc plugin
 
-**Note:** Logstash currently requires Java 8 and does not support Java 9 or higher.
+**NOTE** Logstash currently requires Java 8 and does not support Java 9 or higher.
 
-#### Installing Elastic stack
+#### Installing ELK 
 
 Complete steps 1-3 from this installation page for the Elastic Stack to install Elasticsearch, Kibana and Logstash:
 
@@ -120,17 +120,17 @@ output {
 ```
 **NOTE** `jdbc_driver_library` points to the postgres driver that you just downloaded.
 
-#### Running Elastic stack
+#### Running ELK
 
-1. Start elasticsearch and kibana by simply typing `elasticsearch` and `kibana` into seperate terminals.
-2. Start logstash with the following command: `logstash -f <pathToConfigFile>` in a third terminal.
-3. Open the web browser and go to `http://localhost:5601` which hosts the kibana application.
+1. Start Elasticsearch and Kibana by simply typing `elasticsearch` and `kibana` into seperate terminals.
+2. Start Logstash with the following command: `logstash -f <pathToConfigFile>` in a third terminal.
+3. Open the web browser and go to `http://localhost:5601` which hosts the Kibana application.
 4. In the upper right corner, click on `Set up index pattern` and type in the name of the index you defined in the config file.
 5. Click next and navigate to the `Discover` page on the left panel to see the data.
 
-You should now have imported the data from your database into elasticsearch and view it with kibana.
+You should now have imported the data from your database into Elasticsearch and view it with Kibana.
 
-Refer to online tutorials to learn how to use kibana or use the kbana user guide on the this page:
+Refer to online tutorials to learn how to use Kibana or use the Kibana user guide on the this page:
 https://www.elastic.co/guide/en/kibana/current/index.html
 
 ## Deployment <a name="deploy"/>
