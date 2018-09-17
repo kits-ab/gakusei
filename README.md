@@ -120,6 +120,7 @@ output {
 }
 ```
 **Note 2:** `jdbc_driver_library` points to the postgres driver that you just downloaded.
+
 **Note 3:** `index` does not have to be "gakusei". You can set the index to be whatever you want. You will refer to this later in Kibana.
 
 #### Running ELK
@@ -130,7 +131,10 @@ output {
 4. In the upper right corner, click on `Set up index pattern` and type in the name of the index you defined in the config file.
 5. Click next to complete the setup and then navigate to the `Discover` page on the left panel to see the data.
 
-**Note 4:** If nothing shows on the discover page, the timespan is probably too short. It can be changed from the upper right corner.
+**Note 4:** If nothing shows on the discover page, the timespan is probably too short. It can be changed from the upper right corner. You can also use the following command to check if Elasticsearch contains the data:
+* curl localhost:9200/gakusei/event/1
+
+This command would return the first indexed event by Elasticsearch where `gakusei` is the index name, `event` is the document type and the `1` at the end is the index of the event.
 
 You should now have imported the data from your database into Elasticsearch and view it with Kibana.
 
