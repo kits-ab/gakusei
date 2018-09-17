@@ -132,7 +132,7 @@ output {
 5. Click next to complete the setup and then navigate to the `Discover` page on the left panel to see the data.
 
 **Note 4:** If nothing shows on the discover page, the timespan is probably too short. It can be changed from the upper right corner. You can also use the following command to check if Elasticsearch contains the data:
-* curl localhost:9200/gakusei/event/1
+* `curl localhost:9200/gakusei/event/1`
 
 This command would return the first indexed event by Elasticsearch where `gakusei` is the index name, `event` is the document type and the `1` at the end is the index of the event.
 
