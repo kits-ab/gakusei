@@ -36,7 +36,7 @@ In the instructions below, it is assumed that the aforementioned tools are avail
 2. In Postgres, create a user with name/password *gakusei*
 3. In Postgres, create a database with the name *gakusei* with the user *gakusei* as owner (or appropriate privileges)
 4. In Postgres, create a schema called *contentschema* in database *gakusei*
-5.(Java10) Start the back-end with ```mvn spring-boot:run -Dspring-boot.run.profiles=postgres``` or ```mvn spring-boot:run -Dspring-boot.run.profiles=postgres,enable-resource-caching```
+5. (Java10) Start the back-end with ```mvn spring-boot:run -Dspring-boot.run.profiles=postgres``` or ```mvn spring-boot:run -Dspring-boot.run.profiles=postgres,enable-resource-caching```
 
 **Note #1:** Data initialization is set manually to true or false in application.yml. Starting the server twice with data init set to true may put redundant data in your database, so make sure to only do it once. If you need to refresh your database, you will have to wipe and delete/drop all tables as well.
 
@@ -66,6 +66,72 @@ Since we will create a single .jar file with all resources embedded, we will nee
 
 * Command `mvn package -Pdevelopment` is also available, should you want to use it for troubleshooting.
 * The spring profile "enable-resource-caching" enables some very effective caching methods. You should always want to have this profile active when you deploy in production.
+
+###	Using ELK to analyse events
+Requirements:
+* Elasticsearch
+* Kibana
+* Logstash
+* Logstash jdbc plugin
+
+**Note:** Logstash currently requires Java 8 and does not support Java 9 or higher.
+
+#### Installing Elastic stack
+
+Complete steps 1-3 from this installation page for the Elastic Stack to install Elasticsearch, Kibana and Logstash:
+
+https://www.elastic.co/guide/en/elastic-stack/current/installing-elastic-stack.html
+
+For Mac you can just use brew with the following commands:
+* `brew install elasticsearch`
+* `brew install kibana`
+* `brew install logstash`
+
+To be able to search the database, install the logstash jdbc input plugin with the following command:
+* `logstash-plugin install logstash-input-jdbc`
+
+In case the command does not work, refer to the installation page for the jdbc input plugin:
+https://www.elastic.co/blog/logstash-jdbc-input-plugin
+
+Download the latest version of the postgres driver from this page:
+https://jdbc.postgresql.org/download.html
+
+Create a config file for logstash, e.g., `gakusei-config.conf` and paste the following configuration into the file:
+
+```
+input {
+	jdbc {
+		jdbc_connection_string => "jdbc:postgresql://localhost:5432/gakusei"
+		jdbc_user => "gakusei"
+		jdbc_driver_library => "postgresql-42.2.5.jar"
+		jdbc_driver_class => "org.postgresql.Driver"
+		statement => "SELECT * from events"
+	}
+}
+
+output {
+	elasticsearch {
+		index => "gakusei"
+		document_type => "event"
+		document_id => "%{id}"
+		hosts => "localhost:9200"
+	}
+}
+```
+**NOTE** `jdbc_driver_library` points to the postgres driver that you just downloaded.
+
+#### Running Elastic stack
+
+1. Start elasticsearch and kibana by simply typing `elasticsearch` and `kibana` into seperate terminals.
+2. Start logstash with the following command: `logstash -f <pathToConfigFile>` in a third terminal.
+3. Open the web browser and go to `http://localhost:5601` which hosts the kibana application.
+4. In the upper right corner, click on `Set up index pattern` and type in the name of the index you defined in the config file.
+5. Click next and navigate to the `Discover` page on the left panel to see the data.
+
+You should now have imported the data from your database into elasticsearch and view it with kibana.
+
+Refer to online tutorials to learn how to use kibana or use the kbana user guide on the this page:
+https://www.elastic.co/guide/en/kibana/current/index.html
 
 ## Deployment <a name="deploy"/>
 The repository is synched with [Travis CI](https://travis-ci.org/), which is a tool for continuous integration that automatically builds, tests and deploys the project.
