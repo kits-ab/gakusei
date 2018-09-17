@@ -73,8 +73,9 @@ Requirements:
 * Kibana
 * Logstash
 * Logstash jdbc plugin
+* Running gakusei database
 
-**NOTE** Logstash currently requires Java 8 and does not support Java 9 or higher.
+**Note #1:** Logstash currently requires Java 8 and does not support Java 9 or higher.
 
 #### Installing ELK 
 
@@ -118,15 +119,18 @@ output {
 	}
 }
 ```
-**NOTE** `jdbc_driver_library` points to the postgres driver that you just downloaded.
+**Note 2:** `jdbc_driver_library` points to the postgres driver that you just downloaded.
+**Note 3:** `index` does not have to be "gakusei". You can set the index to be whatever you want. You will refer to this later in Kibana.
 
 #### Running ELK
 
 1. Start Elasticsearch and Kibana by simply typing `elasticsearch` and `kibana` into seperate terminals.
 2. Start Logstash with the following command: `logstash -f <pathToConfigFile>` in a third terminal.
-3. Open the web browser and go to `http://localhost:5601` which hosts the Kibana application.
+3. Open a web browser and go to `http://localhost:5601` which hosts the Kibana application.
 4. In the upper right corner, click on `Set up index pattern` and type in the name of the index you defined in the config file.
-5. Click next and navigate to the `Discover` page on the left panel to see the data.
+5. Click next to complete the setup and then navigate to the `Discover` page on the left panel to see the data.
+
+**Note 4:** If nothing shows on the discover page, the timespan is probably too short. It can be changed from the upper right corner.
 
 You should now have imported the data from your database into Elasticsearch and view it with Kibana.
 
