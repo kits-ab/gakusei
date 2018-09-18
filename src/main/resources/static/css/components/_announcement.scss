@@ -7,6 +7,16 @@
   background: #fff9c4;
   border-color: red;
   box-shadow: inset 0 0 1px #000000;
-  text-align: center;
+  //
+  display: flex;
+  justify-content: center;
   //opacity: 0.6;
+}
+.announcementText{
+  text-align: center;
+  justify-content: center;
+  flex-grow: 3;
+}
+.announcementButton{
+  justify-content: flex-end;
 }

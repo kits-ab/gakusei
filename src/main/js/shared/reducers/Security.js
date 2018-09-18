@@ -2,7 +2,7 @@ import 'whatwg-fetch';
 import { push } from 'react-router-redux';
 import { REHYDRATE } from 'redux-persist/constants';
 import Utility from '../../shared/util/Utility';
-import { receiveFavoriteLesson, setAddressedQuestions } from './Lessons';
+import { receiveFavoriteLesson, SET_FETCHING_LESSON, setAddressedQuestions } from './Lessons';
 
 // ----------------
 // DEFAULT STATE
@@ -20,7 +20,8 @@ export const defaultState = {
   currentPageName: '',
   currentPage: null,
   redirectUrl: null,
-  announcement: []
+  announcement: [],
+  displayAnnouncement: true
 };
 
 // ----------------
@@ -42,6 +43,7 @@ export const SET_REGISTERING = 'SET_REGISTERING';
 export const CLEAR_AUTH_RESPONSE = 'CLEAR_AUTH_RESPONSE';
 export const SET_REDIRECT_URL = 'SET_REDIRECT_URL';
 export const RECIEVE_ANNOUNCEMENT = 'RECIEVE_ANNOUNCEMENT';
+export const SET_DISPLAY_ANNOUNCEMENT = 'SET_DISPLAY_ANNOUNCEMENT';
 
 // -----------------
 // ACTION (CREATORS) - These are serializable (hence replayable) descriptions of state transitions.
@@ -51,6 +53,11 @@ export function recieveAnnouncement(announcement) {
   return {
     type: RECIEVE_ANNOUNCEMENT,
     announcement
+  };
+}
+export function disableAnnouncement() {
+  return {
+    type: SET_DISPLAY_ANNOUNCEMENT
   };
 }
 export function fetchAnnouncement() {
@@ -305,7 +312,8 @@ export const actionCreators = {
   verifyUserLoggedIn,
   clearAuthResponse,
   setRedirectUrl,
-  fetchAnnouncement
+  fetchAnnouncement,
+  disableAnnouncement
 };
 
 // ----------------
@@ -382,6 +390,11 @@ export function security(state = defaultState, action) {
       return {
         ...state,
         announcement: action.announcement
+      };
+    case SET_DISPLAY_ANNOUNCEMENT:
+      return {
+        ...state,
+        displayAnnouncement: false
       };
   }
 }

@@ -11,12 +11,23 @@ export class InfoBanner extends React.Component {
       <div>
         {this.props.announcement.map((announcement, i) => {
           return (
-            <p
-              key={i}
+            <div
+              key={'div' + i}
               className="announcement"
             >
-              {announcement.text}
-            </p>
+              <p
+                className={'announcementText'}
+                key={i}
+              >
+                {announcement.text}
+              </p>
+              <button
+                className={'announcementButton'}
+                onClick={this.props.disableAnnouncement.bind(this)}
+              >
+                X
+              </button>
+            </div>
           );
         })}
       </div>

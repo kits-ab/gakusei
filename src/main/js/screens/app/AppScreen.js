@@ -11,14 +11,16 @@ export const Reducers = [Security];
 export class AppScreen extends React.Component {
   componentWillMount() {
     this.props.fetchLoggedInUser();
-    this.props.fetchAnnouncement();
+    if (this.props.announcement != []) {
+      this.props.fetchAnnouncement();
+    }
   }
 
   render() {
     return (
       <div>
         <header>
-          <InfoBanner />
+          {this.props.displayAnnouncement && <InfoBanner />}
           <GakuseiNav />
         </header>
         <main>{this.props.children}</main>
