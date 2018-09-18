@@ -187,7 +187,7 @@ export function requestUserLogout(redirectUrl, csrf) {
         'X-XSRF-TOKEN': csrf || ''
       }
     }).then(response => {
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 204) {
         dispatch(receiveLoggedInStatus(false));
         dispatch(clearAuthResponse());
         dispatch(setPageByName(redirectUrl || routing.locationBeforeTransitions.pathname || '/'));
