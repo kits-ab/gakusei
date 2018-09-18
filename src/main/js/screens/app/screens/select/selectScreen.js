@@ -35,6 +35,8 @@ export class selectScreen extends React.Component {
 
     this.props.fetchFavoriteLesson(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
+    console.log(this.props.fetchLessonIncorrectAnswers());
+
     this.props.fetchaddressedQuestionsInLessons(this.state.playType);
 
     if (this.state.playType === 'kanji') {
@@ -94,8 +96,22 @@ export class selectScreen extends React.Component {
 
   startLesson() {
     if (!this.props.isFetchingLesson) {
+      //console.log(this.props.isFetchingLesson)
       try {
         this.props.fetchLesson(this.state.playType).then(() => {
+          this.props.setPageByName(`/play/${this.state.playType}`);
+        });
+      } catch (err) {
+        this.props.verifyUserLoggedIn();
+      }
+    }
+  }
+
+  //startar lektion med felsvarade frågor
+  startIncorrectAnswerLesson() {
+    if (!this.props.isFetchingLesson) {
+      try {
+        this.props.fetchLessonIncorrectAnswers(this.state.playType).then(() => {
           this.props.setPageByName(`/play/${this.state.playType}`);
         });
       } catch (err) {
@@ -483,9 +499,14 @@ export class selectScreen extends React.Component {
                 <div className={'exercise__actions'}>
                   <Button
                     onClick={e => {
+                      //behövs felhantering när en användare inte har svarat fel på något
                       e.stopPropagation();
-                      console.log('hej');
+                      this.props.setSelectedLesson(this.props.lessons);
+                      this.startIncorrectAnswerLesson();
                     }}
+                    //disabled={
+                    //this.props.fetchLessonIncorrectAnswers() === ""
+                    //}
                     bsClass={'icon-button'}
                   >
                     <FontAwesomeIcon

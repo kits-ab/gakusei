@@ -254,22 +254,11 @@ public class QuestionHandler {
     //skapar createWrongAnswersQuestions
     public List<HashMap<String, Object>> wrongAnswers(String username, String lessonType, String questionType, String answerType){
         List<Nugget> wrongNuggets = progressHandler.getWrongAnswers(username, lessonType);
-        System.out.println("questionType " + questionType);
-        System.out.println("answerType " + answerType);
         //skapar frågorna med wrongNuggets som utgångspunkt
         List<HashMap<String, Object>> questions = wrongNuggets.stream().map(
                 n -> createQuestion(n, wrongNuggets, questionType, answerType)
         ).filter(Objects::nonNull).collect(Collectors.toList());
         return questions;
-
-        //alla nuggets som man har svarat fel på
-        //return wrongNuggets;
-
-        //nu har vi alla nuggets
-        //kanske bara kan skicka vidare dem?
-
-        //the tricky part
-        //create questions...
 
 
     }

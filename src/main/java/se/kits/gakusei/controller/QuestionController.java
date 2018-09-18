@@ -276,16 +276,16 @@ public class QuestionController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     ResponseEntity<List<HashMap<String, Object>>> createWrongAnswersQuestions(
-            @RequestParam(value = "userName") String userName,
             @RequestParam(value = "lessonType") String lessonType,
             @RequestParam(value = "questionType") String questionType,
-            @RequestParam(value = "answerType") String answerType){
+            @RequestParam(value = "answerType") String answerType,
+            @RequestParam(value = "userName") String userName){
         List<HashMap<String, Object>> questions;
 
         questions = wrongAnswers(userName, lessonType, questionType, answerType);
 
         return questions.isEmpty() ? new ResponseEntity<>(
-                HttpStatus.INTERNAL_SERVER_ERROR
+                HttpStatus.NO_CONTENT
         ) : new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
