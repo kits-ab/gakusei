@@ -68,7 +68,7 @@ public class QuestionControllerTest {
 
     @Test
     public void testGetQuestionsFromLessonOK() throws Exception {
-        Mockito.when(lessonRepository.findNuggetsByRetentionDate(userName, lessonName)).thenReturn(nuggets);
+        //Depricated Mockito.when(lessonRepository.findNuggetsByRetentionDate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);
