@@ -55,16 +55,18 @@ export function recieveAnnouncement(announcement) {
     announcement
   };
 }
-export function disableAnnouncement() {
+export function disableAnnouncement(id) {
   return {
-    type: SET_DISPLAY_ANNOUNCEMENT
+    type: SET_DISPLAY_ANNOUNCEMENT,
+    id
   };
 }
 export function fetchAnnouncement() {
   return function(dispatch) {
     return fetch(`/api/announcement`)
       .then(response => response.json())
-      .then(result => dispatch(recieveAnnouncement(result)));
+      .then(result => result.map(a => (a = { ...a, visible: true })))
+      .then(endResult => dispatch(recieveAnnouncement(endResult)));
   };
 }
 
@@ -394,7 +396,7 @@ export function security(state = defaultState, action) {
     case SET_DISPLAY_ANNOUNCEMENT:
       return {
         ...state,
-        displayAnnouncement: false
+        announcement: state.announcement.map(a => (a.id === action.id ? { ...a, visible: false } : a))
       };
   }
 }

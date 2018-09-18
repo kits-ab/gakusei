@@ -20,7 +20,7 @@ export class AppScreen extends React.Component {
     return (
       <div>
         <header>
-          {this.props.displayAnnouncement && <InfoBanner />}
+          <InfoBanner />
           <GakuseiNav />
         </header>
         <main>{this.props.children}</main>
