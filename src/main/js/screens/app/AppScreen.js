@@ -11,7 +11,9 @@ export const Reducers = [Security];
 export class AppScreen extends React.Component {
   componentWillMount() {
     this.props.fetchLoggedInUser();
-    this.props.fetchAnnouncement();
+    if (this.props.announcement != []) {
+      this.props.fetchAnnouncement();
+    }
   }
 
   render() {
