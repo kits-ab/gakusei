@@ -137,7 +137,7 @@ public class ProgressHandler {
     public List<Nugget> getWrongAnswers(String username, String lessonType){
         // skapar lista från tabllen progresstracking
         List<ProgressTracking> allProgress = new ArrayList<>();
-        // hämtar alla med latest_resutl = false och det username man får in och lägger i en lista
+        // hämtar alla med latest_result = false och det username man får in och lägger i en lista
         progressTrackingRepository.findAllByLatestResultAndUserUsernameEquals(false, username).forEach(allProgress::add);
         List<Nugget> wrongNuggets = new ArrayList<>();
         Iterable<Nugget> guesslist = nuggetRepository.findAll();

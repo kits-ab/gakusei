@@ -284,6 +284,7 @@ public class QuestionController {
 
         questions = wrongAnswers(userName, lessonType, questionType, answerType);
 
+        //returnerar en lista av nuggets en användare har svarat fel på
         return questions.isEmpty() ? new ResponseEntity<>(
                 HttpStatus.NO_CONTENT
         ) : new ResponseEntity<>(questions, HttpStatus.OK);

@@ -35,7 +35,7 @@ export class selectScreen extends React.Component {
 
     this.props.fetchFavoriteLesson(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
-    console.log(this.props.fetchLessonIncorrectAnswers());
+    console.log(this.props.fetchLessonIncorrectAnswers);
 
     this.props.fetchaddressedQuestionsInLessons(this.state.playType);
 
@@ -96,7 +96,6 @@ export class selectScreen extends React.Component {
 
   startLesson() {
     if (!this.props.isFetchingLesson) {
-      //console.log(this.props.isFetchingLesson)
       try {
         this.props.fetchLesson(this.state.playType).then(() => {
           this.props.setPageByName(`/play/${this.state.playType}`);
@@ -118,6 +117,14 @@ export class selectScreen extends React.Component {
         this.props.verifyUserLoggedIn();
       }
     }
+  }
+
+  getLengthOfJson() {
+    //if(this.props.fetchLessonIncorrectAnswers().length == undefined){
+    //return 0
+    //}
+    //this.props.fetchLessonIncorrectAnswers().length
+    return 0;
   }
 
   handleSpacedRepetition() {
@@ -495,17 +502,17 @@ export class selectScreen extends React.Component {
                 <div className={'exercise__progress'}>
                   <ProgressBar />
                 </div>
-                <p className={'exercise__description'}>{'Frågor du har svarat fel på'}</p>
+                <p className={'exercise__description'}>{'Här hamnar alla frågor som du har svarat fel på'}</p>
                 <div className={'exercise__actions'}>
                   <Button
                     onClick={e => {
-                      //behövs felhantering när en användare inte har svarat fel på något
                       e.stopPropagation();
                       this.props.setSelectedLesson(this.props.lessons);
                       this.startIncorrectAnswerLesson();
                     }}
+                    //fixa sen
                     //disabled={
-                    //this.props.fetchLessonIncorrectAnswers() === ""
+
                     //}
                     bsClass={'icon-button'}
                   >

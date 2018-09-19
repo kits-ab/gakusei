@@ -622,8 +622,6 @@ export function fetchLesson(lessonType) {
 //hämtar de felsvarade frågorna från backend
 export function fetchLessonIncorrectAnswers() {
   return function(dispatch, getState) {
-    //behöver hantera om en användare inte har några felsvarade frågor
-
     const lessonState = getState().lessons;
     const securityState = getState().security;
 
@@ -646,8 +644,7 @@ export function fetchLessonIncorrectAnswers() {
           }
         })
         .then(json => {
-          console.log(json);
-          //Hantera ett tomt objekt?
+          //när man får frågor en användare har svarat fel på
           if (!json == '') {
             dispatch(resetLesson());
             dispatch(receiveLesson(json));
@@ -659,8 +656,12 @@ export function fetchLessonIncorrectAnswers() {
             });
             resolve();
           } else {
-            //vad ska hända när den är
-            console.log('hej');
+            //vad ska hända när den är tom
+            dispatch({
+              type: SET_FETCHING_LESSON,
+              description: 'The requested lesson has been retrieved successfully.',
+              value: false
+            });
           }
         })
     );
