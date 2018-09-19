@@ -66,9 +66,7 @@ public class QuestionHandler {
         List<List<String>> correctAlternative = new ArrayList<>();
         correctAlternative.add(createAlternative(nugget, answerType));
 
-        for (int i = 0; optimalNuggets.size() < 3 && i < copyOfNuggets.size(
-
-        ); i++) {
+        for (int i = 0; optimalNuggets.size() < 3 && i < copyOfNuggets.size(); i++) {
             if (copyOfNuggets.get(i).getWordType().equals(
                 nugget.getWordType()
             )) {

@@ -3,6 +3,7 @@ package se.kits.gakusei.controller;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import jdk.nashorn.api.tree.ReturnTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -31,9 +32,9 @@ public class QuestionController {
 
     @Autowired
     public QuestionController(
-        LessonRepository lessonRepository,
-        QuestionHandler questionHandler,
-        UserLessonRepository userLessonRepository
+            LessonRepository lessonRepository,
+            QuestionHandler questionHandler,
+            UserLessonRepository userLessonRepository
     ) {
         this.lessonRepository = lessonRepository;
         this.questionHandler = questionHandler;
@@ -41,166 +42,166 @@ public class QuestionController {
     }
 
     @RequestMapping(
-        value = "/api/questions",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            value = "/api/questions",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     ResponseEntity<List<HashMap<String, Object>>> getQuestionsFromLesson(
-        @RequestParam(value = "lessonName")
-        String lessonName,
-        @RequestParam(value = "lessonType", defaultValue = "vocabulary")
-        String lessonType,
-        @RequestParam(name = "questionType", defaultValue = "reading")
-        String questionType,
-        @RequestParam(name = "answerType", defaultValue = "swedish")
-        String answerType,
-        @RequestParam(name = "username")
-        String username,
-        @RequestParam(
-            name = "spacedRepetition",
-            required = false,
-            defaultValue = "false"
-        )
-        boolean spacedRepetition
+            @RequestParam(value = "lessonName")
+                    String lessonName,
+            @RequestParam(value = "lessonType", defaultValue = "vocabulary")
+                    String lessonType,
+            @RequestParam(name = "questionType", defaultValue = "reading")
+                    String questionType,
+            @RequestParam(name = "answerType", defaultValue = "swedish")
+                    String answerType,
+            @RequestParam(name = "username")
+                    String username,
+            @RequestParam(
+                    name = "spacedRepetition",
+                    required = false,
+                    defaultValue = "false"
+            )
+                    boolean spacedRepetition
     ) {
         List<HashMap<String, Object>> questions;
         if (!lessonName.equals("Favoriter")) {
             questions = getCachedQuestionsFromLesson(
-                lessonName,
-                lessonType,
-                questionType,
-                answerType,
-                username,
-                spacedRepetition
+                    lessonName,
+                    lessonType,
+                    questionType,
+                    answerType,
+                    username,
+                    spacedRepetition
             );
             //wrongAnswers(username, lessonType, questionType, answerType);
         } else {
             questions = getCachedQuestionsFromFavoriteLesson(
-                lessonType,
-                questionType,
-                answerType,
-                username,
-                spacedRepetition
+                    lessonType,
+                    questionType,
+                    answerType,
+                    username,
+                    spacedRepetition
             );
         }
         return questions.isEmpty() ? new ResponseEntity<>(
-            HttpStatus.INTERNAL_SERVER_ERROR
+                HttpStatus.INTERNAL_SERVER_ERROR
         ) : new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
     private List<HashMap<String, Object>> getCachedQuestionsFromFavoriteLesson(
-        String lessonType,
-        String questionType,
-        String answerType,
-        String username,
-        boolean spacedRepetition
+            String lessonType,
+            String questionType,
+            String answerType,
+            String username,
+            boolean spacedRepetition
     ) {//get all favorites, for each get unanswered and hard ones
 
-        List<
-            Lesson
-        > favoriteLessons = userLessonRepository.findUsersStarredLessons(
-            username
-        ).stream().map(UserLesson::getLesson).collect(Collectors.toList());
+        List<Lesson> favoriteLessons = userLessonRepository.findUsersStarredLessons(
+                username).stream().map(UserLesson::getLesson).collect(Collectors.toList());
         List<Nugget> favoriteNuggets;
-        if (spacedRepetition) {
-            List<Nugget> retentionNuggets = favoriteLessons.stream().map(
-                lesson -> lessonRepository.findNuggetsByRetentionDate(
-                    username,
-                    lesson.getName()
-                )
-            ).flatMap(List::stream).collect(Collectors.toList());
-            List<Nugget> unansweredRetentionNuggets = favoriteLessons.stream(
+        List<Nugget> allLessonNuggets;
+        if (!lessonType.equals("grammar")) {
+            allLessonNuggets = getAllLessonNuggets(favoriteLessons);
+            Collections.shuffle(allLessonNuggets);
+            //Create list for Extra alternatives for incorrect answers
+            if (spacedRepetition && allLessonNuggets.size() > 30) {//Max size of alternatives
+                allLessonNuggets = allLessonNuggets.subList(0, 30);
+            }
+        } else {
+            allLessonNuggets = getAllGrammarLessonNuggets(favoriteLessons);
 
-            ).map(
-                lesson -> lessonRepository.findUnansweredRetentionNuggets(
-                    username,
-                    lesson.getName()
-                )
-            ).flatMap(List::stream).collect(Collectors.toList());
+        }
+        if (spacedRepetition) {
             favoriteNuggets = questionHandler.chooseRetentionNuggets(
-                retentionNuggets,
-                unansweredRetentionNuggets,
-                quantity
+                    getFavouriteRetentionNuggets(username, favoriteLessons),
+                    getUnansweredRetentionNuggets(username, favoriteLessons),
+                    quantity
             );
         } else {
-            List<Nugget> allLessonNuggets;
-            if (!lessonType.equals("grammar")) {
-                allLessonNuggets = favoriteLessons.stream().map(
-                    lesson -> cachedFindNuggets(lesson.getName())
-                ).flatMap(List::stream).collect(Collectors.toList());
-            } else {
-                allLessonNuggets = favoriteLessons.stream().map(
-                    lesson -> cachedFindVerbNuggets(lesson.getName())
-                ).flatMap(List::stream).collect(Collectors.toList());
-            }
-            List<Nugget> unansweredNuggets = favoriteLessons.stream().map(
-                lesson -> lessonRepository.findUnansweredNuggets(
-                    username,
-                    lesson.getName()
-                )
-            ).flatMap(List::stream).collect(Collectors.toList());
-            List<Nugget> nuggetsWithLowSuccessrate = favoriteLessons.stream(
-
-            ).map(
-                lesson -> lessonRepository.findNuggetsBySuccessrate(
-                    username,
-                    lesson.getName()
-                )
-            ).flatMap(List::stream).collect(Collectors.toList());
             favoriteNuggets = questionHandler.chooseNuggets(
-                nuggetsWithLowSuccessrate,
-                unansweredNuggets,
-                allLessonNuggets,
-                quantity
+                    getNuggetsWithLowSuccessrate(username, favoriteLessons),
+                    getUnansweredNuggets(username, favoriteLessons),
+                    allLessonNuggets,
+                    quantity
             );
         }
         if (lessonType.equals("grammar")) {
             return questionHandler.createGrammarQuestions(
-                lessonRepository.findByName(null),
-                favoriteNuggets,
-                questionType,
-                answerType
+                    lessonRepository.findByName(null),
+                    favoriteNuggets,
+                    questionType,
+                    answerType
             );
             //TODO: Fix favorite-mode for grammar questions.
         } else {
-            return questionHandler.createQuestions(
-                favoriteNuggets,
-                questionType,
-                answerType
+            return questionHandler.createSpacedRepetitionQuestions(
+                    favoriteNuggets,
+                    allLessonNuggets,
+                    questionType,
+                    answerType
             );
         }
     }
 
+    //Start of Favorited lessons methods
+    private List<Nugget> getAllLessonNuggets(List<Lesson> favoriteLessons) {
+        return favoriteLessons.stream().map(
+                lesson -> cachedFindNuggets(lesson.getName())
+        ).flatMap(List::stream).collect(Collectors.toList());
+    }
+
+    private List<Nugget> getAllGrammarLessonNuggets(List<Lesson> favoriteLessons) {
+        return favoriteLessons.stream().map(
+                lesson -> cachedFindVerbNuggets(lesson.getName())
+        ).flatMap(List::stream).collect(Collectors.toList());
+    }
+
+    private List<Nugget> getNuggetsWithLowSuccessrate(String username, List<Lesson> favoriteLessons) {
+        return favoriteLessons.stream().map(
+                lesson -> lessonRepository.findNuggetsBySuccessrate(
+                        username,
+                        lesson.getName()
+                )
+        ).flatMap(List::stream).collect(Collectors.toList());
+    }
+
+    private List<Nugget> getUnansweredNuggets(String username, List<Lesson> favoriteLessons) {
+        return favoriteLessons.stream().map(
+                lesson -> lessonRepository.findUnansweredNuggets(
+                        username,
+                        lesson.getName()
+                )
+        ).flatMap(List::stream).collect(Collectors.toList());
+    }
+
+    private List<Nugget> getFavouriteRetentionNuggets(String username, List<Lesson> favoriteLessons){
+        return favoriteLessons.stream().map(
+                lesson -> lessonRepository.findNuggetsByRetentionDate(
+                        username,
+                        lesson.getName()
+                )
+        ).flatMap(List::stream).collect(Collectors.toList());
+    }
+
+    private List<Nugget> getUnansweredRetentionNuggets(String username, List<Lesson> favoriteLessons) {
+        return favoriteLessons.stream().map(
+                lesson -> lessonRepository.findUnansweredRetentionNuggets(
+                        username,
+                        lesson.getName()
+                )
+        ).flatMap(List::stream).collect(Collectors.toList());
+    }
+    //End of Favorited lesson methods
+
     private List<HashMap<String, Object>> getCachedQuestionsFromLesson(
-        String lessonName,
-        String lessonType,
-        String questionType,
-        String answerType,
-        String username,
-        boolean spacedRepetition
+            String lessonName,
+            String lessonType,
+            String questionType,
+            String answerType,
+            String username,
+            boolean spacedRepetition
     ) {
-        List<
-            Nugget
-        > nuggetsWithLowSuccessrate = lessonRepository.findNuggetsBySuccessrate(
-            username,
-            lessonName
-        );
-        List<Nugget> unansweredNuggets = lessonRepository.findUnansweredNuggets(
-            username,
-            lessonName
-        );
-        List<
-            Nugget
-        > retentionNuggets = lessonRepository.findNuggetsByRetentionDate(
-            username,
-            lessonName
-        );
-        List<
-            Nugget
-        > unansweredRetentionNuggets = lessonRepository.findUnansweredRetentionNuggets(
-            username,
-            lessonName
-        );
         List<Nugget> allLessonNuggets;
         if (lessonType.equals("grammar")) {
             allLessonNuggets = cachedFindVerbNuggets(lessonName);
@@ -210,42 +211,70 @@ public class QuestionController {
         List<Nugget> nuggets;
         if (spacedRepetition) {
             nuggets = questionHandler.chooseRetentionNuggets(
-                retentionNuggets,
-                unansweredRetentionNuggets,
-                quantity
+                    getRetentionNuggets(username, lessonName),
+                    getUnansweredRetentionNuggets(username, lessonName),
+                    quantity
             );
         } else {
             nuggets = questionHandler.chooseNuggets(
-                nuggetsWithLowSuccessrate,
-                unansweredNuggets,
-                allLessonNuggets,
-                quantity
+                    getNuggetsWithLowSuccessrate(username, lessonName),
+                    getUnansweredNuggets(username, lessonName),
+                    allLessonNuggets,
+                    quantity
             );
         }
         if (lessonType.equals("grammar")) {
             return questionHandler.createGrammarQuestions(
-                lessonRepository.findByName(lessonName),
-                nuggets,
-                questionType,
-                answerType
+                    lessonRepository.findByName(lessonName),
+                    nuggets,
+                    questionType,
+                    answerType
             );
         } else {
             if (spacedRepetition) {
                 return questionHandler.createSpacedRepetitionQuestions(
-                    nuggets,
-                    allLessonNuggets,
-                    questionType,
-                    answerType
+                        nuggets,
+                        allLessonNuggets,
+                        questionType,
+                        answerType
                 );
             } else {
                 return questionHandler.createQuestions(
-                    nuggets,
-                    questionType,
-                    answerType
+                        nuggets,
+                        questionType,
+                        answerType
                 );
             }
         }
     }
+
+    //Start of Single lesson methods
+    private List<Nugget> getRetentionNuggets(String username, String lessonName) {
+        return lessonRepository.findNuggetsByRetentionDate(
+                username,
+                lessonName
+        );
+    }
+
+    private List<Nugget> getUnansweredRetentionNuggets(String username, String lessonName) {
+        return lessonRepository.findUnansweredRetentionNuggets(
+                username,
+                lessonName
+        );
+    }
+    private List<Nugget> getNuggetsWithLowSuccessrate(String username, String lessonName) {
+        return lessonRepository.findNuggetsBySuccessrate(
+                username,
+                lessonName
+        );
+    }
+    private List<Nugget> getUnansweredNuggets(String username, String lessonName){
+        return lessonRepository.findUnansweredNuggets(
+                username,
+                lessonName
+        );
+    }
+    //End of Single lesson methods
 
     @Cacheable("otherNuggets")
     public List<Nugget> cachedFindNuggets(String lessonName) {
@@ -255,7 +284,7 @@ public class QuestionController {
     @Cacheable("verbNuggets")
     public List<Nugget> cachedFindVerbNuggets(String lessonName) {
         return lessonRepository.findVerbNuggets(
-            lessonRepository.findByName(lessonName).getId()
+                lessonRepository.findByName(lessonName).getId()
         );
     }
 
@@ -284,4 +313,5 @@ public class QuestionController {
         return questionHandler.wrongAnswers(userName, lessonType, questionType, answerType);
     }
 }
+
 

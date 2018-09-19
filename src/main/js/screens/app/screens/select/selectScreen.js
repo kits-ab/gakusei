@@ -463,6 +463,8 @@ export class selectScreen extends React.Component {
                     onClick={e => {
                       e.stopPropagation();
                       this.props.setSelectedLesson(this.props.favoriteLesson);
+                      console.log(this.props.setSelectedLesson);
+                      console.log(this.props.favoriteLesson);
                       this.startLesson();
                     }}
                     disabled={
