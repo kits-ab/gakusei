@@ -259,17 +259,6 @@ public class QuestionController {
         );
     }
 
-    //skapa ny requestMapping?
-    //kanske inte behöver en ny mapping, Kanske kan lägga in den i if i den som finns?
-    //Skapa en ny metod som hämtar lista med nuggets och kollar vilken lessonType de har?
-    //hämta listan av nuggets and put it there.
-
-    /*@RequestMapping(value= "/api/wronguestions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Iterable<Nugget> getWrongAnswers(@RequestParam(name = "username"), String username){
-        questionHandler.wrongAnswers(username);
-        return null;
-    }*/
-
     @RequestMapping(
             value = "/api/wrongquestions",
             method = RequestMethod.GET,
