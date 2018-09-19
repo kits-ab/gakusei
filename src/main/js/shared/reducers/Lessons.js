@@ -619,6 +619,55 @@ export function fetchLesson(lessonType) {
   };
 }
 
+//hämtar de felsvarade frågorna från backend
+export function fetchLessonIncorrectAnswers() {
+  return function(dispatch, getState) {
+    const lessonState = getState().lessons;
+    const securityState = getState().security;
+
+    dispatch({
+      type: SET_FETCHING_LESSON,
+      description: 'A lesson has been requested.',
+      value: true
+    });
+
+    return new Promise(resolve =>
+      fetch(
+        `/api/wrongquestions?lessonType=${lessonState.lessonType}&questionType=${lessonState.questionType}&answerType=${
+          lessonState.answerType
+        }&userName=${securityState.loggedInUser}`,
+        { credentials: 'same-origin' }
+      )
+        .then(response => {
+          if (response.ok) {
+            return response[response.status == 204 ? 'text' : 'json']();
+          }
+        })
+        .then(json => {
+          //när man får frågor en användare har svarat fel på
+          if (!json == '') {
+            dispatch(resetLesson());
+            dispatch(receiveLesson(json));
+            dispatch(processCurrentQuestion());
+            dispatch({
+              type: SET_FETCHING_LESSON,
+              description: 'The requested lesson has been retrieved successfully.',
+              value: false
+            });
+            resolve();
+          } else {
+            //vad ska hända när den är tom
+            dispatch({
+              type: SET_FETCHING_LESSON,
+              description: 'The requested lesson has been retrieved successfully.',
+              value: false
+            });
+          }
+        })
+    );
+  };
+}
+
 export function fetchFavoriteLesson(lessonType) {
   return function(dispatch, getState) {
     const securityState = getState().security;
@@ -739,6 +788,7 @@ export const actionCreators = {
   resetQuestionIndex,
   fetchLesson,
   fetchLessons,
+  fetchLessonIncorrectAnswers,
   fetchaddressedQuestionsInLessons,
   fetchFavoriteLesson,
   setSelectedLesson,

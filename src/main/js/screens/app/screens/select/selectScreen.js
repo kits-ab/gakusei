@@ -35,6 +35,8 @@ export class selectScreen extends React.Component {
 
     this.props.fetchFavoriteLesson(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
+    console.log(this.props.fetchLessonIncorrectAnswers);
+
     this.props.fetchaddressedQuestionsInLessons(this.state.playType);
 
     if (this.state.playType === 'kanji') {
@@ -102,6 +104,27 @@ export class selectScreen extends React.Component {
         this.props.verifyUserLoggedIn();
       }
     }
+  }
+
+  //startar lektion med felsvarade frågor
+  startIncorrectAnswerLesson() {
+    if (!this.props.isFetchingLesson) {
+      try {
+        this.props.fetchLessonIncorrectAnswers(this.state.playType).then(() => {
+          this.props.setPageByName(`/play/${this.state.playType}`);
+        });
+      } catch (err) {
+        this.props.verifyUserLoggedIn();
+      }
+    }
+  }
+
+  getLengthOfJson() {
+    //if(this.props.fetchLessonIncorrectAnswers().length == undefined){
+    //return 0
+    //}
+    //this.props.fetchLessonIncorrectAnswers().length
+    return 0;
   }
 
   handleSpacedRepetition() {
@@ -464,6 +487,50 @@ export class selectScreen extends React.Component {
       </Row>
     );
 
+    // Lektion med frågor man har svarat fel på
+    const incorrectAnswers = (
+      <Row>
+        <Col
+          xs={12}
+          md={12}
+          lg={12}
+        >
+          <Panel>
+            <Panel.Body>
+              <div className={'exercise'}>
+                <div className={'exercise__header'}>
+                  <h3 className={'exercise__header__title'}>{'Felsvarade frågor'}</h3>
+                </div>
+                <div className={'exercise__progress'}>
+                  <ProgressBar />
+                </div>
+                <p className={'exercise__description'}>{'Här hamnar alla frågor som du har svarat fel på'}</p>
+                <div className={'exercise__actions'}>
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      this.props.setSelectedLesson(this.props.lessons);
+                      this.startIncorrectAnswerLesson();
+                    }}
+                    //fixa sen
+                    //disabled={
+
+                    //}
+                    bsClass={'icon-button'}
+                  >
+                    <FontAwesomeIcon
+                      className={'fa-fw'}
+                      icon={faPlay}
+                    />
+                  </Button>
+                </div>
+              </div>
+            </Panel.Body>
+          </Panel>
+        </Col>
+      </Row>
+    );
+
     return (
       <Grid>
         <Col>
@@ -473,6 +540,7 @@ export class selectScreen extends React.Component {
           {this.getLanguageSelection()}
           <h2>Lektioner</h2>
           {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? favoriteLesson : null}
+          {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? incorrectAnswers : null}
 
           <div>
             {lessonsFavorite ? (

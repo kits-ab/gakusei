@@ -74,6 +74,7 @@ public class QuestionController {
                     username,
                     spacedRepetition
             );
+            //wrongAnswers(username, lessonType, questionType, answerType);
         } else {
             questions = getCachedQuestionsFromFavoriteLesson(
                     lessonType,
@@ -286,4 +287,31 @@ public class QuestionController {
                 lessonRepository.findByName(lessonName).getId()
         );
     }
+
+    @RequestMapping(
+            value = "/api/wrongquestions",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    ResponseEntity<List<HashMap<String, Object>>> createWrongAnswersQuestions(
+            @RequestParam(value = "lessonType") String lessonType,
+            @RequestParam(value = "questionType") String questionType,
+            @RequestParam(value = "answerType") String answerType,
+            @RequestParam(value = "userName") String userName){
+        List<HashMap<String, Object>> questions;
+
+        questions = wrongAnswers(userName, lessonType, questionType, answerType);
+
+        //returnerar en lista av nuggets en användare har svarat fel på
+        return questions.isEmpty() ? new ResponseEntity<>(
+                HttpStatus.NO_CONTENT
+        ) : new ResponseEntity<>(questions, HttpStatus.OK);
+    }
+
+    private List<HashMap<String, Object>> wrongAnswers(String userName, String lessonType, String questionType, String answerType){
+        //Får en lista av nuggets som man har svarat fel på
+        return questionHandler.wrongAnswers(userName, lessonType, questionType, answerType);
+    }
 }
+
+

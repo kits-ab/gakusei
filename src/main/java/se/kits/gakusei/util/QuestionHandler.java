@@ -6,12 +6,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import se.kits.gakusei.content.model.*;
 import se.kits.gakusei.content.repository.GrammarTextRepository;
 import se.kits.gakusei.content.repository.InflectionRepository;
+import se.kits.gakusei.content.repository.NuggetRepository;
 import se.sandboge.japanese.conjugation.Verb;
 
 @Component
@@ -21,6 +21,12 @@ public class QuestionHandler {
 
     @Autowired
     InflectionRepository inflectionRepository;
+
+    @Autowired
+    ProgressHandler progressHandler;
+
+    @Autowired
+    NuggetRepository nuggetRepository;
 
     public List<HashMap<String, Object>> createQuestions(
         List<Nugget> nuggets,
@@ -241,6 +247,18 @@ public class QuestionHandler {
             e.printStackTrace();
         }
         return alternative;
+    }
+
+    //skapar createWrongAnswersQuestions
+    public List<HashMap<String, Object>> wrongAnswers(String username, String lessonType, String questionType, String answerType){
+        List<Nugget> wrongNuggets = progressHandler.getWrongAnswers(username, lessonType);
+        //skapar frågorna med wrongNuggets som utgångspunkt
+        List<HashMap<String, Object>> questions = wrongNuggets.stream().map(
+                n -> createQuestion(n, wrongNuggets, questionType, answerType)
+        ).filter(Objects::nonNull).collect(Collectors.toList());
+        return questions;
+
+
     }
 
 }

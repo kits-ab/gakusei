@@ -1,6 +1,8 @@
 package se.kits.gakusei.util;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import se.kits.gakusei.content.model.Nugget;
+import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.ProgressTracking;
 import se.kits.gakusei.user.model.User;
@@ -31,6 +35,9 @@ public class ProgressHandler {
 
     @Autowired
     private ProgressTrackingRepository progressTrackingRepository;
+
+    @Autowired
+    private NuggetRepository nuggetRepository;
 
     public void trackProgress(Event event) {
         if (event.getNuggetId() == null) {
@@ -126,5 +133,24 @@ public class ProgressHandler {
         progressTrackingRepository.save(pt);
     }
 
+    //kollar vilka svar som är felsvarade
+    public List<Nugget> getWrongAnswers(String username, String lessonType){
+        // skapar lista från tabllen progresstracking
+        List<ProgressTracking> allProgress = new ArrayList<>();
+        // hämtar alla med latest_result = false och det username man får in och lägger i en lista
+        progressTrackingRepository.findAllByLatestResultAndUserUsernameEquals(false, username).forEach(allProgress::add);
+        List<Nugget> wrongNuggets = new ArrayList<>();
+        Iterable<Nugget> guesslist = nuggetRepository.findAll();
+        //itererar igenom alla items man fick från progresstracking och jämför med alla Nuggets för att hitta vilka som felsvar som är nuggets.
+        for (ProgressTracking item:allProgress) {
+            for(Nugget nugget:guesslist){
+                if (item.getNuggetID().equals(nugget.getId())){
+                    wrongNuggets.add(nugget);
+                }
+            }
+        }
+        //returnerar en lista av nuggets som en viss användare har svarat fel på.
+        return wrongNuggets;
+    }
 }
 
