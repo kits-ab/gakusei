@@ -256,7 +256,8 @@ public class QuestionHandler {
         List<HashMap<String, Object>> questions = wrongNuggets.stream().map(
                 n -> createQuestion(n, wrongNuggets, questionType, answerType)
         ).filter(Objects::nonNull).collect(Collectors.toList());
-        return questions;
+        Collections.shuffle(wrongNuggets);
+        return questions.subList(0, Math.min(questions.size(), 20));//Hardcoded max amount questions
 
 
     }
