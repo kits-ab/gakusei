@@ -18,6 +18,7 @@ import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.UserLessonRepository;
 import se.kits.gakusei.test_tools.TestTools;
+import se.kits.gakusei.util.ProgressHandler;
 import se.kits.gakusei.util.QuestionHandler;
 
 import java.util.Collections;
@@ -39,6 +40,9 @@ public class QuestionControllerTest {
     @Mock
     private UserLessonRepository userLessonRepository;
 
+    @Mock
+    private ProgressHandler progressHandler;
+
     @Value("${gakusei.questions-quantity}")
     private int quantity;
 
@@ -52,7 +56,7 @@ public class QuestionControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        questionController = new QuestionController(lessonRepository, questionHandler, userLessonRepository);
+        questionController = new QuestionController(lessonRepository, questionHandler, userLessonRepository, progressHandler);
         MockitoAnnotations.initMocks(this);
         questionType = "reading";
         answerType = "swedish";
