@@ -39,10 +39,10 @@ public class QuestionController {
             UserLessonRepository userLessonRepository,
             ProgressHandler progressHandler
     ) {
-        this.progressHandler = progressHandler;
         this.lessonRepository = lessonRepository;
         this.questionHandler = questionHandler;
         this.userLessonRepository = userLessonRepository;
+        this.progressHandler = progressHandler;
     }
 
     @RequestMapping(
@@ -78,7 +78,6 @@ public class QuestionController {
                     username,
                     spacedRepetition
             );
-            //getCachedQuestionsFromWrongAnswers(username, lessonType, questionType, answerType);
         } else {
             questions = getCachedQuestionsFromFavoriteLesson(
                     lessonType,
@@ -119,7 +118,7 @@ public class QuestionController {
             String questionType,
             String answerType
     ){
-        List<Nugget> wrongNuggets = progressHandler.getWrongAnswers(userName, lessonType);
+        List<Nugget> wrongNuggets = progressHandler.getWrongQuestions(userName, lessonType);
         List<Nugget> extraNuggets = wrongNuggets.get(0).getLessons().get(0).getNuggets();
         Collections.shuffle(wrongNuggets);
         //Får en lista av nuggets som man har svarat fel på

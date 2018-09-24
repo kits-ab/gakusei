@@ -1,4 +1,5 @@
 import { Button, Grid, Row, Col, FormGroup, ControlLabel, Panel, Badge, ProgressBar, Radio } from 'react-bootstrap';
+import ReactTooltip from 'react-tooltip';
 
 import Utility from '../../../../shared/util/Utility';
 
@@ -209,8 +210,21 @@ export class selectScreen extends React.Component {
                   {this.isSpacedRepetition() &&
                   !this.isLessonFinished(lesson) &&
                   this.getNumberOfRetentionQuestions(lesson).unanswered > 0 ? (
-                      <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
+                      <Badge
+                        data-tip
+                        data-for={'blueBadge'}
+                        className="badge--type-new"
+                      >
+                        {this.getNumberOfRetentionQuestions(lesson).unanswered}
+                      </Badge>
                     ) : null}
+                  <ReactTooltip
+                    id={'blueBadge'}
+                    type={'warning'}
+                    effect={'solid'}
+                  >
+                    <span>Blue badge info</span>
+                  </ReactTooltip>
                 </h3>
                 {this.state.playType === 'quiz' ? null : (
                   <div>
@@ -540,7 +554,7 @@ export class selectScreen extends React.Component {
           {this.getLanguageSelection()}
           <h2>Lektioner</h2>
           {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? favoriteLesson : null}
-          {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? incorrectAnswers : null}
+          {!['quiz', 'grammar'].includes(this.state.playType) ? incorrectAnswers : null}
 
           <div>
             {lessonsFavorite ? (

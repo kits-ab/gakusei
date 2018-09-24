@@ -4,6 +4,10 @@ import org.springframework.data.repository.CrudRepository;
 
 import se.kits.gakusei.content.model.Kanji;
 
-public interface KanjiRepository
-    extends CrudRepository<Kanji, String> {}
+import java.util.List;
 
+public interface KanjiRepository
+    extends CrudRepository<Kanji, String> {
+
+    List<Kanji> findAll();
+}
