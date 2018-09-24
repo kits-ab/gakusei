@@ -17,6 +17,8 @@ import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.test_tools.TestTools;
 import se.kits.gakusei.util.KanjiHandler;
+import se.kits.gakusei.util.ProgressHandler;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,9 @@ public class KanjiControllerTest {
     @Mock
     private LessonRepository lessonRepository;
 
+    @Mock
+    private ProgressHandler progressHandler;
+
     @Value("${gakusei.questions-quantity}")
     private int quantity;
 
@@ -46,7 +51,7 @@ public class KanjiControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        kanjiController = new KanjiController(lessonRepository, kanjiHandler);
+        kanjiController = new KanjiController(lessonRepository, kanjiHandler, progressHandler);
         MockitoAnnotations.initMocks(this);
         lessonName = "Verbs";
         userName = "testUser";

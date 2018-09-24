@@ -620,8 +620,17 @@ export function fetchLesson(lessonType) {
 }
 
 //hämtar de felsvarade frågorna från backend
-export function fetchLessonIncorrectAnswers() {
+export function fetchLessonIncorrectAnswers(lessonType) {
   return function(dispatch, getState) {
+    let fetchURL;
+    switch (lessonType) {
+      case 'kanji':
+        fetchURL = '/api/wrongquestions/kanji';
+        break;
+      default:
+        fetchURL = '/api/wrongquestions';
+        break;
+    }
     const lessonState = getState().lessons;
     const securityState = getState().security;
 
@@ -633,7 +642,7 @@ export function fetchLessonIncorrectAnswers() {
 
     return new Promise(resolve =>
       fetch(
-        `/api/wrongquestions?lessonType=${lessonState.lessonType}&questionType=${lessonState.questionType}&answerType=${
+        `${fetchURL}?lessonType=${lessonState.lessonType}&questionType=${lessonState.questionType}&answerType=${
           lessonState.answerType
         }&userName=${securityState.loggedInUser}`,
         { credentials: 'same-origin' }

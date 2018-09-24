@@ -77,6 +77,7 @@ public class LessonHandler {
         return favoriteLesson;
     }
 
+
     //Cacheable wrappers for the database queries.
     @Cacheable("lessons.retention.correct")
     public Integer getNumberOfCorrectNuggets(String username, String lessonName) {

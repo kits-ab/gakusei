@@ -232,6 +232,7 @@ export class selectScreen extends React.Component {
                   {this.isSpacedRepetition() &&
                   !this.isLessonFinished(lesson) &&
                   this.getNumberOfRetentionQuestions(lesson).unanswered > 0 ? (
+
                       <OverlayTrigger
                         placement="top"
                         trigger="hover"
@@ -239,7 +240,14 @@ export class selectScreen extends React.Component {
                       >
                         <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
                       </OverlayTrigger>
-                    ) : null}
+                     ) : null}
+                  <ReactTooltip
+                    id={'blueBadge'}
+                    type={'warning'}
+                    effect={'solid'}
+                  >
+                    <span>Blue badge info</span>
+                  </ReactTooltip>
                 </h3>
                 {this.state.playType === 'quiz' ? null : (
                   <div>
@@ -585,7 +593,7 @@ export class selectScreen extends React.Component {
           {this.getLanguageSelection()}
           <h2>Lektioner</h2>
           {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? favoriteLesson : null}
-          {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? incorrectAnswers : null}
+          {!['quiz', 'grammar'].includes(this.state.playType) ? incorrectAnswers : null}
 
           <div>
             {lessonsFavorite ? (
