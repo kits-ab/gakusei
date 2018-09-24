@@ -241,13 +241,6 @@ export class selectScreen extends React.Component {
                         <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
                       </OverlayTrigger>
                      ) : null}
-                  <ReactTooltip
-                    id={'blueBadge'}
-                    type={'warning'}
-                    effect={'solid'}
-                  >
-                    <span>Blue badge info</span>
-                  </ReactTooltip>
                 </h3>
                 {this.state.playType === 'quiz' ? null : (
                   <div>
