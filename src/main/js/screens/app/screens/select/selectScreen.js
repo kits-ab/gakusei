@@ -223,7 +223,7 @@ export class selectScreen extends React.Component {
                   this.getNumberOfRetentionQuestions(lesson).retention > 0 ? (
                       <OverlayTrigger
                         placement="top"
-                        trigger="hover"
+                        trigger={['hover', 'focus']}
                         overlay={tooltip_red}
                       >
                         <Badge className="badge--type-todo">{this.getNumberOfRetentionQuestions(lesson).retention}</Badge>
@@ -234,7 +234,7 @@ export class selectScreen extends React.Component {
                   this.getNumberOfRetentionQuestions(lesson).unanswered > 0 ? (
                       <OverlayTrigger
                         placement="top"
-                        trigger="hover"
+                        trigger={['hover', 'focus']}
                         overlay={tooltip_blue}
                       >
                         <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
@@ -468,7 +468,7 @@ export class selectScreen extends React.Component {
                     {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().retention > 0 ? (
                       <OverlayTrigger
                         placement="top"
-                        trigger="hover"
+                        trigger={['hover', 'focus']}
                         overlay={tooltip_red}
                       >
                         <Badge className="badge--type-todo">{this.getNumberOfFavoriteQuestions().retention}</Badge>
@@ -477,7 +477,7 @@ export class selectScreen extends React.Component {
                     {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().unanswered > 0 ? (
                       <OverlayTrigger
                         placement="top"
-                        trigger="hover"
+                        trigger={['hover', 'focus']}
                         overlay={tooltip_blue}
                       >
                         <Badge className="badge--type-new">{this.getNumberOfFavoriteQuestions().unanswered}</Badge>
