@@ -98,7 +98,7 @@ export default class startScreen extends React.Component {
                 href={`login${this.props.location.search}`}
                 bsStyle="success"
               >
-                Registrera nu!
+                Registrera dig nu!
               </Button>
             </Col>
             <div className="clearfix visible-md" />
