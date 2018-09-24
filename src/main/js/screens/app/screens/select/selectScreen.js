@@ -1,4 +1,17 @@
-import { Button, Grid, Row, Col, FormGroup, ControlLabel, Panel, Badge, ProgressBar, Radio } from 'react-bootstrap';
+import {
+  Button,
+  Grid,
+  Row,
+  Col,
+  FormGroup,
+  ControlLabel,
+  Panel,
+  Badge,
+  ProgressBar,
+  Radio,
+  OverlayTrigger,
+  Tooltip
+} from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
 
@@ -186,6 +199,10 @@ export class selectScreen extends React.Component {
   }
 
   getLessons(lessons) {
+    const tooltip_red = <Tooltip id="tooltip">Besvarade frågor som behöver repeteras</Tooltip>;
+
+    const tooltip_blue = <Tooltip id="tooltip">Obesvarade frågor</Tooltip>;
+
     const mediumColumnSize = 6;
     const largeColumnSize = 4;
     const renderedLessons = lessons.map(lesson => (
@@ -204,12 +221,24 @@ export class selectScreen extends React.Component {
                   {this.isSpacedRepetition() &&
                   !this.isLessonFinished(lesson) &&
                   this.getNumberOfRetentionQuestions(lesson).retention > 0 ? (
-                      <Badge className="badge--type-todo">{this.getNumberOfRetentionQuestions(lesson).retention}</Badge>
+                      <OverlayTrigger
+                        placement="top"
+                        trigger="hover"
+                        overlay={tooltip_red}
+                      >
+                        <Badge className="badge--type-todo">{this.getNumberOfRetentionQuestions(lesson).retention}</Badge>
+                      </OverlayTrigger>
                     ) : null}
                   {this.isSpacedRepetition() &&
                   !this.isLessonFinished(lesson) &&
                   this.getNumberOfRetentionQuestions(lesson).unanswered > 0 ? (
-                      <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
+                      <OverlayTrigger
+                        placement="top"
+                        trigger="hover"
+                        overlay={tooltip_blue}
+                      >
+                        <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
+                      </OverlayTrigger>
                     ) : null}
                 </h3>
                 {this.state.playType === 'quiz' ? null : (
@@ -419,6 +448,10 @@ export class selectScreen extends React.Component {
       lessonsFavoriteDone = undefined;
     }
 
+    const tooltip_red = <Tooltip id="tooltip">Besvarade frågor som behöver repeteras</Tooltip>;
+
+    const tooltip_blue = <Tooltip id="tooltip">Obesvarade frågor</Tooltip>;
+
     const favoriteLesson = (
       <Row>
         <Col
@@ -433,10 +466,22 @@ export class selectScreen extends React.Component {
                   <h3 className={'exercise__header__title'}>
                     {'Blandade frågor.'}
                     {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().retention > 0 ? (
-                      <Badge className="badge--type-todo">{this.getNumberOfFavoriteQuestions().retention}</Badge>
+                      <OverlayTrigger
+                        placement="top"
+                        trigger="hover"
+                        overlay={tooltip_red}
+                      >
+                        <Badge className="badge--type-todo">{this.getNumberOfFavoriteQuestions().retention}</Badge>
+                      </OverlayTrigger>
                     ) : null}
                     {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().unanswered > 0 ? (
-                      <Badge className="badge--type-new">{this.getNumberOfFavoriteQuestions().unanswered}</Badge>
+                      <OverlayTrigger
+                        placement="top"
+                        trigger="hover"
+                        overlay={tooltip_blue}
+                      >
+                        <Badge className="badge--type-new">{this.getNumberOfFavoriteQuestions().unanswered}</Badge>
+                      </OverlayTrigger>
                     ) : null}
                   </h3>
                 </div>
