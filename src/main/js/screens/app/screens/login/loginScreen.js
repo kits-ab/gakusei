@@ -90,8 +90,8 @@ export class loginScreen extends React.Component {
             <div>
               <h4>Registrera dig snabbt och enkelt här</h4>
               <p>
-                Vi tar inga personuppgifter så var noga med att komma ihåg ditt lösenord då vi inte kan återställa det
-                för dig.
+                Vi sparar inga personuppgifter så var noga med att komma ihåg ditt lösenord då vi inte kan återställa
+                det åt dig.
               </p>
               <p>
                 Materialet är anpassat efter det svenska språket och du kan lära dig från svenska till japanska och

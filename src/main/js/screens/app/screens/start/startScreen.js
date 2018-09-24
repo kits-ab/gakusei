@@ -11,7 +11,7 @@ export default class startScreen extends React.Component {
               <p className="introduction__description">
                 Ta del av Gakuseis inlärningsmaterial och lär dig japanska redan idag!
               </p>
-              <p>Det tar en sekund att registrera och inga personuppgifter krävs</p>
+              <p>Det tar bara en sekund att registrera och inga personuppgifter krävs</p>
             </div>
           </Grid>
         </Jumbotron>
@@ -98,7 +98,7 @@ export default class startScreen extends React.Component {
                 href={`login${this.props.location.search}`}
                 bsStyle="success"
               >
-                Registrera nu!
+                Registrera dig nu!
               </Button>
             </Col>
             <div className="clearfix visible-md" />
