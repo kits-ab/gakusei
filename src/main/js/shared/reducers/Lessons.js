@@ -659,7 +659,7 @@ export function fetchLessonIncorrectAnswers() {
             //vad ska hända när den är tom
             dispatch({
               type: SET_FETCHING_LESSON,
-              description: 'The requested lesson has been retrieved successfully.',
+              description: 'The requested lesson has been retrieved successfully but is empty.',
               value: false
             });
           }
