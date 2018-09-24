@@ -11,6 +11,7 @@ export default class startScreen extends React.Component {
               <p className="introduction__description">
                 Ta del av Gakuseis inlärningsmaterial och lär dig japanska redan idag!
               </p>
+              <p>Det tar en sekund att registrera och inga personuppgifter krävs</p>
             </div>
           </Grid>
         </Jumbotron>
@@ -39,6 +40,14 @@ export default class startScreen extends React.Component {
               />
               <h3>Ett bra komplement till undervisning</h3>
               <p>Olika sorters övningar, anpassade efter japanskaundervisning på högskolenivå.</p>
+              <p>
+                <Button
+                  bsStyle="success"
+                  href="http://daigaku.se/gakusei2.html"
+                >
+                  Läs mer
+                </Button>
+              </p>
             </Col>
             <Col
               xs={12}
@@ -85,6 +94,12 @@ export default class startScreen extends React.Component {
                 <strong>2</strong> quizar
               </h3>
               <p>Prova våra quizar och se vad du kan om Japan.</p>
+              <Button
+                href={`login${this.props.location.search}`}
+                bsStyle="success"
+              >
+                Registrera nu!
+              </Button>
             </Col>
             <div className="clearfix visible-md" />
             <Col
@@ -114,6 +129,14 @@ export default class startScreen extends React.Component {
               <p>
                 Vårt system kommer ihåg hur du har svarat på frågor, på så sätt kan vi anpassa inlärningsmaterialet
                 efter dig.
+              </p>
+              <p>
+                <Button
+                  bsStyle="success"
+                  href="http://daigaku.se/gakusei2.html"
+                >
+                  Läs mer
+                </Button>
               </p>
             </Col>
           </Row>
