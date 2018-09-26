@@ -48,8 +48,6 @@ export class selectScreen extends React.Component {
 
     this.props.fetchFavoriteLesson(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
-    console.log(this.props.fetchLessonIncorrectAnswers);
-
     this.props.fetchaddressedQuestionsInLessons(this.state.playType);
 
     if (this.state.playType === 'kanji') {
@@ -130,14 +128,6 @@ export class selectScreen extends React.Component {
         this.props.verifyUserLoggedIn();
       }
     }
-  }
-
-  getLengthOfJson() {
-    //if(this.props.fetchLessonIncorrectAnswers().length == undefined){
-    //return 0
-    //}
-    //this.props.fetchLessonIncorrectAnswers().length
-    return 0;
   }
 
   handleSpacedRepetition() {
@@ -232,7 +222,6 @@ export class selectScreen extends React.Component {
                   {this.isSpacedRepetition() &&
                   !this.isLessonFinished(lesson) &&
                   this.getNumberOfRetentionQuestions(lesson).unanswered > 0 ? (
-
                       <OverlayTrigger
                         placement="top"
                         trigger={['hover', 'focus']}
@@ -240,7 +229,7 @@ export class selectScreen extends React.Component {
                       >
                         <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
                       </OverlayTrigger>
-                     ) : null}
+                    ) : null}
                 </h3>
                 {this.state.playType === 'quiz' ? null : (
                   <div>

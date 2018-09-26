@@ -98,13 +98,12 @@ public class QuestionController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     ResponseEntity<List<HashMap<String, Object>>> createWrongAnswersQuestions(
-            @RequestParam(value = "lessonType") String lessonType,
             @RequestParam(value = "questionType") String questionType,
             @RequestParam(value = "answerType") String answerType,
             @RequestParam(value = "userName") String userName){
         List<HashMap<String, Object>> questions;
 
-        questions = getCachedQuestionsFromWrongAnswers(userName, lessonType, questionType, answerType);
+        questions = getCachedQuestionsFromWrongAnswers(userName, questionType, answerType);
 
         //returnerar en lista av nuggets en användare har svarat fel på
         return questions.isEmpty() ? new ResponseEntity<>(
@@ -114,13 +113,20 @@ public class QuestionController {
 
     private List<HashMap<String, Object>> getCachedQuestionsFromWrongAnswers(
             String userName,
-            String lessonType,
             String questionType,
             String answerType
     ){
-        List<Nugget> wrongNuggets = progressHandler.getWrongQuestions(userName, lessonType);
+        List<Nugget> wrongNuggets = progressHandler.getWrongQuestions(userName);
+        if(wrongNuggets.isEmpty()){
+            //hantera om man inte har några fel
+            List<HashMap<String, Object>> wrongNuggetEmpty = new ArrayList<>();
+            // because it works...
+            return wrongNuggetEmpty;
+        }
         List<Nugget> extraNuggets = wrongNuggets.get(0).getLessons().get(0).getNuggets();
         Collections.shuffle(wrongNuggets);
+
+
         //Får en lista av nuggets som man har svarat fel på
         return questionHandler.createSpacedRepetitionQuestions(
                 wrongNuggets,
