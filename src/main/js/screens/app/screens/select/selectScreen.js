@@ -449,6 +449,7 @@ export class selectScreen extends React.Component {
     }
 
     const tooltip_red = <Tooltip id="tooltip">Besvarade frågor som behöver repeteras</Tooltip>;
+    const tooltip_incor = <Tooltip id="tooltip">Antal felbesvarade frågor</Tooltip>;
 
     const tooltip_blue = <Tooltip id="tooltip">Obesvarade frågor</Tooltip>;
 
@@ -573,10 +574,7 @@ export class selectScreen extends React.Component {
                       this.props.setSelectedLesson(this.props.lessons);
                       this.startIncorrectAnswerLesson();
                     }}
-                    //fixa sen
-                    //disabled={
-
-                    //}
+                    disabled={incorrectCount === 0}
                     bsClass={'icon-button'}
                   >
                     <FontAwesomeIcon
