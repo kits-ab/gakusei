@@ -48,6 +48,8 @@ export class selectScreen extends React.Component {
 
     this.props.fetchFavoriteLesson(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
+    this.props.fetchIncorrectLessonCount(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
+
     this.props.fetchaddressedQuestionsInLessons(this.state.playType);
 
     if (this.state.playType === 'kanji') {
@@ -439,8 +441,14 @@ export class selectScreen extends React.Component {
     }
 
     const tooltip_red = <Tooltip id="tooltip">Besvarade frågor som behöver repeteras</Tooltip>;
+    const tooltip_incor = <Tooltip id="tooltip">Antal felbesvarade frågor</Tooltip>;
 
     const tooltip_blue = <Tooltip id="tooltip">Obesvarade frågor</Tooltip>;
+
+    const incorrectCount =
+      this.state.playType === 'kanji'
+        ? this.props.incorrectAnsweredLesson.incorrectKanjis
+        : this.props.incorrectAnsweredLesson.incorrectQuestions;
 
     const favoriteLesson = (
       <Row>
@@ -534,7 +542,18 @@ export class selectScreen extends React.Component {
             <Panel.Body>
               <div className={'exercise'}>
                 <div className={'exercise__header'}>
-                  <h3 className={'exercise__header__title'}>{'Felsvarade frågor'}</h3>
+                  <h3 className={'exercise__header__title'}>
+                    {'Felsvarade frågor'}
+                    {incorrectCount > 0 ? (
+                      <OverlayTrigger
+                        placement="top"
+                        trigger={['hover', 'focus']}
+                        overlay={tooltip_incor}
+                      >
+                        <Badge className="badge--type-todo">{incorrectCount}</Badge>
+                      </OverlayTrigger>
+                    ) : null}
+                  </h3>
                 </div>
                 <div className={'exercise__progress'}>
                   <ProgressBar />
@@ -547,10 +566,7 @@ export class selectScreen extends React.Component {
                       this.props.setSelectedLesson(this.props.lessons);
                       this.startIncorrectAnswerLesson();
                     }}
-                    //fixa sen
-                    //disabled={
-
-                    //}
+                    disabled={incorrectCount === 0}
                     bsClass={'icon-button'}
                   >
                     <FontAwesomeIcon

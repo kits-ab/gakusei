@@ -24,6 +24,7 @@ import se.kits.gakusei.content.repository.KanjiRepository;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.UserLessonRepository;
 import se.kits.gakusei.util.LessonHandler;
+import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
 public class LessonController {
@@ -43,6 +44,9 @@ public class LessonController {
 
     @Autowired
     private LessonHandler lessonHandler;
+
+    @Autowired
+    private ProgressHandler progressHandler;
 
     @RequestMapping(
         value = "/api/lessons",
@@ -82,6 +86,21 @@ public class LessonController {
             HashMap<String, Integer>
         > values = getStringHashMapHashMap(username, lessonType);
         return new ResponseEntity<>(values, HttpStatus.OK);
+    }
+    @RequestMapping(
+            value = "/api/lessons/incorrectcount",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public ResponseEntity<HashMap<String, Integer>
+            > getIncorrectCount(
+            @RequestParam(name = "lessonType", defaultValue = "guess")
+                    String lessonType,
+            @RequestParam(name = "username")
+                    String username
+    ) {
+
+        return new ResponseEntity<>(progressHandler.getWrongCount(username), HttpStatus.OK);
     }
 
     @RequestMapping(
