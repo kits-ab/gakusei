@@ -652,12 +652,12 @@ export function fetchLessonIncorrectAnswers(lessonType) {
       )
         .then(response => {
           if (response.ok) {
-            return response[response.status == 204 ? 'text' : 'json']();
+            return response[response.status === 204 ? 'text' : 'json']();
           }
         })
         .then(json => {
           //när man får frågor en användare har svarat fel på
-          if (!json == '') {
+          if (json !== '') {
             dispatch(resetLesson());
             dispatch(receiveLesson(json));
             dispatch(processCurrentQuestion());

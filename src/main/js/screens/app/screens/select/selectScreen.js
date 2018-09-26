@@ -132,14 +132,6 @@ export class selectScreen extends React.Component {
     }
   }
 
-  getLengthOfJson() {
-    //if(this.props.fetchLessonIncorrectAnswers().length == undefined){
-    //return 0
-    //}
-    //this.props.fetchLessonIncorrectAnswers().length
-    return 0;
-  }
-
   handleSpacedRepetition() {
     this.props.toggleSpacedRepetition();
   }
