@@ -2,6 +2,7 @@ package se.kits.gakusei.util;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -173,6 +174,35 @@ public class ProgressHandler {
             }
         }
         return wrongKanji;
+    }
+    public HashMap<String,Integer> getWrongCount(String username){
+        List<ProgressTracking> allIncorrectNuggets = new ArrayList<>();
+        progressTrackingRepository.findAllByLatestResultAndUserUsernameEquals(false, username).forEach(allIncorrectNuggets::add);
+        List<Nugget> wrongNuggets = new ArrayList<>();
+        List<Kanji> wrongKanjis= new ArrayList<>();
+        Iterable<Nugget> allNuggets = nuggetRepository.findAll();
+        Iterable<Kanji> allKanji = kanjiRepository.findAll();
+        //itererar igenom alla items man fick från progresstracking och jämför med alla Nuggets för att hitta vilka som felsvar som är nuggets.
+        for (ProgressTracking item : allIncorrectNuggets) {
+            for (Nugget nugget : allNuggets) {
+                if (item.getNuggetID().equals(nugget.getId())) {
+                    wrongNuggets.add(nugget);
+                    //allIncorrectNuggets.remove(item);
+                }
+            }
+        }if (!allIncorrectNuggets.isEmpty()){
+            for (ProgressTracking item : allIncorrectNuggets) {
+                for (Kanji kanji : allKanji) {
+                    if (item.getNuggetID().equals(kanji.getId())) {
+                        wrongKanjis.add(kanji);
+                    }
+                }
+            }
+        }
+        HashMap<String, Integer> incorrectAnswerCount = new HashMap<>();
+        incorrectAnswerCount.put("incorrectQuestions",wrongNuggets.size());
+        incorrectAnswerCount.put("incorrectKanjis",wrongKanjis.size());
+        return incorrectAnswerCount;
     }
 }
 

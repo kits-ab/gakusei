@@ -18,6 +18,7 @@ export const defaultState = {
   selectedLesson: { name: '' },
   addressedQuestionsInLessons: null,
   favoriteLesson: null,
+  incorrectAnsweredLesson: {},
 
   // select/play stuff
   lessonSuccessRate: 0,
@@ -122,6 +123,8 @@ export const SET_ADDRESSED_QUESTIONS = 'SET_ADDRESSED_QUESTIONS';
 export const SET_SPACED_REPETITION = 'SET_SPACED_REPETITION';
 export const SET_KANJI_DIFFICULTY = 'SET_KANJI_DIFFICULTY';
 export const SET_FETCHING_LESSON = 'SET_FETCHING_LESSON';
+export const SET_INCORRECT_LESSON_COUNT = 'SET_INCORRECT_LESSON_COUNT';
+export const RECEIVE_INCORRECT_LESSON_COUNT = 'RECEIVE_INCORRECT_LESSON_COUNT';
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
@@ -785,6 +788,24 @@ export function setFetchingLesson(value) {
     });
   };
 }
+export function fetchIncorrectLessonCount(lessonType) {
+  return function(dispatch, getState) {
+    const securityState = getState().security;
+
+    return fetch(`/api/lessons/incorrectcount?username=${securityState.loggedInUser}&lessonType=${lessonType}`, {
+      credentials: 'same-origin'
+    })
+      .then(response => response.json())
+      .then(result => dispatch(receiveIncorrectLessonCount(result)));
+  };
+}
+export function receiveIncorrectLessonCount(count) {
+  return {
+    type: RECEIVE_INCORRECT_LESSON_COUNT,
+    description: 'Received incorrect lesson count',
+    count
+  };
+}
 
 export const actionCreators = {
   requestUserSuccessRate,
@@ -820,7 +841,8 @@ export const actionCreators = {
   removeStarredLesson,
   toggleSpacedRepetition,
   setKanjiDifficulty,
-  addUserKanjiDrawing
+  addUserKanjiDrawing,
+  fetchIncorrectLessonCount
 };
 
 // ----------------
@@ -1002,6 +1024,11 @@ export function lessons(state = defaultState, action) {
       return {
         ...state,
         isFetchingLesson: action.value
+      };
+    case RECEIVE_INCORRECT_LESSON_COUNT:
+      return {
+        ...state,
+        incorrectAnsweredLesson: action.count
       };
   }
 }

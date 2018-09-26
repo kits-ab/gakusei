@@ -48,7 +48,7 @@ export class selectScreen extends React.Component {
 
     this.props.fetchFavoriteLesson(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
-    console.log(this.props.fetchLessonIncorrectAnswers);
+    this.props.fetchIncorrectLessonCount(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchaddressedQuestionsInLessons(this.state.playType);
 
@@ -232,7 +232,6 @@ export class selectScreen extends React.Component {
                   {this.isSpacedRepetition() &&
                   !this.isLessonFinished(lesson) &&
                   this.getNumberOfRetentionQuestions(lesson).unanswered > 0 ? (
-
                       <OverlayTrigger
                         placement="top"
                         trigger={['hover', 'focus']}
@@ -240,7 +239,7 @@ export class selectScreen extends React.Component {
                       >
                         <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
                       </OverlayTrigger>
-                     ) : null}
+                    ) : null}
                 </h3>
                 {this.state.playType === 'quiz' ? null : (
                   <div>
@@ -453,6 +452,11 @@ export class selectScreen extends React.Component {
 
     const tooltip_blue = <Tooltip id="tooltip">Obesvarade frågor</Tooltip>;
 
+    const incorrectCount =
+      this.state.playType === 'kanji'
+        ? this.props.incorrectAnsweredLesson.incorrectKanjis
+        : this.props.incorrectAnsweredLesson.incorrectQuestions;
+
     const favoriteLesson = (
       <Row>
         <Col
@@ -545,7 +549,18 @@ export class selectScreen extends React.Component {
             <Panel.Body>
               <div className={'exercise'}>
                 <div className={'exercise__header'}>
-                  <h3 className={'exercise__header__title'}>{'Felsvarade frågor'}</h3>
+                  <h3 className={'exercise__header__title'}>
+                    {'Felsvarade frågor'}
+                    {incorrectCount > 0 ? (
+                      <OverlayTrigger
+                        placement="top"
+                        trigger={['hover', 'focus']}
+                        overlay={tooltip_red}
+                      >
+                        <Badge className="badge--type-todo">{incorrectCount}</Badge>
+                      </OverlayTrigger>
+                    ) : null}
+                  </h3>
                 </div>
                 <div className={'exercise__progress'}>
                   <ProgressBar />
