@@ -139,7 +139,7 @@ public class ProgressHandler {
     }
 
     //kollar vilka svar som är felsvarade
-    public List<Nugget> getWrongQuestions(String username, String lessonType){
+    public List<Nugget> getWrongQuestions(String username){
         // skapar lista från tabellen progresstracking
         List<ProgressTracking> allProgress = new ArrayList<>();
         // hämtar alla med latest_result = false och det username man får in och lägger i en lista
