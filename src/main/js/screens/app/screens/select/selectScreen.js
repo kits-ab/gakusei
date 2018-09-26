@@ -556,7 +556,7 @@ export class selectScreen extends React.Component {
                       <OverlayTrigger
                         placement="top"
                         trigger={['hover', 'focus']}
-                        overlay={tooltip_red}
+                        overlay={tooltip_incor}
                       >
                         <Badge className="badge--type-todo">{incorrectCount}</Badge>
                       </OverlayTrigger>
