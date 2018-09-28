@@ -2,6 +2,7 @@ import 'whatwg-fetch';
 import { push } from 'react-router-redux';
 import { REHYDRATE } from 'redux-persist/constants';
 import Utility from '../../shared/util/Utility';
+import { receiveFavoriteLesson, SET_FETCHING_LESSON, setAddressedQuestions } from './Lessons';
 
 // ----------------
 // DEFAULT STATE
@@ -18,7 +19,9 @@ export const defaultState = {
   loggedInUser: '',
   currentPageName: '',
   currentPage: null,
-  redirectUrl: null
+  redirectUrl: null,
+  announcement: [],
+  displayAnnouncement: true
 };
 
 // ----------------
@@ -39,11 +42,33 @@ export const SET_LOGGING_IN = 'SET_LOGGING_IN';
 export const SET_REGISTERING = 'SET_REGISTERING';
 export const CLEAR_AUTH_RESPONSE = 'CLEAR_AUTH_RESPONSE';
 export const SET_REDIRECT_URL = 'SET_REDIRECT_URL';
+export const RECIEVE_ANNOUNCEMENT = 'RECIEVE_ANNOUNCEMENT';
+export const SET_DISPLAY_ANNOUNCEMENT = 'SET_DISPLAY_ANNOUNCEMENT';
 
 // -----------------
 // ACTION (CREATORS) - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
 // Use @typeName and isActionType for type detection that works even after serialization/deserialization.
+export function recieveAnnouncement(announcement) {
+  return {
+    type: RECIEVE_ANNOUNCEMENT,
+    announcement
+  };
+}
+export function disableAnnouncement(id) {
+  return {
+    type: SET_DISPLAY_ANNOUNCEMENT,
+    id
+  };
+}
+export function fetchAnnouncement() {
+  return function(dispatch) {
+    return fetch(`/api/announcement`)
+      .then(response => response.json())
+      .then(result => result.map(a => (a = { ...a, visible: true })))
+      .then(endResult => dispatch(recieveAnnouncement(endResult)));
+  };
+}
 
 export function setRedirectUrl(url) {
   return {
@@ -171,7 +196,7 @@ export function requestUserLogout(redirectUrl, csrf) {
         'X-XSRF-TOKEN': csrf || ''
       }
     }).then(response => {
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 204) {
         dispatch(receiveLoggedInStatus(false));
         dispatch(clearAuthResponse());
         dispatch(setPageByName(redirectUrl || routing.locationBeforeTransitions.pathname || '/'));
@@ -288,7 +313,9 @@ export const actionCreators = {
   reloadCurrentRoute,
   verifyUserLoggedIn,
   clearAuthResponse,
-  setRedirectUrl
+  setRedirectUrl,
+  fetchAnnouncement,
+  disableAnnouncement
 };
 
 // ----------------
@@ -360,6 +387,16 @@ export function security(state = defaultState, action) {
       return {
         ...state,
         redirectUrl: action.url
+      };
+    case RECIEVE_ANNOUNCEMENT:
+      return {
+        ...state,
+        announcement: action.announcement
+      };
+    case SET_DISPLAY_ANNOUNCEMENT:
+      return {
+        ...state,
+        announcement: state.announcement.map(a => (a.id === action.id ? { ...a, visible: false } : a))
       };
   }
 }

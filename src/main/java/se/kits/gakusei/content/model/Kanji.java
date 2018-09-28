@@ -52,6 +52,8 @@ public class Kanji implements Serializable {
 
     private String kanji;
 
+    private String reading;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "kanjis")
     private List<Lesson> lessons;
@@ -115,6 +117,10 @@ public class Kanji implements Serializable {
     public void setLessons(List<Lesson> lessons) {
         this.lessons = lessons;
     }
+
+    public String getReading() { return reading; }
+
+    public void setReading(String reading) { this.reading = reading; }
 
 }
 

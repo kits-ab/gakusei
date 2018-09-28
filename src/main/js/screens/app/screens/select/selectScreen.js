@@ -1,4 +1,17 @@
-import { Button, Grid, Row, Col, FormGroup, ControlLabel, Panel, Badge, ProgressBar, Radio } from 'react-bootstrap';
+import {
+  Button,
+  Grid,
+  Row,
+  Col,
+  FormGroup,
+  ControlLabel,
+  Panel,
+  Badge,
+  ProgressBar,
+  Radio,
+  OverlayTrigger,
+  Tooltip
+} from 'react-bootstrap';
 
 import Utility from '../../../../shared/util/Utility';
 
@@ -34,6 +47,8 @@ export class selectScreen extends React.Component {
     this.props.fetchUserStarredLessons().catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchFavoriteLesson(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
+
+    this.props.fetchIncorrectLessonCount(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchaddressedQuestionsInLessons(this.state.playType);
 
@@ -104,6 +119,19 @@ export class selectScreen extends React.Component {
     }
   }
 
+  //startar lektion med felsvarade frågor
+  startIncorrectAnswerLesson() {
+    if (!this.props.isFetchingLesson) {
+      try {
+        this.props.fetchLessonIncorrectAnswers(this.state.playType).then(() => {
+          this.props.setPageByName(`/play/${this.state.playType}`);
+        });
+      } catch (err) {
+        this.props.verifyUserLoggedIn();
+      }
+    }
+  }
+
   handleSpacedRepetition() {
     this.props.toggleSpacedRepetition();
   }
@@ -163,6 +191,10 @@ export class selectScreen extends React.Component {
   }
 
   getLessons(lessons) {
+    const tooltip_red = <Tooltip id="tooltip">Besvarade frågor som behöver repeteras</Tooltip>;
+
+    const tooltip_blue = <Tooltip id="tooltip">Obesvarade frågor</Tooltip>;
+
     const mediumColumnSize = 6;
     const largeColumnSize = 4;
     const renderedLessons = lessons.map(lesson => (
@@ -181,12 +213,24 @@ export class selectScreen extends React.Component {
                   {this.isSpacedRepetition() &&
                   !this.isLessonFinished(lesson) &&
                   this.getNumberOfRetentionQuestions(lesson).retention > 0 ? (
-                      <Badge className="badge--type-todo">{this.getNumberOfRetentionQuestions(lesson).retention}</Badge>
+                      <OverlayTrigger
+                        placement="top"
+                        trigger={['hover', 'focus']}
+                        overlay={tooltip_red}
+                      >
+                        <Badge className="badge--type-todo">{this.getNumberOfRetentionQuestions(lesson).retention}</Badge>
+                      </OverlayTrigger>
                     ) : null}
                   {this.isSpacedRepetition() &&
                   !this.isLessonFinished(lesson) &&
                   this.getNumberOfRetentionQuestions(lesson).unanswered > 0 ? (
-                      <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
+                      <OverlayTrigger
+                        placement="top"
+                        trigger={['hover', 'focus']}
+                        overlay={tooltip_blue}
+                      >
+                        <Badge className="badge--type-new">{this.getNumberOfRetentionQuestions(lesson).unanswered}</Badge>
+                      </OverlayTrigger>
                     ) : null}
                 </h3>
                 {this.state.playType === 'quiz' ? null : (
@@ -396,6 +440,16 @@ export class selectScreen extends React.Component {
       lessonsFavoriteDone = undefined;
     }
 
+    const tooltip_red = <Tooltip id="tooltip">Besvarade frågor som behöver repeteras</Tooltip>;
+    const tooltip_incor = <Tooltip id="tooltip">Antal felbesvarade frågor</Tooltip>;
+
+    const tooltip_blue = <Tooltip id="tooltip">Obesvarade frågor</Tooltip>;
+
+    const incorrectCount =
+      this.state.playType === 'kanji'
+        ? this.props.incorrectAnsweredLesson.incorrectKanjis
+        : this.props.incorrectAnsweredLesson.incorrectQuestions;
+
     const favoriteLesson = (
       <Row>
         <Col
@@ -410,10 +464,22 @@ export class selectScreen extends React.Component {
                   <h3 className={'exercise__header__title'}>
                     {'Blandade frågor.'}
                     {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().retention > 0 ? (
-                      <Badge className="badge--type-todo">{this.getNumberOfFavoriteQuestions().retention}</Badge>
+                      <OverlayTrigger
+                        placement="top"
+                        trigger={['hover', 'focus']}
+                        overlay={tooltip_red}
+                      >
+                        <Badge className="badge--type-todo">{this.getNumberOfFavoriteQuestions().retention}</Badge>
+                      </OverlayTrigger>
                     ) : null}
                     {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().unanswered > 0 ? (
-                      <Badge className="badge--type-new">{this.getNumberOfFavoriteQuestions().unanswered}</Badge>
+                      <OverlayTrigger
+                        placement="top"
+                        trigger={['hover', 'focus']}
+                        overlay={tooltip_blue}
+                      >
+                        <Badge className="badge--type-new">{this.getNumberOfFavoriteQuestions().unanswered}</Badge>
+                      </OverlayTrigger>
                     ) : null}
                   </h3>
                 </div>
@@ -440,12 +506,67 @@ export class selectScreen extends React.Component {
                     onClick={e => {
                       e.stopPropagation();
                       this.props.setSelectedLesson(this.props.favoriteLesson);
+                      console.log(this.props.setSelectedLesson);
+                      console.log(this.props.favoriteLesson);
                       this.startLesson();
                     }}
                     disabled={
-                      this.props.starredLessons.length === 0 || this.getNumberOfFavoriteQuestions().unanswered === 0 
-                      && this.getNumberOfFavoriteQuestions().retention === 0
+                      this.props.starredLessons.length === 0 ||
+                      (this.getNumberOfFavoriteQuestions().unanswered === 0 &&
+                        this.getNumberOfFavoriteQuestions().retention === 0)
                     }
+                    bsClass={'icon-button'}
+                  >
+                    <FontAwesomeIcon
+                      className={'fa-fw'}
+                      icon={faPlay}
+                    />
+                  </Button>
+                </div>
+              </div>
+            </Panel.Body>
+          </Panel>
+        </Col>
+      </Row>
+    );
+
+    // Lektion med frågor man har svarat fel på
+    const incorrectAnswers = (
+      <Row>
+        <Col
+          xs={12}
+          md={12}
+          lg={12}
+        >
+          <Panel>
+            <Panel.Body>
+              <div className={'exercise'}>
+                <div className={'exercise__header'}>
+                  <h3 className={'exercise__header__title'}>
+                    {'Felsvarade frågor'}
+                    {incorrectCount > 0 ? (
+                      <OverlayTrigger
+                        placement="top"
+                        trigger={['hover', 'focus']}
+                        overlay={tooltip_incor}
+                      >
+                        <Badge className="badge--type-todo">{incorrectCount}</Badge>
+                      </OverlayTrigger>
+                    ) : null}
+                  </h3>
+                </div>
+                <div className={'exercise__progress'}>
+                  <ProgressBar />
+                </div>
+                <p className={'exercise__description'}>{'Här hamnar alla frågor som du har svarat fel på'}</p>
+                <div className={'exercise__actions'}>
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      this.props.setSelectedLesson(this.props.lessons);
+                      this.startIncorrectAnswerLesson();
+                    }}
+                    disabled={incorrectCount === 0}
                     bsClass={'icon-button'}
                   >
                     <FontAwesomeIcon
@@ -470,6 +591,7 @@ export class selectScreen extends React.Component {
           {this.getLanguageSelection()}
           <h2>Lektioner</h2>
           {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? favoriteLesson : null}
+          {!['quiz', 'grammar'].includes(this.state.playType) ? incorrectAnswers : null}
 
           <div>
             {lessonsFavorite ? (

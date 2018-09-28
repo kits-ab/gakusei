@@ -70,7 +70,7 @@ public class QuizController {
         @PathVariable(value = "quizId")
         Long quizId
     ) {
-        return ResponseEntity.ok(quizRepository.findOne(quizId));
+        return ResponseEntity.ok(quizRepository.findById(quizId).get());
     }
 
     @RequestMapping(
@@ -85,9 +85,11 @@ public class QuizController {
         int offset
     ) {
         Pageable pageRequest;
-        if (offset < 0)
-        pageRequest = new PageRequest(0, 10); else
-        pageRequest = new PageRequest(offset, 10);
+        if (offset < 0){
+        pageRequest = PageRequest.of(0, 10); }
+        else{
+        pageRequest = PageRequest.of(offset, 10);}
+
         return new ResponseEntity<>(
             quizRepository.findByNameContainingIgnoreCase(name, pageRequest),
             HttpStatus.OK
@@ -105,8 +107,8 @@ public class QuizController {
     ) {
         Pageable pageRequest;
         if (offset < 0)
-        pageRequest = new PageRequest(0, 10); else
-        pageRequest = new PageRequest(offset, 10);
+        pageRequest = PageRequest.of(0, 10); else
+        pageRequest = PageRequest.of(offset, 10);
         return new ResponseEntity<>(
             quizRepository.findAll(pageRequest).getContent(),
             HttpStatus.OK

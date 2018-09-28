@@ -1,5 +1,6 @@
 package se.kits.gakusei.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import se.kits.gakusei.content.model.Kanji;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.util.KanjiHandler;
+import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
 public class KanjiController {
@@ -25,14 +27,17 @@ public class KanjiController {
 
     private LessonRepository lessonRepository;
     private KanjiHandler kanjiHandler;
+    private ProgressHandler progressHandler;
 
     @Autowired
     public KanjiController(
         LessonRepository lessonRepository,
-        KanjiHandler kanjiHandler
+        KanjiHandler kanjiHandler,
+        ProgressHandler progressHandler
     ) {
         this.lessonRepository = lessonRepository;
         this.kanjiHandler = kanjiHandler;
+        this.progressHandler = progressHandler;
     }
 
     @RequestMapping(
@@ -57,6 +62,22 @@ public class KanjiController {
         > questions = getCachedKanjiQuestionsFromLesson(lessonName, username, spacedRepetition);
         return questions.isEmpty() ? new ResponseEntity<>(
             HttpStatus.INTERNAL_SERVER_ERROR
+        ) : new ResponseEntity<>(questions, HttpStatus.OK);
+    }
+    @RequestMapping(
+            value = "/api/wrongquestions/kanji",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    ResponseEntity<List<HashMap<String, Object>>> createWrongAnswersQuestions(
+            @RequestParam(value = "userName") String userName){
+        List<HashMap<String, Object>> questions;
+
+        questions = getCachedKanjiFromWrongAnswers(userName);
+
+        //returnerar en lista av nuggets en användare har svarat fel på
+        return questions.isEmpty() ? new ResponseEntity<>(
+                HttpStatus.NO_CONTENT
         ) : new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
@@ -84,6 +105,17 @@ public class KanjiController {
         }
 
 
+
+        return kanjiHandler.createKanjiQuestions(chosenKanjis);
+    }
+    private List<HashMap<String, Object>> getCachedKanjiFromWrongAnswers(
+            String username
+
+    ) {
+        List<Kanji> allLessonKanjis = progressHandler.getWrongKanji(username);
+        List<Kanji> chosenKanjis;
+
+            chosenKanjis = kanjiHandler.chooseKanjis(allLessonKanjis, quantity);
 
         return kanjiHandler.createKanjiQuestions(chosenKanjis);
     }

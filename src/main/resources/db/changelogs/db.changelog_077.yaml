@@ -1,0 +1,15 @@
+databaseChangeLog:
+- changeSet:
+    id: 77
+    author: Pierre Sandboge
+    changes:
+      - modifyDataType:
+          columnName: swedish
+          newDataType: varchar(127)
+          schemaName: contentschema
+          tableName: kanjis
+      - modifyDataType:
+          columnName: english
+          newDataType: varchar(127)
+          schemaName: contentschema
+          tableName: kanjis

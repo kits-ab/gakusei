@@ -84,7 +84,23 @@ export class loginScreen extends React.Component {
       <Grid>
         <Row>
           <Col
-            mdOffset={4}
+            mdOffset={0}
+            md={4}
+          >
+            <div>
+              <h4>Registrera dig snabbt och enkelt här</h4>
+              <p>
+                Vi sparar inga personuppgifter så var noga med att komma ihåg ditt lösenord då vi inte kan återställa
+                det åt dig.
+              </p>
+              <p>
+                Materialet är anpassat efter det svenska språket och du kan lära dig från svenska till japanska och
+                japanska till svenska
+              </p>
+            </div>
+          </Col>
+          <Col
+            mdOffset={1}
             md={4}
           >
             <Form onSubmit={this.handleSubmit}>

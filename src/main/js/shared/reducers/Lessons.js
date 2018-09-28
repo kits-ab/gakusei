@@ -18,6 +18,7 @@ export const defaultState = {
   selectedLesson: { name: '' },
   addressedQuestionsInLessons: null,
   favoriteLesson: null,
+  incorrectAnsweredLesson: {},
 
   // select/play stuff
   lessonSuccessRate: 0,
@@ -122,6 +123,8 @@ export const SET_ADDRESSED_QUESTIONS = 'SET_ADDRESSED_QUESTIONS';
 export const SET_SPACED_REPETITION = 'SET_SPACED_REPETITION';
 export const SET_KANJI_DIFFICULTY = 'SET_KANJI_DIFFICULTY';
 export const SET_FETCHING_LESSON = 'SET_FETCHING_LESSON';
+export const SET_INCORRECT_LESSON_COUNT = 'SET_INCORRECT_LESSON_COUNT';
+export const RECEIVE_INCORRECT_LESSON_COUNT = 'RECEIVE_INCORRECT_LESSON_COUNT';
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
@@ -619,6 +622,64 @@ export function fetchLesson(lessonType) {
   };
 }
 
+//hämtar de felsvarade frågorna från backend
+export function fetchLessonIncorrectAnswers(lessonType) {
+  return function(dispatch, getState) {
+    let fetchURL;
+    switch (lessonType) {
+      case 'kanji':
+        fetchURL = '/api/wrongquestions/kanji';
+        break;
+      default:
+        fetchURL = '/api/wrongquestions';
+        break;
+    }
+    const lessonState = getState().lessons;
+    const securityState = getState().security;
+
+    dispatch({
+      type: SET_FETCHING_LESSON,
+      description: 'A lesson has been requested.',
+      value: true
+    });
+
+    return new Promise(resolve =>
+      fetch(
+        `${fetchURL}?lessonType=${lessonState.lessonType}&questionType=${lessonState.questionType}&answerType=${
+          lessonState.answerType
+        }&userName=${securityState.loggedInUser}`,
+        { credentials: 'same-origin' }
+      )
+        .then(response => {
+          if (response.ok) {
+            return response[response.status === 204 ? 'text' : 'json']();
+          }
+        })
+        .then(json => {
+          //när man får frågor en användare har svarat fel på
+          if (json !== '') {
+            dispatch(resetLesson());
+            dispatch(receiveLesson(json));
+            dispatch(processCurrentQuestion());
+            dispatch({
+              type: SET_FETCHING_LESSON,
+              description: 'The requested lesson has been retrieved successfully.',
+              value: false
+            });
+            resolve();
+          } else {
+            //vad ska hända när den är tom
+            dispatch({
+              type: SET_FETCHING_LESSON,
+              description: 'The requested lesson has been retrieved successfully but is empty.',
+              value: false
+            });
+          }
+        })
+    );
+  };
+}
+
 export function fetchFavoriteLesson(lessonType) {
   return function(dispatch, getState) {
     const securityState = getState().security;
@@ -727,6 +788,24 @@ export function setFetchingLesson(value) {
     });
   };
 }
+export function fetchIncorrectLessonCount(lessonType) {
+  return function(dispatch, getState) {
+    const securityState = getState().security;
+
+    return fetch(`/api/lessons/incorrectcount?username=${securityState.loggedInUser}&lessonType=${lessonType}`, {
+      credentials: 'same-origin'
+    })
+      .then(response => response.json())
+      .then(result => dispatch(receiveIncorrectLessonCount(result)));
+  };
+}
+export function receiveIncorrectLessonCount(count) {
+  return {
+    type: RECEIVE_INCORRECT_LESSON_COUNT,
+    description: 'Received incorrect lesson count',
+    count
+  };
+}
 
 export const actionCreators = {
   requestUserSuccessRate,
@@ -739,6 +818,7 @@ export const actionCreators = {
   resetQuestionIndex,
   fetchLesson,
   fetchLessons,
+  fetchLessonIncorrectAnswers,
   fetchaddressedQuestionsInLessons,
   fetchFavoriteLesson,
   setSelectedLesson,
@@ -761,7 +841,8 @@ export const actionCreators = {
   removeStarredLesson,
   toggleSpacedRepetition,
   setKanjiDifficulty,
-  addUserKanjiDrawing
+  addUserKanjiDrawing,
+  fetchIncorrectLessonCount
 };
 
 // ----------------
@@ -943,6 +1024,11 @@ export function lessons(state = defaultState, action) {
       return {
         ...state,
         isFetchingLesson: action.value
+      };
+    case RECEIVE_INCORRECT_LESSON_COUNT:
+      return {
+        ...state,
+        incorrectAnsweredLesson: action.count
       };
   }
 }

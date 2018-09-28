@@ -7,7 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import se.kits.gakusei.content.model.Course;
@@ -15,6 +15,7 @@ import se.kits.gakusei.content.repository.CourseRepository;
 import se.kits.gakusei.test_tools.TestTools;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -59,7 +60,7 @@ public class CourseControllerTest {
 
     @Test
     public void testGetCourseByIDOK() throws Exception {
-        Mockito.when(courseRepository.findOne(testCourse.getId())).thenReturn(testCourse);
+        Mockito.when(courseRepository.findById(testCourse.getId())).thenReturn(Optional.of(testCourse));
 
         ResponseEntity<Course> re = courseController.getCourseByID(testCourse.getId());
 
@@ -69,7 +70,7 @@ public class CourseControllerTest {
 
     @Test
     public void testGetCourseByIDNotFound() {
-        Mockito.when(courseRepository.findOne(testCourse.getId())).thenReturn(null);
+        Mockito.when(courseRepository.findById(testCourse.getId())).thenReturn(Optional.empty());
 
         ResponseEntity<Course> re = courseController.getCourseByID(testCourse.getId());
 

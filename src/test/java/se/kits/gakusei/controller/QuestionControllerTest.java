@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +18,7 @@ import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.content.repository.UserLessonRepository;
 import se.kits.gakusei.test_tools.TestTools;
+import se.kits.gakusei.util.ProgressHandler;
 import se.kits.gakusei.util.QuestionHandler;
 
 import java.util.Collections;
@@ -39,6 +40,9 @@ public class QuestionControllerTest {
     @Mock
     private UserLessonRepository userLessonRepository;
 
+    @Mock
+    private ProgressHandler progressHandler;
+
     @Value("${gakusei.questions-quantity}")
     private int quantity;
 
@@ -52,7 +56,7 @@ public class QuestionControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        questionController = new QuestionController(lessonRepository, questionHandler, userLessonRepository);
+        questionController = new QuestionController(lessonRepository, questionHandler, userLessonRepository, progressHandler);
         MockitoAnnotations.initMocks(this);
         questionType = "reading";
         answerType = "swedish";
@@ -68,7 +72,7 @@ public class QuestionControllerTest {
 
     @Test
     public void testGetQuestionsFromLessonOK() throws Exception {
-        Mockito.when(lessonRepository.findNuggetsByRetentionDate(userName, lessonName)).thenReturn(nuggets);
+        //Depricated Mockito.when(lessonRepository.findNuggetsByRetentionDate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findNuggetsBySuccessrate(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findUnansweredNuggets(userName, lessonName)).thenReturn(nuggets);
         Mockito.when(lessonRepository.findByName(lessonName)).thenReturn(lesson);

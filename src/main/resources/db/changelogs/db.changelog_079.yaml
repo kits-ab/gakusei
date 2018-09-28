@@ -1,0 +1,29 @@
+databaseChangeLog:
+- changeSet:
+    id: 79
+    author: Daniel Ivestig
+    changes:
+    - createTable:
+        schemaName: public
+        tableName: announcements
+        columns:
+        - column:
+            autoIncrement: true
+            name: id
+            type: serial
+            constraints:
+              primaryKey: true
+              primaryKeyName: announcements_pkey
+        - column:
+            constraints:
+              nullable: false
+            name: start_date
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        - column:
+            constraints:
+              nullable: false
+            name: end_date
+            type: TIMESTAMP(6) WITHOUT TIME ZONE
+        - column:
+            name: text
+            type: text

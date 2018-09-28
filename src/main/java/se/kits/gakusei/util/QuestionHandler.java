@@ -6,7 +6,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import se.kits.gakusei.content.model.*;
@@ -60,9 +59,7 @@ public class QuestionHandler {
         List<List<String>> correctAlternative = new ArrayList<>();
         correctAlternative.add(createAlternative(nugget, answerType));
 
-        for (int i = 0; optimalNuggets.size() < 3 && i < copyOfNuggets.size(
-
-        ); i++) {
+        for (int i = 0; optimalNuggets.size() < 3 && i < copyOfNuggets.size(); i++) {
             if (copyOfNuggets.get(i).getWordType().equals(
                 nugget.getWordType()
             )) {
@@ -244,6 +241,5 @@ public class QuestionHandler {
         }
         return alternative;
     }
-
 }
 
