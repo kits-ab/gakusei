@@ -248,10 +248,10 @@ Then start up the Elastic stack on Docker using these two commands:
 1. docker-compose build
 2. docker-compose up
 
-Once all the data has been transfer to Elasticsearch, shut down the containers with `Ctrl + c` to edit the Dockerfile.
+Once all the data has been transfered to Elasticsearch, shut down the containers with `Ctrl + C` to edit the Dockerfile.
 Uncomment the first command and uncomment the second command in the `Dockerfile`, then build and run Docker again using the two commands above.
 
-**Note 4:** You must run both commands after any changes that you make. You can shut down the docker containers with `ctrl + c` and start it up again only with the second command and you should still have the data in Elasticsearch.
+**Note 4:** You must run both commands after any changes that you make. You can shut down the docker containers with `Ctrl + C` and start it up again only with the second command and you should still have the data in Elasticsearch.
 
 #### Inspecting the containers
 
