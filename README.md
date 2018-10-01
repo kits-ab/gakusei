@@ -153,12 +153,15 @@ Requirements:
 #### Installing Docker
 
 Download and install Docker from this page:
+
 https://www.docker.com/products/docker-engine#/download
 
 Download and install Docker Compose from this page:
+
 https://docs.docker.com/compose/install/
 
 Download the latest version of the postgres driver from this page:
+
 https://jdbc.postgresql.org/download.html
 
 **Note 1:** On desktop systems like Docker for Mac and Windows, Docker Compose is included as part of those desktop installs.
