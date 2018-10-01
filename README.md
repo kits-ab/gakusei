@@ -80,8 +80,7 @@ Requirements:
 
 #### Installing ELK 
 
-Complete steps 1-3 from this installation page for the Elastic Stack to install Elasticsearch, Kibana and Logstash:
-
+Complete steps 1-3 from this installation page for the Elastic Stack to install Elasticsearch, Kibana and Logstash:\
 https://www.elastic.co/guide/en/elastic-stack/current/installing-elastic-stack.html
 
 For Mac you can just use brew with the following commands:
@@ -92,10 +91,10 @@ For Mac you can just use brew with the following commands:
 To be able to search the database, install the logstash jdbc input plugin with the following command:
 * `logstash-plugin install logstash-input-jdbc`
 
-In case the command does not work, refer to the installation page for the jdbc input plugin:
+In case the command does not work, refer to the installation page for the jdbc input plugin:\
 https://www.elastic.co/blog/logstash-jdbc-input-plugin
 
-Download the latest version of the postgres driver from this page:
+Download the latest version of the postgres driver from this page:\
 https://jdbc.postgresql.org/download.html
 
 Create a config file for logstash, e.g., `gakusei-config.conf` and paste the following configuration into the file:
@@ -139,10 +138,10 @@ This command would return the first indexed event by Elasticsearch where `gakuse
 
 You should now have imported the data from your database into Elasticsearch and view it with Kibana.
 
-Refer to online tutorials to learn how to use Kibana or use the Kibana user guide on the this page:
+Refer to online tutorials to learn how to use Kibana or use the Kibana user guide on the this page:\
 https://www.elastic.co/guide/en/kibana/current/index.html
 
-### Using ELK with Docker (Probably only MAC for now)
+### Using the Elastic Stack (ELK) with Docker (Probably only MAC for now)
 
 Requirements:
 * Docker version 17.05+
@@ -243,11 +242,15 @@ COPY postgresql-42.2.5.jar /usr/share/logstash/
 
 #### Running ELK on Docker
 
-To start up the Elastic stack on Docker we need two commands:
+Before running Docker, uncomment one of the commands in the `Dockerfile`. It does not matter which one, but lets go with the first.
+
+Then start up the Elastic stack on Docker using these two commands:
 1. docker-compose build
 2. docker-compose up
 
-**Note 4:** You must run both commands after any changes that you make.
+Now comment the first command and uncomment the second command in the `Dockerfile`, then build and run Docker again using the two commands above.
+
+**Note 4:** You must run both commands after any changes that you make. You can shut down the docker containers with `ctrl + c` and start it up again only with the second command and you should still have the data in Elasticsearch.
 
 #### Inspecting the containers
 
