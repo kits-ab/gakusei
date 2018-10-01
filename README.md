@@ -73,6 +73,7 @@ Requirements:
 * Kibana
 * Logstash
 * Logstash jdbc plugin
+* postgres jdbc driver
 * Running gakusei database
 
 **Note #1:** Logstash currently requires Java 8 and does not support Java 9 or higher.
@@ -140,6 +141,122 @@ You should now have imported the data from your database into Elasticsearch and 
 
 Refer to online tutorials to learn how to use Kibana or use the Kibana user guide on the this page:
 https://www.elastic.co/guide/en/kibana/current/index.html
+
+### Using ELK with Docker (Probably only MAC for now)
+
+Requirements:
+* Docker version 17.05+
+* Docker Compose version 1.6.0+
+* postgres jdbc driver
+* Running gakusei database
+
+#### Installing Docker
+
+Download and install Docker from this page:
+https://www.docker.com/products/docker-engine#/download
+
+Download and install Docker Compose from this page:
+https://docs.docker.com/compose/install/
+
+Download the latest version of the postgres driver from this page:
+https://jdbc.postgresql.org/download.html
+
+**Note 1:** On desktop systems like Docker for Mac and Windows, Docker Compose is included as part of those desktop installs.
+
+Clone the docker-elk repository that includes a pre-configured Elastic Stack running on Docker:
+* `git clone https://github.com/deviantony/docker-elk.git`
+
+#### Configuring ELK on Docker
+
+Navigate to the `/logstash/pipeline` directory and create two files `gakusei_events.conf` and `gakusei_progresstrackinglist.conf`.
+
+Paste the following configuration to `gakusei_events.conf`:
+```
+input {
+	jdbc {
+		jdbc_connection_string => "jdbc:postgresql://docker.for.mac.localhost:5432/gakusei?gakusei"
+		jdbc_user => "gakusei"
+		jdbc_password => "gakusei"
+		jdbc_driver_library => "/usr/share/logstash/postgresql-42.2.5.jar"
+		jdbc_driver_class => "org.postgresql.Driver"
+		statement => "SELECT * from events"
+	}
+}
+
+## Add your filters / logstash plugins configuration here
+
+output {
+	elasticsearch {
+		index => "events"
+		document_type => "event"
+		document_id => "%{id}"
+		hosts => "elasticsearch:9200"
+	}
+}
+```
+
+Paste the following configuration to `gakusei_progresstrackinglist`:
+```
+input {
+	jdbc {
+		jdbc_connection_string => "jdbc:postgresql://docker.for.mac.localhost:5432/gakusei?gakusei"
+		jdbc_user => "gakusei"
+		jdbc_password => "gakusei"
+		jdbc_driver_library => "/usr/share/logstash/postgresql-42.2.5.jar"
+		jdbc_driver_class => "org.postgresql.Driver"
+		statement => "SELECT * from progresstrackinglist"
+	}
+}
+
+## Add your filters / logstash plugins configuration here
+
+output	{
+	elasticsearch {
+		index => "progresstrackinglist"
+		document_type => "progresstracking"
+		document_id => "%{id}"
+		hosts => "elasticsearch:9200"
+	}
+}
+```
+
+Navigate back to the `logstash` directory and open the `Dockerfile`.
+Add these lines to the `Dockerfile` to configure logstash to work with our running postgres database:
+```
+# Install the logstash input jdbc plugin to work with postgres.
+RUN logstash-plugin install logstash-input-jdbc
+
+# Copy files from the host machine to the container. The syntax is 'COPY <source> <target>'.
+COPY /pipeline/gakusei_events.conf /usr/share/logstash/pipeline/
+COPY /pipeline/gakusei_progresstrackinglist.conf /usr/share/logstash/pipeline/
+COPY postgresql-42.2.5.jar /usr/share/logstash/
+
+# Commands to run on logstash startup.
+
+# CMD ["-f", "/usr/share/logstash/pipeline/gakusei_progresstrackinglist.conf"]
+# CMD ["-f", "/usr/share/logstash/pipeline/gakusei_events.conf"]
+```
+
+**Note 2:** The commands are intentionally commented out. As you will soon see, we will use them one at a time.
+
+#### Running ELK on Docker
+
+To start up the Elastic stack on Docker we need to commands:
+1. docker-compose build
+2. docker-compose up
+
+**Note 3:** You must run both commands after changes you make to the configurations.
+
+#### Inspecting the containers
+
+To list all the containers that are currently running, use the following command:
+* `docker ps`
+To include containers that are not currently running, use the following command:
+* `docker ps -a`
+
+To inspect a docker image with bash, use the following command:
+* `docker run --rm -it --entrypoint=/bin/bash <image name>` 
+
 
 ## Deployment <a name="deploy"/>
 The repository is synched with [Travis CI](https://travis-ci.org/), which is a tool for continuous integration that automatically builds, tests and deploys the project.
