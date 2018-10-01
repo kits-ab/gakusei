@@ -97,13 +97,16 @@ public class EventController {
         event.setType(eventDTO.getType());
         event.setData(eventDTO.getData());
         event.setNuggetId(eventDTO.getNuggetid());
+        event.setNuggetCategory(eventDTO.getNuggetcategory());
         event.setTimestamp(new Timestamp(eventDTO.getTimestamp()));
         logger.info(
             event.getTimestamp().toString() + " / " + event.getGamemode(
 
             ) + " / " + event.getType() + " / " + event.getData(
 
-            ) + " / " + event.getNuggetId() + " / " + user.getUsername()
+            ) + " / " + event.getNuggetId() + " / " + user.getUsername(
+
+            ) + " / " + event.getNuggetCategoryAsString(event.getNuggetCategory())
         );
         event = eventRepository.save(event);
         if (event.getType().equalsIgnoreCase("answeredCorrectly")) {
@@ -114,6 +117,5 @@ public class EventController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
 

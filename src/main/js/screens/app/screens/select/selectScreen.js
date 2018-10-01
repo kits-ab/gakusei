@@ -111,6 +111,9 @@ export class selectScreen extends React.Component {
     if (!this.props.isFetchingLesson) {
       try {
         this.props.fetchLesson(this.state.playType).then(() => {
+          console.log('startlesson state.playtype= ' + this.state.playType);
+          this.props.setPlayType(this.state.playType);
+          console.log('setPlaytype = ' + this.state.playType);
           this.props.setPageByName(`/play/${this.state.playType}`);
         });
       } catch (err) {
@@ -124,6 +127,7 @@ export class selectScreen extends React.Component {
     if (!this.props.isFetchingLesson) {
       try {
         this.props.fetchLessonIncorrectAnswers(this.state.playType).then(() => {
+          this.props.setPlayType(this.state.playType);
           this.props.setPageByName(`/play/${this.state.playType}`);
         });
       } catch (err) {

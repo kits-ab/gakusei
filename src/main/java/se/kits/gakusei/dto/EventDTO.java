@@ -6,7 +6,9 @@ public class EventDTO {
     private String type;
     private String data;
     private String nuggetid;
+    private String nuggetcategory;
     private String username;
+
     private String lesson;
 
     public EventDTO() {}
@@ -65,6 +67,29 @@ public class EventDTO {
 
     public void setLesson(String lesson) {
         this.lesson = lesson;
+    }
+
+    public String getNuggetcategory() {
+        return nuggetcategory;
+    }
+
+    public void setNuggetcategory(String nuggetcategory) {
+        this.nuggetcategory = nuggetcategory;
+    }
+    public void setNuggetcategory(int nuggetcategory) {
+        this.nuggetcategory = determineNuggetCategory(nuggetcategory);
+    }
+
+    public String determineNuggetCategory(int cat){
+        switch (cat){
+            case 2 : return "guess";
+            case 3 : return "kanji";
+            case 4  : return "quiz";
+            case 5 : return "flashcards";
+            case 6 : return "grammar";
+            case 7 : return "translate";
+            default:return "unknown";
+        }
     }
 }
 

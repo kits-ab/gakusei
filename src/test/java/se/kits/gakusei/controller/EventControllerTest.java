@@ -39,6 +39,7 @@ public class EventControllerTest {
     private String type;
     private String data;
     private String nuggetId;
+    private String nuggetCategory;
     private long timestamp;
     private User user;
 
@@ -61,6 +62,7 @@ public class EventControllerTest {
         data = "testdata";
         timestamp = 1485267234671L;
         nuggetId = "testNuggetId";
+        nuggetCategory = "testNuggetCategory";
         user = new User(username, password, role);
 
         eventDTO = new EventDTO();
@@ -69,6 +71,7 @@ public class EventControllerTest {
         eventDTO.setType(type);
         eventDTO.setData(data);
         eventDTO.setNuggetid(nuggetId);
+        eventDTO.setNuggetcategory(nuggetCategory);
         eventDTO.setTimestamp(timestamp);
     }
 

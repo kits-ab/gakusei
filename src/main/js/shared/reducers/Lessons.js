@@ -27,6 +27,7 @@ export const defaultState = {
   starredLessons: [],
   questionType: 'reading',
   answerType: 'swedish',
+  playType: 'shiet',
 
   kanjiDifficulty: 'easy',
 
@@ -125,6 +126,7 @@ export const SET_KANJI_DIFFICULTY = 'SET_KANJI_DIFFICULTY';
 export const SET_FETCHING_LESSON = 'SET_FETCHING_LESSON';
 export const SET_INCORRECT_LESSON_COUNT = 'SET_INCORRECT_LESSON_COUNT';
 export const RECEIVE_INCORRECT_LESSON_COUNT = 'RECEIVE_INCORRECT_LESSON_COUNT';
+export const SET_LESSON_PLAY_TYPE = 'SET_LESSON_PLAY_TYPE';
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
@@ -285,8 +287,11 @@ export function addUserAnswer(userAnswerText, cardData) {
           eventData: answeredQuestion.userCorrect,
           nuggetId: state.currentQuestion.correctAlternativeNuggetId
         }
-      ]
+      ],
+      nuggetcategory: state.playtype
     };
+    console.log('addUserAnswer, state.playtype = ' + state.playtype);
+    console.log('addUserAnswer, eventData.nuggetCategory = ' + eventData.nuggetcategory);
 
     if (getState().lessons.spacedRepetition) {
       eventData.data.push({
@@ -806,6 +811,14 @@ export function receiveIncorrectLessonCount(count) {
     count
   };
 }
+export function setPlayType(playtype) {
+  console.log('In SetPlayType, variable playtype = ' + playtype);
+  return {
+    type: SET_LESSON_PLAY_TYPE,
+    description: 'Set lesson type',
+    playtype
+  };
+}
 
 export const actionCreators = {
   requestUserSuccessRate,
@@ -842,7 +855,8 @@ export const actionCreators = {
   toggleSpacedRepetition,
   setKanjiDifficulty,
   addUserKanjiDrawing,
-  fetchIncorrectLessonCount
+  fetchIncorrectLessonCount,
+  setPlayType
 };
 
 // ----------------
@@ -1029,6 +1043,11 @@ export function lessons(state = defaultState, action) {
       return {
         ...state,
         incorrectAnsweredLesson: action.count
+      };
+    case SET_LESSON_PLAY_TYPE:
+      return {
+        ...state,
+        playtype: action.playtype
       };
   }
 }
