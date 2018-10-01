@@ -152,16 +152,13 @@ Requirements:
 
 #### Installing Docker
 
-Download and install Docker from this page:
-
+Download and install Docker from this page:\
 https://www.docker.com/products/docker-engine#/download
 
-Download and install Docker Compose from this page:
-
+Download and install Docker Compose from this page:\
 https://docs.docker.com/compose/install/
 
-Download the latest version of the postgres driver from this page:
-
+Download the latest version of the postgres driver from this page:\
 https://jdbc.postgresql.org/download.html
 
 **Note 1:** On desktop systems like Docker for Mac and Windows, Docker Compose is included as part of those desktop installs.
@@ -223,6 +220,8 @@ output	{
 }
 ```
 
+**Note 2:** As you might have noticed, the jdbc connection string points to `docker.for.mac.localhost` as the host. This unfortuneately might only work on MAC computer for now, but should work fine with a remote postgres server that uses an ip address.
+
 Navigate back to the `logstash` directory and open the `Dockerfile`.
 Add these lines to the `Dockerfile` to configure logstash to work with our running postgres database:
 ```
@@ -240,20 +239,20 @@ COPY postgresql-42.2.5.jar /usr/share/logstash/
 # CMD ["-f", "/usr/share/logstash/pipeline/gakusei_events.conf"]
 ```
 
-**Note 2:** The commands are intentionally commented out. As you will soon see, we will use them one at a time.
+**Note 3:** The commands are intentionally commented out. As you will soon see, we will use them one at a time.
 
 #### Running ELK on Docker
 
-To start up the Elastic stack on Docker we need to commands:
+To start up the Elastic stack on Docker we need two commands:
 1. docker-compose build
 2. docker-compose up
 
-**Note 3:** You must run both commands after changes you make to the configurations.
+**Note 4:** You must run both commands after any changes that you make.
 
 #### Inspecting the containers
 
 To list all the containers that are currently running, use the following command:
-* `docker ps`
+* `docker ps`\
 To include containers that are not currently running, use the following command:
 * `docker ps -a`
 
