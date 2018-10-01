@@ -252,7 +252,8 @@ To start up the Elastic stack on Docker we need two commands:
 #### Inspecting the containers
 
 To list all the containers that are currently running, use the following command:
-* `docker ps`\
+* `docker ps`
+
 To include containers that are not currently running, use the following command:
 * `docker ps -a`
 
