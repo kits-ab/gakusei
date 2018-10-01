@@ -462,7 +462,7 @@ export class selectScreen extends React.Component {
               <div className={'exercise'}>
                 <div className={'exercise__header'}>
                   <h3 className={'exercise__header__title'}>
-                    {'Blandade frågor.'}
+                    {'Blandade frågor '}
                     {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().retention > 0 ? (
                       <OverlayTrigger
                         placement="top"
@@ -543,7 +543,7 @@ export class selectScreen extends React.Component {
               <div className={'exercise'}>
                 <div className={'exercise__header'}>
                   <h3 className={'exercise__header__title'}>
-                    {'Felsvarade frågor'}
+                    {'Felsvarade frågor '}
                     {incorrectCount > 0 ? (
                       <OverlayTrigger
                         placement="top"
@@ -558,7 +558,7 @@ export class selectScreen extends React.Component {
                 <div className={'exercise__progress'}>
                   <ProgressBar />
                 </div>
-                <p className={'exercise__description'}>{'Här hamnar alla frågor som du har svarat fel på'}</p>
+                <p className={'exercise__description'}>{'Här hamnar alla frågor som du har svarat fel på.'}</p>
                 <div className={'exercise__actions'}>
                   <Button
                     onClick={e => {
