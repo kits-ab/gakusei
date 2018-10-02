@@ -109,9 +109,7 @@ public class EventController {
 
             ) + " / " + event.getType() + " / " + event.getData(
 
-            ) + " / " + event.getNuggetId() + " / " + user.getUsername(
-
-            )// + " / " + event.getNuggetCategoryAsString(event.getNuggetTypeRef())
+            ) + " / " + event.getNuggetId() + " / " + user.getUsername()
         );
         event = eventRepository.save(event);
         if (event.getType().equalsIgnoreCase("answeredCorrectly")) {
