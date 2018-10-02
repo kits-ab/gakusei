@@ -290,8 +290,6 @@ export function addUserAnswer(userAnswerText, cardData) {
       ],
       nuggetcategory: state.playtype
     };
-    console.log('addUserAnswer, state.playtype = ' + state.playtype);
-    console.log('addUserAnswer, eventData.nuggetCategory = ' + eventData.nuggetcategory);
 
     if (getState().lessons.spacedRepetition) {
       eventData.data.push({
@@ -812,7 +810,6 @@ export function receiveIncorrectLessonCount(count) {
   };
 }
 export function setPlayType(playtype) {
-  console.log('In SetPlayType, variable playtype = ' + playtype);
   return {
     type: SET_LESSON_PLAY_TYPE,
     description: 'Set lesson type',

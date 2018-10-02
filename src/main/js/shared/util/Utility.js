@@ -102,7 +102,6 @@ export default class Utility {
         lesson,
         nuggetcategory: nuggetcategory
       });
-      console.log('logevent, nuggetcategory = ' + nuggetcategory);
     };
 
     if (Array.isArray(eventData)) {

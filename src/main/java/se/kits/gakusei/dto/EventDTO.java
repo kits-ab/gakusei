@@ -76,20 +76,19 @@ public class EventDTO {
     public void setNuggetcategory(String nuggetcategory) {
         this.nuggetcategory = nuggetcategory;
     }
-    public void setNuggetcategory(int nuggetcategory) {
-        this.nuggetcategory = determineNuggetCategory(nuggetcategory);
+
+    public int getNuggetcategoryAsInt(){
+            switch (getNuggetcategory()){
+                case "guess" : return 2;//Database "vocab"
+                case "kanji" : return 3;
+                case "quiz"  : return 4;
+                case "flashcards" : return 5;
+                case "grammar" : return 6;
+                case "translate" : return 7;
+                default:return 1;
+            }
+
     }
 
-    public String determineNuggetCategory(int cat){
-        switch (cat){
-            case 2 : return "guess";
-            case 3 : return "kanji";
-            case 4  : return "quiz";
-            case 5 : return "flashcards";
-            case 6 : return "grammar";
-            case 7 : return "translate";
-            default:return "unknown";
-        }
-    }
 }
 
