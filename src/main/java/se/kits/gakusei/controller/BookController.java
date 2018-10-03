@@ -15,7 +15,7 @@ import se.kits.gakusei.content.model.Book;
 import se.kits.gakusei.content.repository.BookRepository;
 
 @RestController
-@Api(value="BookController", description="Operations for handeling books")
+@Api(value="BookController", description="Operations for handling books")
 public class BookController {
     @Autowired
     BookRepository bookRepository;

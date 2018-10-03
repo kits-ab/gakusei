@@ -15,7 +15,7 @@ import se.kits.gakusei.content.model.Course;
 import se.kits.gakusei.content.repository.CourseRepository;
 
 @RestController
-@Api(value="UserController", description="Operations for handeling users")
+@Api(value="UserController", description="Operations for handling users")
 public class CourseController {
     @Autowired
     CourseRepository courseRepository;

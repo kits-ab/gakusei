@@ -29,7 +29,7 @@ import se.kits.gakusei.util.LessonHandler;
 import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
-@Api(value="LessonController", description="Operations for handeling lessons")
+@Api(value="LessonController", description="Operations for handling lessons")
 public class LessonController {
     private Logger logger = LoggerFactory.getLogger(LessonController.class);
 

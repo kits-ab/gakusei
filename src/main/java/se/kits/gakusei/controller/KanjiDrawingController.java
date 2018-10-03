@@ -18,7 +18,7 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
-@Api(value="KanjiDrawingController", description="Operations for handeling kanji drawings")
+@Api(value="KanjiDrawingController", description="Operations for handling kanji drawings")
 public class KanjiDrawingController {
     @Autowired
     private UserRepository userRepository;

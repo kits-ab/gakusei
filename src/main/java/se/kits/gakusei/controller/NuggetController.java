@@ -20,7 +20,7 @@ import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.content.repository.WordTypeRepository;
 
 @RestController
-@Api(value="NuggetController", description="Operations for handeling nuggets")
+@Api(value="NuggetController", description="Operations for handling nuggets")
 public class NuggetController {
     private final Logger logger = LoggerFactory.getLogger(
         NuggetController.class

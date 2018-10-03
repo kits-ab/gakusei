@@ -20,7 +20,7 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
-@Api(value="UserController", description="Operations for handeling users")
+@Api(value="UserController", description="Operations for handling users")
 public class UserController {
     @Autowired
     private UserRepository ur;
@@ -55,7 +55,6 @@ public class UserController {
     )
     public ResponseEntity<Iterable<User>> getUsers() {
         Iterable<User> users = ur.findAll();
-        System.out.println(users);
         return (users == null) ? new ResponseEntity<Iterable<User>>(
             HttpStatus.FORBIDDEN
         ) : new ResponseEntity<Iterable<User>>(users, HttpStatus.OK);

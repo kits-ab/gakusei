@@ -25,7 +25,7 @@ import se.kits.gakusei.user.repository.UserRepository;
 import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
-@Api(value="EventController", description="Operations for handeling events")
+@Api(value="EventController", description="Operations for handling events")
 public class EventController {
     private Logger logger = LoggerFactory.getLogger(EventController.class);
 

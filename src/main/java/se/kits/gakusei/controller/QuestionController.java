@@ -22,7 +22,7 @@ import se.kits.gakusei.util.ProgressHandler;
 import se.kits.gakusei.util.QuestionHandler;
 
 @RestController
-@Api(value="QuestionController", description="Operations for handeling questions")
+@Api(value="QuestionController", description="Operations for handling questions")
 public class QuestionController {
     private LessonRepository lessonRepository;
 
