@@ -80,6 +80,7 @@ public class ProgressHandler {
         }
         pt.setLatestTimestamp(latestTS);
         pt.setLatestResult(Boolean.parseBoolean(event.getData()));
+        pt.setNuggetType(event.getNuggetType());
         progressTrackingRepository.save(pt);
     }
 
@@ -139,6 +140,7 @@ public class ProgressHandler {
         progressTrackingRepository.save(pt);
     }
 
+    //TODO: Get rid of these horrible hacks.
     //kollar vilka svar som är felsvarade
     public List<Nugget> getWrongQuestions(String username){
         // skapar lista från tabellen progresstracking

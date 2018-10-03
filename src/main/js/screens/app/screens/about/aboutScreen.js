@@ -120,7 +120,7 @@ export default class aboutScreen extends React.Component {
               <div className="text-left">
                 <h2>Om Gakusei</h2>
                 <p>
-                  Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande tre
+                  Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande fyra
                   spellägen:
                 </p>
                 <ol>
@@ -129,10 +129,11 @@ export default class aboutScreen extends React.Component {
                     översättning på ett ord bland fyra alternativ.
                   </li>
                   <li>
-                    &quot;Översätt ordet&quot; som även det kan hittas under fliken &quot;Glosor&quot;. Här gäller det
-                    att skriva in rätt översättning på ett ord.
+                    &quot;Bildkort&quot; som även det kan hittas under fliken &quot;Glosor&quot;. Här gäller det att
+                    gissa rätt på ett ord. Gissade du rätt?
                   </li>
-                  <li>&quot;Quiz&quot; och där man kan spela frågesporter kopplade till Japan.</li>
+                  <li>&quot;Quiz&quot; och här kan du spela frågesporter kopplade till Japan.</li>
+                  <li>&quot;Kanji&quot; och här kan du testa dina kunskaper i kanji.</li>
                 </ol>
                 <p>
                   Utvecklingen av applikationen sker i form av ett open source-projekt och sponsras utav{' '}

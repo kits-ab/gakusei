@@ -111,6 +111,9 @@ export class selectScreen extends React.Component {
     if (!this.props.isFetchingLesson) {
       try {
         this.props.fetchLesson(this.state.playType).then(() => {
+          console.log('startlesson state.playtype= ' + this.state.playType);
+          this.props.setPlayType(this.state.playType);
+          console.log('setPlaytype = ' + this.state.playType);
           this.props.setPageByName(`/play/${this.state.playType}`);
         });
       } catch (err) {
@@ -124,6 +127,7 @@ export class selectScreen extends React.Component {
     if (!this.props.isFetchingLesson) {
       try {
         this.props.fetchLessonIncorrectAnswers(this.state.playType).then(() => {
+          this.props.setPlayType(this.state.playType);
           this.props.setPageByName(`/play/${this.state.playType}`);
         });
       } catch (err) {
@@ -462,7 +466,7 @@ export class selectScreen extends React.Component {
               <div className={'exercise'}>
                 <div className={'exercise__header'}>
                   <h3 className={'exercise__header__title'}>
-                    {'Blandade frågor.'}
+                    {'Blandade frågor '}
                     {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().retention > 0 ? (
                       <OverlayTrigger
                         placement="top"
@@ -543,7 +547,7 @@ export class selectScreen extends React.Component {
               <div className={'exercise'}>
                 <div className={'exercise__header'}>
                   <h3 className={'exercise__header__title'}>
-                    {'Felsvarade frågor'}
+                    {'Felsvarade frågor '}
                     {incorrectCount > 0 ? (
                       <OverlayTrigger
                         placement="top"
@@ -558,7 +562,7 @@ export class selectScreen extends React.Component {
                 <div className={'exercise__progress'}>
                   <ProgressBar />
                 </div>
-                <p className={'exercise__description'}>{'Här hamnar alla frågor som du har svarat fel på'}</p>
+                <p className={'exercise__description'}>{'Här hamnar alla frågor som du har svarat fel på.'}</p>
                 <div className={'exercise__actions'}>
                   <Button
                     onClick={e => {

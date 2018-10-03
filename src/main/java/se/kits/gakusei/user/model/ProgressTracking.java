@@ -21,6 +21,10 @@ public class ProgressTracking implements Serializable {
     @ManyToOne
     private User user;
 
+    @JoinColumn(name = "nugget_type_ref")
+    @ManyToOne
+    private NuggetType nuggetType;
+
     @Column(name = "nugget_id")
     @ApiModelProperty(notes="the nugget id")
     private String nuggetID;
@@ -52,6 +56,7 @@ public class ProgressTracking implements Serializable {
     @ApiModelProperty(notes="the retention date")
     @Column(name = "retention_date")
     private Timestamp retentionDate;
+
 
     public ProgressTracking() {}
 
@@ -135,5 +140,12 @@ public class ProgressTracking implements Serializable {
         this.retentionDate = retention_date;
     }
 
+    public NuggetType getNuggetType() {
+        return nuggetType;
+    }
+
+    public void setNuggetType(NuggetType nuggetType) {
+        this.nuggetType = nuggetType;
+    }
 }
 
