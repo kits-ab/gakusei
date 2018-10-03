@@ -3,6 +3,8 @@ package se.kits.gakusei.controller;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,6 +22,7 @@ import se.kits.gakusei.util.ProgressHandler;
 import se.kits.gakusei.util.QuestionHandler;
 
 @RestController
+@Api(value="QuestionController", description="Operations for handeling questions")
 public class QuestionController {
     private LessonRepository lessonRepository;
 
@@ -45,6 +48,7 @@ public class QuestionController {
         this.progressHandler = progressHandler;
     }
 
+    @ApiOperation(value="Getting questions from a lesson", response = ResponseEntity.class)
     @RequestMapping(
             value = "/api/questions",
             method = RequestMethod.GET,
@@ -92,6 +96,7 @@ public class QuestionController {
         ) : new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
+    @ApiOperation(value="Getting questions that a user has answered incorrectly", response = ResponseEntity.class)
     @RequestMapping(
             value = "/api/wrongquestions",
             method = RequestMethod.GET,

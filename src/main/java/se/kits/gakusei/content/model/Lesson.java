@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -93,11 +94,14 @@ import org.hibernate.annotations.FetchMode;
 public class Lesson implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @ApiModelProperty(notes="the database generated lesson id")
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @ApiModelProperty(notes="the lesson name")
     private String name;
 
+    @ApiModelProperty(notes="the lesson description")
     private String description;
 
     //@JsonManagedReference(value = "lessonnugget")

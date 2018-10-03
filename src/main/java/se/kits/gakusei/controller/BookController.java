@@ -1,5 +1,7 @@
 package se.kits.gakusei.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,10 +15,12 @@ import se.kits.gakusei.content.model.Book;
 import se.kits.gakusei.content.repository.BookRepository;
 
 @RestController
+@Api(value="BookController", description="Operations for handeling books")
 public class BookController {
     @Autowired
     BookRepository bookRepository;
 
+    @ApiOperation(value="Getting all books", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/books",
         method = RequestMethod.GET,
@@ -31,6 +35,7 @@ public class BookController {
         }
     }
 
+    @ApiOperation(value="Getting one book with a specific id", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/books/{bookId}",
         method = RequestMethod.GET,
@@ -49,6 +54,7 @@ public class BookController {
         }
     }
 
+    @ApiOperation(value="Getting one book with a specific title", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/books/{bookTitle}",
         method = RequestMethod.GET,

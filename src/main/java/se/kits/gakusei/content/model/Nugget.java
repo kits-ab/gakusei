@@ -1,6 +1,7 @@
 package se.kits.gakusei.content.model;
 
 import com.fasterxml.jackson.annotation.*;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,8 +17,10 @@ import javax.persistence.*;
 @Table(name = "nuggets", schema = "contentschema")
 public class Nugget implements Serializable {
     @Id
+    @ApiModelProperty(notes="the nugget id")
     private String id = UUID.randomUUID().toString();
 
+    @ApiModelProperty(notes="the nugget description")
     private String description;
 
     private boolean hidden = false;
