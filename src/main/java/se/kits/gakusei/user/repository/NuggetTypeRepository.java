@@ -7,4 +7,5 @@ public interface NuggetTypeRepository
         extends CrudRepository<NuggetType, Long> {
 
         NuggetType findById(long id);
+        NuggetType findByType(String type);
 }

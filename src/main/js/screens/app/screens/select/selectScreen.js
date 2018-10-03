@@ -111,9 +111,7 @@ export class selectScreen extends React.Component {
     if (!this.props.isFetchingLesson) {
       try {
         this.props.fetchLesson(this.state.playType).then(() => {
-          console.log('startlesson state.playtype= ' + this.state.playType);
           this.props.setPlayType(this.state.playType);
-          console.log('setPlaytype = ' + this.state.playType);
           this.props.setPageByName(`/play/${this.state.playType}`);
         });
       } catch (err) {
@@ -510,8 +508,6 @@ export class selectScreen extends React.Component {
                     onClick={e => {
                       e.stopPropagation();
                       this.props.setSelectedLesson(this.props.favoriteLesson);
-                      console.log(this.props.setSelectedLesson);
-                      console.log(this.props.favoriteLesson);
                       this.startLesson();
                     }}
                     disabled={
