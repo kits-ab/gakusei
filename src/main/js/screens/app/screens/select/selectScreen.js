@@ -543,7 +543,7 @@ export class selectScreen extends React.Component {
               <div className={'exercise'}>
                 <div className={'exercise__header'}>
                   <h3 className={'exercise__header__title'}>
-                    {'Felsvarade frågor '}
+                    {'Felbesvarade frågor '}
                     {incorrectCount > 0 ? (
                       <OverlayTrigger
                         placement="top"

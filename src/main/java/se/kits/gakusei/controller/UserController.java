@@ -55,7 +55,6 @@ public class UserController {
     )
     public ResponseEntity<Iterable<User>> getUsers() {
         Iterable<User> users = ur.findAll();
-        System.out.println(users);
         return (users == null) ? new ResponseEntity<Iterable<User>>(
             HttpStatus.FORBIDDEN
         ) : new ResponseEntity<Iterable<User>>(users, HttpStatus.OK);
