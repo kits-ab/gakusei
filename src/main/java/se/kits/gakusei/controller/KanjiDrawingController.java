@@ -2,6 +2,8 @@ package se.kits.gakusei.controller;
 
 import java.sql.Timestamp;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +18,7 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
+@Api(value="KanjiDrawingController", description="Operations for handeling kanji drawings")
 public class KanjiDrawingController {
     @Autowired
     private UserRepository userRepository;
@@ -23,6 +26,7 @@ public class KanjiDrawingController {
     @Autowired
     private KanjiDrawingRepository kanjiDrawingRepository;
 
+    @ApiOperation(value="Add a kanji drawing", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/kanji-drawings",
         method = RequestMethod.POST,

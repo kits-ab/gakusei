@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
+@Api(value="UserController", description="Operations for handeling users")
 public class UserController {
     @Autowired
     private UserRepository ur;
@@ -27,6 +30,7 @@ public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @ApiOperation(value="Creating a user", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/users",
         method = RequestMethod.POST,
@@ -43,6 +47,7 @@ public class UserController {
         return new ResponseEntity<User>(ur.save(user), HttpStatus.CREATED);
     }
 
+    @ApiOperation(value="Getting all the users", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/users",
         method = RequestMethod.GET,
@@ -50,11 +55,13 @@ public class UserController {
     )
     public ResponseEntity<Iterable<User>> getUsers() {
         Iterable<User> users = ur.findAll();
+        System.out.println(users);
         return (users == null) ? new ResponseEntity<Iterable<User>>(
             HttpStatus.FORBIDDEN
         ) : new ResponseEntity<Iterable<User>>(users, HttpStatus.OK);
     }
 
+    @ApiOperation(value="Getting the current username", response = ResponseEntity.class)
     @RequestMapping(
         value = "/username",
         method = RequestMethod.GET,

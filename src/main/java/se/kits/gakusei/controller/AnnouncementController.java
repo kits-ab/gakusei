@@ -1,5 +1,7 @@
 package se.kits.gakusei.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,10 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@Api(value="AnnouncementController", description="Operations for handeling announcements")
 public class AnnouncementController {
     @Autowired
     AnnouncementRepository announcementRepository;
 
+    @ApiOperation(value="get all the announcements", response = ResponseEntity.class)
     @RequestMapping(
             value = "api/announcement",
             method = RequestMethod.GET,

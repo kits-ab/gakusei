@@ -3,6 +3,8 @@ package se.kits.gakusei.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +21,7 @@ import se.kits.gakusei.util.QuestionHandler;
 import se.kits.gakusei.util.QuizHandler;
 
 @RestController
+@Api(value="QuizController", description="Operations for handeling quiz")
 public class QuizController {
     @Autowired
     LessonRepository lessonRepository;
@@ -32,6 +35,7 @@ public class QuizController {
     @Autowired
     QuizHandler quizHandler;
 
+    @ApiOperation(value="Getting questions for one quiz", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/quiz",
         method = RequestMethod.GET,
@@ -52,6 +56,7 @@ public class QuizController {
         return new ResponseEntity<>(correctFormat, HttpStatus.OK);
     }
 
+    @ApiOperation(value="Getting all the quizzes", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/quizes",
         method = RequestMethod.GET,
@@ -61,6 +66,7 @@ public class QuizController {
         return new ResponseEntity<>(quizRepository.findAll(), HttpStatus.OK);
     }
 
+    @ApiOperation(value="Get one quiz with a specific id", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/quiz/{quizId}",
         method = RequestMethod.GET,
@@ -73,6 +79,7 @@ public class QuizController {
         return ResponseEntity.ok(quizRepository.findById(quizId).get());
     }
 
+    @ApiOperation(value="Get quizzes by a specific name", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/quizes/{offset}/{name}",
         method = RequestMethod.GET,
@@ -96,6 +103,7 @@ public class QuizController {
         );
     }
 
+    @ApiOperation(value="Getting the specific page for quizes", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/quizes/{offset}",
         method = RequestMethod.GET,
@@ -115,6 +123,7 @@ public class QuizController {
         );
     }
 
+    @ApiOperation(value="Get nugget for quiz", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/quiz/nugget/{quizNuggetId}",
         method = RequestMethod.GET,

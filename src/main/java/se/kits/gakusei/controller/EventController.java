@@ -2,6 +2,8 @@ package se.kits.gakusei.controller;
 
 import java.sql.Timestamp;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import se.kits.gakusei.user.repository.UserRepository;
 import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
+@Api(value="EventController", description="Operations for handeling events")
 public class EventController {
     private Logger logger = LoggerFactory.getLogger(EventController.class);
 
@@ -41,6 +44,7 @@ public class EventController {
     @Value("${gakusei.event-logging}")
     private boolean eventLogging;
 
+    @ApiOperation(value="Getting all the events", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/events",
         method = RequestMethod.GET,
@@ -54,6 +58,7 @@ public class EventController {
         ) : new ResponseEntity<Iterable<Event>>(HttpStatus.FORBIDDEN);
     }
 
+    @ApiOperation(value="Add an event", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/events2",
         method = RequestMethod.POST,
@@ -76,6 +81,7 @@ public class EventController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiOperation(value="Add an event", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/events",
         method = RequestMethod.POST,

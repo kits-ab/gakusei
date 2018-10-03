@@ -1,5 +1,7 @@
 package se.kits.gakusei.content.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 import javax.persistence.*;
@@ -9,9 +11,11 @@ import javax.persistence.*;
 public class Book implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @ApiModelProperty(notes="the database generated book id")
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @ApiModelProperty(notes="the book title")
     private String title;
 
     public Book() {}

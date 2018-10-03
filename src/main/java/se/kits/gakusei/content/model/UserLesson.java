@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import io.swagger.annotations.ApiModelProperty;
 import se.kits.gakusei.user.model.User;
 
 @Entity
@@ -22,6 +23,7 @@ import se.kits.gakusei.user.model.User;
 public class UserLesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @ApiModelProperty(notes="the database generated user lesson id")
     private Long id;
 
     @JoinColumn(name = "user_ref")
