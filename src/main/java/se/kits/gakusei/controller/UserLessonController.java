@@ -21,7 +21,7 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
-@Api(value="UserLessonController", description="Operations for handeling user lessons")
+@Api(value="UserLessonController", description="Operations for handling user lessons")
 public class UserLessonController {
     @Autowired
     private UserLessonRepository userLessonRepository;

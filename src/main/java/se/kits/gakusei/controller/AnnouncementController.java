@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@Api(value="AnnouncementController", description="Operations for handeling announcements")
+@Api(value="AnnouncementController", description="Operations for handling announcements")
 public class AnnouncementController {
     @Autowired
     AnnouncementRepository announcementRepository;

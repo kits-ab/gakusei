@@ -20,7 +20,7 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
-@Api(value="UserController", description="Operations for handeling users")
+@Api(value="UserController", description="Operations for handling users")
 public class UserController {
     @Autowired
     private UserRepository ur;

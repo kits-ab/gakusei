@@ -21,7 +21,7 @@ import se.kits.gakusei.util.QuestionHandler;
 import se.kits.gakusei.util.QuizHandler;
 
 @RestController
-@Api(value="QuizController", description="Operations for handeling quiz")
+@Api(value="QuizController", description="Operations for handling quiz")
 public class QuizController {
     @Autowired
     LessonRepository lessonRepository;

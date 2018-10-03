@@ -23,7 +23,7 @@ import se.kits.gakusei.util.KanjiHandler;
 import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
-@Api(value="KanjiController", description="Operations for handeling kanjis")
+@Api(value="KanjiController", description="Operations for handling kanjis")
 public class KanjiController {
     @Value("${gakusei.kanji-quantity}")
     private int quantity;

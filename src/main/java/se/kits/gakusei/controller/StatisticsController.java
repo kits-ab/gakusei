@@ -16,7 +16,7 @@ import se.kits.gakusei.user.repository.EventRepository;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
-@Api(value="StatisticsController", description="Operations for handeling statistics")
+@Api(value="StatisticsController", description="Operations for handling statistics")
 public class StatisticsController {
     @Autowired
     UserRepository userRepository;
