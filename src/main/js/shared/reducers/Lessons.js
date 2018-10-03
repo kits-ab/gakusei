@@ -27,7 +27,7 @@ export const defaultState = {
   starredLessons: [],
   questionType: 'reading',
   answerType: 'swedish',
-  playType: 'shiet',
+  playType: 'guess',
 
   kanjiDifficulty: 'easy',
 
