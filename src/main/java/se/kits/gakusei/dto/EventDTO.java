@@ -82,7 +82,7 @@ public class EventDTO {
                 case "guess" : return 2;//Database "vocab"
                 case "kanji" : return 3;
                 case "quiz"  : return 4;
-                case "flashcards" : return 5;
+                case "flashcards" : return 2;//Also Vocab, just different training method
                 case "grammar" : return 6;
                 case "translate" : return 7;
                 default:return 1;
