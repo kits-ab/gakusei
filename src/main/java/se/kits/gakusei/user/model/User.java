@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -20,13 +21,16 @@ public class User implements Serializable {
 
     @Id
     @JsonProperty(value = "username")
+    @ApiModelProperty(notes="the user id")
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY, value = "password")
+    @ApiModelProperty(notes="the user password")
     private String password;
 
     @Column(name = "userrole")
     @JsonProperty(value = "role")
+    @ApiModelProperty(notes="the user role")
     private String role;
 
     @Fetch(value = FetchMode.SUBSELECT)

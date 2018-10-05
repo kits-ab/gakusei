@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
@@ -21,6 +23,7 @@ import se.kits.gakusei.util.KanjiHandler;
 import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
+@Api(value="KanjiController", description="Operations for handling kanjis")
 public class KanjiController {
     @Value("${gakusei.kanji-quantity}")
     private int quantity;
@@ -40,6 +43,7 @@ public class KanjiController {
         this.progressHandler = progressHandler;
     }
 
+    @ApiOperation(value="Getting kanji questions from a lesson", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/questions/kanji",
         method = RequestMethod.GET,
@@ -64,6 +68,8 @@ public class KanjiController {
             HttpStatus.INTERNAL_SERVER_ERROR
         ) : new ResponseEntity<>(questions, HttpStatus.OK);
     }
+
+    @ApiOperation(value="Getting kanji questions that a user has answered incorrectly", response = ResponseEntity.class)
     @RequestMapping(
             value = "/api/wrongquestions/kanji",
             method = RequestMethod.GET,

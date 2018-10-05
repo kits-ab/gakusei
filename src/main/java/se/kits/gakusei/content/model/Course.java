@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -15,11 +16,14 @@ import org.hibernate.annotations.FetchMode;
 public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @ApiModelProperty(notes="the database generated course id")
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @ApiModelProperty(notes="the course name")
     private String name;
 
+    @ApiModelProperty(notes="the course description")
     private String description;
 
     @JoinColumn(name = "parent_ref")
@@ -42,9 +46,11 @@ public class Course implements Serializable {
     @ManyToMany
     private List<Course> prerequisites;
 
+    @ApiModelProperty(notes="the course order")
     private int courseOrder;
 
     @Column(nullable = false, unique = true)
+    @ApiModelProperty(notes="the course code")
     private String courseCode;
 
     @Fetch(value = FetchMode.SUBSELECT)

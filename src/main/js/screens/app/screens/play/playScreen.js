@@ -19,6 +19,9 @@ export class playScreen extends React.Component {
     if (!this.props.questions || this.props.questions.length === 0) {
       if (this.props.match.params.type) {
         this.props.setPageByName(`/select/${this.props.match.params.type}`);
+        console.log('before ${this.props.match.params.type}');
+        this.props.setPlayType(this.props.match.params.type);
+        console.log(this.props.playType);
       } else {
         this.props.setPageByName(`/`);
       }

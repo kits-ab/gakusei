@@ -2,11 +2,12 @@ package se.kits.gakusei.controller;
 
 import java.sql.Timestamp;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +20,12 @@ import se.kits.gakusei.dto.EventDTO;
 import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.EventRepository;
+import se.kits.gakusei.user.repository.NuggetTypeRepository;
 import se.kits.gakusei.user.repository.UserRepository;
 import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
+@Api(value="EventController", description="Operations for handling events")
 public class EventController {
     private Logger logger = LoggerFactory.getLogger(EventController.class);
 
@@ -35,9 +38,13 @@ public class EventController {
     @Autowired
     private ProgressHandler progressHandler;
 
+    @Autowired
+    private NuggetTypeRepository nuggetTypeRepository;
+
     @Value("${gakusei.event-logging}")
     private boolean eventLogging;
 
+    @ApiOperation(value="Getting all the events", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/events",
         method = RequestMethod.GET,
@@ -51,6 +58,7 @@ public class EventController {
         ) : new ResponseEntity<Iterable<Event>>(HttpStatus.FORBIDDEN);
     }
 
+    @ApiOperation(value="Add an event", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/events2",
         method = RequestMethod.POST,
@@ -73,6 +81,7 @@ public class EventController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiOperation(value="Add an event", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/events",
         method = RequestMethod.POST,
@@ -97,6 +106,9 @@ public class EventController {
         event.setType(eventDTO.getType());
         event.setData(eventDTO.getData());
         event.setNuggetId(eventDTO.getNuggetid());
+        if(eventDTO.getNuggetcategory()!=null){
+            event.setNuggetType(nuggetTypeRepository.findById(eventDTO.getNuggetcategoryAsInt()));
+        }
         event.setTimestamp(new Timestamp(eventDTO.getTimestamp()));
         logger.info(
             event.getTimestamp().toString() + " / " + event.getGamemode(
@@ -114,6 +126,5 @@ public class EventController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
 

@@ -56,6 +56,10 @@ public class Event implements Serializable {
     @Column
     private String nuggetId;
 
+    @JoinColumn(name = "nugget_type_ref")
+    @ManyToOne
+    private NuggetType nuggetType;
+
     @JoinColumn(name = "user_ref")
     @JsonBackReference(value = "events")
     @ManyToOne
@@ -126,5 +130,24 @@ public class Event implements Serializable {
     public void setLesson(String lesson) {
         this.lesson = lesson;
     }
+
+    public NuggetType getNuggetType() {
+        return nuggetType;
+    }
+
+    public void setNuggetType(NuggetType nuggetType) {
+        this.nuggetType = nuggetType;
+    }
+/*    public String getNuggetCategoryAsString(Integer cat){
+        switch (cat){
+            case 2 : return "guess";
+            case 3 : return "kanji";
+            case 4  : return "quiz";
+            case 5 : return "flashcards";
+            case 6 : return "grammar";
+            case 7 : return "translate";
+            default:return "unknown";
+        }
+    }*/
 }
 

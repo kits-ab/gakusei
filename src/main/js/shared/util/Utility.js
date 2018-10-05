@@ -88,7 +88,7 @@ export default class Utility {
   // LOGGING
   static collectedEvents = [];
 
-  static logEvent(page, eventType, eventData, nuggetId, username, lesson, sendImmediately = false) {
+  static logEvent(page, eventType, eventData, nuggetId, username, lesson, nuggetcategory, sendImmediately = false) {
     // Because sometimes we log a phonetic and a traditional written version of the same word
     // We log both of these separately to the back-end using the below evaluation
     const pushFunc = eventDataValue => {
@@ -99,7 +99,8 @@ export default class Utility {
         data: eventDataValue,
         nuggetid: nuggetId,
         username,
-        lesson
+        lesson,
+        nuggetcategory: nuggetcategory
       });
     };
 
@@ -123,7 +124,8 @@ export default class Utility {
         logData.data[i].eventData,
         logData.data[i].nuggetId,
         logData.username,
-        logData.lesson
+        logData.lesson,
+        logData.nuggetcategory
       );
     }
 

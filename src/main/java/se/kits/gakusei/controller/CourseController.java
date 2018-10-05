@@ -1,5 +1,7 @@
 package se.kits.gakusei.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,10 +15,12 @@ import se.kits.gakusei.content.model.Course;
 import se.kits.gakusei.content.repository.CourseRepository;
 
 @RestController
+@Api(value="UserController", description="Operations for handling users")
 public class CourseController {
     @Autowired
     CourseRepository courseRepository;
 
+    @ApiOperation(value="Getting all courses", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/courses",
         method = RequestMethod.GET,
@@ -32,6 +36,7 @@ public class CourseController {
         }
     }
 
+    @ApiOperation(value="Getting one course with a specific id", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/courses/{courseID}",
         method = RequestMethod.GET,
@@ -46,6 +51,7 @@ public class CourseController {
         return createResponseEntity(course);
     }
 
+    @ApiOperation(value="Getting one course with a specific name", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/courses/{courseName}",
         method = RequestMethod.GET,
@@ -60,6 +66,7 @@ public class CourseController {
         return createResponseEntity(course);
     }
 
+    @ApiOperation(value="Getting one course with a specific course code", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/courses/{courseCode}",
         method = RequestMethod.GET,

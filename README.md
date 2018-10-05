@@ -67,6 +67,15 @@ Since we will create a single .jar file with all resources embedded, we will nee
 * Command `mvn package -Pdevelopment` is also available, should you want to use it for troubleshooting.
 * The spring profile "enable-resource-caching" enables some very effective caching methods. You should always want to have this profile active when you deploy in production.
 
+
+### The api documentation through swagger
+Run the application and visist
+
+[for json](http://localhost:8080/v2/api-docs)  or [for ui](http://localhost:8080/swagger-ui.html#/)
+
+There you will see a list of all the rest api's that is in the project
+
+
 ###	Using the Elastic stack (ELK) to analyse events
 Requirements:
 * Elasticsearch

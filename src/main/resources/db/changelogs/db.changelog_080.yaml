@@ -1,0 +1,127 @@
+databaseChangeLog:
+- changeSet:
+    id: 80
+    author: Daniel Ivestig
+    changes:
+    - createTable:
+        schemaName: public
+        tableName: nugget_category
+        columns:
+        - column:
+            name: id
+            type: int
+            constraints:
+              primaryKey: true
+              primaryKeyName: nugget_category_pkey
+        - column:
+            constraints:
+              nullable: false
+              unique: true
+            name: type
+            type: varchar(32)
+    - insert:
+        schemaName: public
+        tableName: nugget_category
+        columns:
+        - column:
+            name: id
+            value: "1"
+        - column:
+            name: type
+            value: "unknown"
+    - insert:
+        schemaName: public
+        tableName: nugget_category
+        columns:
+        - column:
+            name: id
+            value: "2"
+        - column:
+            name: type
+            value: "vocab"
+    - insert:
+        schemaName: public
+        tableName: nugget_category
+        columns:
+        - column:
+            name: id
+            value: "3"
+        - column:
+            name: type
+            value: "kanji"
+    - insert:
+        schemaName: public
+        tableName: nugget_category
+        columns:
+        - column:
+            name: id
+            value: "4"
+        - column:
+            name: type
+            value: "quiz"
+    - insert:
+        schemaName: public
+        tableName: nugget_category
+        columns:
+        - column:
+            name: id
+            value: "5"
+        - column:
+            name: type
+            value: "flashcards"
+    - insert:
+        schemaName: public
+        tableName: nugget_category
+        columns:
+        - column:
+            name: id
+            value: "6"
+        - column:
+            name: type
+            value: "grammar"
+    - insert:
+        schemaName: public
+        tableName: nugget_category
+        columns:
+        - column:
+            name: id
+            value: "7"
+        - column:
+            name: type
+            value: "translate"
+    - addColumn:
+        schemaName: public
+        tableName: events
+        columns:
+        - column:
+            constraints:
+              nullable: true
+            name: nugget_type_ref
+            type: int
+    - addForeignKeyConstraint:
+        baseTableSchemaName: public
+        baseTableName: events
+        baseColumnNames: nugget_type_ref
+        constraintName: events_nugget_type_ref_fkey
+        onDelete: CASCADE
+        referencedTableSchemaName: public
+        referencedTableName: nugget_category
+        referencedColumnNames: id
+    - addColumn:
+        schemaName: public
+        tableName: progresstrackinglist
+        columns:
+        - column:
+            constraints:
+              nullable: true
+            name: nugget_type_ref
+            type: int
+    - addForeignKeyConstraint:
+        baseTableSchemaName: public
+        baseTableName: progresstrackinglist
+        baseColumnNames: nugget_type_ref
+        constraintName: events_nugget_type_ref_fkey
+        onDelete: CASCADE
+        referencedTableSchemaName: public
+        referencedTableName: nugget_category
+        referencedColumnNames: id

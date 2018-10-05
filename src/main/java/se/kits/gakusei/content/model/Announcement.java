@@ -1,5 +1,7 @@
 package se.kits.gakusei.content.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -11,12 +13,15 @@ import javax.persistence.*;
 public class Announcement implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @ApiModelProperty(notes="the database generated announcement id")
     private Long id;
 
     @Column(nullable = false)
+    @ApiModelProperty(notes="the start date of the announcement")
     private Timestamp startDate;
 
     @Column(nullable = false)
+    @ApiModelProperty(notes="the end date of the announcement")
     private Timestamp endDate;
 
     @Column

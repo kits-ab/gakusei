@@ -3,6 +3,7 @@ package se.kits.gakusei.content.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,8 +19,10 @@ import javax.persistence.*;
 @Table(name = "kanjis", schema = "contentschema")
 public class Kanji implements Serializable {
     @Id
+    @ApiModelProperty(notes="the kanji id")
     private String id = UUID.randomUUID().toString();
 
+    @ApiModelProperty(notes="the kanji description")
     private String description;
 
     private boolean hidden = false;
@@ -46,8 +49,10 @@ public class Kanji implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Book> books;
 
+    @ApiModelProperty(notes="the swedish word for the kanji")
     private String swedish;
 
+    @ApiModelProperty(notes="the english word for the kanji")
     private String english;
 
     private String kanji;

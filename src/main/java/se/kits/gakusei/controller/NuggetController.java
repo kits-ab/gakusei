@@ -3,6 +3,8 @@ package se.kits.gakusei.controller;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.content.repository.WordTypeRepository;
 
 @RestController
+@Api(value="NuggetController", description="Operations for handling nuggets")
 public class NuggetController {
     private final Logger logger = LoggerFactory.getLogger(
         NuggetController.class
@@ -35,6 +38,7 @@ public class NuggetController {
         this.wordTypeRepository = wordTypeRepository;
     }
 
+    @ApiOperation(value="Getting nuggets trough a filter", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/filter/nuggets",
         method = RequestMethod.GET,

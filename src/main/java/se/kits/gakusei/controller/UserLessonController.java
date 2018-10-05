@@ -3,6 +3,8 @@ package se.kits.gakusei.controller;
 import java.sql.Timestamp;
 import java.util.List;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
+@Api(value="UserLessonController", description="Operations for handling user lessons")
 public class UserLessonController {
     @Autowired
     private UserLessonRepository userLessonRepository;
@@ -29,6 +32,7 @@ public class UserLessonController {
     @Autowired
     private LessonRepository lessonRepository;
 
+    @ApiOperation(value="Get a users lessons", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/userLessons",
         method = RequestMethod.GET,
@@ -51,6 +55,7 @@ public class UserLessonController {
         );
     }
 
+    @ApiOperation(value="Add a lesson to a user", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/userLessons/add",
         method = RequestMethod.POST,
@@ -72,6 +77,7 @@ public class UserLessonController {
         );
     }
 
+    @ApiOperation(value="Remove a lesson from a user", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/userLessons/remove",
         method = RequestMethod.DELETE,
@@ -93,6 +99,7 @@ public class UserLessonController {
         return new ResponseEntity<UserLesson>(HttpStatus.OK);
     }
 
+    @ApiOperation(value="Set a first deadline for a users lesson", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/userLessons/setFirstDeadline",
         method = RequestMethod.POST,
@@ -114,6 +121,7 @@ public class UserLessonController {
         return new ResponseEntity<UserLesson>(HttpStatus.OK);
     }
 
+    @ApiOperation(value="Set a second deadline for a users lesson", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/userLessons/setSecondDeadline",
         method = RequestMethod.POST,

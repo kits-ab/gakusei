@@ -3,6 +3,8 @@ package se.kits.gakusei.controller;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import se.kits.gakusei.util.LessonHandler;
 import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
+@Api(value="LessonController", description="Operations for handling lessons")
 public class LessonController {
     private Logger logger = LoggerFactory.getLogger(LessonController.class);
 
@@ -48,6 +51,7 @@ public class LessonController {
     @Autowired
     private ProgressHandler progressHandler;
 
+    @ApiOperation(value="Getting all the lessons", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/lessons",
         method = RequestMethod.GET,
@@ -68,6 +72,7 @@ public class LessonController {
         );
     }
 
+    @ApiOperation(value="Getting info about a question", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/lessonInfo",
         method = RequestMethod.GET,
@@ -87,6 +92,8 @@ public class LessonController {
         > values = getStringHashMapHashMap(username, lessonType);
         return new ResponseEntity<>(values, HttpStatus.OK);
     }
+
+    @ApiOperation(value="Getting the wrong count", response = ResponseEntity.class)
     @RequestMapping(
             value = "/api/lessons/incorrectcount",
             method = RequestMethod.GET,
@@ -103,6 +110,7 @@ public class LessonController {
         return new ResponseEntity<>(progressHandler.getWrongCount(username), HttpStatus.OK);
     }
 
+    @ApiOperation(value="Getting lessons marked as favorite", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/lessons/favorite",
         method = RequestMethod.GET,
