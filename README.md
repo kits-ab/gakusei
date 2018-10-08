@@ -167,7 +167,7 @@ Clone the docker-elk repository that includes a pre-configured Elastic Stack run
 
 #### Configuring ELK on Docker from scratch
 
-**Note 2:** If you already have the gakusei project on your machine, you can skip these steps and proceed to [Running ELK on Docker](#Running ELK on Docker)
+**Note 2:** If you already have the gakusei project on your machine, you can skip these steps and proceed to [Running ELK on Docker](#Running-ELK-on-Docker)
 
 Navigate to the `/logstash/pipeline` directory and create two files `gakusei_events.conf` and `gakusei_progresstrackinglist.conf`.
 
@@ -221,7 +221,7 @@ output	{
 }
 ```
 
-**Note 2:** As you might have noticed, the jdbc connection string points to `docker.for.mac.localhost` as the host. This unfortuneately might only work on MAC computer for now, but should work fine with a remote postgres server that uses an ip address.
+**Note 3:** As you might have noticed, the jdbc connection string points to `docker.for.mac.localhost` as the host. This unfortuneately might only work on MAC computer for now, but should work fine with a remote postgres server that uses an ip address.
 
 Navigate back to the `logstash` directory and open the `Dockerfile`.
 Add these lines to the `Dockerfile` to configure logstash to work with our running postgres database:
@@ -240,7 +240,7 @@ COPY postgresql-42.2.5.jar /usr/share/logstash/
 # CMD ["-f", "/usr/share/logstash/pipeline/gakusei_events.conf"]
 ```
 
-**Note 3:** The commands are intentionally commented out. As you will soon see, we will use them one at a time.
+**Note 4:** The commands are intentionally commented out. As you will soon see, we will use them one at a time.
 
 #### Running ELK on Docker
 
@@ -253,7 +253,7 @@ Then start up the Elastic stack on Docker using these two commands:
 Once all the data has been transfered to Elasticsearch, shut down the containers with `Ctrl + C` to edit the Dockerfile.
 Comment out the first command and uncomment the second command in the `Dockerfile`, then build and run Docker again using the two commands above.
 
-**Note 4:** You must run both commands after any changes that you make. You can shut down the docker containers with `Ctrl + C` and start it up again only with the second command and you should still have the data in Elasticsearch.
+**Note 5:** You must run both commands after any changes that you make. You can shut down the docker containers with `Ctrl + C` and start it up again only with the second command and you should still have the data in Elasticsearch.
 
 Elasticsearch should now contain all the data. You can view the indices in elasticsearch with the following command:
 
