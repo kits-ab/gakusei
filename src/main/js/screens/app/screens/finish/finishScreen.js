@@ -129,6 +129,7 @@ export class finishScreen extends React.Component {
             mdOffset={2}
           >
             <div className="text-center">
+
               <Button
                 bsStyle="info"
                 className="tryAgainButton"
@@ -137,6 +138,7 @@ export class finishScreen extends React.Component {
               >
                 Försök igen
               </Button>{' '}
+
               <Button
                 bsStyle="info"
                 className="backToSelectScreenButton"
