@@ -49,10 +49,20 @@ export class finishScreen extends React.Component {
       .then(this.props.setPageByName(`/select/${this.props.match.params.type}`));
   }
   playAgain() {
-    this.props
+    /*this.props
       .fetchLesson(this.props.match.params.type)
       .catch(this.props.verifyUserLoggedIn())
-      .then(this.props.setPageByName(`/play/${this.props.match.params.type}`));
+      .then(this.props.setPageByName(`/play/${this.props.match.params.type}`)); */
+
+    if (!this.props.isFetchingLesson) {
+      try {
+        this.props.fetchLesson(this.props.match.params.type).then(() => {
+          this.props.setPageByName(`/play/${this.props.match.params.type}`);
+        });
+      } catch (err) {
+        this.props.verifyUserLoggedIn();
+      }
+    }
   }
 
   isSpacedRepetition() {
