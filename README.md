@@ -167,7 +167,7 @@ Clone the docker-elk repository that includes a pre-configured Elastic Stack run
 
 #### Configuring ELK on Docker from scratch
 
-**Note 2:** If you already have the gakusei project on your machine, you can skip these steps and proceed to [Running ELK on Docker](#Running-ELK-on-Docker)
+**Note 2:** If you already have the gakusei project on your machine, you can skip these steps and proceed to [Running ELK on Docker](#running)
 
 Navigate to the `/logstash/pipeline` directory and create two files `gakusei_events.conf` and `gakusei_progresstrackinglist.conf`.
 
@@ -242,7 +242,7 @@ COPY postgresql-42.2.5.jar /usr/share/logstash/
 
 **Note 4:** The commands are intentionally commented out. As you will soon see, we will use them one at a time.
 
-#### Running ELK on Docker
+#### Running ELK on Docker <a name="running"/>
 
 Make sure you are in the `Logstash` folder inside the `elk-on-docker` folder. Edit `Dockerfile` and uncomment one of the commands at the end. It does not matter which one, but lets go with the first.
 
