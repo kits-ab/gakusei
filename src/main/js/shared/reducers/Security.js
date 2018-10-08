@@ -204,6 +204,10 @@ export function requestUserLogout(redirectUrl, csrf) {
     });
   };
 }
+export function logLoginEvent(username) {
+  console.log(username);
+  Utility.logEvent('login', 'login', true, null, username, null, null, true);
+}
 
 export function requestUserLogin(data, redirectUrl) {
   return function(dispatch) {
@@ -231,6 +235,7 @@ export function requestUserLogin(data, redirectUrl) {
             dispatch(fetchLoggedInUser()).then(() => {
               dispatch(setPageByName(redirectUrl || '/'));
             });
+            dispatch(logLoginEvent(formBody.match(/username=(.*?)\&/)[1])); //TODO: Gotta be a Redux way to do this
             break;
           default:
             throw new Error();
