@@ -65,6 +65,10 @@ export class finishScreen extends React.Component {
     }
   }
 
+  isSpacedRepetition() {
+    return this.props.spacedRepetition;
+  }
+
   showResults() {
     const result = this.props.answeredQuestions.map(qa => {
       let yourAnswerText = `Svar: ${qa.correctAlternative}. `;
@@ -125,15 +129,16 @@ export class finishScreen extends React.Component {
             mdOffset={2}
           >
             <div className="text-center">
-              {
-                <Button
-                  bsStyle="info"
-                  className="tryAgainButton"
-                  onClick={this.playAgain}
-                >
-                  Försök igen
-                </Button>
-              }{' '}
+
+              <Button
+                bsStyle="info"
+                className="tryAgainButton"
+                onClick={this.playAgain}
+                disabled={this.isSpacedRepetition()}
+              >
+                Försök igen
+              </Button>{' '}
+
               <Button
                 bsStyle="info"
                 className="backToSelectScreenButton"
