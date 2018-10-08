@@ -133,7 +133,8 @@ public class ProgressHandler {
             // Update the retention interval to I(n) := I(n-1) * retentionFactor, with random fuzz to avoid patterns
             retInterval = retInterval * retFactor + (Math.random() / 24);
         }
-        Timestamp retTimeStamp = pt.getLatestTimestamp();
+
+        Timestamp retTimeStamp = new Timestamp(pt.getLatestTimestamp().getTime());
         retTimeStamp.setTime(
             Math.round(retTimeStamp.getTime() + retInterval * 24 * 3600 * 1000)
         );
