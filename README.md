@@ -165,7 +165,9 @@ https://jdbc.postgresql.org/download.html
 Clone the docker-elk repository that includes a pre-configured Elastic Stack running on Docker:
 * `git clone https://github.com/deviantony/docker-elk.git`
 
-#### Configuring ELK on Docker
+#### Configuring ELK on Docker from scratch
+
+**Note 2:** If you already have the gakusei project on your machine, you can skip these steps and proceed to [Running ELK on Docker](#Running ELK on Docker)
 
 Navigate to the `/logstash/pipeline` directory and create two files `gakusei_events.conf` and `gakusei_progresstrackinglist.conf`.
 
@@ -242,16 +244,28 @@ COPY postgresql-42.2.5.jar /usr/share/logstash/
 
 #### Running ELK on Docker
 
-Before running Docker, uncomment one of the commands in the `Dockerfile`. It does not matter which one, but lets go with the first.
+Make sure you are in the `Logstash` folder inside the `elk-on-docker` folder. Edit `Dockerfile` and uncomment one of the commands at the end. It does not matter which one, but lets go with the first.
 
 Then start up the Elastic stack on Docker using these two commands:
 1. docker-compose build
 2. docker-compose up
 
 Once all the data has been transfered to Elasticsearch, shut down the containers with `Ctrl + C` to edit the Dockerfile.
-Uncomment the first command and uncomment the second command in the `Dockerfile`, then build and run Docker again using the two commands above.
+Comment out the first command and uncomment the second command in the `Dockerfile`, then build and run Docker again using the two commands above.
 
 **Note 4:** You must run both commands after any changes that you make. You can shut down the docker containers with `Ctrl + C` and start it up again only with the second command and you should still have the data in Elasticsearch.
+
+Elasticsearch should now contain all the data. You can view the indices in elasticsearch with the following command:
+
+`curl http://localhost:9200/_cat/indices\?v`
+
+In case you need to delete the data from elasticsearch and start from the beginning, you can use this command to delete entire indices, e.g. the 'events' index:
+
+`curl -XDELETE localhost:9200/events`
+
+When you have successfully executed all the above steps, you can open kibana in the browser and navigate to `Management => Saved Objects => import` to import a dashboard that includes graphs for 'number of answers per user' and 'number of incorrect answers per nugget' (More will be added). Import the file below and choose the corresponding index for each visualization and finally click on import. Now you should be able to see the graphs under the dashboard tab on the left panel.
+
+[Dashboard file](https://kitsab-my.sharepoint.com/:u:/g/personal/akar_khatab_kits_se/EZxceBxFrNxApDKxtC--NeYBnEdbDMujqiEvSaxxUrT1fA?e=Lnffgt)
 
 #### Inspecting the containers
 
