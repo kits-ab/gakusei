@@ -169,13 +169,12 @@ export default class Canvas extends React.Component {
     }
   }
 
-  drawPoints(points, lineColor, linewidth) {
+  drawPoints(points, lineColor) {
     const context = this.canvas.getContext('2d');
     const bounds = this.canvas.getBoundingClientRect();
 
     if (lineColor) {
       context.strokeStyle = lineColor;
-      context.lineWidth = linewidth;
     } else {
       context.strokeStyle = 'Black';
     }

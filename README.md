@@ -82,14 +82,14 @@ Requirements:
 * Kibana
 * Logstash
 * Logstash jdbc plugin
-* postgres jdbc driver
 * Running gakusei database
 
 **Note #1:** Logstash currently requires Java 8 and does not support Java 9 or higher.
 
 #### Installing ELK 
 
-Complete steps 1-3 from this installation page for the Elastic Stack to install Elasticsearch, Kibana and Logstash:\
+Complete steps 1-3 from this installation page for the Elastic Stack to install Elasticsearch, Kibana and Logstash:
+
 https://www.elastic.co/guide/en/elastic-stack/current/installing-elastic-stack.html
 
 For Mac you can just use brew with the following commands:
@@ -100,10 +100,10 @@ For Mac you can just use brew with the following commands:
 To be able to search the database, install the logstash jdbc input plugin with the following command:
 * `logstash-plugin install logstash-input-jdbc`
 
-In case the command does not work, refer to the installation page for the jdbc input plugin:\
+In case the command does not work, refer to the installation page for the jdbc input plugin:
 https://www.elastic.co/blog/logstash-jdbc-input-plugin
 
-Download the latest version of the postgres driver from this page:\
+Download the latest version of the postgres driver from this page:
 https://jdbc.postgresql.org/download.html
 
 Create a config file for logstash, e.g., `gakusei-config.conf` and paste the following configuration into the file:
@@ -147,146 +147,8 @@ This command would return the first indexed event by Elasticsearch where `gakuse
 
 You should now have imported the data from your database into Elasticsearch and view it with Kibana.
 
-Refer to online tutorials to learn how to use Kibana or use the Kibana user guide on the this page:\
+Refer to online tutorials to learn how to use Kibana or use the Kibana user guide on the this page:
 https://www.elastic.co/guide/en/kibana/current/index.html
-
-### Using the Elastic Stack (ELK) with Docker (Probably only MAC for now)
-
-Requirements:
-* Docker version 17.05+
-* Docker Compose version 1.6.0+
-* postgres jdbc driver
-* Running gakusei database
-
-#### Installing Docker
-
-Download and install Docker from this page:\
-https://www.docker.com/products/docker-engine#/download
-
-Download and install Docker Compose from this page:\
-https://docs.docker.com/compose/install/
-
-Download the latest version of the postgres driver from this page:\
-https://jdbc.postgresql.org/download.html
-
-**Note 1:** On desktop systems like Docker for Mac and Windows, Docker Compose is included as part of those desktop installs.
-
-Clone the docker-elk repository that includes a pre-configured Elastic Stack running on Docker:
-* `git clone https://github.com/deviantony/docker-elk.git`
-
-#### Configuring ELK on Docker from scratch
-
-**Note 2:** If you already have the gakusei project on your machine, you can skip these steps and proceed to [Running ELK on Docker](#running)
-
-Navigate to the `/logstash/pipeline` directory and create two files `gakusei_events.conf` and `gakusei_progresstrackinglist.conf`.
-
-Paste the following configuration to `gakusei_events.conf`:
-```
-input {
-	jdbc {
-		jdbc_connection_string => "jdbc:postgresql://docker.for.mac.localhost:5432/gakusei?gakusei"
-		jdbc_user => "gakusei"
-		jdbc_password => "gakusei"
-		jdbc_driver_library => "/usr/share/logstash/postgresql-42.2.5.jar"
-		jdbc_driver_class => "org.postgresql.Driver"
-		statement => "SELECT * from events"
-	}
-}
-
-## Add your filters / logstash plugins configuration here
-
-output {
-	elasticsearch {
-		index => "events"
-		document_type => "event"
-		document_id => "%{id}"
-		hosts => "elasticsearch:9200"
-	}
-}
-```
-
-Paste the following configuration to `gakusei_progresstrackinglist`:
-```
-input {
-	jdbc {
-		jdbc_connection_string => "jdbc:postgresql://docker.for.mac.localhost:5432/gakusei?gakusei"
-		jdbc_user => "gakusei"
-		jdbc_password => "gakusei"
-		jdbc_driver_library => "/usr/share/logstash/postgresql-42.2.5.jar"
-		jdbc_driver_class => "org.postgresql.Driver"
-		statement => "SELECT * from progresstrackinglist"
-	}
-}
-
-## Add your filters / logstash plugins configuration here
-
-output	{
-	elasticsearch {
-		index => "progresstrackinglist"
-		document_type => "progresstracking"
-		document_id => "%{id}"
-		hosts => "elasticsearch:9200"
-	}
-}
-```
-
-**Note 3:** As you might have noticed, the jdbc connection string points to `docker.for.mac.localhost` as the host. This unfortuneately might only work on MAC computer for now, but should work fine with a remote postgres server that uses an ip address.
-
-Navigate back to the `logstash` directory and open the `Dockerfile`.
-Add these lines to the `Dockerfile` to configure logstash to work with our running postgres database:
-```
-# Install the logstash input jdbc plugin to work with postgres.
-RUN logstash-plugin install logstash-input-jdbc
-
-# Copy files from the host machine to the container. The syntax is 'COPY <source> <target>'.
-COPY /pipeline/gakusei_events.conf /usr/share/logstash/pipeline/
-COPY /pipeline/gakusei_progresstrackinglist.conf /usr/share/logstash/pipeline/
-COPY postgresql-42.2.5.jar /usr/share/logstash/
-
-# Commands to run on logstash startup.
-
-# CMD ["-f", "/usr/share/logstash/pipeline/gakusei_progresstrackinglist.conf"]
-# CMD ["-f", "/usr/share/logstash/pipeline/gakusei_events.conf"]
-```
-
-**Note 4:** The commands are intentionally commented out. As you will soon see, we will use them one at a time.
-
-#### Running ELK on Docker <a name="running"/>
-
-Make sure you are in the `Logstash` folder inside the `elk-on-docker` folder. Edit `Dockerfile` and uncomment one of the commands at the end. It does not matter which one, but lets go with the first.
-
-Then start up the Elastic stack on Docker using these two commands:
-1. docker-compose build
-2. docker-compose up
-
-Once all the data has been transfered to Elasticsearch, shut down the containers with `Ctrl + C` to edit the Dockerfile.
-Comment out the first command and uncomment the second command in the `Dockerfile`, then build and run Docker again using the two commands above.
-
-**Note 5:** You must run both commands after any changes that you make. You can shut down the docker containers with `Ctrl + C` and start it up again only with the second command and you should still have the data in Elasticsearch.
-
-Elasticsearch should now contain all the data. You can view the indices in elasticsearch with the following command:
-
-`curl http://localhost:9200/_cat/indices\?v`
-
-In case you need to delete the data from elasticsearch and start from the beginning, you can use this command to delete entire indices, e.g. the 'events' index:
-
-`curl -XDELETE localhost:9200/events`
-
-When you have successfully executed all the above steps, you can open kibana in the browser and navigate to `Management => Saved Objects => import` to import a dashboard that includes graphs for 'number of answers per user' and 'number of incorrect answers per nugget' (More will be added). Import the file below and choose the corresponding index for each visualization and finally click on import. Now you should be able to see the graphs under the dashboard tab on the left panel.
-
-[Dashboard file](https://kitsab-my.sharepoint.com/:u:/g/personal/akar_khatab_kits_se/EZxceBxFrNxApDKxtC--NeYBnEdbDMujqiEvSaxxUrT1fA?e=Lnffgt)
-
-#### Inspecting the containers
-
-To list all the containers that are currently running, use the following command:
-* `docker ps`
-
-To include containers that are not currently running, use the following command:
-* `docker ps -a`
-
-To inspect a docker image with bash, use the following command:
-* `docker run --rm -it --entrypoint=/bin/bash <image name>` 
-
 
 ## Deployment <a name="deploy"/>
 The repository is synched with [Travis CI](https://travis-ci.org/), which is a tool for continuous integration that automatically builds, tests and deploys the project.
