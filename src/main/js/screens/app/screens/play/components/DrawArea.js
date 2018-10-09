@@ -91,15 +91,18 @@ export default class DrawArea extends React.Component {
         },
         action(canvas, data) {
           let lineColor = 'LightGray';
+          let linewidth = 10;
 
           !['medium', 'hard'].includes(data.difficulty) || data.answerPoints.length === data.existingPoints.length
             ? data.answerPoints.forEach((answerPoint, i) => {
               if (i >= data.existingPoints.length) {
                 lineColor = 'LightGray';
+                linewidth = 10;
               } else {
                 lineColor = 'LightGray';
+                linewidth = 10;
               }
-              this.drawPoints(data.answerPoints[i], lineColor);
+              this.drawPoints(data.answerPoints[i], lineColor, linewidth);
             })
             : null;
         }
@@ -115,14 +118,40 @@ export default class DrawArea extends React.Component {
           // Go into each path
           for (let i = 0; i < data.existingPoints.length; i++) {
             let lineColor = '#505050';
+            const linewidth = 10;
             if (data.highlightErrors) {
               if (!data.matches[i].match.userCorrect) {
                 lineColor = 'DarkRed';
               }
             }
 
-            this.drawPoints(data.existingPoints[i], lineColor);
+            this.drawPoints(data.existingPoints[i], lineColor, linewidth);
           }
+        }
+      },
+      //draw the answer lines again but thinner and another color in the forground of the users lines
+      {
+        data: {
+          answerPoints: this.state.correctAlternative.pathPoints,
+          existingPoints: this.state.userAnswer.existingPoints,
+          difficulty: this.props.difficulty
+        },
+        action(canvas, data) {
+          let lineColor = 'LightGray';
+          let linewidth = 10;
+
+          !['medium', 'hard'].includes(data.difficulty) || data.answerPoints.length === data.existingPoints.length
+            ? data.answerPoints.forEach((answerPoint, i) => {
+              if (i >= data.existingPoints.length) {
+                lineColor = 'transparent';
+                linewidth = 10;
+              } else {
+                lineColor = '#f97a7a';
+                linewidth = 4;
+              }
+              this.drawPoints(data.answerPoints[i], lineColor, linewidth);
+            })
+            : null;
         }
       },
       // Draw the numbers associated with each kanji line, with color logic
