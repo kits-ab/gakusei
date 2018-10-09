@@ -18,6 +18,7 @@ import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.schema.WildcardType;
@@ -42,8 +43,8 @@ public class MvcConfigurer implements WebMvcConfigurer {
     @Bean
     public Docket userApi(){
         return new Docket(DocumentationType.SWAGGER_2)
-                .select().apis(RequestHandlerSelectors.basePackage("se.kits.gakusei.controller"))
-                .paths(regex("/api.*"))
+                .select().apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
                 .build()
                 .apiInfo(metaData());
     }
@@ -52,7 +53,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
         return new ApiInfoBuilder()
                 .title("Spring Boot REST API")
                 .description("\"Spring Boot REST API for Gakusei\"")
-                .version("2.0.0")
+                .version("2.0.1")
                 .build();
     }
 
