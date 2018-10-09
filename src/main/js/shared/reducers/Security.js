@@ -210,7 +210,7 @@ export function logLoginEvent(username) {
 }
 
 export function requestUserLogin(data, redirectUrl) {
-  return function(dispatch) {
+  return function(dispatch, getState) {
     const formBody = typeof data === 'string' ? data : Utility.getFormData(data).join('&');
 
     dispatch(setLoggingIn());
@@ -233,9 +233,9 @@ export function requestUserLogin(data, redirectUrl) {
             dispatch(receiveAuthResponse(true, 'Inloggad, tar dig vidare..'));
             dispatch(setRedirectUrl(null));
             dispatch(fetchLoggedInUser()).then(() => {
+              dispatch(logLoginEvent(getState().security.loggedInUser));
               dispatch(setPageByName(redirectUrl || '/'));
             });
-            dispatch(logLoginEvent(formBody.match(/username=(.*?)\&/)[1])); //TODO: Gotta be a Redux way to do this
             break;
           default:
             throw new Error();
