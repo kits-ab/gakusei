@@ -104,10 +104,11 @@ class WriteCard extends React.Component {
                 answerText={'Vet ej'}
                 primaryText={'Vet ej'}
                 onAnswerClick={this.props.clickCallback}
-                buttonStyle={'danger'}
+                buttonStyle={'warning'}
                 buttonSize="small"
                 disableButton={this.props.buttonsDisabled}
                 answerType={this.props.answerType}
+                name="dunnobutton"
               />
             )}
           </Row>
