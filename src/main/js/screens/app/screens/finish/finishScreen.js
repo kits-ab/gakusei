@@ -49,10 +49,24 @@ export class finishScreen extends React.Component {
       .then(this.props.setPageByName(`/select/${this.props.match.params.type}`));
   }
   playAgain() {
-    this.props
+    /*this.props
       .fetchLesson(this.props.match.params.type)
       .catch(this.props.verifyUserLoggedIn())
-      .then(this.props.setPageByName(`/play/${this.props.match.params.type}`));
+      .then(this.props.setPageByName(`/play/${this.props.match.params.type}`)); */
+
+    if (!this.props.isFetchingLesson) {
+      try {
+        this.props.fetchLesson(this.props.match.params.type).then(() => {
+          this.props.setPageByName(`/play/${this.props.match.params.type}`);
+        });
+      } catch (err) {
+        this.props.verifyUserLoggedIn();
+      }
+    }
+  }
+
+  isSpacedRepetition() {
+    return this.props.spacedRepetition;
   }
 
   showResults() {
@@ -115,13 +129,16 @@ export class finishScreen extends React.Component {
             mdOffset={2}
           >
             <div className="text-center">
-              {/* <Button
+
+              <Button
                 bsStyle="info"
                 className="tryAgainButton"
                 onClick={this.playAgain}
+                disabled={this.isSpacedRepetition()}
               >
                 Försök igen
-              </Button>{' '} */}
+              </Button>{' '}
+
               <Button
                 bsStyle="info"
                 className="backToSelectScreenButton"
