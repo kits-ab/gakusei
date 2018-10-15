@@ -51,7 +51,7 @@ public class LessonController {
     @Autowired
     private ProgressHandler progressHandler;
 
-    @ApiOperation(value="Getting all the lessons", response = ResponseEntity.class)
+    @ApiOperation(value="Get a list of all lessons of type", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/lessons",
         method = RequestMethod.GET,
@@ -72,7 +72,7 @@ public class LessonController {
         );
     }
 
-    @ApiOperation(value="Getting info about a question", response = ResponseEntity.class)
+    @ApiOperation(value="Get info about all lessons status for a user", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/lessonInfo",
         method = RequestMethod.GET,
@@ -93,7 +93,7 @@ public class LessonController {
         return new ResponseEntity<>(values, HttpStatus.OK);
     }
 
-    @ApiOperation(value="Getting the wrong count", response = ResponseEntity.class)
+    @ApiOperation(value="Get the count of incorrectly answered questions", response = ResponseEntity.class)
     @RequestMapping(
             value = "/api/lessons/incorrectcount",
             method = RequestMethod.GET,
@@ -110,7 +110,7 @@ public class LessonController {
         return new ResponseEntity<>(progressHandler.getWrongCount(username), HttpStatus.OK);
     }
 
-    @ApiOperation(value="Getting lessons marked as favorite", response = ResponseEntity.class)
+    @ApiOperation(value="Get favourite lesson status info", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/lessons/favorite",
         method = RequestMethod.GET,
