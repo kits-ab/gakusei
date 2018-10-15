@@ -15,7 +15,7 @@ import se.kits.gakusei.content.model.Course;
 import se.kits.gakusei.content.repository.CourseRepository;
 
 @RestController
-@Api(value="UserController", description="Operations for handling users")
+@Api(value="CourseController", description="Operations for handling courses")
 public class CourseController {
     @Autowired
     CourseRepository courseRepository;
@@ -36,7 +36,7 @@ public class CourseController {
         }
     }
 
-    @ApiOperation(value="Getting one course with a specific id", response = ResponseEntity.class)
+    @ApiOperation(value="Find one course by ID", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/courses/{courseID}",
         method = RequestMethod.GET,
@@ -51,7 +51,7 @@ public class CourseController {
         return createResponseEntity(course);
     }
 
-    @ApiOperation(value="Getting one course with a specific name", response = ResponseEntity.class)
+    @ApiOperation(value="Find one course by name", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/courses/{courseName}",
         method = RequestMethod.GET,
@@ -66,7 +66,7 @@ public class CourseController {
         return createResponseEntity(course);
     }
 
-    @ApiOperation(value="Getting one course with a specific course code", response = ResponseEntity.class)
+    @ApiOperation(value="Find one course by course code", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/courses/{courseCode}",
         method = RequestMethod.GET,
