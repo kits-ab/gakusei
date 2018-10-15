@@ -159,7 +159,18 @@ export class loginScreen extends React.Component {
                     disabled={!this.state.username || !this.state.password}
                   >
                     Registrera
-                  </Button>
+                  </Button>{' '}
+                  <div>
+                    <input
+                      label="remember-me"
+                      name="remember-me"
+                      type="checkbox"
+                      onChange={this.handleInputChange}
+                      disabled={!this.state.username || !this.state.password}
+                      defaultChecked={false}
+                    />{' '}
+                    Kom ihåg mig
+                  </div>
                 </FormGroup>
               </fieldset>
             </Form>

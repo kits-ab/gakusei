@@ -61,11 +61,10 @@ public class SecurityConfiguration
             new CustomAuthenticationFailureHandler()
         ).successHandler(new CustomAuthenticationSuccessHandler()).permitAll(
 
-        ).and().httpBasic().and().headers().frameOptions().sameOrigin().and(
-
-        ).csrf().csrfTokenRepository(
+        ).and().httpBasic().and().headers().frameOptions().sameOrigin().and().csrf().csrfTokenRepository(
             CookieCsrfTokenRepository.withHttpOnlyFalse()
-        ).and().logout().logoutSuccessUrl("/");
+        ).and().logout().logoutSuccessUrl("/").deleteCookies("JSESSIONID").and(
+        ).rememberMe().key("uniqueAndSecret");
 
         http.csrf().disable();
     }
