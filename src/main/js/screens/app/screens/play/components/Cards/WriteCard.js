@@ -100,16 +100,18 @@ class WriteCard extends React.Component {
                 />
               </React.Fragment>
             ) : (
-              <AnswerButton
-                answerText={'Vet ej'}
-                primaryText={'Vet ej'}
-                onAnswerClick={this.props.clickCallback}
-                buttonStyle={'warning'}
-                buttonSize="small"
-                disableButton={this.props.buttonsDisabled}
-                answerType={this.props.answerType}
-                name="dunnobutton"
-              />
+              <div style={{ width: '40%', margin: '0% auto' }}>
+                <AnswerButton
+                  answerText={'Vet ej'}
+                  primaryText={'Vet ej'}
+                  onAnswerClick={this.props.clickCallback}
+                  buttonStyle={'warning'}
+                  buttonSize="small"
+                  disableButton={this.props.buttonsDisabled}
+                  answerType={this.props.answerType}
+                  name="dunnobutton"
+                />
+              </div>
             )}
           </Row>
         </Col>
