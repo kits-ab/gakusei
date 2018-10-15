@@ -2,7 +2,7 @@
 /* global frontend_global_data */
 
 import 'whatwg-fetch';
-import { Grid, Row, Col, ListGroup, ListGroupItem, Panel } from 'react-bootstrap';
+import { Grid, Row, Col, ListGroup, ListGroupItem, Panel, Button } from 'react-bootstrap';
 import xml2js from 'xml2js';
 
 export default class aboutScreen extends React.Component {
@@ -111,6 +111,7 @@ export default class aboutScreen extends React.Component {
       .then(response => response.json())
       .then(json => this.createFrontendLicenses(json));
   }
+
   render() {
     return (
       <div>
@@ -136,6 +137,90 @@ export default class aboutScreen extends React.Component {
                   <li>&quot;Kanji&quot; och här kan du testa dina kunskaper i kanji.</li>
                 </ol>
                 <p>
+                  {' '}
+                  Webbappen Gakusei går under licensen{' '}
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://opensource.org/licenses/mit-license.php"
+                  >
+                    MIT
+                  </a>
+                  . Nedan följer en lista på licenser för de moduler som projektet använder sig av.
+                </p>
+                <ListGroup>
+                  <ListGroupItem>
+                    Modul: <a href="https://kanjivg.tagaini.net/">KanjiVG</a>
+                    <br />
+                    Repository: <a href="https://github.com/KanjiVG/kanjivg">https://github.com/KanjiVG/kanjivg</a>
+                    <br />
+                    Licens(er):
+                    <br />
+                    <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    Modul: <a href="http://www.tanos.co.uk/jlpt/"> The Japanese Language Proficiency Test (JLPT)</a>
+                    <br />
+                    Licens(er):
+                    <br />
+                    <a href="https://creativecommons.org/licenses/by/2.5/">Creative Commons BY</a>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    Modul: <a href="http://www.edrdg.org/edrdg/index.html">JMDict</a>
+                    <br />
+                    Licens(er):
+                    <br />
+                    <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+                  </ListGroupItem>
+                  <ListGroupItem>
+                    Modul: <a href="http://www.edrdg.org/edrdg/index.html">KanjiDict</a>
+                    <br />
+                    Licens(er):
+                    <br />
+                    <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+                  </ListGroupItem>
+                </ListGroup>
+              </div>
+            </Col>
+          </Row>
+
+          <Grid className="about-features">
+            <Row className="features_prev">
+              <Col
+                xs={12}
+                md={6}
+                lg={4}
+                className="text-center"
+              >
+                <img
+                  src="/img/front_page/contributor-kits-gakusei.svg"
+                  alt="contributors-page"
+                  className="about-features__image"
+                />
+                <h3>Medverkande</h3>
+                <p>Se vilka som bidragit till projektet på vår Github sida</p>
+                <p>
+                  <Button
+                    bsStyle="success"
+                    href="https://github.com/kits-ab/gakusei/graphs/contributors"
+                  >
+                    Läs mer
+                  </Button>
+                </p>
+              </Col>
+              <Col
+                xs={12}
+                md={6}
+                lg={4}
+                className="text-center"
+              >
+                <img
+                  src="/img/front_page/github-kits-gakusei-logo.svg"
+                  alt="GitHub-Sida"
+                  className="about-features__image"
+                />
+                <h3>Github</h3>
+                <p>
                   Utvecklingen av applikationen sker i form av ett open source-projekt och sponsras utav{' '}
                   <a
                     target="_blank"
@@ -153,21 +238,10 @@ export default class aboutScreen extends React.Component {
                     Githubsida.
                   </a>
                 </p>
-                <p>
-                  {' '}
-                  Webbappen Gakusei går under licensen{' '}
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://opensource.org/licenses/mit-license.php"
-                  >
-                    MIT
-                  </a>
-                  . Nedan följer en lista på licenser för de moduler som projektet använder sig av.
-                </p>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </Grid>
+
           <Row>
             <Panel>
               <Panel.Heading>
@@ -178,38 +252,6 @@ export default class aboutScreen extends React.Component {
                   <ListGroup>
                     {this.state.backend_licenses}
                     {this.state.frontend_licenses}
-                    <ListGroup>
-                      <ListGroupItem>
-                        Modul: <a href="https://kanjivg.tagaini.net/">KanjiVG</a>
-                        <br />
-                        Repository: <a href="https://github.com/KanjiVG/kanjivg">https://github.com/KanjiVG/kanjivg</a>
-                        <br />
-                        Licens(er):
-                        <br />
-                        <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
-                      </ListGroupItem>
-                      <ListGroupItem>
-                        Modul: <a href="http://www.tanos.co.uk/jlpt/"> The Japanese Language Proficiency Test (JLPT)</a>
-                        <br />
-                        Licens(er):
-                        <br />
-                        <a href="https://creativecommons.org/licenses/by/2.5/">Creative Commons BY</a>
-                      </ListGroupItem>
-                      <ListGroupItem>
-                        Modul: <a href="http://www.edrdg.org/edrdg/index.html">JMDict</a>
-                        <br />
-                        Licens(er):
-                        <br />
-                        <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
-                      </ListGroupItem>
-                      <ListGroupItem>
-                        Modul: <a href="http://www.edrdg.org/edrdg/index.html">KanjiDict</a>
-                        <br />
-                        Licens(er):
-                        <br />
-                        <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
-                      </ListGroupItem>
-                    </ListGroup>
                   </ListGroup>
                 </Panel.Body>
               </Panel.Collapse>
