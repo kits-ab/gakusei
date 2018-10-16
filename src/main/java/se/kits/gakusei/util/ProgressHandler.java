@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,8 @@ import se.kits.gakusei.user.repository.EventRepository;
 import se.kits.gakusei.user.repository.NuggetTypeRepository;
 import se.kits.gakusei.user.repository.ProgressTrackingRepository;
 import se.kits.gakusei.user.repository.UserRepository;
+
+import javax.swing.text.html.Option;
 
 @Component
 public class ProgressHandler {
@@ -154,13 +157,11 @@ public class ProgressHandler {
         List<ProgressTracking> allProgress = progressTrackingRepository.findAllByUserUsernameAndLatestResultAndNuggetTypeEquals(
                 username, false, nuggetTypeRepository.findByType("vocab"));
         List<Nugget> wrongNuggets = new ArrayList<>();
-        Iterable<Nugget> guesslist = nuggetRepository.findAll();
         for (ProgressTracking item : allProgress) {
-            for (Nugget nugget : guesslist) {
-                if (item.getNuggetID().equals(nugget.getId())) {
-                    wrongNuggets.add(nugget);
-                }
-            }
+              Optional<Nugget> tempNugget = nuggetRepository.findById(item.getNuggetID());
+              if(tempNugget.isPresent()) {
+                  wrongNuggets.add(tempNugget.get());
+              }
         }
         return wrongNuggets;
     }
@@ -168,12 +169,10 @@ public class ProgressHandler {
         List<ProgressTracking> allProgress = progressTrackingRepository.findAllByUserUsernameAndLatestResultAndNuggetTypeEquals(
                 username, false, nuggetTypeRepository.findByType("kanji"));
         List<Kanji> wrongKanji = new ArrayList<>();
-        Iterable<Kanji> guesslist = kanjiRepository.findAll();
         for (ProgressTracking item : allProgress) {
-            for (Kanji kanji : guesslist) {
-                if (item.getNuggetID().equals(kanji.getId())) {
-                    wrongKanji.add(kanji);
-                }
+            Optional<Kanji> tempKanji = kanjiRepository.findById(item.getNuggetID());
+            if (tempKanji.isPresent()){
+            wrongKanji.add(tempKanji.get());
             }
         }
         return wrongKanji;
