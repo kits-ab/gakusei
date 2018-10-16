@@ -119,7 +119,7 @@ export default class aboutScreen extends React.Component {
           <Row>
             <Col xs={12}>
               <div className="text-left">
-                <h2>Om Gakusei</h2>
+                <h1>Om Gakusei</h1>
                 <p>
                   Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande fyra
                   spellägen:
@@ -136,6 +136,7 @@ export default class aboutScreen extends React.Component {
                   <li>&quot;Quiz&quot; och här kan du spela frågesporter kopplade till Japan.</li>
                   <li>&quot;Kanji&quot; och här kan du testa dina kunskaper i kanji.</li>
                 </ol>
+                <br />
                 <p>
                   {' '}
                   Webbappen Gakusei går under licensen{' '}
@@ -148,38 +149,76 @@ export default class aboutScreen extends React.Component {
                   </a>
                   . Nedan följer en lista på licenser för de moduler som projektet använder sig av.
                 </p>
-                <ListGroup>
-                  <ListGroupItem>
-                    Modul: <a href="https://kanjivg.tagaini.net/">KanjiVG</a>
-                    <br />
-                    Repository: <a href="https://github.com/KanjiVG/kanjivg">https://github.com/KanjiVG/kanjivg</a>
-                    <br />
-                    Licens(er):
-                    <br />
-                    <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Modul: <a href="http://www.tanos.co.uk/jlpt/"> The Japanese Language Proficiency Test (JLPT)</a>
-                    <br />
-                    Licens(er):
-                    <br />
-                    <a href="https://creativecommons.org/licenses/by/2.5/">Creative Commons BY</a>
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Modul: <a href="http://www.edrdg.org/edrdg/index.html">JMDict</a>
-                    <br />
-                    Licens(er):
-                    <br />
-                    <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
-                  </ListGroupItem>
-                  <ListGroupItem>
-                    Modul: <a href="http://www.edrdg.org/edrdg/index.html">KanjiDict</a>
-                    <br />
-                    Licens(er):
-                    <br />
-                    <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
-                  </ListGroupItem>
-                </ListGroup>
+                <Panel>
+                  <Panel.Heading>
+                    <Panel.Title toggle>Licenser</Panel.Title>
+                  </Panel.Heading>
+                  <Panel.Collapse>
+                    <Panel.Body>
+                      <ListGroup>
+                        {this.state.backend_licenses}
+                        {this.state.frontend_licenses}
+                      </ListGroup>
+                    </Panel.Body>
+                  </Panel.Collapse>
+                </Panel>
+                <div>
+                  <Row>
+                    <Col
+                      xs={12}
+                      md={6}
+                      lg={4}
+                    >
+                      Modul: <a href="http://www.tanos.co.uk/jlpt/"> The Japanese Language Proficiency Test (JLPT)</a>
+                      <br />
+                      Licens(er):
+                      <br />
+                      <a href="https://creativecommons.org/licenses/by/2.5/">Creative Commons BY</a>
+                      <br />
+                      <br />
+                    </Col>
+                    <Col
+                      xs={12}
+                      md={6}
+                      lg={4}
+                    >
+                      Modul: <a href="http://www.edrdg.org/edrdg/index.html">JMDict</a>
+                      <br />
+                      Licens(er):
+                      <br />
+                      <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+                    </Col>
+                  </Row>
+                  <br />
+                  <Row>
+                    <Col
+                      xs={12}
+                      md={6}
+                      lg={4}
+                    >
+                      Modul: <a href="http://www.edrdg.org/edrdg/index.html">KanjiDict</a>
+                      <br />
+                      Licens(er):
+                      <br />
+                      <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+                      <br />
+                      <br />
+                    </Col>
+                    <Col
+                      xs={12}
+                      md={6}
+                      lg={4}
+                    >
+                      Modul: <a href="https://kanjivg.tagaini.net/">KanjiVG</a>
+                      <br />
+                      Repository: <a href="https://github.com/KanjiVG/kanjivg">https://github.com/KanjiVG/kanjivg</a>
+                      <br />
+                      Licens(er):
+                      <br />
+                      <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
+                    </Col>
+                  </Row>
+                </div>
               </div>
             </Col>
           </Row>
@@ -239,24 +278,31 @@ export default class aboutScreen extends React.Component {
                   </a>
                 </p>
               </Col>
+              <Col
+                xs={12}
+                md={6}
+                lg={4}
+                className="text-center"
+              >
+                <img
+                  src="/img/front_page/owner-kits-gakusei.svg"
+                  alt="owner"
+                  className="about-features__image"
+                />
+                <h3>Ägande</h3>
+                <p>
+                  Kodägande av{' '}
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.kits.se"
+                  >
+                    Kits
+                  </a>
+                </p>
+              </Col>
             </Row>
           </Grid>
-
-          <Row>
-            <Panel>
-              <Panel.Heading>
-                <Panel.Title toggle>Licenser</Panel.Title>
-              </Panel.Heading>
-              <Panel.Collapse>
-                <Panel.Body>
-                  <ListGroup>
-                    {this.state.backend_licenses}
-                    {this.state.frontend_licenses}
-                  </ListGroup>
-                </Panel.Body>
-              </Panel.Collapse>
-            </Panel>
-          </Row>
         </Grid>
       </div>
     );
