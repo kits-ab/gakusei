@@ -44,7 +44,7 @@ public class EventController {
     @Value("${gakusei.event-logging}")
     private boolean eventLogging;
 
-    @ApiOperation(value="Getting all the events", response = ResponseEntity.class)
+    @ApiOperation(value="Get a list of all events", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/events",
         method = RequestMethod.GET,
@@ -58,7 +58,7 @@ public class EventController {
         ) : new ResponseEntity<Iterable<Event>>(HttpStatus.FORBIDDEN);
     }
 
-    @ApiOperation(value="Add an event", response = ResponseEntity.class)
+    @ApiOperation(value="Add a list of events", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/events2",
         method = RequestMethod.POST,

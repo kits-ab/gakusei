@@ -48,7 +48,7 @@ public class QuestionController {
         this.progressHandler = progressHandler;
     }
 
-    @ApiOperation(value="Getting questions from a lesson", response = ResponseEntity.class)
+    @ApiOperation(value="Get a list of constructed questions from a lesson", response = ResponseEntity.class)
     @RequestMapping(
             value = "/api/questions",
             method = RequestMethod.GET,
@@ -96,7 +96,7 @@ public class QuestionController {
         ) : new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
-    @ApiOperation(value="Getting questions that a user has answered incorrectly", response = ResponseEntity.class)
+    @ApiOperation(value="Get a list of constructed questions that a user has answered incorrectly", response = ResponseEntity.class)
     @RequestMapping(
             value = "/api/wrongquestions",
             method = RequestMethod.GET,

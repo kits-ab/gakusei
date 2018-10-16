@@ -35,7 +35,7 @@ public class QuizController {
     @Autowired
     QuizHandler quizHandler;
 
-    @ApiOperation(value="Getting questions for one quiz", response = ResponseEntity.class)
+    @ApiOperation(value="Get questions for one quiz", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/quiz",
         method = RequestMethod.GET,
@@ -56,7 +56,7 @@ public class QuizController {
         return new ResponseEntity<>(correctFormat, HttpStatus.OK);
     }
 
-    @ApiOperation(value="Getting all the quizzes", response = ResponseEntity.class)
+    @ApiOperation(value="Get a list of all quizzes", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/quizes",
         method = RequestMethod.GET,
@@ -66,7 +66,7 @@ public class QuizController {
         return new ResponseEntity<>(quizRepository.findAll(), HttpStatus.OK);
     }
 
-    @ApiOperation(value="Get one quiz with a specific id", response = ResponseEntity.class)
+    @ApiOperation(value="Find one quiz by ID", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/quiz/{quizId}",
         method = RequestMethod.GET,
@@ -79,7 +79,7 @@ public class QuizController {
         return ResponseEntity.ok(quizRepository.findById(quizId).get());
     }
 
-    @ApiOperation(value="Get quizzes by a specific name", response = ResponseEntity.class)
+    @ApiOperation(value="Find quiz by name", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/quizes/{offset}/{name}",
         method = RequestMethod.GET,

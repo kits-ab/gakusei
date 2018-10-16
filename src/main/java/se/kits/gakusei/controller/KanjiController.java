@@ -43,7 +43,7 @@ public class KanjiController {
         this.progressHandler = progressHandler;
     }
 
-    @ApiOperation(value="Getting kanji questions from a lesson", response = ResponseEntity.class)
+    @ApiOperation(value="Get a list of all kanji in a lesson", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/questions/kanji",
         method = RequestMethod.GET,
@@ -69,7 +69,7 @@ public class KanjiController {
         ) : new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
-    @ApiOperation(value="Getting kanji questions that a user has answered incorrectly", response = ResponseEntity.class)
+    @ApiOperation(value="Get a list of all kanji that a user has answered incorrectly", response = ResponseEntity.class)
     @RequestMapping(
             value = "/api/wrongquestions/kanji",
             method = RequestMethod.GET,

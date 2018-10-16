@@ -20,7 +20,7 @@ public class BookController {
     @Autowired
     BookRepository bookRepository;
 
-    @ApiOperation(value="Getting all books", response = ResponseEntity.class)
+    @ApiOperation(value="Get a list of all books", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/books",
         method = RequestMethod.GET,
@@ -35,7 +35,7 @@ public class BookController {
         }
     }
 
-    @ApiOperation(value="Getting one book with a specific id", response = ResponseEntity.class)
+    @ApiOperation(value="Find one book by id", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/books/{bookId}",
         method = RequestMethod.GET,
@@ -54,7 +54,7 @@ public class BookController {
         }
     }
 
-    @ApiOperation(value="Getting one book with a specific title", response = ResponseEntity.class)
+    @ApiOperation(value="Find one book by title", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/books/{bookTitle}",
         method = RequestMethod.GET,

@@ -20,7 +20,7 @@ public class CourseController {
     @Autowired
     CourseRepository courseRepository;
 
-    @ApiOperation(value="Getting all courses", response = ResponseEntity.class)
+    @ApiOperation(value="Get list of all courses", response = ResponseEntity.class)
     @RequestMapping(
         value = "api/courses",
         method = RequestMethod.GET,
