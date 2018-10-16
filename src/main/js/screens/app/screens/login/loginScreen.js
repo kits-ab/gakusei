@@ -1,10 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Button, Col, Row, Grid, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Checkbox, Button, Col, Row, Grid, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
 import * as Security from '../../../../shared/reducers/Security';
+import getRememberMe from '../../../../shared/util/getRememberMe';
 
 export const Reducers = [Security];
 
@@ -13,6 +14,7 @@ export class loginScreen extends React.Component {
     super(props);
 
     this.state = {
+      checkboxChecked: false,
       username: '',
       password: '',
       _csrf: getCSRF(),
@@ -20,6 +22,7 @@ export class loginScreen extends React.Component {
       canSubmit: false
     };
 
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -47,6 +50,10 @@ export class loginScreen extends React.Component {
     }
 
     return null;
+  }
+
+  handleChange(e) {
+    this.setState({ checkboxChecked: e.target.checked });
   }
 
   handleInputChange(e) {
@@ -138,7 +145,6 @@ export class loginScreen extends React.Component {
                   name="_csrf"
                   value={this.state._csrf}
                 />
-
                 <FormGroup>
                   <Button
                     label="login"
@@ -160,17 +166,14 @@ export class loginScreen extends React.Component {
                   >
                     Registrera
                   </Button>{' '}
-                  <div>
-                    <input
-                      label="remember-me"
-                      name="remember-me"
-                      type="checkbox"
-                      onChange={this.handleInputChange}
-                      disabled={!this.state.username || !this.state.password}
-                      defaultChecked={false}
-                    />{' '}
+                  <Checkbox
+                    label="remember-me"
+                    name="remember-me"
+                    checked={this.state.checkboxChecked}
+                    onChange={this.handleChange}
+                  >
                     Kom ihåg mig
-                  </div>
+                  </Checkbox>{' '}
                 </FormGroup>
               </fieldset>
             </Form>
