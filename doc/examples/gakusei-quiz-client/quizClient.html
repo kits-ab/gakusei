@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Quiz API</title>
+
+    <style>
+
+        body {
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        form
+        {
+            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            width: 400px;
+        }
+
+        input[type=text] {
+            width: 100%;
+            padding: 8px 20px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 5px 5px;
+            font-size: 11px;
+            margin: 10px 2px;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+<body>
+<h1> Quiz - gakusei </h1>
+<form action="http://localhost:8080/api/quizes" method="GET">
+    <div>
+        <label for="AllQuiz">Get all Quizzes</label>
+        <button>Get Quizzes</button>
+    </div>
+</form>
+</br>
+<form action="http://localhost:8080/api/quiz?lessonName" method="GET">
+    <div>
+        <label for="lessonName">Input LessonName:</label></br>
+        <input type="text" name="lessonName" id="lessonName" value="">
+    </div>
+    <div>
+        <button>Get LessonName</button>
+    </div>
+</form>
+
+</br>
+<form action="http://localhost:8080/api/quiz/nugget/1/" method="GET">
+    <div>
+        <label for="nugget">Get NuggetId (fråga) 1: </label>
+        <button>Id 1</button>
+    </div>
+</form>
+</br>
+<form action="http://localhost:8080/api/quiz/nugget/2/" method="GET">
+    <div>
+        <label for="nugget">Get NuggetId (fråga) 2: </label>
+        <button>Id 2</button>
+    </div>
+</form>
+</br>
+<form action="http://localhost:8080/api/quiz/nugget/3/" method="GET">
+    <div>
+        <label for="nugget">Get NuggetId (fråga) 3: </label>
+        <button>Id 3</button>
+    </div>
+</form>
+</br>
+<form action="http://localhost:8080/api/quiz/nugget/4/" method="GET">
+    <div>
+        <label for="nugget">Get NuggetId (fråga) 4: </label>
+        <button>Id 4</button>
+    </div>
+</form>
+</br>
+<form action="http://localhost:8080/api/quiz/nugget/5/" method="GET">
+    <div>
+        <label for="nugget">Get NuggetId (fråga) 5</label>
+        <button>Id 5</button>
+    </div>
+</form>
+</html>

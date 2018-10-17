@@ -136,5 +136,17 @@ public class QuizController {
         return quizHandler.getQuizNugget(quizNuggetId);
     }
 
+    @RequestMapping(
+            value="/api/quiz/nugget/correctAnswer/{correctAnswer}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public HashMap<String, Object> getQuizImage(
+            @PathVariable(value="correctAnswer")
+            String correctAnswer
+    ){
+        return quizHandler.getQuizImage(correctAnswer);
+    }
+
 }
 
