@@ -2,7 +2,7 @@
 /* global frontend_global_data */
 
 import 'whatwg-fetch';
-import { Grid, Row, Col, ListGroup, ListGroupItem, Panel, Button } from 'react-bootstrap';
+import { Grid, Row, Col, ListGroup, ListGroupItem, Panel, Button, Jumbotron } from 'react-bootstrap';
 import xml2js from 'xml2js';
 
 export default class aboutScreen extends React.Component {
@@ -119,7 +119,7 @@ export default class aboutScreen extends React.Component {
           <Row>
             <Col xs={12}>
               <div className="text-left">
-                <h1>Om Gakusei</h1>
+                <h2>Om Gakusei</h2>
                 <p>
                   Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande fyra
                   spellägen:
@@ -137,6 +137,32 @@ export default class aboutScreen extends React.Component {
                   <li>&quot;Kanji&quot; och här kan du testa dina kunskaper i kanji.</li>
                 </ol>
                 <br />
+                <h4>Rättigheter</h4>
+                <p>
+                  Utvecklad i samarbete med{' '}
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://kits.se/"
+                  >
+                    KITS.AB
+                  </a>
+                  . Alla rättigheter till programkoden ägs av Kokitotsos AB. Denna sajt opereras av Daigaku Sverige som
+                  licensierar Gakusei av Kokitotsos AB:s genom en öppen källkodslicens. Utbildningsmaterial har
+                  sammanställts av Pierre Sandboge, och inkluderar eget material och annat material som framgår på annan
+                  plats på den här sidan.{' '}
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="http://daigaku.se/"
+                  >
+                    Daigaku.se
+                  </a>{' '}
+                  drivs utan anställda, med donerade medel, och ingen garanti om tillgänglighet kan ges.
+                  Tillhandahållandet av tjänsten kan upphöra när som helst utan förvarning.
+                </p>
+                <br />
+                <h4>Licenser</h4>
                 <p>
                   {' '}
                   Webbappen Gakusei går under licensen{' '}
@@ -151,7 +177,7 @@ export default class aboutScreen extends React.Component {
                 </p>
                 <Panel>
                   <Panel.Heading>
-                    <Panel.Title toggle>Licenser</Panel.Title>
+                    <Panel.Title toggle>Klicka för fler Licenser</Panel.Title>
                   </Panel.Heading>
                   <Panel.Collapse>
                     <Panel.Body>
@@ -237,14 +263,15 @@ export default class aboutScreen extends React.Component {
                   className="about-features__image"
                 />
                 <h3>Medverkande</h3>
-                <p>Se vilka som bidragit till projektet på vår Github sida</p>
                 <p>
-                  <Button
-                    bsStyle="success"
+                  Se vilka som bidragit till projektet{' '}
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
                     href="https://github.com/kits-ab/gakusei/graphs/contributors"
                   >
-                    Läs mer
-                  </Button>
+                    här
+                  </a>
                 </p>
               </Col>
               <Col
@@ -260,15 +287,7 @@ export default class aboutScreen extends React.Component {
                 />
                 <h3>Github</h3>
                 <p>
-                  Utvecklingen av applikationen sker i form av ett open source-projekt och sponsras utav{' '}
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://www.kits.se"
-                  >
-                    Kits
-                  </a>
-                  . Besök gärna projektets{' '}
+                  Besök gärna open-source projektets{' '}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -290,16 +309,7 @@ export default class aboutScreen extends React.Component {
                   className="about-features__image"
                 />
                 <h3>Ägande</h3>
-                <p>
-                  Kodägande av{' '}
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://www.kits.se"
-                  >
-                    Kits
-                  </a>
-                </p>
+                <p> Alla rättigheter till programkoden ägs av Kokitotsos AB.</p>
               </Col>
             </Row>
           </Grid>
