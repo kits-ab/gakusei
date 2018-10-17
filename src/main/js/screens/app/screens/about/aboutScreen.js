@@ -145,7 +145,7 @@ export default class aboutScreen extends React.Component {
                     rel="noopener noreferrer"
                     href="https://kits.se/"
                   >
-                    KITS.AB
+                    KITS AB
                   </a>
                   . Alla rättigheter till programkoden ägs av Kokitotsos AB. Denna sajt opereras av Daigaku Sverige som
                   licensierar Gakusei av Kokitotsos AB:s genom en öppen källkodslicens. Utbildningsmaterial har
