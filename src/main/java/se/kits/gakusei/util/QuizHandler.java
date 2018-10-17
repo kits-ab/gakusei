@@ -26,6 +26,7 @@ public class QuizHandler {
 
     public final static String IA_INCORRECT_ANSWERS = "incorrectAnswer";
     public final static String IA_ID = "id";
+    public final static String QN_IMG = "quizImage";
 
     @Autowired
     protected QuizRepository quizRepository;
@@ -75,6 +76,7 @@ public class QuizHandler {
             QN_INCORRECT_ANSWERS,
             getIncorrectAnswers(quizNugget.getId())
         );
+        myQuizNugget.put(QN_IMG, quizNugget.getImage());
 
         return myQuizNugget;
     }
@@ -156,6 +158,27 @@ public class QuizHandler {
 
         return allIncorrectAnswers.subList(0, 3);
     }
+
+    public HashMap<String, Object> getQuizImage(String correctAnswer){
+        HashMap<String, Object> quizImage = convertQuizNugget(
+                quizNuggetRepository.findByCorrectAnswer(correctAnswer)
+        );
+        return quizImage;
+       //QuizNugget quizImage = quizNuggetRepository.findByCorrectAnswer(correctAnswer);
+       //return quizImage.getImage();
+    }
+
+    /*public HashMap<String, Object> getQuizNugget(Long quizNuggetId) {
+        HashMap<String, Object> myQuizNugget = convertQuizNugget(
+                quizNuggetRepository.findById(quizNuggetId).get()
+        );
+        myQuizNugget.put(
+                QN_INCORRECT_ANSWERS,
+                getIncorrectAnswers(quizNuggetId)
+        );
+
+        return myQuizNugget;
+    }*/
 
 }
 
