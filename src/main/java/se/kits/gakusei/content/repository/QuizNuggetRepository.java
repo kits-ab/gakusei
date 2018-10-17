@@ -12,6 +12,9 @@ public interface QuizNuggetRepository
 
     List<QuizNugget> findByQuizId(Long id);
 
+    QuizNugget findByCorrectAnswer(String correctAnswer);
+
+
     @Transactional
     void deleteByQuizId(Long id);
 

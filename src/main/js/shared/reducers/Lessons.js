@@ -127,6 +127,7 @@ export const SET_FETCHING_LESSON = 'SET_FETCHING_LESSON';
 export const SET_INCORRECT_LESSON_COUNT = 'SET_INCORRECT_LESSON_COUNT';
 export const RECEIVE_INCORRECT_LESSON_COUNT = 'RECEIVE_INCORRECT_LESSON_COUNT';
 export const SET_LESSON_PLAY_TYPE = 'SET_LESSON_PLAY_TYPE';
+export const SET_QUIZ_IMAGE = 'SET_QUIZ_IMAGE';
 // -----------------
 // ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
 // They do not themselves have any side-effects; they just describe something that is going to happen.
@@ -802,6 +803,7 @@ export function fetchIncorrectLessonCount(lessonType) {
       .then(result => dispatch(receiveIncorrectLessonCount(result)));
   };
 }
+
 export function receiveIncorrectLessonCount(count) {
   return {
     type: RECEIVE_INCORRECT_LESSON_COUNT,
@@ -814,6 +816,24 @@ export function setPlayType(playtype) {
     type: SET_LESSON_PLAY_TYPE,
     description: 'Set lesson type',
     playtype
+  };
+}
+
+export function fetchQuizImage(correctAnswer) {
+  return function(dispatch) {
+    return fetch(`/api/quiz/nugget/correctAnswer/${correctAnswer}`, {
+      credentials: 'same-origin'
+    })
+      .then(response => response.json())
+      .then(result => dispatch(setQuizImage(result.quizImage)));
+  };
+}
+
+export function setQuizImage(quizImage) {
+  return {
+    type: SET_QUIZ_IMAGE,
+    description: 'Set quiz image',
+    quizImage
   };
 }
 
@@ -853,7 +873,9 @@ export const actionCreators = {
   setKanjiDifficulty,
   addUserKanjiDrawing,
   fetchIncorrectLessonCount,
-  setPlayType
+  setPlayType,
+  fetchQuizImage,
+  setQuizImage
 };
 
 // ----------------
@@ -1045,6 +1067,11 @@ export function lessons(state = defaultState, action) {
       return {
         ...state,
         playtype: action.playtype
+      };
+    case SET_QUIZ_IMAGE:
+      return {
+        ...state,
+        quizImage: action.quizImage
       };
   }
 }
