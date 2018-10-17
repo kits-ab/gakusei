@@ -16,6 +16,8 @@ public class QuizNugget implements Serializable {
 
     private String correctAnswer;
 
+    private String image;
+
     @JoinColumn(name = "quiz_ref")
     @ManyToOne
     private Quiz quiz;
@@ -45,6 +47,10 @@ public class QuizNugget implements Serializable {
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
+
+    public String getImage(){ return image; }
+
+    public void setImage(String image){ this.image = image; }
 
     public Quiz getQuiz() {
         return quiz;

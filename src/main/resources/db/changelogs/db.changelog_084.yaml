@@ -1,0 +1,10 @@
+databaseChangeLog:
+- changeSet:
+    id: 83
+    author: Joella Johannesson
+    changes:
+    - modifyDataType:
+        columnName: image
+        newDataType: varchar(255)
+        schemaName: contentschema
+        tableName: quiz_nugget

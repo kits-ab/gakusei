@@ -1,0 +1,18 @@
+databaseChangeLog:
+- changeSet:
+    id: 82
+    author: Joella Johannesson
+    preConditions:
+    - onFail: MARK_RAN
+    - not:
+      - columnExists:
+          schemaName: contentschema
+          tableName: quiz_nugget
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: image
+            type: varchar(50)
+        schemaName: contentschema
+        tableName: quiz_nugget
