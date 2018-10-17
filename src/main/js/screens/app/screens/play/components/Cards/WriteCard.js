@@ -4,6 +4,7 @@ import DrawArea from '../DrawArea';
 import FlashButtonSet from '../FlashButtonSet';
 import React from 'react';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
+import AnswerButton from '../AnswerButton';
 
 class WriteCard extends React.Component {
   constructor(props) {
@@ -98,7 +99,20 @@ class WriteCard extends React.Component {
                   clickCallback={this.props.clickCallback}
                 />
               </React.Fragment>
-            ) : null}
+            ) : (
+              <div style={{ width: '40%', margin: '0% auto' }}>
+                <AnswerButton
+                  answerText={'Vet ej'}
+                  primaryText={'Vet ej'}
+                  onAnswerClick={this.props.clickCallback}
+                  buttonStyle={'danger'}
+                  buttonSize="small"
+                  disableButton={this.props.buttonsDisabled}
+                  answerType={this.props.answerType}
+                  name="dunnobutton"
+                />
+              </div>
+            )}
           </Row>
         </Col>
       </Row>

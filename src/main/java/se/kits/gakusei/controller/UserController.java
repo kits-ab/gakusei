@@ -30,7 +30,7 @@ public class UserController {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @ApiOperation(value="Creating a user", response = ResponseEntity.class)
+/*    @ApiOperation(value="Creating a user", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/users",
         method = RequestMethod.POST,
@@ -45,7 +45,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(userRole);
         return new ResponseEntity<User>(ur.save(user), HttpStatus.CREATED);
-    }
+    }*/
 
     @ApiOperation(value="Getting all the users", response = ResponseEntity.class)
     @RequestMapping(
