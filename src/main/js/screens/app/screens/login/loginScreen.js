@@ -5,7 +5,6 @@ import { Checkbox, Button, Col, Row, Grid, Form, FormGroup, FormControl, Control
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
 import * as Security from '../../../../shared/reducers/Security';
-import getRememberMe from '../../../../shared/util/getRememberMe';
 
 export const Reducers = [Security];
 
