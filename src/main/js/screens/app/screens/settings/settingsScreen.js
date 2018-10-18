@@ -7,6 +7,13 @@ export class settingsScreen extends React.Component {
   constructor(props) {
     super(props);
   }
+  render() {
+    return (
+      <div>
+        <p>Hejsan kits</p>
+      </div>
+    );
+  }
 }
 settingsScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
