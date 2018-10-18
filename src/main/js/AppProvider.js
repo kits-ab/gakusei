@@ -92,7 +92,7 @@ export default class AppProvider extends React.Component {
                 />
                 <Route
                   path="/settings"
-                  component={settingsScreen}
+                  component={requireAuthentication(settingsScreen)}
                 />
                 <Route
                   path="/start"
