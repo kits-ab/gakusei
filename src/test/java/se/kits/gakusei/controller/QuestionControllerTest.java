@@ -16,9 +16,9 @@ import org.springframework.http.ResponseEntity;
 import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.repository.LessonRepository;
+import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.content.repository.UserLessonRepository;
 import se.kits.gakusei.test_tools.TestTools;
-import se.kits.gakusei.util.ProgressHandler;
 import se.kits.gakusei.util.QuestionHandler;
 
 import java.util.Collections;
@@ -41,7 +41,7 @@ public class QuestionControllerTest {
     private UserLessonRepository userLessonRepository;
 
     @Mock
-    private ProgressHandler progressHandler;
+    private NuggetRepository nuggetRepository;
 
     @Value("${gakusei.questions-quantity}")
     private int quantity;
@@ -56,7 +56,7 @@ public class QuestionControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        questionController = new QuestionController(lessonRepository, questionHandler, userLessonRepository, progressHandler);
+        questionController = new QuestionController(lessonRepository, questionHandler, userLessonRepository, nuggetRepository);
         MockitoAnnotations.initMocks(this);
         questionType = "reading";
         answerType = "swedish";

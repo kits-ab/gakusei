@@ -1,6 +1,5 @@
 package se.kits.gakusei.controller;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import se.kits.gakusei.content.model.Kanji;
+import se.kits.gakusei.content.repository.KanjiRepository;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.util.KanjiHandler;
-import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
 @Api(value="KanjiController", description="Operations for handling kanjis")
@@ -30,17 +28,17 @@ public class KanjiController {
 
     private LessonRepository lessonRepository;
     private KanjiHandler kanjiHandler;
-    private ProgressHandler progressHandler;
+    private KanjiRepository kanjiRepository;
 
     @Autowired
     public KanjiController(
         LessonRepository lessonRepository,
         KanjiHandler kanjiHandler,
-        ProgressHandler progressHandler
+        KanjiRepository kanjiRepository
     ) {
         this.lessonRepository = lessonRepository;
         this.kanjiHandler = kanjiHandler;
-        this.progressHandler = progressHandler;
+        this.kanjiRepository = kanjiRepository;
     }
 
     @ApiOperation(value="Getting kanji questions from a lesson", response = ResponseEntity.class)
@@ -118,7 +116,7 @@ public class KanjiController {
             String username
 
     ) {
-        List<Kanji> allLessonKanjis = progressHandler.getWrongKanji(username);
+        List<Kanji> allLessonKanjis = kanjiRepository.findIncorrectAnsweredKanji(username);
         List<Kanji> chosenKanjis;
 
             chosenKanjis = kanjiHandler.chooseKanjis(allLessonKanjis, quantity);
