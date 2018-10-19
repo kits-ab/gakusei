@@ -1,6 +1,8 @@
 import { Jumbotron, Button, Row, Col } from 'react-bootstrap';
 import FlashButtonSet from '../FlashButtonSet';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
+import AnswerButton from '../AnswerButton';
+import React from 'react';
 
 class FlashCard extends React.Component {
   constructor(props) {
@@ -90,6 +92,18 @@ class FlashCard extends React.Component {
             >
               &nbsp;Vänd på kortet&nbsp;
             </Button>
+            <div style={{ width: '40%', margin: '5% auto' }}>
+              <AnswerButton
+                answerText={'Vet ej'}
+                primaryText={'Vet ej'}
+                onAnswerClick={this.props.clickCallback}
+                buttonStyle={'danger'}
+                buttonSize="small"
+                disableButton={this.props.buttonsDisabled}
+                answerType={this.props.answerType}
+                name="dunnobutton"
+              />
+            </div>
           </Row>
         </Col>
       </Row>
