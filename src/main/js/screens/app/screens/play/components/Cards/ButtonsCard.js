@@ -1,5 +1,7 @@
 import AnswerButtonSet from '../AnswerButtonSet';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
+import AnswerButton from '../AnswerButton';
+import React from 'react';
 
 class ButtonsCard extends React.Component {
   constructor(props) {
@@ -48,6 +50,18 @@ class ButtonsCard extends React.Component {
           answerType={this.props.answerType}
           clickCallback={this.props.clickCallback}
         />
+        <div style={{ width: '40%', margin: '0% auto' }}>
+          <AnswerButton
+            answerText={'Vet ej'}
+            primaryText={'Vet ej'}
+            onAnswerClick={this.props.clickCallback}
+            buttonStyle={'danger'}
+            buttonSize="small"
+            disableButton={this.props.buttonsDisabled}
+            answerType={this.props.answerType}
+            name="dunnobutton"
+          />
+        </div>
       </div>
     );
   }
