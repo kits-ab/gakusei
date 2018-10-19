@@ -171,7 +171,7 @@ export class loginScreen extends React.Component {
                     checked={this.state.checkboxChecked}
                     onChange={this.handleChange}
                   >
-                    Kom ihåg mig
+                    Håll mig inloggad
                   </Checkbox>{' '}
                 </FormGroup>
               </fieldset>
