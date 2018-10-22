@@ -1,37 +1,56 @@
 import * as Security from '../../../../shared/reducers/Security';
+import * as Lessons from '../../../../shared/reducers/Lessons';
 import Utility from '../../../../shared/util/Utility';
 //import Panel from "react-bootstrap/es/Panel";
-import { Col, DropdownButton, Grid, MenuItem, Panel, Row } from 'react-bootstrap';
+import {Col, DropdownButton, Grid, MenuItem, Panel, Row, FormGroup, Radio, ControlLabel} from 'react-bootstrap';
+import ToggleButton from "react-toggle-button";
 
-export const Reducers = [Security];
+export const Reducers = [Lessons, Security];
 
 export class settingsScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state.title = 'Från';
-    this.changeTitle = this.changeTitle().bind(this);
   }
-  changeTitle(string) {
-    title.setState(string);
-  }
+    HandleSelect(input, languageType) {
 
+    }
   fromLangButton() {
-    return (
-      <DropdownButton title={this.props.title}>
-        <MenuItem onSelect={this.changeTitle('Svenska')}>Svenska</MenuItem>
-        <MenuItem>Japanska</MenuItem>
-        <MenuItem>Engelska</MenuItem>
-      </DropdownButton>
-    );
-  }
-  toLangButton() {
-    return (
-      <DropdownButton title="Till">
-        <MenuItem href="#books">Svenska</MenuItem>
-        <MenuItem href="#podcasts">Japanska</MenuItem>
-        <MenuItem href="#">Engelska</MenuItem>
-      </DropdownButton>
-    );
+      const options=[{ id: 'reading', text: 'Japanska' },{ id: 'swedish', text: 'Svenska' }];
+      const title = options.find(item => item.id === this.props.questionType);
+      const Derp = props => {
+          const setLanguage = (languageType) => {
+              this.props.setQuestionLanguage(questionLanguage);
+              this.props.setAnswerLanguage(answerLanguage);
+          };
+          return (
+              <DropdownButton
+                  title={title.text}
+                  onSelect={(eventKey) => this.props.setQuestionLanguage(eventKey)}
+              >
+                  {options.map((item, i) => (
+                      <MenuItem
+                          key={i}
+                          eventKey={item.id}>
+                          {item.text}
+                      </MenuItem>
+                  ))}
+              </DropdownButton>
+          );
+      };
+      return (
+          <FormGroup controlId="languageSelect">
+          <Derp
+              key={'UIlang'}
+              name={'languageSelect'}
+              languageType={'questionLang'}
+          />
+          <Derp
+              key={'AnswerLang'}
+              name={'languageSelect'}
+              languageType={'answerLang'}
+          />
+      </FormGroup>
+      )
   }
 
   render() {
@@ -42,8 +61,9 @@ export class settingsScreen extends React.Component {
             <h1>Inställningar</h1>
             <h3>Språkalternativ</h3>
             <div>
+                <FormGroup>
               {this.fromLangButton()}
-              {this.toLangButton()}
+                </FormGroup>
             </div>
           </Col>
         </Grid>
