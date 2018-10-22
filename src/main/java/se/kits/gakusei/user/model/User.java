@@ -7,11 +7,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
 import se.kits.gakusei.content.model.UserLesson;
 
 @Entity
@@ -26,6 +28,7 @@ public class User implements Serializable {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY, value = "password")
     @ApiModelProperty(notes="the user password")
+    @Size(min= 2, max = 32)
     private String password;
 
     @Column(name = "userrole")
