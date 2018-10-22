@@ -1,9 +1,8 @@
 import * as Security from '../../../../shared/reducers/Security';
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import Utility from '../../../../shared/util/Utility';
-//import Panel from "react-bootstrap/es/Panel";
-import {Col, DropdownButton, Grid, MenuItem, Panel, Row, FormGroup, Radio, ControlLabel} from 'react-bootstrap';
-import ToggleButton from "react-toggle-button";
+import {Col, DropdownButton, Grid, MenuItem, FormGroup,} from 'react-bootstrap';
+
 
 export const Reducers = [Lessons, Security];
 
@@ -11,41 +10,46 @@ export class settingsScreen extends React.Component {
   constructor(props) {
     super(props);
   }
-    HandleSelect(input, languageType) {
-
+    HandleSelect(languageType, input) {
+      languageType === 'questionLang' ? (this.props.setQuestionLanguage(input)) : (this.props.setAnswerLanguage(input));
     }
   fromLangButton() {
-      const options=[{ id: 'reading', text: 'Japanska' },{ id: 'swedish', text: 'Svenska' }];
-      const title = options.find(item => item.id === this.props.questionType);
-      const Derp = props => {
-          const setLanguage = (languageType) => {
-              this.props.setQuestionLanguage(questionLanguage);
-              this.props.setAnswerLanguage(answerLanguage);
-          };
+      const options={reading: {text: 'Japanska' },swedish:{text: 'Svenska' }};
+
+      const SelectionButton = props => {
           return (
               <DropdownButton
-                  title={title.text}
-                  onSelect={(eventKey) => this.props.setQuestionLanguage(eventKey)}
+                  name={props.name}
+                  title={props.title}
+                  onSelect={this.HandleSelect.bind(this, props.languageType)}//this = eventKey(options.id)
               >
-                  {options.map((item, i) => (
-                      <MenuItem
-                          key={i}
-                          eventKey={item.id}>
-                          {item.text}
-                      </MenuItem>
-                  ))}
+                  {Object.keys(options).map(key => {
+                      if (props.languageType === 'answerLang' && key === this.props.questionType) {
+                          return null
+                      }else{
+                      return (
+                              <MenuItem
+                                  key={key}
+                                  eventKey={key}>
+                                  {options[key].text}
+                              </MenuItem>
+                          )}
+                  })}
+
               </DropdownButton>
           );
       };
       return (
           <FormGroup controlId="languageSelect">
-          <Derp
+          <SelectionButton
               key={'UIlang'}
+              title={options[this.props.questionType].text}
               name={'languageSelect'}
               languageType={'questionLang'}
           />
-          <Derp
+          <SelectionButton
               key={'AnswerLang'}
+              title={options[this.props.answerType].text}
               name={'languageSelect'}
               languageType={'answerLang'}
           />
