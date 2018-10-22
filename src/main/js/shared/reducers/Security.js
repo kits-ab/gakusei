@@ -265,6 +265,9 @@ export function requestUserRegister(data, redirectUrl) {
         body: formBody
       }).then(response => {
         switch (response.status) {
+          case 406:
+            dispatch(receiveAuthResponse(false, 'Användarnamet måste vara mellan 2 och 32 tecken.'));
+            break;
           case 422:
             dispatch(receiveAuthResponse(false, 'Användarnamnet finns tyvärr redan, prova ett annat.'));
             break;
