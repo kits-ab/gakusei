@@ -73,7 +73,7 @@ public class RegisterUserController {
         }
         else{
             return new ResponseEntity<String>(
-                    "Form data was gay",
+                    "Username length must be 2-32 characters",
                     HttpStatus.NOT_ACCEPTABLE
             );
 
