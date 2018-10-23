@@ -9,21 +9,32 @@ export const Reducers = [Lessons, Security];
 export class settingsScreen extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state={
+        options: {reading: {text: 'Japanska' },swedish:{text: 'Svenska' }}
+    };
   }
     HandleSelect(languageType, input) {
-      languageType === 'questionLang' ? (this.props.setQuestionLanguage(input)) : (this.props.setAnswerLanguage(input));
+      switch(languageType) {
+          case 'questionLang': this.props.setQuestionLanguage(input);
+                for(let key in this.state.options){if(key !== input){this.props.setAnswerLanguage(key)}}
+                break;
+          case 'answerLang': this.props.setAnswerLanguage(input);
+                break;
+      }
     }
   fromLangButton() {
-      const options={reading: {text: 'Japanska' },swedish:{text: 'Svenska' }};
+
 
       const SelectionButton = props => {
           return (
               <DropdownButton
+                  id={props.name}
                   name={props.name}
                   title={props.title}
-                  onSelect={this.HandleSelect.bind(this, props.languageType)}//this = eventKey(options.id)
+                  onSelect={this.HandleSelect.bind(this, props.languageType)}//this = eventKey
               >
-                  {Object.keys(options).map(key => {
+                  {Object.keys(this.state.options).map(key => {
                       if (props.languageType === 'answerLang' && key === this.props.questionType) {
                           return null
                       }else{
@@ -31,7 +42,7 @@ export class settingsScreen extends React.Component {
                               <MenuItem
                                   key={key}
                                   eventKey={key}>
-                                  {options[key].text}
+                                  {this.state.options[key].text}
                               </MenuItem>
                           )}
                   })}
@@ -41,15 +52,17 @@ export class settingsScreen extends React.Component {
       };
       return (
           <FormGroup controlId="languageSelect">
+              <span>Standard språk: </span>
           <SelectionButton
               key={'UIlang'}
-              title={options[this.props.questionType].text}
+              title={this.state.options[this.props.questionType].text}
               name={'languageSelect'}
               languageType={'questionLang'}
           />
+              <span> → </span>
           <SelectionButton
               key={'AnswerLang'}
-              title={options[this.props.answerType].text}
+              title={this.state.options[this.props.answerType].text}
               name={'languageSelect'}
               languageType={'answerLang'}
           />
