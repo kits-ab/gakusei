@@ -250,17 +250,19 @@ export function requestUserLogin(data, redirectUrl) {
 
 export function requestUserRegister(data, redirectUrl) {
   return function(dispatch) {
-    const formBody = typeof data === 'string' ? data : Utility.getFormData(data).join('&');
+    const formBody = typeof data === 'string' ? data : decodeURIComponent(Utility.getFormData(data).join('&'));
 
     try {
       dispatch(setRegistering());
+      console.log('Type of: ' + typeof formBody);
+      console.log('formbody ' + formBody);
 
       fetch('/registeruser', {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
           Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+          'Content-Type': 'text/plain; charset=utf-8'
         },
         body: formBody
       }).then(response => {

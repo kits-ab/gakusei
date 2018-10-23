@@ -61,7 +61,6 @@ export class loginScreen extends React.Component {
 
   handleSubmit(formData) {
     formData.preventDefault();
-
     if (this.state.submitLogin) {
       this.props.requestUserLogin(formData, this.props.redirectUrl || '/');
     } else {

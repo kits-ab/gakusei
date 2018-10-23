@@ -28,7 +28,12 @@ public class RegisterUserController {
         User user = null;
         User existingUser = null;
 
+        System.out.println("input: " + input);
+
         String[] values = input.split("&");
+
+        System.out.println("username: " + values[0].split("=")[1] + " password " + values[1].split("=")[1]);
+
         if (values != null && values.length > 1) // TODO: Validate User fields
         {
             String[] usernameKeyValue = values[0].split("=");
@@ -36,6 +41,11 @@ public class RegisterUserController {
             if (usernameKeyValue.length > 1 && passwordKeyValue.length > 1) {
                 String username = usernameKeyValue[1];
                 String password = passwordKeyValue[1];
+
+                if (password.length() > 100 && password.length() < 3){
+                    return new ResponseEntity<String>("Please enter a password between 3 and 100 characters",
+                            HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE);
+                }
                 user = new User();
                 user.setUsername(username);
                 user.setPassword(passwordEncoder.encode(password));
