@@ -36,7 +36,6 @@ public class RegisterUserController {
         {
             String[] usernameKeyValue = values[0].split("=");
             String[] passwordKeyValue = values[1].split("=");
-            System.out.println(usernameKeyValue.length);
                 if (usernameKeyValue.length > 1 && passwordKeyValue.length > 1) {
                     String username = usernameKeyValue[1];
                     String password = passwordKeyValue[1];
@@ -62,22 +61,18 @@ public class RegisterUserController {
                 HttpStatus.UNPROCESSABLE_ENTITY
             );
         }
-        System.out.println(user.getUsername().length());
-        if( user.getUsername().length() > 1 && user.getUsername().length() < 32){
+        if( user.getUsername().length() > 1 && user.getUsername().length() < 33){
 
             userRepo.save(user);
             return new ResponseEntity<String>(
                     "User created: " + user.getUsername(),
                     HttpStatus.CREATED
             );
-        }
-        else{
+        } else {
             return new ResponseEntity<String>(
                     "Username length must be 2-32 characters",
                     HttpStatus.NOT_ACCEPTABLE
             );
-
         }
     }
 }
-
