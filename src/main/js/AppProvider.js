@@ -20,6 +20,9 @@ import logoutScreen from './screens/app/screens/logout';
 import playScreen from './screens/app/screens/play';
 import selectScreen from './screens/app/screens/select';
 import startScreen from './screens/app/screens/start';
+import Utility from './shared/util/Utility';
+import { GakuseiNav, Reducers } from './screens/app/components/GakuseiNav';
+import { translate, Trans } from 'react-i18next';
 
 const AppScreenRoutered = withRouter(AppScreen);
 

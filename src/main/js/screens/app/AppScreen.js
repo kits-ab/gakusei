@@ -5,6 +5,7 @@ import Utility from '../../shared/util/Utility';
 import * as Security from '../../shared/reducers/Security';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { AppProvider } from '../../AppProvider';
 
 export const Reducers = [Security];
 

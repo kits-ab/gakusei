@@ -1,16 +1,19 @@
 import { Grid, Row, Col, Jumbotron, Button, ButtonGroup } from 'react-bootstrap';
 import ScrollableAnchor from 'react-scrollable-anchor';
+import { translate } from 'react-i18next';
 
-export default class startScreen extends React.Component {
+export class startScreen extends React.Component {
   render() {
+    const { t, i18n } = this.props;
+
     return (
       <div>
         <Jumbotron className="introduction">
           <Grid className="introduction__container">
             <div className="introduction__text">
-              <h1 className="introduction__title">Bli student och lär dig japanska!</h1>
+              <h1 className="introduction__title">{t('Bli student och lär dig japanska!')}</h1>
               <div className="text-center">
-                <p>Läs mer</p>
+                <p>{t('Läs mer')}</p>
                 <a href="#section1">
                   <img
                     src="/img/front_page/scrollButton2.svg"
@@ -23,13 +26,13 @@ export default class startScreen extends React.Component {
           </Grid>
         </Jumbotron>
         <Jumbotron className="text-center">
-          <h2>Gakusei erbjuder många funktioner som underlättar ditt lärande</h2>
+          <h2>{t('Gakusei erbjuder många funktioner som underlättar ditt lärande')}</h2>
           <Button
             href={`login${this.props.location.search}`}
             bsStyle="success"
             bsSize="large"
           >
-            Testa redan nu!
+            {t('Testa redan nu!')}
           </Button>
         </Jumbotron>
         <ScrollableAnchor id={'section1'}>
@@ -46,14 +49,14 @@ export default class startScreen extends React.Component {
                   alt="Språk komplement"
                   className="about-features__image"
                 />
-                <h3>Ett bra komplement till undervisning</h3>
+                <h3>{t('Ett bra komplement till undervisning')}</h3>
                 <p>Olika sorters övningar, anpassade efter japanskaundervisning på högskolenivå.</p>
                 <p>
                   <Button
                     bsStyle="success"
                     href="http://daigaku.se/gakusei2.html"
                   >
-                    Läs mer
+                    {t('Läs mer')}
                   </Button>
                 </p>
               </Col>
@@ -143,7 +146,7 @@ export default class startScreen extends React.Component {
                     bsStyle="success"
                     href="http://daigaku.se/gakusei2.html"
                   >
-                    Läs mer
+                    {t('Läs mer')}
                   </Button>
                 </p>
               </Col>
@@ -169,7 +172,7 @@ export default class startScreen extends React.Component {
                     bsStyle="success"
                     href="http://daigaku.se/"
                   >
-                    Läs mer
+                    {t('Läs mer')}
                   </Button>
                 </p>
               </Col>
@@ -200,3 +203,5 @@ export default class startScreen extends React.Component {
     );
   }
 }
+
+export default translate('translations')(startScreen);

@@ -13,7 +13,9 @@ i18n.use(LanguageDetector).init({
         'Testa redan nu!': 'Testa redan nu!',
         'Registrera dig snabbt och enkelt här': 'Registrera dig snabbt och enkelt här',
         'Gissa ordet': 'Gissa ordet',
-        Gakusei: 'Gakusei'
+        'Om Gakusei': 'Om Gakusei',
+        Språk: 'Språk',
+        'Logga in / Registrera': 'Logga in / Registrera'
       }
     },
     jp: {
@@ -25,7 +27,9 @@ i18n.use(LanguageDetector).init({
         'Testa redan nu!': '今すぐ試してみてください！',
         'Registrera dig snabbt och enkelt här': 'ここにすばやく簡単に登録する',
         'Gissa ordet': '単語を推測する',
-        Gakusei: 'test'
+        'Om Gakusei': 'Gakuseiについて',
+        Språk: '言語',
+        'Logga in / Registrera': 'ログイン/登録'
       }
     }
   },

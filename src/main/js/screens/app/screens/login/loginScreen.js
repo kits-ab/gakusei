@@ -5,6 +5,7 @@ import { Checkbox, Button, Col, Row, Grid, Form, FormGroup, FormControl, Control
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
 import * as Security from '../../../../shared/reducers/Security';
+import { translate } from 'react-i18next';
 
 export const Reducers = [Security];
 
@@ -86,6 +87,7 @@ export class loginScreen extends React.Component {
     );
   }
   render() {
+    const { t, i18n } = this.props;
     return (
       <Grid>
         <Row>
@@ -94,7 +96,7 @@ export class loginScreen extends React.Component {
             md={4}
           >
             <div>
-              <h4>Registrera dig snabbt och enkelt här</h4>
+              <h4>{t('Registrera dig snabbt och enkelt här')}</h4>
               <p>
                 Vi sparar inga personuppgifter så var noga med att komma ihåg ditt lösenord då vi inte kan återställa
                 det åt dig.
@@ -187,4 +189,4 @@ loginScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
 loginScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
-export default Utility.superConnect(this, Reducers)(loginScreen);
+export default translate('translations')(Utility.superConnect(this, Reducers)(loginScreen));

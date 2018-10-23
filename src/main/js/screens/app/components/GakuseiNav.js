@@ -5,11 +5,19 @@ import { Link, withRouter } from 'react-router-dom';
 import Utility from '../../../shared/util/Utility';
 import * as Security from '../../../shared/reducers/Security';
 import * as Lessons from '../../../shared/reducers/Lessons';
+import { translate, Trans } from 'react-i18next';
+import AppScreen from '../index';
 
 export const Reducers = [Lessons, Security];
 
 export class GakuseiNav extends React.Component {
   render() {
+    const changeLanguage = lng => {
+      i18n.changeLanguage(lng);
+    };
+
+    const { t, i18n } = this.props;
+
     return (
       <Navbar
         inverse
@@ -77,10 +85,20 @@ export class GakuseiNav extends React.Component {
           ) : (
             <Nav>
               <LinkContainer to="/about">
-                <NavItem>Om Gakusei</NavItem>
+                <NavItem>{t('Om Gakusei')}</NavItem>
               </LinkContainer>
             </Nav>
           )}
+          <Nav>
+            <NavDropdown
+              className="glosorDropdown"
+              id="basic-nav-dropdown"
+              title={t('Språk')}
+            >
+              <MenuItem onClick={() => changeLanguage('se')}>Svenska</MenuItem>
+              <MenuItem onClick={() => changeLanguage('jp')}>Japanska</MenuItem>
+            </NavDropdown>
+          </Nav>
 
           {this.props.loggedIn ? <Navbar.Text pullRight>Inloggad som: {this.props.loggedInUser}</Navbar.Text> : null}
           <Nav pullRight>
@@ -90,7 +108,7 @@ export class GakuseiNav extends React.Component {
               </LinkContainer>
             ) : (
               <LinkContainer to={`/login${this.props.location.search}`}>
-                <NavItem className="menu-button">Logga in / Registrera</NavItem>
+                <NavItem className="menu-button">{t('Logga in / Registrera')}</NavItem>
               </LinkContainer>
             )}
           </Nav>
@@ -103,4 +121,4 @@ export class GakuseiNav extends React.Component {
 GakuseiNav.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
 GakuseiNav.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
-export default Utility.superConnect(this, Reducers)(withRouter(GakuseiNav));
+export default translate('translations')(Utility.superConnect(this, Reducers)(withRouter(GakuseiNav)));
