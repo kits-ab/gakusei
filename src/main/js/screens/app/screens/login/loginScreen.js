@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Button, Col, Row, Grid, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Checkbox, Button, Col, Row, Grid, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
@@ -13,6 +13,7 @@ export class loginScreen extends React.Component {
     super(props);
 
     this.state = {
+      checkboxChecked: false,
       username: '',
       password: '',
       _csrf: getCSRF(),
@@ -20,6 +21,7 @@ export class loginScreen extends React.Component {
       canSubmit: false
     };
 
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -47,6 +49,10 @@ export class loginScreen extends React.Component {
     }
 
     return null;
+  }
+
+  handleChange(e) {
+    this.setState({ checkboxChecked: e.target.checked });
   }
 
   handleInputChange(e) {
@@ -138,7 +144,6 @@ export class loginScreen extends React.Component {
                   name="_csrf"
                   value={this.state._csrf}
                 />
-
                 <FormGroup>
                   <Button
                     label="login"
@@ -159,7 +164,15 @@ export class loginScreen extends React.Component {
                     disabled={!this.state.username || !this.state.password}
                   >
                     Registrera
-                  </Button>
+                  </Button>{' '}
+                  <Checkbox
+                    label="remember-me"
+                    name="remember-me"
+                    checked={this.state.checkboxChecked}
+                    onChange={this.handleChange}
+                  >
+                    Håll mig inloggad
+                  </Checkbox>{' '}
                 </FormGroup>
               </fieldset>
             </Form>

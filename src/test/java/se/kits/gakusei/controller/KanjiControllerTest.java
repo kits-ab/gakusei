@@ -14,10 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import se.kits.gakusei.content.model.Kanji;
 import se.kits.gakusei.content.model.Lesson;
+import se.kits.gakusei.content.repository.KanjiRepository;
 import se.kits.gakusei.content.repository.LessonRepository;
 import se.kits.gakusei.test_tools.TestTools;
 import se.kits.gakusei.util.KanjiHandler;
-import se.kits.gakusei.util.ProgressHandler;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class KanjiControllerTest {
     private LessonRepository lessonRepository;
 
     @Mock
-    private ProgressHandler progressHandler;
+    private KanjiRepository kanjiRepository;
 
     @Value("${gakusei.questions-quantity}")
     private int quantity;
@@ -51,7 +51,7 @@ public class KanjiControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        kanjiController = new KanjiController(lessonRepository, kanjiHandler, progressHandler);
+        kanjiController = new KanjiController(lessonRepository, kanjiHandler, kanjiRepository);
         MockitoAnnotations.initMocks(this);
         lessonName = "Verbs";
         userName = "testUser";

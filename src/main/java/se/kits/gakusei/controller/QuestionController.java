@@ -17,8 +17,8 @@ import se.kits.gakusei.content.model.Lesson;
 import se.kits.gakusei.content.model.Nugget;
 import se.kits.gakusei.content.model.UserLesson;
 import se.kits.gakusei.content.repository.LessonRepository;
+import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.content.repository.UserLessonRepository;
-import se.kits.gakusei.util.ProgressHandler;
 import se.kits.gakusei.util.QuestionHandler;
 
 @RestController
@@ -30,7 +30,7 @@ public class QuestionController {
 
     private UserLessonRepository userLessonRepository;
 
-    private ProgressHandler progressHandler;
+    private NuggetRepository nuggetRepository;
 
     @Value("${gakusei.questions-quantity}")
     private int quantity;
@@ -40,12 +40,12 @@ public class QuestionController {
             LessonRepository lessonRepository,
             QuestionHandler questionHandler,
             UserLessonRepository userLessonRepository,
-            ProgressHandler progressHandler
+            NuggetRepository nuggetRepository
     ) {
         this.lessonRepository = lessonRepository;
         this.questionHandler = questionHandler;
         this.userLessonRepository = userLessonRepository;
-        this.progressHandler = progressHandler;
+        this.nuggetRepository = nuggetRepository;
     }
 
     @ApiOperation(value="Getting questions from a lesson", response = ResponseEntity.class)
@@ -121,7 +121,7 @@ public class QuestionController {
             String questionType,
             String answerType
     ){
-        List<Nugget> wrongNuggets = progressHandler.getWrongQuestions(userName);
+        List<Nugget> wrongNuggets = nuggetRepository.findIncorrectAnsweredVocab(userName);
         if(wrongNuggets.isEmpty()){
             //hantera om man inte har några fel
             List<HashMap<String, Object>> wrongNuggetEmpty = new ArrayList<>();
