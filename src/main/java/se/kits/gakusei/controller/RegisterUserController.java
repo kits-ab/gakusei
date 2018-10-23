@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,14 +35,14 @@ public class RegisterUserController {
         {
             String[] usernameKeyValue = values[0].split("=");
             String[] passwordKeyValue = values[1].split("=");
-                if (usernameKeyValue.length > 1 && passwordKeyValue.length > 1) {
-                    String username = usernameKeyValue[1];
-                    String password = passwordKeyValue[1];
-                    user = new User();
-                    user.setUsername(username);
-                    user.setPassword(passwordEncoder.encode(password));
-                    user.setRole("ROLE_USER");
-                }
+            if (usernameKeyValue.length > 1 && passwordKeyValue.length > 1) {
+                String username = usernameKeyValue[1];
+                String password = passwordKeyValue[1];
+                user = new User();
+                user.setUsername(username);
+                user.setPassword(passwordEncoder.encode(password));
+                user.setRole("ROLE_USER");
+            }
         }// Check if User exists
 
         if (user == null) {

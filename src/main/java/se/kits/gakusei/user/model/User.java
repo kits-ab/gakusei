@@ -13,7 +13,6 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
 import se.kits.gakusei.content.model.UserLesson;
 
 @Entity
@@ -24,12 +23,12 @@ public class User implements Serializable {
     @Id
     @JsonProperty(value = "username")
     @ApiModelProperty(notes="the user id")
-    @Size(min= 2, max = 32)
+    @Size(min= 2, max = 32, message = "username must be 2-32 characters")
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY, value = "password")
     @ApiModelProperty(notes="the user password")
-        private String password;
+    private String password;
 
     @Column(name = "userrole")
     @JsonProperty(value = "role")
@@ -62,7 +61,7 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User(String username, String password, String role) {
+    public User( String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
