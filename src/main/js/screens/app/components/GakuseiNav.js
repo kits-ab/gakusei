@@ -95,8 +95,22 @@ export class GakuseiNav extends React.Component {
               id="basic-nav-dropdown"
               title={t('Språk')}
             >
-              <MenuItem onClick={() => changeLanguage('se')}>Svenska</MenuItem>
-              <MenuItem onClick={() => changeLanguage('jp')}>Japanska</MenuItem>
+              <MenuItem onClick={() => changeLanguage('se')}>
+                Svenska
+                <img
+                  height="30px"
+                  src="/img/flags/sweden-flag.svg"
+                  alt="sweden"
+                />
+              </MenuItem>
+              <MenuItem onClick={() => changeLanguage('jp')}>
+                Japanska
+                <img
+                  height="30px"
+                  src="/img/flags/japan-flag.svg"
+                  alt="sweden"
+                />
+              </MenuItem>
             </NavDropdown>
           </Nav>
 

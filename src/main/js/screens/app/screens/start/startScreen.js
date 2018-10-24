@@ -11,7 +11,7 @@ export class startScreen extends React.Component {
         <Jumbotron className="introduction">
           <Grid className="introduction__container">
             <div className="introduction__text">
-              <h1 className="introduction__title">{t('Bli student och lär dig japanska!')}</h1>
+              <h1 className="introduction__title">{t('aboutGakusei.h2')}</h1>
               <div className="text-center">
                 <p>{t('Läs mer')}</p>
                 <a href="#section1">
@@ -49,7 +49,7 @@ export class startScreen extends React.Component {
                   alt="Språk komplement"
                   className="about-features__image"
                 />
-                <h3>{t('Ett bra komplement till undervisning')}</h3>
+                <h3>Ett bra komplement till undervisning</h3>
                 <p>Olika sorters övningar, anpassade efter japanskaundervisning på högskolenivå.</p>
                 <p>
                   <Button

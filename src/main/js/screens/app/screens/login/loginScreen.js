@@ -117,7 +117,7 @@ export class loginScreen extends React.Component {
                   controlId="formBasicText"
                   validationState={this.getValidationState()}
                 >
-                  <legend>Logga in eller registrera dig</legend>
+                  <legend>{t('Logga in eller registrera dig')}</legend>
                   {this.props.authResponse && this.getValidationState() ? (
                     <ControlLabel name="authFeedback">{this.props.authResponse}</ControlLabel>
                   ) : null}
@@ -126,7 +126,7 @@ export class loginScreen extends React.Component {
                   <FormControl
                     type="text"
                     name="username"
-                    placeholder="Användarnamn"
+                    placeholder={t('Användarnamn')}
                     value={this.state.username}
                     onChange={this.handleInputChange}
                   />
@@ -136,7 +136,7 @@ export class loginScreen extends React.Component {
                   <FormControl
                     type="password"
                     name="password"
-                    placeholder="Lösenord"
+                    placeholder={t('Lösenord')}
                     value={this.state.password}
                     onChange={this.handleInputChange}
                   />
@@ -155,7 +155,7 @@ export class loginScreen extends React.Component {
                     type="submit"
                     disabled={!this.state.username || !this.state.password}
                   >
-                    Logga in
+                    {t('Logga in')}
                   </Button>{' '}
                   <Button
                     label="login"
@@ -165,7 +165,7 @@ export class loginScreen extends React.Component {
                     type="submit"
                     disabled={!this.state.username || !this.state.password}
                   >
-                    Registrera
+                    {t('Registrera')}
                   </Button>{' '}
                   <Checkbox
                     label="remember-me"
@@ -173,7 +173,7 @@ export class loginScreen extends React.Component {
                     checked={this.state.checkboxChecked}
                     onChange={this.handleChange}
                   >
-                    Håll mig inloggad
+                    {t('Håll mig inloggad')}
                   </Checkbox>{' '}
                 </FormGroup>
               </fieldset>
