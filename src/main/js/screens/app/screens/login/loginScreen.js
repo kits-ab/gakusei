@@ -126,6 +126,10 @@ export class loginScreen extends React.Component {
                   ) : null}
                 </FormGroup>
                 <FormGroup>
+                    {this.state.invalidUsername===true ?
+                        <p style={{margin: '5%', color:'darkred', fontWeight:'bold'}}>
+                            Ett användarnamn kan endast innehålla bokstäver och siffror och måste vara mellan 2 och 32 tecken
+                        </p> : null}
                   <FormControl
                     type="text"
                     name="username"
@@ -133,10 +137,6 @@ export class loginScreen extends React.Component {
                     value={this.state.username}
                     onChange={this.handleInputChange}
                   />
-                    {this.state.invalidUsername===true ?
-                        <p style={{margin: '5%', color:'red'}}>
-                            Ett användarnamn kan endast innehålla bokstäver och nummer
-                        </p> : null}
                   <FormControl.Feedback />
                 </FormGroup>
                 <FormGroup>
