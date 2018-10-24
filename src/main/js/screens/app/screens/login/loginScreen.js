@@ -18,7 +18,8 @@ export class loginScreen extends React.Component {
       password: '',
       _csrf: getCSRF(),
       submitLogin: true,
-      canSubmit: false
+      canSubmit: false,
+      invalidUsername: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -50,13 +51,17 @@ export class loginScreen extends React.Component {
 
     return null;
   }
-
   handleChange(e) {
     this.setState({ checkboxChecked: e.target.checked });
   }
 
   handleInputChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+    if(e.target.name==='username'){this.validateUsername(e)}
+  }
+  validateUsername(e){
+      let regex = RegExp('[^A-Za-z0-9]+');
+      this.setState({invalidUsername : regex.test(e.target.value)});
   }
 
   handleSubmit(formData) {
@@ -128,6 +133,10 @@ export class loginScreen extends React.Component {
                     value={this.state.username}
                     onChange={this.handleInputChange}
                   />
+                    {this.state.invalidUsername===true ?
+                        <p style={{margin: '5%', color:'red'}}>
+                            Ett användarnamn kan endast innehålla bokstäver och nummer
+                        </p> : null}
                   <FormControl.Feedback />
                 </FormGroup>
                 <FormGroup>
@@ -161,7 +170,7 @@ export class loginScreen extends React.Component {
                     bsStyle="success"
                     name="register"
                     type="submit"
-                    disabled={!this.state.username || !this.state.password}
+                    disabled={!this.state.username || !this.state.password || this.state.invalidUsername}
                   >
                     Registrera
                   </Button>{' '}
