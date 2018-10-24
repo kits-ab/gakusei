@@ -11,9 +11,9 @@ export class startScreen extends React.Component {
         <Jumbotron className="introduction">
           <Grid className="introduction__container">
             <div className="introduction__text">
-              <h1 className="introduction__title">{t('aboutGakusei.h2')}</h1>
+              <h1 className="introduction__title">{t('startScreen.header.introductionTitle')}</h1>
               <div className="text-center">
-                <p>{t('Läs mer')}</p>
+                <p>{t('readMore')}</p>
                 <a href="#section1">
                   <img
                     src="/img/front_page/scrollButton2.svg"
@@ -26,13 +26,13 @@ export class startScreen extends React.Component {
           </Grid>
         </Jumbotron>
         <Jumbotron className="text-center">
-          <h2>{t('Gakusei erbjuder många funktioner som underlättar ditt lärande')}</h2>
+          <h2>{t('startScreen.jumbotronBanner.colOne.h2')}</h2>
           <Button
             href={`login${this.props.location.search}`}
             bsStyle="success"
             bsSize="large"
           >
-            {t('Testa redan nu!')}
+            {t('tryNow')}
           </Button>
         </Jumbotron>
         <ScrollableAnchor id={'section1'}>
@@ -49,14 +49,14 @@ export class startScreen extends React.Component {
                   alt="Språk komplement"
                   className="about-features__image"
                 />
-                <h3>Ett bra komplement till undervisning</h3>
-                <p>Olika sorters övningar, anpassade efter japanskaundervisning på högskolenivå.</p>
+                <h3>{t('startScreen.aboutFeatureImage.colTwo.h3')}</h3>
+                <p>{t('startScreen.aboutFeatureImage.colTwo.p')}</p>
                 <p>
                   <Button
                     bsStyle="success"
                     href="http://daigaku.se/gakusei2.html"
                   >
-                    {t('Läs mer')}
+                    {t('readMore')}
                   </Button>
                 </p>
               </Col>
@@ -71,8 +71,8 @@ export class startScreen extends React.Component {
                   alt="Multipla enheter"
                   className="about-features__image"
                 />
-                <h3>Gakusei överallt</h3>
-                <p>Öva med Gakusei på mobilen! Fungerar lika på mobila enheter som på laptops.</p>
+                <h3>{t('startScreen.aboutFeatureImage.colThree.h3')}</h3>
+                <p>{t('startScreen.aboutFeatureImage.colThree.p')}</p>
               </Col>
               <div className="clearfix visible-md" />
               <Col
@@ -86,8 +86,8 @@ export class startScreen extends React.Component {
                   alt="Anonymitet"
                   className="about-features__image"
                 />
-                <h3>Anonymitet</h3>
-                <p>Gakusei lagrar ingen personlig data om sina användare, det enda som behövs är ett användarnamn.</p>
+                <h3>{t('startScreen.aboutFeatureImage.colFour.h3')}</h3>
+                <p>{t('startScreen.aboutFeatureImage.colFour.p')}</p>
               </Col>
               <div className="clearfix visible-lg" />
               <Col
@@ -102,14 +102,14 @@ export class startScreen extends React.Component {
                   className="about-features__image"
                 />
                 <h3>
-                  <strong>2</strong> quizar
+                  <strong>2</strong> {t('startScreen.aboutFeatureImage.colFive.h3')}
                 </h3>
-                <p>Prova våra quizar och se vad du kan om Japan.</p>
+                <p>{t('startScreen.aboutFeatureImage.colFive.p')}</p>
                 <Button
                   href={`login${this.props.location.search}`}
                   bsStyle="success"
                 >
-                  Registrera dig nu!
+                  {t('register')}
                 </Button>
               </Col>
               <div className="clearfix visible-md" />

@@ -123,18 +123,18 @@ export class aboutScreen extends React.Component {
           <Row>
             <Col xs={12}>
               <div className="text-left">
-                <h2>{t('aboutScreen.aboutGakusei.h2')}</h2>
-                <p>{t('aboutScreen.aboutGakusei.p')}</p>
+                <h2>{t('aboutGakusei.aboutGakusei.h2')}</h2>
+                <p>{t('aboutGakusei.aboutGakusei.p')}</p>
                 <ol>
-                  <li>{t('aboutScreen.aboutGakusei.li1')}</li>
-                  <li>{t('aboutScreen.aboutGakusei.li2')}</li>
-                  <li> {t('aboutScreen.aboutGakusei.li3')}</li>
-                  <li> {t('aboutScreen.aboutGakusei.li4')}</li>
+                  <li>{t('aboutGakusei.aboutGakusei.li1')}</li>
+                  <li>{t('aboutGakusei.aboutGakusei.li2')}</li>
+                  <li> {t('aboutGakusei.aboutGakusei.li3')}</li>
+                  <li> {t('aboutGakusei.aboutGakusei.li4')}</li>
                 </ol>
                 <br />
-                <h4>{t('aboutScreen.rights.h4')}</h4>
+                <h4>{t('aboutGakusei.rights.h4')}</h4>
                 <p>
-                  {t('aboutScreen.rights.p')}
+                  {t('aboutGakusei.rights.p')}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -142,7 +142,7 @@ export class aboutScreen extends React.Component {
                   >
                     KITS AB
                   </a>
-                  . {t('aboutScreen.rights.p2')}
+                  . {t('aboutGakusei.rights.p2')}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -150,7 +150,7 @@ export class aboutScreen extends React.Component {
                   >
                     Daigaku.se
                   </a>{' '}
-                  {t('aboutScreen.rights.p3')}
+                  {t('aboutGakusei.rights.p3')}
                 </p>
                 <br />
                 <h4>Licenser</h4>
