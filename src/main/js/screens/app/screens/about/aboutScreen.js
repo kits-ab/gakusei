@@ -4,8 +4,10 @@
 import 'whatwg-fetch';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Panel, Button, Jumbotron } from 'react-bootstrap';
 import xml2js from 'xml2js';
+import { translate } from 'react-i18next';
+import { startScreen } from '../start/startScreen';
 
-export default class aboutScreen extends React.Component {
+export class aboutScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -113,33 +115,26 @@ export default class aboutScreen extends React.Component {
   }
 
   render() {
+    const { t, i18n } = this.props;
+
     return (
       <div>
         <Grid>
           <Row>
             <Col xs={12}>
               <div className="text-left">
-                <h2>Om Gakusei</h2>
-                <p>
-                  Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande fyra
-                  spellägen:
-                </p>
+                <h2>{t('aboutScreen.aboutGakusei.h2')}</h2>
+                <p>{t('aboutScreen.aboutGakusei.p')}</p>
                 <ol>
-                  <li>
-                    &quot;Gissa ordet&quot; som kan hittas under fliken &quot;Glosor&quot;. Här ska man välja rätt
-                    översättning på ett ord bland fyra alternativ.
-                  </li>
-                  <li>
-                    &quot;Bildkort&quot; som även det kan hittas under fliken &quot;Glosor&quot;. Här gäller det att
-                    gissa rätt på ett ord. Gissade du rätt?
-                  </li>
-                  <li>&quot;Quiz&quot; och här kan du spela frågesporter kopplade till Japan.</li>
-                  <li>&quot;Kanji&quot; och här kan du testa dina kunskaper i kanji.</li>
+                  <li>{t('aboutScreen.aboutGakusei.li1')}</li>
+                  <li>{t('aboutScreen.aboutGakusei.li2')}</li>
+                  <li> {t('aboutScreen.aboutGakusei.li3')}</li>
+                  <li> {t('aboutScreen.aboutGakusei.li4')}</li>
                 </ol>
                 <br />
-                <h4>Rättigheter</h4>
+                <h4>{t('aboutScreen.rights.h4')}</h4>
                 <p>
-                  Utvecklad i samarbete med{' '}
+                  {t('aboutScreen.rights.p')}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -147,10 +142,7 @@ export default class aboutScreen extends React.Component {
                   >
                     KITS AB
                   </a>
-                  . Alla rättigheter till programkoden ägs av Kokitotsos AB. Denna sajt opereras av Daigaku Sverige som
-                  licensierar Gakusei av Kokitotsos AB:s genom en öppen källkodslicens. Utbildningsmaterial har
-                  sammanställts av Pierre Sandboge, och inkluderar eget material och annat material som framgår på annan
-                  plats på den här sidan.{' '}
+                  . {t('aboutScreen.rights.p2')}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -158,8 +150,7 @@ export default class aboutScreen extends React.Component {
                   >
                     Daigaku.se
                   </a>{' '}
-                  drivs utan anställda, med donerade medel, och ingen garanti om tillgänglighet kan ges.
-                  Tillhandahållandet av tjänsten kan upphöra när som helst utan förvarning.
+                  {t('aboutScreen.rights.p3')}
                 </p>
                 <br />
                 <h4>Licenser</h4>
@@ -318,3 +309,5 @@ export default class aboutScreen extends React.Component {
     );
   }
 }
+
+export default translate('translations')(aboutScreen);
