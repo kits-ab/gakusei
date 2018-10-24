@@ -137,6 +137,8 @@ i18n.use(LanguageDetector).init({
           'Olika sorters övningar, anpassade efter japanska undervisning på högskolenivå.',
         'startScreen.aboutFeatureImage.colThree': '',
         'startScreen.aboutFeatureImage.colThree.h3': 'Gakusei överallt',
+        'startScreen.aboutFeatureImage.colThree.p':
+          'Öva med Gakusei på mobilen! Fungerar lika på mobila enheter som på laptops',
         'startScreen.aboutFeatureImage.colFour': '',
         'startScreen.aboutFeatureImage.colFour.h3': 'Anonymitet',
         'startScreen.aboutFeatureImage.colFour.p':
@@ -303,6 +305,8 @@ i18n.use(LanguageDetector).init({
         'startScreen.aboutFeatureImage.colTwo.p': '大学レベルの日本の教育に適応したさまざまなタイプの練習。',
         'startScreen.aboutFeatureImage.colThree': '',
         'startScreen.aboutFeatureImage.colThree.h3': 'どこでもどこでも',
+        'startScreen.aboutFeatureImage.colThree.p':
+          'モバイルで学生と一緒に練習しましょう！ ラップトップのようなモバイルデバイスでも同等に動作します。',
         'startScreen.aboutFeatureImage.colFour': '',
         'startScreen.aboutFeatureImage.colFour.h3': '匿名',
         'startScreen.aboutFeatureImage.colFour.p':
