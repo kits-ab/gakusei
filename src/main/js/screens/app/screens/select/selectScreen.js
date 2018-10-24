@@ -23,6 +23,8 @@ import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
 import faStar from '@fortawesome/fontawesome-free-solid/faStar';
 
 import ToggleButton from 'react-toggle-button';
+import { loginScreen } from '../login/loginScreen';
+import { translate } from 'react-i18next';
 
 export const Reducers = [Lessons, Security];
 
@@ -427,6 +429,8 @@ export class selectScreen extends React.Component {
   }
 
   render() {
+    const { t, i18n } = this.props;
+
     let lessonsFavorite, lessonsFavoriteDone, lessonsNotFavorite;
     if (this.isSpacedRepetition()) {
       lessonsFavorite = this.getLessons(
@@ -620,4 +624,4 @@ selectScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
 selectScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
-export default Utility.superConnect(this, Reducers)(selectScreen);
+export default translate('translations')(Utility.superConnect(this, Reducers)(selectScreen));

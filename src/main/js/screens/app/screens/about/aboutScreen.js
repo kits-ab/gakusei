@@ -140,7 +140,7 @@ export class aboutScreen extends React.Component {
                     rel="noopener noreferrer"
                     href="https://kits.se/"
                   >
-                    KITS AB
+                    {t('aboutGakusei.rights.link')}
                   </a>
                   . {t('aboutGakusei.rights.p2')}
                   <a
@@ -153,22 +153,22 @@ export class aboutScreen extends React.Component {
                   {t('aboutGakusei.rights.p3')}
                 </p>
                 <br />
-                <h4>Licenser</h4>
+                <h4>{t('aboutGakusei.licenses.licens')}</h4>
                 <p>
                   {' '}
-                  Webbappen Gakusei går under licensen{' '}
+                  {t('aboutGakusei.licenses.p')}{' '}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://opensource.org/licenses/mit-license.php"
                   >
-                    MIT
+                    {t('aboutGakusei.licenses.link')}
                   </a>
-                  . Nedan följer en lista på licenser för de moduler som projektet använder sig av.
+                  . {t('aboutGakusei.licenses.p2')}
                 </p>
                 <Panel>
                   <Panel.Heading>
-                    <Panel.Title toggle>Klicka för fler Licenser</Panel.Title>
+                    <Panel.Title toggle>{t('aboutGakusei.licenses.panelToggle')}</Panel.Title>
                   </Panel.Heading>
                   <Panel.Collapse>
                     <Panel.Body>
@@ -186,10 +186,10 @@ export class aboutScreen extends React.Component {
                       md={6}
                       lg={4}
                     >
-                      Modul: <a href="http://www.tanos.co.uk/jlpt/"> The Japanese Language Proficiency Test (JLPT)</a>
+                      {t('aboutGakusei.licenses.modul')}:{' '}
+                      <a href="http://www.tanos.co.uk/jlpt/"> The Japanese Language Proficiency Test (JLPT)</a>
                       <br />
-                      Licens(er):
-                      <br />
+                      {t('aboutGakusei.licenses.licenses')}:<br />
                       <a href="https://creativecommons.org/licenses/by/2.5/">Creative Commons BY</a>
                       <br />
                       <br />
@@ -199,10 +199,9 @@ export class aboutScreen extends React.Component {
                       md={6}
                       lg={4}
                     >
-                      Modul: <a href="http://www.edrdg.org/edrdg/index.html">JMDict</a>
+                      {t('aboutGakusei.licenses.modul')}: <a href="http://www.edrdg.org/edrdg/index.html">JMDict</a>
                       <br />
-                      Licens(er):
-                      <br />
+                      {t('aboutGakusei.licenses.licenses')}:<br />
                       <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
                     </Col>
                   </Row>
@@ -213,10 +212,9 @@ export class aboutScreen extends React.Component {
                       md={6}
                       lg={4}
                     >
-                      Modul: <a href="http://www.edrdg.org/edrdg/index.html">KanjiDict</a>
+                      {t('aboutGakusei.licenses.modul')}: <a href="http://www.edrdg.org/edrdg/index.html">KanjiDict</a>
                       <br />
-                      Licens(er):
-                      <br />
+                      {t('aboutGakusei.licenses.licenses')}:<br />
                       <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
                       <br />
                       <br />
@@ -226,12 +224,12 @@ export class aboutScreen extends React.Component {
                       md={6}
                       lg={4}
                     >
-                      Modul: <a href="https://kanjivg.tagaini.net/">KanjiVG</a>
+                      {t('aboutGakusei.licenses.modul')}: <a href="https://kanjivg.tagaini.net/">KanjiVG</a>
                       <br />
-                      Repository: <a href="https://github.com/KanjiVG/kanjivg">https://github.com/KanjiVG/kanjivg</a>
+                      {t('aboutGakusei.licenses.repo')}:{' '}
+                      <a href="https://github.com/KanjiVG/kanjivg">https://github.com/KanjiVG/kanjivg</a>
                       <br />
-                      Licens(er):
-                      <br />
+                      {t('aboutGakusei.licenses.licenses')}:<br />
                       <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
                     </Col>
                   </Row>
@@ -253,15 +251,15 @@ export class aboutScreen extends React.Component {
                   alt="contributors-page"
                   className="about-features__image"
                 />
-                <h3>Medverkande</h3>
+                <h3>{t('aboutGakusei.infoBanner.contributors.contributors')}</h3>
                 <p>
-                  Se vilka som bidragit till projektet{' '}
+                  {t('aboutGakusei.infoBanner.contributors.p3')}{' '}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://github.com/kits-ab/gakusei/graphs/contributors"
                   >
-                    här
+                    {t('aboutGakusei.infoBanner.contributors.link2')}
                   </a>
                 </p>
               </Col>
@@ -276,15 +274,15 @@ export class aboutScreen extends React.Component {
                   alt="GitHub-Sida"
                   className="about-features__image"
                 />
-                <h3>Github</h3>
+                <h3>{t('aboutGakusei.infoBanner.github.github')}</h3>
                 <p>
-                  Besök gärna open-source projektets{' '}
+                  {t('aboutGakusei.infoBanner.github.p')}{' '}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://github.com/kits-ab/gakusei/"
                   >
-                    Githubsida.
+                    {t('aboutGakusei.infoBanner.github.link')}
                   </a>
                 </p>
               </Col>
@@ -299,8 +297,8 @@ export class aboutScreen extends React.Component {
                   alt="owner"
                   className="about-features__image"
                 />
-                <h3>Ägande</h3>
-                <p> Alla rättigheter till programkoden ägs av Kokitotsos AB.</p>
+                <h3>{t('aboutGakusei.infoBanner.owner.owner')}</h3>
+                <p> {t('aboutGakusei.infoBanner.owner.p')}</p>
               </Col>
             </Row>
           </Grid>

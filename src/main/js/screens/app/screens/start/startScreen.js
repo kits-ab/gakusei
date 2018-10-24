@@ -136,17 +136,14 @@ export class startScreen extends React.Component {
                   alt="Hjärna"
                   className="about-features__image"
                 />
-                <h3>Smart inlärningsteknologi</h3>
-                <p>
-                  Vårt system kommer ihåg hur du har svarat på frågor, på så sätt kan vi anpassa inlärningsmaterialet
-                  efter dig.
-                </p>
+                <h3>{t('startScreen.aboutFeatureImage.colSix.h3')}</h3>
+                <p>{t('startScreen.aboutFeatureImage.colSix.p')}</p>
                 <p>
                   <Button
                     bsStyle="success"
                     href="http://daigaku.se/gakusei2.html"
                   >
-                    {t('Läs mer')}
+                    {t('readMore')}
                   </Button>
                 </p>
               </Col>
@@ -160,19 +157,14 @@ export class startScreen extends React.Component {
                 xs={12}
                 md={8}
               >
-                <h2>Daigaku Sverige utvecklar Gakusei</h2>
-                <p>
-                  Daigaku Sverige har som mål att främja undervisning i, och forskning om japanska. Idag måste man i
-                  stor utsträckning lära sig japanska via engelska. Vi tror att det skulle vara en fördel om åtminstone
-                  en del inlärning kan ske direkt från svenska till japanska. Därför har vi skapat Gakusei, den första
-                  webbapplikationen som lär dig japanska via svenska!
-                </p>
+                <h2>{t('startScreen.jumbotronBannerDaigaku.h2')}</h2>
+                <p>{t('startScreen.jumbotronBannerDaigaku.p')}</p>
                 <p>
                   <Button
                     bsStyle="success"
                     href="http://daigaku.se/"
                   >
-                    {t('Läs mer')}
+                    {t('readMore')}
                   </Button>
                 </p>
               </Col>
@@ -190,13 +182,13 @@ export class startScreen extends React.Component {
           </Grid>
         </Jumbotron>
         <Jumbotron className="text-center">
-          <h2>Utöka din kunskap med Gakusei!</h2>
+          <h2>{t('startScreen.jumbotronRegister.h2')}</h2>
           <Button
             href={`login${this.props.location.search}`}
             bsStyle="success"
             bsSize="large"
           >
-            Registrera dig nu!
+            {t('register')}
           </Button>
         </Jumbotron>
       </div>

@@ -6,16 +6,29 @@ i18n.use(LanguageDetector).init({
   resources: {
     se: {
       translations: {
+        gakuseiNav: '',
+        'gakuseiNav.guessPlay': 'Gissa ordet',
+        'gakuseiNav.flashcardPlay': 'Bildkort',
+        'gakuseiNav.kanjiPlay': 'Kanji',
+        'gakuseiNav.quizPlay': 'Quiz',
+        'gakuseiNav.about': 'Om Gakusei',
+        'gakuseiNav.lang': 'Språk',
+        'gakuseiNav.loggedIn': 'Inloggad som:',
+        'gakuseiNav.logout': 'Logga ut',
+        'gakuseiNav.signIn': 'Logga in / Registrera',
+        'gakuseiNav.swe': 'Svenska',
+        'gakuseiNav.jp': 'Japanska',
+
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': 'Om Gakusei',
         'aboutGakusei.aboutGakusei.p':
           ' Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande fyra spellägen:',
         'aboutGakusei.aboutGakusei.li1':
-          '&quot;Gissa ordet&quot; som kan hittas under fliken &quot;Glosor&quot;. Här ska man välja rätt översättning på ett ord bland fyra alternativ.',
+          '&quot;Gissa ordet&quot; som kan hittas under fliken Glosor. Här ska man välja rätt översättning på ett ord bland fyra alternativ.',
         'aboutGakusei.aboutGakusei.li2':
-          '&quot;Bildkort&quot; som även det kan hittas under fliken &quot;Glosor&quot;. Här gäller det att gissa rätt på ett ord. Gissade du rätt?',
-        'aboutGakusei.aboutGakusei.li3': '&quot;Quiz&quot; och här kan du spela frågesporter kopplade till Japan.',
-        'aboutGakusei.aboutGakusei.li4': '&quot;Kanji&quot; och här kan du testa dina kunskaper i kanji.',
+          '&quot;Bildkort&quot; som även det kan hittas under fliken Glosor. Här gäller det att gissa rätt på ett ord. Gissade du rätt?',
+        'aboutGakusei.aboutGakusei.li3': 'Quiz och här kan du spela frågesporter kopplade till Japan.',
+        'aboutGakusei.aboutGakusei.li4': 'Kanji och här kan du testa dina kunskaper i kanji.',
         'aboutgakusei.rights': '',
         'aboutGakusei.rights.h4': 'Rättigheter',
         'aboutGakusei.rights.p': 'Utvecklad i samarbete med',
@@ -157,6 +170,7 @@ i18n.use(LanguageDetector).init({
         'startScreen.jumbotronRegister.h2': 'Utöka din kunskap med Gakusei!',
         'appScreen:': '',
         'appScreen.copyrightText': '© Gakusei 2018 - Alla rättigheter reserverade.',
+        'appScreen.aboutUsLink': 'Om oss',
         'numbers:': '',
         zero: '0',
         one: '1',
@@ -176,6 +190,19 @@ i18n.use(LanguageDetector).init({
     },
     jp: {
       translations: {
+        gakuseiNav: '',
+        'gakuseiNav.guessPlay': '単語を推測する',
+        'gakuseiNav.flashcardPlay': 'フォトカード',
+        'gakuseiNav.kanjiPlay': '漢字',
+        'gakuseiNav.quizPlay': 'クイズ',
+        'gakuseiNav.about': '学生について',
+        'gakuseiNav.lang': '言語',
+        'gakuseiNav.loggedIn': 'ログインした人：',
+        'gakuseiNav.logout': 'ログアウトする',
+        'gakuseiNav.signIn': 'ログイン/登録',
+        'gakuseiNav.swe': 'スウェーデン語',
+        'gakuseiNav.jp': '日本の',
+
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': '学生について',
         'aboutGakusei.aboutGakusei.p':
@@ -183,9 +210,9 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.aboutGakusei.li1':
           'スペルのタブの下にある単語を推測してください。 ここでは、4つのオプションの中から1つの単語の正しい翻訳を選択する必要があります。',
         'aboutGakusei.aboutGakusei.li2':
-          'スペルチェックタブの下にある絵カード。 1つの単語を推測するという質問があります。 あなたは正しいと思いましたか？',
-        'aboutGakusei.aboutGakusei.li3': 'Quiz och här kan du spela frågesporter kopplade till Japan.',
-        'aboutGakusei.aboutGakusei.li4': '&quot;Kanji&quot; och här kan du testa dina kunskaper i kanji.',
+          'スペルチェックタブの下にある絵カード。 つの単語を推測するという質問があります。 あなたは正しいと思いましたか？',
+        'aboutGakusei.aboutGakusei.li3': 'クイズ、ここで日本に関する質問をすることができます。',
+        'aboutGakusei.aboutGakusei.li4': '漢字と漢字であなたのスキルをテストできます。',
         'aboutgakusei.rights': '',
         'aboutGakusei.rights.h4': '権利',
         'aboutGakusei.rights.p': '協力して開発',
@@ -325,6 +352,7 @@ i18n.use(LanguageDetector).init({
         'startScreen.jumbotronRegister.h2': '学生と知識を広げる',
         appScreen: '',
         'appScreen.copyrightText': '©Gakusei 2018  - すべての権利を保有します。',
+        'appScreen.aboutUsLink': '私たちについて',
         numbers: '',
         zero: '0',
         one: '1',

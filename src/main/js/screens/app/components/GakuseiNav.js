@@ -47,13 +47,13 @@ export class GakuseiNav extends React.Component {
                 id="basic-nav-dropdown"
               >
                 <LinkContainer to="/select/guess">
-                  <MenuItem className="guessPlay">Gissa ordet</MenuItem>
+                  <MenuItem className="guessPlay">{t('gakuseiNav.guessPlay')}</MenuItem>
                 </LinkContainer>
                 {/* <LinkContainer to="/select/translate">
                   <MenuItem className="translatePlay">Översätt ordet</MenuItem>
                 </LinkContainer> */}
                 <LinkContainer to="/select/flashcards">
-                  <MenuItem className="flashcardPlay">Bildkort</MenuItem>
+                  <MenuItem className="flashcardPlay">{t('gakuseiNav.flashcardPlay')}</MenuItem>
                 </LinkContainer>
               </NavDropdown>
               {/* <NavDropdown
@@ -70,22 +70,22 @@ export class GakuseiNav extends React.Component {
               </NavDropdown> */}
 
               <LinkContainer to="/select/kanji">
-                <NavItem className="kanjiPlay">Kanji</NavItem>
+                <NavItem className="kanjiPlay">{t('gakuseiNav.kanjiPlay')}</NavItem>
               </LinkContainer>
               <LinkContainer to="/select/quiz">
-                <NavItem className="quizPlay">Quiz</NavItem>
+                <NavItem className="quizPlay">{t('gakuseiNav.quizPlay')}</NavItem>
               </LinkContainer>
               {/* <LinkContainer to="/lists">
                   <NavItem>Lista ord</NavItem>
                 </LinkContainer> */}
               <LinkContainer to="/about">
-                <NavItem className="about">Om Gakusei</NavItem>
+                <NavItem className="about">{t('gakuseiNav.about')}</NavItem>
               </LinkContainer>
             </Nav>
           ) : (
             <Nav>
               <LinkContainer to="/about">
-                <NavItem>{t('Om Gakusei')}</NavItem>
+                <NavItem>{t('gakuseiNav.about')}</NavItem>
               </LinkContainer>
             </Nav>
           )}
@@ -93,10 +93,10 @@ export class GakuseiNav extends React.Component {
             <NavDropdown
               className="glosorDropdown"
               id="basic-nav-dropdown"
-              title={t('Språk')}
+              title={t('gakuseiNav.lang')}
             >
               <MenuItem onClick={() => changeLanguage('se')}>
-                Svenska
+                {t('gakuseiNav.swe')}
                 <img
                   height="30px"
                   src="/img/flags/sweden-flag.svg"
@@ -104,25 +104,29 @@ export class GakuseiNav extends React.Component {
                 />
               </MenuItem>
               <MenuItem onClick={() => changeLanguage('jp')}>
-                Japanska
+                {t('gakuseiNav.jp')}
                 <img
                   height="30px"
                   src="/img/flags/japan-flag.svg"
-                  alt="sweden"
+                  alt="japan"
                 />
               </MenuItem>
             </NavDropdown>
           </Nav>
 
-          {this.props.loggedIn ? <Navbar.Text pullRight>Inloggad som: {this.props.loggedInUser}</Navbar.Text> : null}
+          {this.props.loggedIn ? (
+            <Navbar.Text pullRight>
+              {t('gakuseiNav.loggedIn')} {this.props.loggedInUser}
+            </Navbar.Text>
+          ) : null}
           <Nav pullRight>
             {this.props.loggedIn ? (
               <LinkContainer to={{ pathname: '/logout', query: { currentUrl: this.props.location.pathname } }}>
-                <NavItem className="menu-button">Logga ut</NavItem>
+                <NavItem className="menu-button">{t('gakuseiNav.logout')}</NavItem>
               </LinkContainer>
             ) : (
               <LinkContainer to={`/login${this.props.location.search}`}>
-                <NavItem className="menu-button">{t('Logga in / Registrera')}</NavItem>
+                <NavItem className="menu-button">{t('gakuseiNav.signIn')}</NavItem>
               </LinkContainer>
             )}
           </Nav>
