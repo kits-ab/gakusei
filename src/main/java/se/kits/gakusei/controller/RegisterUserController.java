@@ -13,6 +13,7 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 import java.net.URLDecoder;
+import java.util.regex.Pattern;
 
 @Controller
 public class RegisterUserController {
@@ -31,10 +32,9 @@ public class RegisterUserController {
     ) {
         User user = null;
         User existingUser = null;
-        System.out.println("input: " + input);
+
         try {
             decodedInput = URLDecoder.decode(input, "utf-8");
-            System.out.println("decoded input: " + decodedInput);
         }catch (Exception e){
             System.out.println("Exception caught in decode url: " + e.getMessage());
         }
@@ -45,6 +45,18 @@ public class RegisterUserController {
                 decodedInput.lastIndexOf("&remember"));
         System.out.println("username: " + username + "\npassword: " + password);
 
+
+        if(!Pattern.matches("^[a-zA-Z0-9]+$",username)){
+            return new ResponseEntity<String>("Användarnamnet tillåter endast bokstäver och siffror.",
+                    HttpStatus.NOT_ACCEPTABLE);
+        }
+        if(username.length() < 2 || username.length() > 32){
+            return new ResponseEntity<String>(
+                    "Användarnamnet måste vara mellan 2 och 32 tecken långt.",
+                    HttpStatus.NOT_ACCEPTABLE
+            );
+        }
+
         if (decodedInput.contains(" ")){
             return new ResponseEntity<String>("Mellanslag är inte tillåtet i lösenordet.",
                     HttpStatus.NOT_ACCEPTABLE);
@@ -53,6 +65,7 @@ public class RegisterUserController {
             return new ResponseEntity<String>("Lösenordet måste vara mellan 3 och 100 tecken långt.",
                     HttpStatus.NOT_ACCEPTABLE);
         }
+
         user = new User();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
@@ -75,17 +88,11 @@ public class RegisterUserController {
                     HttpStatus.UNPROCESSABLE_ENTITY
             );
         }
-        if( user.getUsername().length() > 1 && user.getUsername().length() < 33){
             userRepo.save(user);
             return new ResponseEntity<String>(
                     "User created: " + user.getUsername(),
                     HttpStatus.CREATED
             );
-        } else {
-            return new ResponseEntity<String>(
-                    "Username length must be 2-32 characters",
-                    HttpStatus.NOT_ACCEPTABLE
-            );
-        }
+
     }
 }
