@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 i18n.use(LanguageDetector).init({
+  lng: 'sv',
   // we init with resources
   resources: {
     se: {
@@ -68,6 +69,11 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.finishScreen.sumQuestion': ' möjliga frågor',
         'aboutGakusei.finishScreen.tryAgain': 'Försök igen',
         'aboutGakusei.finishScreen.button': 'Välj nya frågor',
+        'aboutGakusei.finishScreen.question': 'Fråga',
+        'aboutGakusei.finishScreen.dontknow': 'Vet ej',
+        'aboutGakusei.finishScreen.Right': 'Rätt',
+        'aboutGakusei.finishScreen.answer': 'Svar',
+        'aboutGakusei.finishScreen.youAnswerd': 'Du svarade',
 
         grammarScreen: '',
         homeScreen: '',
@@ -192,6 +198,19 @@ i18n.use(LanguageDetector).init({
     },
     en: {
       translations: {
+        gakuseiNav: '',
+        'gakuseiNav.guessPlay': 'Guess the word',
+        'gakuseiNav.flashcardPlay': 'Flashcards',
+        'gakuseiNav.kanjiPlay': 'Kanji',
+        'gakuseiNav.quizPlay': 'Quiz',
+        'gakuseiNav.vocablePlay': 'Vocabulary',
+        'gakuseiNav.about': 'About Gakusei',
+        'gakuseiNav.lang': 'Language',
+        'gakuseiNav.loggedIn': 'Signed in as:',
+        'gakuseiNav.logout': 'Sign out',
+        'gakuseiNav.signIn': 'Sign in / Register',
+        'gakuseiNav.swe': 'Swedish',
+        'gakuseiNav.jp': 'Japanese',
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': 'About Gakusei',
         'aboutGakusei.aboutGakusei.p':
@@ -241,6 +260,12 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.finishScreen.sumQuestion': ' possible questions',
         'aboutGakusei.finishScreen.tryAgain': 'Try again',
         'aboutGakusei.finishScreen.button': 'Select new questions',
+        'aboutGakusei.finishScreen.question': 'Question',
+        'aboutGakusei.finishScreen.dontknow': "Don't know",
+        'aboutGakusei.finishScreen.Right': 'Rätt',
+        'aboutGakusei.finishScreen.answer': 'Svar',
+        'aboutGakusei.finishScreen.youAnswerd': 'Du svarade',
+
         grammarScreen: '',
         homeScreen: '',
         'homeScreen.rightAnswer': 'Answered correctly!',
@@ -427,6 +452,11 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.finishScreen.sumQuestion': ' 可能な質問',
         'aboutGakusei.finishScreen.tryAgain': 'もう一度お試しください',
         'aboutGakusei.finishScreen.button': '新しい質問を選択',
+        'aboutGakusei.finishScreen.question': '頼みます',
+        'aboutGakusei.finishScreen.dontknow': 'わからない',
+        'aboutGakusei.finishScreen.Right': '右',
+        'aboutGakusei.finishScreen.answer': '返信',
+        'aboutGakusei.finishScreen.youAnswerd': 'あなたは答えました',
         grammarScreen: '',
         homeScreen: '',
         'homeScreen.rightAnswer': '正しい答えを共有してください！',

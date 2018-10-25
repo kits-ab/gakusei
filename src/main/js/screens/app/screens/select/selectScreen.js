@@ -372,14 +372,14 @@ export class selectScreen extends React.Component {
           <RadioLanguage
             key={'reading'}
             name={'languageSelect'}
-            languageQuestion={{ id: 'reading', text: this.translate('japanese') }}
-            languageAnswer={{ id: 'swedish', text: this.translate('swedish') }}
+            languageQuestion={{ id: 'reading', text: this.translate('gakuseiNav.jp') }}
+            languageAnswer={{ id: 'swedish', text: this.translate('gakuseiNav.swe') }}
           />
           <RadioLanguage
             key={'swedish'}
             name={'languageSelect'}
-            languageQuestion={{ id: 'swedish', text: this.translate('swedish') }}
-            languageAnswer={{ id: 'reading', text: this.translate('japanese') }}
+            languageQuestion={{ id: 'swedish', text: this.translate('gakuseiNav.swe') }}
+            languageAnswer={{ id: 'reading', text: this.translate('gakuseiNav.jp') }}
           />
         </FormGroup>
       ) : null;

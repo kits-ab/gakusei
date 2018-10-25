@@ -93,10 +93,13 @@ export class GakuseiNav extends React.Component {
             <NavDropdown
               className="glosorDropdown"
               id="basic-nav-dropdown"
-              title={t('gakuseiNav.lang')}
+              title={<img
+                src="/img/flags/flags.svg"
+                alt="select language"
+                height="20px"
+                     />}
             >
               <MenuItem onClick={() => changeLanguage('se')}>
-                {t('gakuseiNav.swe')}
                 <img
                   height="30px"
                   src="/img/flags/sweden-flag.svg"
@@ -104,10 +107,16 @@ export class GakuseiNav extends React.Component {
                 />
               </MenuItem>
               <MenuItem onClick={() => changeLanguage('jp')}>
-                {t('gakuseiNav.jp')}
                 <img
                   height="30px"
                   src="/img/flags/japan-flag.svg"
+                  alt="japan"
+                />
+              </MenuItem>
+              <MenuItem onClick={() => changeLanguage('en')}>
+                <img
+                  height="30px"
+                  src="/img/flags/eng-flag.svg"
                   alt="japan"
                 />
               </MenuItem>
