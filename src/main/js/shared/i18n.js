@@ -68,6 +68,7 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.finishScreen.sumQuestion': ' möjliga frågor',
         'aboutGakusei.finishScreen.tryAgain': 'Försök igen',
         'aboutGakusei.finishScreen.button': 'Välj nya frågor',
+
         grammarScreen: '',
         homeScreen: '',
         'homeScreen.rightAnswer': 'Andel rätt svar!',
@@ -284,8 +285,9 @@ i18n.use(LanguageDetector).init({
         'selectScreen.pageDescription.translate': 'Översätt det visade ordet i fritext.',
         'selectScreen.pageDescription.flashcards':
           'Träna dig själv genom att använda kort, med frågan på ena sidan och rätta svaret på den andra.',
-        'selectScreen.pageDescription.kanji': 'Försök rita kanji-tecken med korrekta drag och i rätt ordning.',
-        'selectScreen.pageDescription.grammar': 'Böj det visade ordet i fritext på angiven verbform.',
+        'selectScreenselectScreen.pageDescription.grammar.pageDescription.kanji':
+          'Försök rita kanji-tecken med korrekta drag och i rätt ordning.',
+        '': 'Böj det visade ordet i fritext på angiven verbform.',
         'selectScreen.pageDescription.error': 'No play type specified',
         'selectScreen.getLessons': '',
         'selectScreen.getLessons.lessons': 'Lektioner',
@@ -354,7 +356,9 @@ i18n.use(LanguageDetector).init({
         button: '',
         readMore: 'Läs mer',
         tryNow: 'Testa redan nu!',
-        register: 'Registrera dig nu!'
+        register: 'Registrera dig nu!',
+        swedish: 'Svenska',
+        japanese: 'Japanska'
       }
     },
     jp: {
@@ -537,7 +541,9 @@ i18n.use(LanguageDetector).init({
         button: '',
         readMore: 'もっと読む',
         tryNow: '今すぐ試してみてください！',
-        register: '今すぐサインアップ！'
+        register: '今すぐサインアップ！',
+        swedish: 'スウェーデン語',
+        japanese: '日本の'
       }
     }
   },

@@ -72,27 +72,28 @@ export class selectScreen extends React.Component {
     }
   }
 
-  getPageHeader() {
-    switch (this.state.playType) {
-      case 'quiz':
-        return 'Quiz';
-      case 'guess':
-        return 'Gissa ordet';
-      case 'translate':
-        return 'Översätt ordet';
-      case 'flashcards':
-        return 'Bildkort';
-      case 'kanji':
-        return 'Skriv Kanji';
-      case 'grammar':
-        return 'Böj verb';
-      default:
-        throw new Error('No play type specified');
-    }
-  }
   translate(input) {
     const { t, i18n } = this.props;
     return t(input);
+  }
+
+  getPageHeader() {
+    switch (this.state.playType) {
+      case 'quiz':
+        return this.translate('selectScreen.pageHeader.quiz');
+      case 'guess':
+        return this.translate('selectScreen.pageHeader.guess');
+      case 'translate':
+        return this.translate('selectScreen.pageHeader.translate');
+      case 'flashcards':
+        return this.translate('selectScreen.pageHeader.flashcards');
+      case 'kanji':
+        return this.translate('selectScreen.pageHeader.kanji');
+      case 'grammar':
+        return this.translate('selectScreen.pageHeader.grammar');
+      default:
+        throw new Error('No play type specified');
+    }
   }
 
   getPageDescription() {
@@ -109,7 +110,7 @@ export class selectScreen extends React.Component {
       case 'kanji':
         return this.translate('selectScreen.pageDescription.kanji');
       case 'grammar':
-        return 'Böj det visade ordet i fritext på angiven verbform.';
+        return this.translate('selectScreen.pageDescription.grammar');
       default:
         throw new Error('No play type specified');
     }
@@ -201,9 +202,9 @@ export class selectScreen extends React.Component {
   }
 
   getLessons(lessons) {
-    const tooltip_red = <Tooltip id="tooltip">Besvarade frågor som behöver repeteras</Tooltip>;
+    const tooltip_red = <Tooltip id="tooltip">{this.translate('selectScreen.getLessons.tooltopRed')}</Tooltip>;
 
-    const tooltip_blue = <Tooltip id="tooltip">Obesvarade frågor</Tooltip>;
+    const tooltip_blue = <Tooltip id="tooltip">{this.translate('selectScreen.getLessons.tooltipBlue')}</Tooltip>;
 
     const { t, i18n } = this.props;
 
@@ -371,14 +372,14 @@ export class selectScreen extends React.Component {
           <RadioLanguage
             key={'reading'}
             name={'languageSelect'}
-            languageQuestion={{ id: 'reading', text: 'Japanska' }}
-            languageAnswer={{ id: 'swedish', text: 'Svenska' }}
+            languageQuestion={{ id: 'reading', text: this.translate('japanese') }}
+            languageAnswer={{ id: 'swedish', text: this.translate('swedish') }}
           />
           <RadioLanguage
             key={'swedish'}
             name={'languageSelect'}
-            languageQuestion={{ id: 'swedish', text: 'Svenska' }}
-            languageAnswer={{ id: 'reading', text: 'Japanska' }}
+            languageQuestion={{ id: 'swedish', text: this.translate('swedish') }}
+            languageAnswer={{ id: 'reading', text: this.translate('japanese') }}
           />
         </FormGroup>
       ) : null;
@@ -390,10 +391,10 @@ export class selectScreen extends React.Component {
         <FormGroup>
           {languageSelection}
           <FormGroup>
-            <ControlLabel>Smart inlärningsläge</ControlLabel>
+            <ControlLabel>{this.translate('selectScreen.getLessons.smartLearaning')}</ControlLabel>
             <ToggleButton
-              inactiveLabel={'Av'}
-              activeLabel={'På'}
+              inactiveLabel={this.translate('selectScreen.getLessons.on')}
+              activeLabel={this.translate('selectScreen.getLessons.of')}
               value={this.isSpacedRepetition()}
               onToggle={this.handleSpacedRepetition}
             />
@@ -413,7 +414,7 @@ export class selectScreen extends React.Component {
             onChange={() => this.props.setKanjiDifficulty('easy')}
             checked={this.props.kanjiDifficulty === 'easy'}
           >
-            Enkelt - Följ en bana
+            {this.translate('selectScreen.getLessons.drawEasy')}
           </Radio>
           <Radio
             key={'medium'}
@@ -421,7 +422,7 @@ export class selectScreen extends React.Component {
             onChange={() => this.props.setKanjiDifficulty('medium')}
             checked={this.props.kanjiDifficulty === 'medium'}
           >
-            Medium - Rita med hjälp
+            {this.translate('selectScreen.getLessons.drawMeduim')}
           </Radio>
           <Radio
             key={'hard'}
@@ -429,7 +430,7 @@ export class selectScreen extends React.Component {
             onChange={() => this.props.setKanjiDifficulty('hard')}
             checked={this.props.kanjiDifficulty === 'hard'}
           >
-            Svårt - Rita på frihand
+            {this.translate('selectScreen.getLessons.drawHard')}
           </Radio>
         </FormGroup>
       </FormGroup>
@@ -452,10 +453,12 @@ export class selectScreen extends React.Component {
       lessonsFavoriteDone = undefined;
     }
 
-    const tooltip_red = <Tooltip id="tooltip">Besvarade frågor som behöver repeteras</Tooltip>;
-    const tooltip_incor = <Tooltip id="tooltip">Antal felbesvarade frågor</Tooltip>;
+    const { t, i18n } = this.props;
 
-    const tooltip_blue = <Tooltip id="tooltip">Obesvarade frågor</Tooltip>;
+    const tooltip_red = <Tooltip id="tooltip">{t('selectScreen.getLessons.tooltopRed')}</Tooltip>;
+    const tooltip_incor = <Tooltip id="tooltip">{t('selectScreen.getLessons.toolTipIncor')}</Tooltip>;
+
+    const tooltip_blue = <Tooltip id="tooltip">{t('selectScreen.getLessons.tooltipBlue')}</Tooltip>;
 
     const incorrectCount =
       this.state.playType === 'kanji'
@@ -474,7 +477,7 @@ export class selectScreen extends React.Component {
               <div className={'exercise'}>
                 <div className={'exercise__header'}>
                   <h3 className={'exercise__header__title'}>
-                    {'Blandade frågor '}
+                    {t('selectScreen.getLessons.panel.mixedQuestion')}
                     {this.isSpacedRepetition() && this.getNumberOfFavoriteQuestions().retention > 0 ? (
                       <OverlayTrigger
                         placement="top"
@@ -510,9 +513,7 @@ export class selectScreen extends React.Component {
                     />
                   </div>
                 ) : null}
-                <p className={'exercise__description'}>
-                  {'Blandade frågor från alla dina favoritmarkerade lektioner.'}
-                </p>
+                <p className={'exercise__description'}>{t('selectScreen.getLessons.panel.mixedFavLession')}</p>
                 <div className={'exercise__actions'}>
                   <Button
                     onClick={e => {
@@ -553,7 +554,7 @@ export class selectScreen extends React.Component {
               <div className={'exercise'}>
                 <div className={'exercise__header'}>
                   <h3 className={'exercise__header__title'}>
-                    {'Felbesvarade frågor '}
+                    {t('selectScreen.getLessons.panel.rongQuestion')}
                     {incorrectCount > 0 ? (
                       <OverlayTrigger
                         placement="top"
@@ -568,7 +569,7 @@ export class selectScreen extends React.Component {
                 <div className={'exercise__progress'}>
                   <ProgressBar />
                 </div>
-                <p className={'exercise__description'}>{'Här hamnar alla frågor som du har svarat fel på.'}</p>
+                <p className={'exercise__description'}>{t('selectScreen.getLessons.panel.failedQuestions')}</p>
                 <div className={'exercise__actions'}>
                   <Button
                     onClick={e => {
@@ -599,24 +600,24 @@ export class selectScreen extends React.Component {
           <p>{this.getPageDescription()}</p>
           {this.getKanjiSettingsSelection()}
           {this.getLanguageSelection()}
-          <h2>Lektioner</h2>
+          <h2>{t('selectScreen.getLessons.lessons')}</h2>
           {!['quiz', 'grammar', 'kanji'].includes(this.state.playType) ? favoriteLesson : null}
           {!['quiz', 'grammar'].includes(this.state.playType) ? incorrectAnswers : null}
 
           <div>
             {lessonsFavorite ? (
               <div>
-                <h3>Pågående lektioner</h3> {lessonsFavorite}
+                <h3>{t('selectScreen.displayLessions.lessonFav')}</h3> {lessonsFavorite}
               </div>
             ) : null}
             {lessonsFavoriteDone ? (
               <div>
-                <h3>Färdiga lektioner</h3> {lessonsFavoriteDone}
+                <h3>{t('selectScreen.displayLessions.lessonFavDone')}</h3> {lessonsFavoriteDone}
               </div>
             ) : null}
             {lessonsNotFavorite ? (
               <div>
-                <h3>Övriga lektioner</h3> {lessonsNotFavorite}
+                <h3>{t('selectScreen.displayLessions.otherLesson')}</h3> {lessonsNotFavorite}
               </div>
             ) : null}
           </div>

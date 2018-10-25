@@ -4,6 +4,7 @@ import getCSRF from '../../../../shared/util/getcsrf';
 import DisplayQuestion from '../../shared/DisplayQuestion';
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import * as Security from '../../../../shared/reducers/Security';
+import { translate } from 'react-i18next';
 
 export const Reducers = [Lessons, Security];
 
@@ -40,6 +41,11 @@ export class finishScreen extends React.Component {
         this.props.requestUserLogout(this.props.location.query.currentUrl || '/', getCSRF());
       }
     });
+  }
+
+  translate(input) {
+    const { t, i18n } = this.props;
+    return t(input);
   }
 
   backtoSelection() {
@@ -105,9 +111,14 @@ export class finishScreen extends React.Component {
       <Grid>
         <Row>
           <div className="text-center">
-            <h2>{this.props.lessonSuccessRate}% rätt!</h2>
+            <h2>
+              {this.props.lessonSuccessRate}
+              {this.translate('aboutGakusei.finishScreen.correct')}
+            </h2>
             <h3>
-              Du svarade rätt på {this.props.correctAttempts} av {this.props.totalAttempts} möjliga frågor
+              {this.translate('aboutGakusei.finishScreen.rightAnswer')} {this.props.correctAttempts}{' '}
+              {this.translate('aboutGakusei.finishScreen.witch')}
+              {this.props.totalAttempts} {this.translate('aboutGakusei.finishScreen.sumQuestion')}
             </h3>
           </div>
         </Row>
@@ -129,22 +140,20 @@ export class finishScreen extends React.Component {
             mdOffset={2}
           >
             <div className="text-center">
-
               <Button
                 bsStyle="info"
                 className="tryAgainButton"
                 onClick={this.playAgain}
                 disabled={this.isSpacedRepetition()}
               >
-                Försök igen
+                {this.translate('aboutGakusei.finishScreen.tryAgain')}
               </Button>{' '}
-
               <Button
                 bsStyle="info"
                 className="backToSelectScreenButton"
                 onClick={this.backtoSelection}
               >
-                Välj nya frågor
+                {this.translate('aboutGakusei.finishScreen.button')}
               </Button>
             </div>
           </Col>
@@ -159,4 +168,4 @@ finishScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
 finishScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
-export default Utility.superConnect(this, Reducers)(finishScreen);
+export default translate('translations')(Utility.superConnect(this, Reducers)(finishScreen));
