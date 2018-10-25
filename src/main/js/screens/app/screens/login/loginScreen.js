@@ -96,15 +96,9 @@ export class loginScreen extends React.Component {
             md={4}
           >
             <div>
-              <h4>{t('Registrera dig snabbt och enkelt här')}</h4>
-              <p>
-                Vi sparar inga personuppgifter så var noga med att komma ihåg ditt lösenord då vi inte kan återställa
-                det åt dig.
-              </p>
-              <p>
-                Materialet är anpassat efter det svenska språket och du kan lära dig från svenska till japanska och
-                japanska till svenska
-              </p>
+              <h4>{t('loginScreen.registerTitel')}</h4>
+              <p>{t('loginScreen.p1')}</p>
+              <p>{t('loginScreen.p2')}</p>
             </div>
           </Col>
           <Col
@@ -117,7 +111,7 @@ export class loginScreen extends React.Component {
                   controlId="formBasicText"
                   validationState={this.getValidationState()}
                 >
-                  <legend>{t('Logga in eller registrera dig')}</legend>
+                  <legend>{t('loginScreen.signUp')}</legend>
                   {this.props.authResponse && this.getValidationState() ? (
                     <ControlLabel name="authFeedback">{this.props.authResponse}</ControlLabel>
                   ) : null}
@@ -126,7 +120,7 @@ export class loginScreen extends React.Component {
                   <FormControl
                     type="text"
                     name="username"
-                    placeholder={t('Användarnamn')}
+                    placeholder={t('loginScreen.Form.placeholderName')}
                     value={this.state.username}
                     onChange={this.handleInputChange}
                   />
@@ -136,7 +130,7 @@ export class loginScreen extends React.Component {
                   <FormControl
                     type="password"
                     name="password"
-                    placeholder={t('Lösenord')}
+                    placeholder={t('loginScreen.Form.placehoolderPassword')}
                     value={this.state.password}
                     onChange={this.handleInputChange}
                   />
@@ -155,7 +149,7 @@ export class loginScreen extends React.Component {
                     type="submit"
                     disabled={!this.state.username || !this.state.password}
                   >
-                    {t('Logga in')}
+                    {t('loginScreen.login.login')}
                   </Button>{' '}
                   <Button
                     label="login"
@@ -165,7 +159,7 @@ export class loginScreen extends React.Component {
                     type="submit"
                     disabled={!this.state.username || !this.state.password}
                   >
-                    {t('Registrera')}
+                    {t('loginScreen.login.register')}
                   </Button>{' '}
                   <Checkbox
                     label="remember-me"
@@ -173,7 +167,7 @@ export class loginScreen extends React.Component {
                     checked={this.state.checkboxChecked}
                     onChange={this.handleChange}
                   >
-                    {t('Håll mig inloggad')}
+                    {t('loginScreen.login.rememberMe')}
                   </Checkbox>{' '}
                 </FormGroup>
               </fieldset>

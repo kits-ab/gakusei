@@ -4,6 +4,8 @@ import { Pie } from 'react-chartjs-2';
 import Utility from '../../../../shared/util/Utility';
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import * as Security from '../../../../shared/reducers/Security';
+import { loginScreen } from '../login/loginScreen';
+import { translate } from 'react-i18next';
 
 export const Reducers = [Lessons, Security];
 
@@ -39,7 +41,7 @@ export class homeScreen extends React.Component {
   }
 
   getChartData() {
-    const theLabels = ['Andel rätt svar!', 'Andel fel svar'];
+    const theLabels = ['{t("homeScreen.rightAnswer")}', '{t("homeScreen.wrongAnswer")}'];
 
     return {
       labels: theLabels,
@@ -66,7 +68,7 @@ export class homeScreen extends React.Component {
         if (userLesson.lesson.description !== 'quiz') {
           const totalNuggetCount = this.props.addressedQuestionsInLessons[userLesson.lesson.name].all;
           const completeNuggetCount = this.props.addressedQuestionsInLessons[userLesson.lesson.name].correctlyAnswered;
-          const completeNuggetPercentage = (completeNuggetCount / totalNuggetCount * 100).toFixed();
+          const completeNuggetPercentage = ((completeNuggetCount / totalNuggetCount) * 100).toFixed();
           return (
             <ListGroupItem
               key={userLesson.lesson.name}
@@ -113,6 +115,8 @@ export class homeScreen extends React.Component {
   }
 
   render() {
+    const { t, i18n } = this.props;
+
     return (
       <Grid className="text-center">
         <h2 name="greeter">Välkommen, {this.props.loggedInUser}!</h2>
@@ -143,4 +147,4 @@ homeScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
 homeScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
-export default Utility.superConnect(this, Reducers)(homeScreen);
+export default translate('translations')(Utility.superConnect(this, Reducers)(homeScreen));

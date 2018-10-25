@@ -6,16 +6,29 @@ i18n.use(LanguageDetector).init({
   resources: {
     se: {
       translations: {
+        gakuseiNav: '',
+        'gakuseiNav.guessPlay': 'Gissa ordet',
+        'gakuseiNav.flashcardPlay': 'Bildkort',
+        'gakuseiNav.kanjiPlay': 'Kanji',
+        'gakuseiNav.quizPlay': 'Quiz',
+        'gakuseiNav.about': 'Om Gakusei',
+        'gakuseiNav.lang': 'Språk',
+        'gakuseiNav.loggedIn': 'Inloggad som:',
+        'gakuseiNav.logout': 'Logga ut',
+        'gakuseiNav.signIn': 'Logga in / Registrera',
+        'gakuseiNav.swe': 'Svenska',
+        'gakuseiNav.jp': 'Japanska',
+
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': 'Om Gakusei',
         'aboutGakusei.aboutGakusei.p':
           ' Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande fyra spellägen:',
         'aboutGakusei.aboutGakusei.li1':
-          '&quot;Gissa ordet&quot; som kan hittas under fliken &quot;Glosor&quot;. Här ska man välja rätt översättning på ett ord bland fyra alternativ.',
+          '&quot;Gissa ordet&quot; som kan hittas under fliken Glosor. Här ska man välja rätt översättning på ett ord bland fyra alternativ.',
         'aboutGakusei.aboutGakusei.li2':
-          '&quot;Bildkort&quot; som även det kan hittas under fliken &quot;Glosor&quot;. Här gäller det att gissa rätt på ett ord. Gissade du rätt?',
-        'aboutGakusei.aboutGakusei.li3': '&quot;Quiz&quot; och här kan du spela frågesporter kopplade till Japan.',
-        'aboutGakusei.aboutGakusei.li4': '&quot;Kanji&quot; och här kan du testa dina kunskaper i kanji.',
+          '&quot;Bildkort&quot; som även det kan hittas under fliken Glosor. Här gäller det att gissa rätt på ett ord. Gissade du rätt?',
+        'aboutGakusei.aboutGakusei.li3': 'Quiz och här kan du spela frågesporter kopplade till Japan.',
+        'aboutGakusei.aboutGakusei.li4': 'Kanji och här kan du testa dina kunskaper i kanji.',
         'aboutgakusei.rights': '',
         'aboutGakusei.rights.h4': 'Rättigheter',
         'aboutGakusei.rights.p': 'Utvecklad i samarbete med',
@@ -136,6 +149,8 @@ i18n.use(LanguageDetector).init({
           'Olika sorters övningar, anpassade efter japanska undervisning på högskolenivå.',
         'startScreen.aboutFeatureImage.colThree': '',
         'startScreen.aboutFeatureImage.colThree.h3': 'Gakusei överallt',
+        'startScreen.aboutFeatureImage.colThree.p':
+          'Öva med Gakusei på mobilen! Fungerar lika på mobila enheter som på laptops',
         'startScreen.aboutFeatureImage.colFour': '',
         'startScreen.aboutFeatureImage.colFour.h3': 'Anonymitet',
         'startScreen.aboutFeatureImage.colFour.p':
@@ -155,6 +170,7 @@ i18n.use(LanguageDetector).init({
         'startScreen.jumbotronRegister.h2': 'Utöka din kunskap med Gakusei!',
         'appScreen:': '',
         'appScreen.copyrightText': '© Gakusei 2018 - Alla rättigheter reserverade.',
+        'appScreen.aboutUsLink': 'Om oss',
         'numbers:': '',
         zero: '0',
         one: '1',
@@ -179,13 +195,13 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.aboutGakusei.p':
           ' Gakusei is a web application where you can practice Japanese. The application has four game modes:',
         'aboutGakusei.aboutGakusei.li1':
-          'Gissa ordet som kan hittas under fliken Glosor. Här ska man välja rätt översättning på ett ord bland fyra alternativ.',
+          '"Guess" the word that can be found under "words". Here you should choose the correct translation of one word among four options.',
         'aboutGakusei.aboutGakusei.li2':
-          '&quot;Bildkort&quot; som även det kan hittas under fliken &quot;Glosor&quot;. Här gäller det att gissa rätt på ett ord. Gissade du rätt?',
-        'aboutGakusei.aboutGakusei.li3': '&quot;Quiz&quot; och här kan du spela frågesporter kopplade till Japan.',
-        'aboutGakusei.aboutGakusei.li4': '&quot;Kanji&quot; och här kan du testa dina kunskaper i kanji.',
+          '"Flashcard" can be found under the "words" tab. Here\'s the question of guessing one word. Did you guess right?',
+        'aboutGakusei.aboutGakusei.li3': '"Quiz" och här kan du spela frågesporter kopplade till Japan.',
+        'aboutGakusei.aboutGakusei.li4': '"Kanji" and here you can test your skills in Kanji.',
         'aboutgakusei.rights': '',
-        'aboutGakusei.rights.h4': 'Rättigheter',
+        'aboutGakusei.rights.h4': 'Rights',
         'aboutGakusei.rights.p': 'Utvecklad i samarbete med',
         'aboutGakusei.rights.link': 'KITS AB',
         'aboutGakusei.rights.p2':
@@ -342,6 +358,19 @@ i18n.use(LanguageDetector).init({
     },
     jp: {
       translations: {
+        gakuseiNav: '',
+        'gakuseiNav.guessPlay': '単語を推測する',
+        'gakuseiNav.flashcardPlay': 'フォトカード',
+        'gakuseiNav.kanjiPlay': '漢字',
+        'gakuseiNav.quizPlay': 'クイズ',
+        'gakuseiNav.about': '学生について',
+        'gakuseiNav.lang': '言語',
+        'gakuseiNav.loggedIn': 'ログインした人：',
+        'gakuseiNav.logout': 'ログアウトする',
+        'gakuseiNav.signIn': 'ログイン/登録',
+        'gakuseiNav.swe': 'スウェーデン語',
+        'gakuseiNav.jp': '日本の',
+
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': '学生について',
         'aboutGakusei.aboutGakusei.p':
@@ -470,6 +499,8 @@ i18n.use(LanguageDetector).init({
         'startScreen.aboutFeatureImage.colTwo.p': '大学レベルの日本の教育に適応したさまざまなタイプの練習。',
         'startScreen.aboutFeatureImage.colThree': '',
         'startScreen.aboutFeatureImage.colThree.h3': 'どこでもどこでも',
+        'startScreen.aboutFeatureImage.colThree.p':
+          'モバイルで学生と一緒に練習しましょう！ ラップトップのようなモバイルデバイスでも同等に動作します。',
         'startScreen.aboutFeatureImage.colFour': '',
         'startScreen.aboutFeatureImage.colFour.h3': '匿名',
         'startScreen.aboutFeatureImage.colFour.p':
@@ -489,6 +520,7 @@ i18n.use(LanguageDetector).init({
         'startScreen.jumbotronRegister.h2': '学生と知識を広げる',
         appScreen: '',
         'appScreen.copyrightText': '©Gakusei 2018  - すべての権利を保有します。',
+        'appScreen.aboutUsLink': '私たちについて',
         numbers: '',
         zero: '0',
         one: '1',

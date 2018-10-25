@@ -6,6 +6,7 @@ import * as Security from '../../shared/reducers/Security';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AppProvider } from '../../AppProvider';
+import { translate } from 'react-i18next';
 
 export const Reducers = [Security];
 
@@ -18,6 +19,7 @@ export class AppScreen extends React.Component {
   }
 
   render() {
+    const { t, i18n } = this.props;
     return (
       <div>
         <header>
@@ -43,7 +45,7 @@ export class AppScreen extends React.Component {
                         <h2 className="sitemap__group-title">Gakusei</h2>
                         <ul className="sitemap__group">
                           <li>
-                            <Link to="/about">Om oss</Link>
+                            <Link to="/about">{t('appScreen.aboutUsLink')}</Link>
                           </li>
                           {/* <li>Kontakt</li>
                           <li>Vårt team</li> */}
@@ -74,7 +76,7 @@ export class AppScreen extends React.Component {
                     alt="Gakusei logo"
                     className="copyright-information__logo"
                   />
-                  <span className="copyright-information__text">© Gakusei 2018 - Alla rättigheter reserverade.</span>
+                  <span className="copyright-information__text">{t('appScreen.copyrightText')}</span>
                 </p>
               </Col>
             </Row>
@@ -89,4 +91,4 @@ AppScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
 AppScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
-export default Utility.superConnect(this, Reducers)(AppScreen);
+export default translate('translations')(Utility.superConnect(this, Reducers)(AppScreen));
