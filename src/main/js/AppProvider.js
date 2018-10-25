@@ -23,6 +23,7 @@ import startScreen from './screens/app/screens/start';
 import Utility from './shared/util/Utility';
 import { GakuseiNav, Reducers } from './screens/app/components/GakuseiNav';
 import { translate, Trans } from 'react-i18next';
+import { settingsScreen } from './screens/app/screens/settings/settingsScreen';
 
 const AppScreenRoutered = withRouter(AppScreen);
 
@@ -91,6 +92,10 @@ export default class AppProvider extends React.Component {
                 <Route
                   path="/about"
                   component={aboutScreen}
+                />
+                <Route
+                  path="/settings"
+                  component={requireAuthentication(settingsScreen)}
                 />
                 <Route
                   path="/start"

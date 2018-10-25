@@ -18,6 +18,7 @@ i18n.use(LanguageDetector).init({
         'gakuseiNav.loggedIn': 'Inloggad som:',
         'gakuseiNav.logout': 'Logga ut',
         'gakuseiNav.signIn': 'Logga in / Registrera',
+        'gakuseiNav.settings': 'Inställningar',
         'gakuseiNav.swe': 'Svenska',
         'gakuseiNav.jp': 'Japanska',
 
@@ -209,6 +210,7 @@ i18n.use(LanguageDetector).init({
         'gakuseiNav.loggedIn': 'Signed in as:',
         'gakuseiNav.logout': 'Sign out',
         'gakuseiNav.signIn': 'Sign in / Register',
+        'gakuseiNav.settings': 'Settings',
         'gakuseiNav.swe': 'Swedish',
         'gakuseiNav.jp': 'Japanese',
         aboutGakusei: '',
@@ -401,6 +403,7 @@ i18n.use(LanguageDetector).init({
         'gakuseiNav.loggedIn': 'ログインした人：',
         'gakuseiNav.logout': 'ログアウトする',
         'gakuseiNav.signIn': 'ログイン/登録',
+        'gakuseiNav.settings': '設定',
         'gakuseiNav.swe': 'スウェーデン語',
         'gakuseiNav.jp': '日本の',
 
