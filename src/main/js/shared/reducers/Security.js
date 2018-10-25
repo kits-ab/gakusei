@@ -253,8 +253,6 @@ export function requestUserRegister(data, redirectUrl) {
     const formBody = typeof data === 'string' ? data : Utility.getFormData(data).join('&');
 
     try {
-      console.log('Type of: ' + typeof formBody);
-      console.log('formbody ' + formBody);
       dispatch(setRegistering());
 
       fetch('/registeruser', {
@@ -267,6 +265,11 @@ export function requestUserRegister(data, redirectUrl) {
         body: formBody
       }).then(response => {
         switch (response.status) {
+          case 406:
+            response.text().then(function(bodyText) {
+              dispatch(receiveAuthResponse(false, bodyText));
+            });
+            break;
           case 422:
             dispatch(receiveAuthResponse(false, 'Användarnamnet finns tyvärr redan, prova ett annat.'));
             break;

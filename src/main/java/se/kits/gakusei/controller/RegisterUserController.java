@@ -46,12 +46,12 @@ public class RegisterUserController {
         System.out.println("username: " + username + "\npassword: " + password);
 
         if (decodedInput.contains(" ")){
-            return new ResponseEntity<String>("Space is not allowed in passwords.",
+            return new ResponseEntity<String>("Mellanslag är inte tillåtet i lösenordet.",
                     HttpStatus.NOT_ACCEPTABLE);
         }
         if (password.length() > 100 || password.length() < 3){
-            return new ResponseEntity<String>("Please enter a password between 3 and 100 characters",
-                    HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE);
+            return new ResponseEntity<String>("Lösenordet måste vara mellan 3 och 100 tecken långt.",
+                    HttpStatus.NOT_ACCEPTABLE);
         }
         user = new User();
         user.setUsername(username);
@@ -75,12 +75,17 @@ public class RegisterUserController {
                     HttpStatus.UNPROCESSABLE_ENTITY
             );
         }
-        userRepo.save(user);
-        return new ResponseEntity<String>(
-                "User created: " + user.getUsername(),
-                HttpStatus.CREATED
-        );
+        if( user.getUsername().length() > 1 && user.getUsername().length() < 33){
+            userRepo.save(user);
+            return new ResponseEntity<String>(
+                    "User created: " + user.getUsername(),
+                    HttpStatus.CREATED
+            );
+        } else {
+            return new ResponseEntity<String>(
+                    "Username length must be 2-32 characters",
+                    HttpStatus.NOT_ACCEPTABLE
+            );
+        }
     }
-
 }
-

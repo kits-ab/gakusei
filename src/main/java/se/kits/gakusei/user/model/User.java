@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Fetch;
@@ -22,6 +23,7 @@ public class User implements Serializable {
     @Id
     @JsonProperty(value = "username")
     @ApiModelProperty(notes="the user id")
+    @Size(min= 2, max = 32, message = "username must be 2-32 characters")
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY, value = "password")
@@ -59,7 +61,7 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User(String username, String password, String role) {
+    public User( String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
