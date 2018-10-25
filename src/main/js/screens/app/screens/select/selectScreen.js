@@ -23,7 +23,6 @@ import faPlay from '@fortawesome/fontawesome-free-solid/faPlay';
 import faStar from '@fortawesome/fontawesome-free-solid/faStar';
 
 import ToggleButton from 'react-toggle-button';
-import { loginScreen } from '../login/loginScreen';
 import { translate } from 'react-i18next';
 
 export const Reducers = [Lessons, Security];
@@ -33,6 +32,8 @@ export class selectScreen extends React.Component {
     super(props);
     this.handleStarredClick = this.handleStarredClick.bind(this);
     this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
+
+    const { t, i18n } = this.props;
 
     this.state = {
       playType: this.props.match.params.type || 'guess'
@@ -89,19 +90,24 @@ export class selectScreen extends React.Component {
         throw new Error('No play type specified');
     }
   }
+  translate(input) {
+    const { t, i18n } = this.props;
+    return t(input);
+  }
 
   getPageDescription() {
     switch (this.state.playType) {
       case 'quiz':
-        return 'Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ';
+        return this.translate('selectScreen.pageDescription.quiz');
+
       case 'guess':
-        return 'Välj mellan 4 svarsalternativ för den korrekta översättningen.';
+        return this.translate('selectScreen.pageDescription.guess');
       case 'translate':
-        return 'Översätt det visade ordet i fritext.';
+        return this.translate('selectScreen.pageDescription.translate');
       case 'flashcards':
-        return 'Träna dig själv genom att använda kort, med frågan på ena sidan och rätta svaret på den andra.';
+        return this.translate('selectScreen.pageDescription.flashcards');
       case 'kanji':
-        return 'Försök rita kanji-tecken med korrekta drag och i rätt ordning.';
+        return this.translate('selectScreen.pageDescription.kanji');
       case 'grammar':
         return 'Böj det visade ordet i fritext på angiven verbform.';
       default:
@@ -198,6 +204,8 @@ export class selectScreen extends React.Component {
     const tooltip_red = <Tooltip id="tooltip">Besvarade frågor som behöver repeteras</Tooltip>;
 
     const tooltip_blue = <Tooltip id="tooltip">Obesvarade frågor</Tooltip>;
+
+    const { t, i18n } = this.props;
 
     const mediumColumnSize = 6;
     const largeColumnSize = 4;
@@ -429,8 +437,6 @@ export class selectScreen extends React.Component {
   }
 
   render() {
-    const { t, i18n } = this.props;
-
     let lessonsFavorite, lessonsFavoriteDone, lessonsNotFavorite;
     if (this.isSpacedRepetition()) {
       lessonsFavorite = this.getLessons(

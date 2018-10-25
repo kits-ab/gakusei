@@ -43,7 +43,7 @@ export class GakuseiNav extends React.Component {
             <Nav>
               <NavDropdown
                 className="glosorDropdown"
-                title="Glosor"
+                title={t('gakuseiNav.vocablePlay')}
                 id="basic-nav-dropdown"
               >
                 <LinkContainer to="/select/guess">
