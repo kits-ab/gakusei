@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-import { Button, Col, Row, Grid, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Checkbox, Button, Col, Row, Grid, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
@@ -13,13 +13,16 @@ export class loginScreen extends React.Component {
     super(props);
 
     this.state = {
+      checkboxChecked: false,
       username: '',
       password: '',
       _csrf: getCSRF(),
       submitLogin: true,
-      canSubmit: false
+      canSubmit: false,
+      invalidUsername: false
     };
 
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -48,9 +51,19 @@ export class loginScreen extends React.Component {
 
     return null;
   }
+  handleChange(e) {
+    this.setState({ checkboxChecked: e.target.checked });
+  }
 
   handleInputChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+    if (e.target.name === 'username') {
+      this.validateUsername(e);
+    }
+  }
+  validateUsername(e) {
+    const regex = RegExp('[^A-Za-z0-9]+');
+    this.setState({ invalidUsername: regex.test(e.target.value) });
   }
 
   handleSubmit(formData) {
@@ -115,6 +128,11 @@ export class loginScreen extends React.Component {
                   ) : null}
                 </FormGroup>
                 <FormGroup>
+                  {this.state.invalidUsername === true ? (
+                    <p style={{ margin: '5%', color: 'darkred', fontWeight: 'bold' }}>
+                      Användarnamnet får endast innehålla bokstäver och siffror.
+                    </p>
+                  ) : null}
                   <FormControl
                     type="text"
                     name="username"
@@ -138,7 +156,6 @@ export class loginScreen extends React.Component {
                   name="_csrf"
                   value={this.state._csrf}
                 />
-
                 <FormGroup>
                   <Button
                     label="login"
@@ -156,10 +173,18 @@ export class loginScreen extends React.Component {
                     bsStyle="success"
                     name="register"
                     type="submit"
-                    disabled={!this.state.username || !this.state.password}
+                    disabled={!this.state.username || !this.state.password || this.state.invalidUsername}
                   >
                     Registrera
-                  </Button>
+                  </Button>{' '}
+                  <Checkbox
+                    label="remember-me"
+                    name="remember-me"
+                    checked={this.state.checkboxChecked}
+                    onChange={this.handleChange}
+                  >
+                    Håll mig inloggad
+                  </Checkbox>{' '}
                 </FormGroup>
               </fieldset>
             </Form>

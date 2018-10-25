@@ -150,33 +150,7 @@ public class ProgressHandler {
         pt.setRetentionDate(retTimeStamp);
         progressTrackingRepository.save(pt);
     }
-
-    //TODO: Get rid of these horrible hacks. and decide where they should be but not here
-    //kollar vilka svar som är felsvarade
-    public List<Nugget> getWrongQuestions(String username){
-        List<ProgressTracking> allProgress = progressTrackingRepository.findAllByUserUsernameAndLatestResultAndNuggetTypeEquals(
-                username, false, nuggetTypeRepository.findByType("vocab"));
-        List<Nugget> wrongNuggets = new ArrayList<>();
-        for (ProgressTracking item : allProgress) {
-              Optional<Nugget> tempNugget = nuggetRepository.findById(item.getNuggetID());
-              if(tempNugget.isPresent()) {
-                  wrongNuggets.add(tempNugget.get());
-              }
-        }
-        return wrongNuggets;
-    }
-    public List<Kanji> getWrongKanji(String username){
-        List<ProgressTracking> allProgress = progressTrackingRepository.findAllByUserUsernameAndLatestResultAndNuggetTypeEquals(
-                username, false, nuggetTypeRepository.findByType("kanji"));
-        List<Kanji> wrongKanji = new ArrayList<>();
-        for (ProgressTracking item : allProgress) {
-            Optional<Kanji> tempKanji = kanjiRepository.findById(item.getNuggetID());
-            if (tempKanji.isPresent()){
-            wrongKanji.add(tempKanji.get());
-            }
-        }
-        return wrongKanji;
-    }
+    //TODO: Separate and relocate this.
     public HashMap<String,Integer> getWrongCount(String username){
         //User user = userRepository.findByUsername(username);
         HashMap<String, Integer> incorrectAnswerCount = new HashMap<>();

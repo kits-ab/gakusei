@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
+import javax.validation.Valid;
+
 @Controller
 public class RegisterUserController {
     @Autowired
@@ -58,12 +60,18 @@ public class RegisterUserController {
                 HttpStatus.UNPROCESSABLE_ENTITY
             );
         }
-        userRepo.save(user);
-        return new ResponseEntity<String>(
-            "User created: " + user.getUsername(),
-            HttpStatus.CREATED
-        );
+        if( user.getUsername().length() > 1 && user.getUsername().length() < 33){
+
+            userRepo.save(user);
+            return new ResponseEntity<String>(
+                    "User created: " + user.getUsername(),
+                    HttpStatus.CREATED
+            );
+        } else {
+            return new ResponseEntity<String>(
+                    "Username length must be 2-32 characters",
+                    HttpStatus.NOT_ACCEPTABLE
+            );
+        }
     }
-
 }
-

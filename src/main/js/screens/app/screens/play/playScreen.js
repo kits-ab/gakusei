@@ -19,9 +19,7 @@ export class playScreen extends React.Component {
     if (!this.props.questions || this.props.questions.length === 0) {
       if (this.props.match.params.type) {
         this.props.setPageByName(`/select/${this.props.match.params.type}`);
-        console.log('before ${this.props.match.params.type}');
         this.props.setPlayType(this.props.match.params.type);
-        console.log(this.props.playType);
       } else {
         this.props.setPageByName(`/`);
       }
@@ -103,6 +101,23 @@ export class playScreen extends React.Component {
     }
   }
 
+  setQuizPicture() {
+    this.props.fetchQuizImage(this.props.currentQuestion.correctAlternative[0][0]).then(() => {
+      this.props.quizImage;
+    });
+    let imgUrl = '/img/kanji/elefant.svg';
+    imgUrl = `${this.props.quizImage}`;
+    const img = (<img
+      src={imgUrl}
+      height={300}
+    />);
+
+    if (imgUrl === '') {
+      return '';
+    }
+    return img;
+  }
+
   render() {
     let playCard = null;
     switch (this.props.match.params.type) {
@@ -159,8 +174,6 @@ export class playScreen extends React.Component {
         );
         break;
       case 'guess':
-      case 'quiz':
-      default:
         playCard = (
           <ButtonsCard
             question={this.props.currentQuestion}
@@ -173,6 +186,25 @@ export class playScreen extends React.Component {
             questionAnswered={this.props.currentProcessedQuestionAnswered}
             questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
           />
+        );
+        break;
+      case 'quiz':
+      default:
+        playCard = (
+          <div>
+            {this.setQuizPicture()}
+            <ButtonsCard
+              question={this.props.currentQuestion}
+              answerType={this.props.answerType}
+              questionType={this.props.questionType}
+              cardType={this.props.match.params.type}
+              buttonsDisabled={this.props.allButtonsDisabled}
+              clickCallback={this.checkAnswer}
+              correctAlternative={this.props.currentQuestion.correctAlternative[0]}
+              questionAnswered={this.props.currentProcessedQuestionAnswered}
+              questionAnsweredCorrectly={this.props.currentProcessedQuestionAnsweredCorrectly}
+            />
+          </div>
         );
         break;
     }
