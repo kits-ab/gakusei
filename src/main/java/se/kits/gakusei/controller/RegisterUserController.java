@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
+import java.net.URLDecoder;
+
 @Controller
 public class RegisterUserController {
     @Autowired
@@ -20,6 +22,8 @@ public class RegisterUserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    private String decodedInput;
+
     @RequestMapping(value = "/registeruser", method = RequestMethod.POST)
     public ResponseEntity<String> registerUser(
             @RequestBody
@@ -27,15 +31,24 @@ public class RegisterUserController {
     ) {
         User user = null;
         User existingUser = null;
-
         System.out.println("input: " + input);
+        try {
+            decodedInput = URLDecoder.decode(input, "utf-8");
+            System.out.println("decoded input: " + decodedInput);
+        }catch (Exception e){
+            System.out.println("Exception caught in decode url: " + e.getMessage());
+        }
 
-        String username = input.substring(input.indexOf("username=")+("username=").length(),
-                input.indexOf("&password="));
-        String password = input.substring(input.indexOf("&password=")+("&password=").length(),
-                input.lastIndexOf("&remember"));
+        String username = decodedInput.substring(decodedInput.indexOf("username=")+("username=").length(),
+                decodedInput.indexOf("&password="));
+        String password = decodedInput.substring(decodedInput.indexOf("&password=")+("&password=").length(),
+                decodedInput.lastIndexOf("&remember"));
         System.out.println("username: " + username + "\npassword: " + password);
 
+        if (decodedInput.contains(" ")){
+            return new ResponseEntity<String>("Space is not allowed in passwords.",
+                    HttpStatus.NOT_ACCEPTABLE);
+        }
         if (password.length() > 100 || password.length() < 3){
             return new ResponseEntity<String>("Please enter a password between 3 and 100 characters",
                     HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE);

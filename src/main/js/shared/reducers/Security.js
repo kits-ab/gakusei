@@ -210,7 +210,7 @@ export function logLoginEvent(username) {
 
 export function requestUserLogin(data, redirectUrl) {
   return function(dispatch, getState) {
-    const formBody = typeof data === 'string' ? data : decodeURIComponent(Utility.getFormData(data).join('&'));
+    const formBody = typeof data === 'string' ? data : Utility.getFormData(data).join('&');
 
     dispatch(setLoggingIn());
 
@@ -250,7 +250,7 @@ export function requestUserLogin(data, redirectUrl) {
 
 export function requestUserRegister(data, redirectUrl) {
   return function(dispatch) {
-    const formBody = typeof data === 'string' ? data : decodeURIComponent(Utility.getFormData(data).join('&'));
+    const formBody = typeof data === 'string' ? data : Utility.getFormData(data).join('&');
 
     try {
       console.log('Type of: ' + typeof formBody);
