@@ -98,7 +98,7 @@
                     "error":"No play type specified"
             },
             "pageDescription":{
-                "quiz":"Välj mellan 4 svarsalternativ för den korrekta översättningen.",
+                "quiz":"Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ",
                     "guess":"Välj mellan 4 svarsalternativ för den korrekta översättningen.",
                     "translate":"Översätt det visade ordet i fritext.",
                     "flashcards":"Träna dig själv genom att använda kort, med frågan på ena sidan och rätta svaret på den andra.",
