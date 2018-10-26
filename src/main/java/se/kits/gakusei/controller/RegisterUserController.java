@@ -13,6 +13,7 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Pattern;
 
 @Controller
@@ -34,7 +35,7 @@ public class RegisterUserController {
         User existingUser = null;
 
         try {
-            decodedInput = URLDecoder.decode(input, "utf-8");
+            decodedInput = URLDecoder.decode(input, StandardCharsets.UTF_8);
         }catch (Exception e){
             System.out.println("Exception caught in decode url: " + e.getMessage());
         }
@@ -73,26 +74,17 @@ public class RegisterUserController {
 
         // Check if User exists
 
-        if (user == null) {
+        if (userRepo.findByUsername(user.getUsername()) != null) {
             return new ResponseEntity<String>(
-                    "Form data was incorrect",
-                    HttpStatus.BAD_REQUEST
-            );
-        } else {
-            existingUser = userRepo.findByUsername(user.getUsername());
-        }
-        if (existingUser != null) {//TODO: show user that the username is taken
-
-            return new ResponseEntity<String>(
-                    "Username already in use",
+                    "Användarnamnet är upptaget.",
                     HttpStatus.UNPROCESSABLE_ENTITY
             );
         }
-            userRepo.save(user);
-            return new ResponseEntity<String>(
-                    "User created: " + user.getUsername(),
-                    HttpStatus.CREATED
-            );
+        userRepo.save(user);
+        return new ResponseEntity<String>(
+                "Användare skapad: " + user.getUsername(),
+                HttpStatus.CREATED
+        );
 
     }
 }
