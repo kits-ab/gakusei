@@ -271,7 +271,9 @@ export function requestUserRegister(data, redirectUrl) {
             });
             break;
           case 422:
-            dispatch(receiveAuthResponse(false, 'Användarnamnet finns tyvärr redan, prova ett annat.'));
+            response.text().then(function(bodyText) {
+              dispatch(receiveAuthResponse(false, bodyText));
+            });
             break;
           case 201:
             dispatch(receiveAuthResponse(true, 'Registeringen lyckades, loggar in..'));
