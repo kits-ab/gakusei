@@ -77,3 +77,6 @@ spring:
 
 gakusei:
   event-logging: false
+
+---
+

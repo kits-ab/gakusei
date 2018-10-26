@@ -260,13 +260,15 @@ export function requestUserRegister(data, redirectUrl) {
         credentials: 'same-origin',
         headers: {
           Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+          'Content-Type': 'text/plain; charset=utf-8'
         },
         body: formBody
       }).then(response => {
         switch (response.status) {
           case 406:
-            dispatch(receiveAuthResponse(false, 'Användarnamnet måste vara mellan 2 och 32 tecken.'));
+            response.text().then(function(bodyText) {
+              dispatch(receiveAuthResponse(false, bodyText));
+            });
             break;
           case 422:
             dispatch(receiveAuthResponse(false, 'Användarnamnet finns tyvärr redan, prova ett annat.'));
