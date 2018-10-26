@@ -6,7 +6,6 @@ import Utility from '../../../shared/util/Utility';
 import * as Security from '../../../shared/reducers/Security';
 import * as Lessons from '../../../shared/reducers/Lessons';
 import { translate, Trans } from 'react-i18next';
-import AppScreen from '../index';
 
 export const Reducers = [Lessons, Security];
 

@@ -27,26 +27,26 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.aboutGakusei.p':
           ' Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande fyra spellägen:',
         'aboutGakusei.aboutGakusei.li1':
-          '&quot;Gissa ordet&quot; som kan hittas under fliken Glosor. Här ska man välja rätt översättning på ett ord bland fyra alternativ.',
+          '"Gissa ordet"; som kan hittas under fliken Glosor. Här ska man välja rätt översättning på ett ord bland fyra alternativ.',
         'aboutGakusei.aboutGakusei.li2':
-          '&quot;Bildkort&quot; som även det kan hittas under fliken Glosor. Här gäller det att gissa rätt på ett ord. Gissade du rätt?',
+          '"Bildkort"; som även det kan hittas under fliken Glosor. Här gäller det att gissa rätt på ett ord. Gissade du rätt?',
         'aboutGakusei.aboutGakusei.li3': 'Quiz och här kan du spela frågesporter kopplade till Japan.',
         'aboutGakusei.aboutGakusei.li4': 'Kanji och här kan du testa dina kunskaper i kanji.',
         'aboutgakusei.rights': '',
         'aboutGakusei.rights.h4': 'Rättigheter',
-        'aboutGakusei.rights.p': 'Utvecklad i samarbete med',
+        'aboutGakusei.rights.p': 'Utvecklad i samarbete med ',
         'aboutGakusei.rights.link': 'KITS AB',
         'aboutGakusei.rights.p2':
-          '. Alla rättigheter till programkoden ägs av Kokitotsos AB. Denna sajt opereras av Daigaku Sverige som licensierar Gakusei av Kokitotsos AB:s genom en öppen källkodslicens. Utbildningsmaterial har sammanställts av Pierre Sandboge, och inkluderar eget material och annat material som framgår på annan plats på den här sidan.',
+          'Alla rättigheter till programkoden ägs av Kokitotsos AB. Denna sajt opereras av Daigaku Sverige som licensierar Gakusei av Kokitotsos AB:s genom en öppen källkodslicens. Utbildningsmaterial har sammanställts av Pierre Sandboge, och inkluderar eget material och annat material som framgår på annan plats på den här sidan. ',
         'aboutGakusei.rights.link2': 'Daigaku.se',
         'aboutGakusei.rights.p3':
           'drivs utan anställda, med donerade medel, och ingen garanti om tillgänglighet kan ges. Tillhandahållandet av tjänsten kan upphöra när som helst utan förvarning.',
         'aboutGakusei.licenses': '',
         'aboutGakusei.licenses.licens': 'Licenser',
-        'aboutGakusei.licenses.modul': 'modul',
+        'aboutGakusei.licenses.modul': 'Modul',
         'aboutGakusei.licenses.version': 'Version:',
-        'aboutGakusei.licenses.repo': 'Repository:',
-        'aboutGakusei.licenses.licenses': 'Licens(er):',
+        'aboutGakusei.licenses.repo': 'Repository',
+        'aboutGakusei.licenses.licenses': 'Licens(er)',
         'aboutGakusei.licenses.p': 'Webbappen Gakusei går under licensen',
         'aboutGakusei.licenses.link': 'MIT',
         'aboutGakusei.licenses.p2': 'Nedan följer en lista på licenser för de moduler som projektet använder sig av.',
@@ -103,6 +103,8 @@ i18n.use(LanguageDetector).init({
         'loginScreen.login.login': 'Logga in',
         'loginScreen.login.register': 'Registrera',
         'loginScreen.login.rememberMe': 'Håll mig inloggad',
+        'loginScreen.login.forward': 'Inloggad, tar dig vidare..',
+        'loginScreen.login.wrongTasks': 'Felaktiga uppgifter, vänligen kontrollera formuläret.',
         logoutScreen: '',
         playScreen: '',
         selectScreen: '',
@@ -226,10 +228,10 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.aboutGakusei.li4': '"Kanji" Here you can test your skills in Kanji.',
         'aboutgakusei.rights': '',
         'aboutGakusei.rights.h4': 'Rights',
-        'aboutGakusei.rights.p': 'Developed in cooperation with',
+        'aboutGakusei.rights.p': 'Developed in cooperation with ',
         'aboutGakusei.rights.link': 'KITS AB',
         'aboutGakusei.rights.p2':
-          '. All rights to the program code are owned by Kokitotsos AB. This site is operated by Daigaku Sweden and licensed Gakusei by Kokitotsos AB through an open source license. Educational materials have been compiled by Pierre Sandboge, and include own material and other material shown elsewhere on this page.',
+          'All rights to the program code are owned by Kokitotsos AB. This site is operated by Daigaku Sweden and licensed Gakusei by Kokitotsos AB through an open source license. Educational materials have been compiled by Pierre Sandboge, and include own material and other material shown elsewhere on this page. ',
         'aboutGakusei.rights.link2': 'Daigaku.se',
         'aboutGakusei.rights.p3':
           'operated without employees, with donated funds, and no guarantee of availability can be given. The provision of the service may terminate at any time without notice.',
@@ -238,7 +240,7 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.licenses.modul': 'Module',
         'aboutGakusei.licenses.version': 'Version:',
         'aboutGakusei.licenses.repo': 'Repository:',
-        'aboutGakusei.licenses.licenses': 'Licenses:',
+        'aboutGakusei.licenses.licenses': 'Licenses',
         'aboutGakusei.licenses.p': 'The Gakusei web site is under license',
         'aboutGakusei.licenses.link': 'MIT',
         'aboutGakusei.licenses.p2': 'Below is a list of licenses for the modules that the project uses.',
@@ -295,6 +297,9 @@ i18n.use(LanguageDetector).init({
         'loginScreen.login.login': 'Login',
         'loginScreen.login.register': 'Register',
         'loginScreen.login.rememberMe': 'Keep me logged in',
+        'loginScreen.login.forward': 'Logging in',
+        'loginScreen.login.wrongTasks': 'Felaktiga uppgifter, vänligen kontrollera formuläret.',
+
         logoutScreen: '',
         playScreen: '',
         selectScreen: '',
@@ -349,6 +354,8 @@ i18n.use(LanguageDetector).init({
         'startScreen.aboutFeatureImage.colTwo.p':
           'Different types of exercises, adapted to Japanese education at university level.',
         'startScreen.aboutFeatureImage.colThree': '',
+        'startScreen.aboutFeatureImage.colThree.p':
+          'Practice with Gakusei on your mobile! Works equally on mobile devices like on laptops',
         'startScreen.aboutFeatureImage.colThree.h3': 'Gakusei everywhere',
         'startScreen.aboutFeatureImage.colFour': '',
         'startScreen.aboutFeatureImage.colFour.h3': 'Anonymity',
@@ -383,11 +390,11 @@ i18n.use(LanguageDetector).init({
         eight: '8',
         nine: '9',
         button: '',
-        readMore: 'Läs mer',
-        tryNow: 'Testa redan nu!',
-        register: 'Registrera dig nu!',
-        swedish: 'Svenska',
-        japanese: 'Japanska'
+        readMore: 'Read more',
+        tryNow: 'Try now!',
+        register: 'Register now!',
+        swedish: 'Swedish',
+        japanese: 'Japanese'
       }
     },
     jp: {
@@ -419,10 +426,10 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.aboutGakusei.li4': '漢字と漢字であなたのスキルをテストできます。',
         'aboutgakusei.rights': '',
         'aboutGakusei.rights.h4': '権利',
-        'aboutGakusei.rights.p': '協力して開発',
+        'aboutGakusei.rights.p': '協力して開発 ',
         'aboutGakusei.rights.link': 'KITS AB',
         'aboutGakusei.rights.p2':
-          '. プログラムコードのすべての権利は、Kokitotsos ABによって所有されています。 このサイトは、スウェーデン大学図書館が運営しています。スウェーデンは、Kokitotsos ABによる学生のライセンスをオープンソースライセンスで提供しています。 教育資料は、Pierre Sandbogeによって編集されており、このページの他の場所に示されている自分自身の資料やその他の資料が含まれています。',
+          'プログラムコードのすべての権利は、Kokitotsos ABによって所有されています。 このサイトは、スウェーデン大学図書館が運営しています。スウェーデンは、Kokitotsos ABによる学生のライセンスをオープンソースライセンスで提供しています。 教育資料は、Pierre Sandboge によって編集されており、このページの他の場所に示されている自分自身の資料やその他の資料が含まれています。',
         'aboutGakusei.rights.link2': 'Daigaku.se',
         'aboutGakusei.rights.p3':
           '従業員なしで運営され、寄付された資金で運営され、可用性の保証はありません。 サービスの提供は、通知なしにいつでも終了することができます。',
@@ -434,7 +441,7 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.licenses.licenses': 'ライセンス',
         'aboutGakusei.licenses.p': '学生用アプリはライセンス契約に基づいています',
         'aboutGakusei.licenses.link': 'MIT',
-        'aboutGakusei.licenses.p2': '. 以下は、プロジェクトが使用するモジュールのライセンス一覧です。',
+        'aboutGakusei.licenses.p2': '以下は、プロジェクトが使用するモジュールのライセンス一覧です。',
         'aboutGakusei.licenses.panelToggle': 'その他のライセンスはここをクリック',
         'aboutGakusei.infoBanner': '',
         'aboutGakusei.infoBanner.contributors': '',
@@ -460,6 +467,7 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.finishScreen.Right': '右',
         'aboutGakusei.finishScreen.answer': '返信',
         'aboutGakusei.finishScreen.youAnswerd': 'あなたは答えました',
+
         grammarScreen: '',
         homeScreen: '',
         'homeScreen.rightAnswer': '正しい答えを共有してください！',
@@ -485,6 +493,9 @@ i18n.use(LanguageDetector).init({
         'loginScreen.login.login': 'ログイン',
         'loginScreen.login.register': 'サインアップ',
         'loginScreen.login.rememberMe': '私をログインさせておく',
+        'loginScreen.login.forward': 'ログインして、あなたを連れて行く..',
+        'loginScreen.login.wrongTasks': 'Felaktiga uppgifter, vänligen kontrollera formuläret.',
+
         logoutScreen: '',
         playScreen: '',
         selectScreen: '',
