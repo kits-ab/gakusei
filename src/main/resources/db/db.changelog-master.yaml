@@ -158,14 +158,16 @@ databaseChangeLog:
 - include:
     file: classpath:db/changelogs/db.changelog_078.yaml
 - include:
-      file: classpath:db/changelogs/db.changelog_079.yaml
+    file: classpath:db/changelogs/db.changelog_079.yaml
 - include:
-      file: classpath:db/changelogs/db.changelog_080.yaml
+    file: classpath:db/changelogs/db.changelog_080.yaml
 - include:
-      file: classpath:db/changelogs/db.changelog_081.yaml
+    file: classpath:db/changelogs/db.changelog_081.yaml
 - include:
-      file: classpath:db/changelogs/db.changelog_082.yaml
+    file: classpath:db/changelogs/db.changelog_082.yaml
 - include:
-      file: classpath:db/changelogs/db.changelog_083.yaml
+    file: classpath:db/changelogs/db.changelog_083.yaml
 - include:
-      file: classpath:db/changelogs/db.changelog_084.yaml
+    file: classpath:db/changelogs/db.changelog_084.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_085.yaml
