@@ -207,7 +207,6 @@ export class loginScreen extends React.Component {
                   type="hidden"
                   name="_csrf"
                   value={this.state._csrf}
-                  onChange={this.handleInputPasswordChange}
                 />
                 <FormGroup>
                   <Button
