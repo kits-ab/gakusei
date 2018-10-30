@@ -1,0 +1,10 @@
+databaseChangeLog:
+- changeSet:
+    id: 85
+    author: Akar Khatab
+    changes:
+    - dropNotNullConstraint:
+        tableName: kanji_drawings
+        columnName: image_data
+        columnDataType: text
+        schemaName: public
