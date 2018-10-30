@@ -176,8 +176,7 @@ export class loginScreen extends React.Component {
                     <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
                       Användarnamnet måste vara mellan 2 och 32 tecken långt.
                     </p>
-                  ) : null}
-                  {this.state.invalidPassword === 2 ? (
+                  ) : this.state.invalidPassword === 2 ? (
                     <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
                       Lösenordet måste vara mellan 3 och 100 tecken långt.
                     </p>
