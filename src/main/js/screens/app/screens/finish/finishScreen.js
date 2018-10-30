@@ -77,14 +77,14 @@ export class finishScreen extends React.Component {
 
   showResults() {
     const result = this.props.answeredQuestions.map(qa => {
-      let yourAnswerText = `Svar: ${qa.correctAlternative}. `;
+      let yourAnswerText = `${this.translate('aboutGakusei.finishScreen.answer')} ${qa.correctAlternative}. `;
 
       if ((qa.userAnswer === null || qa.userAnswer === '') && qa.userCorrect) {
         yourAnswerText += '(Du svarade rätt)';
       } else if ((qa.userAnswer === null || qa.userAnswer === '') && !qa.userCorrect) {
         yourAnswerText += '(Du svarade fel)';
       } else {
-        yourAnswerText += `(Du svarade: ${qa.userAnswer})`;
+        yourAnswerText += `${this.translate('aboutGakusei.finishScreen.youAnswered')} ${qa.userAnswer}`;
       }
 
       return (

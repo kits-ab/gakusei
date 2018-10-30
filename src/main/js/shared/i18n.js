@@ -22,6 +22,11 @@ i18n.use(LanguageDetector).init({
         'gakuseiNav.swe': 'Svenska',
         'gakuseiNav.jp': 'Japanska',
 
+        gakuseiSettings: '',
+        'gakuseiSettings.settings': 'Inställningar',
+        'gakuseiSettings.languageOption': 'Språkalternativ',
+        'gakuseiSettings.defaultLanguage': 'Standardspråk',
+
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': 'Om Gakusei',
         'aboutGakusei.aboutGakusei.p':
@@ -73,8 +78,15 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.finishScreen.question': 'Fråga',
         'aboutGakusei.finishScreen.dontknow': 'Vet ej',
         'aboutGakusei.finishScreen.Right': 'Rätt',
-        'aboutGakusei.finishScreen.answer': 'Svar',
-        'aboutGakusei.finishScreen.youAnswerd': 'Du svarade',
+        'aboutGakusei.finishScreen.answer': 'Svar: ',
+        'aboutGakusei.finishScreen.youAnswered': 'Du svarade: ',
+
+        cards: '',
+        'cards.flashcard.turnCard': 'Vänd på kortet',
+        'cards.flashcard.couldYouAnswer': 'Kunde du svaret?',
+        'cards.writecard.writeCorrectly': 'Ritade du rätt?',
+        'cards.yes': 'Ja',
+        'cards.no': 'Nej',
 
         grammarScreen: '',
         homeScreen: '',
@@ -266,9 +278,16 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.finishScreen.button': 'Select new questions',
         'aboutGakusei.finishScreen.question': 'Question',
         'aboutGakusei.finishScreen.dontknow': "Don't know",
-        'aboutGakusei.finishScreen.Right': 'Rätt',
-        'aboutGakusei.finishScreen.answer': 'Svar',
-        'aboutGakusei.finishScreen.youAnswerd': 'Du svarade',
+        'aboutGakusei.finishScreen.Right': 'Right',
+        'aboutGakusei.finishScreen.answer': 'Answer: ',
+        'aboutGakusei.finishScreen.youAnswered': 'You answered: ',
+
+        cards: '',
+        'cards.flashcard.turnCard': 'Turn the card',
+        'cards.flashcard.couldYouAnswer': 'Could you answer?',
+        'cards.writecard.writeCorrectly': 'Did you write correctly?',
+        'cards.yes': 'Yes',
+        'cards.no': 'No',
 
         grammarScreen: '',
         homeScreen: '',
@@ -465,8 +484,15 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.finishScreen.question': '頼みます',
         'aboutGakusei.finishScreen.dontknow': 'わからない',
         'aboutGakusei.finishScreen.Right': '右',
-        'aboutGakusei.finishScreen.answer': '返信',
-        'aboutGakusei.finishScreen.youAnswerd': 'あなたは答えました',
+        'aboutGakusei.finishScreen.answer': '返信 :',
+        'aboutGakusei.finishScreen.youAnswered': 'あなたは答えました: ',
+
+        cards: '',
+        'cards.flashcard.turnCard': 'カードを回す',
+        'cards.flashcard.couldYouAnswer': 'あなたは正しく答えましたか？',
+        'cards.writecard.writeCorrectly': 'あなたは右を描いたのですか',
+        'cards.yes': 'はい',
+        'cards.no': 'いいえ。',
 
         grammarScreen: '',
         homeScreen: '',

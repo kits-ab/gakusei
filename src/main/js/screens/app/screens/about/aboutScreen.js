@@ -5,7 +5,6 @@ import 'whatwg-fetch';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Panel, Button, Jumbotron } from 'react-bootstrap';
 import xml2js from 'xml2js';
 import { translate } from 'react-i18next';
-import { startScreen } from '../start/startScreen';
 
 export class aboutScreen extends React.Component {
   constructor(props) {
