@@ -19,12 +19,14 @@ export class loginScreen extends React.Component {
       _csrf: getCSRF(),
       submitLogin: true,
       canSubmit: false,
-      invalidUsername: false
+      invalidUsername: 0,
+      invalidPassword: 0
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputPasswordChange = this.handleInputPasswordChange.bind(this);
   }
 
   componentWillMount() {
@@ -55,15 +57,54 @@ export class loginScreen extends React.Component {
     this.setState({ checkboxChecked: e.target.checked });
   }
 
+  handleInputPasswordChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+    if (e.target.name === 'password') {
+      this.validatePassword(e);
+    }
+  }
+
+  validatePassword(e) {
+    if (e.target.value.length < 3 || e.target.value.length > 100) {
+      this.setState({
+        invalidPassword: 2
+      });
+    } else if (e.target.value.includes(' ') && !(e.target.value.length < 3 || e.target.value.length > 100)) {
+      this.setState({
+        invalidPassword: 1
+      });
+    } else {
+      this.setState({
+        invalidPassword: 0
+      });
+    }
+  }
+
   handleInputChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value
+    });
     if (e.target.name === 'username') {
       this.validateUsername(e);
     }
   }
   validateUsername(e) {
     const regex = RegExp('[^A-Za-z0-9]+');
-    this.setState({ invalidUsername: regex.test(e.target.value) });
+    if (regex.test(e.target.value)) {
+      this.setState({
+        invalidUsername: 2
+      });
+    } else if (e.target.value.length < 2 || e.target.value.length > 32) {
+      this.setState({
+        invalidUsername: 1
+      });
+    } else {
+      this.setState({
+        invalidUsername: 0
+      });
+    }
   }
 
   handleSubmit(formData) {
@@ -127,9 +168,22 @@ export class loginScreen extends React.Component {
                   ) : null}
                 </FormGroup>
                 <FormGroup>
-                  {this.state.invalidUsername === true ? (
-                    <p style={{ margin: '5%', color: 'darkred', fontWeight: 'bold' }}>
+                  {this.state.invalidUsername === 2 ? (
+                    <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
                       Användarnamnet får endast innehålla bokstäver och siffror.
+                    </p>
+                  ) : this.state.invalidUsername === 1 ? (
+                    <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
+                      Användarnamnet måste vara mellan 2 och 32 tecken långt.
+                    </p>
+                  ) : null}
+                  {this.state.invalidPassword === 2 ? (
+                    <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
+                      Lösenordet måste vara mellan 3 och 100 tecken långt.
+                    </p>
+                  ) : this.state.invalidPassword === 1 ? (
+                    <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
+                      Lösenordet får inte innehålla mellanslag.
                     </p>
                   ) : null}
                   <FormControl
@@ -147,13 +201,14 @@ export class loginScreen extends React.Component {
                     name="password"
                     placeholder="Lösenord"
                     value={this.state.password}
-                    onChange={this.handleInputChange}
+                    onChange={this.handleInputPasswordChange}
                   />
                 </FormGroup>
                 <FormControl
                   type="hidden"
                   name="_csrf"
                   value={this.state._csrf}
+                  onChange={this.handleInputPasswordChange}
                 />
                 <FormGroup>
                   <Button
@@ -162,7 +217,12 @@ export class loginScreen extends React.Component {
                     bsStyle="primary"
                     name="login"
                     type="submit"
-                    disabled={!this.state.username || !this.state.password}
+                    disabled={
+                      !this.state.username ||
+                      !this.state.password ||
+                      this.state.invalidUsername !== 0 ||
+                      this.state.invalidPassword !== 0
+                    }
                   >
                     Logga in
                   </Button>{' '}
@@ -172,7 +232,12 @@ export class loginScreen extends React.Component {
                     bsStyle="success"
                     name="register"
                     type="submit"
-                    disabled={!this.state.username || !this.state.password || this.state.invalidUsername}
+                    disabled={
+                      !this.state.username ||
+                      !this.state.password ||
+                      this.state.invalidUsername !== 0 ||
+                      this.state.invalidPassword !== 0
+                    }
                   >
                     Registrera
                   </Button>{' '}
