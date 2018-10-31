@@ -23,7 +23,7 @@ import startScreen from './screens/app/screens/start';
 import Utility from './shared/util/Utility';
 import { GakuseiNav, Reducers } from './screens/app/components/GakuseiNav';
 import { translate, Trans } from 'react-i18next';
-import { settingsScreen } from './screens/app/screens/settings/settingsScreen';
+import settingsScreen from './screens/app/screens/settings/';
 
 const AppScreenRoutered = withRouter(AppScreen);
 

@@ -25,7 +25,7 @@ i18n.use(LanguageDetector).init({
         gakuseiSettings: '',
         'gakuseiSettings.settings': 'Inställningar',
         'gakuseiSettings.languageOption': 'Språkalternativ',
-        'gakuseiSettings.defaultLanguage': 'Standardspråk',
+        'gakuseiSettings.defaultLanguage': 'Standardspråk ',
 
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': 'Om Gakusei',
@@ -227,6 +227,12 @@ i18n.use(LanguageDetector).init({
         'gakuseiNav.settings': 'Settings',
         'gakuseiNav.swe': 'Swedish',
         'gakuseiNav.jp': 'Japanese',
+
+        gakuseiSettings: '',
+        'gakuseiSettings.settings': 'Settings',
+        'gakuseiSettings.languageOption': 'Language options',
+        'gakuseiSettings.defaultLanguage': 'Default language ',
+
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': 'About Gakusei',
         'aboutGakusei.aboutGakusei.p':
@@ -486,6 +492,11 @@ i18n.use(LanguageDetector).init({
         'aboutGakusei.finishScreen.Right': '右',
         'aboutGakusei.finishScreen.answer': '返信 :',
         'aboutGakusei.finishScreen.youAnswered': 'あなたは答えました: ',
+
+        gakuseiSettings: '',
+        'gakuseiSettings.settings': '設定',
+        'gakuseiSettings.languageOption': '言語オプション',
+        'gakuseiSettings.defaultLanguage': 'デフォルト言語 ',
 
         cards: '',
         'cards.flashcard.turnCard': 'カードを回す',
