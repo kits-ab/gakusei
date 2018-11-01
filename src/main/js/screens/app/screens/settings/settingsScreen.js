@@ -12,7 +12,10 @@ export class settingsScreen extends React.Component {
     super(props);
 
     this.state = {
-      options: { reading: { text: 'Japanska' }, swedish: { text: 'Svenska' } }
+      options: {
+        reading: { text: `${this.translate('gakuseiNav.jp')}` },
+        swedish: { text: `${this.translate('gakuseiNav.swe')}` }
+      }
     };
   }
   HandleSelect(languageType, input) {
