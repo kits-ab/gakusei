@@ -13,9 +13,8 @@ export class DisplayQuestion extends React.Component {
       const inflection = this.props.inflection[0];
       return (
         <p className="question__text question__text--type-verb">
-          Ange böjningen för: <strong>{this.props.secondaryText} </strong>
-          ({text}, {swedishText})
-          <br />på formen: <strong> {inflection} </strong>
+          Ange böjningen för: <strong>{this.props.secondaryText} </strong>({text}, {swedishText})<br />
+          på formen: <strong> {inflection} </strong>
         </p>
       );
     } else if (this.props.secondaryText && this.props.secondaryText !== text) {
@@ -70,7 +69,7 @@ export class DisplayQuestion extends React.Component {
               className="question__action"
               bsStyle="info"
               bsSize="xsmall"
-              onClick={() => Speech.say(this.props.primaryText)}
+              onClick={() => responsiveVoice.speak(this.props.primaryText, 'Japanese Female')}
             >
               <FontAwesomeIcon icon={faVolumeUp} />
             </Button>
