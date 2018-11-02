@@ -2,6 +2,7 @@ import * as Security from '../../../../shared/reducers/Security';
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import Utility from '../../../../shared/util/Utility';
 import { Col, DropdownButton, Grid, MenuItem, FormGroup } from 'react-bootstrap';
+
 import { translate } from 'react-i18next';
 import { AppScreen } from '../../AppScreen';
 
@@ -68,6 +69,7 @@ export class settingsScreen extends React.Component {
     return (
       <FormGroup controlId="languageSelect">
         <span>{this.translate('gakuseiSettings.defaultLanguage')}</span>
+
         <SelectionButton
           key={'UIlang'}
           title={this.state.options[this.props.questionType].text}

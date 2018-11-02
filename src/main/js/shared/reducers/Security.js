@@ -279,7 +279,7 @@ export function requestUserRegister(data, redirectUrl) {
         credentials: 'same-origin',
         headers: {
           Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+          'Content-Type': 'text/plain; charset=utf-8'
         },
         body: formBody
       }).then(response => {

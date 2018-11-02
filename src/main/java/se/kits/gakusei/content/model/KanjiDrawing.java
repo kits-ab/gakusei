@@ -19,7 +19,7 @@ public class KanjiDrawing implements Serializable {
     @Column(nullable = false, name = "timestamp")
     private Timestamp timestamp;
 
-    @Column(nullable = false, name = "image_data")
+    @Column(name = "image_data")
     private String imageData;
 
     @JoinColumn(name = "user_ref")

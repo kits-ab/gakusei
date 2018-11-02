@@ -64,6 +64,9 @@ export class playScreen extends React.Component {
 
     if (this.props.match.params.type === 'kanji') {
       this.props.addUserKanjiDrawing(this.state.lastDrawnCanvas);
+      this.setState({
+        lastDrawnCanvas: null
+      });
     }
 
     if (textInputPlayType) {
