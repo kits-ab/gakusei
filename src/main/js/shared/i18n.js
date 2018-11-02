@@ -5,7 +5,7 @@ i18n.use(LanguageDetector).init({
   lng: 'sv',
   // we init with resources
   resources: {
-    se: {
+    sv: {
       translations: {
         gakuseiNav: '',
         'gakuseiNav.guessPlay': 'Gissa ordet',
@@ -630,7 +630,7 @@ i18n.use(LanguageDetector).init({
       }
     }
   },
-  fallbackLng: 'se',
+  fallbackLng: 'sv',
   debug: true,
 
   // have a common namespace used around the full app

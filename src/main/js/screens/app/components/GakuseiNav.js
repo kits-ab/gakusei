@@ -105,7 +105,7 @@ export class GakuseiNav extends React.Component {
                   alt="sweden"
                 />
               </MenuItem>
-              <MenuItem onClick={() => changeLanguage('jp')}>
+              {/*<MenuItem onClick={() => changeLanguage('jp')}>
                 <img
                   height="30px"
                   src="/img/flags/japan-flag.svg"
@@ -118,7 +118,7 @@ export class GakuseiNav extends React.Component {
                   src="/img/flags/eng-flag.svg"
                   alt="japan"
                 />
-              </MenuItem>
+              </MenuItem> */}
             </NavDropdown>
           </Nav>
 
