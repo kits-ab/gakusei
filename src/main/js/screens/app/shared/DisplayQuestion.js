@@ -69,7 +69,7 @@ export class DisplayQuestion extends React.Component {
               className="question__action"
               bsStyle="info"
               bsSize="xsmall"
-              onClick={() => responsiveVoice.speak(this.props.primaryText, 'Japanese Female')}
+              onClick={() => Speech.say(this.props.primaryText)}
             >
               <FontAwesomeIcon icon={faVolumeUp} />
             </Button>
