@@ -67,11 +67,11 @@ export class loginScreen extends React.Component {
   }
 
   validatePassword(e) {
-    if (e.target.value.length < 3 || e.target.value.length > 100) {
+    if (e.target.value.length < 2 || e.target.value.length > 100) {
       this.setState({
         invalidPassword: 2
       });
-    } else if (e.target.value.includes(' ') && !(e.target.value.length < 3 || e.target.value.length > 100)) {
+    } else if (e.target.value.includes(' ') && !(e.target.value.length < 2 || e.target.value.length > 100)) {
       this.setState({
         invalidPassword: 1
       });
