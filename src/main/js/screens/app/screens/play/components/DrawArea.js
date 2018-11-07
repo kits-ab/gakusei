@@ -281,7 +281,7 @@ DrawArea.defaultProps = {
 };
 
 DrawArea.propTypes = {
-  signToDraw: PropTypes.string,
+  signToDraw: PropTypes.string.isRequired,
   matches: PropTypes.arrayOf(PropTypes.object).isRequired,
   highlightErrors: PropTypes.bool,
   newMatch: PropTypes.func.isRequired,
