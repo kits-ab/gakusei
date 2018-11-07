@@ -78,6 +78,7 @@ class WriteCard extends React.Component {
           </Row>
           <Row>
             <DrawArea
+              vetEj={this.props.vetEj}
               signToDraw={this.props.correctAlternative[this.props.correctAlternative.length - 1]}
               newMatch={this.onMatch}
               matches={this.state.matches}

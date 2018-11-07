@@ -53,7 +53,7 @@ export default class FlashButtonSet extends React.Component {
           md={3}
         >
           <AnswerButton
-            answerText={'Vet ej'}
+            answerText={'Fel svar'}
             primaryText={'Nej'}
             onAnswerClick={this.props.clickCallback}
             buttonStyle={'danger'}

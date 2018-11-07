@@ -87,21 +87,16 @@ export default class DrawArea extends React.Component {
         data: {
           answerPoints: this.state.correctAlternative.pathPoints,
           existingPoints: this.state.userAnswer.existingPoints,
-          difficulty: this.props.difficulty
+          difficulty: this.props.difficulty,
+          vetEj: this.props.vetEj
         },
         action(canvas, data) {
-          let lineColor = 'LightGray';
-          let linewidth = 10;
-
-          !['medium', 'hard'].includes(data.difficulty) || data.answerPoints.length === data.existingPoints.length
+          const lineColor = 'LightGray';
+          const linewidth = 10;
+          !['medium', 'hard'].includes(data.difficulty) ||
+          data.answerPoints.length === data.existingPoints.length ||
+          data.vetEj
             ? data.answerPoints.forEach((answerPoint, i) => {
-              if (i >= data.existingPoints.length) {
-                lineColor = 'LightGray';
-                linewidth = 10;
-              } else {
-                lineColor = 'LightGray';
-                linewidth = 10;
-              }
               this.drawPoints(data.answerPoints[i], lineColor, linewidth);
             })
             : null;
@@ -286,7 +281,7 @@ DrawArea.defaultProps = {
 };
 
 DrawArea.propTypes = {
-  signToDraw: PropTypes.string.isRequired,
+  signToDraw: PropTypes.string,
   matches: PropTypes.arrayOf(PropTypes.object).isRequired,
   highlightErrors: PropTypes.bool,
   newMatch: PropTypes.func.isRequired,
