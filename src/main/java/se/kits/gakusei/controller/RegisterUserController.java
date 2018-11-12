@@ -48,12 +48,11 @@ public class RegisterUserController {
 
 
         if(!Pattern.matches("^[a-zA-Z0-9]+$",username)){
-            return new ResponseEntity<String>("Användarnamnet tillåter endast bokstäver och siffror.",
-                    HttpStatus.NOT_ACCEPTABLE);
+                return new ResponseEntity<String>("Användarnamnet tillåter endast bokstäver och siffror.",
+                        HttpStatus.NOT_ACCEPTABLE);
         }
         if(username.length() < 2 || username.length() > 32){
-            return new ResponseEntity<String>(
-                    "Användarnamnet måste vara mellan 2 och 32 tecken långt.",
+            return new ResponseEntity<String>("Användarnamnet måste vara mellan 2 och 32 tecken långt.",
                     HttpStatus.NOT_ACCEPTABLE
             );
         }

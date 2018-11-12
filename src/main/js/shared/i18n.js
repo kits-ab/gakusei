@@ -1,11 +1,14 @@
 import i18n from 'i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import languageDetector from 'i18next-browser-languagedetector';
 
-i18n.use(LanguageDetector).init({
-  lng: 'sv',
+i18n.use(languageDetector).init({
+  lngs: ['se', 'jp', 'en'],
+  fallbackLng: 'se',
+  debug: true,
+
   // we init with resources
   resources: {
-    sv: {
+    se: {
       translations: {
         gakuseiNav: '',
         'gakuseiNav.guessPlay': 'Gissa ordet',
@@ -21,6 +24,7 @@ i18n.use(LanguageDetector).init({
         'gakuseiNav.settings': 'Inställningar',
         'gakuseiNav.swe': 'Svenska',
         'gakuseiNav.jp': 'Japanska',
+        test: 'Användarnamnet måste vara mellan 2 och 32 tecken långt.',
 
         gakuseiSettings: '',
         'gakuseiSettings.settings': 'Inställningar',
@@ -630,23 +634,10 @@ i18n.use(LanguageDetector).init({
       }
     }
   },
-  fallbackLng: 'sv',
-  debug: true,
-
-  // have a common namespace used around the full app
-  ns: ['translations'],
-  defaultNS: 'translations',
 
   keySeparator: false, // we use content as keys
 
-  interpolation: {
-    escapeValue: false, // not needed for react!!
-    formatSeparator: ','
-  },
-
-  react: {
-    wait: true
-  }
+  detectBrowserLanguage: true
 });
 
 export default i18n;
