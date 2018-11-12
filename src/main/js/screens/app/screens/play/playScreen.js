@@ -31,7 +31,8 @@ export class playScreen extends React.Component {
 
     this.state = {
       showHint: false,
-      lastDrawnCanvas: null
+      lastDrawnCanvas: null,
+      vetEj: false
     };
   }
 
@@ -62,6 +63,12 @@ export class playScreen extends React.Component {
       this.props.verifyUserLoggedIn();
     });
 
+    if (answer === 'Vet ej') {
+      this.setState({
+        vetEj: true
+      });
+    }
+
     if (this.props.match.params.type === 'kanji') {
       this.props.addUserKanjiDrawing(this.state.lastDrawnCanvas);
       this.setState({
@@ -80,14 +87,20 @@ export class playScreen extends React.Component {
       }
     } else if (!textInputPlayType && this.props.currentQuestionIndex < this.props.lessonLength - 1) {
       setTimeout(() => {
+        this.setState({
+          vetEj: false
+        });
         this.props.incrementQuestionIndex();
         this.props.processCurrentQuestion();
         this.props.setAllButtonsDisabledState(false);
-      }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
+      }, window.customDelay /* not really accessible, just for e2e testing */ || 1500);
     } else {
       setTimeout(() => {
+        this.setState({
+          vetEj: false
+        });
         this.props.setPageByName(`/finish/${this.props.match.params.type}`);
-      }, window.customDelay /* not really accessible, just for e2e testing */ || 1100);
+      }, window.customDelay /* not really accessible, just for e2e testing */ || 1500);
     }
   }
 
@@ -147,6 +160,7 @@ export class playScreen extends React.Component {
       case 'kanji':
         playCard = (
           <WriteCard
+            vetEj={this.state.vetEj}
             question={this.props.currentQuestion}
             answerType={this.props.answerType}
             questionType={this.props.questionType}

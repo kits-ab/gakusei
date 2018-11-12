@@ -68,11 +68,11 @@ export class loginScreen extends React.Component {
   }
 
   validatePassword(e) {
-    if (e.target.value.length < 3 || e.target.value.length > 100) {
+    if (e.target.value.length < 2 || e.target.value.length > 100) {
       this.setState({
         invalidPassword: 2
       });
-    } else if (e.target.value.includes(' ') && !(e.target.value.length < 3 || e.target.value.length > 100)) {
+    } else if (e.target.value.includes(' ') && !(e.target.value.length < 2 || e.target.value.length > 100)) {
       this.setState({
         invalidPassword: 1
       });
@@ -174,7 +174,7 @@ export class loginScreen extends React.Component {
                     </p>
                   ) : this.state.invalidPassword === 2 ? (
                     <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
-                      Lösenordet måste vara mellan 3 och 100 tecken långt.
+                      Lösenordet måste vara mellan 2 och 100 tecken långt.
                     </p>
                   ) : this.state.invalidPassword === 1 ? (
                     <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>

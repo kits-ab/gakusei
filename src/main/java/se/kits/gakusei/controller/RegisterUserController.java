@@ -44,7 +44,6 @@ public class RegisterUserController {
                 decodedInput.indexOf("&password="));
         String password = decodedInput.substring(decodedInput.indexOf("&password=")+("&password=").length(),
                 decodedInput.lastIndexOf("&remember"));
-        System.out.println("username: " + username + "\npassword: " + password);
 
 
         if(!Pattern.matches("^[a-zA-Z0-9]+$",username)){
@@ -61,8 +60,8 @@ public class RegisterUserController {
             return new ResponseEntity<String>("Mellanslag är inte tillåtet i lösenordet.",
                     HttpStatus.NOT_ACCEPTABLE);
         }
-        if (password.length() > 100 || password.length() < 3){
-            return new ResponseEntity<String>("Lösenordet måste vara mellan 3 och 100 tecken långt.",
+        if (password.length() > 100 || password.length() < 2){
+            return new ResponseEntity<String>("Lösenordet måste vara mellan 2 och 100 tecken långt.",
                     HttpStatus.NOT_ACCEPTABLE);
         }
 
