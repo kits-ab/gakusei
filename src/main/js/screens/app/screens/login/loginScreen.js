@@ -166,21 +166,22 @@ export class loginScreen extends React.Component {
                 <FormGroup>
                   {this.state.invalidUsername === 2 ? (
                     <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
-                      Användarnamnet får endast innehålla bokstäver och siffror.
+                      {t('loginScreen.login.lettersAndNumbers')}
                     </p>
                   ) : this.state.invalidUsername === 1 ? (
                     <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
-                      Användarnamnet måste vara mellan 2 och 32 tecken långt.
+                      {t('loginScreen.login.username-2-32')}
                     </p>
                   ) : this.state.invalidPassword === 2 ? (
                     <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
-                      Lösenordet måste vara mellan 2 och 100 tecken långt.
+                      {t('loginScreen.login.password-2-100')}
                     </p>
                   ) : this.state.invalidPassword === 1 ? (
                     <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
-                      Lösenordet får inte innehålla mellanslag.
+                      {t('loginScreen.login.passwordNoSpace')}
                     </p>
                   ) : null}
+
                   <FormControl
                     type="text"
                     name="username"
