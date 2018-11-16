@@ -101,14 +101,14 @@ public class EventControllerTest {
         when(nuggetTypeRepository.findById(eventDTO.getNuggetcategoryAsInt())).thenReturn(nuggetType);
         when(eventRepository.save(any(Event.class))).thenReturn(event);
 
-        ResponseEntity<Event> re = eventController.addEvent(eventDTO);
+        ResponseEntity<?> re = eventController.addEvent(eventDTO);
         assertEquals(200, re.getStatusCodeValue());
     }
 
     @Test
     public void testAddEventNoUser() throws Exception {
         when(userRepository.findByUsername(username)).thenReturn(null);
-        ResponseEntity<Event> re = eventController.addEvent(eventDTO);
+        ResponseEntity<?> re = eventController.addEvent(eventDTO);
         assertEquals(500, re.getStatusCodeValue());
     }
 }
