@@ -5,11 +5,18 @@ import { Link, withRouter } from 'react-router-dom';
 import Utility from '../../../shared/util/Utility';
 import * as Security from '../../../shared/reducers/Security';
 import * as Lessons from '../../../shared/reducers/Lessons';
+import { translate, Trans } from 'react-i18next';
 
 export const Reducers = [Lessons, Security];
 
 export class GakuseiNav extends React.Component {
   render() {
+    const changeLanguage = lng => {
+      i18n.changeLanguage(lng);
+    };
+
+    const { t, i18n } = this.props;
+
     return (
       <Navbar
         inverse
@@ -35,17 +42,17 @@ export class GakuseiNav extends React.Component {
             <Nav>
               <NavDropdown
                 className="glosorDropdown"
-                title="Glosor"
+                title={t('gakuseiNav.vocablePlay')}
                 id="basic-nav-dropdown"
               >
                 <LinkContainer to="/select/guess">
-                  <MenuItem className="guessPlay">Gissa ordet</MenuItem>
+                  <MenuItem className="guessPlay">{t('gakuseiNav.guessPlay')}</MenuItem>
                 </LinkContainer>
                 {/* <LinkContainer to="/select/translate">
                   <MenuItem className="translatePlay">Översätt ordet</MenuItem>
                 </LinkContainer> */}
                 <LinkContainer to="/select/flashcards">
-                  <MenuItem className="flashcardPlay">Bildkort</MenuItem>
+                  <MenuItem className="flashcardPlay">{t('gakuseiNav.flashcardPlay')}</MenuItem>
                 </LinkContainer>
               </NavDropdown>
               {/* <NavDropdown
@@ -62,25 +69,58 @@ export class GakuseiNav extends React.Component {
               </NavDropdown> */}
 
               <LinkContainer to="/select/kanji">
-                <NavItem className="kanjiPlay">Kanji</NavItem>
+                <NavItem className="kanjiPlay">{t('gakuseiNav.kanjiPlay')}</NavItem>
               </LinkContainer>
               <LinkContainer to="/select/quiz">
-                <NavItem className="quizPlay">Quiz</NavItem>
+                <NavItem className="quizPlay">{t('gakuseiNav.quizPlay')}</NavItem>
               </LinkContainer>
               {/* <LinkContainer to="/lists">
                   <NavItem>Lista ord</NavItem>
                 </LinkContainer> */}
               <LinkContainer to="/about">
-                <NavItem className="about">Om Gakusei</NavItem>
+                <NavItem className="about">{t('gakuseiNav.about')}</NavItem>
               </LinkContainer>
             </Nav>
           ) : (
             <Nav>
               <LinkContainer to="/about">
-                <NavItem>Om Gakusei</NavItem>
+                <NavItem>{t('gakuseiNav.about')}</NavItem>
               </LinkContainer>
             </Nav>
           )}
+          <Nav>
+            <NavDropdown
+              className="glosorDropdown"
+              id="basic-nav-dropdown"
+              title={<img
+                src="/img/flags/flags.svg"
+                alt="select language"
+                height="20px"
+                     />}
+            >
+              <MenuItem onClick={() => changeLanguage('se')}>
+                <img
+                  height="30px"
+                  src="/img/flags/sweden-flag.svg"
+                  alt="sweden"
+                />
+              </MenuItem>
+              {/*<MenuItem onClick={() => changeLanguage('jp')}>
+                <img
+                  height="30px"
+                  src="/img/flags/japan-flag.svg"
+                  alt="japan"
+                />
+              </MenuItem>
+              <MenuItem onClick={() => changeLanguage('en')}>
+                <img
+                  height="30px"
+                  src="/img/flags/eng-flag.svg"
+                  alt="japan"
+                />
+              </MenuItem> */}
+            </NavDropdown>
+          </Nav>
 
           <Nav pullRight>
             {this.props.loggedIn ? (
@@ -91,16 +131,16 @@ export class GakuseiNav extends React.Component {
                   id="basic-nav-dropdown"
                 >
                   <LinkContainer to="/settings">
-                    <MenuItem className="settings">Inställningar</MenuItem>
+                    <MenuItem className="settings">{t('gakuseiNav.settings')}</MenuItem>
                   </LinkContainer>
                   <LinkContainer to={{ pathname: '/logout', query: { currentUrl: this.props.location.pathname } }}>
-                    <NavItem className="logout-button">Logga ut</NavItem>
+                    <NavItem className="logout-button">{t('gakuseiNav.logout')}</NavItem>
                   </LinkContainer>
                 </NavDropdown>
               </Nav>
             ) : (
               <LinkContainer to={`/login${this.props.location.search}`}>
-                <NavItem className="menu-button">Logga in / Registrera</NavItem>
+                <NavItem className="menu-button">{t('gakuseiNav.signIn')}</NavItem>
               </LinkContainer>
             )}
           </Nav>
@@ -113,4 +153,4 @@ export class GakuseiNav extends React.Component {
 GakuseiNav.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
 GakuseiNav.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
-export default Utility.superConnect(this, Reducers)(withRouter(GakuseiNav));
+export default translate('translations')(Utility.superConnect(this, Reducers)(withRouter(GakuseiNav)));

@@ -1,7 +1,8 @@
 import { Col } from 'react-bootstrap';
 import AnswerButton from './AnswerButton';
+import { translate } from 'react-i18next';
 
-export default class FlashButtonSet extends React.Component {
+export class FlashButtonSet extends React.Component {
   constructor(props) {
     super(props);
     this.onKeys = this.onKeys.bind(this);
@@ -26,6 +27,7 @@ export default class FlashButtonSet extends React.Component {
   }
 
   render() {
+    const { t, i18n } = this.props;
     return (
       <div>
         <Col
@@ -38,7 +40,7 @@ export default class FlashButtonSet extends React.Component {
         >
           <AnswerButton
             answerText={this.props.correctAlternative[0]}
-            primaryText={'Ja'}
+            primaryText={t('cards.yes')}
             onAnswerClick={this.props.clickCallback}
             buttonStyle={'success'}
             buttonSize="small"
@@ -53,8 +55,8 @@ export default class FlashButtonSet extends React.Component {
           md={3}
         >
           <AnswerButton
-            answerText={'Fel svar'}
-            primaryText={'Nej'}
+            answerText={'Vet ej'}
+            primaryText={t('cards.no')}
             onAnswerClick={this.props.clickCallback}
             buttonStyle={'danger'}
             buttonSize="small"
@@ -76,3 +78,5 @@ FlashButtonSet.propTypes = {
   answerType: PropTypes.string.isRequired,
   clickCallback: PropTypes.func.isRequired
 };
+
+export default translate('translations')(FlashButtonSet);
