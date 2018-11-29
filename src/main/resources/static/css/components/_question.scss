@@ -11,10 +11,10 @@
     }
 
     &__text {
-        font-size: 225% !important;
+        font-size: 150% !important;
 
         &--type-verb {
-            font-size: 100% !important;
+            font-size: 67% !important;
         }
     }
 
@@ -26,10 +26,10 @@
 @media screen and (min-width: $small-device-breaking-point) {
     .question {
         &__text {
-            font-size: 300% !important;
+            font-size: 201% !important;
 
             &--type-verb {
-                font-size: 150% !important;
+                font-size: 100% !important;
             }
         }
     }

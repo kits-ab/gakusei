@@ -2,7 +2,8 @@ import 'whatwg-fetch';
 import { push } from 'react-router-redux';
 import { REHYDRATE } from 'redux-persist/constants';
 import Utility from '../../shared/util/Utility';
-import { receiveFavoriteLesson, SET_FETCHING_LESSON, setAddressedQuestions } from './Lessons';
+import { translate, Trans } from 'react-i18next';
+import i18n from 'i18next';
 
 // ----------------
 // DEFAULT STATE
@@ -226,10 +227,22 @@ export function requestUserLogin(data, redirectUrl) {
       }).then(response => {
         switch (response.status) {
           case 403:
-            dispatch(receiveAuthResponse(false, 'Felaktiga uppgifter, vänligen kontrollera formuläret.'));
+            if (i18n.language === 'se') {
+              dispatch(receiveAuthResponse(false, 'Felaktiga uppgifter, vänligen kontrollera formuläret.'));
+            } else if (i18n.language === 'jp') {
+              dispatch(receiveAuthResponse(false, '情報が正しくない場合は、フォームを確認してください。'));
+            } else {
+              dispatch(receiveAuthResponse(false, 'Incorrect information, please check the form.'));
+            }
             break;
           case 200:
-            dispatch(receiveAuthResponse(true, 'Inloggad, tar dig vidare..'));
+            if (i18n.language === 'se') {
+              dispatch(receiveAuthResponse(true, 'Inloggad, tar dig vidare..'));
+            } else if (i18n.language === 'jp') {
+              dispatch(receiveAuthResponse(true, 'ログイン'));
+            } else {
+              dispatch(receiveAuthResponse(true, 'Logging in..'));
+            }
             dispatch(setRedirectUrl(null));
             dispatch(fetchLoggedInUser()).then(() => {
               dispatch(setPageByName(redirectUrl || '/'));
@@ -241,7 +254,13 @@ export function requestUserLogin(data, redirectUrl) {
         }
       });
     } catch (err) {
-      dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
+      if (i18n.language === 'se') {
+        dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
+      } else if (i18n.language === 'jp') {
+        dispatch(receiveAuthResponse(false, '技術的なエラー。 後でもう一度お試しください。'));
+      } else {
+        dispatch(receiveAuthResponse(false, 'Technical issue. Please try again later.'));
+      }
     } finally {
       dispatch(setLoggingIn(false));
     }
@@ -260,19 +279,40 @@ export function requestUserRegister(data, redirectUrl) {
         credentials: 'same-origin',
         headers: {
           Accept: 'application/xhtml+xml, application/xml, text/plain, text/html, */*',
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+          'Content-Type': 'text/plain; charset=utf-8'
         },
         body: formBody
       }).then(response => {
         switch (response.status) {
           case 406:
-            dispatch(receiveAuthResponse(false, 'Användarnamnet måste vara mellan 2 och 32 tecken.'));
+            if (i18n.language === 'se') {
+              dispatch(receiveAuthResponse(false, 'Användarnamnet måste vara mellan 2 och 32 tecken.'));
+            } else if (i18n.language === 'jp') {
+              dispatch(receiveAuthResponse(false, 'ユーザー名は2〜32文字でなければなりません。'));
+            } else {
+              dispatch(receiveAuthResponse(false, 'The username must be between 2 and 32 characters.'));
+            }
+
             break;
           case 422:
-            dispatch(receiveAuthResponse(false, 'Användarnamnet finns tyvärr redan, prova ett annat.'));
+            if (i18n.language === 'se') {
+              dispatch(receiveAuthResponse(false, 'Användarnamnet finns tyvärr redan, prova ett annat.'));
+            } else if (i18n.language === 'jp') {
+              dispatch(receiveAuthResponse(false, 'ユーザー名はすでに存在し、別のユーザー名を試してください。'));
+            } else {
+              dispatch(receiveAuthResponse(false, 'The username already exists, try another.'));
+            }
+
             break;
           case 201:
-            dispatch(receiveAuthResponse(true, 'Registeringen lyckades, loggar in..'));
+            if (i18n.language === 'se') {
+              dispatch(receiveAuthResponse(true, 'Registreringen lyckades, loggar in..'));
+            } else if (i18n.language === 'jp') {
+              dispatch(receiveAuthResponse(true, '登録は成功し、ログインしました。'));
+            } else {
+              dispatch(receiveAuthResponse(true, 'The registration was successful, logging in.'));
+            }
+
             setTimeout(() => dispatch(requestUserLogin(formBody, redirectUrl)), 1500);
             break;
           default:
@@ -283,7 +323,13 @@ export function requestUserRegister(data, redirectUrl) {
         dispatch(setRegistering(false));
       });
     } catch (err) {
-      dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
+      if (i18n.language === 'se') {
+        dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
+      } else if (i18n.language === 'jp') {
+        dispatch(receiveAuthResponse(false, '技術的なエラー。 後でもう一度お試しください。'));
+      } else {
+        dispatch(receiveAuthResponse(false, 'Technical issue. Please try again later.'));
+      }
       dispatch(setRegistering(false));
     }
   };

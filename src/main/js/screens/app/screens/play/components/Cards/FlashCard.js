@@ -3,6 +3,7 @@ import FlashButtonSet from '../FlashButtonSet';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 import AnswerButton from '../AnswerButton';
 import React from 'react';
+import { translate } from 'react-i18next';
 
 class FlashCard extends React.Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class FlashCard extends React.Component {
   }
 
   render() {
+    const { t, i18n } = this.props;
     return (
       <Row>
         <Col
@@ -70,7 +72,7 @@ class FlashCard extends React.Component {
                   japaneseCharacters={this.props.questionType === 'reading' && this.props.cardType !== 'quiz'}
                   showKanji
                 />
-                Kunde du svaret?
+                {t('cards.flashcard.couldYouAnswer')}
                 <FlashButtonSet
                   correctAlternative={this.props.correctAlternative}
                   buttonStyles={this.props.question.buttonStyles}
@@ -90,12 +92,14 @@ class FlashCard extends React.Component {
               bsSize="large"
               onClick={() => this.flipIt()}
             >
-              &nbsp;Vänd på kortet&nbsp;
+              &nbsp;
+              {t('cards.flashcard.turnCard')}
+              &nbsp;
             </Button>
             <div style={{ width: '40%', margin: '5% auto' }}>
               <AnswerButton
-                answerText={'Vet ej'}
-                primaryText={'Vet ej'}
+                answerText={t('aboutGakusei.finishScreen.dontknow')}
+                primaryText={t('aboutGakusei.finishScreen.dontknow')}
                 onAnswerClick={this.props.clickCallback}
                 buttonStyle={'danger'}
                 buttonSize="small"
@@ -131,4 +135,4 @@ FlashCard.propTypes = {
   questionAnswered: PropTypes.bool.isRequired
 };
 
-export default FlashCard;
+export default translate('translations')(FlashCard);

@@ -87,21 +87,16 @@ export default class DrawArea extends React.Component {
         data: {
           answerPoints: this.state.correctAlternative.pathPoints,
           existingPoints: this.state.userAnswer.existingPoints,
-          difficulty: this.props.difficulty
+          difficulty: this.props.difficulty,
+          vetEj: this.props.vetEj
         },
         action(canvas, data) {
-          let lineColor = 'LightGray';
-          let linewidth = 10;
-
-          !['medium', 'hard'].includes(data.difficulty) || data.answerPoints.length === data.existingPoints.length
+          const lineColor = 'LightGray';
+          const linewidth = 10;
+          !['medium', 'hard'].includes(data.difficulty) ||
+          data.answerPoints.length === data.existingPoints.length ||
+          data.vetEj
             ? data.answerPoints.forEach((answerPoint, i) => {
-              if (i >= data.existingPoints.length) {
-                lineColor = 'LightGray';
-                linewidth = 10;
-              } else {
-                lineColor = 'LightGray';
-                linewidth = 10;
-              }
               this.drawPoints(data.answerPoints[i], lineColor, linewidth);
             })
             : null;
@@ -216,8 +211,9 @@ export default class DrawArea extends React.Component {
         correctLines: this.state.correctAlternative.pathPoints,
         userLines: this.state.userAnswer.existingPoints
       };
+      this.props.canvasUrlCallback(JSON.stringify(data.userLines));
 
-      const isLineIntersectingOtherLinesResult = rules.isLineIntersectingOtherLines({}, data);
+      //const isLineIntersectingOtherLinesResult = rules.isLineIntersectingOtherLines({}, data);
 
       const isLineAccurateResult = rules.isLineAccurate(
         { requiredAccuracyPercentage: 50, strictnessPercentage: 20 },
@@ -275,7 +271,6 @@ export default class DrawArea extends React.Component {
         newUserPath={this.onNewUserPath}
         drawActions={this.getDrawActions()}
         inputDisabled={this.props.buttonsDisabled}
-        canvasUrlCallback={this.props.canvasUrlCallback}
       />
     );
   }

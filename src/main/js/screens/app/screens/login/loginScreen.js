@@ -5,6 +5,7 @@ import { Checkbox, Button, Col, Row, Grid, Form, FormGroup, FormControl, Control
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
 import * as Security from '../../../../shared/reducers/Security';
+import { translate } from 'react-i18next';
 
 export const Reducers = [Security];
 
@@ -19,12 +20,14 @@ export class loginScreen extends React.Component {
       _csrf: getCSRF(),
       submitLogin: true,
       canSubmit: false,
-      invalidUsername: false
+      invalidUsername: 0,
+      invalidPassword: 0
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputPasswordChange = this.handleInputPasswordChange.bind(this);
   }
 
   componentWillMount() {
@@ -55,20 +58,58 @@ export class loginScreen extends React.Component {
     this.setState({ checkboxChecked: e.target.checked });
   }
 
+  handleInputPasswordChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+    if (e.target.name === 'password') {
+      this.validatePassword(e);
+    }
+  }
+
+  validatePassword(e) {
+    if (e.target.value.length < 2 || e.target.value.length > 100) {
+      this.setState({
+        invalidPassword: 2
+      });
+    } else if (e.target.value.includes(' ') && !(e.target.value.length < 2 || e.target.value.length > 100)) {
+      this.setState({
+        invalidPassword: 1
+      });
+    } else {
+      this.setState({
+        invalidPassword: 0
+      });
+    }
+  }
+
   handleInputChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value
+    });
     if (e.target.name === 'username') {
       this.validateUsername(e);
     }
   }
   validateUsername(e) {
     const regex = RegExp('[^A-Za-z0-9]+');
-    this.setState({ invalidUsername: regex.test(e.target.value) });
+    if (regex.test(e.target.value)) {
+      this.setState({
+        invalidUsername: 2
+      });
+    } else if (e.target.value.length < 2 || e.target.value.length > 32) {
+      this.setState({
+        invalidUsername: 1
+      });
+    } else {
+      this.setState({
+        invalidUsername: 0
+      });
+    }
   }
 
   handleSubmit(formData) {
     formData.preventDefault();
-
     if (this.state.submitLogin) {
       this.props.requestUserLogin(formData, this.props.redirectUrl || '/');
     } else {
@@ -93,6 +134,7 @@ export class loginScreen extends React.Component {
     );
   }
   render() {
+    const { t, i18n } = this.props;
     return (
       <Grid>
         <Row>
@@ -101,15 +143,9 @@ export class loginScreen extends React.Component {
             md={4}
           >
             <div>
-              <h4>Registrera dig snabbt och enkelt här</h4>
-              <p>
-                Vi sparar inga personuppgifter så var noga med att komma ihåg ditt lösenord då vi inte kan återställa
-                det åt dig.
-              </p>
-              <p>
-                Materialet är anpassat efter det svenska språket och du kan lära dig från svenska till japanska och
-                japanska till svenska
-              </p>
+              <h4>{t('loginScreen.registerTitel')}</h4>
+              <p>{t('loginScreen.p1')}</p>
+              <p>{t('loginScreen.p2')}</p>
             </div>
           </Col>
           <Col
@@ -122,21 +158,34 @@ export class loginScreen extends React.Component {
                   controlId="formBasicText"
                   validationState={this.getValidationState()}
                 >
-                  <legend>Logga in eller registrera dig</legend>
+                  <legend>{t('loginScreen.signUp')}</legend>
                   {this.props.authResponse && this.getValidationState() ? (
                     <ControlLabel name="authFeedback">{this.props.authResponse}</ControlLabel>
                   ) : null}
                 </FormGroup>
                 <FormGroup>
-                  {this.state.invalidUsername === true ? (
-                    <p style={{ margin: '5%', color: 'darkred', fontWeight: 'bold' }}>
-                      Användarnamnet får endast innehålla bokstäver och siffror.
+                  {this.state.invalidUsername === 2 ? (
+                    <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
+                      {t('loginScreen.login.lettersAndNumbers')}
+                    </p>
+                  ) : this.state.invalidUsername === 1 ? (
+                    <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
+                      {t('loginScreen.login.username-2-32')}
+                    </p>
+                  ) : this.state.invalidPassword === 2 ? (
+                    <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
+                      {t('loginScreen.login.password-2-100')}
+                    </p>
+                  ) : this.state.invalidPassword === 1 ? (
+                    <p style={{ marginBottom: '5%', color: 'darkred', fontWeight: 'bold' }}>
+                      {t('loginScreen.login.passwordNoSpace')}
                     </p>
                   ) : null}
+
                   <FormControl
                     type="text"
                     name="username"
-                    placeholder="Användarnamn"
+                    placeholder={t('loginScreen.Form.placeholderName')}
                     value={this.state.username}
                     onChange={this.handleInputChange}
                   />
@@ -146,9 +195,9 @@ export class loginScreen extends React.Component {
                   <FormControl
                     type="password"
                     name="password"
-                    placeholder="Lösenord"
+                    placeholder={t('loginScreen.Form.placehoolderPassword')}
                     value={this.state.password}
-                    onChange={this.handleInputChange}
+                    onChange={this.handleInputPasswordChange}
                   />
                 </FormGroup>
                 <FormControl
@@ -163,9 +212,14 @@ export class loginScreen extends React.Component {
                     bsStyle="primary"
                     name="login"
                     type="submit"
-                    disabled={!this.state.username || !this.state.password}
+                    disabled={
+                      !this.state.username ||
+                      !this.state.password ||
+                      this.state.invalidUsername !== 0 ||
+                      this.state.invalidPassword !== 0
+                    }
                   >
-                    Logga in
+                    {t('loginScreen.login.login')}
                   </Button>{' '}
                   <Button
                     label="login"
@@ -173,9 +227,14 @@ export class loginScreen extends React.Component {
                     bsStyle="success"
                     name="register"
                     type="submit"
-                    disabled={!this.state.username || !this.state.password || this.state.invalidUsername}
+                    disabled={
+                      !this.state.username ||
+                      !this.state.password ||
+                      this.state.invalidUsername !== 0 ||
+                      this.state.invalidPassword !== 0
+                    }
                   >
-                    Registrera
+                    {t('loginScreen.login.register')}
                   </Button>{' '}
                   <Checkbox
                     label="remember-me"
@@ -183,7 +242,7 @@ export class loginScreen extends React.Component {
                     checked={this.state.checkboxChecked}
                     onChange={this.handleChange}
                   >
-                    Håll mig inloggad
+                    {t('loginScreen.login.rememberMe')}
                   </Checkbox>{' '}
                 </FormGroup>
               </fieldset>
@@ -199,4 +258,4 @@ loginScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
 loginScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
-export default Utility.superConnect(this, Reducers)(loginScreen);
+export default translate('translations')(Utility.superConnect(this, Reducers)(loginScreen));

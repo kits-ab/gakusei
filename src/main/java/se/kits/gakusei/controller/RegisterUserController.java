@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
-import javax.validation.Valid;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.regex.Pattern;
 
 @Controller
 public class RegisterUserController {
@@ -22,56 +24,65 @@ public class RegisterUserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    private String decodedInput;
+
     @RequestMapping(value = "/registeruser", method = RequestMethod.POST)
     public ResponseEntity<String> registerUser(
-        @RequestBody
-        String input
+            @RequestBody
+                    String input
     ) {
         User user = null;
         User existingUser = null;
 
-        String[] values = input.split("&");
-        if (values != null && values.length > 1) // TODO: Validate User fields
-        {
-            String[] usernameKeyValue = values[0].split("=");
-            String[] passwordKeyValue = values[1].split("=");
-            if (usernameKeyValue.length > 1 && passwordKeyValue.length > 1) {
-                String username = usernameKeyValue[1];
-                String password = passwordKeyValue[1];
-                user = new User();
-                user.setUsername(username);
-                user.setPassword(passwordEncoder.encode(password));
-                user.setRole("ROLE_USER");
-            }
-        }// Check if User exists
-
-        if (user == null) {
-            return new ResponseEntity<String>(
-                "Form data was incorrect",
-                HttpStatus.BAD_REQUEST
-            );
-        } else {
-            existingUser = userRepo.findByUsername(user.getUsername());
+        try {
+            decodedInput = URLDecoder.decode(input, StandardCharsets.UTF_8);
+        }catch (Exception e){
+            System.out.println("Exception caught in decode url: " + e.getMessage());
         }
-        if (existingUser != null) {//TODO: show user that the username is taken
 
-            return new ResponseEntity<String>(
-                "Username already in use",
-                HttpStatus.UNPROCESSABLE_ENTITY
-            );
+        String username = decodedInput.substring(decodedInput.indexOf("username=")+("username=").length(),
+                decodedInput.indexOf("&password="));
+        String password = decodedInput.substring(decodedInput.indexOf("&password=")+("&password=").length(),
+                decodedInput.lastIndexOf("&remember"));
+
+
+        if(!Pattern.matches("^[a-zA-Z0-9]+$",username)){
+                return new ResponseEntity<String>("Användarnamnet tillåter endast bokstäver och siffror.",
+                        HttpStatus.NOT_ACCEPTABLE);
         }
-        if( user.getUsername().length() > 1 && user.getUsername().length() < 33){
-
-            userRepo.save(user);
-            return new ResponseEntity<String>(
-                    "User created: " + user.getUsername(),
-                    HttpStatus.CREATED
-            );
-        } else {
-            return new ResponseEntity<String>(
-                    "Username length must be 2-32 characters",
+        if(username.length() < 2 || username.length() > 32){
+            return new ResponseEntity<String>("Användarnamnet måste vara mellan 2 och 32 tecken långt.",
                     HttpStatus.NOT_ACCEPTABLE
             );
         }
+
+        if (decodedInput.contains(" ")){
+            return new ResponseEntity<String>("Mellanslag är inte tillåtet i lösenordet.",
+                    HttpStatus.NOT_ACCEPTABLE);
+        }
+        if (password.length() > 100 || password.length() < 2){
+            return new ResponseEntity<String>("Lösenordet måste vara mellan 2 och 100 tecken långt.",
+                    HttpStatus.NOT_ACCEPTABLE);
+        }
+
+        user = new User();
+        user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRole("ROLE_USER");
+
+        // Check if User exists
+
+        if (userRepo.findByUsername(user.getUsername()) != null) {
+            return new ResponseEntity<String>(
+                    "Användarnamnet är upptaget.",
+                    HttpStatus.UNPROCESSABLE_ENTITY
+            );
+        }
+        userRepo.save(user);
+        return new ResponseEntity<String>(
+                "Användare skapad: " + user.getUsername(),
+                HttpStatus.CREATED
+        );
+
     }
 }
