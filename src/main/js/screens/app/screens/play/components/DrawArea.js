@@ -211,8 +211,9 @@ export default class DrawArea extends React.Component {
         correctLines: this.state.correctAlternative.pathPoints,
         userLines: this.state.userAnswer.existingPoints
       };
+      this.props.canvasUrlCallback(JSON.stringify(data.userLines));
 
-      const isLineIntersectingOtherLinesResult = rules.isLineIntersectingOtherLines({}, data);
+      //const isLineIntersectingOtherLinesResult = rules.isLineIntersectingOtherLines({}, data);
 
       const isLineAccurateResult = rules.isLineAccurate(
         { requiredAccuracyPercentage: 50, strictnessPercentage: 20 },
@@ -270,7 +271,6 @@ export default class DrawArea extends React.Component {
         newUserPath={this.onNewUserPath}
         drawActions={this.getDrawActions()}
         inputDisabled={this.props.buttonsDisabled}
-        canvasUrlCallback={this.props.canvasUrlCallback}
       />
     );
   }
