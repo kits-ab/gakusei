@@ -54,10 +54,6 @@ export class selectScreen extends React.Component {
     this.props.fetchIncorrectLessonCount(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchaddressedQuestionsInLessons(this.state.playType);
-
-    if (this.state.playType === 'kanji') {
-      this.props.setQuestionLanguage('reading');
-    }
   }
 
   // Triggers when we change between play types but remain in "selection" page
