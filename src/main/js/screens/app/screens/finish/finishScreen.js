@@ -5,6 +5,7 @@ import DisplayQuestion from '../../shared/DisplayQuestion';
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import * as Security from '../../../../shared/reducers/Security';
 import { translate } from 'react-i18next';
+import startLesson, { selectScreen } from '../select/selectScreen';
 
 export const Reducers = [Lessons, Security];
 
@@ -55,18 +56,25 @@ export class finishScreen extends React.Component {
       .then(this.props.setPageByName(`/select/${this.props.match.params.type}`));
   }
   playAgain() {
-    /*this.props
-      .fetchLesson(this.props.match.params.type)
-      .catch(this.props.verifyUserLoggedIn())
-      .then(this.props.setPageByName(`/play/${this.props.match.params.type}`)); */
-
     if (!this.props.isFetchingLesson) {
-      try {
-        this.props.fetchLesson(this.props.match.params.type).then(() => {
-          this.props.setPageByName(`/play/${this.props.match.params.type}`);
-        });
-      } catch (err) {
-        this.props.verifyUserLoggedIn();
+      if (this.props.selectedLesson.name !== undefined) {
+        try {
+          this.props.fetchLesson(this.props.match.params.type).then(() => {
+            this.props.setPlayType(this.props.match.params.type);
+            this.props.setPageByName(`/play/${this.props.match.params.type}`);
+          });
+        } catch (err) {
+          this.props.verifyUserLoggedIn();
+        }
+      } else {
+        try {
+          this.props.fetchLessonIncorrectAnswers(this.props.match.params.type).then(() => {
+            this.props.setPlayType(this.props.match.params.type);
+            this.props.setPageByName(`/play/${this.props.match.params.type}`);
+          });
+        } catch (err) {
+          this.props.verifyUserLoggedIn();
+        }
       }
     }
   }
@@ -143,8 +151,11 @@ export class finishScreen extends React.Component {
               <Button
                 bsStyle="info"
                 className="tryAgainButton"
-                onClick={this.playAgain}
-                disabled={this.isSpacedRepetition()}
+                onClick={e => {
+                  e.stopPropagation();
+                  this.playAgain();
+                }}
+                disabled={this.props.lessonSuccessRate === '100' || this.isSpacedRepetition()}
               >
                 {this.translate('aboutGakusei.finishScreen.tryAgain')}
               </Button>{' '}
