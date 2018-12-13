@@ -1,0 +1,33 @@
+databaseChangeLog:
+- changeSet:
+    id: 86
+    author: Akar Khatab
+    preConditions:
+    - onFail: HALT
+    - not:
+      - tableExists:
+          schemaName: public
+          tableName: settings
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: id
+            type: int
+            constraints:
+              primaryKey: true
+              primaryKeyName: settings_pkey
+              nullable: false
+            autoIncrement: true
+        - column:
+            name: language
+            type: varchar(32)
+            constraints:
+              nullable: false
+        - column:
+            name: language_code
+            type: varchar(10)
+            constraints:
+              nullable: false
+        schemaName: public
+        tableName: settings
