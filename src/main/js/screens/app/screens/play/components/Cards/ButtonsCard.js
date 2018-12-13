@@ -2,6 +2,7 @@ import AnswerButtonSet from '../AnswerButtonSet';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 import AnswerButton from '../AnswerButton';
 import React from 'react';
+import { translate } from 'react-i18next';
 
 class ButtonsCard extends React.Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class ButtonsCard extends React.Component {
   }
 
   render() {
+    const { t, i18n } = this.props;
     return (
       <div>
         <DisplayQuestion
@@ -52,8 +54,8 @@ class ButtonsCard extends React.Component {
         />
         <div style={{ width: '40%', margin: '0% auto' }}>
           <AnswerButton
-            answerText={'Vet ej'}
-            primaryText={'Vet ej'}
+            answerText={t('aboutGakusei.finishScreen.dontknow')}
+            primaryText={t('aboutGakusei.finishScreen.dontknow')}
             onAnswerClick={this.props.clickCallback}
             buttonStyle={'danger'}
             buttonSize="small"
@@ -87,4 +89,4 @@ ButtonsCard.propTypes = {
   cardType: PropTypes.string.isRequired
 };
 
-export default ButtonsCard;
+export default translate('translations')(ButtonsCard);

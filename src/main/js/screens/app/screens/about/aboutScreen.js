@@ -4,8 +4,9 @@
 import 'whatwg-fetch';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Panel, Button, Jumbotron } from 'react-bootstrap';
 import xml2js from 'xml2js';
+import { translate } from 'react-i18next';
 
-export default class aboutScreen extends React.Component {
+export class aboutScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -113,44 +114,34 @@ export default class aboutScreen extends React.Component {
   }
 
   render() {
+    const { t, i18n } = this.props;
+
     return (
       <div>
         <Grid>
           <Row>
             <Col xs={12}>
               <div className="text-left">
-                <h2>Om Gakusei</h2>
-                <p>
-                  Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande fyra
-                  spellägen:
-                </p>
+                <h2>{t('aboutGakusei.aboutGakusei.h2')}</h2>
+                <p>{t('aboutGakusei.aboutGakusei.p')}</p>
                 <ol>
-                  <li>
-                    &quot;Gissa ordet&quot; som kan hittas under fliken &quot;Glosor&quot;. Här ska man välja rätt
-                    översättning på ett ord bland fyra alternativ.
-                  </li>
-                  <li>
-                    &quot;Bildkort&quot; som även det kan hittas under fliken &quot;Glosor&quot;. Här gäller det att
-                    gissa rätt på ett ord. Gissade du rätt?
-                  </li>
-                  <li>&quot;Quiz&quot; och här kan du spela frågesporter kopplade till Japan.</li>
-                  <li>&quot;Kanji&quot; och här kan du testa dina kunskaper i kanji.</li>
+                  <li>{t('aboutGakusei.aboutGakusei.li1')}</li>
+                  <li>{t('aboutGakusei.aboutGakusei.li2')}</li>
+                  <li> {t('aboutGakusei.aboutGakusei.li3')}</li>
+                  <li> {t('aboutGakusei.aboutGakusei.li4')}</li>
                 </ol>
                 <br />
-                <h4>Rättigheter</h4>
+                <h4>{t('aboutGakusei.rights.h4')}</h4>
                 <p>
-                  Utvecklad i samarbete med{' '}
+                  {t('aboutGakusei.rights.p')}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://kits.se/"
                   >
-                    KITS AB
+                    {t('aboutGakusei.rights.link')}
                   </a>
-                  . Alla rättigheter till programkoden ägs av Kokitotsos AB. Denna sajt opereras av Daigaku Sverige som
-                  licensierar Gakusei av Kokitotsos AB:s genom en öppen källkodslicens. Utbildningsmaterial har
-                  sammanställts av Pierre Sandboge, och inkluderar eget material och annat material som framgår på annan
-                  plats på den här sidan.{' '}
+                  . {t('aboutGakusei.rights.p2')}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -158,26 +149,25 @@ export default class aboutScreen extends React.Component {
                   >
                     Daigaku.se
                   </a>{' '}
-                  drivs utan anställda, med donerade medel, och ingen garanti om tillgänglighet kan ges.
-                  Tillhandahållandet av tjänsten kan upphöra när som helst utan förvarning.
+                  {t('aboutGakusei.rights.p3')}
                 </p>
                 <br />
-                <h4>Licenser</h4>
+                <h4>{t('aboutGakusei.licenses.licens')}</h4>
                 <p>
                   {' '}
-                  Webbappen Gakusei går under licensen{' '}
+                  {t('aboutGakusei.licenses.p')}{' '}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://opensource.org/licenses/mit-license.php"
                   >
-                    MIT
+                    {t('aboutGakusei.licenses.link')}
                   </a>
-                  . Nedan följer en lista på licenser för de moduler som projektet använder sig av.
+                  . {t('aboutGakusei.licenses.p2')}
                 </p>
                 <Panel>
                   <Panel.Heading>
-                    <Panel.Title toggle>Klicka för fler Licenser</Panel.Title>
+                    <Panel.Title toggle>{t('aboutGakusei.licenses.panelToggle')}</Panel.Title>
                   </Panel.Heading>
                   <Panel.Collapse>
                     <Panel.Body>
@@ -195,10 +185,10 @@ export default class aboutScreen extends React.Component {
                       md={6}
                       lg={4}
                     >
-                      Modul: <a href="http://www.tanos.co.uk/jlpt/"> The Japanese Language Proficiency Test (JLPT)</a>
+                      {t('aboutGakusei.licenses.modul')}:{' '}
+                      <a href="http://www.tanos.co.uk/jlpt/"> The Japanese Language Proficiency Test (JLPT)</a>
                       <br />
-                      Licens(er):
-                      <br />
+                      {t('aboutGakusei.licenses.licenses')}:<br />
                       <a href="https://creativecommons.org/licenses/by/2.5/">Creative Commons BY</a>
                       <br />
                       <br />
@@ -208,10 +198,9 @@ export default class aboutScreen extends React.Component {
                       md={6}
                       lg={4}
                     >
-                      Modul: <a href="http://www.edrdg.org/edrdg/index.html">JMDict</a>
+                      {t('aboutGakusei.licenses.modul')}: <a href="http://www.edrdg.org/edrdg/index.html">JMDict</a>
                       <br />
-                      Licens(er):
-                      <br />
+                      {t('aboutGakusei.licenses.licenses')}:<br />
                       <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
                     </Col>
                   </Row>
@@ -222,10 +211,9 @@ export default class aboutScreen extends React.Component {
                       md={6}
                       lg={4}
                     >
-                      Modul: <a href="http://www.edrdg.org/edrdg/index.html">KanjiDict</a>
+                      {t('aboutGakusei.licenses.modul')}: <a href="http://www.edrdg.org/edrdg/index.html">KanjiDict</a>
                       <br />
-                      Licens(er):
-                      <br />
+                      {t('aboutGakusei.licenses.licenses')}:<br />
                       <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
                       <br />
                       <br />
@@ -235,12 +223,12 @@ export default class aboutScreen extends React.Component {
                       md={6}
                       lg={4}
                     >
-                      Modul: <a href="https://kanjivg.tagaini.net/">KanjiVG</a>
+                      {t('aboutGakusei.licenses.modul')}: <a href="https://kanjivg.tagaini.net/">KanjiVG</a>
                       <br />
-                      Repository: <a href="https://github.com/KanjiVG/kanjivg">https://github.com/KanjiVG/kanjivg</a>
+                      {t('aboutGakusei.licenses.repo')}:{' '}
+                      <a href="https://github.com/KanjiVG/kanjivg">https://github.com/KanjiVG/kanjivg</a>
                       <br />
-                      Licens(er):
-                      <br />
+                      {t('aboutGakusei.licenses.licenses')}:<br />
                       <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>
                     </Col>
                   </Row>
@@ -262,15 +250,15 @@ export default class aboutScreen extends React.Component {
                   alt="contributors-page"
                   className="about-features__image"
                 />
-                <h3>Medverkande</h3>
+                <h3>{t('aboutGakusei.infoBanner.contributors.contributors')}</h3>
                 <p>
-                  Se vilka som bidragit till projektet{' '}
+                  {t('aboutGakusei.infoBanner.contributors.p3')}{' '}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://github.com/kits-ab/gakusei/graphs/contributors"
                   >
-                    här
+                    {t('aboutGakusei.infoBanner.contributors.link2')}
                   </a>
                 </p>
               </Col>
@@ -285,15 +273,15 @@ export default class aboutScreen extends React.Component {
                   alt="GitHub-Sida"
                   className="about-features__image"
                 />
-                <h3>Github</h3>
+                <h3>{t('aboutGakusei.infoBanner.github.github')}</h3>
                 <p>
-                  Besök gärna open-source projektets{' '}
+                  {t('aboutGakusei.infoBanner.github.p')}{' '}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://github.com/kits-ab/gakusei/"
                   >
-                    Githubsida.
+                    {t('aboutGakusei.infoBanner.github.link')}
                   </a>
                 </p>
               </Col>
@@ -308,8 +296,8 @@ export default class aboutScreen extends React.Component {
                   alt="owner"
                   className="about-features__image"
                 />
-                <h3>Ägande</h3>
-                <p> Alla rättigheter till programkoden ägs av Kokitotsos AB.</p>
+                <h3>{t('aboutGakusei.infoBanner.owner.owner')}</h3>
+                <p> {t('aboutGakusei.infoBanner.owner.p')}</p>
               </Col>
             </Row>
           </Grid>
@@ -318,3 +306,5 @@ export default class aboutScreen extends React.Component {
     );
   }
 }
+
+export default translate('translations')(aboutScreen);

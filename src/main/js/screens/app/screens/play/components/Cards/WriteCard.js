@@ -5,6 +5,7 @@ import FlashButtonSet from '../FlashButtonSet';
 import React from 'react';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 import AnswerButton from '../AnswerButton';
+import { translate } from 'react-i18next';
 
 class WriteCard extends React.Component {
   constructor(props) {
@@ -60,6 +61,7 @@ class WriteCard extends React.Component {
   }
 
   render() {
+    const { t, i18n } = this.props;
     return (
       <Row>
         <Col
@@ -91,7 +93,7 @@ class WriteCard extends React.Component {
           <Row>
             {this.state.matchingDone ? (
               <React.Fragment>
-                Ritade du rätt?
+                {t('cards.writecard.writeCorrectly')}
                 <FlashButtonSet
                   correctAlternative={this.props.correctAlternative}
                   buttonStyles={this.props.question.buttonStyles}
@@ -103,8 +105,8 @@ class WriteCard extends React.Component {
             ) : (
               <div style={{ width: '40%', margin: '0% auto' }}>
                 <AnswerButton
-                  answerText={'Vet ej'}
-                  primaryText={'Vet ej'}
+                  answerText={t('aboutGakusei.finishScreen.dontknow')}
+                  primaryText={t('aboutGakusei.finishScreen.dontknow')}
                   onAnswerClick={this.props.clickCallback}
                   buttonStyle={'danger'}
                   buttonSize="small"
@@ -137,4 +139,4 @@ WriteCard.propTypes = {
   difficulty: PropTypes.string.isRequired
 };
 
-export default WriteCard;
+export default translate('translations')(WriteCard);

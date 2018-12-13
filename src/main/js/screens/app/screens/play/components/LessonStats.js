@@ -1,8 +1,11 @@
 import { Row } from 'react-bootstrap';
+import { translate } from 'react-i18next';
 
 class LessonStats extends React.Component {
   state = {};
   render() {
+    const { t, i18n } = this.props;
+
     const feedbackList = this.props.feedbackItems.map((item, index) => {
       let correctnessText = null;
       if (item.correct) {
@@ -18,10 +21,11 @@ class LessonStats extends React.Component {
       <Row>
         <div>
           <p>
-            Fråga: {this.props.currentQuestionNumber} / {this.props.totalQuestionsNumber}
+            {t('aboutGakusei.finishScreen.question')} {this.props.currentQuestionNumber} /{' '}
+            {this.props.totalQuestionsNumber}
           </p>
           <p>
-            {this.props.correctAttempts} rätt {this.props.lessonSuccessRateMessage}
+            {this.props.correctAttempts} {t('aboutGakusei.finishScreen.Right')} {this.props.lessonSuccessRateMessage}
           </p>
           {/* {this.props.lessonType === 'kanji'
             ? feedbackList.reverse().map((item, index) => {
@@ -55,4 +59,4 @@ LessonStats.propTypes = {
   lessonType: PropTypes.string.isRequired
 };
 
-export default LessonStats;
+export default translate('translations')(LessonStats);

@@ -70,9 +70,8 @@ public class EventController {
     public ResponseEntity<Iterable<Event>> getEvents() {
         Iterable events = eventRepository.findAll();
         return (events != null) ? new ResponseEntity<Iterable<Event>>(
-                events,
-                HttpStatus.OK
-        ) : new ResponseEntity<Iterable<Event>>(HttpStatus.FORBIDDEN);
+            events, HttpStatus.OK
+        ) : new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @ApiOperation(value="Add an event", response = ResponseEntity.class)
@@ -84,9 +83,10 @@ public class EventController {
     public ResponseEntity<Event> addEvents(@RequestBody EventDTO[] eventDTOs) {
 
         for (EventDTO eventDTO : eventDTOs) {
-            ResponseEntity<Event> response = this.addEvent(eventDTO);
+            ResponseEntity<?> response = this.addEvent(eventDTO);
             if (!response.getStatusCode().is2xxSuccessful()) {
                 // Stop iterating if we run into errors
+
                 return response;
             }
         }
@@ -99,9 +99,7 @@ public class EventController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Event> addEvent(@RequestBody EventDTO eventDTO) {
-
-
+    public ResponseEntity<?> addEvent(@RequestBody EventDTO eventDTO) {
         if (!eventLogging) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
