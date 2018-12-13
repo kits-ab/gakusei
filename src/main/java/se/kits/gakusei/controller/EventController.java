@@ -83,7 +83,7 @@ public class EventController {
     public ResponseEntity<Event> addEvents(@RequestBody EventDTO[] eventDTOs) {
 
         for (EventDTO eventDTO : eventDTOs) {
-            ResponseEntity<?> response = this.addEvent(eventDTO);
+            ResponseEntity<Event> response = this.addEvent(eventDTO);
             if (!response.getStatusCode().is2xxSuccessful()) {
                 // Stop iterating if we run into errors
 
@@ -99,7 +99,7 @@ public class EventController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<?> addEvent(@RequestBody EventDTO eventDTO) {
+    public ResponseEntity<Event> addEvent(@RequestBody EventDTO eventDTO) {
         if (!eventLogging) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
