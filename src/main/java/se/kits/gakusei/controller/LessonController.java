@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,86 +51,57 @@ public class LessonController {
     private ProgressHandler progressHandler;
 
     @ApiOperation(value="Getting all the lessons", response = ResponseEntity.class)
-    @RequestMapping(
-        value = "/api/lessons",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<List<Lesson>> getLessons(
-        @RequestParam(value = "lessonType")
-        String lessonType
-    ) {
+    @RequestMapping(value = "/api/lessons", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<Lesson>> getLessons(@RequestParam(value = "lessonType") String lessonType) {
+
         if (lessonType.equals("grammar")) {
             return new ResponseEntity<>(lessonHandler.getGrammarLessons(), HttpStatus.OK);
         } else if (lessonType.equals("kanji")) {
             return new ResponseEntity<>(lessonHandler.getKanjiLessons(), HttpStatus.OK);
         }
-        return new ResponseEntity<>(
-            lessonHandler.getLessonsWithEnoughNuggets(),
-            HttpStatus.OK
-        );
+
+        return new ResponseEntity<>(lessonHandler.getLessonsWithEnoughNuggets(), HttpStatus.OK);
     }
 
     @ApiOperation(value="Getting info about a question", response = ResponseEntity.class)
-    @RequestMapping(
-        value = "/api/lessonInfo",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<
-        HashMap<String, HashMap<String, Integer>>
-    > getQuestionInfo(
-        @RequestParam(name = "lessonType", defaultValue = "guess")
-        String lessonType,
-        @RequestParam(name = "username")
-        String username
-    ) {
-        HashMap<
-            String,
-            HashMap<String, Integer>
-        > values = getStringHashMapHashMap(username, lessonType);
+    @RequestMapping(value = "/api/lessonInfo", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<HashMap<String, HashMap<String, Integer>>> getQuestionInfo(
+            @RequestParam(name = "lessonType", defaultValue = "guess") String lessonType,
+            @RequestParam(name = "username") String username)
+    {
+        HashMap<String, HashMap<String, Integer>> values = getStringHashMapHashMap(username, lessonType);
         return new ResponseEntity<>(values, HttpStatus.OK);
     }
 
     @ApiOperation(value="Getting the wrong count", response = ResponseEntity.class)
-    @RequestMapping(
-            value = "/api/lessons/incorrectcount",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<HashMap<String, Integer>
-            > getIncorrectCount(
-            @RequestParam(name = "lessonType", defaultValue = "guess")
-                    String lessonType,
-            @RequestParam(name = "username")
-                    String username
-    ) {
+    @RequestMapping(value = "/api/lessons/incorrectcount", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<HashMap<String, Integer>> getIncorrectCount(
+            @RequestParam(name = "lessonType", defaultValue = "guess") String lessonType,
+            @RequestParam(name = "username") String username)
+    {
 
         return new ResponseEntity<>(progressHandler.getWrongCount(username), HttpStatus.OK);
     }
 
     @ApiOperation(value="Getting lessons marked as favorite", response = ResponseEntity.class)
     @RequestMapping(
-        value = "/api/lessons/favorite",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            value = "/api/lessons/favorite",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<FavoriteLesson> getFavoriteLesson(
-        @RequestParam(value = "lessonType", required = false)
-        String lessonType,
-        @RequestParam(value = "username")
-        String username
-    ) {
-        return new ResponseEntity<>(
-            lessonHandler.getLessonFromFavorites(username, getFavoriteDataHashMap(username)),
-            HttpStatus.OK
-        );
+            @RequestParam(value = "lessonType", required = false) String lessonType,
+            @RequestParam(value = "username") String username)
+    {
+        return new ResponseEntity<>(lessonHandler.getLessonFromFavorites(username, getFavoriteDataHashMap(username)),
+                HttpStatus.OK);
     }
 
 
-    public HashMap<String, HashMap<String, Integer>> getStringHashMapHashMap(
-            String username, String lessonType
-    ) {
+    public HashMap<String, HashMap<String, Integer>> getStringHashMapHashMap(String username, String lessonType){
         long mark = System.currentTimeMillis();
 
         HashMap<String, HashMap<String, Integer>> values = new HashMap<>();
@@ -143,11 +113,9 @@ public class LessonController {
             tmpLessons = lessonHandler.getLessonsWithEnoughNuggets();
         }
 
-        logger.info(
-                "Getting vocabulary lessons took {} ms.",
-                System.currentTimeMillis() - mark
-        );
+        logger.info("Getting vocabulary lessons took {} ms.", System.currentTimeMillis() - mark);
         mark = System.currentTimeMillis();
+
         for (Lesson tmpLesson : tmpLessons) {
 
             Integer numNuggetsByName;
@@ -168,66 +136,45 @@ public class LessonController {
                 numRetentionNuggets = lessonHandler.getNumberOfRetentionNuggets(username, tmpLesson.getName());
             }
 
-            logger.info(
-                    "Un count for {}: {}",
-                    tmpLesson.getName(),
-                    numUnansweredRetention
-            );
+            logger.info("Un count for {}: {}", tmpLesson.getName(), numUnansweredRetention);
+
             HashMap<String, Integer> lessonData = new HashMap<>();
             lessonData.put("all", numNuggetsByName);
             lessonData.put("unanswered", numUnansweredRetention);
-            lessonData.put(
-                    "correctlyAnswered",
-                    numCorrectlyAnswered
-            );
+            lessonData.put("correctlyAnswered", numCorrectlyAnswered);
             lessonData.put("retention", numRetentionNuggets);
 
             values.put(tmpLesson.getName(), lessonData);
-
         }
-        logger.info(
-                "Collecting lesson nuggets took {} ms",
-                System.currentTimeMillis() - mark
-        );
+        logger.info("Collecting lesson nuggets took {} ms", System.currentTimeMillis() - mark);
+
         return values;
     }
 
     public HashMap<String, Integer> getFavoriteDataHashMap(String username) {
-        List<
-                Lesson
-                > favoriteLessons = userLessonRepository.findUsersStarredLessons(
-                username
-        ).stream().map(UserLesson::getLesson).collect(Collectors.toList());
+        List<Lesson> favoriteLessons = userLessonRepository.findUsersStarredLessons(username)
+                .stream().map(UserLesson::getLesson).collect(Collectors.toList());
         HashMap<String, Integer> lessonData = new HashMap<>();
+
         List<Nugget> correctlyAnsweredNuggets = favoriteLessons.stream().map(
-                lesson -> lessonRepository.findCorrectlyAnsweredNuggets(
-                        username,
-                        lesson.getName()
-                )
-        ).flatMap(nuggets -> nuggets.stream()).filter(
-                nugget -> !nugget.isHidden()
-        ).distinct().collect(Collectors.toList());
+                lesson -> lessonRepository.findCorrectlyAnsweredNuggets(username, lesson.getName()))
+                .flatMap(nuggets -> nuggets.stream()).filter(nugget -> !nugget.isHidden())
+                .distinct().collect(Collectors.toList());
+
         List<Nugget> unansweredNuggets = favoriteLessons.stream().map(
-                lesson -> lessonRepository.findUnansweredRetentionNuggets(
-                        username,
-                        lesson.getName()
-                )
-        ).flatMap(nuggets -> nuggets.stream()).filter(
-                nugget -> !nugget.isHidden()
-        ).distinct().collect(Collectors.toList());
+                lesson -> lessonRepository.findUnansweredRetentionNuggets(username, lesson.getName()))
+                .flatMap(nuggets -> nuggets.stream()).filter(nugget -> !nugget.isHidden())
+                .distinct().collect(Collectors.toList());
+
         List<Nugget> allLessonNuggets = favoriteLessons.stream().map(
-                lesson -> lesson.getNuggets()
-        ).flatMap(nuggets -> nuggets.stream()).filter(
-                nugget -> !nugget.isHidden()
-        ).distinct().collect(Collectors.toList());
-        List<Nugget> retentionNuggets = favoriteLessons.stream().map(
-                lesson -> lessonRepository.findNuggetsByRetentionDate(
-                        username,
-                        lesson.getName()
-                )
-        ).flatMap(nuggets -> nuggets.stream()).filter(
-                nugget -> !nugget.isHidden()
-        ).distinct().collect(Collectors.toList());
+                lesson -> lesson.getNuggets()).flatMap(nuggets -> nuggets.stream())
+                .filter(nugget -> !nugget.isHidden()).distinct().collect(Collectors.toList());
+
+        List<Nugget> retentionNuggets = favoriteLessons.stream()
+                .map(lesson -> lessonRepository.findNuggetsByRetentionDate(username, lesson.getName()))
+                .flatMap(nuggets -> nuggets.stream()).filter(nugget -> !nugget.isHidden())
+                .distinct().collect(Collectors.toList());
+
         lessonData.put("unanswered", unansweredNuggets.size());
         lessonData.put("correctlyAnswered", correctlyAnsweredNuggets.size());
         lessonData.put("all", allLessonNuggets.size());

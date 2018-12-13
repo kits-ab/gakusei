@@ -33,26 +33,14 @@ public class UserLessonController {
     private LessonRepository lessonRepository;
 
     @ApiOperation(value="Get a users lessons", response = ResponseEntity.class)
-    @RequestMapping(
-        value = "/api/userLessons",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    @CacheEvict(value = {"lessons.retention.correct", "lessons.retention.unanswered",
-            "lessons.retention.retention", "lessons.kanji.retention.correct",
-            "lessons.kanji.retention.unanswered", "lessons.kanji.retention.retention"},
-            allEntries = true, beforeInvocation = true)
-    public ResponseEntity<List<UserLesson>> getUserLesson(
-        @RequestParam(value = "username")
-        String username
-    ) {
+    @RequestMapping(value = "/api/userLessons", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<UserLesson>> getUserLesson(@RequestParam(value = "username") String username) {
+
         List<UserLesson> userLessons = userLessonRepository.findUsersStarredLessons(username);
         userLessons.stream().forEach(ul -> ul.getLesson().clearNuggets());
         userLessons.stream().forEach(ul -> ul.getLesson().clearKanjis());
-        return new ResponseEntity<>(
-                userLessons,
-                HttpStatus.OK
-        );
+        return new ResponseEntity<>(userLessons, HttpStatus.OK);
     }
 
     @ApiOperation(value="Add a lesson to a user", response = ResponseEntity.class)
@@ -63,58 +51,34 @@ public class UserLessonController {
         consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<UserLesson> addUserLesson(
-        @RequestParam(value = "lessonName")
-        String lessonName,
-        @RequestParam(value = "username")
-        String username
-    ) {
+            @RequestParam(value = "lessonName") String lessonName,
+            @RequestParam(value = "username") String username)
+    {
         User user = userRepository.findByUsername(username);
         Lesson lesson = lessonRepository.findByName(lessonName);
         UserLesson userLesson = new UserLesson(user, lesson);
-        return new ResponseEntity<UserLesson>(
-            userLessonRepository.save(userLesson),
-            HttpStatus.OK
-        );
+        return new ResponseEntity<UserLesson>(userLessonRepository.save(userLesson), HttpStatus.OK);
     }
 
     @ApiOperation(value="Remove a lesson from a user", response = ResponseEntity.class)
-    @RequestMapping(
-        value = "/api/userLessons/remove",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
+    @RequestMapping(value = "/api/userLessons/remove", method = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserLesson> removeUserLesson(
-        @RequestParam(value = "lessonName")
-        String lessonName,
-        @RequestParam(value = "username")
-        String username
-    ) {
-        List<
-            UserLesson
-        > userLesson = userLessonRepository.findUserLessonByUsernameAndLessonName(
-            username,
-            lessonName
-        );
+        @RequestParam(value = "lessonName") String lessonName,
+        @RequestParam(value = "username") String username)
+    {
+        List<UserLesson> userLesson = userLessonRepository.findUserLessonByUsernameAndLessonName(username, lessonName);
         userLessonRepository.delete(userLesson.get(0));
         return new ResponseEntity<UserLesson>(HttpStatus.OK);
     }
 
     @ApiOperation(value="Set a first deadline for a users lesson", response = ResponseEntity.class)
-    @RequestMapping(
-        value = "/api/userLessons/setFirstDeadline",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<UserLesson> setFirstDeadlineToUserLesson(
-        @RequestBody
-        DeadlineDTO deadlineDTO
-    ) {
-        List<
-            UserLesson
-        > userLessons = userLessonRepository.findUserLessonByUsernameAndLessonName(
-            deadlineDTO.getUsername(),
-            deadlineDTO.getLessonName()
-        );
+    @RequestMapping(value = "/api/userLessons/setFirstDeadline", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<UserLesson> setFirstDeadlineToUserLesson(@RequestBody DeadlineDTO deadlineDTO) {
+
+        List<UserLesson> userLessons = userLessonRepository.findUserLessonByUsernameAndLessonName(
+                deadlineDTO.getUsername(), deadlineDTO.getLessonName());
         UserLesson userLesson = userLessons.get(0);
         userLesson.setFirstDeadline(new Timestamp(deadlineDTO.getDeadline()));
         userLessonRepository.save(userLesson);
@@ -122,26 +86,16 @@ public class UserLessonController {
     }
 
     @ApiOperation(value="Set a second deadline for a users lesson", response = ResponseEntity.class)
-    @RequestMapping(
-        value = "/api/userLessons/setSecondDeadline",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<UserLesson> setSecondDeadlineToUserLesson(
-        @RequestBody
-        DeadlineDTO deadlineDTO
-    ) {
-        List<
-            UserLesson
-        > userLessons = userLessonRepository.findUserLessonByUsernameAndLessonName(
-            deadlineDTO.getUsername(),
-            deadlineDTO.getLessonName()
-        );
+    @RequestMapping(value = "/api/userLessons/setSecondDeadline", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<UserLesson> setSecondDeadlineToUserLesson(@RequestBody DeadlineDTO deadlineDTO) {
+
+        List<UserLesson> userLessons = userLessonRepository.findUserLessonByUsernameAndLessonName(
+            deadlineDTO.getUsername(), deadlineDTO.getLessonName());
         UserLesson userLesson = userLessons.get(0);
         userLesson.setSecondDeadline(new Timestamp(deadlineDTO.getDeadline()));
         userLessonRepository.save(userLesson);
         return new ResponseEntity<UserLesson>(HttpStatus.OK);
     }
-
 }
 
