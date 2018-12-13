@@ -12,10 +12,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-@JsonIdentityInfo(
-    generator = ObjectIdGenerators.PropertyGenerator.class,
-    property = "id"
-)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @NamedNativeQueries({
         @NamedNativeQuery(
                 name = "Lesson.findNuggetsBySuccessrate",
@@ -105,42 +102,16 @@ public class Lesson implements Serializable {
     private String description;
 
     //@JsonManagedReference(value = "lessonnugget")
-    @JoinTable(
-        name = "lessons_nuggets",
-        schema = "contentschema",
-        joinColumns = @JoinColumn(
-            name = "lesson_id",
-            referencedColumnName = "id"
-        )
-        ,
-        inverseJoinColumns = @JoinColumn(
-            name = "nugget_id",
-            referencedColumnName = "id"
-        )
-
-    )
+    @JoinTable(name = "lessons_nuggets", schema = "contentschema",
+            joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "nugget_id", referencedColumnName = "id"))
     @ManyToMany
     private List<Nugget> nuggets;
 
-    @JoinTable(
-        name = "lessons_kanjis",
-        schema = "contentschema",
-        joinColumns = @JoinColumn(
-            name = "lesson_id",
-            referencedColumnName = "id"
-        )
-        ,
-        inverseJoinColumns = @JoinColumn(
-            name = "kanji_id",
-            referencedColumnName = "id"
-        )
-        ,
-        uniqueConstraints = @UniqueConstraint(
-            columnNames = { "lesson_id", "kanji_id"
-            }
-        )
-
-    )
+    @JoinTable(name = "lessons_kanjis", schema = "contentschema",
+        joinColumns = @JoinColumn(name = "lesson_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "kanji_id", referencedColumnName = "id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = { "lesson_id", "kanji_id"}))
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Kanji> kanjis;
 
