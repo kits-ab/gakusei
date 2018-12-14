@@ -78,56 +78,56 @@ public class LessonHandler {
 
 
     //Cacheable wrappers for the database queries.
-    @Cacheable(value = "lessons.retention.correct", key = "#lessonName")
+    @Cacheable(value = "lessons.retention.correct", key = "")
     public Integer getNumberOfCorrectNuggets(String username, String lessonName) {
         return lessonRepository.findNumberOfCorrectlyAnsweredNuggets(username, lessonName);
     }
 
-    @Cacheable(value = "lessons.retention.unanswered", key = "#lessonName")
+    @Cacheable(value = "lessons.retention.unanswered", key = "")
     public Integer getNumberOfUnansweredRetentionNuggets(String username, String lessonName) {
         return lessonRepository.findNumberOfUnansweredRetentionNuggets(username, lessonName);
     }
 
-    @Cacheable(value = "lessons.retention.retention", key = "#lessonName")
+    @Cacheable(value = "lessons.retention.retention", key = "")
     public Integer getNumberOfRetentionNuggets(String username, String lessonName) {
         return lessonRepository.findNumberOfNuggetsByRetentionDate(username, lessonName);
     }
 
-    @Cacheable(value = "lessons.numbers", key = "#lessonName")
+    @Cacheable(value = "lessons.numbers", key = "")
     public Integer findNumberOfNuggetsByName(String lessonName) {
         return lessonRepository.findNumberOfNuggetsByName(lessonName);
     }
 
     // Kanji equivalents
-    @Cacheable(value = "lessons.kanji.numbers", key = "#lessonName")
+    @Cacheable(value = "lessons.kanji.numbers", key = "")
     public Integer findNumberOfKanjisByName(String lessonName) {
         return lessonRepository.findNumberOfKanjisByName(lessonName);
     }
 
-    @Cacheable(value = "lessons.kanji.retention.correct", key = "#lessonName")
+    @Cacheable(value = "lessons.kanji.retention.correct", key = "")
     public Integer getNumberOfCorrectKanjis(String username, String lessonName) {
         return lessonRepository.findNumberOfCorrectlyAnsweredKanjis(username, lessonName);
     }
 
-    @Cacheable(value = "lessons.kanji.retention.retention", key = "#lessonName")
+    @Cacheable(value = "lessons.kanji.retention.retention", key = "")
     public Integer getNumberOfRetentionKanjis(String username, String lessonName) {
         return lessonRepository.findNumberOfKanjisByRetentionDate(username, lessonName);
     }
 
-    @Cacheable(value = "lessons.kanji.retention.unanswered", key = "#lessonName")
+    @Cacheable(value = "lessons.kanji.retention.unanswered", key = "")
     public Integer getNumberOfUnansweredRetentionKanjis(String username, String lessonName) {
         return lessonRepository.findNumberOfUnansweredRetentionKanjis(username, lessonName);
     }
 
     @CacheEvict(value = {"lessons.retention.retention", "lessons.retention.unanswered",
-    "lessons.retention.correct"}, key = "#lessonName")
-    public void evictCacheNuggets(String lessonName){
+    "lessons.retention.correct"}, key = "")
+    public void evictCacheNuggets(String username, String lessonName){
         //Used to evict the cache
     }
 
     @CacheEvict(value = {"lessons.kanji.retention.retention", "lessons.kanji.retention.unanswered",
-            "lessons.kanji.retention.correct"}, key = "#lessonName")
-    public void evictCacheKanjis(String lessonName){
+            "lessons.kanji.retention.correct"}, key = "")
+    public void evictCacheKanjis(String username, String lessonName){
         //Used to evict the cache
     }
 }
