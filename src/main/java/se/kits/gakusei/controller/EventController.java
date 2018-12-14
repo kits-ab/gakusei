@@ -148,7 +148,7 @@ public class EventController {
                     List<Nugget> tmpNuggets = tmpLesson.getNuggets();
                     for (Nugget tmpNugget : tmpNuggets) {
                         if (tmpNugget.getId().equals(event.getNuggetId())) {
-                            lessonHandler.evictCacheNuggets(tmpLesson.getName());
+                            lessonHandler.evictCacheNuggets(event.getUser().getUsername(), tmpLesson.getName());
                         }
                     }
                 }
@@ -161,7 +161,7 @@ public class EventController {
                     List<Kanji> tmpKanjis = tmpLesson.getKanjis();
                     for (Kanji tmpKanji: tmpKanjis) {
                         if (tmpKanji.getId().equals(event.getNuggetId())) {
-                            lessonHandler.evictCacheKanjis(tmpLesson.getName());
+                            lessonHandler.evictCacheKanjis(event.getUser().getUsername(), tmpLesson.getName());
                         }
                     }
                 }
