@@ -27,7 +27,7 @@ export class FlashButtonSet extends React.Component {
   }
 
   render() {
-    const { t, i18n } = this.props;
+    const { t } = this.props;
     return (
       <div>
         <Col
@@ -55,7 +55,7 @@ export class FlashButtonSet extends React.Component {
           md={3}
         >
           <AnswerButton
-            answerText={'Vet ej'}
+            answerText={t('dontKnow')}
             primaryText={t('cards.no')}
             onAnswerClick={this.props.clickCallback}
             buttonStyle={'danger'}
