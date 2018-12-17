@@ -10,6 +10,23 @@ import { translate, Trans } from 'react-i18next';
 export const Reducers = [Lessons, Security];
 
 export class GakuseiNav extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      data: []
+    };
+  }
+
+  componentDidMount() {
+    fetch(`/api/settings`)
+      .then(Response => Response.json())
+      .then(findresponse => {
+        this.setState({
+          data: findresponse
+        });
+      });
+  }
+
   render() {
     const changeLanguage = lng => {
       i18n.changeLanguage(lng);
@@ -48,35 +65,16 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/select/guess">
                   <MenuItem className="guessPlay">{t('gakuseiNav.guessPlay')}</MenuItem>
                 </LinkContainer>
-                {/* <LinkContainer to="/select/translate">
-                  <MenuItem className="translatePlay">Översätt ordet</MenuItem>
-                </LinkContainer> */}
                 <LinkContainer to="/select/flashcards">
                   <MenuItem className="flashcardPlay">{t('gakuseiNav.flashcardPlay')}</MenuItem>
                 </LinkContainer>
               </NavDropdown>
-              {/* <NavDropdown
-                className="grammarDropdown"
-                title="Grammatik"
-                id="basic-nav-dropdown"
-              >
-                <LinkContainer to="/select/grammar">
-                  <MenuItem className="grammarPlay">Böj verb</MenuItem>
-                </LinkContainer>
-                <LinkContainer to="/grammar">
-                  <NavItem className="grammarHelp">Texter om grammatik</NavItem>
-                </LinkContainer>
-              </NavDropdown> */}
-
               <LinkContainer to="/select/kanji">
                 <NavItem className="kanjiPlay">{t('gakuseiNav.kanjiPlay')}</NavItem>
               </LinkContainer>
               <LinkContainer to="/select/quiz">
                 <NavItem className="quizPlay">{t('gakuseiNav.quizPlay')}</NavItem>
               </LinkContainer>
-              {/* <LinkContainer to="/lists">
-                  <NavItem>Lista ord</NavItem>
-                </LinkContainer> */}
               <LinkContainer to="/about">
                 <NavItem className="about">{t('gakuseiNav.about')}</NavItem>
               </LinkContainer>
@@ -88,6 +86,7 @@ export class GakuseiNav extends React.Component {
               </LinkContainer>
             </Nav>
           )}
+
           <Nav>
             <NavDropdown
               className="glosorDropdown"
@@ -98,6 +97,15 @@ export class GakuseiNav extends React.Component {
                 height="20px"
                      />}
             >
+              {this.state.data.map((dynamicData, key) => (
+                <MenuItem
+                  key={key}
+                  onClick={() => changeLanguage('se')}
+                >
+                  {dynamicData.language}
+                </MenuItem>
+              ))}
+
               <MenuItem onClick={() => changeLanguage('se')}>
                 <img
                   height="30px"
