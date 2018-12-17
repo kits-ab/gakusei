@@ -1,0 +1,39 @@
+databaseChangeLog:
+- changeSet:
+    id: 87
+    author: Akar Khatab
+    preConditions:
+    - onFail: HALT
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: id
+            type: int
+            constraints:
+              primaryKey: true
+              primaryKeyName: internationalization_pkey
+              nullable: false
+            autoIncrement: true
+        - column:
+            name: abbreviation
+            type: varchar(32)
+            constraints:
+              nullable: false
+        - column:
+            name: language
+            type: varchar(32)
+            constraints:
+              nullable: false
+        - column:
+            name: sentence
+            type: text
+            constraints:
+              nullable: false
+        schemaName: public
+        tableName: internationalization
+    - addUniqueConstraint:
+        columnNames: abbreviation, language
+        constraintName: unique_abbr_lang_combo
+        schemaName: public
+        tableName: internationalization
