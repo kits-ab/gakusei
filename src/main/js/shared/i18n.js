@@ -217,7 +217,8 @@ i18n.use(languageDetector).init({
         button: '',
         readMore: 'Läs mer',
         tryNow: 'Testa redan nu!',
-        register: 'Registrera dig nu!'
+        register: 'Registrera dig nu!',
+        dontKnow: 'Vet ej'
       }
     },
     en: {
@@ -432,7 +433,8 @@ i18n.use(languageDetector).init({
         tryNow: 'Try now!',
         register: 'Register now!',
         swedish: 'Swedish',
-        japanese: 'Japanese'
+        japanese: 'Japanese',
+        dontKnow: "Don't know"
       }
     },
     jp: {
@@ -642,6 +644,7 @@ i18n.use(languageDetector).init({
         readMore: 'もっと読む',
         tryNow: '今すぐ試してみてください！',
         register: '今すぐサインアップ！',
+        dontknow: 'わからない',
         swedish: 'スウェーデン語',
         japanese: '日本の'
       }

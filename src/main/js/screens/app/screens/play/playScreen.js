@@ -4,6 +4,7 @@ import FlashCard from './components/Cards/FlashCard';
 import WriteCard from './components/Cards/WriteCard';
 import TranslateCard from './components/Cards/TranslateCard';
 import LessonStats from './components/LessonStats';
+import { translate } from 'react-i18next';
 
 import getCSRF from '../../../../shared/util/getcsrf';
 import Utility from '../../../../shared/util/Utility';
@@ -63,7 +64,9 @@ export class playScreen extends React.Component {
       this.props.verifyUserLoggedIn();
     });
 
-    if (answer === 'Vet ej') {
+    const { t } = this.props;
+
+    if (answer === `${t('dontKnow')}`) {
       this.setState({
         vetEj: true
       });
@@ -272,4 +275,4 @@ playScreen.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
 playScreen.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
 
-export default Utility.superConnect(this, Reducers)(playScreen);
+export default translate('translations')(Utility.superConnect(this, Reducers)(playScreen));
