@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import se.kits.gakusei.content.model.Internationalization;
 import se.kits.gakusei.content.repository.InternationalizationRepository;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
 @RestController
 public class InternationalizationController {
 
@@ -39,6 +44,45 @@ public class InternationalizationController {
             return new ResponseEntity<>(sentences, HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "api/internationalization/populateDB", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public void populateTableInternationalization(){
+        File file = new File("src/main/js/shared/i18n.js");
+        try{
+            boolean print = false;
+            String lang = "";
+            String nextLine;
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+
+            while(br.ready()){
+                nextLine = br.readLine();
+                if(nextLine.split(":")[0].trim().equalsIgnoreCase("se")
+                        || nextLine.split(":")[0].trim().equalsIgnoreCase("en")
+                        || nextLine.split(":")[0].trim().equalsIgnoreCase("jp")){
+                    lang = nextLine.split(":")[0].trim();
+                    print = true;
+                }
+                if (print && !nextLine.contains("translations: {") && !nextLine.contains("se: {")
+                        && !nextLine.contains("en: {") && !nextLine.contains("jp: {")
+                        && !nextLine.trim().equalsIgnoreCase("}")
+                        && nextLine.trim().length() > 1){
+                    Internationalization i18n = new Internationalization();
+                    i18n.setLanguage(lang);
+                    i18n.setAbbrievation(nextLine.split(":")[0].trim());
+                    i18n.setSentence(nextLine.split(":")[1]);
+                    internationalizationRepository.save(i18n);
+                }
+                if(nextLine.contains("}")){
+                    print = false;
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

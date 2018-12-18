@@ -108,7 +108,7 @@ i18n.use(languageDetector).init({
         loginScreen: '',
         'loginScreen.registerTitel': 'Registrera dig snabbt och enkelt här',
         'loginScreen.p1':
-          ' Vi sparar inga personuppgifter så var noga med att komma ihåg ditt lösenord då vi inte kan återställa det åt dig.',
+          'Vi sparar inga personuppgifter så var noga med att komma ihåg ditt lösenord då vi inte kan återställa det åt dig.',
         'loginScreen.p2':
           'Materialet är anpassat efter det svenska språket och du kan lära dig från svenska till japanska och japanska till svenska',
         'loginScreen.signUp': 'Logga in eller registrera dig',
@@ -320,8 +320,7 @@ i18n.use(languageDetector).init({
         loginScreen: '',
         'loginScreen.registerTitel': 'Register here',
         'loginScreen.p1':
-          ' We do not save any personal data so be sure to remember your password. We have no way of' +
-          'resetting it for you.',
+          ' We do not save any personal data so be sure to remember your password. We have no way of resetting it for you.',
         'loginScreen.p2': '',
         'loginScreen.signUp': 'Log in or register',
         'loginScreen.Form': '',
