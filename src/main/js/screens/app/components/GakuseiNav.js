@@ -1,4 +1,4 @@
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -91,19 +91,24 @@ export class GakuseiNav extends React.Component {
             <NavDropdown
               className="glosorDropdown"
               id="basic-nav-dropdown"
+              disabled={this.state.data.length === 0}
               title={<img
                 src="/img/flags/flags.svg"
                 alt="select language"
                 height="20px"
                      />}
             >
+              {console.log(this.state.data)}
               {this.state.data.map((languageData, key) => (
                 <MenuItem
                   key={key}
                   onClick={() => changeLanguage(languageData.language_code)}
                 >
-                  {languageData.language}
-                  {/*languageData.flags*/}
+                  <img
+                    src={languageData.flag_svg}
+                    alt="flag"
+                    height="25px"
+                  /> {languageData.language}
                 </MenuItem>
               ))}
             </NavDropdown>
