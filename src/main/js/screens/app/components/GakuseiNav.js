@@ -97,36 +97,15 @@ export class GakuseiNav extends React.Component {
                 height="20px"
                      />}
             >
-              {this.state.data.map((dynamicData, key) => (
+              {this.state.data.map((languageData, key) => (
                 <MenuItem
                   key={key}
-                  onClick={() => changeLanguage('se')}
+                  onClick={() => changeLanguage(languageData.language_code)}
                 >
-                  {dynamicData.language}
+                  {languageData.language}
+                  {/*languageData.flags*/}
                 </MenuItem>
               ))}
-
-              <MenuItem onClick={() => changeLanguage('se')}>
-                <img
-                  height="30px"
-                  src="/img/flags/sweden-flag.svg"
-                  alt="sweden"
-                />
-              </MenuItem>
-              {/*<MenuItem onClick={() => changeLanguage('jp')}>
-                <img
-                  height="30px"
-                  src="/img/flags/japan-flag.svg"
-                  alt="japan"
-                />
-              </MenuItem>
-              <MenuItem onClick={() => changeLanguage('en')}>
-                <img
-                  height="30px"
-                  src="/img/flags/eng-flag.svg"
-                  alt="japan"
-                />
-              </MenuItem> */}
             </NavDropdown>
           </Nav>
 

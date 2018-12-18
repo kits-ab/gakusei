@@ -8,7 +8,7 @@ i18n.use(languageDetector).init({
 
   // we init with resources
   resources: {
-    se: {
+    'sv-SE': {
       translations: {
         gakuseiNav: '',
         'gakuseiNav.guessPlay': 'Gissa ordet',
@@ -221,7 +221,7 @@ i18n.use(languageDetector).init({
         dontKnow: 'Vet ej'
       }
     },
-    en: {
+    'en-US': {
       translations: {
         gakuseiNav: '',
         'gakuseiNav.guessPlay': 'Guess the word',
@@ -437,7 +437,7 @@ i18n.use(languageDetector).init({
         dontKnow: "Don't know"
       }
     },
-    jp: {
+    'ja-JP': {
       translations: {
         gakuseiNav: '',
         'gakuseiNav.guessPlay': '単語を推測する',
