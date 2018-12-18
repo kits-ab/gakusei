@@ -17,6 +17,9 @@ public class Settings implements Serializable {
     @Column(nullable = false)
     private String language_code;
 
+    @Column(nullable = false)
+    private String flag_svg;
+
     public Long getId() {
         return id;
     }
@@ -27,6 +30,14 @@ public class Settings implements Serializable {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getFlag_svg() {
+        return flag_svg;
+    }
+
+    public void setFlag_svg(String flag_svg) {
+        this.flag_svg = flag_svg;
     }
 
     public String getLanguage_code() {

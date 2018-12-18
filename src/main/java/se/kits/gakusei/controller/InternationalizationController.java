@@ -23,8 +23,6 @@ public class InternationalizationController {
             @RequestParam(value = "language", required = false) String language,
             @RequestParam(value = "abbreviation", required = false) String abbreviation){
 
-        System.out.println("language is: " + language);
-
         Iterable<Internationalization> sentences;
 
         if(language == null && abbreviation == null) {
