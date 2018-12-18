@@ -1,0 +1,21 @@
+databaseChangeLog:
+- changeSet:
+    id: 88
+    author: Akar Khatab
+    preConditions:
+    - onFail: HALT
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: flag_svg
+            type: text
+            constraints:
+                nullable: false
+        schemaName: public
+        tableName: settings
+    - modifyDataType:
+        columnName: abbreviation
+        newDataType: VARCHAR(128)
+        schemaName: public
+        tableName: internationalization
