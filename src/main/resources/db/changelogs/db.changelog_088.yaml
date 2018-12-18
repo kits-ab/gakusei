@@ -10,8 +10,6 @@ databaseChangeLog:
         - column:
             name: flag_svg
             type: text
-            constraints:
-                nullable: false
         schemaName: public
         tableName: settings
     - modifyDataType:
