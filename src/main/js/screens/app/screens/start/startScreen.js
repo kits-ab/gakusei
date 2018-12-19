@@ -3,6 +3,22 @@ import ScrollableAnchor from 'react-scrollable-anchor';
 import { translate } from 'react-i18next';
 
 export class startScreen extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      internationalizationResources: ''
+    };
+
+    fetch('http://localhost:7777/api/internationalization/resources')
+      .then(result => {
+        return result.json();
+      })
+      .then(data => {
+        console.log(data);
+      });
+  }
+
   render() {
     const { t, i18n } = this.props;
 
