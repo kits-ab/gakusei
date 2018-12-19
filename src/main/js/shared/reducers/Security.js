@@ -227,18 +227,18 @@ export function requestUserLogin(data, redirectUrl) {
       }).then(response => {
         switch (response.status) {
           case 403:
-            if (i18n.language === 'sv-SE') {
+            if (i18n.language === 'se') {
               dispatch(receiveAuthResponse(false, 'Felaktiga uppgifter, vänligen kontrollera formuläret.'));
-            } else if (i18n.language === 'ja-JP') {
+            } else if (i18n.language === 'jp') {
               dispatch(receiveAuthResponse(false, '情報が正しくない場合は、フォームを確認してください。'));
             } else {
               dispatch(receiveAuthResponse(false, 'Incorrect information, please check the form.'));
             }
             break;
           case 200:
-            if (i18n.language === 'sv-SE') {
+            if (i18n.language === 'se') {
               dispatch(receiveAuthResponse(true, 'Inloggad, tar dig vidare..'));
-            } else if (i18n.language === 'ja-JP') {
+            } else if (i18n.language === 'jp') {
               dispatch(receiveAuthResponse(true, 'ログイン'));
             } else {
               dispatch(receiveAuthResponse(true, 'Logging in..'));
@@ -254,9 +254,9 @@ export function requestUserLogin(data, redirectUrl) {
         }
       });
     } catch (err) {
-      if (i18n.language === 'sv-SE') {
+      if (i18n.language === 'se') {
         dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
-      } else if (i18n.language === 'ja-JP') {
+      } else if (i18n.language === 'jp') {
         dispatch(receiveAuthResponse(false, '技術的なエラー。 後でもう一度お試しください。'));
       } else {
         dispatch(receiveAuthResponse(false, 'Technical issue. Please try again later.'));
@@ -285,9 +285,9 @@ export function requestUserRegister(data, redirectUrl) {
       }).then(response => {
         switch (response.status) {
           case 406:
-            if (i18n.language === 'sv-SE') {
+            if (i18n.language === 'se') {
               dispatch(receiveAuthResponse(false, 'Användarnamnet måste vara mellan 2 och 32 tecken.'));
-            } else if (i18n.language === 'ja-JP') {
+            } else if (i18n.language === 'jp') {
               dispatch(receiveAuthResponse(false, 'ユーザー名は2〜32文字でなければなりません。'));
             } else {
               dispatch(receiveAuthResponse(false, 'The username must be between 2 and 32 characters.'));
@@ -295,9 +295,9 @@ export function requestUserRegister(data, redirectUrl) {
 
             break;
           case 422:
-            if (i18n.language === 'sv-SE') {
+            if (i18n.language === 'se') {
               dispatch(receiveAuthResponse(false, 'Användarnamnet finns tyvärr redan, prova ett annat.'));
-            } else if (i18n.language === 'ja-JP') {
+            } else if (i18n.language === 'jp') {
               dispatch(receiveAuthResponse(false, 'ユーザー名はすでに存在し、別のユーザー名を試してください。'));
             } else {
               dispatch(receiveAuthResponse(false, 'The username already exists, try another.'));
@@ -305,9 +305,9 @@ export function requestUserRegister(data, redirectUrl) {
 
             break;
           case 201:
-            if (i18n.language === 'sv-SE') {
+            if (i18n.language === 'se') {
               dispatch(receiveAuthResponse(true, 'Registreringen lyckades, loggar in..'));
-            } else if (i18n.language === 'ja-JP') {
+            } else if (i18n.language === 'jp') {
               dispatch(receiveAuthResponse(true, '登録は成功し、ログインしました。'));
             } else {
               dispatch(receiveAuthResponse(true, 'The registration was successful, logging in.'));
@@ -323,9 +323,9 @@ export function requestUserRegister(data, redirectUrl) {
         dispatch(setRegistering(false));
       });
     } catch (err) {
-      if (i18n.language === 'sv-SE') {
+      if (i18n.language === 'se') {
         dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
-      } else if (i18n.language === 'ja-JP') {
+      } else if (i18n.language === 'jp') {
         dispatch(receiveAuthResponse(false, '技術的なエラー。 後でもう一度お試しください。'));
       } else {
         dispatch(receiveAuthResponse(false, 'Technical issue. Please try again later.'));

@@ -93,14 +93,14 @@ public class InternationalizationController {
 
             while(br.ready()){
                 nextLine = br.readLine();
-                if(nextLine.split(":")[0].trim().equalsIgnoreCase("se")
-                        || nextLine.split(":")[0].trim().equalsIgnoreCase("en")
-                        || nextLine.split(":")[0].trim().equalsIgnoreCase("jp")){
+                if(nextLine.split(":")[0].trim().equalsIgnoreCase("'se'")
+                        || nextLine.split(":")[0].trim().equalsIgnoreCase("'en'")
+                        || nextLine.split(":")[0].trim().equalsIgnoreCase("'jp'")){
                     lang = nextLine.split(":")[0].trim();
                     print = true;
                 }
-                if (print && !nextLine.contains("translations: {") && !nextLine.contains("se: {")
-                        && !nextLine.contains("en: {") && !nextLine.contains("jp: {")
+                if (print && !nextLine.contains("translations: {") && !nextLine.contains("'se': {")
+                        && !nextLine.contains("'en': {") && !nextLine.contains("'jp': {")
                         && !nextLine.trim().equalsIgnoreCase("}")
                         && nextLine.trim().length() > 1){
                     Internationalization i18n = new Internationalization();
@@ -113,6 +113,7 @@ public class InternationalizationController {
                     print = false;
                 }
             }
+            System.out.println("5");
 
         }catch (Exception e){
             e.printStackTrace();
