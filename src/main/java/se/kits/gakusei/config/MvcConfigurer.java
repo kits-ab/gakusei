@@ -53,7 +53,7 @@ public class MvcConfigurer implements WebMvcConfigurer {
         return new ApiInfoBuilder()
                 .title("Spring Boot REST API")
                 .description("\"Spring Boot REST API for Gakusei\"")
-                .version("2.0.3")
+                .version("2.0.4")
                 .build();
     }
 
