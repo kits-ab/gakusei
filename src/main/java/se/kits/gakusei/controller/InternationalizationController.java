@@ -1,5 +1,7 @@
 package se.kits.gakusei.controller;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,8 +15,9 @@ import se.kits.gakusei.content.repository.InternationalizationRepository;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class InternationalizationController {
@@ -45,6 +48,38 @@ public class InternationalizationController {
         }else{
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @RequestMapping(value = "api/internationalization/resources", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getInternationalizationResources(){
+
+        JSONObject resources = new JSONObject();
+
+        List<String> availableLangs = new ArrayList<>();
+
+        Iterable<Internationalization> resourceList = internationalizationRepository.findAll();
+
+        resourceList.forEach(internationalization -> {
+            if (!availableLangs.contains(internationalization.getLanguage())){
+                availableLangs.add(internationalization.getLanguage());
+            }
+        });
+
+        availableLangs.forEach(lang -> {
+            JSONObject translations = new JSONObject();
+            Iterable<Internationalization> tmpResources = internationalizationRepository.findAllByLanguage(lang);
+            tmpResources.forEach(internationalization -> {
+                translations.put(internationalization.getAbbreviation(), internationalization.getSentence());
+            });
+            JSONObject languageTranslation = new JSONObject();
+            languageTranslation.put("Translations", translations);
+            resources.put(lang, languageTranslation);
+        });
+
+        System.out.println(resources.toString());
+
+        return resources.toString();
     }
 
     @RequestMapping(value = "api/internationalization/populateDB", method = RequestMethod.GET,
