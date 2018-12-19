@@ -5,7 +5,6 @@ import DisplayQuestion from '../../shared/DisplayQuestion';
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import * as Security from '../../../../shared/reducers/Security';
 import { translate } from 'react-i18next';
-import startLesson, { selectScreen } from '../select/selectScreen';
 
 export const Reducers = [Lessons, Security];
 
