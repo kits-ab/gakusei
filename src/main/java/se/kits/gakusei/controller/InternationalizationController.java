@@ -77,8 +77,6 @@ public class InternationalizationController {
             resources.put(lang, languageTranslation);
         });
 
-        System.out.println(resources.toString());
-
         return resources.toString();
     }
 

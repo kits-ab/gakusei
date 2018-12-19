@@ -33,23 +33,18 @@ i18n.use(languageDetector).init({
 
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': 'Om Gakusei',
-        'aboutGakusei.aboutGakusei.p':
-          ' Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande fyra spellägen:',
-        'aboutGakusei.aboutGakusei.li1':
-          '"Gissa ordet"; som kan hittas under fliken Glosor. Här ska man välja rätt översättning på ett ord bland fyra alternativ.',
-        'aboutGakusei.aboutGakusei.li2':
-          '"Bildkort"; som även det kan hittas under fliken Glosor. Här gäller det att gissa rätt på ett ord. Gissade du rätt?',
+        'aboutGakusei.aboutGakusei.p': ' Gakusei är en webbapplikation där du kan öva dig på japanska. Applikationen har följande fyra spellägen:',
+        'aboutGakusei.aboutGakusei.li1': '"Gissa ordet"; som kan hittas under fliken Glosor. Här ska man välja rätt översättning på ett ord bland fyra alternativ.',
+        'aboutGakusei.aboutGakusei.li2': '"Bildkort"; som även det kan hittas under fliken Glosor. Här gäller det att gissa rätt på ett ord. Gissade du rätt?',
         'aboutGakusei.aboutGakusei.li3': 'Quiz och här kan du spela frågesporter kopplade till Japan.',
         'aboutGakusei.aboutGakusei.li4': 'Kanji och här kan du testa dina kunskaper i kanji.',
         'aboutgakusei.rights': '',
         'aboutGakusei.rights.h4': 'Rättigheter',
         'aboutGakusei.rights.p': 'Utvecklad i samarbete med ',
         'aboutGakusei.rights.link': 'KITS AB',
-        'aboutGakusei.rights.p2':
-          'Alla rättigheter till programkoden ägs av Kokitotsos AB. Denna sajt opereras av Daigaku Sverige som licensierar Gakusei av Kokitotsos AB:s genom en öppen källkodslicens. Utbildningsmaterial har sammanställts av Pierre Sandboge, och inkluderar eget material och annat material som framgår på annan plats på den här sidan. ',
+        'aboutGakusei.rights.p2': 'Alla rättigheter till programkoden ägs av Kokitotsos AB. Denna sajt opereras av Daigaku Sverige som licensierar Gakusei av Kokitotsos AB:s genom en öppen källkodslicens. Utbildningsmaterial har sammanställts av Pierre Sandboge, och inkluderar eget material och annat material som framgår på annan plats på den här sidan. ',
         'aboutGakusei.rights.link2': 'Daigaku.se',
-        'aboutGakusei.rights.p3':
-          'drivs utan anställda, med donerade medel, och ingen garanti om tillgänglighet kan ges. Tillhandahållandet av tjänsten kan upphöra när som helst utan förvarning.',
+        'aboutGakusei.rights.p3': 'drivs utan anställda, med donerade medel, och ingen garanti om tillgänglighet kan ges. Tillhandahållandet av tjänsten kan upphöra när som helst utan förvarning.',
         'aboutGakusei.licenses': '',
         'aboutGakusei.licenses.licens': 'Licenser',
         'aboutGakusei.licenses.modul': 'Modul',
@@ -107,10 +102,8 @@ i18n.use(languageDetector).init({
         'homeScreen.loading': 'Loading...',
         loginScreen: '',
         'loginScreen.registerTitel': 'Registrera dig snabbt och enkelt här',
-        'loginScreen.p1':
-          'Vi sparar inga personuppgifter så var noga med att komma ihåg ditt lösenord då vi inte kan återställa det åt dig.',
-        'loginScreen.p2':
-          'Materialet är anpassat efter det svenska språket och du kan lära dig från svenska till japanska och japanska till svenska',
+        'loginScreen.p1': 'Vi sparar inga personuppgifter så var noga med att komma ihåg ditt lösenord då vi inte kan återställa det åt dig.',
+        'loginScreen.p2': 'Materialet är anpassat efter det svenska språket och du kan lära dig från svenska till japanska och japanska till svenska',
         'loginScreen.signUp': 'Logga in eller registrera dig',
         'loginScreen.Form': '',
         'loginScreen.Form.placeholderName': 'Användarnamn',
@@ -138,12 +131,10 @@ i18n.use(languageDetector).init({
         'selectScreen.pageHeader.grammar': 'Böj verb',
         'selectScreen.pageHeader.error': 'No play type specified',
         'selectScreen.pageDescription': '',
-        'selectScreen.pageDescription.quiz':
-          'Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ',
+        'selectScreen.pageDescription.quiz': 'Sätt dina kunskaper om Japan på prov genom att välja en av 4 svarsalternativ',
         'selectScreen.pageDescription.guess': 'Välj mellan 4 svarsalternativ för den korrekta översättningen.',
         'selectScreen.pageDescription.translate': 'Översätt det visade ordet i fritext.',
-        'selectScreen.pageDescription.flashcards':
-          'Träna dig själv genom att använda kort, med frågan på ena sidan och rätta svaret på den andra.',
+        'selectScreen.pageDescription.flashcards': 'Träna dig själv genom att använda kort, med frågan på ena sidan och rätta svaret på den andra.',
         'selectScreen.pageDescription.kanji': 'Försök rita kanji-tecken med korrekta drag och i rätt ordning.',
         'selectScreen.pageDescription.grammar': 'Böj det visade ordet i fritext på angiven verbform.',
         'selectScreen.pageDescription.error': 'No play type specified',
@@ -177,27 +168,22 @@ i18n.use(languageDetector).init({
         'startScreen.aboutFeatureImage': '',
         'startScreen.aboutFeatureImage.colTwo': '',
         'startScreen.aboutFeatureImage.colTwo.h3': 'Ett bra komplement till undervisning',
-        'startScreen.aboutFeatureImage.colTwo.p':
-          'Olika sorters övningar, anpassade efter japanska undervisning på högskolenivå.',
+        'startScreen.aboutFeatureImage.colTwo.p': 'Olika sorters övningar, anpassade efter japanska undervisning på högskolenivå.',
         'startScreen.aboutFeatureImage.colThree': '',
         'startScreen.aboutFeatureImage.colThree.h3': 'Gakusei överallt',
-        'startScreen.aboutFeatureImage.colThree.p':
-          'Öva med Gakusei på mobilen! Fungerar lika på mobila enheter som på laptops',
+        'startScreen.aboutFeatureImage.colThree.p': 'Öva med Gakusei på mobilen! Fungerar lika på mobila enheter som på laptops',
         'startScreen.aboutFeatureImage.colFour': '',
         'startScreen.aboutFeatureImage.colFour.h3': 'Anonymitet',
-        'startScreen.aboutFeatureImage.colFour.p':
-          'Gakusei lagrar ingen personlig data om sina användare, det enda som behövs är ett användarnamn.',
+        'startScreen.aboutFeatureImage.colFour.p': 'Gakusei lagrar ingen personlig data om sina användare, det enda som behövs är ett användarnamn.',
         'startScreen.aboutFeatureImage.colFive': '',
         'startScreen.aboutFeatureImage.colFive.h3': 'quizar',
         'startScreen.aboutFeatureImage.colFive.p': 'Prova våra quizar och se vad du kan om Japan.',
         'startScreen.aboutFeatureImage.colSix': '',
         'startScreen.aboutFeatureImage.colSix.h3': 'Smart inlärningsteknologi',
-        'startScreen.aboutFeatureImage.colSix.p':
-          'Vårt system kommer ihåg hur du har svarat på frågor, på så sätt kan vi anpassa inlärningsmaterialet efter dig.',
+        'startScreen.aboutFeatureImage.colSix.p': 'Vårt system kommer ihåg hur du har svarat på frågor, på så sätt kan vi anpassa inlärningsmaterialet efter dig.',
         'startScreen.jumbotronBannerDaigaku': '',
         'startScreen.jumbotronBannerDaigaku.h2': 'Daigaku Sverige utvecklar Gakusei',
-        'startScreen.jumbotronBannerDaigaku.p':
-          'Daigaku Sverige har som mål att främja undervisning i, och forskning om japanska. Idag måste man i stor utsträckning lära sig japanska via engelska. Vi tror att det skulle vara en fördel om åtminstone en del inlärning kan ske direkt från svenska till japanska. Därför har vi skapat Gakusei, den första webbapplikationen som lär dig japanska via svenska!',
+        'startScreen.jumbotronBannerDaigaku.p': 'Daigaku Sverige har som mål att främja undervisning i, och forskning om japanska. Idag måste man i stor utsträckning lära sig japanska via engelska. Vi tror att det skulle vara en fördel om åtminstone en del inlärning kan ske direkt från svenska till japanska. Därför har vi skapat Gakusei, den första webbapplikationen som lär dig japanska via svenska!',
         'startScreen.jumbotronRegister': '',
         'startScreen.jumbotronRegister.h2': 'Utöka din kunskap med Gakusei!',
         'appScreen:': '',
@@ -245,24 +231,18 @@ i18n.use(languageDetector).init({
 
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': 'About Gakusei',
-        'aboutGakusei.aboutGakusei.p':
-          ' Gakusei is a web application where you can practice Japanese. The application has four game modes:',
-        'aboutGakusei.aboutGakusei.li1':
-          '"Guess" the word that can be found under "words". Here you should choose the correct translation of one word among four options.',
-        'aboutGakusei.aboutGakusei.li2':
-          '"Flashcard" can be found under the "words" tab. Here\'s the question of guessing one word. Did you guess right?',
-        'aboutGakusei.aboutGakusei.li3':
-          '"Quiz" Here you can play questions related to JapanHere you can play questions related to Japan.',
+        'aboutGakusei.aboutGakusei.p': ' Gakusei is a web application where you can practice Japanese. The application has four game modes:',
+        'aboutGakusei.aboutGakusei.li1': '"Guess" the word that can be found under "words". Here you should choose the correct translation of one word among four options.',
+        'aboutGakusei.aboutGakusei.li2': '"Flashcard" can be found under the "words" tab. Here\'s the question of guessing one word. Did you guess right?',
+        'aboutGakusei.aboutGakusei.li3': '"Quiz" Here you can play questions related to JapanHere you can play questions related to Japan.',
         'aboutGakusei.aboutGakusei.li4': '"Kanji" Here you can test your skills in Kanji.',
         'aboutgakusei.rights': '',
         'aboutGakusei.rights.h4': 'Rights',
         'aboutGakusei.rights.p': 'Developed in cooperation with ',
         'aboutGakusei.rights.link': 'KITS AB',
-        'aboutGakusei.rights.p2':
-          'All rights to the program code are owned by Kokitotsos AB. This site is operated by Daigaku Sweden and licensed Gakusei by Kokitotsos AB through an open source license. Educational materials have been compiled by Pierre Sandboge, and include own material and other material shown elsewhere on this page. ',
+        'aboutGakusei.rights.p2': 'All rights to the program code are owned by Kokitotsos AB. This site is operated by Daigaku Sweden and licensed Gakusei by Kokitotsos AB through an open source license. Educational materials have been compiled by Pierre Sandboge, and include own material and other material shown elsewhere on this page. ',
         'aboutGakusei.rights.link2': 'Daigaku.se',
-        'aboutGakusei.rights.p3':
-          'operated without employees, with donated funds, and no guarantee of availability can be given. The provision of the service may terminate at any time without notice.',
+        'aboutGakusei.rights.p3': 'operated without employees, with donated funds, and no guarantee of availability can be given. The provision of the service may terminate at any time without notice.',
         'aboutGakusei.licenses': '',
         'aboutGakusei.licenses.licens': 'Licensing',
         'aboutGakusei.licenses.modul': 'Module',
@@ -320,8 +300,7 @@ i18n.use(languageDetector).init({
         'homeScreen.loading': 'Loading...',
         loginScreen: '',
         'loginScreen.registerTitel': 'Register here',
-        'loginScreen.p1':
-          ' We do not save any personal data so be sure to remember your password. We have no way of resetting it for you.',
+        'loginScreen.p1': 'We do not save any personal data so be sure to remember your password. We have no way of resetting it for you.',
         'loginScreen.p2': '',
         'loginScreen.signUp': 'Log in or register',
         'loginScreen.Form': '',
@@ -350,12 +329,10 @@ i18n.use(languageDetector).init({
         'selectScreen.pageHeader.grammar': 'Verb tense',
         'selectScreen.pageHeader.error': 'No play type specified',
         'selectScreen.pageDescription': '',
-        'selectScreen.pageDescription.quiz':
-          'Put your knowledge of Japan to the test by choosing one of four alternatives',
+        'selectScreen.pageDescription.quiz': 'Put your knowledge of Japan to the test by choosing one of four alternatives',
         'selectScreen.pageDescription.guess': 'Choose the correct alternative out of four choices.',
         'selectScreen.pageDescription.translate': 'Write the tranlsation the word.',
-        'selectScreen.pageDescription.flashcards':
-          'Practice by using cards. The question is on one side and the correct answer on the other.',
+        'selectScreen.pageDescription.flashcards': 'Practice by using cards. The question is on one side and the correct answer on the other.',
         'selectScreen.pageDescription.kanji': 'Practice writing kanji using correct strokes in the right order.',
         'selectScreen.pageDescription.grammar': 'Write the correct tense of the verb.',
         'selectScreen.pageDescription.error': 'No play type specified',
@@ -389,27 +366,22 @@ i18n.use(languageDetector).init({
         'startScreen.aboutFeatureImage': '',
         'startScreen.aboutFeatureImage.colTwo': '',
         'startScreen.aboutFeatureImage.colTwo.h3': 'A good complement to teaching',
-        'startScreen.aboutFeatureImage.colTwo.p':
-          'Different types of exercises, adapted to Japanese education at university level.',
+        'startScreen.aboutFeatureImage.colTwo.p': 'Different types of exercises, adapted to Japanese education at university level.',
         'startScreen.aboutFeatureImage.colThree': '',
-        'startScreen.aboutFeatureImage.colThree.p':
-          'Practice with Gakusei on your mobile! Works equally on mobile devices like on laptops',
+        'startScreen.aboutFeatureImage.colThree.p': 'Practice with Gakusei on your mobile! Works equally on mobile devices like on laptops',
         'startScreen.aboutFeatureImage.colThree.h3': 'Gakusei everywhere',
         'startScreen.aboutFeatureImage.colFour': '',
         'startScreen.aboutFeatureImage.colFour.h3': 'Anonymity',
-        'startScreen.aboutFeatureImage.colFour.p':
-          'Gakusei stores no personal data about its users, all that is required is a username.',
+        'startScreen.aboutFeatureImage.colFour.p': 'Gakusei stores no personal data about its users, all that is required is a username.',
         'startScreen.aboutFeatureImage.colFive': '',
         'startScreen.aboutFeatureImage.colFive.h3': 'quizzes',
         'startScreen.aboutFeatureImage.colFive.p': 'Try our quizzes and see what you know about Japan.',
         'startScreen.aboutFeatureImage.colSix': '',
         'startScreen.aboutFeatureImage.colSix.h3': 'Smart learning technology',
-        'startScreen.aboutFeatureImage.colSix.p':
-          'Our system remembers how you answered questions, so we can customize the learning material for you.',
+        'startScreen.aboutFeatureImage.colSix.p': 'Our system remembers how you answered questions, so we can customize the learning material for you.',
         'startScreen.jumbotronBannerDaigaku': '',
         'startScreen.jumbotronBannerDaigaku.h2': 'Daigaku Sweden develops Gakusei',
-        'startScreen.jumbotronBannerDaigaku.p':
-          'Daigaku Sweden aims to promote teaching and research in Japanese. Today, to a large extent, Japanese must be learned through English. We think it would be an advantage if at least some learning can be done directly from Swedish to Japanese. Therefore we have created Gakusei, the first web application that teaches Japanese through Swedish!',
+        'startScreen.jumbotronBannerDaigaku.p': 'Daigaku Sweden aims to promote teaching and research in Japanese. Today, to a large extent, Japanese must be learned through English. We think it would be an advantage if at least some learning can be done directly from Swedish to Japanese. Therefore we have created Gakusei, the first web application that teaches Japanese through Swedish!',
         'startScreen.jumbotronRegister': '',
         'startScreen.jumbotronRegister.h2': 'Expand your knowledge with Gakusei!',
         'appScreen:': '',
@@ -455,23 +427,18 @@ i18n.use(languageDetector).init({
 
         aboutGakusei: '',
         'aboutGakusei.aboutGakusei.h2': '学生について',
-        'aboutGakusei.aboutGakusei.p':
-          '学生は、日本語で練習できるWebアプリケーションです。アプリケーションには、次の4つのゲームモードがあります。',
-        'aboutGakusei.aboutGakusei.li1':
-          'スペルのタブの下にある単語を推測してください。 ここでは、4つのオプションの中から1つの単語の正しい翻訳を選択する必要があります。',
-        'aboutGakusei.aboutGakusei.li2':
-          'スペルチェックタブの下にある絵カード。 1つの単語を推測するという質問があります。 あなたは正しいと思いましたか？',
+        'aboutGakusei.aboutGakusei.p': '学生は、日本語で練習できるWebアプリケーションです。アプリケーションには、次の4つのゲームモードがあります。',
+        'aboutGakusei.aboutGakusei.li1': 'スペルのタブの下にある単語を推測してください。 ここでは、4つのオプションの中から1つの単語の正しい翻訳を選択する必要があります。',
+        'aboutGakusei.aboutGakusei.li2': 'スペルチェックタブの下にある絵カード。 1つの単語を推測するという質問があります。 あなたは正しいと思いましたか？',
         'aboutGakusei.aboutGakusei.li3': 'クイズ、ここで日本に関する質問をすることができます。',
         'aboutGakusei.aboutGakusei.li4': '漢字と漢字であなたのスキルをテストできます。',
         'aboutgakusei.rights': '',
         'aboutGakusei.rights.h4': '権利',
         'aboutGakusei.rights.p': '協力して開発 ',
         'aboutGakusei.rights.link': 'KITS AB',
-        'aboutGakusei.rights.p2':
-          'プログラムコードのすべての権利は、Kokitotsos ABによって所有されています。 このサイトは、スウェーデン大学図書館が運営しています。スウェーデンは、Kokitotsos ABによる学生のライセンスをオープンソースライセンスで提供しています。 教育資料は、Pierre Sandboge によって編集されており、このページの他の場所に示されている自分自身の資料やその他の資料が含まれています。',
+        'aboutGakusei.rights.p2': 'プログラムコードのすべての権利は、Kokitotsos ABによって所有されています。 このサイトは、スウェーデン大学図書館が運営しています。スウェーデンは、Kokitotsos ABによる学生のライセンスをオープンソースライセンスで提供しています。 教育資料は、Pierre Sandboge によって編集されており、このページの他の場所に示されている自分自身の資料やその他の資料が含まれています。',
         'aboutGakusei.rights.link2': 'Daigaku.se',
-        'aboutGakusei.rights.p3':
-          '従業員なしで運営され、寄付された資金で運営され、可用性の保証はありません。 サービスの提供は、通知なしにいつでも終了することができます。',
+        'aboutGakusei.rights.p3': '従業員なしで運営され、寄付された資金で運営され、可用性の保証はありません。 サービスの提供は、通知なしにいつでも終了することができます。',
         'aboutGakusei.licenses': '',
         'aboutGakusei.licenses.licens': 'ライセンス',
         'aboutGakusei.licenses.modul': 'モジュール',
@@ -566,10 +533,8 @@ i18n.use(languageDetector).init({
         'selectScreen.pageDescription.quiz': '正しい翻訳のために4つの回答オプションを選択します',
         'selectScreen.pageDescription.guess': '正しい翻訳のために4つの回答オプションを選択します。',
         'selectScreen.pageDescription.translate': '表示された単語をフリーテキストに翻訳します。',
-        'selectScreen.pageDescription.flashcards':
-          'カードを使って自分の身体を鍛えましょう。片方の質問ともう片方の答えを修正してください。',
-        'selectScreen.pageDescription.kanji':
-          'カードを使って自分の身体を鍛えましょう。片方の質問ともう片方の答えを修正してください。',
+        'selectScreen.pageDescription.flashcards': 'カードを使って自分の身体を鍛えましょう。片方の質問ともう片方の答えを修正してください。',
+        'selectScreen.pageDescription.kanji': 'カードを使って自分の身体を鍛えましょう。片方の質問ともう片方の答えを修正してください。',
         'selectScreen.pageDescription.grammar': '表示された単語を、指定された動詞形式のフリーテキストに収めます。',
         'selectScreen.pageDescription.error': '再生タイプが指定されていません',
         'selectScreen.getLessons': '',
@@ -585,8 +550,7 @@ i18n.use(languageDetector).init({
         'selectScreen.getLessons.drawHard': '難しい - フリーハンドで描く',
         'selectScreen.getLessons.panel': '',
         'selectScreen.getLessons.panel.mixedQuestion': '混在した質問',
-        'selectScreen.getLessons.panel.mixedFavLession':
-          'あなたのお気に入りのレッスンのすべてからの質問を混ぜてください',
+        'selectScreen.getLessons.panel.mixedFavLession': 'あなたのお気に入りのレッスンのすべてからの質問を混ぜてください',
         'selectScreen.getLessons.panel.rongQuestion': '間違った答え',
         'selectScreen.getLessons.panel.failedQuestions': 'あなたが間違って答えたすべての質問がここにあります。',
         'selectScreen.displayLessions': '',
@@ -606,23 +570,19 @@ i18n.use(languageDetector).init({
         'startScreen.aboutFeatureImage.colTwo.p': '大学レベルの日本の教育に適応したさまざまなタイプの練習。',
         'startScreen.aboutFeatureImage.colThree': '',
         'startScreen.aboutFeatureImage.colThree.h3': 'どこでもどこでも',
-        'startScreen.aboutFeatureImage.colThree.p':
-          'モバイルで学生と一緒に練習しましょう！ ラップトップのようなモバイルデバイスでも同等に動作します。',
+        'startScreen.aboutFeatureImage.colThree.p': 'モバイルで学生と一緒に練習しましょう！ ラップトップのようなモバイルデバイスでも同等に動作します。',
         'startScreen.aboutFeatureImage.colFour': '',
         'startScreen.aboutFeatureImage.colFour.h3': '匿名',
-        'startScreen.aboutFeatureImage.colFour.p':
-          '学生はユーザーの個人情報を保管していません。必要なのはユーザー名だけです。',
+        'startScreen.aboutFeatureImage.colFour.p': '学生はユーザーの個人情報を保管していません。必要なのはユーザー名だけです。',
         'startScreen.aboutFeatureImage.colFive': '',
         'startScreen.aboutFeatureImage.colFive.h3': '除去する',
         'startScreen.aboutFeatureImage.colFive.p': 'クイズをして、日本について何ができるか見てみましょう。',
         'startScreen.aboutFeatureImage.colSix': '',
         'startScreen.aboutFeatureImage.colSix.h3': 'スマートな学習技術',
-        'startScreen.aboutFeatureImage.colSix.p':
-          '私たちのシステムは質問にどのように答えたかを記憶していますので、学習教材をカスタマイズすることができます。',
+        'startScreen.aboutFeatureImage.colSix.p': '私たちのシステムは質問にどのように答えたかを記憶していますので、学習教材をカスタマイズすることができます。',
         'startScreen.jumbotronBannerDaigaku': '',
         'startScreen.jumbotronBannerDaigaku.h2': '大學スウェーデン、学術振興',
-        'startScreen.jumbotronBannerDaigaku.p':
-          '大学スウェーデンは、日本語での教授と研究の促進を目指しています。 今日、日本人は英語で学ぶ必要があります。 私たちは、スウェーデン語から日本語に直接いくつかの学習を直接行うことができれば有利だと思います。 そのため、スウェーデン語で日本語を教える最初のWebアプリケーションであるGakuseiを作成しました。',
+        'startScreen.jumbotronBannerDaigaku.p': '大学スウェーデンは、日本語での教授と研究の促進を目指しています。 今日、日本人は英語で学ぶ必要があります。 私たちは、スウェーデン語から日本語に直接いくつかの学習を直接行うことができれば有利だと思います。 そのため、スウェーデン語で日本語を教える最初のWebアプリケーションであるGakuseiを作成しました。',
         'startScreen.jumbotronRegister': '',
         'startScreen.jumbotronRegister.h2': '学生と知識を広げる',
         appScreen: '',
