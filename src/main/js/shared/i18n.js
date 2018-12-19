@@ -2,8 +2,8 @@ import i18n from 'i18next';
 import languageDetector from 'i18next-browser-languagedetector';
 
 i18n.use(languageDetector).init({
-  lngs: ['se', 'jp', 'en'],
-  fallbackLng: 'se',
+  lngs: ['sv-SE', 'ja-JP', 'en-US'],
+  fallbackLng: 'sv-SE',
   debug: true,
 
   // we init with resources
