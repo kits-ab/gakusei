@@ -1,6 +1,8 @@
 package se.kits.gakusei.controller;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,12 +18,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import se.kits.gakusei.content.model.Kanji;
+import se.kits.gakusei.content.model.Lesson;
+import se.kits.gakusei.content.model.Nugget;
+import se.kits.gakusei.content.repository.LessonRepository;
+import se.kits.gakusei.content.repository.NuggetRepository;
 import se.kits.gakusei.dto.EventDTO;
 import se.kits.gakusei.user.model.Event;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.EventRepository;
 import se.kits.gakusei.user.repository.NuggetTypeRepository;
 import se.kits.gakusei.user.repository.UserRepository;
+import se.kits.gakusei.util.LessonHandler;
 import se.kits.gakusei.util.ProgressHandler;
 
 @RestController
@@ -41,14 +49,23 @@ public class EventController {
     @Autowired
     private NuggetTypeRepository nuggetTypeRepository;
 
+    @Autowired
+    private NuggetRepository nuggetRepository;
+
+    @Autowired
+    private LessonRepository lessonRepository;
+
+    @Autowired
+    private LessonHandler lessonHandler;
+
     @Value("${gakusei.event-logging}")
     private boolean eventLogging;
 
     @ApiOperation(value="Getting all the events", response = ResponseEntity.class)
     @RequestMapping(
-        value = "/api/events",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            value = "/api/events",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<Iterable<Event>> getEvents() {
         Iterable events = eventRepository.findAll();
@@ -59,20 +76,16 @@ public class EventController {
 
     @ApiOperation(value="Add an event", response = ResponseEntity.class)
     @RequestMapping(
-        value = "/api/events2",
-        method = RequestMethod.POST,
-        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<?> addEvents(
-        @RequestBody
-        EventDTO[] eventDTOs
-    ) {
-        for (EventDTO eventDTO : eventDTOs) {
-            ResponseEntity<?> response = this.addEvent(eventDTO);
-            if (!response.getStatusCode().is2xxSuccessful(
+            value = "/api/events2",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Event> addEvents(@RequestBody EventDTO[] eventDTOs) {
 
-            )) {// Stop iterating if we run into errors
+        for (EventDTO eventDTO : eventDTOs) {
+            ResponseEntity<Event> response = this.addEvent(eventDTO);
+            if (!response.getStatusCode().is2xxSuccessful()) {
+                // Stop iterating if we run into errors
 
                 return response;
             }
@@ -82,46 +95,77 @@ public class EventController {
 
     @ApiOperation(value="Add an event", response = ResponseEntity.class)
     @RequestMapping(
-        value = "/api/events",
-        method = RequestMethod.POST,
-        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public ResponseEntity<?> addEvent(
-        @RequestBody
-        EventDTO eventDTO
-    ) {
+            value = "/api/events",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Event> addEvent(@RequestBody EventDTO eventDTO) {
         if (!eventLogging) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
         Event event = new Event();
         User user = userRepository.findByUsername(eventDTO.getUsername());
+
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
         event.setUser(user);
         event.setGamemode(eventDTO.getGamemode());
         event.setLesson(eventDTO.getLesson());
         event.setType(eventDTO.getType());
         event.setData(eventDTO.getData());
         event.setNuggetId(eventDTO.getNuggetid());
+
         if(eventDTO.getNuggetcategory()!=null){
             event.setNuggetType(nuggetTypeRepository.findById(eventDTO.getNuggetcategoryAsInt()));
         }
         event.setTimestamp(new Timestamp(eventDTO.getTimestamp()));
+
         logger.info(
-            event.getTimestamp().toString() + " / " + event.getGamemode(
+                event.getTimestamp().toString() + " / " + event.getGamemode() + " / " + event.getType() +
+                        " / " + event.getData() + " / " + event.getNuggetId() + " / " + user.getUsername());
 
-            ) + " / " + event.getType() + " / " + event.getData(
-
-            ) + " / " + event.getNuggetId() + " / " + user.getUsername()
-        );
         event = eventRepository.save(event);
+
         if (event.getType().equalsIgnoreCase("answeredCorrectly")) {
             progressHandler.trackProgress(event);
         }
+
         if (event.getType().equalsIgnoreCase("updateRetention")) {
             progressHandler.updateRetention(event);
+
+            List<Lesson> tmpLessons;
+            tmpLessons = lessonRepository.findAllByOrderByName();
+
+            if(nuggetRepository.findById(event.getNuggetId()).isPresent()) {
+
+                tmpLessons = tmpLessons.stream().filter(
+                        lesson -> lesson.getKanjis().isEmpty()
+                ).collect(Collectors.toList());
+                for (Lesson tmpLesson : tmpLessons) {
+                    List<Nugget> tmpNuggets = tmpLesson.getNuggets();
+                    for (Nugget tmpNugget : tmpNuggets) {
+                        if (tmpNugget.getId().equals(event.getNuggetId())) {
+                            lessonHandler.evictCacheNuggets(event.getUser().getUsername(), tmpLesson.getName());
+                        }
+                    }
+                }
+            }else{
+                tmpLessons = tmpLessons.stream().filter(
+                        lesson -> lesson.getNuggets().isEmpty()
+                ).collect(Collectors.toList());
+
+                for (Lesson tmpLesson : tmpLessons) {
+                    List<Kanji> tmpKanjis = tmpLesson.getKanjis();
+                    for (Kanji tmpKanji: tmpKanjis) {
+                        if (tmpKanji.getId().equals(event.getNuggetId())) {
+                            lessonHandler.evictCacheKanjis(event.getUser().getUsername(), tmpLesson.getName());
+                        }
+                    }
+                }
+            }
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

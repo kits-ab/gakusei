@@ -1,4 +1,4 @@
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -10,6 +10,23 @@ import { translate, Trans } from 'react-i18next';
 export const Reducers = [Lessons, Security];
 
 export class GakuseiNav extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      data: []
+    };
+  }
+
+  componentDidMount() {
+    fetch(`/api/settings`)
+      .then(Response => Response.json())
+      .then(findresponse => {
+        this.setState({
+          data: findresponse
+        });
+      });
+  }
+
   render() {
     const changeLanguage = lng => {
       i18n.changeLanguage(lng);
@@ -48,35 +65,16 @@ export class GakuseiNav extends React.Component {
                 <LinkContainer to="/select/guess">
                   <MenuItem className="guessPlay">{t('gakuseiNav.guessPlay')}</MenuItem>
                 </LinkContainer>
-                {/* <LinkContainer to="/select/translate">
-                  <MenuItem className="translatePlay">Översätt ordet</MenuItem>
-                </LinkContainer> */}
                 <LinkContainer to="/select/flashcards">
                   <MenuItem className="flashcardPlay">{t('gakuseiNav.flashcardPlay')}</MenuItem>
                 </LinkContainer>
               </NavDropdown>
-              {/* <NavDropdown
-                className="grammarDropdown"
-                title="Grammatik"
-                id="basic-nav-dropdown"
-              >
-                <LinkContainer to="/select/grammar">
-                  <MenuItem className="grammarPlay">Böj verb</MenuItem>
-                </LinkContainer>
-                <LinkContainer to="/grammar">
-                  <NavItem className="grammarHelp">Texter om grammatik</NavItem>
-                </LinkContainer>
-              </NavDropdown> */}
-
               <LinkContainer to="/select/kanji">
                 <NavItem className="kanjiPlay">{t('gakuseiNav.kanjiPlay')}</NavItem>
               </LinkContainer>
               <LinkContainer to="/select/quiz">
                 <NavItem className="quizPlay">{t('gakuseiNav.quizPlay')}</NavItem>
               </LinkContainer>
-              {/* <LinkContainer to="/lists">
-                  <NavItem>Lista ord</NavItem>
-                </LinkContainer> */}
               <LinkContainer to="/about">
                 <NavItem className="about">{t('gakuseiNav.about')}</NavItem>
               </LinkContainer>
@@ -88,37 +86,31 @@ export class GakuseiNav extends React.Component {
               </LinkContainer>
             </Nav>
           )}
+
           <Nav>
             <NavDropdown
               className="glosorDropdown"
               id="basic-nav-dropdown"
+              disabled={this.state.data.length === 0}
               title={<img
                 src="/img/flags/flags.svg"
                 alt="select language"
                 height="20px"
                      />}
             >
-              <MenuItem onClick={() => changeLanguage('se')}>
-                <img
-                  height="30px"
-                  src="/img/flags/sweden-flag.svg"
-                  alt="sweden"
-                />
-              </MenuItem>
-              {/*<MenuItem onClick={() => changeLanguage('jp')}>
-                <img
-                  height="30px"
-                  src="/img/flags/japan-flag.svg"
-                  alt="japan"
-                />
-              </MenuItem>
-              <MenuItem onClick={() => changeLanguage('en')}>
-                <img
-                  height="30px"
-                  src="/img/flags/eng-flag.svg"
-                  alt="japan"
-                />
-              </MenuItem> */}
+            
+              {this.state.data.map((languageData, key) => (
+                <MenuItem
+                  key={key}
+                  onClick={() => changeLanguage(languageData.language_code)}
+                >
+                  <img
+                    src={languageData.flag_svg}
+                    alt="flag"
+                    height="25px"
+                  /> {languageData.language}
+                </MenuItem>
+              ))}
             </NavDropdown>
           </Nav>
 
