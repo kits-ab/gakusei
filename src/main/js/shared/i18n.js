@@ -264,6 +264,8 @@ i18n.use(languageDetector).init({
         'loginScreen.registerTitel': 'Register here',
         'loginScreen.p1':
           'We do not save any personal data so be sure to remember your password. We have no way of resetting it for you.',
+        'loginScreen.p2':
+          'The material is adapted to the Swedish language and you can learn from Swedish to Japanese and Japanese to Swedish',
         'loginScreen.signUp': 'Log in or register',
         'loginScreen.Form.placeholderName': 'Username',
         'loginScreen.Form.placehoolderPassword': 'Password',
