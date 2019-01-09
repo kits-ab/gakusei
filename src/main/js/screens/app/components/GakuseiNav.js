@@ -98,7 +98,6 @@ export class GakuseiNav extends React.Component {
                 height="20px"
                      />}
             >
-            
               {this.state.data.map((languageData, key) => (
                 <MenuItem
                   key={key}

@@ -72,6 +72,12 @@ module.exports = function() {
             'sass-loader'
           ],
           exclude
+        },
+        {
+          test: /locales/,
+          loader: '@alienfast/i18next-loader'
+          // options here
+          //query: { overrides: [ '../node_modules/lib/locales' ] }
         }
       ]
     },
