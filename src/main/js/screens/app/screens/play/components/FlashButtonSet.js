@@ -55,7 +55,7 @@ export class FlashButtonSet extends React.Component {
           md={3}
         >
           <AnswerButton
-            answerText={t('dontKnow')}
+            answerText={t('aboutGakusei.finishScreen.dontknow')}
             primaryText={t('cards.no')}
             onAnswerClick={this.props.clickCallback}
             buttonStyle={'danger'}

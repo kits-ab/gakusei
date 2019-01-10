@@ -66,7 +66,7 @@ export class playScreen extends React.Component {
 
     const { t } = this.props;
 
-    if (answer === `${t('dontKnow')}`) {
+    if (answer === `${t('aboutGakusei.finishScreen.dontknow')}`) {
       this.setState({
         vetEj: true
       });
