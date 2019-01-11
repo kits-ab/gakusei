@@ -4,7 +4,7 @@ import resources from '../../resources/locales';
 
 i18n.use(languageDetector).init({
   lng: 'se',
-  fallbackLng: ['se', 'en', 'jp'],
+  fallbackLng: 'se',
   debug: true,
 
   // we init with resources
