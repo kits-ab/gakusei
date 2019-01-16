@@ -23,6 +23,10 @@ export class DisplayQuestion extends React.Component {
       } else {
         text += ` (${this.props.secondaryText})`;
       }
+    } else if (!this.props.japaneseCharacters && !/[a-z]/i.test(this.props.primaryText.toString().toLowerCase())) {
+      text = `${this.props.primaryText.toString().split(',')[0]}  「${
+        this.props.primaryText.toString().split(',')[1]
+      }」`;
     }
 
     return <p className="question__text">{text}</p>;
