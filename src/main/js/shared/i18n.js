@@ -3,7 +3,7 @@ import languageDetector from 'i18next-browser-languagedetector';
 import resources from '../../resources/locales';
 
 i18n.use(languageDetector).init({
-  lng: 'se',
+  lng: i18n.languages,
   fallbackLng: 'se',
   debug: true,
 
