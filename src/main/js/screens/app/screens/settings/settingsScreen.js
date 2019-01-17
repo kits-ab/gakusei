@@ -1,7 +1,7 @@
 import * as Security from '../../../../shared/reducers/Security';
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import Utility from '../../../../shared/util/Utility';
-import { Col, DropdownButton, Grid, MenuItem, FormGroup, Form, ControlLabel, FormControl } from 'react-bootstrap';
+import { Col, DropdownButton, Grid, MenuItem, FormGroup, Form, Button, FormControl } from 'react-bootstrap';
 
 import { translate } from 'react-i18next';
 import { AppScreen } from '../../AppScreen';
@@ -13,6 +13,10 @@ export class settingsScreen extends React.Component {
     super(props);
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmitPassChange = this.handleSubmitPassChange.bind(this);
+    this.getOldPassValidationState = this.getOldPassValidationState.bind(this);
+    this.getNewPassValidationState = this.getNewPassValidationState.bind(this);
+    this.getRepeatPassValidationState = this.getRepeatPassValidationState.bind(this);
 
     this.state = {
       options: {
@@ -93,14 +97,57 @@ export class settingsScreen extends React.Component {
     );
   }
 
-  getValidationState() {
-    return 'success';
+  getOldPassValidationState() {
+    if (this.state.oldPassword.match(' ')) return 'error';
+    const length = this.state.oldPassword.length;
+    if (length > 1) {
+      return 'success';
+    } else if (length > 0) {
+      return 'error';
+    } else {
+      return null;
+    }
+  }
+
+  getNewPassValidationState() {
+    if (this.state.newPassword.match(' ')) return 'error';
+    const length = this.state.newPassword.length;
+    if (length > 1) {
+      return 'success';
+    } else if (length > 0) {
+      return 'error';
+    } else {
+      return null;
+    }
+  }
+
+  getRepeatPassValidationState() {
+    if (this.state.repeatPassword.match(' ')) return 'error';
+    const length = this.state.repeatPassword.length;
+    if (length > 1 && length < 101) {
+      return 'success';
+    } else if (length === 1 || length > 100) {
+      return 'error';
+    } else {
+      return null;
+    }
   }
 
   handleInputChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
+  }
+
+  handleSubmitPassChange(e) {
+    window.alert(
+      'Submitted password change! \nOld password: ' +
+        this.state.oldPassword +
+        '\nNew password: ' +
+        this.state.newPassword +
+        '\nRepeated password: ' +
+        this.state.repeatPassword
+    );
   }
 
   render() {
@@ -121,7 +168,7 @@ export class settingsScreen extends React.Component {
             <Form>
               <FormGroup
                 controlId="formChangePassOld"
-                validationState={this.getValidationState()}
+                validationState={this.getOldPassValidationState()}
                 style={{ width: 300 }}
               >
                 <FormControl
@@ -134,7 +181,7 @@ export class settingsScreen extends React.Component {
               </FormGroup>
               <FormGroup
                 controlId="formChangePassNew"
-                validationState={this.getValidationState()}
+                validationState={this.getNewPassValidationState()}
                 style={{ width: 300 }}
               >
                 <FormControl
@@ -147,7 +194,7 @@ export class settingsScreen extends React.Component {
               </FormGroup>
               <FormGroup
                 controlId="formChangePassRepeat"
-                validationState={this.getValidationState()}
+                validationState={this.getRepeatPassValidationState()}
                 style={{ width: 300 }}
               >
                 <FormControl
@@ -160,6 +207,18 @@ export class settingsScreen extends React.Component {
               </FormGroup>
             </Form>
           </Col>
+          <Button
+            type="submit"
+            name="submitPassChange"
+            onClick={this.handleSubmitPassChange}
+            disabled={
+              this.getOldPassValidationState() != 'success' ||
+              this.getNewPassValidationState() != 'success' ||
+              this.getRepeatPassValidationState() != 'success'
+            }
+          >
+            Submit
+          </Button>
         </Grid>
       </div>
     );
