@@ -139,15 +139,43 @@ export class settingsScreen extends React.Component {
     });
   }
 
-  handleSubmitPassChange(e) {
-    window.alert(
-      'Submitted password change! \nOld password: ' +
-        this.state.oldPassword +
-        '\nNew password: ' +
-        this.state.newPassword +
-        '\nRepeated password: ' +
-        this.state.repeatPassword
-    );
+  handleSubmitPassChange() {
+    if (this.state.oldPassword === this.state.newPassword) {
+      console.log('Your new password can not be the same as your old password.');
+    } else if (this.state.newPassword === this.state.repeatPassword) {
+      console.log(
+        'Submitted password change! \nOld password: ' +
+          this.state.oldPassword +
+          '\nNew password: ' +
+          this.state.newPassword +
+          '\nRepeated password: ' +
+          this.state.repeatPassword
+      );
+      console.log(this.props.loggedInUser);
+      const formData = this.props.loggedInUser + '&' + this.state.oldPassword + '&' + this.state.newPassword;
+      try {
+        fetch('/changepassword', {
+          method: 'post',
+          body: formData
+        }).then(response => {
+          switch (response.status) {
+            case 403:
+              window.alert('Wrong password, please enter the correct password and try again.');
+              break;
+            case 200:
+              window.alert('You have successfully changed your password.');
+              break;
+            default:
+              console.log(response.status);
+              throw new Error();
+          }
+        });
+      } catch (error) {
+        window.alert('Technical issue. please try again later.');
+      }
+    } else {
+      console.log('Your new password does not match.');
+    }
   }
 
   render() {
@@ -210,6 +238,7 @@ export class settingsScreen extends React.Component {
           <Button
             type="submit"
             name="submitPassChange"
+            bsStyle="success"
             onClick={this.handleSubmitPassChange}
             disabled={
               this.getOldPassValidationState() != 'success' ||

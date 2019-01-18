@@ -2,6 +2,7 @@ package se.kits.gakusei.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.swagger.annotations.Api;
@@ -81,6 +82,17 @@ public class UserController {
             values.put(authoritiesKey, authentication.getAuthorities());
         }
         return values;
+    }
+
+    @RequestMapping(value = "/changepassword", method = RequestMethod.POST)
+    public ResponseEntity<String> changePassword(@RequestBody String userData){
+        String[] data = userData.split("&");
+
+        System.out.println("name: " + data[0] +
+                "\nold pass: " + data[1] +
+                "\nnew pass: " + data[2]);
+
+        return new ResponseEntity<String>("", HttpStatus.OK);
     }
 
 }
