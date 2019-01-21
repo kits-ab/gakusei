@@ -2,6 +2,10 @@ import * as Security from '../../../../shared/reducers/Security';
 import * as Lessons from '../../../../shared/reducers/Lessons';
 import Utility from '../../../../shared/util/Utility';
 import { Col, DropdownButton, Grid, MenuItem, FormGroup, Form, Button, FormControl } from 'react-bootstrap';
+import ReactTooltip from 'react-tooltip';
+import Popup from 'reactjs-popup';
+import ReactDom from 'react-dom';
+import React from 'react';
 
 import { translate } from 'react-i18next';
 import { AppScreen } from '../../AppScreen';
@@ -25,7 +29,8 @@ export class settingsScreen extends React.Component {
       },
       oldPassword: '',
       newPassword: '',
-      repeatPassword: ''
+      repeatPassword: '',
+      trigger: false
     };
   }
 
@@ -110,9 +115,11 @@ export class settingsScreen extends React.Component {
   }
 
   getNewPassValidationState() {
-    if (this.state.newPassword.match(' ')) return 'error';
+    if (this.state.newPassword.match(' ')) {
+      return 'error';
+    }
     const length = this.state.newPassword.length;
-    if (length > 1) {
+    if (length > 1 && this.state.newPassword != this.state.oldPassword) {
       return 'success';
     } else if (length > 0) {
       return 'error';
@@ -124,7 +131,7 @@ export class settingsScreen extends React.Component {
   getRepeatPassValidationState() {
     if (this.state.repeatPassword.match(' ')) return 'error';
     const length = this.state.repeatPassword.length;
-    if (length > 1 && length < 101) {
+    if (length > 1 && length < 101 && this.state.repeatPassword === this.state.newPassword) {
       return 'success';
     } else if (length === 1 || length > 100) {
       return 'error';
@@ -143,35 +150,35 @@ export class settingsScreen extends React.Component {
     if (this.state.oldPassword === this.state.newPassword) {
       console.log('Your new password can not be the same as your old password.');
     } else if (this.state.newPassword === this.state.repeatPassword) {
-      console.log(
-        'Submitted password change! \nOld password: ' +
-          this.state.oldPassword +
-          '\nNew password: ' +
-          this.state.newPassword +
-          '\nRepeated password: ' +
-          this.state.repeatPassword
-      );
-      console.log(this.props.loggedInUser);
-      const formData = this.props.loggedInUser + '&' + this.state.oldPassword + '&' + this.state.newPassword;
+      const formData = new Object();
+      formData.username = this.props.loggedInUser;
+      formData.oldPass = this.state.oldPassword;
+      formData.newPass = this.state.newPassword;
+      const jsonFormData = JSON.stringify(formData);
       try {
-        fetch('/changepassword', {
+        fetch('/api/changepassword', {
           method: 'post',
-          body: formData
+          credentials: 'same-origin',
+          body: jsonFormData
         }).then(response => {
           switch (response.status) {
-            case 403:
-              window.alert('Wrong password, please enter the correct password and try again.');
+            case 406:
+              Popup.alert('Wrong password, please enter the correct password and try again.');
               break;
             case 200:
-              window.alert('You have successfully changed your password.');
+              Popup.alert('You have successfully changed your password.');
               break;
             default:
-              console.log(response.status);
               throw new Error();
           }
+          this.setState({
+            oldPassword: '',
+            newPassword: '',
+            repeatPassword: ''
+          });
         });
       } catch (error) {
-        window.alert('Technical issue. please try again later.');
+        Popup.alert('Technical issue. please try again later.');
       }
     } else {
       console.log('Your new password does not match.');
@@ -195,10 +202,22 @@ export class settingsScreen extends React.Component {
             <h1 style={{ marginBottom: 20 }}>Change password</h1>
             <Form>
               <FormGroup
+                data-tip="Your password must be 2-100 characters and cannot contain space."
+                data-for="oldPassTooltip"
                 controlId="formChangePassOld"
                 validationState={this.getOldPassValidationState()}
                 style={{ width: 300 }}
               >
+                {this.getOldPassValidationState() != 'success' && this.state.oldPassword.length > 0 ? (
+                  <ReactTooltip
+                    id="oldPassTooltip"
+                    delayShow={500}
+                    delayHide={1000}
+                    place="top"
+                    type="error"
+                    effect="solid"
+                  />
+                ) : null}
                 <FormControl
                   type="password"
                   name="oldPassword"
@@ -208,10 +227,23 @@ export class settingsScreen extends React.Component {
                 />
               </FormGroup>
               <FormGroup
+                data-tip="Your password must be 2-100 characters,
+                                      can not contain space and must differ from your old password."
+                data-for="newPassTooltip"
                 controlId="formChangePassNew"
                 validationState={this.getNewPassValidationState()}
                 style={{ width: 300 }}
               >
+                {this.getNewPassValidationState() != 'success' && this.state.newPassword.length > 0 ? (
+                  <ReactTooltip
+                    id="newPassTooltip"
+                    delayShow={500}
+                    delayHide={1000}
+                    place="top"
+                    type="error"
+                    effect="solid"
+                  />
+                ) : null}
                 <FormControl
                   type="password"
                   name="newPassword"
@@ -221,10 +253,22 @@ export class settingsScreen extends React.Component {
                 />
               </FormGroup>
               <FormGroup
+                data-tip="Your new password does not match."
+                data-for="repeatPassTooltip"
                 controlId="formChangePassRepeat"
                 validationState={this.getRepeatPassValidationState()}
                 style={{ width: 300 }}
               >
+                {this.getRepeatPassValidationState() != 'success' && this.state.repeatPassword.length > 0 ? (
+                  <ReactTooltip
+                    id="repeatPassTooltip"
+                    delayShow={500}
+                    delayHide={1000}
+                    place="top"
+                    type="error"
+                    effect="solid"
+                  />
+                ) : null}
                 <FormControl
                   type="password"
                   name="repeatPassword"
