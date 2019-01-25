@@ -75,6 +75,7 @@
     "redux-persist": "^4.4.2",
     "redux-thunk": "^2.2.0",
     "simplify-js": "^1.2.1",
+    "sweetalert": "^2.1.2",
     "whatwg-fetch": "^2.0.4",
     "xml2js": "^0.4.19"
   },

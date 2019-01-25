@@ -146,7 +146,7 @@ export class settingsScreen extends React.Component {
 
   handleSubmitPassChange() {
     if (this.state.oldPassword === this.state.newPassword) {
-      console.log('Your new password can not be the same as your old password.');
+      console.log(this.translate('gakuseiSettings.newPasswordNotBeSameAsOldPassword'));
     } else if (this.state.newPassword === this.state.repeatPassword) {
       const formData = new Object();
       formData.username = this.props.loggedInUser;
@@ -161,10 +161,14 @@ export class settingsScreen extends React.Component {
         }).then(response => {
           switch (response.status) {
             case 406:
-              swal(' ', 'Wrong password, please enter the correct password and try again.', 'error');
+              swal(' ', this.translate('gakuseiSettings.WrongPasswordTryAgain'), 'error', {
+                button: this.translate('gakuseiSettings.Ok')
+              });
               break;
             case 200:
-              swal(' ', 'You have successfully changed your password.', 'success');
+              swal(' ', this.translate('gakuseiSettings.successfullyChangedPassword'), 'success', {
+                button: this.translate('gakuseiSettings.Ok')
+              });
               break;
             default:
               throw new Error();
@@ -176,10 +180,12 @@ export class settingsScreen extends React.Component {
           });
         });
       } catch (error) {
-        swal(' ', 'Technical issue. please try again later.', 'error');
+        swal(' ', this.translate('gakuseiSettings.TechnicalIssue'), 'error', {
+          button: this.translate('gakuseiSettings.Ok')
+        });
       }
     } else {
-      console.log('Your new password does not match.');
+      console.log(this.translate('gakuseiSettings.passwordNotMatch'));
     }
   }
 
@@ -197,10 +203,10 @@ export class settingsScreen extends React.Component {
         </Grid>
         <Grid>
           <Col>
-            <h1 style={{ marginBottom: 20 }}>Change password</h1>
+            <h1 style={{ marginBottom: 20 }}>{this.translate('gakuseiSettings.changePassword')}</h1>
             <Form>
               <FormGroup
-                data-tip="Your password must be 2-100 characters and cannot contain space."
+                data-tip={this.translate('gakuseiSettings.passwordValidation')}
                 data-for="oldPassTooltip"
                 controlId="formChangePassOld"
                 validationState={this.getOldPassValidationState()}
@@ -216,17 +222,17 @@ export class settingsScreen extends React.Component {
                     effect="solid"
                   />
                 ) : null}
+
                 <FormControl
                   type="password"
                   name="oldPassword"
-                  placeholder="Old password"
+                  placeholder={this.translate('gakuseiSettings.oldPassword')}
                   value={this.state.oldPassword}
                   onChange={this.handleInputChange}
                 />
               </FormGroup>
               <FormGroup
-                data-tip="Your password must be 2-100 characters,
-                                      can not contain space and must differ from your old password."
+                data-tip={this.translate('gakuseiSettings.passwordDifferentPassword')}
                 data-for="newPassTooltip"
                 controlId="formChangePassNew"
                 validationState={this.getNewPassValidationState()}
@@ -245,13 +251,13 @@ export class settingsScreen extends React.Component {
                 <FormControl
                   type="password"
                   name="newPassword"
-                  placeholder="New password"
+                  placeholder={this.translate('gakuseiSettings.newPassword')}
                   value={this.state.newPassword}
                   onChange={this.handleInputChange}
                 />
               </FormGroup>
               <FormGroup
-                data-tip="Your new password does not match."
+                data-tip={this.translate('gakuseiSettings.passwordNotMatch')}
                 data-for="repeatPassTooltip"
                 controlId="formChangePassRepeat"
                 validationState={this.getRepeatPassValidationState()}
@@ -270,7 +276,7 @@ export class settingsScreen extends React.Component {
                 <FormControl
                   type="password"
                   name="repeatPassword"
-                  placeholder="Repeat new password"
+                  placeholder={this.translate('gakuseiSettings.repeatNewPassword')}
                   value={this.state.repeatPassword}
                   onChange={this.handleInputChange}
                 />
@@ -288,7 +294,7 @@ export class settingsScreen extends React.Component {
               this.getRepeatPassValidationState() != 'success'
             }
           >
-            Submit
+            {this.translate('gakuseiSettings.submit')}
           </Button>
         </Grid>
       </div>

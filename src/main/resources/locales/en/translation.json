@@ -189,6 +189,19 @@
     "homeScreen.quiestionLeft": "You have answered correctly to ",
     "homeScreen.of": " of ",
     "startScreen.jumbotronBanner.colOne.h2": "Gakusei offers many features that facilitate your learning",
-    "gakuseiNav.settings": "Settings"
+    "gakuseiNav.settings": "Settings",
+    "gakuseiSettings.changePassword" : "Change password",
+    "gakuseiSettings.oldPassword" : "Old password",
+    "gakuseiSettings.newPassword" : "New password",
+    "gakuseiSettings.repeatNewPassword" : "Repeat new password",
+    "gakuseiSettings.submit" : "Submit",
+    "gakuseiSettings.newPasswordNotBeSameAsOldPassword" : "Your new password can not be the same as your old password.",
+    "gakuseiSettings.WrongPasswordTryAgain" : "Wrong password, please enter the correct password and try again.",
+    "gakuseiSettings.successfullyChangedPassword" : "You have successfully changed your password.",
+    "gakuseiSettings.TechnicalIssue" : "Technical issue. please try again later.",
+    "gakuseiSettings.passwordNotMatch" : "Your new password does not match.",
+    "gakuseiSettings.passwordValidation" : "Your password must be 2-100 characters and cannot contain space.",
+    "gakuseiSettings.passwordDifferentPassword" : "Your password must be 2-100 characters can not contain space and must different from your old password.",
+    "gakuseiSettings.Ok" : "Ok"
   }
 }

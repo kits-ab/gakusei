@@ -189,6 +189,19 @@
     "homeScreen.quiestionLeft": "あなたはそれをやった ",
     "homeScreen.of": " の ",
     "startScreen.jumbotronBanner.colOne.h2": "学生はあなたの学習を促進する多くの機能を提供しています",
-    "gakuseiNav.settings": "設定"
+    "gakuseiNav.settings": "設定",
+    "gakuseiSettings.changePassword" : "パスワードを変更する",
+    "gakuseiSettings.oldPassword" : "以前のパスワード",
+    "gakuseiSettings.newPassword" : "新しいパスワード",
+    "gakuseiSettings.repeatNewPassword" : "新しいパスワードを再入力",
+    "gakuseiSettings.submit" : "提出する",
+    "gakuseiSettings.newPasswordNotBeSameAsOldPassword" : "新しいパスワードを古いパスワードと同じにすることはできません。",
+    "gakuseiSettings.WrongPasswordTryAgain" : "間違ったパスワード、正しいパスワードを入力してやり直してください。",
+    "gakuseiSettings.successfullyChangedPassword" : "パスワードが無事変更されました。",
+    "gakuseiSettings.TechnicalIssue" : "技術的な問題。 後でもう一度やり直してください。",
+    "gakuseiSettings.passwordNotMatch" : "新しいパスワードが一致しません。",
+    "gakuseiSettings.passwordValidation" : "パスワードは2〜100文字で、スペースを含めることはできません。",
+    "gakuseiSettings.passwordDifferentPassword" : "パスワードは、スペースを含めることができない2〜100文字でなければならず、以前のパスワードとは異なる必要があります。",
+    "gakuseiSettings.Ok" : "大丈夫"
   }
 }
