@@ -8,6 +8,7 @@ import * as Lessons from '../../../shared/reducers/Lessons';
 import { translate, Trans } from 'react-i18next';
 
 export const Reducers = [Lessons, Security];
+import i18n from 'i18next';
 
 export class GakuseiNav extends React.Component {
   constructor() {
@@ -55,7 +56,7 @@ export class GakuseiNav extends React.Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          {this.props.loggedIn ? (
+          {this.props.loggedIn && i18n.language !== 'jp' ? (
             <Nav>
               <NavDropdown
                 className="glosorDropdown"
@@ -72,6 +73,27 @@ export class GakuseiNav extends React.Component {
               <LinkContainer to="/select/kanji">
                 <NavItem className="kanjiPlay">{t('gakuseiNav.kanjiPlay')}</NavItem>
               </LinkContainer>
+              <LinkContainer to="/select/quiz">
+                <NavItem className="quizPlay">{t('gakuseiNav.quizPlay')}</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/about">
+                <NavItem className="about">{t('gakuseiNav.about')}</NavItem>
+              </LinkContainer>
+            </Nav>
+          ) : this.props.loggedIn && i18n.language === 'jp' ? (
+            <Nav>
+              <NavDropdown
+                className="glosorDropdown"
+                title={t('gakuseiNav.vocablePlay')}
+                id="basic-nav-dropdown"
+              >
+                <LinkContainer to="/select/guess">
+                  <MenuItem className="guessPlay">{t('gakuseiNav.guessPlay')}</MenuItem>
+                </LinkContainer>
+                <LinkContainer to="/select/flashcards">
+                  <MenuItem className="flashcardPlay">{t('gakuseiNav.flashcardPlay')}</MenuItem>
+                </LinkContainer>
+              </NavDropdown>
               <LinkContainer to="/select/quiz">
                 <NavItem className="quizPlay">{t('gakuseiNav.quizPlay')}</NavItem>
               </LinkContainer>

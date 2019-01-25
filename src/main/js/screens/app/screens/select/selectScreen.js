@@ -42,6 +42,10 @@ export class selectScreen extends React.Component {
     if (!this.props.match.params.type) {
       this.props.setPageByName(`/select/guess`);
     }
+
+    if (this.props.i18n.language === 'jp' && this.props.match.params.type === 'kanji') {
+      this.props.setPageByName(`/select/guess`);
+    }
   }
 
   componentDidMount() {
@@ -96,7 +100,6 @@ export class selectScreen extends React.Component {
     switch (this.state.playType) {
       case 'quiz':
         return this.translate('selectScreen.pageDescription.quiz');
-
       case 'guess':
         return this.translate('selectScreen.pageDescription.guess');
       case 'translate':
