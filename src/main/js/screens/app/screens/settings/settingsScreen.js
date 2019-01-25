@@ -203,7 +203,7 @@ export class settingsScreen extends React.Component {
         </Grid>
         <Grid>
           <Col>
-            <h1 style={{ marginBottom: 20 }}>{this.translate('gakuseiSettings.changePassword')}</h1>
+            <h3 style={{ marginBottom: 20 }}>{this.translate('gakuseiSettings.changePassword')}</h3>
             <Form>
               <FormGroup
                 data-tip={this.translate('gakuseiSettings.passwordValidation')}
