@@ -2,10 +2,14 @@ package se.kits.gakusei.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +17,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import se.kits.gakusei.config.UserDetailsServiceImpl;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
@@ -24,6 +30,9 @@ import se.kits.gakusei.user.repository.UserRepository;
 public class UserController {
     @Autowired
     private UserRepository ur;
+
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -83,5 +92,30 @@ public class UserController {
         return values;
     }
 
+    @RequestMapping(value = "/api/changepassword", method = RequestMethod.POST)
+    public ResponseEntity<?> changePassword(@RequestBody String userData){
+
+        JSONObject jsonData = new JSONObject();
+        JSONParser jsonParser = new JSONParser();
+        try {
+            jsonData = (JSONObject) jsonParser.parse(userData);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        User user = ur.findByUsername(jsonData.get("username").toString());
+
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        } else if (!passwordEncoder.matches(jsonData.get("oldPass").toString(), user.getPassword())){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+
+        } else {
+            user.setPassword(passwordEncoder.encode(jsonData.get("newPass").toString()));
+            ur.save(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+    }
 }
 

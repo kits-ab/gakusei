@@ -188,6 +188,19 @@
     "homeScreen.quiestionLeft": "Du har klarat ",
     "homeScreen.of": " av ",
     "startScreen.jumbotronBanner.colOne.h2": "Gakusei erbjuder många funktioner som underlättar ditt lärande",
-    "gakuseiNav.settings": "Inställningar"
+    "gakuseiNav.settings": "Inställningar",
+    "gakuseiSettings.changePassword" : "Ändra lösenord",
+    "gakuseiSettings.oldPassword" : "Nuvarande lösenord",
+    "gakuseiSettings.newPassword" : "Nytt lösenord",
+    "gakuseiSettings.repeatNewPassword" : "Repetera nytt lösenord",
+    "gakuseiSettings.submit" : "Okej",
+    "gakuseiSettings.newPasswordNotBeSameAsOldPassword" : "Ditt nya lösenord kan inte vara samma som ditt gamla lösenord.",
+    "gakuseiSettings.WrongPasswordTryAgain" : "Fel lösenord, ange rätt lösenord och försök igen.",
+    "gakuseiSettings.successfullyChangedPassword" : "Du har ändrat ditt lösenord.",
+    "gakuseiSettings.TechnicalIssue" : "Tekniska problem, försök igen senare.",
+    "gakuseiSettings.passwordNotMatch" : "Ditt nya lösenord matchar inte.",
+    "gakuseiSettings.passwordValidation" : "Ditt lösenord måste innehålla 2-100 tecken och kan inte innehålla mellanslag.",
+    "gakuseiSettings.passwordDifferentPassword" : "Ditt lösenord måste innehålla 2-100 tecken, kan inte innehålla mellanslag och kan inte vara samma som ditt gamla lösenord.",
+    "gakuseiSettings.Ok" : "Okej"
   }
 }
