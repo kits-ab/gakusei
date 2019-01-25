@@ -1,5 +1,6 @@
 package se.kits.gakuseiclient.model;
 
+import org.json.simple.JSONObject;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
@@ -13,8 +14,8 @@ import java.util.List;
 @Component
 public class Auth implements Serializable {
 
-    private static final String REST_SERVICE_URI = "https://staging.daigaku.se";
-    //private static final String REST_SERVICE_URI = "http://localhost:8080";
+    //private static final String REST_SERVICE_URI = "https://staging.daigaku.se";
+    private static final String REST_SERVICE_URI = "http://localhost:8080";
 
     private String cookie;
     private String user;
@@ -42,7 +43,7 @@ public class Auth implements Serializable {
         */
     }
 
-    public void login(String username, String password){
+    public boolean login(String username, String password){
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -58,16 +59,18 @@ public class Auth implements Serializable {
         try {
             response = restTemplate.exchange(REST_SERVICE_URI+"/auth", HttpMethod.POST, request, String.class);
 
-            System.out.println("Server response: " + response.getStatusCode());
             headers = response.getHeaders();
             List<String> setCookie = headers.get(headers.SET_COOKIE);
             this.setCookie(setCookie.get(0).split(";")[0]);
             this.setjSessionId(cookie.split("=")[1]);
+            getLoggedInUser();
+            return true;
 
         } catch (HttpClientErrorException e) {
 
             System.out.println("Server response: " + e.getStatusCode());
             System.out.println("Make sure you provide the correct credentials");
+            return false;
         }
 
 
@@ -94,7 +97,7 @@ public class Auth implements Serializable {
         return user;
     }
 
-    public void logout(){
+    public boolean logout(){
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cookie", this.getCookie());
@@ -106,8 +109,36 @@ public class Auth implements Serializable {
             this.setjSessionId(null);
             System.out.println("Server response: " + responseEntity.getStatusCodeValue());
             System.out.println("Server redirects to " + responseEntity.getHeaders().get("Location"));
+            System.out.println("Logged out successfully.");
+            return true;
         }else{
             System.out.println("Server response: " + responseEntity.getStatusCodeValue());
+            return false;
+        }
+    }
+
+    public void changePassword(String oldPass, String newPass){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("username", this.user);
+        jsonObject.put("oldPass", oldPass);
+        jsonObject.put("newPass", newPass);
+
+
+        RestTemplate restTemplate = new RestTemplate();
+        //HttpHeaders headers = new HttpHeaders();
+        //headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        //HttpEntity<String> request = new HttpEntity<>(jsonObject.toJSONString(), headers);
+        ResponseEntity<HttpStatus> responseEntity = restTemplate.postForEntity(REST_SERVICE_URI+"/api/changepassword",
+                jsonObject.toJSONString(), HttpStatus.class);
+        if(responseEntity.getStatusCode() == HttpStatus.OK){
+            System.out.println("Server response: " + responseEntity.getStatusCodeValue());
+            System.out.println("Password was successfully changed!");
+        } else if (responseEntity.getStatusCode() == HttpStatus.NOT_ACCEPTABLE){
+            System.out.println("Server response: " + responseEntity.getStatusCodeValue());
+            System.out.println("Password was not changed because you entered the wrong password.");
+        } else {
+            System.out.println("Server response: " + responseEntity.getStatusCodeValue());
+            System.out.println("Internal server error. Please try again later.");
         }
     }
 
