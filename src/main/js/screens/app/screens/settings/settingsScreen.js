@@ -3,12 +3,10 @@ import * as Lessons from '../../../../shared/reducers/Lessons';
 import Utility from '../../../../shared/util/Utility';
 import { Col, DropdownButton, Grid, MenuItem, FormGroup, Form, Button, FormControl } from 'react-bootstrap';
 import ReactTooltip from 'react-tooltip';
-import Popup from 'reactjs-popup';
-import ReactDom from 'react-dom';
 import React from 'react';
+import swal from 'sweetalert';
 
 import { translate } from 'react-i18next';
-import { AppScreen } from '../../AppScreen';
 
 export const Reducers = [Lessons, Security];
 
@@ -163,10 +161,10 @@ export class settingsScreen extends React.Component {
         }).then(response => {
           switch (response.status) {
             case 406:
-              Popup.alert('Wrong password, please enter the correct password and try again.');
+              swal(' ', 'Wrong password, please enter the correct password and try again.', 'error');
               break;
             case 200:
-              Popup.alert('You have successfully changed your password.');
+              swal(' ', 'You have successfully changed your password.', 'success');
               break;
             default:
               throw new Error();
@@ -178,7 +176,7 @@ export class settingsScreen extends React.Component {
           });
         });
       } catch (error) {
-        Popup.alert('Technical issue. please try again later.');
+        swal(' ', 'Technical issue. please try again later.', 'error');
       }
     } else {
       console.log('Your new password does not match.');

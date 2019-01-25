@@ -7,10 +7,6 @@ import { configureStore, history } from './configureStore';
 
 import { I18nextProvider, translate } from 'react-i18next';
 import i18n from './shared/i18n';
-import Utility from './shared/util/Utility';
-import { Reducers } from './screens/app/components/GakuseiNav';
-import AppScreen from './screens/app';
-import ReactDom from 'react-dom';
 
 // Get the application-wide store instance, prepopulating with state from the server where available.
 // ! Don't have server-rendering yet, might add later
@@ -31,7 +27,6 @@ function doRender() {
     </I18nextProvider>,
     indexRoot
   );
-  ReactDom.render(<Popup />, document.getElementById('popupContainer'));
 }
 
 doRender();
