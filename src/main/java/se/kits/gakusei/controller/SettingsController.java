@@ -23,6 +23,8 @@ public class SettingsController {
             @RequestParam(value = "language", required = false) String language){
 
         Iterable<Settings> settings;
+        System.out.println("All: " + settingsRepository.findAll());
+        System.out.println("enabled: " + settingsRepository.findAllEnabled());
 
         if(language == null){
             settings = settingsRepository.findAll();
