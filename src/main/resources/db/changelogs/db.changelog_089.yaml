@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 89
+    author: Akar Khatab
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: enabled
+            type: boolean
+        schemaName: public
+        tableName: settings

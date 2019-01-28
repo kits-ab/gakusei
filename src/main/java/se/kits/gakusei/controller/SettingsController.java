@@ -25,7 +25,7 @@ public class SettingsController {
         Iterable<Settings> settings;
 
         if(language == null){
-            settings = settingsRepository.findAll();
+            settings = settingsRepository.findAllEnabled();
         }else{
             settings = settingsRepository.findByLanguage(language);
         }
