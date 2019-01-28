@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "incorrect_answers", schema = "contentschema")
+@Table(name = "incorrect_quiz_answers", schema = "contentschema")
 public class IncorrectAnswer implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

@@ -179,3 +179,5 @@ databaseChangeLog:
     file: classpath:db/changelogs/db.changelog_088.yaml
 - include:
     file: classpath:db/changelogs/db.changelog_089.yaml
+- include:
+    file: classpath:db/changelogs/db.changelog_090.yaml
