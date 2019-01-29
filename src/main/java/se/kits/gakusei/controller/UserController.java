@@ -26,7 +26,7 @@ import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
 @RestController
-@Api(value="UserController", description="Operations for handling users")
+@Api(value = "UserController", description = "Operations for handling users")
 public class UserController {
     @Autowired
     private UserRepository ur;
@@ -56,24 +56,24 @@ public class UserController {
         return new ResponseEntity<User>(ur.save(user), HttpStatus.CREATED);
     }*/
 
-    @ApiOperation(value="Getting all the users", response = ResponseEntity.class)
+    @ApiOperation(value = "Getting all the users", response = ResponseEntity.class)
     @RequestMapping(
-        value = "/api/users",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            value = "/api/users",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public ResponseEntity<Iterable<User>> getUsers() {
         Iterable<User> users = ur.findAll();
         return (users == null) ? new ResponseEntity<Iterable<User>>(
-            HttpStatus.FORBIDDEN
+                HttpStatus.FORBIDDEN
         ) : new ResponseEntity<Iterable<User>>(users, HttpStatus.OK);
     }
 
-    @ApiOperation(value="Getting the current username", response = ResponseEntity.class)
+    @ApiOperation(value = "Getting the current username", response = ResponseEntity.class)
     @RequestMapping(
-        value = "/username",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            value = "/username",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     @ResponseBody
     public Map<String, Object> currentUserName(Authentication authentication) {
@@ -93,21 +93,21 @@ public class UserController {
     }
 
     @RequestMapping(value = "/api/changepassword", method = RequestMethod.POST)
-    public ResponseEntity<?> changePassword(@RequestBody String userData){
+    public ResponseEntity<?> changePassword(@RequestBody String userData) {
 
         JSONObject jsonData = new JSONObject();
         JSONParser jsonParser = new JSONParser();
         try {
             jsonData = (JSONObject) jsonParser.parse(userData);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         User user = ur.findByUsername(jsonData.get("username").toString());
 
-        if(user == null){
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        } else if (!passwordEncoder.matches(jsonData.get("oldPass").toString(), user.getPassword())){
+        } else if (!passwordEncoder.matches(jsonData.get("oldPass").toString(), user.getPassword())) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 
         } else {
@@ -115,7 +115,29 @@ public class UserController {
             ur.save(user);
             return new ResponseEntity<>(HttpStatus.OK);
         }
-
     }
+
+    @RequestMapping(value = "/api/checkNewUser", method = RequestMethod.POST)
+    public ResponseEntity<?> checkNewUser(@RequestBody String username) {
+        System.out.println("inside check new user...");
+        try {
+            System.out.println("Check user!");
+            User user = ur.findByUsername(username);
+            System.out.println("new user: " + user.isNewUser());
+            if (user.isNewUser()) {
+                /*System.out.println("NEW USER!!!!!!!: " + username);
+                user.setNewUser(false);
+                ur.save(user);*/
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            }
+        } catch (NullPointerException n){
+            n.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 }
 

@@ -1,0 +1,19 @@
+databaseChangeLog:
+- changeSet:
+    id: 91
+    author: Akar Khatab
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: new_user
+            type: boolean
+            defaultValue: true
+        schemaName: public
+        tableName: users
+    - addNotNullConstraint:
+        columnDataType: boolean
+        columnName: new_user
+        defaultNullValue: true
+        schemaName: public
+        tableName: users

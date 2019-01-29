@@ -20,6 +20,9 @@ public class Settings implements Serializable {
     @Column(nullable = false)
     private String flag_svg;
 
+    @Column
+    private boolean enabled;
+
     public Long getId() {
         return id;
     }
@@ -46,5 +49,13 @@ public class Settings implements Serializable {
 
     public void setLanguage_code(String language_code) {
         this.language_code = language_code;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

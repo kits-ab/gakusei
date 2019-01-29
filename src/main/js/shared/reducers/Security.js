@@ -4,6 +4,7 @@ import { REHYDRATE } from 'redux-persist/constants';
 import Utility from '../../shared/util/Utility';
 import { translate, Trans } from 'react-i18next';
 import i18n from 'i18next';
+import { addStarredLesson } from './Lessons';
 
 // ----------------
 // DEFAULT STATE
@@ -247,6 +248,19 @@ export function requestUserLogin(data, redirectUrl) {
             dispatch(fetchLoggedInUser()).then(() => {
               dispatch(setPageByName(redirectUrl || '/'));
               dispatch(logLoginEvent(getState().security.loggedInUser));
+              //TODO: FIX ADD STARRED LESSON BELOOOOWWWW
+            });
+            fetch('/api/checkNewUser', {
+              method: 'post',
+              credentials: 'same-origin',
+              body: formBody.split('&')[0].split('=')[1]
+            }).then(response => {
+              console.log('status: ' + response.status);
+              if (response.status === 200) {
+                console.log('Adding lessons to favourite');
+                addStarredLesson('GENKI 01', 'guess');
+                addStarredLesson('KLL 01', 'kanji');
+              }
             });
             break;
           default:
