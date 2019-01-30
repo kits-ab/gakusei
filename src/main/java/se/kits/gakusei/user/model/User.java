@@ -62,6 +62,9 @@ public class User implements Serializable {
     @Column
     private boolean newUser;
 
+    @Column
+    private String siteLanguage;
+
     public User() {}
 
     public User( String username, String password, String role) {
@@ -134,6 +137,14 @@ public class User implements Serializable {
 
     public void setNewUser(boolean newUser) {
         this.newUser = newUser;
+    }
+
+    public String getSiteLanguage() {
+        return siteLanguage;
+    }
+
+    public void setSiteLanguage(String siteLanguage) {
+        this.siteLanguage = siteLanguage;
     }
 }
 
