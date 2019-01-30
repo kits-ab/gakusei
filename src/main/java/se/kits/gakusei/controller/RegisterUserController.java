@@ -70,6 +70,7 @@ public class RegisterUserController {
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         user.setRole("ROLE_USER");
+        user.setNewUser(true);
 
         // Check if User exists
 

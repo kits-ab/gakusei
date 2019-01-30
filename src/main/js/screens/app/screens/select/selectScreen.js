@@ -32,6 +32,7 @@ export class selectScreen extends React.Component {
     super(props);
     this.handleStarredClick = this.handleStarredClick.bind(this);
     this.handleSpacedRepetition = this.handleSpacedRepetition.bind(this);
+    this.checkNewUser = this.checkNewUser.bind(this);
 
     const { t, i18n } = this.props;
 
@@ -58,6 +59,8 @@ export class selectScreen extends React.Component {
     this.props.fetchIncorrectLessonCount(this.state.playType).catch(() => this.props.verifyUserLoggedIn());
 
     this.props.fetchaddressedQuestionsInLessons(this.state.playType);
+
+    this.checkNewUser();
   }
 
   // Triggers when we change between play types but remain in "selection" page
@@ -70,6 +73,19 @@ export class selectScreen extends React.Component {
       });
       this.props.isFetchingLesson ? this.props.setFetchingLesson(false) : null;
     }
+  }
+
+  checkNewUser() {
+    fetch('/api/checkNewUser', {
+      method: 'post',
+      credentials: 'same-origin',
+      body: this.props.loggedInUser
+    }).then(response => {
+      if (response.status === 200) {
+        this.props.addStarredLesson('GENKI 01', 'guess');
+        this.props.addStarredLesson('KLL 01', 'kanji');
+      }
+    });
   }
 
   translate(input) {
