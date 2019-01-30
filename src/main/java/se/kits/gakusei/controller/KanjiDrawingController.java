@@ -26,7 +26,7 @@ public class KanjiDrawingController {
     @Autowired
     private KanjiDrawingRepository kanjiDrawingRepository;
 
-    @ApiOperation(value="Add a kanji drawing", response = ResponseEntity.class)
+    @ApiOperation(value="Adds users kanji drawing, returns ResponseEntity and sets users kanji drawing as a list of coordinates (data) as String", response = ResponseEntity.class)
     @RequestMapping(
         value = "/api/kanji-drawings",
         method = RequestMethod.POST,
