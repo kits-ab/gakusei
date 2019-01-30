@@ -21,6 +21,8 @@ public class Quiz implements Serializable {
     @ApiModelProperty(notes="the quiz description")
     private String description;
 
+    private String learningLanguage;
+
     public Quiz() {}
 
     public long getId() {
@@ -47,5 +49,12 @@ public class Quiz implements Serializable {
         this.description = description;
     }
 
+    public String getLearningLanguage() {
+        return learningLanguage;
+    }
+
+    public void setLearningLanguage(String learningLanguage) {
+        this.learningLanguage = learningLanguage;
+    }
 }
 

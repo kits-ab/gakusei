@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 89
+      author: Joella Johannesson
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - columnExists:
+                schemaName: contentschema
+                tableName: quiz
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: learning_language
+                  type: varchar(50)
+            schemaName: contentschema
+            tableName: quiz
