@@ -22,8 +22,8 @@ export class settingsScreen extends React.Component {
 
     this.state = {
       options: {
-        reading: { text: `${this.translate('gakuseiNav.jp')}` },
-        swedish: { text: `${this.translate('gakuseiNav.swe')}` }
+        reading: { text: '' },
+        swedish: { text: '' }
       },
       oldPassword: '',
       newPassword: '',
@@ -71,7 +71,9 @@ export class settingsScreen extends React.Component {
                   key={key}
                   eventKey={key}
                 >
-                  {this.state.options[key].text}
+                  {this.state.options[key] === this.state.options.reading
+                    ? `${this.translate('gakuseiNav.jp')}`
+                    : `${this.translate('gakuseiNav.swe')}`}
                 </MenuItem>
               );
             }
@@ -79,20 +81,29 @@ export class settingsScreen extends React.Component {
         </DropdownButton>
       );
     };
+
     return (
       <FormGroup controlId="languageSelect">
         <span>{this.translate('gakuseiSettings.defaultLanguage')}</span>
 
         <SelectionButton
           key={'UIlang'}
-          title={this.state.options[this.props.questionType].text}
+          title={
+            this.state.options[this.props.questionType] === this.state.options.reading
+              ? `${this.translate('gakuseiNav.jp')}`
+              : `${this.translate('gakuseiNav.swe')}`
+          }
           name={'languageSelect'}
           languageType={'questionLang'}
         />
         <span> → </span>
         <SelectionButton
           key={'AnswerLang'}
-          title={this.state.options[this.props.answerType].text}
+          title={
+            this.state.options[this.props.questionType] === this.state.options.reading
+              ? `${this.translate('gakuseiNav.swe')}`
+              : `${this.translate('gakuseiNav.jp')}`
+          }
           name={'languageSelect'}
           languageType={'answerLang'}
         />
@@ -117,7 +128,7 @@ export class settingsScreen extends React.Component {
       return 'error';
     }
     const length = this.state.newPassword.length;
-    if (length > 1 && this.state.newPassword != this.state.oldPassword) {
+    if (length > 1 && this.state.newPassword !== this.state.oldPassword) {
       return 'success';
     } else if (length > 0) {
       return 'error';
@@ -212,7 +223,7 @@ export class settingsScreen extends React.Component {
                 validationState={this.getOldPassValidationState()}
                 style={{ width: 300 }}
               >
-                {this.getOldPassValidationState() != 'success' && this.state.oldPassword.length > 0 ? (
+                {this.getOldPassValidationState() !== 'success' && this.state.oldPassword.length > 0 ? (
                   <ReactTooltip
                     id="oldPassTooltip"
                     delayShow={500}
@@ -238,7 +249,7 @@ export class settingsScreen extends React.Component {
                 validationState={this.getNewPassValidationState()}
                 style={{ width: 300 }}
               >
-                {this.getNewPassValidationState() != 'success' && this.state.newPassword.length > 0 ? (
+                {this.getNewPassValidationState() !== 'success' && this.state.newPassword.length > 0 ? (
                   <ReactTooltip
                     id="newPassTooltip"
                     delayShow={500}
@@ -263,7 +274,7 @@ export class settingsScreen extends React.Component {
                 validationState={this.getRepeatPassValidationState()}
                 style={{ width: 300 }}
               >
-                {this.getRepeatPassValidationState() != 'success' && this.state.repeatPassword.length > 0 ? (
+                {this.getRepeatPassValidationState() !== 'success' && this.state.repeatPassword.length > 0 ? (
                   <ReactTooltip
                     id="repeatPassTooltip"
                     delayShow={500}
@@ -289,9 +300,9 @@ export class settingsScreen extends React.Component {
             bsStyle="success"
             onClick={this.handleSubmitPassChange}
             disabled={
-              this.getOldPassValidationState() != 'success' ||
-              this.getNewPassValidationState() != 'success' ||
-              this.getRepeatPassValidationState() != 'success'
+              this.getOldPassValidationState() !== 'success' ||
+              this.getNewPassValidationState() !== 'success' ||
+              this.getRepeatPassValidationState() !== 'success'
             }
           >
             {this.translate('gakuseiSettings.submit')}

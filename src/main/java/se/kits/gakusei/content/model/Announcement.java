@@ -27,6 +27,12 @@ public class Announcement implements Serializable {
     @Column
     private String text;
 
+    @Column
+    private String textEnglish;
+
+    @Column
+    private String textJapan;
+
     public Announcement() {}
 
     public Long getId() {
@@ -55,5 +61,21 @@ public class Announcement implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getTextEnglish() {
+        return textEnglish;
+    }
+
+    public String getTextJapan() {
+        return textJapan;
+    }
+
+    public void setTextEnglish(String textEnglish) {
+        this.textEnglish = textEnglish;
+    }
+
+    public void setTextJapan(String textJapan) {
+        this.textJapan = textJapan;
     }
 }

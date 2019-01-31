@@ -1,0 +1,21 @@
+databaseChangeLog:
+- changeSet:
+    id: 82
+    author: Joella Johannesson
+    preConditions:
+    - onFail: MARK_RAN
+    - not:
+      - columnExists:
+          schemaName: public
+          tableName: announcements
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: text_english
+            type: text
+        - column:
+            name: text_japan
+            type: text
+        schemaName: public
+        tableName: announcements
