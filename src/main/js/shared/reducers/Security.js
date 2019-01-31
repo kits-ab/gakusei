@@ -189,6 +189,9 @@ export function fetchLoggedInUser() {
 export function requestUserLogout(redirectUrl, csrf) {
   return function(dispatch, getState) {
     const routing = getState().routing;
+    const changeLanguage = lng => {
+      i18n.changeLanguage(lng);
+    };
 
     fetch('/logout', {
       method: 'POST',
@@ -200,13 +203,29 @@ export function requestUserLogout(redirectUrl, csrf) {
       if (response.status === 200 || response.status === 204) {
         dispatch(receiveLoggedInStatus(false));
         dispatch(clearAuthResponse());
+        changeLanguage('1337');
         dispatch(setPageByName(redirectUrl || routing.locationBeforeTransitions.pathname || '/'));
       }
     });
   };
 }
+
 export function logLoginEvent(username) {
   Utility.logEvent('login', 'login', true, null, username, null, null, true);
+}
+
+export function setUserLanguage(username) {
+  fetch('/api/checkUserLanguage', {
+    method: 'post',
+    credentials: 'same-origin',
+    body: username
+  }).then(response => {
+    if (response.status === 200) {
+      response.text().then(str => {
+        i18n.changeLanguage(str);
+      });
+    }
+  });
 }
 
 export function requestUserLogin(data, redirectUrl) {
@@ -246,6 +265,7 @@ export function requestUserLogin(data, redirectUrl) {
             dispatch(setRedirectUrl(null));
             dispatch(fetchLoggedInUser()).then(() => {
               dispatch(setPageByName(redirectUrl || '/'));
+              dispatch(setUserLanguage(getState().security.loggedInUser));
               dispatch(logLoginEvent(getState().security.loggedInUser));
             });
             break;

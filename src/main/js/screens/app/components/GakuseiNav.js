@@ -13,6 +13,8 @@ import i18n from 'i18next';
 export class GakuseiNav extends React.Component {
   constructor() {
     super();
+    this.handleChangeLanguage = this.handleChangeLanguage.bind(this);
+
     this.state = {
       data: []
     };
@@ -28,11 +30,33 @@ export class GakuseiNav extends React.Component {
       });
   }
 
-  render() {
-    const changeLanguage = lng => {
+  handleChangeLanguage(lng) {
+    if (this.props.loggedInUser) {
+      const userData = new Object();
+      userData.username = this.props.loggedInUser;
+      userData.language = lng;
+      fetch('/api/saveUserLanguage', {
+        method: 'post',
+        credentials: 'same-origin',
+        body: JSON.stringify(userData),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          i18n.changeLanguage(lng);
+        } else {
+          console.log('Chosen language could not be persisted to the database!');
+          i18n.changeLanguage(lng);
+        }
+      });
+    } else {
       i18n.changeLanguage(lng);
-    };
+    }
+  }
 
+  render() {
     const { t, i18n } = this.props;
 
     return (
@@ -123,7 +147,7 @@ export class GakuseiNav extends React.Component {
               {this.state.data.map((languageData, key) => (
                 <MenuItem
                   key={key}
-                  onClick={() => changeLanguage(languageData.language_code)}
+                  onClick={() => this.handleChangeLanguage(languageData.language_code)}
                 >
                   <img
                     src={languageData.flag_svg}
