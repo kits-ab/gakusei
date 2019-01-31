@@ -9,7 +9,7 @@ export class InfoBanner extends React.Component {
   announcementLanguage(language) {
     let message = null;
     this.props.announcement.map(announcement => {
-      if (language === 'sv') {
+      if (language === 'se') {
         message = announcement.text;
       } else if (language === 'en') {
         message = announcement.textEnglish;
