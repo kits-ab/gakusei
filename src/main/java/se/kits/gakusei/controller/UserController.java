@@ -116,7 +116,6 @@ public class UserController {
 
     @RequestMapping(value = "/api/checkNewUser", method = RequestMethod.POST)
     public ResponseEntity<?> checkNewUser(@RequestBody String username) {
-        System.out.println("inside check new user...");
         try {
             User user = ur.findByUsername(username);
             if (user.isNewUser()) {

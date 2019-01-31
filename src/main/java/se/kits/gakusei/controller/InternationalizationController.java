@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import se.kits.gakusei.content.model.Internationalization;
 import se.kits.gakusei.content.model.Settings;
 import se.kits.gakusei.content.repository.InternationalizationRepository;
 import se.kits.gakusei.content.repository.SettingsRepository;
+import se.kits.gakusei.user.model.User;
+import se.kits.gakusei.user.repository.UserRepository;
 
 import java.io.File;
 import java.io.FileReader;
@@ -32,6 +31,9 @@ public class InternationalizationController {
 
     @Autowired
     private SettingsRepository settingsRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping(value = "api/internationalization", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -161,16 +163,39 @@ public class InternationalizationController {
         JSONObject jsonObject2 = new JSONObject();
         try {
             FileWriter fw = new FileWriter(file);
-
             resList.forEach(resource -> jsonObject2.put(resource.getAbbreviation(), resource.getSentence()));
-
             jsonObject.put("translations", jsonObject2);
-
             fw.write(jsonObject.toString(2));
             fw.flush();
             fw.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/api/checkUserLanguage", method = RequestMethod.POST)
+    public ResponseEntity<String> checkUserLanguage(@RequestBody String username) {
+        String siteLanguage = userRepository.findByUsername(username).getSiteLanguage();
+        if (siteLanguage != null && siteLanguage.length() > 0) {
+            return new ResponseEntity<>(siteLanguage, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(siteLanguage, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(value = "/api/saveUserLanguage", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<?> saveUserLanguage(@RequestBody String userData) {
+        try {
+            JSONParser jsonParser = new JSONParser();
+            org.json.simple.JSONObject jsonData = (org.json.simple.JSONObject) jsonParser.parse(userData);
+            User user = userRepository.findByUsername(jsonData.get("username").toString());
+            user.setSiteLanguage(jsonData.get("language").toString());
+            userRepository.save(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

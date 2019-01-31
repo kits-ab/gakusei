@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 93
+    author: Akar Khatab
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: site_language
+            type: VARCHAR(64)
+        schemaName: public
+        tableName: users
