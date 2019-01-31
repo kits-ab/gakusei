@@ -6,6 +6,20 @@ import * as Security from '../../../shared/reducers/Security';
 export const Reducers = [Security];
 
 export class InfoBanner extends React.Component {
+  announcementLanguage(language) {
+    let message = null;
+    this.props.announcement.map(announcement => {
+      if (language === 'sv') {
+        message = announcement.text;
+      } else if (language === 'en') {
+        message = announcement.textEnglish;
+      } else if (language === 'jp') {
+        message = announcement.textJapan;
+      }
+    });
+    return message;
+  }
+
   render() {
     return (
       <div>
@@ -20,7 +34,7 @@ export class InfoBanner extends React.Component {
                   className={'announcementText'}
                   key={i}
                 >
-                  {announcement.text}
+                  {this.announcementLanguage('jp')}
                 </p>
                 <button
                   className={'announcementButton'}
