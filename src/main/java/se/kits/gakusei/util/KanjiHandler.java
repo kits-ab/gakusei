@@ -38,7 +38,10 @@ public class KanjiHandler {
         List<String> question = new ArrayList<>();
         question.add(kanji.getSwedish());
         question.add(kanji.getKanji());
-        question.add(kanji.getReading());
+
+        if(kanji.getReading() != null){ question.add(kanji.getReading());}
+
+
 
         questionMap.put("question", question);
         questionMap.put(
