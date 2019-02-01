@@ -3,6 +3,7 @@ import { REHYDRATE } from 'redux-persist/constants';
 
 import getCSRF from '../../shared/util/getcsrf';
 import Utility from '../../shared/util/Utility';
+import PropTypes from 'prop-types';
 
 // ----------------
 // DEFAULT STATE
