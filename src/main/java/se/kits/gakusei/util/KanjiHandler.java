@@ -39,6 +39,10 @@ public class KanjiHandler {
         question.add(kanji.getSwedish());
         question.add(kanji.getKanji());
 
+        if(kanji.getReading() != null){ question.add(kanji.getReading());}
+
+
+
         questionMap.put("question", question);
         questionMap.put(
             "correctAlternative",

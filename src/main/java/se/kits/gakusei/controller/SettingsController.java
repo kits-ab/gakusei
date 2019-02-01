@@ -1,5 +1,6 @@
 package se.kits.gakusei.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import se.kits.gakusei.content.model.Settings;
 import se.kits.gakusei.content.repository.SettingsRepository;
 
 @RestController
+@Api(value="SettingsController", description="Operations for handling user language settings")
 public class SettingsController {
 
     @Autowired

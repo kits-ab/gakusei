@@ -1,5 +1,6 @@
 package se.kits.gakusei.controller;
 
+import io.swagger.annotations.Api;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@Api(value="InternationalizationController", description="Operations for handling internationalization")
 public class InternationalizationController {
 
     @Autowired
