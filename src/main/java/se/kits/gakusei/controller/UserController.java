@@ -123,7 +123,7 @@ public class UserController {
                 ur.save(user);
                 return new ResponseEntity<>(HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
         } catch (NullPointerException n){
             n.printStackTrace();
