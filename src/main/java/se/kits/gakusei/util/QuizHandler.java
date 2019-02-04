@@ -74,8 +74,8 @@ public class QuizHandler {
         myQuizNugget.put(QN_GA_CORRECT,
                 Collections.singletonList(Collections.singletonList(quizNugget.getCorrectAnswer())));
         myQuizNugget.put(QN_GA_ALTERNATIVE1, Collections.singletonList(incorrectAnswers.get(0).getIncorrectAnswer()));
-        myQuizNugget.put(QN_GA_ALTERNATIVE2, Collections.singletonList(incorrectAnswers.get(1).getIncorrectAnswer()));
-        myQuizNugget.put(QN_GA_ALTERNATIVE3, Collections.singletonList(incorrectAnswers.get(2).getIncorrectAnswer()));
+        //myQuizNugget.put(QN_GA_ALTERNATIVE2, Collections.singletonList(incorrectAnswers.get(1).getIncorrectAnswer()));
+        //myQuizNugget.put(QN_GA_ALTERNATIVE3, Collections.singletonList(incorrectAnswers.get(2).getIncorrectAnswer()));
         myQuizNugget.put("questionNuggetId", quizNugget.getId());
 
         return myQuizNugget;
