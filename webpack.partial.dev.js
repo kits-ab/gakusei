@@ -56,7 +56,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
 
     // NamedModulesPlugin: prints more readable module names in the browser console on HMR updates
-    new webpack.NamedModulesPlugin(),
+    //new webpack.NamedModulesPlugin(), don't need for webpack 4
 
     // HtmlWebpackPlugin: Generate a html file into memory. Should be identical to the templates/index.html file
     new HtmlWebpackPlugin({

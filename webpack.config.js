@@ -10,11 +10,11 @@ const packageJson = require('./package.json');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-module.exports = function() {
+module.exports = function(env, argv) {
   let partialConfig;
   const shellScripts = ['node scripts/updateVersionFromMavenPom.js', 'node scripts/generateFrontendLicenses.js'];
 
-  switch (process.env.NODE_ENV) {
+  switch (argv.mode) {
     case 'production':
       partialConfig = prodConfig;
       console.info('\nProduction mode: Please make sure to recompile via maven/spring-boot after this!\n');
@@ -81,6 +81,12 @@ module.exports = function() {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        minChunks: 1,
+        automaticNameDelimiter: 'vendor'
+      }
+    },
     plugins: [
       new webpack.ProvidePlugin({
         React: 'react',
@@ -95,8 +101,8 @@ module.exports = function() {
       }),
       new WebpackShellPlugin({
         onBuildStart: shellScripts
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
+      })
+      /*new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         minChunks(module) {
           return module.context && module.context.indexOf('node_modules') !== -1;
@@ -104,7 +110,7 @@ module.exports = function() {
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest' // But since there are no more common modules between them we end up with just the runtime code included in the manifest file
-      })
+      })*/
     ]
   });
 
