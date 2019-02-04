@@ -18,6 +18,12 @@ export class AppScreen extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.props.announcement != []) {
+      this.props.fetchAnnouncement();
+    }
+  }
+
   render() {
     const { t, i18n } = this.props;
     return (

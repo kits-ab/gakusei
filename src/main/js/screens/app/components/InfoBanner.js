@@ -2,6 +2,7 @@ import Utility from '../../../shared/util/Utility';
 import { withRouter } from 'react-router-dom';
 
 import * as Security from '../../../shared/reducers/Security';
+import i18n from 'i18next';
 
 export const Reducers = [Security];
 
@@ -15,6 +16,8 @@ export class InfoBanner extends React.Component {
         message = announcement.textEnglish;
       } else if (language === 'jp') {
         message = announcement.textJapan;
+      } else {
+        message = announcement.text;
       }
     });
     return message;
@@ -34,7 +37,7 @@ export class InfoBanner extends React.Component {
                   className={'announcementText'}
                   key={i}
                 >
-                  {this.announcementLanguage('jp')}
+                  {this.announcementLanguage(i18n.language)}
                 </p>
                 <button
                   className={'announcementButton'}
