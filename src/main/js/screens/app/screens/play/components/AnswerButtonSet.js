@@ -33,24 +33,46 @@ export default class AnswerButtonSet extends React.Component {
     let x = -1;
     const answerButtons = this.props.alternatives.map(() => {
       x++;
-      return (
-        <Col
-          key={x}
-          xs={12}
-          sm={6}
-        >
-          <AnswerButton
-            primaryText={this.props.alternatives[x][0]}
-            secondaryText={this.props.alternatives[x][1] || null}
-            japaneseCharacters={this.props.japaneseCharacters}
-            onAnswerClick={this.props.clickCallback}
-            buttonStyle={this.props.buttonStyles[x]}
-            disableButton={this.props.buttonsDisabled}
-            answerType={this.props.answerType}
-            name={'answerbutton-' + x}
-          />
-        </Col>
-      );
+      if (this.props.alternatives.length > 2 && this.props.alternatives.length < 4) {
+        return (
+          <Col
+            key={x}
+            xs={12}
+            sm={6}
+            smOffset={3}
+          >
+            <AnswerButton
+              primaryText={this.props.alternatives[x][0]}
+              secondaryText={this.props.alternatives[x][1] || null}
+              japaneseCharacters={this.props.japaneseCharacters}
+              onAnswerClick={this.props.clickCallback}
+              buttonStyle={this.props.buttonStyles[x]}
+              disableButton={this.props.buttonsDisabled}
+              answerType={this.props.answerType}
+              name={'answerbutton-' + x}
+            />
+          </Col>
+        );
+      } else {
+        return (
+          <Col
+            key={x}
+            xs={12}
+            sm={6}
+          >
+            <AnswerButton
+              primaryText={this.props.alternatives[x][0]}
+              secondaryText={this.props.alternatives[x][1] || null}
+              japaneseCharacters={this.props.japaneseCharacters}
+              onAnswerClick={this.props.clickCallback}
+              buttonStyle={this.props.buttonStyles[x]}
+              disableButton={this.props.buttonsDisabled}
+              answerType={this.props.answerType}
+              name={'answerbutton-' + x}
+            />
+          </Col>
+        );
+      }
     });
     return (
       <div>
