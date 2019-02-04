@@ -10,11 +10,11 @@ const packageJson = require('./package.json');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-module.exports = function(env, argv) {
+module.exports = function() {
   let partialConfig;
   const shellScripts = ['node scripts/updateVersionFromMavenPom.js', 'node scripts/generateFrontendLicenses.js'];
 
-  switch (argv.mode) {
+  switch (process.env.NODE_ENV) {
     case 'production':
       partialConfig = prodConfig;
       console.info('\nProduction mode: Please make sure to recompile via maven/spring-boot after this!\n');
@@ -84,7 +84,7 @@ module.exports = function(env, argv) {
     optimization: {
       splitChunks: {
         minChunks: 1,
-        automaticNameDelimiter: 'vendor'
+        automaticNameDelimiter: 'vendor, manifest'
       }
     },
     plugins: [
