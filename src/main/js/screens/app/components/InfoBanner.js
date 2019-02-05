@@ -3,6 +3,9 @@ import { withRouter } from 'react-router-dom';
 
 import * as Security from '../../../shared/reducers/Security';
 import i18n from 'i18next';
+import { translate } from 'react-i18next';
+import { AppScreen } from '../AppScreen';
+import { GakuseiNav } from './GakuseiNav';
 
 export const Reducers = [Security];
 
@@ -57,4 +60,4 @@ export class InfoBanner extends React.Component {
 InfoBanner.defaultProps = Utility.reduxEnabledDefaultProps({}, Reducers);
 
 InfoBanner.propTypes = Utility.reduxEnabledPropTypes({}, Reducers);
-export default Utility.superConnect(this, Reducers)(withRouter(InfoBanner));
+export default translate('translations')(Utility.superConnect(this, Reducers)(withRouter(InfoBanner)));
