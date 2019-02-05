@@ -81,6 +81,12 @@ module.exports = function() {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        minChunks: 1,
+        automaticNameDelimiter: 'vendor, manifest'
+      }
+    },
     plugins: [
       new webpack.ProvidePlugin({
         React: 'react',
@@ -95,8 +101,8 @@ module.exports = function() {
       }),
       new WebpackShellPlugin({
         onBuildStart: shellScripts
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
+      })
+      /*new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         minChunks(module) {
           return module.context && module.context.indexOf('node_modules') !== -1;
@@ -104,7 +110,7 @@ module.exports = function() {
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest' // But since there are no more common modules between them we end up with just the runtime code included in the manifest file
-      })
+      })*/
     ]
   });
 

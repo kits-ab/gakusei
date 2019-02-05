@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const notDevServer = process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server';
 
 module.exports = {
+  mode: 'development',
   output: {
     publicPath: notDevServer ? '/js' : '/',
     filename: '[name].bundle.js',
@@ -56,7 +57,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
 
     // NamedModulesPlugin: prints more readable module names in the browser console on HMR updates
-    new webpack.NamedModulesPlugin(),
+    //new webpack.NamedModulesPlugin(), don't need for webpack 4
 
     // HtmlWebpackPlugin: Generate a html file into memory. Should be identical to the templates/index.html file
     new HtmlWebpackPlugin({
