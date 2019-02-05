@@ -10,7 +10,7 @@
     "url": "https://github.com/kits-ab/gakusei/issues"
   },
   "scripts": {
-    "compile": "webpack --progress --profile --colors --hide-modules --mode development",
+    "compile": "webpack --progress --profile --colors --hide-modules",
     "compile:production": "cross-env NODE_ENV=production webpack --colors --hide-modules",
     "precommit": "lint-staged",
     "test": "./node_modules/.bin/mocha --opts ./mocha.opts",

@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const notDevServer = process.env && process.env.npm_lifecycle_script !== 'webpack-dev-server';
 
 module.exports = {
+  mode: 'development',
   output: {
     publicPath: notDevServer ? '/js' : '/',
     filename: '[name].bundle.js',
