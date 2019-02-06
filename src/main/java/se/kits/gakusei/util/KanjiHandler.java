@@ -38,6 +38,7 @@ public class KanjiHandler {
         List<String> question = new ArrayList<>();
         question.add(kanji.getSwedish());
         question.add(kanji.getKanji());
+        question.add(kanji.getEnglish());
 
         if(kanji.getReading() != null){ question.add(kanji.getReading());}
 
