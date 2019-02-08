@@ -7,6 +7,7 @@ const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
+  mode: 'production',
   output: {
     publicPath: '/js',
     filename: '[name].[chunkhash].bundle.js',

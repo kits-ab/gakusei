@@ -59,6 +59,12 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<UserLesson> usersLessons;
 
+    @Column
+    private boolean newUser;
+
+    @Column
+    private String siteLanguage;
+
     public User() {}
 
     public User( String username, String password, String role) {
@@ -125,5 +131,20 @@ public class User implements Serializable {
         this.kanjiDrawings = kanjiDrawings;
     }
 
+    public boolean isNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(boolean newUser) {
+        this.newUser = newUser;
+    }
+
+    public String getSiteLanguage() {
+        return siteLanguage;
+    }
+
+    public void setSiteLanguage(String siteLanguage) {
+        this.siteLanguage = siteLanguage;
+    }
 }
 

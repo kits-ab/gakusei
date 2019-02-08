@@ -74,8 +74,12 @@ public class QuizHandler {
         myQuizNugget.put(QN_GA_CORRECT,
                 Collections.singletonList(Collections.singletonList(quizNugget.getCorrectAnswer())));
         myQuizNugget.put(QN_GA_ALTERNATIVE1, Collections.singletonList(incorrectAnswers.get(0).getIncorrectAnswer()));
-        myQuizNugget.put(QN_GA_ALTERNATIVE2, Collections.singletonList(incorrectAnswers.get(1).getIncorrectAnswer()));
-        myQuizNugget.put(QN_GA_ALTERNATIVE3, Collections.singletonList(incorrectAnswers.get(2).getIncorrectAnswer()));
+        if (incorrectAnswers.size() > 1){
+            myQuizNugget.put(QN_GA_ALTERNATIVE2, Collections.singletonList(incorrectAnswers.get(1).getIncorrectAnswer()));
+        }
+        if (incorrectAnswers.size() > 2){
+            myQuizNugget.put(QN_GA_ALTERNATIVE3, Collections.singletonList(incorrectAnswers.get(2).getIncorrectAnswer()));
+        }
         myQuizNugget.put("questionNuggetId", quizNugget.getId());
 
         return myQuizNugget;
@@ -102,7 +106,11 @@ public class QuizHandler {
         // Naive randomization
         Collections.shuffle(allIncorrectAnswers);
 
-        return allIncorrectAnswers.subList(0, 3);
+        if (allIncorrectAnswers.size() < 4){
+            return allIncorrectAnswers;
+        } else {
+            return allIncorrectAnswers.subList(0, 3);
+        }
     }
 
     public HashMap<String, Object> getQuizImage(String correctAnswer) {

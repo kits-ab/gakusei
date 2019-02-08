@@ -1,0 +1,9 @@
+databaseChangeLog:
+- changeSet:
+    id: 90
+    author: Akar Khatab
+    changes:
+    - renameTable:
+        schemaName: contentschema
+        newTableName: incorrect_quiz_answers
+        oldTableName: incorrect_answers

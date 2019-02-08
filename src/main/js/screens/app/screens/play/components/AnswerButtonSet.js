@@ -30,70 +30,53 @@ export default class AnswerButtonSet extends React.Component {
   }
 
   render() {
+    let x = -1;
+    const answerButtons = this.props.alternatives.map(() => {
+      x++;
+      if (this.props.alternatives.length > 2 && this.props.alternatives.length < 4) {
+        return (
+          <Col
+            key={x}
+            xs={12}
+            sm={6}
+            smOffset={3}
+          >
+            <AnswerButton
+              primaryText={this.props.alternatives[x][0]}
+              secondaryText={this.props.alternatives[x][1] || null}
+              japaneseCharacters={this.props.japaneseCharacters}
+              onAnswerClick={this.props.clickCallback}
+              buttonStyle={this.props.buttonStyles[x]}
+              disableButton={this.props.buttonsDisabled}
+              answerType={this.props.answerType}
+              name={'answerbutton-' + x}
+            />
+          </Col>
+        );
+      } else {
+        return (
+          <Col
+            key={x}
+            xs={12}
+            sm={6}
+          >
+            <AnswerButton
+              primaryText={this.props.alternatives[x][0]}
+              secondaryText={this.props.alternatives[x][1] || null}
+              japaneseCharacters={this.props.japaneseCharacters}
+              onAnswerClick={this.props.clickCallback}
+              buttonStyle={this.props.buttonStyles[x]}
+              disableButton={this.props.buttonsDisabled}
+              answerType={this.props.answerType}
+              name={'answerbutton-' + x}
+            />
+          </Col>
+        );
+      }
+    });
     return (
       <div>
-        <Row>
-          <Col
-            xs={12}
-            sm={6}
-          >
-            <AnswerButton
-              primaryText={this.props.alternatives[0][0]}
-              secondaryText={this.props.alternatives[0][1] || null}
-              japaneseCharacters={this.props.japaneseCharacters}
-              onAnswerClick={this.props.clickCallback}
-              buttonStyle={this.props.buttonStyles[0]}
-              disableButton={this.props.buttonsDisabled}
-              answerType={this.props.answerType}
-              name="answerbutton-1"
-            />
-          </Col>
-          <Col
-            xs={12}
-            sm={6}
-          >
-            <AnswerButton
-              primaryText={this.props.alternatives[1][0]}
-              secondaryText={this.props.alternatives[1][1] || null}
-              japaneseCharacters={this.props.japaneseCharacters}
-              onAnswerClick={this.props.clickCallback}
-              buttonStyle={this.props.buttonStyles[1]}
-              disableButton={this.props.buttonsDisabled}
-              answerType={this.props.answerType}
-              name="answerbutton-2"
-            />
-          </Col>
-          <Col
-            xs={12}
-            sm={6}
-          >
-            <AnswerButton
-              primaryText={this.props.alternatives[2][0]}
-              secondaryText={this.props.alternatives[2][1] || null}
-              japaneseCharacters={this.props.japaneseCharacters}
-              onAnswerClick={this.props.clickCallback}
-              buttonStyle={this.props.buttonStyles[2]}
-              disableButton={this.props.buttonsDisabled}
-              answerType={this.props.answerType}
-              name="answerbutton-3"
-            />
-          </Col>
-          <Col
-            xs={12}
-            sm={6}
-          >
-            <AnswerButton
-              primaryText={this.props.alternatives[3][0]}
-              secondaryText={this.props.alternatives[3][1] || null}
-              japaneseCharacters={this.props.japaneseCharacters}
-              onAnswerClick={this.props.clickCallback}
-              buttonStyle={this.props.buttonStyles[3]}
-              disableButton={this.props.buttonsDisabled}
-              answerType={this.props.answerType}
-              name="answerbutton-4"
-            />
-          </Col>
-        </Row>
+        <Row>{answerButtons}</Row>
       </div>
     );
   }

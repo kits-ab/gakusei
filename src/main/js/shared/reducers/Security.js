@@ -189,6 +189,9 @@ export function fetchLoggedInUser() {
 export function requestUserLogout(redirectUrl, csrf) {
   return function(dispatch, getState) {
     const routing = getState().routing;
+    const changeLanguage = lng => {
+      i18n.changeLanguage(lng);
+    };
 
     fetch('/logout', {
       method: 'POST',
@@ -200,13 +203,29 @@ export function requestUserLogout(redirectUrl, csrf) {
       if (response.status === 200 || response.status === 204) {
         dispatch(receiveLoggedInStatus(false));
         dispatch(clearAuthResponse());
+        changeLanguage('1337');
         dispatch(setPageByName(redirectUrl || routing.locationBeforeTransitions.pathname || '/'));
       }
     });
   };
 }
+
 export function logLoginEvent(username) {
   Utility.logEvent('login', 'login', true, null, username, null, null, true);
+}
+
+export function setUserLanguage(username) {
+  fetch('/api/checkUserLanguage', {
+    method: 'post',
+    credentials: 'same-origin',
+    body: username
+  }).then(response => {
+    if (response.status === 200) {
+      response.text().then(str => {
+        i18n.changeLanguage(str);
+      });
+    }
+  });
 }
 
 export function requestUserLogin(data, redirectUrl) {
@@ -227,25 +246,26 @@ export function requestUserLogin(data, redirectUrl) {
       }).then(response => {
         switch (response.status) {
           case 403:
-            if (i18n.language === 'se') {
-              dispatch(receiveAuthResponse(false, 'Felaktiga uppgifter, vänligen kontrollera formuläret.'));
+            if (i18n.language === 'en') {
+              dispatch(receiveAuthResponse(false, 'Incorrect information, please check the form.'));
             } else if (i18n.language === 'jp') {
               dispatch(receiveAuthResponse(false, '情報が正しくない場合は、フォームを確認してください。'));
             } else {
-              dispatch(receiveAuthResponse(false, 'Incorrect information, please check the form.'));
+              dispatch(receiveAuthResponse(false, 'Felaktiga uppgifter, vänligen kontrollera formuläret.'));
             }
             break;
           case 200:
-            if (i18n.language === 'se') {
-              dispatch(receiveAuthResponse(true, 'Inloggad, tar dig vidare..'));
+            if (i18n.language === 'en') {
+              dispatch(receiveAuthResponse(true, 'Logging in..'));
             } else if (i18n.language === 'jp') {
               dispatch(receiveAuthResponse(true, 'ログイン'));
             } else {
-              dispatch(receiveAuthResponse(true, 'Logging in..'));
+              dispatch(receiveAuthResponse(true, 'Inloggad, tar dig vidare..'));
             }
             dispatch(setRedirectUrl(null));
             dispatch(fetchLoggedInUser()).then(() => {
               dispatch(setPageByName(redirectUrl || '/'));
+              dispatch(setUserLanguage(getState().security.loggedInUser));
               dispatch(logLoginEvent(getState().security.loggedInUser));
             });
             break;
@@ -254,12 +274,12 @@ export function requestUserLogin(data, redirectUrl) {
         }
       });
     } catch (err) {
-      if (i18n.language === 'se') {
-        dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
+      if (i18n.language === 'en') {
+        dispatch(receiveAuthResponse(false, 'Technical issue. Please try again later.'));
       } else if (i18n.language === 'jp') {
         dispatch(receiveAuthResponse(false, '技術的なエラー。 後でもう一度お試しください。'));
       } else {
-        dispatch(receiveAuthResponse(false, 'Technical issue. Please try again later.'));
+        dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
       }
     } finally {
       dispatch(setLoggingIn(false));
@@ -285,32 +305,32 @@ export function requestUserRegister(data, redirectUrl) {
       }).then(response => {
         switch (response.status) {
           case 406:
-            if (i18n.language === 'se') {
-              dispatch(receiveAuthResponse(false, 'Användarnamnet måste vara mellan 2 och 32 tecken.'));
+            if (i18n.language === 'en') {
+              dispatch(receiveAuthResponse(false, 'The username must be between 2 and 32 characters.'));
             } else if (i18n.language === 'jp') {
               dispatch(receiveAuthResponse(false, 'ユーザー名は2〜32文字でなければなりません。'));
             } else {
-              dispatch(receiveAuthResponse(false, 'The username must be between 2 and 32 characters.'));
+              dispatch(receiveAuthResponse(false, 'Användarnamnet måste vara mellan 2 och 32 tecken.'));
             }
 
             break;
           case 422:
-            if (i18n.language === 'se') {
-              dispatch(receiveAuthResponse(false, 'Användarnamnet finns tyvärr redan, prova ett annat.'));
+            if (i18n.language === 'en') {
+              dispatch(receiveAuthResponse(false, 'The username already exists, try another.'));
             } else if (i18n.language === 'jp') {
               dispatch(receiveAuthResponse(false, 'ユーザー名はすでに存在し、別のユーザー名を試してください。'));
             } else {
-              dispatch(receiveAuthResponse(false, 'The username already exists, try another.'));
+              dispatch(receiveAuthResponse(false, 'Användarnamnet finns tyvärr redan, prova ett annat.'));
             }
 
             break;
           case 201:
-            if (i18n.language === 'se') {
-              dispatch(receiveAuthResponse(true, 'Registreringen lyckades, loggar in..'));
+            if (i18n.language === 'en') {
+              dispatch(receiveAuthResponse(true, 'The registration was successful, logging in.'));
             } else if (i18n.language === 'jp') {
               dispatch(receiveAuthResponse(true, '登録は成功し、ログインしました。'));
             } else {
-              dispatch(receiveAuthResponse(true, 'The registration was successful, logging in.'));
+              dispatch(receiveAuthResponse(true, 'Registreringen lyckades, loggar in..'));
             }
 
             setTimeout(() => dispatch(requestUserLogin(formBody, redirectUrl)), 1500);
@@ -323,12 +343,12 @@ export function requestUserRegister(data, redirectUrl) {
         dispatch(setRegistering(false));
       });
     } catch (err) {
-      if (i18n.language === 'se') {
-        dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
+      if (i18n.language === 'en') {
+        dispatch(receiveAuthResponse(false, 'Technical issue. Please try again later.'));
       } else if (i18n.language === 'jp') {
         dispatch(receiveAuthResponse(false, '技術的なエラー。 後でもう一度お試しください。'));
       } else {
-        dispatch(receiveAuthResponse(false, 'Technical issue. Please try again later.'));
+        dispatch(receiveAuthResponse(false, 'Tekniskt fel. Vänligen försök igen senare.'));
       }
       dispatch(setRegistering(false));
     }

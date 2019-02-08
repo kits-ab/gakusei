@@ -6,6 +6,7 @@ import React from 'react';
 import DisplayQuestion from '../../../../shared/DisplayQuestion';
 import AnswerButton from '../AnswerButton';
 import { translate } from 'react-i18next';
+import i18n from 'i18next';
 
 class WriteCard extends React.Component {
   constructor(props) {
@@ -60,6 +61,18 @@ class WriteCard extends React.Component {
     }
   }
 
+  primaryTextLanguage(language) {
+    let primaryText = null;
+    if (language === 'se') {
+      primaryText = this.props.question.shapes[0];
+    } else if (language === 'en') {
+      primaryText = this.props.question.shapes[2];
+    } else {
+      primaryText = this.props.question.shapes[0];
+    }
+    return primaryText;
+  }
+
   render() {
     const { t, i18n } = this.props;
     return (
@@ -73,8 +86,9 @@ class WriteCard extends React.Component {
           <Row>
             <DisplayQuestion
               style={{ verticalAlign: 'center' }}
-              primaryText={this.props.question.shapes[0]}
+              primaryText={this.primaryTextLanguage(i18n.language)}
               secondaryText={!['hard'].includes(this.props.difficulty) ? this.props.question.shapes[1] || null : null}
+              tertiaryText={this.props.question.shapes[3]}
               japaneseCharacters={false}
             />
           </Row>

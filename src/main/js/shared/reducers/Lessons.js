@@ -3,6 +3,7 @@ import { REHYDRATE } from 'redux-persist/constants';
 
 import getCSRF from '../../shared/util/getcsrf';
 import Utility from '../../shared/util/Utility';
+import PropTypes from 'prop-types';
 
 // ----------------
 // DEFAULT STATE
@@ -404,16 +405,21 @@ export function processCurrentQuestion() {
     const state = getState().lessons;
     const localQuestionIndex = state.currentQuestionIndex;
 
+    const questionArray = [];
+    questionArray[0] = state.questions[localQuestionIndex].correctAlternative[0].map(s => s);
+    questionArray[1] = state.questions[localQuestionIndex].alternative1.map(s => s);
+    if (state.questions[localQuestionIndex].alternative2) {
+      questionArray[2] = state.questions[localQuestionIndex].alternative2.map(s => s);
+    }
+    if (state.questions[localQuestionIndex].alternative3) {
+      questionArray[3] = state.questions[localQuestionIndex].alternative3.map(s => s);
+    }
+
     const currentQuestion = {
       shapes: state.questions[localQuestionIndex].question.map(s => s),
       correctAlternative: state.questions[localQuestionIndex].correctAlternative.map(s => s.map(so => so)),
       correctAlternativeNuggetId: state.questions[localQuestionIndex].questionNuggetId,
-      randomizedAlternatives: Utility.randomizeOrder([
-        state.questions[localQuestionIndex].alternative1.map(s => s),
-        state.questions[localQuestionIndex].alternative2.map(s => s),
-        state.questions[localQuestionIndex].alternative3.map(s => s),
-        state.questions[localQuestionIndex].correctAlternative[0].map(s => s)
-      ]),
+      randomizedAlternatives: Utility.randomizeOrder(questionArray),
       buttonStyles: ['default', 'default', 'default', 'default'],
       buttonsDisabled: false,
       resourceRef: state.questions[localQuestionIndex].resourceReference || null,

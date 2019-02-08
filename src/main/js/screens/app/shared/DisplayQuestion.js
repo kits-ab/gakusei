@@ -23,6 +23,12 @@ export class DisplayQuestion extends React.Component {
       } else {
         text += ` (${this.props.secondaryText})`;
       }
+    } else if (!this.props.japaneseCharacters && !/[a-z]/i.test(this.props.primaryText.toString().toLowerCase())) {
+      text = `${this.props.primaryText.toString().split(',')[0]} 
+       「${this.props.primaryText.toString().split(',')[1]}」`;
+    }
+    if (this.props.tertiaryText) {
+      text += ` ${this.props.tertiaryText} `;
     }
 
     return <p className="question__text">{text}</p>;
@@ -102,6 +108,7 @@ export class DisplayQuestion extends React.Component {
 DisplayQuestion.defaultProps = {
   resourceRef: null,
   secondaryText: null,
+  tertiaryText: null,
   showSpeechButton: false,
   showKanji: false,
   smallerText: false,
@@ -113,6 +120,7 @@ DisplayQuestion.defaultProps = {
 DisplayQuestion.propTypes = {
   primaryText: PropTypes.string.isRequired,
   secondaryText: PropTypes.string,
+  tertiaryText: PropTypes.string,
   japaneseCharacters: PropTypes.bool.isRequired,
   resourceRef: PropTypes.shape({
     type: PropTypes.string.isRequired,
