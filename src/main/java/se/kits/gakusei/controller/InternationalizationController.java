@@ -103,7 +103,7 @@ public class InternationalizationController {
 
         langs.forEach(lang -> {
             try {
-                Object object = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "/src/main/resources/locales/" + lang + "/translation.json"));
+                Object object = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "/locales/" + lang + "/translation.json"));
                 org.json.simple.JSONObject jsonObject = (org.json.simple.JSONObject) object;
                 Object object2 = jsonObject.get("translations");
                 org.json.simple.JSONObject jsonObject2 = (org.json.simple.JSONObject) object2;
@@ -135,8 +135,8 @@ public class InternationalizationController {
             }
         });
         availableLangs.forEach(lang -> {
-            Path pathDir = Paths.get(System.getProperty("user.dir") + "/src/main/resources/locales/" + lang);
-            Path pathFile = Paths.get(System.getProperty("user.dir") + "/src/main/resources/locales/" + lang + "/translation.json");
+            Path pathDir = Paths.get(System.getProperty("user.dir") + "/locales/" + lang);
+            Path pathFile = Paths.get(System.getProperty("user.dir") + "/locales/" + lang + "/translation.json");
             if (Files.exists(pathDir)) {
                 populateTranslationFile(lang, pathFile);
             } else {
