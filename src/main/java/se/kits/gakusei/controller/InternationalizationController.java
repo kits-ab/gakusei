@@ -103,7 +103,7 @@ public class InternationalizationController {
 
         langs.forEach(lang -> {
             try {
-                Object object = jsonParser.parse(new FileReader("src/main/resources/locales/" + lang + "/translation.json"));
+                Object object = jsonParser.parse(new FileReader(System.getProperty("user.dir") + "/src/main/resources/locales/" + lang + "/translation.json"));
                 org.json.simple.JSONObject jsonObject = (org.json.simple.JSONObject) object;
                 Object object2 = jsonObject.get("translations");
                 org.json.simple.JSONObject jsonObject2 = (org.json.simple.JSONObject) object2;
