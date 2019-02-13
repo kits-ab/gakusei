@@ -7,7 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
 import se.kits.gakusei.content.model.Internationalization;
 import se.kits.gakusei.content.model.Settings;
 import se.kits.gakusei.content.repository.InternationalizationRepository;
@@ -15,27 +20,38 @@ import se.kits.gakusei.content.repository.SettingsRepository;
 import se.kits.gakusei.user.model.User;
 import se.kits.gakusei.user.repository.UserRepository;
 
-import java.io.File;
+import javax.annotation.PostConstruct;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
 @Api(value="InternationalizationController", description="Operations for handling internationalization")
 public class InternationalizationController {
 
-    @Autowired
-    private InternationalizationRepository internationalizationRepository;
+    private final InternationalizationRepository internationalizationRepository;
+
+    private final SettingsRepository settingsRepository;
+
+    private final UserRepository userRepository;
+
+    private HashMap<String, String> langMap = new HashMap<>();
 
     @Autowired
-    private SettingsRepository settingsRepository;
+    public InternationalizationController(InternationalizationRepository internationalizationRepository, SettingsRepository settingsRepository, UserRepository userRepository) {
+        this.internationalizationRepository = internationalizationRepository;
+        this.settingsRepository = settingsRepository;
+        this.userRepository = userRepository;
+    }
 
-    @Autowired
-    private UserRepository userRepository;
+    @PostConstruct
+    public void init() {
+        System.out.println("Initializing...");
+        generateJSONFromDB();
+    }
+
 
     @RequestMapping(value = "api/internationalization", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -92,6 +108,20 @@ public class InternationalizationController {
         return resources.toString();
     }
 
+    @RequestMapping(value = "/resources/locales/{lang}/translation.json", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getInternationalizationResource(@PathVariable("lang") String lang) {
+        System.out.println("Map: " + langMap.get(lang));
+        return langMap.get(lang);
+    }
+
+    @RequestMapping(value = "/resources/locales/index.js", method = RequestMethod.GET,
+            produces = MediaType.ALL_VALUE)
+    public String getInternationalizationResource() {
+        System.out.println("index.js");
+        return "//This file is used by alienfast/i18next-loader as a root pointer.";
+    }
+
     @RequestMapping(value = "api/internationalization/populateDB", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void populateTableInternationalization() {
@@ -130,46 +160,49 @@ public class InternationalizationController {
 
         Iterable<Settings> resList = settingsRepository.findAll();
         resList.forEach(settings -> {
+            System.out.println(settings.getLanguage_code());
             if (!availableLangs.contains(settings.getLanguage_code())) {
                 availableLangs.add(settings.getLanguage_code());
             }
         });
-        availableLangs.forEach(lang -> {
-            Path pathDir = Paths.get(System.getProperty("user.dir") + "/src/main/resources/locales/" + lang);
-            Path pathFile = Paths.get(System.getProperty("user.dir") + "/src/main/resources/locales/" + lang + "/translation.json");
-            if (Files.exists(pathDir)) {
-                populateTranslationFile(lang, pathFile);
-            } else {
-                System.out.println(pathDir + " does not exist. Will create the folder now...");
-                File dir = new File(pathDir.toString());
-                try {
-                    if (dir.mkdir()) {
-                        System.out.println("Successfully created folder: " + pathDir);
-                        System.out.println("Will now create translation.json within the folder...");
-                        populateTranslationFile(lang, pathFile);
-                    } else {
-                        System.out.println("Failed to create folder: " + pathDir);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        availableLangs.forEach(this::populateTranslationFile);
+//            Path pathDir = Paths.get(System.getProperty("user.dir") + "/src/main/resources/locales/" + lang);
+//            Path pathFile = Paths.get(System.getProperty("user.dir") + "/src/main/resources/locales/" + lang + "/translation.json");
+//            if (Files.exists(pathDir)) {
+//                populateTranslationFile(lang, pathFile);
+//            } else {
+//                System.out.println(pathDir + " does not exist. Will create the folder now...");
+//                File dir = new File(pathDir.toString());
+//                try {
+//                    if (dir.mkdir()) {
+//                        System.out.println("Successfully created folder: " + pathDir);
+//                        System.out.println("Will now create translation.json within the folder...");
+//                        populateTranslationFile(lang, pathFile);
+//                    } else {
+//                        System.out.println("Failed to create folder: " + pathDir);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
     }
 
-    private void populateTranslationFile(String lang, Path pathFile) {
+    private void populateTranslationFile(String lang) {
         Iterable<Internationalization> resList = internationalizationRepository.findAllByLanguage(lang);
 
-        File file = new File(pathFile.toString());
+//        File file = new File(pathFile.toString());
         JSONObject jsonObject = new JSONObject();
         JSONObject jsonObject2 = new JSONObject();
         try {
-            FileWriter fw = new FileWriter(file);
+            StringWriter fw = new StringWriter();
             resList.forEach(resource -> jsonObject2.put(resource.getAbbreviation(), resource.getSentence()));
             jsonObject.put("translations", jsonObject2);
             fw.write(jsonObject.toString(2));
             fw.flush();
             fw.close();
+            langMap.put(lang, fw.getBuffer().toString());
+            System.out.println(fw.getBuffer().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
