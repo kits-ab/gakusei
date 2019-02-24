@@ -1,3 +1,4 @@
+# THIS PROJECT HAS BEEN ARCHIVED, DEVELOPMENT CONTINUES AT THIS FORK: https://github.com/psandboge/gakusei
 # gakusei
 Gakusei, which means _student_ in Japanese, is an application for learning and practicing Japanese.
 The project's primary focus is to develop a tool for learning Japanese via Swedish.
